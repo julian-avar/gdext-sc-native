@@ -1,0 +1,43 @@
+# Mill
+out/
+.mill-version
+
+# Scala
+*.class
+*.log
+*.tasty
+
+# Scala Native
+*.o
+*.so
+*.dylib
+*.dll
+*.a
+
+# Generated code
+bindings/src/godot/
+!bindings/src/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+.bsp/
+.metals/
+.bloop/
+metals.sbt
+project/metals.sbt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Godot
+examples/*/extension/bin/
+examples/*/.godot/
+examples/*/.import/
+*.import
+
+# Temporary files
+*.tmp
+*.bak
+*~
