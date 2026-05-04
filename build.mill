@@ -1,3 +1,4 @@
+//| mill-version: 1.1.2-native
 package build
 
 import mill.*
@@ -24,13 +25,14 @@ object gdext extends SharedModule:
     def mvnDeps     = Seq(Deps.osLib)
     def releaseMode = ReleaseMode.Debug
 
-    object generator extends ScalaModule, PublishModule:
+    object `generator-module` extends ScalaModule, PublishModule:
         def scalaVersion   = "3.8.3"
         def jvmVersion     = "17"
         def millVersion    = "1.1.2"
         def platformSuffix = s"_mill1"
-        def mvnDeps        =
-            Seq(mvn"com.lihaoyi::mill-libs:$millVersion", Deps.pprint, Deps.upickle, Deps.osLib)
+        // def mvnDeps        =
+        //     Seq(mvn"com.lihaoyi::mill-libs:$millVersion", Deps.pprint, Deps.upickle, Deps.osLib)
+
         // Publishing Config
         def publishVersion = "0.0.1"
         def pomSettings    = PomSettings(
@@ -41,12 +43,7 @@ object gdext extends SharedModule:
           versionControl = VersionControl.github("lihaoyi", "myplugin"),
           developers = Seq(Developer("lihaoyi", "Li Haoyi", "https://github.com/lihaoyi"))
         )
-
-        // Create a Mill executable configured for testing our plugin
-        object millExecutable extends JavaModule:
-            def mvnDeps   = Seq(mvn"com.lihaoyi:mill-runner-launcher_3:$millVersion")
-            def mainClass = Some("mill.launcher.MillLauncherMain")
-    end generator
+    end `generator-module`
 end gdext
 
 // lazy val gdext =
