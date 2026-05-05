@@ -3,18 +3,30 @@ package gdext.generator
 import mill.*
 
 trait GeneratorModule extends Module:
-    val extensionApiPath = Task.Source("4.5.0/extension_api.json")
+    def extensionApiPath = Task.Source(moduleDir / "resources" / "4.5.0" / "gdextension_interface.json")
 
-    def generate() = Task {
-        println(s"Generating code from ${extensionApiPath()}...")
+    def generatedDir: os.Path = moduleDir / os.up / "generated" / "src" / "gdext" / "generated"
 
-        val jsonStr = os.read(extensionApiPath())
+    def generate() = Task.Command {
+        println(s"Generating code from ${extensionApiPath().path}...")
+
+        val jsonStr = os.read(extensionApiPath().path)
         val json    = ujson.read(jsonStr)
 
         val types      = Parser.types(json("types"))
-        val interfaces = Parser.interfaces(json("interfaces"))
+        val interfaces = Parser.interfaces(json("interface"))
 
-        val scalaFiles = this.types(types.toVector) ++ this.interfaces(interfaces)
+        val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces)
+
+        val outDir = generatedDir
+        os.makeDir.all(outDir)
+
+        for file <- scalaFiles do
+            val filePath = outDir / s"${file.name}.scala"
+            os.write.over(filePath, file.content)
+            println(s"  wrote $filePath")
+
+        println(s"Generated ${scalaFiles.size} files into $outDir")
     }
 end GeneratorModule
 

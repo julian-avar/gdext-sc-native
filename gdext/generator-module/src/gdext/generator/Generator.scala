@@ -5,23 +5,11 @@ object Generator:
 
     def types(types: Vector[Ast.Type]): Vector[ScalaFile] = types.groupBy(_.kind.name)
         .map { (name, types) =>
-            val contents =
-                import util.Generatable.given
-
-                for
-                    `type` <- types //
-                    comment = util.formatComment(`type`)
-                yield `type`.kind.generate(`type`, util.formatComment(`type`))
-                end for
-                // yield `type` match
-                //     //         def generate(`type`: Ast.Type, comment: String): String = self match
-                //     case kind: Ast.Kind.Enum     => kind.generate(`type`, comment)
-                //     case kind: Ast.Kind.Handle   => kind.generate(`type`, comment)
-                //     case kind: Ast.Kind.Alias    => kind.generate(`type`, comment)
-                //     case kind: Ast.Kind.Struct   => kind.generate(`type`, comment)
-                //     case kind: Ast.Kind.Function => kind.generate(`type`, comment)
-                // end for
-            end contents
+            val contents = types.map { `type` =>
+                val comment = util.formatComment(`type`)
+                // TODO: implement per-kind code generation
+                s"${comment}\n// type ${`type`.name} : ${`type`.kind.name}\n"
+            }
 
             val content = s"""
                 |package io.github.optical002.godot.codegen.gdextensioninterface.types
@@ -268,5 +256,4 @@ package util {
     //                     )
     //         end extension
     //     end given
-    end Generatable
 }

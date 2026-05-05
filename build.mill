@@ -22,16 +22,49 @@ val defaultScalaNativeVersion = "0.5.11"
 object example extends Module
 
 object gdext extends SharedModule:
-    def mvnDeps     = Seq(Deps.osLib)
-    def releaseMode = ReleaseMode.Debug
+    def mvnDeps           = Seq(Deps.osLib)
+    def releaseMode       = ReleaseMode.Debug
+    def nativeBuildTarget = mill.scalanativelib.api.BuildTarget.LibraryDynamic
+    def nativeBaseName    = "godot-scala-native"
+
+    def buildExtension() = Task.Command {
+        val lib  = nativeLink()
+        val dest = moduleDir / os.up / "example" / "lib"
+        os.makeDir.all(dest)
+        os.copy(
+          lib.path,
+          dest / s"lib${nativeBaseName()}.so",
+          followLinks = true,
+          replaceExisting = true,
+          copyAttributes = false,
+          createFolders = true,
+          mergeFolders = false
+        )
+        println(s"Deployed to $dest")
+    }
 
     object `generator-module` extends ScalaModule, PublishModule:
         def scalaVersion   = "3.8.3"
         def jvmVersion     = "17"
         def millVersion    = "1.1.2"
         def platformSuffix = s"_mill1"
-        // def mvnDeps        =
-        //     Seq(mvn"com.lihaoyi::mill-libs:$millVersion", Deps.pprint, Deps.upickle, Deps.osLib)
+        def mvnDeps        = Seq(mvn"com.lihaoyi::mill-libs:$millVersion")
+        def mainClass      = Some("gdext.generator.GeneratorMain")
+
+        def generate() = Task.Command {
+            val apiPath = moduleDir / "resources" / "4.5.0" / "gdextension_interface.json"
+            val outDir  = moduleDir / os.up / "generated" / "src" / "gdext" / "generated"
+            val cp      = runClasspath().map(_.path.toString).mkString(sys.props("path.separator"))
+            val javaExe = sys.props("java.home") + "/bin/java"
+            os.proc(
+              javaExe,
+              "-cp",
+              cp,
+              "gdext.generator.GeneratorMain",
+              apiPath.toString,
+              outDir.toString
+            ).call(stdout = os.Inherit, stderr = os.Inherit)
+        }
 
         // Publishing Config
         def publishVersion = "0.0.1"

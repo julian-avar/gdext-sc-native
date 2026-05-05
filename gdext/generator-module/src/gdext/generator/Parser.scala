@@ -31,8 +31,8 @@ object Parser:
     end Extractors
 
     def types(types: ujson.Value) = types.arr.map { `type` =>
-        val name = types("name").str
-        val kind = types("kind").str match
+        val name = `type`("name").str
+        val kind = `type`("kind").str match
             case "enum" => Ast.Kind.Enum(
                   values = `type`("values").arr.map { typeValue =>
                       val name  = typeValue("name").str
