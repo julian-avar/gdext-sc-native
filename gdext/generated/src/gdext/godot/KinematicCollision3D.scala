@@ -5,96 +5,109 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class KinematicCollision3D extends RefCounted
-
-    def getTravel(): Vector3 =
+class KinematicCollision3D extends RefCounted {
+    def getTravel(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getTravel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getRemainder(): Vector3 =
+    def getRemainder(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getRemainder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getDepth(): Float =
+    def getDepth(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getCollisionCount(): Int =
+    def getCollisionCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getCollisionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPosition(): Vector3 =
+    def getPosition(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getNormal(): Vector3 =
+    def getNormal(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getAngle(): Float =
+    def getAngle(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getLocalShape(): Object =
+    def getLocalShape(): Object = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getLocalShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def getCollider(): Object =
+    def getCollider(): Object = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getCollider, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def getColliderId(): Long =
+    def getColliderId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getColliderId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getColliderRid(): RID =
+    def getColliderRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getColliderRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getColliderShape(): Object =
+    def getColliderShape(): Object = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getColliderShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def getColliderShapeIndex(): Int =
+    def getColliderShapeIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getColliderShapeIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getColliderVelocity(): Vector3 =
+    def getColliderVelocity(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(KinematicCollision3D.Binds.getColliderVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
-
+}
+}
 
 object KinematicCollision3D:
-    object Binds:
-        var getTravel: Ptr[Byte] = null
+object Binds {
+          var getTravel: Ptr[Byte] = null
         var getRemainder: Ptr[Byte] = null
         var getDepth: Ptr[Byte] = null
         var getCollisionCount: Ptr[Byte] = null
@@ -109,8 +122,8 @@ object KinematicCollision3D:
         var getColliderShapeIndex: Ptr[Byte] = null
         var getColliderVelocity: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTravel = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_travel", 3360562783L)
+  def loadBinds(): Unit = {
+                Binds.getTravel = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_travel", 3360562783L)
             Binds.getRemainder = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_remainder", 3360562783L)
             Binds.getDepth = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_depth", 1740695150L)
             Binds.getCollisionCount = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_collision_count", 3905245786L)
@@ -124,8 +137,11 @@ object KinematicCollision3D:
             Binds.getColliderShape = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_collider_shape", 2639523548L)
             Binds.getColliderShapeIndex = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_collider_shape_index", 1591665591L)
             Binds.getColliderVelocity = GdxApi.getMethodBind(c"KinematicCollision3D", c"get_collider_velocity", 1914908202L)
+  }
+}
 
-    def apply(): KinematicCollision3D =
-        val obj = new KinematicCollision3D()
-        obj.ptr = GdxApi.constructObject(c"KinematicCollision3D")
-        obj
+def apply(): KinematicCollision3D = {
+  val obj = new KinematicCollision3D()
+  obj.ptr = GdxApi.constructObject(c"KinematicCollision3D")
+  obj
+}

@@ -5,207 +5,54 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SplitContainer extends Container
-
-    def setSplitOffset(offset: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = offset.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setSplitOffset, ptr, _args, null)
-
-    def getSplitOffset(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SplitContainer.Binds.getSplitOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def clampSplitOffset(): Unit =
+class SplitContainer extends Container {
+    def clampSplitOffset(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SplitContainer.Binds.clampSplitOffset, ptr, _args, null)
+}
 
-    def setCollapsed(collapsed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if collapsed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setCollapsed, ptr, _args, null)
-
-    def isCollapsed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SplitContainer.Binds.isCollapsed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDraggerVisibility(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(SplitContainer.Binds.setDraggerVisibility, ptr, _args, null)
-
-    def getDraggerVisibility(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SplitContainer.Binds.getDraggerVisibility, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVertical(vertical: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if vertical then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setVertical, ptr, _args, null)
-
-    def isVertical(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SplitContainer.Binds.isVertical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDraggingEnabled(draggingEnabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if draggingEnabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setDraggingEnabled, ptr, _args, null)
-
-    def isDraggingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SplitContainer.Binds.isDraggingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDragAreaMarginBegin(margin: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = margin.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setDragAreaMarginBegin, ptr, _args, null)
-
-    def getDragAreaMarginBegin(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SplitContainer.Binds.getDragAreaMarginBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDragAreaMarginEnd(margin: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = margin.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setDragAreaMarginEnd, ptr, _args, null)
-
-    def getDragAreaMarginEnd(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SplitContainer.Binds.getDragAreaMarginEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDragAreaOffset(offset: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = offset.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setDragAreaOffset, ptr, _args, null)
-
-    def getDragAreaOffset(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SplitContainer.Binds.getDragAreaOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDragAreaHighlightInEditor(dragAreaHighlightInEditor: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if dragAreaHighlightInEditor then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setDragAreaHighlightInEditor, ptr, _args, null)
-
-    def isDragAreaHighlightInEditorEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SplitContainer.Binds.isDragAreaHighlightInEditorEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getDragAreaControl(): Control =
+    def getDragAreaControl(): Control = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SplitContainer.Binds.getDragAreaControl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Control(!_ret)
+}
 
-    def setTouchDraggerEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SplitContainer.Binds.setTouchDraggerEnabled, ptr, _args, null)
-
-    def isTouchDraggerEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SplitContainer.Binds.isTouchDraggerEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def splitOffset: Ptr[Byte] = getSplitOffset()
-    def splitOffset_=(v: Ptr[Byte]): Unit = setSplitOffset(v)
-    def collapsed: Ptr[Byte] = isCollapsed()
-    def collapsed_=(v: Ptr[Byte]): Unit = setCollapsed(v)
-    def draggingEnabled: Ptr[Byte] = isDraggingEnabled()
-    def draggingEnabled_=(v: Ptr[Byte]): Unit = setDraggingEnabled(v)
-    def draggerVisibility: Ptr[Byte] = getDraggerVisibility()
-    def draggerVisibility_=(v: Ptr[Byte]): Unit = setDraggerVisibility(v)
-    def vertical: Ptr[Byte] = isVertical()
-    def vertical_=(v: Ptr[Byte]): Unit = setVertical(v)
-    def touchDraggerEnabled: Ptr[Byte] = isTouchDraggerEnabled()
-    def touchDraggerEnabled_=(v: Ptr[Byte]): Unit = setTouchDraggerEnabled(v)
-    def dragAreaMarginBegin: Ptr[Byte] = getDragAreaMarginBegin()
-    def dragAreaMarginBegin_=(v: Ptr[Byte]): Unit = setDragAreaMarginBegin(v)
-    def dragAreaMarginEnd: Ptr[Byte] = getDragAreaMarginEnd()
-    def dragAreaMarginEnd_=(v: Ptr[Byte]): Unit = setDragAreaMarginEnd(v)
-    def dragAreaOffset: Ptr[Byte] = getDragAreaOffset()
-    def dragAreaOffset_=(v: Ptr[Byte]): Unit = setDragAreaOffset(v)
-    def dragAreaHighlightInEditor: Ptr[Byte] = isDragAreaHighlightInEditorEnabled()
-    def dragAreaHighlightInEditor_=(v: Ptr[Byte]): Unit = setDragAreaHighlightInEditor(v)
+    def splitOffset: Int = getSplitOffset()
+    def splitOffset_=(v: Int): Unit = setSplitOffset(v)
+    def collapsed: Boolean = isCollapsed()
+    def collapsed_=(v: Boolean): Unit = setCollapsed(v)
+    def draggingEnabled: Boolean = isDraggingEnabled()
+    def draggingEnabled_=(v: Boolean): Unit = setDraggingEnabled(v)
+    def draggerVisibility: Int = getDraggerVisibility()
+    def draggerVisibility_=(v: Int): Unit = setDraggerVisibility(v)
+    def vertical: Boolean = isVertical()
+    def vertical_=(v: Boolean): Unit = setVertical(v)
+    def touchDraggerEnabled: Boolean = isTouchDraggerEnabled()
+    def touchDraggerEnabled_=(v: Boolean): Unit = setTouchDraggerEnabled(v)
+    def dragAreaMarginBegin: Int = getDragAreaMarginBegin()
+    def dragAreaMarginBegin_=(v: Int): Unit = setDragAreaMarginBegin(v)
+    def dragAreaMarginEnd: Int = getDragAreaMarginEnd()
+    def dragAreaMarginEnd_=(v: Int): Unit = setDragAreaMarginEnd(v)
+    def dragAreaOffset: Int = getDragAreaOffset()
+    def dragAreaOffset_=(v: Int): Unit = setDragAreaOffset(v)
+    def dragAreaHighlightInEditor: Boolean = isDragAreaHighlightInEditorEnabled()
+    def dragAreaHighlightInEditor_=(v: Boolean): Unit = setDragAreaHighlightInEditor(v)
+}
 
 object SplitContainer:
-    object Binds:
-        var setSplitOffset: Ptr[Byte] = null
-        var getSplitOffset: Ptr[Byte] = null
-        var clampSplitOffset: Ptr[Byte] = null
-        var setCollapsed: Ptr[Byte] = null
-        var isCollapsed: Ptr[Byte] = null
-        var setDraggerVisibility: Ptr[Byte] = null
-        var getDraggerVisibility: Ptr[Byte] = null
-        var setVertical: Ptr[Byte] = null
-        var isVertical: Ptr[Byte] = null
-        var setDraggingEnabled: Ptr[Byte] = null
-        var isDraggingEnabled: Ptr[Byte] = null
-        var setDragAreaMarginBegin: Ptr[Byte] = null
-        var getDragAreaMarginBegin: Ptr[Byte] = null
-        var setDragAreaMarginEnd: Ptr[Byte] = null
-        var getDragAreaMarginEnd: Ptr[Byte] = null
-        var setDragAreaOffset: Ptr[Byte] = null
-        var getDragAreaOffset: Ptr[Byte] = null
-        var setDragAreaHighlightInEditor: Ptr[Byte] = null
-        var isDragAreaHighlightInEditorEnabled: Ptr[Byte] = null
+object Binds {
+          var clampSplitOffset: Ptr[Byte] = null
         var getDragAreaControl: Ptr[Byte] = null
-        var setTouchDraggerEnabled: Ptr[Byte] = null
-        var isTouchDraggerEnabled: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSplitOffset = GdxApi.getMethodBind(c"SplitContainer", c"set_split_offset", 1286410249L)
-            Binds.getSplitOffset = GdxApi.getMethodBind(c"SplitContainer", c"get_split_offset", 3905245786L)
-            Binds.clampSplitOffset = GdxApi.getMethodBind(c"SplitContainer", c"clamp_split_offset", 3218959716L)
-            Binds.setCollapsed = GdxApi.getMethodBind(c"SplitContainer", c"set_collapsed", 2586408642L)
-            Binds.isCollapsed = GdxApi.getMethodBind(c"SplitContainer", c"is_collapsed", 36873697L)
-            Binds.setDraggerVisibility = GdxApi.getMethodBind(c"SplitContainer", c"set_dragger_visibility", 1168273952L)
-            Binds.getDraggerVisibility = GdxApi.getMethodBind(c"SplitContainer", c"get_dragger_visibility", 967297479L)
-            Binds.setVertical = GdxApi.getMethodBind(c"SplitContainer", c"set_vertical", 2586408642L)
-            Binds.isVertical = GdxApi.getMethodBind(c"SplitContainer", c"is_vertical", 36873697L)
-            Binds.setDraggingEnabled = GdxApi.getMethodBind(c"SplitContainer", c"set_dragging_enabled", 2586408642L)
-            Binds.isDraggingEnabled = GdxApi.getMethodBind(c"SplitContainer", c"is_dragging_enabled", 36873697L)
-            Binds.setDragAreaMarginBegin = GdxApi.getMethodBind(c"SplitContainer", c"set_drag_area_margin_begin", 1286410249L)
-            Binds.getDragAreaMarginBegin = GdxApi.getMethodBind(c"SplitContainer", c"get_drag_area_margin_begin", 3905245786L)
-            Binds.setDragAreaMarginEnd = GdxApi.getMethodBind(c"SplitContainer", c"set_drag_area_margin_end", 1286410249L)
-            Binds.getDragAreaMarginEnd = GdxApi.getMethodBind(c"SplitContainer", c"get_drag_area_margin_end", 3905245786L)
-            Binds.setDragAreaOffset = GdxApi.getMethodBind(c"SplitContainer", c"set_drag_area_offset", 1286410249L)
-            Binds.getDragAreaOffset = GdxApi.getMethodBind(c"SplitContainer", c"get_drag_area_offset", 3905245786L)
-            Binds.setDragAreaHighlightInEditor = GdxApi.getMethodBind(c"SplitContainer", c"set_drag_area_highlight_in_editor", 2586408642L)
-            Binds.isDragAreaHighlightInEditorEnabled = GdxApi.getMethodBind(c"SplitContainer", c"is_drag_area_highlight_in_editor_enabled", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.clampSplitOffset = GdxApi.getMethodBind(c"SplitContainer", c"clamp_split_offset", 3218959716L)
             Binds.getDragAreaControl = GdxApi.getMethodBind(c"SplitContainer", c"get_drag_area_control", 829782337L)
-            Binds.setTouchDraggerEnabled = GdxApi.getMethodBind(c"SplitContainer", c"set_touch_dragger_enabled", 2586408642L)
-            Binds.isTouchDraggerEnabled = GdxApi.getMethodBind(c"SplitContainer", c"is_touch_dragger_enabled", 36873697L)
+  }
+}
 
-    def apply(): SplitContainer =
-        val obj = new SplitContainer()
-        obj.ptr = GdxApi.constructObject(c"SplitContainer")
-        obj
+def apply(): SplitContainer = {
+  val obj = new SplitContainer()
+  obj.ptr = GdxApi.constructObject(c"SplitContainer")
+  obj
+}

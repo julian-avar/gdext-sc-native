@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeTimeScale extends AnimationNode
-
-
-
+class AnimationNodeTimeScale extends AnimationNode {}
 
 object AnimationNodeTimeScale:
-    def apply(): AnimationNodeTimeScale =
-        val obj = new AnimationNodeTimeScale()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeTimeScale")
-        obj
+def apply(): AnimationNodeTimeScale = {
+  val obj = new AnimationNodeTimeScale()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeTimeScale")
+  obj
+}

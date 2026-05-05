@@ -5,41 +5,47 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HashingContext extends RefCounted
-
-    def start(`type`: Int): Int =
+class HashingContext extends RefCounted {
+    def start(`type`: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HashingContext.Binds.start, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def update(chunk: PackedByteArray): Int =
+    def update(chunk: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = chunk.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HashingContext.Binds.update, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def finish(): PackedByteArray =
+    def finish(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(HashingContext.Binds.finish, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
-
+}
+}
 
 object HashingContext:
-    object Binds:
-        var start: Ptr[Byte] = null
+object Binds {
+          var start: Ptr[Byte] = null
         var update: Ptr[Byte] = null
         var finish: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.start = GdxApi.getMethodBind(c"HashingContext", c"start", 3940338335L)
+  def loadBinds(): Unit = {
+                Binds.start = GdxApi.getMethodBind(c"HashingContext", c"start", 3940338335L)
             Binds.update = GdxApi.getMethodBind(c"HashingContext", c"update", 680677267L)
             Binds.finish = GdxApi.getMethodBind(c"HashingContext", c"finish", 2115431945L)
+  }
+}
 
-    def apply(): HashingContext =
-        val obj = new HashingContext()
-        obj.ptr = GdxApi.constructObject(c"HashingContext")
-        obj
+def apply(): HashingContext = {
+  val obj = new HashingContext()
+  obj.ptr = GdxApi.constructObject(c"HashingContext")
+  obj
+}

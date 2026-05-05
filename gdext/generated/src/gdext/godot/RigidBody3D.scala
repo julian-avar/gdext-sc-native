@@ -5,423 +5,142 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RigidBody3D extends PhysicsBody3D
+class RigidBody3D extends PhysicsBody3D {
     def _integrateForces(state: PhysicsDirectBodyState3D): Unit = ()
-    def setMass(mass: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = mass.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setMass, ptr, _args, null)
 
-    def getMass(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setInertia(inertia: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = inertia.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setInertia, ptr, _args, null)
-
-    def getInertia(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getInertia, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setCenterOfMassMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setCenterOfMassMode, ptr, _args, null)
-
-    def getCenterOfMassMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getCenterOfMassMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCenterOfMass(centerOfMass: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = centerOfMass.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setCenterOfMass, ptr, _args, null)
-
-    def getCenterOfMass(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getCenterOfMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = physicsMaterialOverride.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setPhysicsMaterialOverride, ptr, _args, null)
-
-    def getPhysicsMaterialOverride(): PhysicsMaterial =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getPhysicsMaterialOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PhysicsMaterial(!_ret)
-
-    def setLinearVelocity(linearVelocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = linearVelocity.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setLinearVelocity, ptr, _args, null)
-
-    def getLinearVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getLinearVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setAngularVelocity(angularVelocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = angularVelocity.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setAngularVelocity, ptr, _args, null)
-
-    def getAngularVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getAngularVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getInverseInertiaTensor(): Basis =
+    def getInverseInertiaTensor(): Basis = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RigidBody3D.Binds.getInverseInertiaTensor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Basis(!_ret)
+}
 
-    def setGravityScale(gravityScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = gravityScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setGravityScale, ptr, _args, null)
-
-    def getGravityScale(): Float =
+    def getContactCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getGravityScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLinearDampMode(linearDampMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = linearDampMode.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setLinearDampMode, ptr, _args, null)
-
-    def getLinearDampMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getLinearDampMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAngularDampMode(angularDampMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = angularDampMode.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setAngularDampMode, ptr, _args, null)
-
-    def getAngularDampMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getAngularDampMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLinearDamp(linearDamp: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = linearDamp.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setLinearDamp, ptr, _args, null)
-
-    def getLinearDamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getLinearDamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAngularDamp(angularDamp: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angularDamp.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setAngularDamp, ptr, _args, null)
-
-    def getAngularDamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getAngularDamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMaxContactsReported(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setMaxContactsReported, ptr, _args, null)
-
-    def getMaxContactsReported(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getMaxContactsReported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getContactCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RigidBody3D.Binds.getContactCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setUseCustomIntegrator(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setUseCustomIntegrator, ptr, _args, null)
-
-    def isUsingCustomIntegrator(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isUsingCustomIntegrator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setContactMonitor(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setContactMonitor, ptr, _args, null)
-
-    def isContactMonitorEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isContactMonitorEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseContinuousCollisionDetection(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setUseContinuousCollisionDetection, ptr, _args, null)
-
-    def isUsingContinuousCollisionDetection(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isUsingContinuousCollisionDetection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAxisVelocity(axisVelocity: Vector3): Unit =
+    def setAxisVelocity(axisVelocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = axisVelocity.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.setAxisVelocity, ptr, _args, null)
+}
 
-    def applyCentralImpulse(impulse: Vector3): Unit =
+    def applyCentralImpulse(impulse: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = impulse.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.applyCentralImpulse, ptr, _args, null)
+}
 
-    def applyImpulse(impulse: Vector3): Unit =
+    def applyImpulse(impulse: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = impulse.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.applyImpulse, ptr, _args, null)
+}
 
-    def applyTorqueImpulse(impulse: Vector3): Unit =
+    def applyTorqueImpulse(impulse: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = impulse.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.applyTorqueImpulse, ptr, _args, null)
+}
 
-    def applyCentralForce(force: Vector3): Unit =
+    def applyCentralForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.applyCentralForce, ptr, _args, null)
+}
 
-    def applyForce(force: Vector3): Unit =
+    def applyForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.applyForce, ptr, _args, null)
+}
 
-    def applyTorque(torque: Vector3): Unit =
+    def applyTorque(torque: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = torque.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.applyTorque, ptr, _args, null)
+}
 
-    def addConstantCentralForce(force: Vector3): Unit =
+    def addConstantCentralForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.addConstantCentralForce, ptr, _args, null)
+}
 
-    def addConstantForce(force: Vector3): Unit =
+    def addConstantForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.addConstantForce, ptr, _args, null)
+}
 
-    def addConstantTorque(torque: Vector3): Unit =
+    def addConstantTorque(torque: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = torque.ptr
         GdxApi.ptrcall(RigidBody3D.Binds.addConstantTorque, ptr, _args, null)
+}
 
-    def setConstantForce(force: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = force.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setConstantForce, ptr, _args, null)
-
-    def getConstantForce(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getConstantForce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setConstantTorque(torque: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = torque.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setConstantTorque, ptr, _args, null)
-
-    def getConstantTorque(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getConstantTorque, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setSleeping(sleeping: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if sleeping then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setSleeping, ptr, _args, null)
-
-    def isSleeping(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isSleeping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCanSleep(ableToSleep: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ableToSleep then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setCanSleep, ptr, _args, null)
-
-    def isAbleToSleep(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isAbleToSleep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLockRotationEnabled(lockRotation: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if lockRotation then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setLockRotationEnabled, ptr, _args, null)
-
-    def isLockRotationEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isLockRotationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFreezeEnabled(freezeMode: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if freezeMode then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RigidBody3D.Binds.setFreezeEnabled, ptr, _args, null)
-
-    def isFreezeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RigidBody3D.Binds.isFreezeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFreezeMode(freezeMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = freezeMode.ptr
-        GdxApi.ptrcall(RigidBody3D.Binds.setFreezeMode, ptr, _args, null)
-
-    def getFreezeMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RigidBody3D.Binds.getFreezeMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getCollidingBodies(): Ptr[Byte] =
+    def getCollidingBodies(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RigidBody3D.Binds.getCollidingBodies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def mass: Ptr[Byte] = getMass()
-    def mass_=(v: Ptr[Byte]): Unit = setMass(v)
-    def physicsMaterialOverride: Ptr[Byte] = getPhysicsMaterialOverride()
-    def physicsMaterialOverride_=(v: Ptr[Byte]): Unit = setPhysicsMaterialOverride(v)
-    def gravityScale: Ptr[Byte] = getGravityScale()
-    def gravityScale_=(v: Ptr[Byte]): Unit = setGravityScale(v)
-    def centerOfMassMode: Ptr[Byte] = getCenterOfMassMode()
-    def centerOfMassMode_=(v: Ptr[Byte]): Unit = setCenterOfMassMode(v)
-    def centerOfMass: Ptr[Byte] = getCenterOfMass()
-    def centerOfMass_=(v: Ptr[Byte]): Unit = setCenterOfMass(v)
-    def inertia: Ptr[Byte] = getInertia()
-    def inertia_=(v: Ptr[Byte]): Unit = setInertia(v)
-    def sleeping: Ptr[Byte] = isSleeping()
-    def sleeping_=(v: Ptr[Byte]): Unit = setSleeping(v)
-    def canSleep: Ptr[Byte] = isAbleToSleep()
-    def canSleep_=(v: Ptr[Byte]): Unit = setCanSleep(v)
-    def lockRotation: Ptr[Byte] = isLockRotationEnabled()
-    def lockRotation_=(v: Ptr[Byte]): Unit = setLockRotationEnabled(v)
-    def freeze: Ptr[Byte] = isFreezeEnabled()
-    def freeze_=(v: Ptr[Byte]): Unit = setFreezeEnabled(v)
-    def freezeMode: Ptr[Byte] = getFreezeMode()
-    def freezeMode_=(v: Ptr[Byte]): Unit = setFreezeMode(v)
-    def customIntegrator: Ptr[Byte] = isUsingCustomIntegrator()
-    def customIntegrator_=(v: Ptr[Byte]): Unit = setUseCustomIntegrator(v)
-    def continuousCd: Ptr[Byte] = isUsingContinuousCollisionDetection()
-    def continuousCd_=(v: Ptr[Byte]): Unit = setUseContinuousCollisionDetection(v)
-    def contactMonitor: Ptr[Byte] = isContactMonitorEnabled()
-    def contactMonitor_=(v: Ptr[Byte]): Unit = setContactMonitor(v)
-    def maxContactsReported: Ptr[Byte] = getMaxContactsReported()
-    def maxContactsReported_=(v: Ptr[Byte]): Unit = setMaxContactsReported(v)
-    def linearVelocity: Ptr[Byte] = getLinearVelocity()
-    def linearVelocity_=(v: Ptr[Byte]): Unit = setLinearVelocity(v)
-    def linearDampMode: Ptr[Byte] = getLinearDampMode()
-    def linearDampMode_=(v: Ptr[Byte]): Unit = setLinearDampMode(v)
-    def linearDamp: Ptr[Byte] = getLinearDamp()
-    def linearDamp_=(v: Ptr[Byte]): Unit = setLinearDamp(v)
-    def angularVelocity: Ptr[Byte] = getAngularVelocity()
-    def angularVelocity_=(v: Ptr[Byte]): Unit = setAngularVelocity(v)
-    def angularDampMode: Ptr[Byte] = getAngularDampMode()
-    def angularDampMode_=(v: Ptr[Byte]): Unit = setAngularDampMode(v)
-    def angularDamp: Ptr[Byte] = getAngularDamp()
-    def angularDamp_=(v: Ptr[Byte]): Unit = setAngularDamp(v)
-    def constantForce: Ptr[Byte] = getConstantForce()
-    def constantForce_=(v: Ptr[Byte]): Unit = setConstantForce(v)
-    def constantTorque: Ptr[Byte] = getConstantTorque()
-    def constantTorque_=(v: Ptr[Byte]): Unit = setConstantTorque(v)
+}
+
+    def mass: Float = getMass()
+    def mass_=(v: Float): Unit = setMass(v)
+    def physicsMaterialOverride: PhysicsMaterial = getPhysicsMaterialOverride()
+    def physicsMaterialOverride_=(v: PhysicsMaterial): Unit = setPhysicsMaterialOverride(v)
+    def gravityScale: Float = getGravityScale()
+    def gravityScale_=(v: Float): Unit = setGravityScale(v)
+    def centerOfMassMode: Int = getCenterOfMassMode()
+    def centerOfMassMode_=(v: Int): Unit = setCenterOfMassMode(v)
+    def centerOfMass: Vector3 = getCenterOfMass()
+    def centerOfMass_=(v: Vector3): Unit = setCenterOfMass(v)
+    def inertia: Vector3 = getInertia()
+    def inertia_=(v: Vector3): Unit = setInertia(v)
+    def sleeping: Boolean = isSleeping()
+    def sleeping_=(v: Boolean): Unit = setSleeping(v)
+    def canSleep: Boolean = isAbleToSleep()
+    def canSleep_=(v: Boolean): Unit = setCanSleep(v)
+    def lockRotation: Boolean = isLockRotationEnabled()
+    def lockRotation_=(v: Boolean): Unit = setLockRotationEnabled(v)
+    def freeze: Boolean = isFreezeEnabled()
+    def freeze_=(v: Boolean): Unit = setFreezeEnabled(v)
+    def freezeMode: Int = getFreezeMode()
+    def freezeMode_=(v: Int): Unit = setFreezeMode(v)
+    def customIntegrator: Boolean = isUsingCustomIntegrator()
+    def customIntegrator_=(v: Boolean): Unit = setUseCustomIntegrator(v)
+    def continuousCd: Boolean = isUsingContinuousCollisionDetection()
+    def continuousCd_=(v: Boolean): Unit = setUseContinuousCollisionDetection(v)
+    def contactMonitor: Boolean = isContactMonitorEnabled()
+    def contactMonitor_=(v: Boolean): Unit = setContactMonitor(v)
+    def maxContactsReported: Int = getMaxContactsReported()
+    def maxContactsReported_=(v: Int): Unit = setMaxContactsReported(v)
+    def linearVelocity: Vector3 = getLinearVelocity()
+    def linearVelocity_=(v: Vector3): Unit = setLinearVelocity(v)
+    def linearDampMode: Int = getLinearDampMode()
+    def linearDampMode_=(v: Int): Unit = setLinearDampMode(v)
+    def linearDamp: Float = getLinearDamp()
+    def linearDamp_=(v: Float): Unit = setLinearDamp(v)
+    def angularVelocity: Vector3 = getAngularVelocity()
+    def angularVelocity_=(v: Vector3): Unit = setAngularVelocity(v)
+    def angularDampMode: Int = getAngularDampMode()
+    def angularDampMode_=(v: Int): Unit = setAngularDampMode(v)
+    def angularDamp: Float = getAngularDamp()
+    def angularDamp_=(v: Float): Unit = setAngularDamp(v)
+    def constantForce: Vector3 = getConstantForce()
+    def constantForce_=(v: Vector3): Unit = setConstantForce(v)
+    def constantTorque: Vector3 = getConstantTorque()
+    def constantTorque_=(v: Vector3): Unit = setConstantTorque(v)
+}
 
 object RigidBody3D:
-    object Binds:
-        var setMass: Ptr[Byte] = null
-        var getMass: Ptr[Byte] = null
-        var setInertia: Ptr[Byte] = null
-        var getInertia: Ptr[Byte] = null
-        var setCenterOfMassMode: Ptr[Byte] = null
-        var getCenterOfMassMode: Ptr[Byte] = null
-        var setCenterOfMass: Ptr[Byte] = null
-        var getCenterOfMass: Ptr[Byte] = null
-        var setPhysicsMaterialOverride: Ptr[Byte] = null
-        var getPhysicsMaterialOverride: Ptr[Byte] = null
-        var setLinearVelocity: Ptr[Byte] = null
-        var getLinearVelocity: Ptr[Byte] = null
-        var setAngularVelocity: Ptr[Byte] = null
-        var getAngularVelocity: Ptr[Byte] = null
-        var getInverseInertiaTensor: Ptr[Byte] = null
-        var setGravityScale: Ptr[Byte] = null
-        var getGravityScale: Ptr[Byte] = null
-        var setLinearDampMode: Ptr[Byte] = null
-        var getLinearDampMode: Ptr[Byte] = null
-        var setAngularDampMode: Ptr[Byte] = null
-        var getAngularDampMode: Ptr[Byte] = null
-        var setLinearDamp: Ptr[Byte] = null
-        var getLinearDamp: Ptr[Byte] = null
-        var setAngularDamp: Ptr[Byte] = null
-        var getAngularDamp: Ptr[Byte] = null
-        var setMaxContactsReported: Ptr[Byte] = null
-        var getMaxContactsReported: Ptr[Byte] = null
+object Binds {
+          var getInverseInertiaTensor: Ptr[Byte] = null
         var getContactCount: Ptr[Byte] = null
-        var setUseCustomIntegrator: Ptr[Byte] = null
-        var isUsingCustomIntegrator: Ptr[Byte] = null
-        var setContactMonitor: Ptr[Byte] = null
-        var isContactMonitorEnabled: Ptr[Byte] = null
-        var setUseContinuousCollisionDetection: Ptr[Byte] = null
-        var isUsingContinuousCollisionDetection: Ptr[Byte] = null
         var setAxisVelocity: Ptr[Byte] = null
         var applyCentralImpulse: Ptr[Byte] = null
         var applyImpulse: Ptr[Byte] = null
@@ -432,57 +151,11 @@ object RigidBody3D:
         var addConstantCentralForce: Ptr[Byte] = null
         var addConstantForce: Ptr[Byte] = null
         var addConstantTorque: Ptr[Byte] = null
-        var setConstantForce: Ptr[Byte] = null
-        var getConstantForce: Ptr[Byte] = null
-        var setConstantTorque: Ptr[Byte] = null
-        var getConstantTorque: Ptr[Byte] = null
-        var setSleeping: Ptr[Byte] = null
-        var isSleeping: Ptr[Byte] = null
-        var setCanSleep: Ptr[Byte] = null
-        var isAbleToSleep: Ptr[Byte] = null
-        var setLockRotationEnabled: Ptr[Byte] = null
-        var isLockRotationEnabled: Ptr[Byte] = null
-        var setFreezeEnabled: Ptr[Byte] = null
-        var isFreezeEnabled: Ptr[Byte] = null
-        var setFreezeMode: Ptr[Byte] = null
-        var getFreezeMode: Ptr[Byte] = null
         var getCollidingBodies: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setMass = GdxApi.getMethodBind(c"RigidBody3D", c"set_mass", 373806689L)
-            Binds.getMass = GdxApi.getMethodBind(c"RigidBody3D", c"get_mass", 1740695150L)
-            Binds.setInertia = GdxApi.getMethodBind(c"RigidBody3D", c"set_inertia", 3460891852L)
-            Binds.getInertia = GdxApi.getMethodBind(c"RigidBody3D", c"get_inertia", 3360562783L)
-            Binds.setCenterOfMassMode = GdxApi.getMethodBind(c"RigidBody3D", c"set_center_of_mass_mode", 3625866032L)
-            Binds.getCenterOfMassMode = GdxApi.getMethodBind(c"RigidBody3D", c"get_center_of_mass_mode", 237405040L)
-            Binds.setCenterOfMass = GdxApi.getMethodBind(c"RigidBody3D", c"set_center_of_mass", 3460891852L)
-            Binds.getCenterOfMass = GdxApi.getMethodBind(c"RigidBody3D", c"get_center_of_mass", 3360562783L)
-            Binds.setPhysicsMaterialOverride = GdxApi.getMethodBind(c"RigidBody3D", c"set_physics_material_override", 1784508650L)
-            Binds.getPhysicsMaterialOverride = GdxApi.getMethodBind(c"RigidBody3D", c"get_physics_material_override", 2521850424L)
-            Binds.setLinearVelocity = GdxApi.getMethodBind(c"RigidBody3D", c"set_linear_velocity", 3460891852L)
-            Binds.getLinearVelocity = GdxApi.getMethodBind(c"RigidBody3D", c"get_linear_velocity", 3360562783L)
-            Binds.setAngularVelocity = GdxApi.getMethodBind(c"RigidBody3D", c"set_angular_velocity", 3460891852L)
-            Binds.getAngularVelocity = GdxApi.getMethodBind(c"RigidBody3D", c"get_angular_velocity", 3360562783L)
-            Binds.getInverseInertiaTensor = GdxApi.getMethodBind(c"RigidBody3D", c"get_inverse_inertia_tensor", 2716978435L)
-            Binds.setGravityScale = GdxApi.getMethodBind(c"RigidBody3D", c"set_gravity_scale", 373806689L)
-            Binds.getGravityScale = GdxApi.getMethodBind(c"RigidBody3D", c"get_gravity_scale", 1740695150L)
-            Binds.setLinearDampMode = GdxApi.getMethodBind(c"RigidBody3D", c"set_linear_damp_mode", 1802035050L)
-            Binds.getLinearDampMode = GdxApi.getMethodBind(c"RigidBody3D", c"get_linear_damp_mode", 1366206940L)
-            Binds.setAngularDampMode = GdxApi.getMethodBind(c"RigidBody3D", c"set_angular_damp_mode", 1802035050L)
-            Binds.getAngularDampMode = GdxApi.getMethodBind(c"RigidBody3D", c"get_angular_damp_mode", 1366206940L)
-            Binds.setLinearDamp = GdxApi.getMethodBind(c"RigidBody3D", c"set_linear_damp", 373806689L)
-            Binds.getLinearDamp = GdxApi.getMethodBind(c"RigidBody3D", c"get_linear_damp", 1740695150L)
-            Binds.setAngularDamp = GdxApi.getMethodBind(c"RigidBody3D", c"set_angular_damp", 373806689L)
-            Binds.getAngularDamp = GdxApi.getMethodBind(c"RigidBody3D", c"get_angular_damp", 1740695150L)
-            Binds.setMaxContactsReported = GdxApi.getMethodBind(c"RigidBody3D", c"set_max_contacts_reported", 1286410249L)
-            Binds.getMaxContactsReported = GdxApi.getMethodBind(c"RigidBody3D", c"get_max_contacts_reported", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getInverseInertiaTensor = GdxApi.getMethodBind(c"RigidBody3D", c"get_inverse_inertia_tensor", 2716978435L)
             Binds.getContactCount = GdxApi.getMethodBind(c"RigidBody3D", c"get_contact_count", 3905245786L)
-            Binds.setUseCustomIntegrator = GdxApi.getMethodBind(c"RigidBody3D", c"set_use_custom_integrator", 2586408642L)
-            Binds.isUsingCustomIntegrator = GdxApi.getMethodBind(c"RigidBody3D", c"is_using_custom_integrator", 2240911060L)
-            Binds.setContactMonitor = GdxApi.getMethodBind(c"RigidBody3D", c"set_contact_monitor", 2586408642L)
-            Binds.isContactMonitorEnabled = GdxApi.getMethodBind(c"RigidBody3D", c"is_contact_monitor_enabled", 36873697L)
-            Binds.setUseContinuousCollisionDetection = GdxApi.getMethodBind(c"RigidBody3D", c"set_use_continuous_collision_detection", 2586408642L)
-            Binds.isUsingContinuousCollisionDetection = GdxApi.getMethodBind(c"RigidBody3D", c"is_using_continuous_collision_detection", 36873697L)
             Binds.setAxisVelocity = GdxApi.getMethodBind(c"RigidBody3D", c"set_axis_velocity", 3460891852L)
             Binds.applyCentralImpulse = GdxApi.getMethodBind(c"RigidBody3D", c"apply_central_impulse", 3460891852L)
             Binds.applyImpulse = GdxApi.getMethodBind(c"RigidBody3D", c"apply_impulse", 2754756483L)
@@ -493,23 +166,12 @@ object RigidBody3D:
             Binds.addConstantCentralForce = GdxApi.getMethodBind(c"RigidBody3D", c"add_constant_central_force", 3460891852L)
             Binds.addConstantForce = GdxApi.getMethodBind(c"RigidBody3D", c"add_constant_force", 2754756483L)
             Binds.addConstantTorque = GdxApi.getMethodBind(c"RigidBody3D", c"add_constant_torque", 3460891852L)
-            Binds.setConstantForce = GdxApi.getMethodBind(c"RigidBody3D", c"set_constant_force", 3460891852L)
-            Binds.getConstantForce = GdxApi.getMethodBind(c"RigidBody3D", c"get_constant_force", 3360562783L)
-            Binds.setConstantTorque = GdxApi.getMethodBind(c"RigidBody3D", c"set_constant_torque", 3460891852L)
-            Binds.getConstantTorque = GdxApi.getMethodBind(c"RigidBody3D", c"get_constant_torque", 3360562783L)
-            Binds.setSleeping = GdxApi.getMethodBind(c"RigidBody3D", c"set_sleeping", 2586408642L)
-            Binds.isSleeping = GdxApi.getMethodBind(c"RigidBody3D", c"is_sleeping", 36873697L)
-            Binds.setCanSleep = GdxApi.getMethodBind(c"RigidBody3D", c"set_can_sleep", 2586408642L)
-            Binds.isAbleToSleep = GdxApi.getMethodBind(c"RigidBody3D", c"is_able_to_sleep", 36873697L)
-            Binds.setLockRotationEnabled = GdxApi.getMethodBind(c"RigidBody3D", c"set_lock_rotation_enabled", 2586408642L)
-            Binds.isLockRotationEnabled = GdxApi.getMethodBind(c"RigidBody3D", c"is_lock_rotation_enabled", 36873697L)
-            Binds.setFreezeEnabled = GdxApi.getMethodBind(c"RigidBody3D", c"set_freeze_enabled", 2586408642L)
-            Binds.isFreezeEnabled = GdxApi.getMethodBind(c"RigidBody3D", c"is_freeze_enabled", 36873697L)
-            Binds.setFreezeMode = GdxApi.getMethodBind(c"RigidBody3D", c"set_freeze_mode", 1319914653L)
-            Binds.getFreezeMode = GdxApi.getMethodBind(c"RigidBody3D", c"get_freeze_mode", 2008423905L)
             Binds.getCollidingBodies = GdxApi.getMethodBind(c"RigidBody3D", c"get_colliding_bodies", 3995934104L)
+  }
+}
 
-    def apply(): RigidBody3D =
-        val obj = new RigidBody3D()
-        obj.ptr = GdxApi.constructObject(c"RigidBody3D")
-        obj
+def apply(): RigidBody3D = {
+  val obj = new RigidBody3D()
+  obj.ptr = GdxApi.constructObject(c"RigidBody3D")
+  obj
+}

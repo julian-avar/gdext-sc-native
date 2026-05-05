@@ -5,94 +5,15 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeTextureParameter extends VisualShaderNodeParameter
-
-    def setTextureType(`type`: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.setTextureType, ptr, _args, null)
-
-    def getTextureType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.getTextureType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setColorDefault(color: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.setColorDefault, ptr, _args, null)
-
-    def getColorDefault(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.getColorDefault, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextureFilter(filter: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.setTextureFilter, ptr, _args, null)
-
-    def getTextureFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.getTextureFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextureRepeat(repeat: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = repeat.ptr
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.setTextureRepeat, ptr, _args, null)
-
-    def getTextureRepeat(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.getTextureRepeat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextureSource(source: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = source.ptr
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.setTextureSource, ptr, _args, null)
-
-    def getTextureSource(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeTextureParameter.Binds.getTextureSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def textureType: Ptr[Byte] = getTextureType()
-    def textureType_=(v: Ptr[Byte]): Unit = setTextureType(v)
-    def colorDefault: Ptr[Byte] = getColorDefault()
-    def colorDefault_=(v: Ptr[Byte]): Unit = setColorDefault(v)
-    def textureFilter: Ptr[Byte] = getTextureFilter()
-    def textureFilter_=(v: Ptr[Byte]): Unit = setTextureFilter(v)
-    def textureRepeat: Ptr[Byte] = getTextureRepeat()
-    def textureRepeat_=(v: Ptr[Byte]): Unit = setTextureRepeat(v)
-    def textureSource: Ptr[Byte] = getTextureSource()
-    def textureSource_=(v: Ptr[Byte]): Unit = setTextureSource(v)
-
-object VisualShaderNodeTextureParameter:
-    object Binds:
-        var setTextureType: Ptr[Byte] = null
-        var getTextureType: Ptr[Byte] = null
-        var setColorDefault: Ptr[Byte] = null
-        var getColorDefault: Ptr[Byte] = null
-        var setTextureFilter: Ptr[Byte] = null
-        var getTextureFilter: Ptr[Byte] = null
-        var setTextureRepeat: Ptr[Byte] = null
-        var getTextureRepeat: Ptr[Byte] = null
-        var setTextureSource: Ptr[Byte] = null
-        var getTextureSource: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTextureType = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"set_texture_type", 2227296876L)
-            Binds.getTextureType = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"get_texture_type", 367922070L)
-            Binds.setColorDefault = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"set_color_default", 4217624432L)
-            Binds.getColorDefault = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"get_color_default", 3837060134L)
-            Binds.setTextureFilter = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"set_texture_filter", 2147684752L)
-            Binds.getTextureFilter = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"get_texture_filter", 4184490817L)
-            Binds.setTextureRepeat = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"set_texture_repeat", 2036143070L)
-            Binds.getTextureRepeat = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"get_texture_repeat", 1690132794L)
-            Binds.setTextureSource = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"set_texture_source", 1212687372L)
-            Binds.getTextureSource = GdxApi.getMethodBind(c"VisualShaderNodeTextureParameter", c"get_texture_source", 2039092262L)
+class VisualShaderNodeTextureParameter extends VisualShaderNodeParameter {
+    def textureType: Int = getTextureType()
+    def textureType_=(v: Int): Unit = setTextureType(v)
+    def colorDefault: Int = getColorDefault()
+    def colorDefault_=(v: Int): Unit = setColorDefault(v)
+    def textureFilter: Int = getTextureFilter()
+    def textureFilter_=(v: Int): Unit = setTextureFilter(v)
+    def textureRepeat: Int = getTextureRepeat()
+    def textureRepeat_=(v: Int): Unit = setTextureRepeat(v)
+    def textureSource: Int = getTextureSource()
+    def textureSource_=(v: Int): Unit = setTextureSource(v)
+}

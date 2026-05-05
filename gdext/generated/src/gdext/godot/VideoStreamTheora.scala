@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VideoStreamTheora extends VideoStream
-
-
-
+class VideoStreamTheora extends VideoStream {}
 
 object VideoStreamTheora:
-    def apply(): VideoStreamTheora =
-        val obj = new VideoStreamTheora()
-        obj.ptr = GdxApi.constructObject(c"VideoStreamTheora")
-        obj
+def apply(): VideoStreamTheora = {
+  val obj = new VideoStreamTheora()
+  obj.ptr = GdxApi.constructObject(c"VideoStreamTheora")
+  obj
+}

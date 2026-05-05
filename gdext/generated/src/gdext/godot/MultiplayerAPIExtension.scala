@@ -5,21 +5,21 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MultiplayerAPIExtension extends MultiplayerAPI
+class MultiplayerAPIExtension extends MultiplayerAPI {
     def _poll(): Int = null
     def _setMultiplayerPeer(multiplayerPeer: MultiplayerPeer): Unit = ()
     def _getMultiplayerPeer(): MultiplayerPeer = null
     def _getUniqueId(): Int = 0
     def _getPeerIds(): PackedInt32Array = null
-    def _rpc(peer: Int, `object`: Object, method: CString, args: Array): Int = null
+    def _rpc(peer: Int, `object`: Object, method: CString, args: Ptr[Byte]): Int = null
     def _getRemoteSenderId(): Int = 0
     def _objectConfigurationAdd(`object`: Object, configuration: Ptr[Byte]): Int = null
     def _objectConfigurationRemove(`object`: Object, configuration: Ptr[Byte]): Int = null
-
-
+}
 
 object MultiplayerAPIExtension:
-    def apply(): MultiplayerAPIExtension =
-        val obj = new MultiplayerAPIExtension()
-        obj.ptr = GdxApi.constructObject(c"MultiplayerAPIExtension")
-        obj
+def apply(): MultiplayerAPIExtension = {
+  val obj = new MultiplayerAPIExtension()
+  obj.ptr = GdxApi.constructObject(c"MultiplayerAPIExtension")
+  obj
+}

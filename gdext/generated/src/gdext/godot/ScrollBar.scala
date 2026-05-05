@@ -5,27 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScrollBar extends Range
-
-    def setCustomStep(step: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = step.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollBar.Binds.setCustomStep, ptr, _args, null)
-
-    def getCustomStep(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ScrollBar.Binds.getCustomStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def customStep: Ptr[Byte] = getCustomStep()
-    def customStep_=(v: Ptr[Byte]): Unit = setCustomStep(v)
-
-object ScrollBar:
-    object Binds:
-        var setCustomStep: Ptr[Byte] = null
-        var getCustomStep: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setCustomStep = GdxApi.getMethodBind(c"ScrollBar", c"set_custom_step", 373806689L)
-            Binds.getCustomStep = GdxApi.getMethodBind(c"ScrollBar", c"get_custom_step", 1740695150L)
+class ScrollBar extends Range {
+    def customStep: Float = getCustomStep()
+    def customStep_=(v: Float): Unit = setCustomStep(v)
+}

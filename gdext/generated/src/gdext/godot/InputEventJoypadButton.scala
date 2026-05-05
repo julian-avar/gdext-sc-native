@@ -5,59 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventJoypadButton extends InputEvent
-
-    def setButtonIndex(buttonIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = buttonIndex.ptr
-        GdxApi.ptrcall(InputEventJoypadButton.Binds.setButtonIndex, ptr, _args, null)
-
-    def getButtonIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventJoypadButton.Binds.getButtonIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPressure(pressure: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pressure.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventJoypadButton.Binds.setPressure, ptr, _args, null)
-
-    def getPressure(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(InputEventJoypadButton.Binds.getPressure, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPressed(pressed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pressed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventJoypadButton.Binds.setPressed, ptr, _args, null)
-    def buttonIndex: Ptr[Byte] = getButtonIndex()
-    def buttonIndex_=(v: Ptr[Byte]): Unit = setButtonIndex(v)
-    def pressure: Ptr[Byte] = getPressure()
-    def pressure_=(v: Ptr[Byte]): Unit = setPressure(v)
+class InputEventJoypadButton extends InputEvent {
+    def buttonIndex: Int = getButtonIndex()
+    def buttonIndex_=(v: Int): Unit = setButtonIndex(v)
+    def pressure: Float = getPressure()
+    def pressure_=(v: Float): Unit = setPressure(v)
     def pressed: Ptr[Byte] = isPressed()
-    def pressed_=(v: Ptr[Byte]): Unit = setPressed(v)
+    def pressed_=(v: Boolean): Unit = setPressed(v)
+}
 
 object InputEventJoypadButton:
-    object Binds:
-        var setButtonIndex: Ptr[Byte] = null
-        var getButtonIndex: Ptr[Byte] = null
-        var setPressure: Ptr[Byte] = null
-        var getPressure: Ptr[Byte] = null
-        var setPressed: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setButtonIndex = GdxApi.getMethodBind(c"InputEventJoypadButton", c"set_button_index", 1466368136L)
-            Binds.getButtonIndex = GdxApi.getMethodBind(c"InputEventJoypadButton", c"get_button_index", 595588182L)
-            Binds.setPressure = GdxApi.getMethodBind(c"InputEventJoypadButton", c"set_pressure", 373806689L)
-            Binds.getPressure = GdxApi.getMethodBind(c"InputEventJoypadButton", c"get_pressure", 1740695150L)
-            Binds.setPressed = GdxApi.getMethodBind(c"InputEventJoypadButton", c"set_pressed", 2586408642L)
-
-    def apply(): InputEventJoypadButton =
-        val obj = new InputEventJoypadButton()
-        obj.ptr = GdxApi.constructObject(c"InputEventJoypadButton")
-        obj
+def apply(): InputEventJoypadButton = {
+  val obj = new InputEventJoypadButton()
+  obj.ptr = GdxApi.constructObject(c"InputEventJoypadButton")
+  obj
+}

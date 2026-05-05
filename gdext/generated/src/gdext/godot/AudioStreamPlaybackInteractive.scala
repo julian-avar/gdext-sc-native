@@ -5,33 +5,37 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPlaybackInteractive extends AudioStreamPlayback
-
-    def switchToClipByName(clipName: CString): Unit =
+class AudioStreamPlaybackInteractive extends AudioStreamPlayback {
+    def switchToClipByName(clipName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = clipName.ptr
+        _args(0) = clipName
         GdxApi.ptrcall(AudioStreamPlaybackInteractive.Binds.switchToClipByName, ptr, _args, null)
+}
 
-    def switchToClip(clipIndex: Int): Unit =
+    def switchToClip(clipIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamPlaybackInteractive.Binds.switchToClip, ptr, _args, null)
+}
 
-    def getCurrentClipIndex(): Int =
+    def getCurrentClipIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamPlaybackInteractive.Binds.getCurrentClipIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object AudioStreamPlaybackInteractive:
-    object Binds:
-        var switchToClipByName: Ptr[Byte] = null
+object Binds {
+          var switchToClipByName: Ptr[Byte] = null
         var switchToClip: Ptr[Byte] = null
         var getCurrentClipIndex: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.switchToClipByName = GdxApi.getMethodBind(c"AudioStreamPlaybackInteractive", c"switch_to_clip_by_name", 3304788590L)
+  def loadBinds(): Unit = {
+                Binds.switchToClipByName = GdxApi.getMethodBind(c"AudioStreamPlaybackInteractive", c"switch_to_clip_by_name", 3304788590L)
             Binds.switchToClip = GdxApi.getMethodBind(c"AudioStreamPlaybackInteractive", c"switch_to_clip", 1286410249L)
             Binds.getCurrentClipIndex = GdxApi.getMethodBind(c"AudioStreamPlaybackInteractive", c"get_current_clip_index", 3905245786L)
+  }
+}

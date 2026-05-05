@@ -5,48 +5,54 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Expression extends RefCounted
-
-    def parse(expression: CString): Int =
+class Expression extends RefCounted {
+    def parse(expression: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = expression.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = expression
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Expression.Binds.parse, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def execute(): Ptr[Byte] =
+    def execute(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Expression.Binds.execute, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasExecuteFailed(): Boolean =
+    def hasExecuteFailed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Expression.Binds.hasExecuteFailed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getErrorText(): CString =
+    def getErrorText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Expression.Binds.getErrorText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object Expression:
-    object Binds:
-        var parse: Ptr[Byte] = null
+object Binds {
+          var parse: Ptr[Byte] = null
         var execute: Ptr[Byte] = null
         var hasExecuteFailed: Ptr[Byte] = null
         var getErrorText: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.parse = GdxApi.getMethodBind(c"Expression", c"parse", 3069722906L)
+  def loadBinds(): Unit = {
+                Binds.parse = GdxApi.getMethodBind(c"Expression", c"parse", 3069722906L)
             Binds.execute = GdxApi.getMethodBind(c"Expression", c"execute", 3712471238L)
             Binds.hasExecuteFailed = GdxApi.getMethodBind(c"Expression", c"has_execute_failed", 36873697L)
             Binds.getErrorText = GdxApi.getMethodBind(c"Expression", c"get_error_text", 201670096L)
+  }
+}
 
-    def apply(): Expression =
-        val obj = new Expression()
-        obj.ptr = GdxApi.constructObject(c"Expression")
-        obj
+def apply(): Expression = {
+  val obj = new Expression()
+  obj.ptr = GdxApi.constructObject(c"Expression")
+  obj
+}

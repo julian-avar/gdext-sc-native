@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ShaderInclude extends Resource
-
-    def setCode(code: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = code.ptr
-        GdxApi.ptrcall(ShaderInclude.Binds.setCode, ptr, _args, null)
-
-    def getCode(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ShaderInclude.Binds.getCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def code: Ptr[Byte] = getCode()
-    def code_=(v: Ptr[Byte]): Unit = setCode(v)
+class ShaderInclude extends Resource {
+    def code: CString = getCode()
+    def code_=(v: CString): Unit = setCode(v)
+}
 
 object ShaderInclude:
-    object Binds:
-        var setCode: Ptr[Byte] = null
-        var getCode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setCode = GdxApi.getMethodBind(c"ShaderInclude", c"set_code", 83702148L)
-            Binds.getCode = GdxApi.getMethodBind(c"ShaderInclude", c"get_code", 201670096L)
-
-    def apply(): ShaderInclude =
-        val obj = new ShaderInclude()
-        obj.ptr = GdxApi.constructObject(c"ShaderInclude")
-        obj
+def apply(): ShaderInclude = {
+  val obj = new ShaderInclude()
+  obj.ptr = GdxApi.constructObject(c"ShaderInclude")
+  obj
+}

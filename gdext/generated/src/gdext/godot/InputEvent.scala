@@ -5,112 +5,112 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEvent extends Resource
-
-    def setDevice(device: Int): Unit =
+class InputEvent extends Resource {
+    def isAction(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEvent.Binds.setDevice, ptr, _args, null)
-
-    def getDevice(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEvent.Binds.getDevice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def isAction(action: CString): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionPressed(action: CString): Boolean =
+    def isActionPressed(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isActionPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionReleased(action: CString): Boolean =
+    def isActionReleased(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isActionReleased, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getActionStrength(action: CString): Float =
+    def getActionStrength(action: CString): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(InputEvent.Binds.getActionStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def isCanceled(): Boolean =
+    def isCanceled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isCanceled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPressed(): Boolean =
+    def isPressed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isReleased(): Boolean =
+    def isReleased(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isReleased, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isEcho(): Boolean =
+    def isEcho(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isEcho, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def asText(): CString =
+    def asText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputEvent.Binds.asText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isMatch(event: InputEvent): Boolean =
+    def isMatch(event: InputEvent): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = event.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isMatch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionType(): Boolean =
+    def isActionType(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.isActionType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def accumulate(withEvent: InputEvent): Boolean =
+    def accumulate(withEvent: InputEvent): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = withEvent.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputEvent.Binds.accumulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def xformedBy(xform: Transform2D): InputEvent =
+    def xformedBy(xform: Transform2D): InputEvent = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = xform.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputEvent.Binds.xformedBy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new InputEvent(!_ret)
-    def device: Ptr[Byte] = getDevice()
-    def device_=(v: Ptr[Byte]): Unit = setDevice(v)
+}
+
+    def device: Int = getDevice()
+    def device_=(v: Int): Unit = setDevice(v)
+}
 
 object InputEvent:
-    object Binds:
-        var setDevice: Ptr[Byte] = null
-        var getDevice: Ptr[Byte] = null
-        var isAction: Ptr[Byte] = null
+object Binds {
+          var isAction: Ptr[Byte] = null
         var isActionPressed: Ptr[Byte] = null
         var isActionReleased: Ptr[Byte] = null
         var getActionStrength: Ptr[Byte] = null
@@ -124,10 +124,8 @@ object InputEvent:
         var accumulate: Ptr[Byte] = null
         var xformedBy: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setDevice = GdxApi.getMethodBind(c"InputEvent", c"set_device", 1286410249L)
-            Binds.getDevice = GdxApi.getMethodBind(c"InputEvent", c"get_device", 3905245786L)
-            Binds.isAction = GdxApi.getMethodBind(c"InputEvent", c"is_action", 1558498928L)
+  def loadBinds(): Unit = {
+                Binds.isAction = GdxApi.getMethodBind(c"InputEvent", c"is_action", 1558498928L)
             Binds.isActionPressed = GdxApi.getMethodBind(c"InputEvent", c"is_action_pressed", 1631499404L)
             Binds.isActionReleased = GdxApi.getMethodBind(c"InputEvent", c"is_action_released", 1558498928L)
             Binds.getActionStrength = GdxApi.getMethodBind(c"InputEvent", c"get_action_strength", 801543509L)
@@ -140,3 +138,5 @@ object InputEvent:
             Binds.isActionType = GdxApi.getMethodBind(c"InputEvent", c"is_action_type", 36873697L)
             Binds.accumulate = GdxApi.getMethodBind(c"InputEvent", c"accumulate", 1062211774L)
             Binds.xformedBy = GdxApi.getMethodBind(c"InputEvent", c"xformed_by", 1282766827L)
+  }
+}

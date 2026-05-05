@@ -5,55 +5,47 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectRecord extends AudioEffect
-
-    def setRecordingActive(record: Boolean): Unit =
+class AudioEffectRecord extends AudioEffect {
+    def setRecordingActive(record: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if record then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioEffectRecord.Binds.setRecordingActive, ptr, _args, null)
+}
 
-    def isRecordingActive(): Boolean =
+    def isRecordingActive(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioEffectRecord.Binds.isRecordingActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setFormat(format: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = format.ptr
-        GdxApi.ptrcall(AudioEffectRecord.Binds.setFormat, ptr, _args, null)
-
-    def getFormat(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioEffectRecord.Binds.getFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getRecording(): AudioStreamWAV =
+    def getRecording(): AudioStreamWAV = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioEffectRecord.Binds.getRecording, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioStreamWAV(!_ret)
-    def format: Ptr[Byte] = getFormat()
-    def format_=(v: Ptr[Byte]): Unit = setFormat(v)
+}
+
+    def format: Int = getFormat()
+    def format_=(v: Int): Unit = setFormat(v)
+}
 
 object AudioEffectRecord:
-    object Binds:
-        var setRecordingActive: Ptr[Byte] = null
+object Binds {
+          var setRecordingActive: Ptr[Byte] = null
         var isRecordingActive: Ptr[Byte] = null
-        var setFormat: Ptr[Byte] = null
-        var getFormat: Ptr[Byte] = null
         var getRecording: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRecordingActive = GdxApi.getMethodBind(c"AudioEffectRecord", c"set_recording_active", 2586408642L)
+  def loadBinds(): Unit = {
+                Binds.setRecordingActive = GdxApi.getMethodBind(c"AudioEffectRecord", c"set_recording_active", 2586408642L)
             Binds.isRecordingActive = GdxApi.getMethodBind(c"AudioEffectRecord", c"is_recording_active", 36873697L)
-            Binds.setFormat = GdxApi.getMethodBind(c"AudioEffectRecord", c"set_format", 60648488L)
-            Binds.getFormat = GdxApi.getMethodBind(c"AudioEffectRecord", c"get_format", 3151724922L)
             Binds.getRecording = GdxApi.getMethodBind(c"AudioEffectRecord", c"get_recording", 2964110865L)
+  }
+}
 
-    def apply(): AudioEffectRecord =
-        val obj = new AudioEffectRecord()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectRecord")
-        obj
+def apply(): AudioEffectRecord = {
+  val obj = new AudioEffectRecord()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectRecord")
+  obj
+}

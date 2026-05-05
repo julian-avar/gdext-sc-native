@@ -5,90 +5,102 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsTestMotionResult2D extends RefCounted
-
-    def getTravel(): Vector2 =
+class PhysicsTestMotionResult2D extends RefCounted {
+    def getTravel(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getTravel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getRemainder(): Vector2 =
+    def getRemainder(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getRemainder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getCollisionPoint(): Vector2 =
+    def getCollisionPoint(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollisionPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getCollisionNormal(): Vector2 =
+    def getCollisionNormal(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollisionNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getColliderVelocity(): Vector2 =
+    def getColliderVelocity(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getColliderVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getColliderId(): Long =
+    def getColliderId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getColliderId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getColliderRid(): RID =
+    def getColliderRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getColliderRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getCollider(): Object =
+    def getCollider(): Object = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollider, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def getColliderShape(): Int =
+    def getColliderShape(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getColliderShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCollisionLocalShape(): Int =
+    def getCollisionLocalShape(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollisionLocalShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCollisionDepth(): Float =
+    def getCollisionDepth(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollisionDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getCollisionSafeFraction(): Float =
+    def getCollisionSafeFraction(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollisionSafeFraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getCollisionUnsafeFraction(): Float =
+    def getCollisionUnsafeFraction(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsTestMotionResult2D.Binds.getCollisionUnsafeFraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
-
+}
+}
 
 object PhysicsTestMotionResult2D:
-    object Binds:
-        var getTravel: Ptr[Byte] = null
+object Binds {
+          var getTravel: Ptr[Byte] = null
         var getRemainder: Ptr[Byte] = null
         var getCollisionPoint: Ptr[Byte] = null
         var getCollisionNormal: Ptr[Byte] = null
@@ -102,8 +114,8 @@ object PhysicsTestMotionResult2D:
         var getCollisionSafeFraction: Ptr[Byte] = null
         var getCollisionUnsafeFraction: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTravel = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_travel", 3341600327L)
+  def loadBinds(): Unit = {
+                Binds.getTravel = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_travel", 3341600327L)
             Binds.getRemainder = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_remainder", 3341600327L)
             Binds.getCollisionPoint = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_collision_point", 3341600327L)
             Binds.getCollisionNormal = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_collision_normal", 3341600327L)
@@ -116,8 +128,11 @@ object PhysicsTestMotionResult2D:
             Binds.getCollisionDepth = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_collision_depth", 1740695150L)
             Binds.getCollisionSafeFraction = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_collision_safe_fraction", 1740695150L)
             Binds.getCollisionUnsafeFraction = GdxApi.getMethodBind(c"PhysicsTestMotionResult2D", c"get_collision_unsafe_fraction", 1740695150L)
+  }
+}
 
-    def apply(): PhysicsTestMotionResult2D =
-        val obj = new PhysicsTestMotionResult2D()
-        obj.ptr = GdxApi.constructObject(c"PhysicsTestMotionResult2D")
-        obj
+def apply(): PhysicsTestMotionResult2D = {
+  val obj = new PhysicsTestMotionResult2D()
+  obj.ptr = GdxApi.constructObject(c"PhysicsTestMotionResult2D")
+  obj
+}

@@ -5,157 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventMIDI extends InputEvent
-
-    def setChannel(channel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = channel.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setChannel, ptr, _args, null)
-
-    def getChannel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMessage(message: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
-        GdxApi.ptrcall(InputEventMIDI.Binds.setMessage, ptr, _args, null)
-
-    def getMessage(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getMessage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPitch(pitch: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pitch.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setPitch, ptr, _args, null)
-
-    def getPitch(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getPitch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVelocity(velocity: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = velocity.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setVelocity, ptr, _args, null)
-
-    def getVelocity(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInstrument(instrument: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = instrument.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setInstrument, ptr, _args, null)
-
-    def getInstrument(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getInstrument, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPressure(pressure: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pressure.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setPressure, ptr, _args, null)
-
-    def getPressure(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getPressure, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setControllerNumber(controllerNumber: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = controllerNumber.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setControllerNumber, ptr, _args, null)
-
-    def getControllerNumber(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getControllerNumber, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setControllerValue(controllerValue: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = controllerValue.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMIDI.Binds.setControllerValue, ptr, _args, null)
-
-    def getControllerValue(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMIDI.Binds.getControllerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def channel: Ptr[Byte] = getChannel()
-    def channel_=(v: Ptr[Byte]): Unit = setChannel(v)
-    def message: Ptr[Byte] = getMessage()
-    def message_=(v: Ptr[Byte]): Unit = setMessage(v)
-    def pitch: Ptr[Byte] = getPitch()
-    def pitch_=(v: Ptr[Byte]): Unit = setPitch(v)
-    def velocity: Ptr[Byte] = getVelocity()
-    def velocity_=(v: Ptr[Byte]): Unit = setVelocity(v)
-    def instrument: Ptr[Byte] = getInstrument()
-    def instrument_=(v: Ptr[Byte]): Unit = setInstrument(v)
-    def pressure: Ptr[Byte] = getPressure()
-    def pressure_=(v: Ptr[Byte]): Unit = setPressure(v)
-    def controllerNumber: Ptr[Byte] = getControllerNumber()
-    def controllerNumber_=(v: Ptr[Byte]): Unit = setControllerNumber(v)
-    def controllerValue: Ptr[Byte] = getControllerValue()
-    def controllerValue_=(v: Ptr[Byte]): Unit = setControllerValue(v)
+class InputEventMIDI extends InputEvent {
+    def channel: Int = getChannel()
+    def channel_=(v: Int): Unit = setChannel(v)
+    def message: Int = getMessage()
+    def message_=(v: Int): Unit = setMessage(v)
+    def pitch: Int = getPitch()
+    def pitch_=(v: Int): Unit = setPitch(v)
+    def velocity: Int = getVelocity()
+    def velocity_=(v: Int): Unit = setVelocity(v)
+    def instrument: Int = getInstrument()
+    def instrument_=(v: Int): Unit = setInstrument(v)
+    def pressure: Int = getPressure()
+    def pressure_=(v: Int): Unit = setPressure(v)
+    def controllerNumber: Int = getControllerNumber()
+    def controllerNumber_=(v: Int): Unit = setControllerNumber(v)
+    def controllerValue: Int = getControllerValue()
+    def controllerValue_=(v: Int): Unit = setControllerValue(v)
+}
 
 object InputEventMIDI:
-    object Binds:
-        var setChannel: Ptr[Byte] = null
-        var getChannel: Ptr[Byte] = null
-        var setMessage: Ptr[Byte] = null
-        var getMessage: Ptr[Byte] = null
-        var setPitch: Ptr[Byte] = null
-        var getPitch: Ptr[Byte] = null
-        var setVelocity: Ptr[Byte] = null
-        var getVelocity: Ptr[Byte] = null
-        var setInstrument: Ptr[Byte] = null
-        var getInstrument: Ptr[Byte] = null
-        var setPressure: Ptr[Byte] = null
-        var getPressure: Ptr[Byte] = null
-        var setControllerNumber: Ptr[Byte] = null
-        var getControllerNumber: Ptr[Byte] = null
-        var setControllerValue: Ptr[Byte] = null
-        var getControllerValue: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setChannel = GdxApi.getMethodBind(c"InputEventMIDI", c"set_channel", 1286410249L)
-            Binds.getChannel = GdxApi.getMethodBind(c"InputEventMIDI", c"get_channel", 3905245786L)
-            Binds.setMessage = GdxApi.getMethodBind(c"InputEventMIDI", c"set_message", 1064271510L)
-            Binds.getMessage = GdxApi.getMethodBind(c"InputEventMIDI", c"get_message", 1936512097L)
-            Binds.setPitch = GdxApi.getMethodBind(c"InputEventMIDI", c"set_pitch", 1286410249L)
-            Binds.getPitch = GdxApi.getMethodBind(c"InputEventMIDI", c"get_pitch", 3905245786L)
-            Binds.setVelocity = GdxApi.getMethodBind(c"InputEventMIDI", c"set_velocity", 1286410249L)
-            Binds.getVelocity = GdxApi.getMethodBind(c"InputEventMIDI", c"get_velocity", 3905245786L)
-            Binds.setInstrument = GdxApi.getMethodBind(c"InputEventMIDI", c"set_instrument", 1286410249L)
-            Binds.getInstrument = GdxApi.getMethodBind(c"InputEventMIDI", c"get_instrument", 3905245786L)
-            Binds.setPressure = GdxApi.getMethodBind(c"InputEventMIDI", c"set_pressure", 1286410249L)
-            Binds.getPressure = GdxApi.getMethodBind(c"InputEventMIDI", c"get_pressure", 3905245786L)
-            Binds.setControllerNumber = GdxApi.getMethodBind(c"InputEventMIDI", c"set_controller_number", 1286410249L)
-            Binds.getControllerNumber = GdxApi.getMethodBind(c"InputEventMIDI", c"get_controller_number", 3905245786L)
-            Binds.setControllerValue = GdxApi.getMethodBind(c"InputEventMIDI", c"set_controller_value", 1286410249L)
-            Binds.getControllerValue = GdxApi.getMethodBind(c"InputEventMIDI", c"get_controller_value", 3905245786L)
-
-    def apply(): InputEventMIDI =
-        val obj = new InputEventMIDI()
-        obj.ptr = GdxApi.constructObject(c"InputEventMIDI")
-        obj
+def apply(): InputEventMIDI = {
+  val obj = new InputEventMIDI()
+  obj.ptr = GdxApi.constructObject(c"InputEventMIDI")
+  obj
+}

@@ -5,63 +5,71 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StreamPeerTLS extends StreamPeer
-
-    def poll(): Unit =
+class StreamPeerTLS extends StreamPeer {
+    def poll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(StreamPeerTLS.Binds.poll, ptr, _args, null)
+}
 
-    def acceptStream(stream: StreamPeer, serverOptions: TLSOptions): Int =
+    def acceptStream(stream: StreamPeer, serverOptions: TLSOptions): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = stream.ptr
         _args(1) = serverOptions.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeerTLS.Binds.acceptStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def connectToStream(stream: StreamPeer, commonName: CString): Int =
+    def connectToStream(stream: StreamPeer, commonName: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = stream.ptr
-        _args(1) = commonName.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = commonName
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeerTLS.Binds.connectToStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getStatus(): Int =
+    def getStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeerTLS.Binds.getStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getStream(): StreamPeer =
+    def getStream(): StreamPeer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeerTLS.Binds.getStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new StreamPeer(!_ret)
+}
 
-    def disconnectFromStream(): Unit =
+    def disconnectFromStream(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(StreamPeerTLS.Binds.disconnectFromStream, ptr, _args, null)
-
+}
+}
 
 object StreamPeerTLS:
-    object Binds:
-        var poll: Ptr[Byte] = null
+object Binds {
+          var poll: Ptr[Byte] = null
         var acceptStream: Ptr[Byte] = null
         var connectToStream: Ptr[Byte] = null
         var getStatus: Ptr[Byte] = null
         var getStream: Ptr[Byte] = null
         var disconnectFromStream: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.poll = GdxApi.getMethodBind(c"StreamPeerTLS", c"poll", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.poll = GdxApi.getMethodBind(c"StreamPeerTLS", c"poll", 3218959716L)
             Binds.acceptStream = GdxApi.getMethodBind(c"StreamPeerTLS", c"accept_stream", 4292689651L)
             Binds.connectToStream = GdxApi.getMethodBind(c"StreamPeerTLS", c"connect_to_stream", 57169517L)
             Binds.getStatus = GdxApi.getMethodBind(c"StreamPeerTLS", c"get_status", 1128380576L)
             Binds.getStream = GdxApi.getMethodBind(c"StreamPeerTLS", c"get_stream", 2741655269L)
             Binds.disconnectFromStream = GdxApi.getMethodBind(c"StreamPeerTLS", c"disconnect_from_stream", 3218959716L)
+  }
+}
 
-    def apply(): StreamPeerTLS =
-        val obj = new StreamPeerTLS()
-        obj.ptr = GdxApi.constructObject(c"StreamPeerTLS")
-        obj
+def apply(): StreamPeerTLS = {
+  val obj = new StreamPeerTLS()
+  obj.ptr = GdxApi.constructObject(c"StreamPeerTLS")
+  obj
+}

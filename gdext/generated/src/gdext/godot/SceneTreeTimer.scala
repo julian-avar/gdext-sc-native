@@ -5,27 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SceneTreeTimer extends RefCounted
-
-    def setTimeLeft(time: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = time
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SceneTreeTimer.Binds.setTimeLeft, ptr, _args, null)
-
-    def getTimeLeft(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SceneTreeTimer.Binds.getTimeLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def timeLeft: Ptr[Byte] = getTimeLeft()
-    def timeLeft_=(v: Ptr[Byte]): Unit = setTimeLeft(v)
-
-object SceneTreeTimer:
-    object Binds:
-        var setTimeLeft: Ptr[Byte] = null
-        var getTimeLeft: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTimeLeft = GdxApi.getMethodBind(c"SceneTreeTimer", c"set_time_left", 373806689L)
-            Binds.getTimeLeft = GdxApi.getMethodBind(c"SceneTreeTimer", c"get_time_left", 1740695150L)
+class SceneTreeTimer extends RefCounted {
+    def timeLeft: Double = getTimeLeft()
+    def timeLeft_=(v: Double): Unit = setTimeLeft(v)
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRInterfaceExtension extends XRInterface
+class XRInterfaceExtension extends XRInterface {
     def _getName(): CString = null
     def _getCapabilities(): Int = 0
     def _isInitialized(): Boolean = false
@@ -38,32 +38,36 @@ class XRInterfaceExtension extends XRInterface
     def _getColorTexture(): RID = null
     def _getDepthTexture(): RID = null
     def _getVelocityTexture(): RID = null
-    def getColorTexture(): RID =
+
+    def getColorTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterfaceExtension.Binds.getColorTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getDepthTexture(): RID =
+    def getDepthTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterfaceExtension.Binds.getDepthTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getVelocityTexture(): RID =
+    def getVelocityTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterfaceExtension.Binds.getVelocityTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def addBlit(renderTarget: RID, srcRect: Rect2, dstRect: Rect2i, useLayer: Boolean, layer: Int, applyLensDistortion: Boolean, eyeCenter: Vector2, k1: Double, k2: Double, upscale: Double, aspectRatio: Double): Unit =
+    def addBlit(renderTarget: RID, srcRect: Rect2, dstRect: Rect2i, useLayer: Boolean, layer: Int, applyLensDistortion: Boolean, eyeCenter: Vector2, k1: Double, k2: Double, upscale: Double, aspectRatio: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](11)
         _args(0) = renderTarget.ptr
         _args(1) = srcRect.ptr
         _args(2) = dstRect.ptr
         val _a3 = stackalloc[Byte](); !_a3 = if useLayer then 1.toByte else 0.toByte
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = layer.toLong
+        val _a4 = stackalloc[Long](); !_a4 = layer.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _a5 = stackalloc[Byte](); !_a5 = if applyLensDistortion then 1.toByte else 0.toByte
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
@@ -77,31 +81,36 @@ class XRInterfaceExtension extends XRInterface
         val _a10 = stackalloc[Double](); !_a10 = aspectRatio
         _args(10) = _a10.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRInterfaceExtension.Binds.addBlit, ptr, _args, null)
+}
 
-    def getRenderTargetTexture(renderTarget: RID): RID =
+    def getRenderTargetTexture(renderTarget: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = renderTarget.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterfaceExtension.Binds.getRenderTargetTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
-
+}
+}
 
 object XRInterfaceExtension:
-    object Binds:
-        var getColorTexture: Ptr[Byte] = null
+object Binds {
+          var getColorTexture: Ptr[Byte] = null
         var getDepthTexture: Ptr[Byte] = null
         var getVelocityTexture: Ptr[Byte] = null
         var addBlit: Ptr[Byte] = null
         var getRenderTargetTexture: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getColorTexture = GdxApi.getMethodBind(c"XRInterfaceExtension", c"get_color_texture", 529393457L)
+  def loadBinds(): Unit = {
+                Binds.getColorTexture = GdxApi.getMethodBind(c"XRInterfaceExtension", c"get_color_texture", 529393457L)
             Binds.getDepthTexture = GdxApi.getMethodBind(c"XRInterfaceExtension", c"get_depth_texture", 529393457L)
             Binds.getVelocityTexture = GdxApi.getMethodBind(c"XRInterfaceExtension", c"get_velocity_texture", 529393457L)
             Binds.addBlit = GdxApi.getMethodBind(c"XRInterfaceExtension", c"add_blit", 258596971L)
             Binds.getRenderTargetTexture = GdxApi.getMethodBind(c"XRInterfaceExtension", c"get_render_target_texture", 41030802L)
+  }
+}
 
-    def apply(): XRInterfaceExtension =
-        val obj = new XRInterfaceExtension()
-        obj.ptr = GdxApi.constructObject(c"XRInterfaceExtension")
-        obj
+def apply(): XRInterfaceExtension = {
+  val obj = new XRInterfaceExtension()
+  obj.ptr = GdxApi.constructObject(c"XRInterfaceExtension")
+  obj
+}

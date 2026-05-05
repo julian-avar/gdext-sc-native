@@ -5,101 +5,115 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class BitMap extends Resource
-
-    def create(size: Vector2i): Unit =
+class BitMap extends Resource {
+    def create(size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = size.ptr
         GdxApi.ptrcall(BitMap.Binds.create, ptr, _args, null)
+}
 
-    def createFromImageAlpha(image: Image): Unit =
+    def createFromImageAlpha(image: Image): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = image.ptr
         GdxApi.ptrcall(BitMap.Binds.createFromImageAlpha, ptr, _args, null)
+}
 
-    def setBitv(position: Vector2i, bit: Boolean): Unit =
+    def setBitv(position: Vector2i, bit: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = position.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if bit then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BitMap.Binds.setBitv, ptr, _args, null)
+}
 
-    def setBit(x: Int, y: Int, bit: Boolean): Unit =
+    def setBit(x: Int, y: Int, bit: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = x.toLong
+        val _a0 = stackalloc[Long](); !_a0 = x.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = y.toLong
+        val _a1 = stackalloc[Long](); !_a1 = y.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if bit then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BitMap.Binds.setBit, ptr, _args, null)
+}
 
-    def getBitv(position: Vector2i): Boolean =
+    def getBitv(position: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(BitMap.Binds.getBitv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getBit(x: Int, y: Int): Boolean =
+    def getBit(x: Int, y: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = x.toLong
+        val _a0 = stackalloc[Long](); !_a0 = x.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = y.toLong
+        val _a1 = stackalloc[Long](); !_a1 = y.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(BitMap.Binds.getBit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setBitRect(rect: Rect2i, bit: Boolean): Unit =
+    def setBitRect(rect: Rect2i, bit: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rect.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if bit then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BitMap.Binds.setBitRect, ptr, _args, null)
+}
 
-    def getTrueBitCount(): Int =
+    def getTrueBitCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(BitMap.Binds.getTrueBitCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSize(): Vector2i =
+    def getSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(BitMap.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def resize(newSize: Vector2i): Unit =
+    def resize(newSize: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = newSize.ptr
         GdxApi.ptrcall(BitMap.Binds.resize, ptr, _args, null)
+}
 
-    def growMask(pixels: Int, rect: Rect2i): Unit =
+    def growMask(pixels: Int, rect: Rect2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = pixels.toLong
+        val _a0 = stackalloc[Long](); !_a0 = pixels.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = rect.ptr
         GdxApi.ptrcall(BitMap.Binds.growMask, ptr, _args, null)
+}
 
-    def convertToImage(): Image =
+    def convertToImage(): Image = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(BitMap.Binds.convertToImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def opaqueToPolygons(rect: Rect2i): Ptr[Byte] =
+    def opaqueToPolygons(rect: Rect2i): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rect.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(BitMap.Binds.opaqueToPolygons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
+
     def data: Ptr[Byte] = _getData()
     def data_=(v: Ptr[Byte]): Unit = _setData(v)
+}
 
 object BitMap:
-    object Binds:
-        var create: Ptr[Byte] = null
+object Binds {
+          var create: Ptr[Byte] = null
         var createFromImageAlpha: Ptr[Byte] = null
         var setBitv: Ptr[Byte] = null
         var setBit: Ptr[Byte] = null
@@ -113,8 +127,8 @@ object BitMap:
         var convertToImage: Ptr[Byte] = null
         var opaqueToPolygons: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.create = GdxApi.getMethodBind(c"BitMap", c"create", 1130785943L)
+  def loadBinds(): Unit = {
+                Binds.create = GdxApi.getMethodBind(c"BitMap", c"create", 1130785943L)
             Binds.createFromImageAlpha = GdxApi.getMethodBind(c"BitMap", c"create_from_image_alpha", 106271684L)
             Binds.setBitv = GdxApi.getMethodBind(c"BitMap", c"set_bitv", 4153096796L)
             Binds.setBit = GdxApi.getMethodBind(c"BitMap", c"set_bit", 1383440665L)
@@ -127,8 +141,11 @@ object BitMap:
             Binds.growMask = GdxApi.getMethodBind(c"BitMap", c"grow_mask", 3317281434L)
             Binds.convertToImage = GdxApi.getMethodBind(c"BitMap", c"convert_to_image", 4190603485L)
             Binds.opaqueToPolygons = GdxApi.getMethodBind(c"BitMap", c"opaque_to_polygons", 48478126L)
+  }
+}
 
-    def apply(): BitMap =
-        val obj = new BitMap()
-        obj.ptr = GdxApi.constructObject(c"BitMap")
-        obj
+def apply(): BitMap = {
+  val obj = new BitMap()
+  obj.ptr = GdxApi.constructObject(c"BitMap")
+  obj
+}

@@ -5,49 +5,52 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Geometry3D extends Object
-
-    def computeConvexMeshPoints(planes: Ptr[Byte]): PackedVector3Array =
+class Geometry3D extends Object {
+    def computeConvexMeshPoints(planes: Ptr[Byte]): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = planes.ptr
+        _args(0) = planes
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.computeConvexMeshPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def buildBoxPlanes(extents: Vector3): Ptr[Byte] =
+    def buildBoxPlanes(extents: Vector3): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extents.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.buildBoxPlanes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def buildCylinderPlanes(radius: Float, height: Float, sides: Int): Ptr[Byte] =
+    def buildCylinderPlanes(radius: Float, height: Float, sides: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
         val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = height.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = sides.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sides.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.buildCylinderPlanes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def buildCapsulePlanes(radius: Float, height: Float, sides: Int, lats: Int): Ptr[Byte] =
+    def buildCapsulePlanes(radius: Float, height: Float, sides: Int, lats: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](4)
         val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = height.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = sides.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sides.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = lats.toLong
+        val _a3 = stackalloc[Long](); !_a3 = lats.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.buildCapsulePlanes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getClosestPointsBetweenSegments(p1: Vector3, p2: Vector3, q1: Vector3, q2: Vector3): PackedVector3Array =
+    def getClosestPointsBetweenSegments(p1: Vector3, p2: Vector3, q1: Vector3, q2: Vector3): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = p1.ptr
         _args(1) = p2.ptr
@@ -56,8 +59,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.getClosestPointsBetweenSegments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def getClosestPointToSegment(point: Vector3, s1: Vector3, s2: Vector3): Vector3 =
+    def getClosestPointToSegment(point: Vector3, s1: Vector3, s2: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = point.ptr
         _args(1) = s1.ptr
@@ -65,8 +69,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.getClosestPointToSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getClosestPointToSegmentUncapped(point: Vector3, s1: Vector3, s2: Vector3): Vector3 =
+    def getClosestPointToSegmentUncapped(point: Vector3, s1: Vector3, s2: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = point.ptr
         _args(1) = s1.ptr
@@ -74,8 +79,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.getClosestPointToSegmentUncapped, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getTriangleBarycentricCoords(point: Vector3, a: Vector3, b: Vector3, c: Vector3): Vector3 =
+    def getTriangleBarycentricCoords(point: Vector3, a: Vector3, b: Vector3, c: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = point.ptr
         _args(1) = a.ptr
@@ -84,8 +90,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.getTriangleBarycentricCoords, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def rayIntersectsTriangle(from: Vector3, dir: Vector3, a: Vector3, b: Vector3, c: Vector3): Ptr[Byte] =
+    def rayIntersectsTriangle(from: Vector3, dir: Vector3, a: Vector3, b: Vector3, c: Vector3): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = from.ptr
         _args(1) = dir.ptr
@@ -95,8 +102,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.rayIntersectsTriangle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def segmentIntersectsTriangle(from: Vector3, to: Vector3, a: Vector3, b: Vector3, c: Vector3): Ptr[Byte] =
+    def segmentIntersectsTriangle(from: Vector3, to: Vector3, a: Vector3, b: Vector3, c: Vector3): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = from.ptr
         _args(1) = to.ptr
@@ -106,8 +114,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.segmentIntersectsTriangle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def segmentIntersectsSphere(from: Vector3, to: Vector3, spherePosition: Vector3, sphereRadius: Float): PackedVector3Array =
+    def segmentIntersectsSphere(from: Vector3, to: Vector3, spherePosition: Vector3, sphereRadius: Float): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = from.ptr
         _args(1) = to.ptr
@@ -117,8 +126,9 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.segmentIntersectsSphere, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def segmentIntersectsCylinder(from: Vector3, to: Vector3, height: Float, radius: Float): PackedVector3Array =
+    def segmentIntersectsCylinder(from: Vector3, to: Vector3, height: Float, radius: Float): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = from.ptr
         _args(1) = to.ptr
@@ -129,35 +139,39 @@ class Geometry3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.segmentIntersectsCylinder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def segmentIntersectsConvex(from: Vector3, to: Vector3, planes: Ptr[Byte]): PackedVector3Array =
+    def segmentIntersectsConvex(from: Vector3, to: Vector3, planes: Ptr[Byte]): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = from.ptr
         _args(1) = to.ptr
-        _args(2) = planes.ptr
+        _args(2) = planes
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.segmentIntersectsConvex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def clipPolygon(points: PackedVector3Array, plane: Plane): PackedVector3Array =
+    def clipPolygon(points: PackedVector3Array, plane: Plane): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = plane.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.clipPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def tetrahedralizeDelaunay(points: PackedVector3Array): PackedInt32Array =
+    def tetrahedralizeDelaunay(points: PackedVector3Array): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = points.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry3D.Binds.tetrahedralizeDelaunay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
-
+}
+}
 
 object Geometry3D:
-    object Binds:
-        var computeConvexMeshPoints: Ptr[Byte] = null
+object Binds {
+          var computeConvexMeshPoints: Ptr[Byte] = null
         var buildBoxPlanes: Ptr[Byte] = null
         var buildCylinderPlanes: Ptr[Byte] = null
         var buildCapsulePlanes: Ptr[Byte] = null
@@ -173,8 +187,8 @@ object Geometry3D:
         var clipPolygon: Ptr[Byte] = null
         var tetrahedralizeDelaunay: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.computeConvexMeshPoints = GdxApi.getMethodBind(c"Geometry3D", c"compute_convex_mesh_points", 1936902142L)
+  def loadBinds(): Unit = {
+                Binds.computeConvexMeshPoints = GdxApi.getMethodBind(c"Geometry3D", c"compute_convex_mesh_points", 1936902142L)
             Binds.buildBoxPlanes = GdxApi.getMethodBind(c"Geometry3D", c"build_box_planes", 3622277145L)
             Binds.buildCylinderPlanes = GdxApi.getMethodBind(c"Geometry3D", c"build_cylinder_planes", 449920067L)
             Binds.buildCapsulePlanes = GdxApi.getMethodBind(c"Geometry3D", c"build_capsule_planes", 2113592876L)
@@ -189,8 +203,11 @@ object Geometry3D:
             Binds.segmentIntersectsConvex = GdxApi.getMethodBind(c"Geometry3D", c"segment_intersects_convex", 537425332L)
             Binds.clipPolygon = GdxApi.getMethodBind(c"Geometry3D", c"clip_polygon", 2603188319L)
             Binds.tetrahedralizeDelaunay = GdxApi.getMethodBind(c"Geometry3D", c"tetrahedralize_delaunay", 1230191221L)
+  }
+}
 
-    def apply(): Geometry3D =
-        val obj = new Geometry3D()
-        obj.ptr = GdxApi.constructObject(c"Geometry3D")
-        obj
+def apply(): Geometry3D = {
+  val obj = new Geometry3D()
+  obj.ptr = GdxApi.constructObject(c"Geometry3D")
+  obj
+}

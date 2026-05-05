@@ -5,86 +5,98 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorUndoRedoManager extends Object
-
-    def createAction(name: CString): Unit =
+class EditorUndoRedoManager extends Object {
+    def createAction(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.createAction, ptr, _args, null)
+}
 
-    def commitAction(): Unit =
+    def commitAction(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.commitAction, ptr, _args, null)
+}
 
-    def isCommittingAction(): Boolean =
+    def isCommittingAction(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.isCommittingAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def forceFixedHistory(): Unit =
+    def forceFixedHistory(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.forceFixedHistory, ptr, _args, null)
+}
 
-    def addDoMethod(`object`: Object, method: CString): Unit =
+    def addDoMethod(`object`: Object, method: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
-        _args(1) = method.ptr
+        _args(1) = method
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.addDoMethod, ptr, _args, null)
+}
 
-    def addUndoMethod(`object`: Object, method: CString): Unit =
+    def addUndoMethod(`object`: Object, method: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
-        _args(1) = method.ptr
+        _args(1) = method
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.addUndoMethod, ptr, _args, null)
+}
 
-    def addDoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit =
+    def addDoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = `object`.ptr
-        _args(1) = property.ptr
-        _args(2) = value.ptr
+        _args(1) = property
+        _args(2) = value
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.addDoProperty, ptr, _args, null)
+}
 
-    def addUndoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit =
+    def addUndoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = `object`.ptr
-        _args(1) = property.ptr
-        _args(2) = value.ptr
+        _args(1) = property
+        _args(2) = value
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.addUndoProperty, ptr, _args, null)
+}
 
-    def addDoReference(`object`: Object): Unit =
+    def addDoReference(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.addDoReference, ptr, _args, null)
+}
 
-    def addUndoReference(`object`: Object): Unit =
+    def addUndoReference(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.addUndoReference, ptr, _args, null)
+}
 
-    def getObjectHistoryId(`object`: Object): Int =
+    def getObjectHistoryId(`object`: Object): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.getObjectHistoryId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getHistoryUndoRedo(id: Int): UndoRedo =
+    def getHistoryUndoRedo(id: Int): UndoRedo = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.getHistoryUndoRedo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new UndoRedo(!_ret)
+}
 
-    def clearHistory(): Unit =
+    def clearHistory(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorUndoRedoManager.Binds.clearHistory, ptr, _args, null)
-
+}
+}
 
 object EditorUndoRedoManager:
-    object Binds:
-        var createAction: Ptr[Byte] = null
+object Binds {
+          var createAction: Ptr[Byte] = null
         var commitAction: Ptr[Byte] = null
         var isCommittingAction: Ptr[Byte] = null
         var forceFixedHistory: Ptr[Byte] = null
@@ -98,8 +110,8 @@ object EditorUndoRedoManager:
         var getHistoryUndoRedo: Ptr[Byte] = null
         var clearHistory: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createAction = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"create_action", 796197507L)
+  def loadBinds(): Unit = {
+                Binds.createAction = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"create_action", 796197507L)
             Binds.commitAction = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"commit_action", 3216645846L)
             Binds.isCommittingAction = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"is_committing_action", 36873697L)
             Binds.forceFixedHistory = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"force_fixed_history", 3218959716L)
@@ -112,3 +124,5 @@ object EditorUndoRedoManager:
             Binds.getObjectHistoryId = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"get_object_history_id", 1107568780L)
             Binds.getHistoryUndoRedo = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"get_history_undo_redo", 2417974513L)
             Binds.clearHistory = GdxApi.getMethodBind(c"EditorUndoRedoManager", c"clear_history", 2020603371L)
+  }
+}

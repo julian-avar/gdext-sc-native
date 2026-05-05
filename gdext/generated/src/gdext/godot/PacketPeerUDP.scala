@@ -5,100 +5,112 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PacketPeerUDP extends PacketPeer
-
-    def bind(port: Int): Int =
+class PacketPeerUDP extends PacketPeer {
+    def bind(port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
+        val _a0 = stackalloc[Long](); !_a0 = port.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.bind, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def close(): Unit =
+    def close(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PacketPeerUDP.Binds.close, ptr, _args, null)
+}
 
-    def wait(): Int =
+    def wait(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.wait, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isBound(): Boolean =
+    def isBound(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.isBound, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def connectToHost(host: CString, port: Int): Int =
+    def connectToHost(host: CString, port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = host.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = host
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.connectToHost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isSocketConnected(): Boolean =
+    def isSocketConnected(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.isSocketConnected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPacketIp(): CString =
+    def getPacketIp(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.getPacketIp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPacketPort(): Int =
+    def getPacketPort(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.getPacketPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLocalPort(): Int =
+    def getLocalPort(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.getLocalPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setDestAddress(host: CString, port: Int): Int =
+    def setDestAddress(host: CString, port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = host.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = host
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.setDestAddress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setBroadcastEnabled(enabled: Boolean): Unit =
+    def setBroadcastEnabled(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PacketPeerUDP.Binds.setBroadcastEnabled, ptr, _args, null)
+}
 
-    def joinMulticastGroup(multicastAddress: CString, interfaceName: CString): Int =
+    def joinMulticastGroup(multicastAddress: CString, interfaceName: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = multicastAddress.ptr
-        _args(1) = interfaceName.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = multicastAddress
+        _args(1) = interfaceName
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.joinMulticastGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def leaveMulticastGroup(multicastAddress: CString, interfaceName: CString): Int =
+    def leaveMulticastGroup(multicastAddress: CString, interfaceName: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = multicastAddress.ptr
-        _args(1) = interfaceName.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = multicastAddress
+        _args(1) = interfaceName
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerUDP.Binds.leaveMulticastGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object PacketPeerUDP:
-    object Binds:
-        var bind: Ptr[Byte] = null
+object Binds {
+          var bind: Ptr[Byte] = null
         var close: Ptr[Byte] = null
         var wait: Ptr[Byte] = null
         var isBound: Ptr[Byte] = null
@@ -112,8 +124,8 @@ object PacketPeerUDP:
         var joinMulticastGroup: Ptr[Byte] = null
         var leaveMulticastGroup: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.bind = GdxApi.getMethodBind(c"PacketPeerUDP", c"bind", 4051239242L)
+  def loadBinds(): Unit = {
+                Binds.bind = GdxApi.getMethodBind(c"PacketPeerUDP", c"bind", 4051239242L)
             Binds.close = GdxApi.getMethodBind(c"PacketPeerUDP", c"close", 3218959716L)
             Binds.wait = GdxApi.getMethodBind(c"PacketPeerUDP", c"wait", 166280745L)
             Binds.isBound = GdxApi.getMethodBind(c"PacketPeerUDP", c"is_bound", 36873697L)
@@ -126,8 +138,11 @@ object PacketPeerUDP:
             Binds.setBroadcastEnabled = GdxApi.getMethodBind(c"PacketPeerUDP", c"set_broadcast_enabled", 2586408642L)
             Binds.joinMulticastGroup = GdxApi.getMethodBind(c"PacketPeerUDP", c"join_multicast_group", 852856452L)
             Binds.leaveMulticastGroup = GdxApi.getMethodBind(c"PacketPeerUDP", c"leave_multicast_group", 852856452L)
+  }
+}
 
-    def apply(): PacketPeerUDP =
-        val obj = new PacketPeerUDP()
-        obj.ptr = GdxApi.constructObject(c"PacketPeerUDP")
-        obj
+def apply(): PacketPeerUDP = {
+  val obj = new PacketPeerUDP()
+  obj.ptr = GdxApi.constructObject(c"PacketPeerUDP")
+  obj
+}

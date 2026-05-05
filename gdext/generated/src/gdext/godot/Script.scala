@@ -5,127 +5,131 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Script extends Resource
-
-    def canInstantiate(): Boolean =
+class Script extends Resource {
+    def canInstantiate(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Script.Binds.canInstantiate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def instanceHas(baseObject: Object): Boolean =
+    def instanceHas(baseObject: Object): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = baseObject.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Script.Binds.instanceHas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasSourceCode(): Boolean =
+    def hasSourceCode(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Script.Binds.hasSourceCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSourceCode(): CString =
+    def reload(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Script.Binds.getSourceCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setSourceCode(source: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = source.ptr
-        GdxApi.ptrcall(Script.Binds.setSourceCode, ptr, _args, null)
-
-    def reload(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Script.Binds.reload, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBaseScript(): Script =
+    def getBaseScript(): Script = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getBaseScript, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Script(!_ret)
+}
 
-    def getInstanceBaseType(): CString =
+    def getInstanceBaseType(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getInstanceBaseType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getGlobalName(): CString =
+    def getGlobalName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getGlobalName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasScriptSignal(signalName: CString): Boolean =
+    def hasScriptSignal(signalName: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signalName.ptr
+        _args(0) = signalName
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Script.Binds.hasScriptSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getScriptPropertyList(): Ptr[Byte] =
+    def getScriptPropertyList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getScriptPropertyList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getScriptMethodList(): Ptr[Byte] =
+    def getScriptMethodList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getScriptMethodList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getScriptSignalList(): Ptr[Byte] =
+    def getScriptSignalList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getScriptSignalList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getScriptConstantMap(): Dictionary =
+    def getScriptConstantMap(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getScriptConstantMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getPropertyDefaultValue(property: CString): Ptr[Byte] =
+    def getPropertyDefaultValue(property: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = property.ptr
+        _args(0) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getPropertyDefaultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isTool(): Boolean =
+    def isTool(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Script.Binds.isTool, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isAbstract(): Boolean =
+    def isAbstract(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Script.Binds.isAbstract, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getRpcConfig(): Ptr[Byte] =
+    def getRpcConfig(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Script.Binds.getRpcConfig, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def sourceCode: Ptr[Byte] = getSourceCode()
-    def sourceCode_=(v: Ptr[Byte]): Unit = setSourceCode(v)
+}
+
+    def sourceCode: CString = getSourceCode()
+    def sourceCode_=(v: CString): Unit = setSourceCode(v)
+}
 
 object Script:
-    object Binds:
-        var canInstantiate: Ptr[Byte] = null
+object Binds {
+          var canInstantiate: Ptr[Byte] = null
         var instanceHas: Ptr[Byte] = null
         var hasSourceCode: Ptr[Byte] = null
-        var getSourceCode: Ptr[Byte] = null
-        var setSourceCode: Ptr[Byte] = null
         var reload: Ptr[Byte] = null
         var getBaseScript: Ptr[Byte] = null
         var getInstanceBaseType: Ptr[Byte] = null
@@ -140,12 +144,10 @@ object Script:
         var isAbstract: Ptr[Byte] = null
         var getRpcConfig: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.canInstantiate = GdxApi.getMethodBind(c"Script", c"can_instantiate", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.canInstantiate = GdxApi.getMethodBind(c"Script", c"can_instantiate", 36873697L)
             Binds.instanceHas = GdxApi.getMethodBind(c"Script", c"instance_has", 397768994L)
             Binds.hasSourceCode = GdxApi.getMethodBind(c"Script", c"has_source_code", 36873697L)
-            Binds.getSourceCode = GdxApi.getMethodBind(c"Script", c"get_source_code", 201670096L)
-            Binds.setSourceCode = GdxApi.getMethodBind(c"Script", c"set_source_code", 83702148L)
             Binds.reload = GdxApi.getMethodBind(c"Script", c"reload", 1633102583L)
             Binds.getBaseScript = GdxApi.getMethodBind(c"Script", c"get_base_script", 278624046L)
             Binds.getInstanceBaseType = GdxApi.getMethodBind(c"Script", c"get_instance_base_type", 2002593661L)
@@ -159,3 +161,5 @@ object Script:
             Binds.isTool = GdxApi.getMethodBind(c"Script", c"is_tool", 36873697L)
             Binds.isAbstract = GdxApi.getMethodBind(c"Script", c"is_abstract", 36873697L)
             Binds.getRpcConfig = GdxApi.getMethodBind(c"Script", c"get_rpc_config", 1214101251L)
+  }
+}

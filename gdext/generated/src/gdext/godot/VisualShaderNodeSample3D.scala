@@ -5,26 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeSample3D extends VisualShaderNode
-
-    def setSource(value: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
-        GdxApi.ptrcall(VisualShaderNodeSample3D.Binds.setSource, ptr, _args, null)
-
-    def getSource(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeSample3D.Binds.getSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def source: Ptr[Byte] = getSource()
-    def source_=(v: Ptr[Byte]): Unit = setSource(v)
-
-object VisualShaderNodeSample3D:
-    object Binds:
-        var setSource: Ptr[Byte] = null
-        var getSource: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSource = GdxApi.getMethodBind(c"VisualShaderNodeSample3D", c"set_source", 3315130991L)
-            Binds.getSource = GdxApi.getMethodBind(c"VisualShaderNodeSample3D", c"get_source", 1079494121L)
+class VisualShaderNodeSample3D extends VisualShaderNode {
+    def source: Int = getSource()
+    def source_=(v: Int): Unit = setSource(v)
+}

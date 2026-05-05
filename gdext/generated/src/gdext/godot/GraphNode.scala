@@ -5,301 +5,300 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GraphNode extends GraphElement
+class GraphNode extends GraphElement {
     def _drawPort(slotIndex: Int, position: Vector2i, left: Boolean, color: Color): Unit = ()
-    def setTitle(title: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = title.ptr
-        GdxApi.ptrcall(GraphNode.Binds.setTitle, ptr, _args, null)
 
-    def getTitle(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GraphNode.Binds.getTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getTitlebarHbox(): HBoxContainer =
+    def getTitlebarHbox(): HBoxContainer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getTitlebarHbox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new HBoxContainer(!_ret)
+}
 
-    def setSlot(slotIndex: Int, enableLeftPort: Boolean, typeLeft: Int, colorLeft: Color, enableRightPort: Boolean, typeRight: Int, colorRight: Color): Unit =
+    def setSlot(slotIndex: Int, enableLeftPort: Boolean, typeLeft: Int, colorLeft: Color, enableRightPort: Boolean, typeRight: Int, colorRight: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](7)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enableLeftPort then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = typeLeft.toLong
+        val _a2 = stackalloc[Long](); !_a2 = typeLeft.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = colorLeft.ptr
         val _a4 = stackalloc[Byte](); !_a4 = if enableRightPort then 1.toByte else 0.toByte
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = typeRight.toLong
+        val _a5 = stackalloc[Long](); !_a5 = typeRight.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         _args(6) = colorRight.ptr
         GdxApi.ptrcall(GraphNode.Binds.setSlot, ptr, _args, null)
+}
 
-    def clearSlot(slotIndex: Int): Unit =
+    def clearSlot(slotIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GraphNode.Binds.clearSlot, ptr, _args, null)
+}
 
-    def clearAllSlots(): Unit =
+    def clearAllSlots(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(GraphNode.Binds.clearAllSlots, ptr, _args, null)
+}
 
-    def isSlotEnabledLeft(slotIndex: Int): Boolean =
+    def isSlotEnabledLeft(slotIndex: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(GraphNode.Binds.isSlotEnabledLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSlotEnabledLeft(slotIndex: Int, enable: Boolean): Unit =
+    def setSlotEnabledLeft(slotIndex: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GraphNode.Binds.setSlotEnabledLeft, ptr, _args, null)
+}
 
-    def setSlotTypeLeft(slotIndex: Int, `type`: Int): Unit =
+    def setSlotTypeLeft(slotIndex: Int, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = `type`.toLong
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GraphNode.Binds.setSlotTypeLeft, ptr, _args, null)
+}
 
-    def getSlotTypeLeft(slotIndex: Int): Int =
+    def getSlotTypeLeft(slotIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getSlotTypeLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSlotColorLeft(slotIndex: Int, color: Color): Unit =
+    def setSlotColorLeft(slotIndex: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(GraphNode.Binds.setSlotColorLeft, ptr, _args, null)
+}
 
-    def getSlotColorLeft(slotIndex: Int): Color =
+    def getSlotColorLeft(slotIndex: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getSlotColorLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setSlotCustomIconLeft(slotIndex: Int, customIcon: Texture2D): Unit =
+    def setSlotCustomIconLeft(slotIndex: Int, customIcon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = customIcon.ptr
         GdxApi.ptrcall(GraphNode.Binds.setSlotCustomIconLeft, ptr, _args, null)
+}
 
-    def getSlotCustomIconLeft(slotIndex: Int): Texture2D =
+    def getSlotCustomIconLeft(slotIndex: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getSlotCustomIconLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def isSlotEnabledRight(slotIndex: Int): Boolean =
+    def isSlotEnabledRight(slotIndex: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(GraphNode.Binds.isSlotEnabledRight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSlotEnabledRight(slotIndex: Int, enable: Boolean): Unit =
+    def setSlotEnabledRight(slotIndex: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GraphNode.Binds.setSlotEnabledRight, ptr, _args, null)
+}
 
-    def setSlotTypeRight(slotIndex: Int, `type`: Int): Unit =
+    def setSlotTypeRight(slotIndex: Int, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = `type`.toLong
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GraphNode.Binds.setSlotTypeRight, ptr, _args, null)
+}
 
-    def getSlotTypeRight(slotIndex: Int): Int =
+    def getSlotTypeRight(slotIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getSlotTypeRight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSlotColorRight(slotIndex: Int, color: Color): Unit =
+    def setSlotColorRight(slotIndex: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(GraphNode.Binds.setSlotColorRight, ptr, _args, null)
+}
 
-    def getSlotColorRight(slotIndex: Int): Color =
+    def getSlotColorRight(slotIndex: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getSlotColorRight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setSlotCustomIconRight(slotIndex: Int, customIcon: Texture2D): Unit =
+    def setSlotCustomIconRight(slotIndex: Int, customIcon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = customIcon.ptr
         GdxApi.ptrcall(GraphNode.Binds.setSlotCustomIconRight, ptr, _args, null)
+}
 
-    def getSlotCustomIconRight(slotIndex: Int): Texture2D =
+    def getSlotCustomIconRight(slotIndex: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getSlotCustomIconRight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def isSlotDrawStylebox(slotIndex: Int): Boolean =
+    def isSlotDrawStylebox(slotIndex: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(GraphNode.Binds.isSlotDrawStylebox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSlotDrawStylebox(slotIndex: Int, enable: Boolean): Unit =
+    def setSlotDrawStylebox(slotIndex: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = slotIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slotIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GraphNode.Binds.setSlotDrawStylebox, ptr, _args, null)
+}
 
-    def setIgnoreInvalidConnectionType(ignore: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ignore then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GraphNode.Binds.setIgnoreInvalidConnectionType, ptr, _args, null)
-
-    def isIgnoringValidConnectionType(): Boolean =
+    def getInputPortCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(GraphNode.Binds.isIgnoringValidConnectionType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSlotsFocusMode(focusMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = focusMode.ptr
-        GdxApi.ptrcall(GraphNode.Binds.setSlotsFocusMode, ptr, _args, null)
-
-    def getSlotsFocusMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GraphNode.Binds.getSlotsFocusMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getInputPortCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getInputPortCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getInputPortPosition(portIdx: Int): Vector2 =
+    def getInputPortPosition(portIdx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getInputPortPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getInputPortType(portIdx: Int): Int =
+    def getInputPortType(portIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getInputPortType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getInputPortColor(portIdx: Int): Color =
+    def getInputPortColor(portIdx: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getInputPortColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getInputPortSlot(portIdx: Int): Int =
+    def getInputPortSlot(portIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getInputPortSlot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getOutputPortCount(): Int =
+    def getOutputPortCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getOutputPortCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getOutputPortPosition(portIdx: Int): Vector2 =
+    def getOutputPortPosition(portIdx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getOutputPortPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getOutputPortType(portIdx: Int): Int =
+    def getOutputPortType(portIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getOutputPortType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getOutputPortColor(portIdx: Int): Color =
+    def getOutputPortColor(portIdx: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphNode.Binds.getOutputPortColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getOutputPortSlot(portIdx: Int): Int =
+    def getOutputPortSlot(portIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = portIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = portIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GraphNode.Binds.getOutputPortSlot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def title: Ptr[Byte] = getTitle()
-    def title_=(v: Ptr[Byte]): Unit = setTitle(v)
-    def ignoreInvalidConnectionType: Ptr[Byte] = isIgnoringValidConnectionType()
-    def ignoreInvalidConnectionType_=(v: Ptr[Byte]): Unit = setIgnoreInvalidConnectionType(v)
-    def slotsFocusMode: Ptr[Byte] = getSlotsFocusMode()
-    def slotsFocusMode_=(v: Ptr[Byte]): Unit = setSlotsFocusMode(v)
+}
+
+    def title: CString = getTitle()
+    def title_=(v: CString): Unit = setTitle(v)
+    def ignoreInvalidConnectionType: Boolean = isIgnoringValidConnectionType()
+    def ignoreInvalidConnectionType_=(v: Boolean): Unit = setIgnoreInvalidConnectionType(v)
+    def slotsFocusMode: Int = getSlotsFocusMode()
+    def slotsFocusMode_=(v: Int): Unit = setSlotsFocusMode(v)
+}
 
 object GraphNode:
-    object Binds:
-        var setTitle: Ptr[Byte] = null
-        var getTitle: Ptr[Byte] = null
-        var getTitlebarHbox: Ptr[Byte] = null
+object Binds {
+          var getTitlebarHbox: Ptr[Byte] = null
         var setSlot: Ptr[Byte] = null
         var clearSlot: Ptr[Byte] = null
         var clearAllSlots: Ptr[Byte] = null
@@ -321,10 +320,6 @@ object GraphNode:
         var getSlotCustomIconRight: Ptr[Byte] = null
         var isSlotDrawStylebox: Ptr[Byte] = null
         var setSlotDrawStylebox: Ptr[Byte] = null
-        var setIgnoreInvalidConnectionType: Ptr[Byte] = null
-        var isIgnoringValidConnectionType: Ptr[Byte] = null
-        var setSlotsFocusMode: Ptr[Byte] = null
-        var getSlotsFocusMode: Ptr[Byte] = null
         var getInputPortCount: Ptr[Byte] = null
         var getInputPortPosition: Ptr[Byte] = null
         var getInputPortType: Ptr[Byte] = null
@@ -336,10 +331,8 @@ object GraphNode:
         var getOutputPortColor: Ptr[Byte] = null
         var getOutputPortSlot: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTitle = GdxApi.getMethodBind(c"GraphNode", c"set_title", 83702148L)
-            Binds.getTitle = GdxApi.getMethodBind(c"GraphNode", c"get_title", 201670096L)
-            Binds.getTitlebarHbox = GdxApi.getMethodBind(c"GraphNode", c"get_titlebar_hbox", 3590609951L)
+  def loadBinds(): Unit = {
+                Binds.getTitlebarHbox = GdxApi.getMethodBind(c"GraphNode", c"get_titlebar_hbox", 3590609951L)
             Binds.setSlot = GdxApi.getMethodBind(c"GraphNode", c"set_slot", 2873310869L)
             Binds.clearSlot = GdxApi.getMethodBind(c"GraphNode", c"clear_slot", 1286410249L)
             Binds.clearAllSlots = GdxApi.getMethodBind(c"GraphNode", c"clear_all_slots", 3218959716L)
@@ -361,10 +354,6 @@ object GraphNode:
             Binds.getSlotCustomIconRight = GdxApi.getMethodBind(c"GraphNode", c"get_slot_custom_icon_right", 3536238170L)
             Binds.isSlotDrawStylebox = GdxApi.getMethodBind(c"GraphNode", c"is_slot_draw_stylebox", 1116898809L)
             Binds.setSlotDrawStylebox = GdxApi.getMethodBind(c"GraphNode", c"set_slot_draw_stylebox", 300928843L)
-            Binds.setIgnoreInvalidConnectionType = GdxApi.getMethodBind(c"GraphNode", c"set_ignore_invalid_connection_type", 2586408642L)
-            Binds.isIgnoringValidConnectionType = GdxApi.getMethodBind(c"GraphNode", c"is_ignoring_valid_connection_type", 36873697L)
-            Binds.setSlotsFocusMode = GdxApi.getMethodBind(c"GraphNode", c"set_slots_focus_mode", 3232914922L)
-            Binds.getSlotsFocusMode = GdxApi.getMethodBind(c"GraphNode", c"get_slots_focus_mode", 2132829277L)
             Binds.getInputPortCount = GdxApi.getMethodBind(c"GraphNode", c"get_input_port_count", 2455072627L)
             Binds.getInputPortPosition = GdxApi.getMethodBind(c"GraphNode", c"get_input_port_position", 3114997196L)
             Binds.getInputPortType = GdxApi.getMethodBind(c"GraphNode", c"get_input_port_type", 3744713108L)
@@ -375,8 +364,11 @@ object GraphNode:
             Binds.getOutputPortType = GdxApi.getMethodBind(c"GraphNode", c"get_output_port_type", 3744713108L)
             Binds.getOutputPortColor = GdxApi.getMethodBind(c"GraphNode", c"get_output_port_color", 2624840992L)
             Binds.getOutputPortSlot = GdxApi.getMethodBind(c"GraphNode", c"get_output_port_slot", 3744713108L)
+  }
+}
 
-    def apply(): GraphNode =
-        val obj = new GraphNode()
-        obj.ptr = GdxApi.constructObject(c"GraphNode")
-        obj
+def apply(): GraphNode = {
+  val obj = new GraphNode()
+  obj.ptr = GdxApi.constructObject(c"GraphNode")
+  obj
+}

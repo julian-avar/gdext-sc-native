@@ -5,17 +5,17 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StreamPeerExtension extends StreamPeer
+class StreamPeerExtension extends StreamPeer {
     def _getData(rBuffer: Ptr[Byte], rBytes: Int, rReceived: Ptr[Byte]): Int = null
     def _getPartialData(rBuffer: Ptr[Byte], rBytes: Int, rReceived: Ptr[Byte]): Int = null
     def _putData(pData: Ptr[Byte], pBytes: Int, rSent: Ptr[Byte]): Int = null
     def _putPartialData(pData: Ptr[Byte], pBytes: Int, rSent: Ptr[Byte]): Int = null
     def _getAvailableBytes(): Int = 0
-
-
+}
 
 object StreamPeerExtension:
-    def apply(): StreamPeerExtension =
-        val obj = new StreamPeerExtension()
-        obj.ptr = GdxApi.constructObject(c"StreamPeerExtension")
-        obj
+def apply(): StreamPeerExtension = {
+  val obj = new StreamPeerExtension()
+  obj.ptr = GdxApi.constructObject(c"StreamPeerExtension")
+  obj
+}

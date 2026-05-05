@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectBandLimitFilter extends AudioEffectFilter
-
-
-
+class AudioEffectBandLimitFilter extends AudioEffectFilter {}
 
 object AudioEffectBandLimitFilter:
-    def apply(): AudioEffectBandLimitFilter =
-        val obj = new AudioEffectBandLimitFilter()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectBandLimitFilter")
-        obj
+def apply(): AudioEffectBandLimitFilter = {
+  val obj = new AudioEffectBandLimitFilter()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectBandLimitFilter")
+  obj
+}

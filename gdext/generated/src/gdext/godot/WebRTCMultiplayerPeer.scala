@@ -5,71 +5,78 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WebRTCMultiplayerPeer extends MultiplayerPeer
-
-    def createServer(): Int =
+class WebRTCMultiplayerPeer extends MultiplayerPeer {
+    def createServer(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.createServer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createClient(peerId: Int): Int =
+    def createClient(peerId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.createClient, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createMesh(peerId: Int): Int =
+    def createMesh(peerId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.createMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addPeer(peer: WebRTCPeerConnection, peerId: Int): Int =
+    def addPeer(peer: WebRTCPeerConnection, peerId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = peer.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = peerId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = peerId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.addPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removePeer(peerId: Int): Unit =
+    def removePeer(peerId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.removePeer, ptr, _args, null)
+}
 
-    def hasPeer(peerId: Int): Boolean =
+    def hasPeer(peerId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.hasPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPeer(peerId: Int): Dictionary =
+    def getPeer(peerId: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.getPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getPeers(): Dictionary =
+    def getPeers(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebRTCMultiplayerPeer.Binds.getPeers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
-
+}
+}
 
 object WebRTCMultiplayerPeer:
-    object Binds:
-        var createServer: Ptr[Byte] = null
+object Binds {
+          var createServer: Ptr[Byte] = null
         var createClient: Ptr[Byte] = null
         var createMesh: Ptr[Byte] = null
         var addPeer: Ptr[Byte] = null
@@ -78,8 +85,8 @@ object WebRTCMultiplayerPeer:
         var getPeer: Ptr[Byte] = null
         var getPeers: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createServer = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"create_server", 2865356025L)
+  def loadBinds(): Unit = {
+                Binds.createServer = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"create_server", 2865356025L)
             Binds.createClient = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"create_client", 2641732907L)
             Binds.createMesh = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"create_mesh", 2641732907L)
             Binds.addPeer = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"add_peer", 4078953270L)
@@ -87,8 +94,11 @@ object WebRTCMultiplayerPeer:
             Binds.hasPeer = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"has_peer", 3067735520L)
             Binds.getPeer = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"get_peer", 3554694381L)
             Binds.getPeers = GdxApi.getMethodBind(c"WebRTCMultiplayerPeer", c"get_peers", 2382534195L)
+  }
+}
 
-    def apply(): WebRTCMultiplayerPeer =
-        val obj = new WebRTCMultiplayerPeer()
-        obj.ptr = GdxApi.constructObject(c"WebRTCMultiplayerPeer")
-        obj
+def apply(): WebRTCMultiplayerPeer = {
+  val obj = new WebRTCMultiplayerPeer()
+  obj.ptr = GdxApi.constructObject(c"WebRTCMultiplayerPeer")
+  obj
+}

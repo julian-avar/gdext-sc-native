@@ -5,324 +5,372 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Object extends gdext.GodotClass
-
-    def getClass(): CString =
+class Object extends gdext.GodotClass {
+    def getClass(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isClass(`class`: CString): Boolean =
+    def isClass(`class`: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.isClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def set(property: CString, value: Ptr[Byte]): Unit =
+    def set(property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = property.ptr
-        _args(1) = value.ptr
+        _args(0) = property
+        _args(1) = value
         GdxApi.ptrcall(Object.Binds.set, ptr, _args, null)
+}
 
-    def get(property: CString): Ptr[Byte] =
+    def get(property: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = property.ptr
+        _args(0) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.get, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setIndexed(propertyPath: NodePath, value: Ptr[Byte]): Unit =
+    def setIndexed(propertyPath: NodePath, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = propertyPath.ptr
-        _args(1) = value.ptr
+        _args(1) = value
         GdxApi.ptrcall(Object.Binds.setIndexed, ptr, _args, null)
+}
 
-    def getIndexed(propertyPath: NodePath): Ptr[Byte] =
+    def getIndexed(propertyPath: NodePath): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = propertyPath.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getIndexed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPropertyList(): Ptr[Byte] =
+    def getPropertyList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getPropertyList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMethodList(): Ptr[Byte] =
+    def getMethodList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getMethodList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def propertyCanRevert(property: CString): Boolean =
+    def propertyCanRevert(property: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = property.ptr
+        _args(0) = property
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.propertyCanRevert, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def propertyGetRevert(property: CString): Ptr[Byte] =
+    def propertyGetRevert(property: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = property.ptr
+        _args(0) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.propertyGetRevert, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def notification(what: Int): Unit =
+    def notification(what: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = what.toLong
+        val _a0 = stackalloc[Long](); !_a0 = what.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Object.Binds.notification, ptr, _args, null)
+}
 
-    def toString(): CString =
+    def toString(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.toString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getInstanceId(): Long =
+    def getInstanceId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Object.Binds.getInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setScript(script: Ptr[Byte]): Unit =
+    def setScript(script: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = script.ptr
+        _args(0) = script
         GdxApi.ptrcall(Object.Binds.setScript, ptr, _args, null)
+}
 
-    def getScript(): Ptr[Byte] =
+    def getScript(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getScript, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMeta(name: CString, value: Ptr[Byte]): Unit =
+    def setMeta(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(Object.Binds.setMeta, ptr, _args, null)
+}
 
-    def removeMeta(name: CString): Unit =
+    def removeMeta(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Object.Binds.removeMeta, ptr, _args, null)
+}
 
-    def getMeta(name: CString): Ptr[Byte] =
+    def getMeta(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasMeta(name: CString): Boolean =
+    def hasMeta(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.hasMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMetaList(): Ptr[Byte] =
+    def getMetaList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getMetaList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addUserSignal(signal: CString): Unit =
+    def addUserSignal(signal: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
+        _args(0) = signal
         GdxApi.ptrcall(Object.Binds.addUserSignal, ptr, _args, null)
+}
 
-    def hasUserSignal(signal: CString): Boolean =
+    def hasUserSignal(signal: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
+        _args(0) = signal
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.hasUserSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeUserSignal(signal: CString): Unit =
+    def removeUserSignal(signal: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
+        _args(0) = signal
         GdxApi.ptrcall(Object.Binds.removeUserSignal, ptr, _args, null)
+}
 
-    def emitSignal(signal: CString): Int =
+    def emitSignal(signal: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = signal
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Object.Binds.emitSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def call(method: CString): Ptr[Byte] =
+    def call(method: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.call, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def callDeferred(method: CString): Ptr[Byte] =
+    def callDeferred(method: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.callDeferred, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setDeferred(property: CString, value: Ptr[Byte]): Unit =
+    def setDeferred(property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = property.ptr
-        _args(1) = value.ptr
+        _args(0) = property
+        _args(1) = value
         GdxApi.ptrcall(Object.Binds.setDeferred, ptr, _args, null)
+}
 
-    def callv(method: CString, argArray: Array): Ptr[Byte] =
+    def callv(method: CString, argArray: Ptr[Byte]): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = method.ptr
-        _args(1) = argArray.ptr
+        _args(0) = method
+        _args(1) = argArray
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.callv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasMethod(method: CString): Boolean =
+    def hasMethod(method: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.hasMethod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMethodArgumentCount(method: CString): Int =
+    def getMethodArgumentCount(method: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = method
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Object.Binds.getMethodArgumentCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasSignal(signal: CString): Boolean =
+    def hasSignal(signal: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
+        _args(0) = signal
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.hasSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSignalList(): Ptr[Byte] =
+    def getSignalList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getSignalList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSignalConnectionList(signal: CString): Ptr[Byte] =
+    def getSignalConnectionList(signal: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
+        _args(0) = signal
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getSignalConnectionList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getIncomingConnections(): Ptr[Byte] =
+    def getIncomingConnections(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getIncomingConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def connect(signal: CString, callable: Callable): Int =
+    def connect(signal: CString, callable: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = signal.ptr
+        _args(0) = signal
         _args(1) = callable.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Object.Binds.connect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def disconnect(signal: CString, callable: Callable): Unit =
+    def disconnect(signal: CString, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = signal.ptr
+        _args(0) = signal
         _args(1) = callable.ptr
         GdxApi.ptrcall(Object.Binds.disconnect, ptr, _args, null)
+}
 
-    def isConnected(signal: CString, callable: Callable): Boolean =
+    def isConnected(signal: CString, callable: Callable): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = signal.ptr
+        _args(0) = signal
         _args(1) = callable.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.isConnected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasConnections(signal: CString): Boolean =
+    def hasConnections(signal: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = signal.ptr
+        _args(0) = signal
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.hasConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setBlockSignals(enable: Boolean): Unit =
+    def setBlockSignals(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Object.Binds.setBlockSignals, ptr, _args, null)
+}
 
-    def isBlockingSignals(): Boolean =
+    def isBlockingSignals(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.isBlockingSignals, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def notifyPropertyListChanged(): Unit =
+    def notifyPropertyListChanged(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Object.Binds.notifyPropertyListChanged, ptr, _args, null)
+}
 
-    def setMessageTranslation(enable: Boolean): Unit =
+    def setMessageTranslation(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Object.Binds.setMessageTranslation, ptr, _args, null)
+}
 
-    def canTranslateMessages(): Boolean =
+    def canTranslateMessages(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.canTranslateMessages, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def tr(message: CString): CString =
+    def tr(message: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.tr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def trN(message: CString, pluralMessage: CString, n: Int): CString =
+    def trN(message: CString, pluralMessage: CString, n: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = message.ptr
-        _args(1) = pluralMessage.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = n.toLong
+        _args(0) = message
+        _args(1) = pluralMessage
+        val _a2 = stackalloc[Long](); !_a2 = n.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.trN, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTranslationDomain(): CString =
+    def getTranslationDomain(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Object.Binds.getTranslationDomain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTranslationDomain(domain: CString): Unit =
+    def setTranslationDomain(domain: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = domain.ptr
+        _args(0) = domain
         GdxApi.ptrcall(Object.Binds.setTranslationDomain, ptr, _args, null)
+}
 
-    def isQueuedForDeletion(): Boolean =
+    def isQueuedForDeletion(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Object.Binds.isQueuedForDeletion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def cancelFree(): Unit =
+    def cancelFree(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Object.Binds.cancelFree, ptr, _args, null)
-
+}
+}
 
 object Object:
-    object Binds:
-        var getClass: Ptr[Byte] = null
+object Binds {
+          var getClass: Ptr[Byte] = null
         var isClass: Ptr[Byte] = null
         var set: Ptr[Byte] = null
         var get: Ptr[Byte] = null
@@ -372,8 +420,8 @@ object Object:
         var isQueuedForDeletion: Ptr[Byte] = null
         var cancelFree: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getClass = GdxApi.getMethodBind(c"Object", c"get_class", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getClass = GdxApi.getMethodBind(c"Object", c"get_class", 201670096L)
             Binds.isClass = GdxApi.getMethodBind(c"Object", c"is_class", 3927539163L)
             Binds.set = GdxApi.getMethodBind(c"Object", c"set", 3776071444L)
             Binds.get = GdxApi.getMethodBind(c"Object", c"get", 2760726917L)
@@ -422,8 +470,11 @@ object Object:
             Binds.setTranslationDomain = GdxApi.getMethodBind(c"Object", c"set_translation_domain", 3304788590L)
             Binds.isQueuedForDeletion = GdxApi.getMethodBind(c"Object", c"is_queued_for_deletion", 36873697L)
             Binds.cancelFree = GdxApi.getMethodBind(c"Object", c"cancel_free", 3218959716L)
+  }
+}
 
-    def apply(): Object =
-        val obj = new Object()
-        obj.ptr = GdxApi.constructObject(c"Object")
-        obj
+def apply(): Object = {
+  val obj = new Object()
+  obj.ptr = GdxApi.constructObject(c"Object")
+  obj
+}

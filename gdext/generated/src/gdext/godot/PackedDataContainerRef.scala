@@ -5,18 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PackedDataContainerRef extends RefCounted
-
-    def size(): Int =
+class PackedDataContainerRef extends RefCounted {
+    def size(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PackedDataContainerRef.Binds.size, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object PackedDataContainerRef:
-    object Binds:
-        var size: Ptr[Byte] = null
+object Binds {
+          var size: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.size = GdxApi.getMethodBind(c"PackedDataContainerRef", c"size", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.size = GdxApi.getMethodBind(c"PackedDataContainerRef", c"size", 3905245786L)
+  }
+}

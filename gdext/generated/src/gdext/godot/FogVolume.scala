@@ -5,65 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FogVolume extends VisualInstance3D
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(FogVolume.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FogVolume.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setShape(shape: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
-        GdxApi.ptrcall(FogVolume.Binds.setShape, ptr, _args, null)
-
-    def getShape(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FogVolume.Binds.getShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaterial(material: Material): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = material.ptr
-        GdxApi.ptrcall(FogVolume.Binds.setMaterial, ptr, _args, null)
-
-    def getMaterial(): Material =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FogVolume.Binds.getMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Material(!_ret)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def shape: Ptr[Byte] = getShape()
-    def shape_=(v: Ptr[Byte]): Unit = setShape(v)
-    def material: Ptr[Byte] = getMaterial()
-    def material_=(v: Ptr[Byte]): Unit = setMaterial(v)
+class FogVolume extends VisualInstance3D {
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def shape: Int = getShape()
+    def shape_=(v: Int): Unit = setShape(v)
+    def material: Material = getMaterial()
+    def material_=(v: Material): Unit = setMaterial(v)
+}
 
 object FogVolume:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setShape: Ptr[Byte] = null
-        var getShape: Ptr[Byte] = null
-        var setMaterial: Ptr[Byte] = null
-        var getMaterial: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"FogVolume", c"set_size", 3460891852L)
-            Binds.getSize = GdxApi.getMethodBind(c"FogVolume", c"get_size", 3360562783L)
-            Binds.setShape = GdxApi.getMethodBind(c"FogVolume", c"set_shape", 1416323362L)
-            Binds.getShape = GdxApi.getMethodBind(c"FogVolume", c"get_shape", 3920334604L)
-            Binds.setMaterial = GdxApi.getMethodBind(c"FogVolume", c"set_material", 2757459619L)
-            Binds.getMaterial = GdxApi.getMethodBind(c"FogVolume", c"get_material", 5934680L)
-
-    def apply(): FogVolume =
-        val obj = new FogVolume()
-        obj.ptr = GdxApi.constructObject(c"FogVolume")
-        obj
+def apply(): FogVolume = {
+  val obj = new FogVolume()
+  obj.ptr = GdxApi.constructObject(c"FogVolume")
+  obj
+}

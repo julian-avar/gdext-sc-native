@@ -5,169 +5,194 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConvertTransformModifier3D extends BoneConstraint3D
-
-    def setApplyTransformMode(index: Int, transformMode: Int): Unit =
+class ConvertTransformModifier3D extends BoneConstraint3D {
+    def setApplyTransformMode(index: Int, transformMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = transformMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = transformMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setApplyTransformMode, ptr, _args, null)
+}
 
-    def getApplyTransformMode(index: Int): Int =
+    def getApplyTransformMode(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getApplyTransformMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setApplyAxis(index: Int, axis: Int): Unit =
+    def setApplyAxis(index: Int, axis: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axis.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axis.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setApplyAxis, ptr, _args, null)
+}
 
-    def getApplyAxis(index: Int): Int =
+    def getApplyAxis(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getApplyAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setApplyRangeMin(index: Int, rangeMin: Float): Unit =
+    def setApplyRangeMin(index: Int, rangeMin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = rangeMin.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setApplyRangeMin, ptr, _args, null)
+}
 
-    def getApplyRangeMin(index: Int): Float =
+    def getApplyRangeMin(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getApplyRangeMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setApplyRangeMax(index: Int, rangeMax: Float): Unit =
+    def setApplyRangeMax(index: Int, rangeMax: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = rangeMax.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setApplyRangeMax, ptr, _args, null)
+}
 
-    def getApplyRangeMax(index: Int): Float =
+    def getApplyRangeMax(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getApplyRangeMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setReferenceTransformMode(index: Int, transformMode: Int): Unit =
+    def setReferenceTransformMode(index: Int, transformMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = transformMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = transformMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setReferenceTransformMode, ptr, _args, null)
+}
 
-    def getReferenceTransformMode(index: Int): Int =
+    def getReferenceTransformMode(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getReferenceTransformMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setReferenceAxis(index: Int, axis: Int): Unit =
+    def setReferenceAxis(index: Int, axis: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axis.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axis.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setReferenceAxis, ptr, _args, null)
+}
 
-    def getReferenceAxis(index: Int): Int =
+    def getReferenceAxis(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getReferenceAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setReferenceRangeMin(index: Int, rangeMin: Float): Unit =
+    def setReferenceRangeMin(index: Int, rangeMin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = rangeMin.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setReferenceRangeMin, ptr, _args, null)
+}
 
-    def getReferenceRangeMin(index: Int): Float =
+    def getReferenceRangeMin(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getReferenceRangeMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setReferenceRangeMax(index: Int, rangeMax: Float): Unit =
+    def setReferenceRangeMax(index: Int, rangeMax: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = rangeMax.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setReferenceRangeMax, ptr, _args, null)
+}
 
-    def getReferenceRangeMax(index: Int): Float =
+    def getReferenceRangeMax(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.getReferenceRangeMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setRelative(index: Int, enabled: Boolean): Unit =
+    def setRelative(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setRelative, ptr, _args, null)
+}
 
-    def isRelative(index: Int): Boolean =
+    def isRelative(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.isRelative, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAdditive(index: Int, enabled: Boolean): Unit =
+    def setAdditive(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.setAdditive, ptr, _args, null)
+}
 
-    def isAdditive(index: Int): Boolean =
+    def isAdditive(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ConvertTransformModifier3D.Binds.isAdditive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
+
     def settingCount: Ptr[Byte] = getSettingCount()
     def settingCount_=(v: Ptr[Byte]): Unit = setSettingCount(v)
+}
 
 object ConvertTransformModifier3D:
-    object Binds:
-        var setApplyTransformMode: Ptr[Byte] = null
+object Binds {
+          var setApplyTransformMode: Ptr[Byte] = null
         var getApplyTransformMode: Ptr[Byte] = null
         var setApplyAxis: Ptr[Byte] = null
         var getApplyAxis: Ptr[Byte] = null
@@ -188,8 +213,8 @@ object ConvertTransformModifier3D:
         var setAdditive: Ptr[Byte] = null
         var isAdditive: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setApplyTransformMode = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"set_apply_transform_mode", 1386463405L)
+  def loadBinds(): Unit = {
+                Binds.setApplyTransformMode = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"set_apply_transform_mode", 1386463405L)
             Binds.getApplyTransformMode = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"get_apply_transform_mode", 3234663511L)
             Binds.setApplyAxis = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"set_apply_axis", 776736805L)
             Binds.getApplyAxis = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"get_apply_axis", 4131134770L)
@@ -209,8 +234,11 @@ object ConvertTransformModifier3D:
             Binds.isRelative = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"is_relative", 1116898809L)
             Binds.setAdditive = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"set_additive", 300928843L)
             Binds.isAdditive = GdxApi.getMethodBind(c"ConvertTransformModifier3D", c"is_additive", 1116898809L)
+  }
+}
 
-    def apply(): ConvertTransformModifier3D =
-        val obj = new ConvertTransformModifier3D()
-        obj.ptr = GdxApi.constructObject(c"ConvertTransformModifier3D")
-        obj
+def apply(): ConvertTransformModifier3D = {
+  val obj = new ConvertTransformModifier3D()
+  obj.ptr = GdxApi.constructObject(c"ConvertTransformModifier3D")
+  obj
+}

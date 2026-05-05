@@ -5,56 +5,63 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Thread extends RefCounted
-
-    def start(callable: Callable): Int =
+class Thread extends RefCounted {
+    def start(callable: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Thread.Binds.start, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getId(): CString =
+    def getId(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Thread.Binds.getId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isStarted(): Boolean =
+    def isStarted(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Thread.Binds.isStarted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isAlive(): Boolean =
+    def isAlive(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Thread.Binds.isAlive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def waitToFinish(): Ptr[Byte] =
+    def waitToFinish(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Thread.Binds.waitToFinish, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object Thread:
-    object Binds:
-        var start: Ptr[Byte] = null
+object Binds {
+          var start: Ptr[Byte] = null
         var getId: Ptr[Byte] = null
         var isStarted: Ptr[Byte] = null
         var isAlive: Ptr[Byte] = null
         var waitToFinish: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.start = GdxApi.getMethodBind(c"Thread", c"start", 1327203254L)
+  def loadBinds(): Unit = {
+                Binds.start = GdxApi.getMethodBind(c"Thread", c"start", 1327203254L)
             Binds.getId = GdxApi.getMethodBind(c"Thread", c"get_id", 201670096L)
             Binds.isStarted = GdxApi.getMethodBind(c"Thread", c"is_started", 36873697L)
             Binds.isAlive = GdxApi.getMethodBind(c"Thread", c"is_alive", 36873697L)
             Binds.waitToFinish = GdxApi.getMethodBind(c"Thread", c"wait_to_finish", 1460262497L)
+  }
+}
 
-    def apply(): Thread =
-        val obj = new Thread()
-        obj.ptr = GdxApi.constructObject(c"Thread")
-        obj
+def apply(): Thread = {
+  val obj = new Thread()
+  obj.ptr = GdxApi.constructObject(c"Thread")
+  obj
+}

@@ -5,402 +5,56 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LightmapGI extends VisualInstance3D
-
-    def setLightData(data: LightmapGIData): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = data.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setLightData, ptr, _args, null)
-
-    def getLightData(): LightmapGIData =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LightmapGI.Binds.getLightData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new LightmapGIData(!_ret)
-
-    def setBakeQuality(bakeQuality: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bakeQuality.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setBakeQuality, ptr, _args, null)
-
-    def getBakeQuality(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getBakeQuality, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBounces(bounces: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bounces.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setBounces, ptr, _args, null)
-
-    def getBounces(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getBounces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBounceIndirectEnergy(bounceIndirectEnergy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = bounceIndirectEnergy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setBounceIndirectEnergy, ptr, _args, null)
-
-    def getBounceIndirectEnergy(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LightmapGI.Binds.getBounceIndirectEnergy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGenerateProbes(subdivision: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = subdivision.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setGenerateProbes, ptr, _args, null)
-
-    def getGenerateProbes(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getGenerateProbes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBias(bias: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = bias.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setBias, ptr, _args, null)
-
-    def getBias(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LightmapGI.Binds.getBias, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEnvironmentMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setEnvironmentMode, ptr, _args, null)
-
-    def getEnvironmentMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getEnvironmentMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEnvironmentCustomSky(sky: Sky): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sky.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setEnvironmentCustomSky, ptr, _args, null)
-
-    def getEnvironmentCustomSky(): Sky =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LightmapGI.Binds.getEnvironmentCustomSky, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Sky(!_ret)
-
-    def setEnvironmentCustomColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setEnvironmentCustomColor, ptr, _args, null)
-
-    def getEnvironmentCustomColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LightmapGI.Binds.getEnvironmentCustomColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setEnvironmentCustomEnergy(energy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = energy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setEnvironmentCustomEnergy, ptr, _args, null)
-
-    def getEnvironmentCustomEnergy(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LightmapGI.Binds.getEnvironmentCustomEnergy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTexelScale(texelScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = texelScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setTexelScale, ptr, _args, null)
-
-    def getTexelScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LightmapGI.Binds.getTexelScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMaxTextureSize(maxTextureSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxTextureSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setMaxTextureSize, ptr, _args, null)
-
-    def getMaxTextureSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getMaxTextureSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSupersamplingEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setSupersamplingEnabled, ptr, _args, null)
-
-    def isSupersamplingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LightmapGI.Binds.isSupersamplingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSupersamplingFactor(factor: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = factor.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setSupersamplingFactor, ptr, _args, null)
-
-    def getSupersamplingFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LightmapGI.Binds.getSupersamplingFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUseDenoiser(useDenoiser: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useDenoiser then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setUseDenoiser, ptr, _args, null)
-
-    def isUsingDenoiser(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LightmapGI.Binds.isUsingDenoiser, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDenoiserStrength(denoiserStrength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = denoiserStrength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setDenoiserStrength, ptr, _args, null)
-
-    def getDenoiserStrength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LightmapGI.Binds.getDenoiserStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDenoiserRange(denoiserRange: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = denoiserRange.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setDenoiserRange, ptr, _args, null)
-
-    def getDenoiserRange(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getDenoiserRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInterior(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setInterior, ptr, _args, null)
-
-    def isInterior(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LightmapGI.Binds.isInterior, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDirectional(directional: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if directional then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setDirectional, ptr, _args, null)
-
-    def isDirectional(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LightmapGI.Binds.isDirectional, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShadowmaskMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setShadowmaskMode, ptr, _args, null)
-
-    def getShadowmaskMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightmapGI.Binds.getShadowmaskMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUseTextureForBounces(useTextureForBounces: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useTextureForBounces then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightmapGI.Binds.setUseTextureForBounces, ptr, _args, null)
-
-    def isUsingTextureForBounces(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LightmapGI.Binds.isUsingTextureForBounces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCameraAttributes(cameraAttributes: CameraAttributes): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = cameraAttributes.ptr
-        GdxApi.ptrcall(LightmapGI.Binds.setCameraAttributes, ptr, _args, null)
-
-    def getCameraAttributes(): CameraAttributes =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LightmapGI.Binds.getCameraAttributes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new CameraAttributes(!_ret)
-    def quality: Ptr[Byte] = getBakeQuality()
-    def quality_=(v: Ptr[Byte]): Unit = setBakeQuality(v)
-    def supersampling: Ptr[Byte] = isSupersamplingEnabled()
-    def supersampling_=(v: Ptr[Byte]): Unit = setSupersamplingEnabled(v)
-    def supersamplingFactor: Ptr[Byte] = getSupersamplingFactor()
-    def supersamplingFactor_=(v: Ptr[Byte]): Unit = setSupersamplingFactor(v)
-    def bounces: Ptr[Byte] = getBounces()
-    def bounces_=(v: Ptr[Byte]): Unit = setBounces(v)
-    def bounceIndirectEnergy: Ptr[Byte] = getBounceIndirectEnergy()
-    def bounceIndirectEnergy_=(v: Ptr[Byte]): Unit = setBounceIndirectEnergy(v)
-    def directional: Ptr[Byte] = isDirectional()
-    def directional_=(v: Ptr[Byte]): Unit = setDirectional(v)
-    def shadowmaskMode: Ptr[Byte] = getShadowmaskMode()
-    def shadowmaskMode_=(v: Ptr[Byte]): Unit = setShadowmaskMode(v)
-    def useTextureForBounces: Ptr[Byte] = isUsingTextureForBounces()
-    def useTextureForBounces_=(v: Ptr[Byte]): Unit = setUseTextureForBounces(v)
-    def interior: Ptr[Byte] = isInterior()
-    def interior_=(v: Ptr[Byte]): Unit = setInterior(v)
-    def useDenoiser: Ptr[Byte] = isUsingDenoiser()
-    def useDenoiser_=(v: Ptr[Byte]): Unit = setUseDenoiser(v)
-    def denoiserStrength: Ptr[Byte] = getDenoiserStrength()
-    def denoiserStrength_=(v: Ptr[Byte]): Unit = setDenoiserStrength(v)
-    def denoiserRange: Ptr[Byte] = getDenoiserRange()
-    def denoiserRange_=(v: Ptr[Byte]): Unit = setDenoiserRange(v)
-    def bias: Ptr[Byte] = getBias()
-    def bias_=(v: Ptr[Byte]): Unit = setBias(v)
-    def texelScale: Ptr[Byte] = getTexelScale()
-    def texelScale_=(v: Ptr[Byte]): Unit = setTexelScale(v)
-    def maxTextureSize: Ptr[Byte] = getMaxTextureSize()
-    def maxTextureSize_=(v: Ptr[Byte]): Unit = setMaxTextureSize(v)
-    def environmentMode: Ptr[Byte] = getEnvironmentMode()
-    def environmentMode_=(v: Ptr[Byte]): Unit = setEnvironmentMode(v)
-    def environmentCustomSky: Ptr[Byte] = getEnvironmentCustomSky()
-    def environmentCustomSky_=(v: Ptr[Byte]): Unit = setEnvironmentCustomSky(v)
-    def environmentCustomColor: Ptr[Byte] = getEnvironmentCustomColor()
-    def environmentCustomColor_=(v: Ptr[Byte]): Unit = setEnvironmentCustomColor(v)
-    def environmentCustomEnergy: Ptr[Byte] = getEnvironmentCustomEnergy()
-    def environmentCustomEnergy_=(v: Ptr[Byte]): Unit = setEnvironmentCustomEnergy(v)
-    def cameraAttributes: Ptr[Byte] = getCameraAttributes()
-    def cameraAttributes_=(v: Ptr[Byte]): Unit = setCameraAttributes(v)
-    def generateProbesSubdiv: Ptr[Byte] = getGenerateProbes()
-    def generateProbesSubdiv_=(v: Ptr[Byte]): Unit = setGenerateProbes(v)
-    def lightData: Ptr[Byte] = getLightData()
-    def lightData_=(v: Ptr[Byte]): Unit = setLightData(v)
+class LightmapGI extends VisualInstance3D {
+    def quality: Int = getBakeQuality()
+    def quality_=(v: Int): Unit = setBakeQuality(v)
+    def supersampling: Boolean = isSupersamplingEnabled()
+    def supersampling_=(v: Boolean): Unit = setSupersamplingEnabled(v)
+    def supersamplingFactor: Float = getSupersamplingFactor()
+    def supersamplingFactor_=(v: Float): Unit = setSupersamplingFactor(v)
+    def bounces: Int = getBounces()
+    def bounces_=(v: Int): Unit = setBounces(v)
+    def bounceIndirectEnergy: Float = getBounceIndirectEnergy()
+    def bounceIndirectEnergy_=(v: Float): Unit = setBounceIndirectEnergy(v)
+    def directional: Boolean = isDirectional()
+    def directional_=(v: Boolean): Unit = setDirectional(v)
+    def shadowmaskMode: Int = getShadowmaskMode()
+    def shadowmaskMode_=(v: Int): Unit = setShadowmaskMode(v)
+    def useTextureForBounces: Boolean = isUsingTextureForBounces()
+    def useTextureForBounces_=(v: Boolean): Unit = setUseTextureForBounces(v)
+    def interior: Boolean = isInterior()
+    def interior_=(v: Boolean): Unit = setInterior(v)
+    def useDenoiser: Boolean = isUsingDenoiser()
+    def useDenoiser_=(v: Boolean): Unit = setUseDenoiser(v)
+    def denoiserStrength: Float = getDenoiserStrength()
+    def denoiserStrength_=(v: Float): Unit = setDenoiserStrength(v)
+    def denoiserRange: Int = getDenoiserRange()
+    def denoiserRange_=(v: Int): Unit = setDenoiserRange(v)
+    def bias: Float = getBias()
+    def bias_=(v: Float): Unit = setBias(v)
+    def texelScale: Float = getTexelScale()
+    def texelScale_=(v: Float): Unit = setTexelScale(v)
+    def maxTextureSize: Int = getMaxTextureSize()
+    def maxTextureSize_=(v: Int): Unit = setMaxTextureSize(v)
+    def environmentMode: Int = getEnvironmentMode()
+    def environmentMode_=(v: Int): Unit = setEnvironmentMode(v)
+    def environmentCustomSky: Sky = getEnvironmentCustomSky()
+    def environmentCustomSky_=(v: Sky): Unit = setEnvironmentCustomSky(v)
+    def environmentCustomColor: Color = getEnvironmentCustomColor()
+    def environmentCustomColor_=(v: Color): Unit = setEnvironmentCustomColor(v)
+    def environmentCustomEnergy: Float = getEnvironmentCustomEnergy()
+    def environmentCustomEnergy_=(v: Float): Unit = setEnvironmentCustomEnergy(v)
+    def cameraAttributes: CameraAttributes = getCameraAttributes()
+    def cameraAttributes_=(v: CameraAttributes): Unit = setCameraAttributes(v)
+    def generateProbesSubdiv: Int = getGenerateProbes()
+    def generateProbesSubdiv_=(v: Int): Unit = setGenerateProbes(v)
+    def lightData: LightmapGIData = getLightData()
+    def lightData_=(v: LightmapGIData): Unit = setLightData(v)
+}
 
 object LightmapGI:
-    object Binds:
-        var setLightData: Ptr[Byte] = null
-        var getLightData: Ptr[Byte] = null
-        var setBakeQuality: Ptr[Byte] = null
-        var getBakeQuality: Ptr[Byte] = null
-        var setBounces: Ptr[Byte] = null
-        var getBounces: Ptr[Byte] = null
-        var setBounceIndirectEnergy: Ptr[Byte] = null
-        var getBounceIndirectEnergy: Ptr[Byte] = null
-        var setGenerateProbes: Ptr[Byte] = null
-        var getGenerateProbes: Ptr[Byte] = null
-        var setBias: Ptr[Byte] = null
-        var getBias: Ptr[Byte] = null
-        var setEnvironmentMode: Ptr[Byte] = null
-        var getEnvironmentMode: Ptr[Byte] = null
-        var setEnvironmentCustomSky: Ptr[Byte] = null
-        var getEnvironmentCustomSky: Ptr[Byte] = null
-        var setEnvironmentCustomColor: Ptr[Byte] = null
-        var getEnvironmentCustomColor: Ptr[Byte] = null
-        var setEnvironmentCustomEnergy: Ptr[Byte] = null
-        var getEnvironmentCustomEnergy: Ptr[Byte] = null
-        var setTexelScale: Ptr[Byte] = null
-        var getTexelScale: Ptr[Byte] = null
-        var setMaxTextureSize: Ptr[Byte] = null
-        var getMaxTextureSize: Ptr[Byte] = null
-        var setSupersamplingEnabled: Ptr[Byte] = null
-        var isSupersamplingEnabled: Ptr[Byte] = null
-        var setSupersamplingFactor: Ptr[Byte] = null
-        var getSupersamplingFactor: Ptr[Byte] = null
-        var setUseDenoiser: Ptr[Byte] = null
-        var isUsingDenoiser: Ptr[Byte] = null
-        var setDenoiserStrength: Ptr[Byte] = null
-        var getDenoiserStrength: Ptr[Byte] = null
-        var setDenoiserRange: Ptr[Byte] = null
-        var getDenoiserRange: Ptr[Byte] = null
-        var setInterior: Ptr[Byte] = null
-        var isInterior: Ptr[Byte] = null
-        var setDirectional: Ptr[Byte] = null
-        var isDirectional: Ptr[Byte] = null
-        var setShadowmaskMode: Ptr[Byte] = null
-        var getShadowmaskMode: Ptr[Byte] = null
-        var setUseTextureForBounces: Ptr[Byte] = null
-        var isUsingTextureForBounces: Ptr[Byte] = null
-        var setCameraAttributes: Ptr[Byte] = null
-        var getCameraAttributes: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setLightData = GdxApi.getMethodBind(c"LightmapGI", c"set_light_data", 1790597277L)
-            Binds.getLightData = GdxApi.getMethodBind(c"LightmapGI", c"get_light_data", 290354153L)
-            Binds.setBakeQuality = GdxApi.getMethodBind(c"LightmapGI", c"set_bake_quality", 1192215803L)
-            Binds.getBakeQuality = GdxApi.getMethodBind(c"LightmapGI", c"get_bake_quality", 688832735L)
-            Binds.setBounces = GdxApi.getMethodBind(c"LightmapGI", c"set_bounces", 1286410249L)
-            Binds.getBounces = GdxApi.getMethodBind(c"LightmapGI", c"get_bounces", 3905245786L)
-            Binds.setBounceIndirectEnergy = GdxApi.getMethodBind(c"LightmapGI", c"set_bounce_indirect_energy", 373806689L)
-            Binds.getBounceIndirectEnergy = GdxApi.getMethodBind(c"LightmapGI", c"get_bounce_indirect_energy", 1740695150L)
-            Binds.setGenerateProbes = GdxApi.getMethodBind(c"LightmapGI", c"set_generate_probes", 549981046L)
-            Binds.getGenerateProbes = GdxApi.getMethodBind(c"LightmapGI", c"get_generate_probes", 3930596226L)
-            Binds.setBias = GdxApi.getMethodBind(c"LightmapGI", c"set_bias", 373806689L)
-            Binds.getBias = GdxApi.getMethodBind(c"LightmapGI", c"get_bias", 1740695150L)
-            Binds.setEnvironmentMode = GdxApi.getMethodBind(c"LightmapGI", c"set_environment_mode", 2282650285L)
-            Binds.getEnvironmentMode = GdxApi.getMethodBind(c"LightmapGI", c"get_environment_mode", 4128646479L)
-            Binds.setEnvironmentCustomSky = GdxApi.getMethodBind(c"LightmapGI", c"set_environment_custom_sky", 3336722921L)
-            Binds.getEnvironmentCustomSky = GdxApi.getMethodBind(c"LightmapGI", c"get_environment_custom_sky", 1177136966L)
-            Binds.setEnvironmentCustomColor = GdxApi.getMethodBind(c"LightmapGI", c"set_environment_custom_color", 2920490490L)
-            Binds.getEnvironmentCustomColor = GdxApi.getMethodBind(c"LightmapGI", c"get_environment_custom_color", 3444240500L)
-            Binds.setEnvironmentCustomEnergy = GdxApi.getMethodBind(c"LightmapGI", c"set_environment_custom_energy", 373806689L)
-            Binds.getEnvironmentCustomEnergy = GdxApi.getMethodBind(c"LightmapGI", c"get_environment_custom_energy", 1740695150L)
-            Binds.setTexelScale = GdxApi.getMethodBind(c"LightmapGI", c"set_texel_scale", 373806689L)
-            Binds.getTexelScale = GdxApi.getMethodBind(c"LightmapGI", c"get_texel_scale", 1740695150L)
-            Binds.setMaxTextureSize = GdxApi.getMethodBind(c"LightmapGI", c"set_max_texture_size", 1286410249L)
-            Binds.getMaxTextureSize = GdxApi.getMethodBind(c"LightmapGI", c"get_max_texture_size", 3905245786L)
-            Binds.setSupersamplingEnabled = GdxApi.getMethodBind(c"LightmapGI", c"set_supersampling_enabled", 2586408642L)
-            Binds.isSupersamplingEnabled = GdxApi.getMethodBind(c"LightmapGI", c"is_supersampling_enabled", 36873697L)
-            Binds.setSupersamplingFactor = GdxApi.getMethodBind(c"LightmapGI", c"set_supersampling_factor", 373806689L)
-            Binds.getSupersamplingFactor = GdxApi.getMethodBind(c"LightmapGI", c"get_supersampling_factor", 1740695150L)
-            Binds.setUseDenoiser = GdxApi.getMethodBind(c"LightmapGI", c"set_use_denoiser", 2586408642L)
-            Binds.isUsingDenoiser = GdxApi.getMethodBind(c"LightmapGI", c"is_using_denoiser", 36873697L)
-            Binds.setDenoiserStrength = GdxApi.getMethodBind(c"LightmapGI", c"set_denoiser_strength", 373806689L)
-            Binds.getDenoiserStrength = GdxApi.getMethodBind(c"LightmapGI", c"get_denoiser_strength", 1740695150L)
-            Binds.setDenoiserRange = GdxApi.getMethodBind(c"LightmapGI", c"set_denoiser_range", 1286410249L)
-            Binds.getDenoiserRange = GdxApi.getMethodBind(c"LightmapGI", c"get_denoiser_range", 3905245786L)
-            Binds.setInterior = GdxApi.getMethodBind(c"LightmapGI", c"set_interior", 2586408642L)
-            Binds.isInterior = GdxApi.getMethodBind(c"LightmapGI", c"is_interior", 36873697L)
-            Binds.setDirectional = GdxApi.getMethodBind(c"LightmapGI", c"set_directional", 2586408642L)
-            Binds.isDirectional = GdxApi.getMethodBind(c"LightmapGI", c"is_directional", 36873697L)
-            Binds.setShadowmaskMode = GdxApi.getMethodBind(c"LightmapGI", c"set_shadowmask_mode", 3451066572L)
-            Binds.getShadowmaskMode = GdxApi.getMethodBind(c"LightmapGI", c"get_shadowmask_mode", 785478560L)
-            Binds.setUseTextureForBounces = GdxApi.getMethodBind(c"LightmapGI", c"set_use_texture_for_bounces", 2586408642L)
-            Binds.isUsingTextureForBounces = GdxApi.getMethodBind(c"LightmapGI", c"is_using_texture_for_bounces", 36873697L)
-            Binds.setCameraAttributes = GdxApi.getMethodBind(c"LightmapGI", c"set_camera_attributes", 2817810567L)
-            Binds.getCameraAttributes = GdxApi.getMethodBind(c"LightmapGI", c"get_camera_attributes", 3921283215L)
-
-    def apply(): LightmapGI =
-        val obj = new LightmapGI()
-        obj.ptr = GdxApi.constructObject(c"LightmapGI")
-        obj
+def apply(): LightmapGI = {
+  val obj = new LightmapGI()
+  obj.ptr = GdxApi.constructObject(c"LightmapGI")
+  obj
+}

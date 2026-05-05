@@ -5,196 +5,231 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SurfaceTool extends RefCounted
-
-    def setSkinWeightCount(count: Int): Unit =
+class SurfaceTool extends RefCounted {
+    def setSkinWeightCount(count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = count.ptr
+        val _a0 = stackalloc[Long](); !_a0 = count.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SurfaceTool.Binds.setSkinWeightCount, ptr, _args, null)
+}
 
-    def getSkinWeightCount(): Int =
+    def getSkinWeightCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SurfaceTool.Binds.getSkinWeightCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCustomFormat(channelIndex: Int, format: Int): Unit =
+    def setCustomFormat(channelIndex: Int, format: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = channelIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = channelIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = format.ptr
+        val _a1 = stackalloc[Long](); !_a1 = format.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SurfaceTool.Binds.setCustomFormat, ptr, _args, null)
+}
 
-    def getCustomFormat(channelIndex: Int): Int =
+    def getCustomFormat(channelIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = channelIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = channelIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SurfaceTool.Binds.getCustomFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def begin(primitive: Int): Unit =
+    def begin(primitive: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = primitive.ptr
+        val _a0 = stackalloc[Long](); !_a0 = primitive.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SurfaceTool.Binds.begin, ptr, _args, null)
+}
 
-    def addVertex(vertex: Vector3): Unit =
+    def addVertex(vertex: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = vertex.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.addVertex, ptr, _args, null)
+}
 
-    def setColor(color: Color): Unit =
+    def setColor(color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = color.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setColor, ptr, _args, null)
+}
 
-    def setNormal(normal: Vector3): Unit =
+    def setNormal(normal: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = normal.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setNormal, ptr, _args, null)
+}
 
-    def setTangent(tangent: Plane): Unit =
+    def setTangent(tangent: Plane): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = tangent.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setTangent, ptr, _args, null)
+}
 
-    def setUv(uv: Vector2): Unit =
+    def setUv(uv: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = uv.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setUv, ptr, _args, null)
+}
 
-    def setUv2(uv2: Vector2): Unit =
+    def setUv2(uv2: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = uv2.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setUv2, ptr, _args, null)
+}
 
-    def setBones(bones: PackedInt32Array): Unit =
+    def setBones(bones: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = bones.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setBones, ptr, _args, null)
+}
 
-    def setWeights(weights: PackedFloat32Array): Unit =
+    def setWeights(weights: PackedFloat32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = weights.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setWeights, ptr, _args, null)
+}
 
-    def setCustom(channelIndex: Int, customColor: Color): Unit =
+    def setCustom(channelIndex: Int, customColor: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = channelIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = channelIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = customColor.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setCustom, ptr, _args, null)
+}
 
-    def setSmoothGroup(index: Int): Unit =
+    def setSmoothGroup(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SurfaceTool.Binds.setSmoothGroup, ptr, _args, null)
+}
 
-    def addTriangleFan(vertices: PackedVector3Array): Unit =
+    def addTriangleFan(vertices: PackedVector3Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = vertices.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.addTriangleFan, ptr, _args, null)
+}
 
-    def addIndex(index: Int): Unit =
+    def addIndex(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SurfaceTool.Binds.addIndex, ptr, _args, null)
+}
 
-    def index(): Unit =
+    def index(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SurfaceTool.Binds.index, ptr, _args, null)
+}
 
-    def deindex(): Unit =
+    def deindex(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SurfaceTool.Binds.deindex, ptr, _args, null)
+}
 
-    def generateNormals(): Unit =
+    def generateNormals(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SurfaceTool.Binds.generateNormals, ptr, _args, null)
+}
 
-    def generateTangents(): Unit =
+    def generateTangents(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SurfaceTool.Binds.generateTangents, ptr, _args, null)
+}
 
-    def optimizeIndicesForCache(): Unit =
+    def optimizeIndicesForCache(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SurfaceTool.Binds.optimizeIndicesForCache, ptr, _args, null)
+}
 
-    def getAabb(): AABB =
+    def getAabb(): AABB = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SurfaceTool.Binds.getAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def generateLod(ndThreshold: Float): PackedInt32Array =
+    def generateLod(ndThreshold: Float): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = ndThreshold.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SurfaceTool.Binds.generateLod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def setMaterial(material: Material): Unit =
+    def setMaterial(material: Material): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = material.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.setMaterial, ptr, _args, null)
+}
 
-    def getPrimitiveType(): Int =
+    def getPrimitiveType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SurfaceTool.Binds.getPrimitiveType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SurfaceTool.Binds.clear, ptr, _args, null)
+}
 
-    def createFrom(existing: Mesh, surface: Int): Unit =
+    def createFrom(existing: Mesh, surface: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = existing.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SurfaceTool.Binds.createFrom, ptr, _args, null)
+}
 
-    def createFromArrays(arrays: Array): Unit =
+    def createFromArrays(arrays: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = arrays.ptr
+        _args(0) = arrays
         GdxApi.ptrcall(SurfaceTool.Binds.createFromArrays, ptr, _args, null)
+}
 
-    def createFromBlendShape(existing: Mesh, surface: Int, blendShape: CString): Unit =
+    def createFromBlendShape(existing: Mesh, surface: Int, blendShape: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = existing.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = blendShape.ptr
+        _args(2) = blendShape
         GdxApi.ptrcall(SurfaceTool.Binds.createFromBlendShape, ptr, _args, null)
+}
 
-    def appendFrom(existing: Mesh, surface: Int, transform: Transform3D): Unit =
+    def appendFrom(existing: Mesh, surface: Int, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = existing.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(SurfaceTool.Binds.appendFrom, ptr, _args, null)
+}
 
-    def commit(): ArrayMesh =
+    def commit(): ArrayMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SurfaceTool.Binds.commit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ArrayMesh(!_ret)
+}
 
-    def commitToArrays(): Array =
+    def commitToArrays(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SurfaceTool.Binds.commitToArrays, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object SurfaceTool:
-    object Binds:
-        var setSkinWeightCount: Ptr[Byte] = null
+object Binds {
+          var setSkinWeightCount: Ptr[Byte] = null
         var getSkinWeightCount: Ptr[Byte] = null
         var setCustomFormat: Ptr[Byte] = null
         var getCustomFormat: Ptr[Byte] = null
@@ -228,8 +263,8 @@ object SurfaceTool:
         var commit: Ptr[Byte] = null
         var commitToArrays: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSkinWeightCount = GdxApi.getMethodBind(c"SurfaceTool", c"set_skin_weight_count", 618679515L)
+  def loadBinds(): Unit = {
+                Binds.setSkinWeightCount = GdxApi.getMethodBind(c"SurfaceTool", c"set_skin_weight_count", 618679515L)
             Binds.getSkinWeightCount = GdxApi.getMethodBind(c"SurfaceTool", c"get_skin_weight_count", 1072401130L)
             Binds.setCustomFormat = GdxApi.getMethodBind(c"SurfaceTool", c"set_custom_format", 4087759856L)
             Binds.getCustomFormat = GdxApi.getMethodBind(c"SurfaceTool", c"get_custom_format", 839863283L)
@@ -262,8 +297,11 @@ object SurfaceTool:
             Binds.appendFrom = GdxApi.getMethodBind(c"SurfaceTool", c"append_from", 2217967155L)
             Binds.commit = GdxApi.getMethodBind(c"SurfaceTool", c"commit", 4107864055L)
             Binds.commitToArrays = GdxApi.getMethodBind(c"SurfaceTool", c"commit_to_arrays", 2915620761L)
+  }
+}
 
-    def apply(): SurfaceTool =
-        val obj = new SurfaceTool()
-        obj.ptr = GdxApi.constructObject(c"SurfaceTool")
-        obj
+def apply(): SurfaceTool = {
+  val obj = new SurfaceTool()
+  obj.ptr = GdxApi.constructObject(c"SurfaceTool")
+  obj
+}

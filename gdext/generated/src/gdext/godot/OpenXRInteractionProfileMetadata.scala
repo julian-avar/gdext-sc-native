@@ -5,53 +5,60 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRInteractionProfileMetadata extends Object
-
-    def registerProfileRename(oldName: CString, newName: CString): Unit =
+class OpenXRInteractionProfileMetadata extends Object {
+    def registerProfileRename(oldName: CString, newName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = oldName.ptr
-        _args(1) = newName.ptr
+        _args(0) = oldName
+        _args(1) = newName
         GdxApi.ptrcall(OpenXRInteractionProfileMetadata.Binds.registerProfileRename, ptr, _args, null)
+}
 
-    def registerTopLevelPath(displayName: CString, openxrPath: CString, openxrExtensionName: CString): Unit =
+    def registerTopLevelPath(displayName: CString, openxrPath: CString, openxrExtensionName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = displayName.ptr
-        _args(1) = openxrPath.ptr
-        _args(2) = openxrExtensionName.ptr
+        _args(0) = displayName
+        _args(1) = openxrPath
+        _args(2) = openxrExtensionName
         GdxApi.ptrcall(OpenXRInteractionProfileMetadata.Binds.registerTopLevelPath, ptr, _args, null)
+}
 
-    def registerInteractionProfile(displayName: CString, openxrPath: CString, openxrExtensionName: CString): Unit =
+    def registerInteractionProfile(displayName: CString, openxrPath: CString, openxrExtensionName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = displayName.ptr
-        _args(1) = openxrPath.ptr
-        _args(2) = openxrExtensionName.ptr
+        _args(0) = displayName
+        _args(1) = openxrPath
+        _args(2) = openxrExtensionName
         GdxApi.ptrcall(OpenXRInteractionProfileMetadata.Binds.registerInteractionProfile, ptr, _args, null)
+}
 
-    def registerIoPath(interactionProfile: CString, displayName: CString, toplevelPath: CString, openxrPath: CString, openxrExtensionName: CString, actionType: Int): Unit =
+    def registerIoPath(interactionProfile: CString, displayName: CString, toplevelPath: CString, openxrPath: CString, openxrExtensionName: CString, actionType: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = interactionProfile.ptr
-        _args(1) = displayName.ptr
-        _args(2) = toplevelPath.ptr
-        _args(3) = openxrPath.ptr
-        _args(4) = openxrExtensionName.ptr
-        _args(5) = actionType.ptr
+        _args(0) = interactionProfile
+        _args(1) = displayName
+        _args(2) = toplevelPath
+        _args(3) = openxrPath
+        _args(4) = openxrExtensionName
+        val _a5 = stackalloc[Long](); !_a5 = actionType.toLong
+        _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRInteractionProfileMetadata.Binds.registerIoPath, ptr, _args, null)
-
+}
+}
 
 object OpenXRInteractionProfileMetadata:
-    object Binds:
-        var registerProfileRename: Ptr[Byte] = null
+object Binds {
+          var registerProfileRename: Ptr[Byte] = null
         var registerTopLevelPath: Ptr[Byte] = null
         var registerInteractionProfile: Ptr[Byte] = null
         var registerIoPath: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.registerProfileRename = GdxApi.getMethodBind(c"OpenXRInteractionProfileMetadata", c"register_profile_rename", 3186203200L)
+  def loadBinds(): Unit = {
+                Binds.registerProfileRename = GdxApi.getMethodBind(c"OpenXRInteractionProfileMetadata", c"register_profile_rename", 3186203200L)
             Binds.registerTopLevelPath = GdxApi.getMethodBind(c"OpenXRInteractionProfileMetadata", c"register_top_level_path", 254767734L)
             Binds.registerInteractionProfile = GdxApi.getMethodBind(c"OpenXRInteractionProfileMetadata", c"register_interaction_profile", 254767734L)
             Binds.registerIoPath = GdxApi.getMethodBind(c"OpenXRInteractionProfileMetadata", c"register_io_path", 3443511926L)
+  }
+}
 
-    def apply(): OpenXRInteractionProfileMetadata =
-        val obj = new OpenXRInteractionProfileMetadata()
-        obj.ptr = GdxApi.constructObject(c"OpenXRInteractionProfileMetadata")
-        obj
+def apply(): OpenXRInteractionProfileMetadata = {
+  val obj = new OpenXRInteractionProfileMetadata()
+  obj.ptr = GdxApi.constructObject(c"OpenXRInteractionProfileMetadata")
+  obj
+}

@@ -5,83 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AspectRatioContainer extends Container
-
-    def setRatio(ratio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ratio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AspectRatioContainer.Binds.setRatio, ptr, _args, null)
-
-    def getRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AspectRatioContainer.Binds.getRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setStretchMode(stretchMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stretchMode.ptr
-        GdxApi.ptrcall(AspectRatioContainer.Binds.setStretchMode, ptr, _args, null)
-
-    def getStretchMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AspectRatioContainer.Binds.getStretchMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlignmentHorizontal(alignmentHorizontal: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignmentHorizontal.ptr
-        GdxApi.ptrcall(AspectRatioContainer.Binds.setAlignmentHorizontal, ptr, _args, null)
-
-    def getAlignmentHorizontal(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AspectRatioContainer.Binds.getAlignmentHorizontal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlignmentVertical(alignmentVertical: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignmentVertical.ptr
-        GdxApi.ptrcall(AspectRatioContainer.Binds.setAlignmentVertical, ptr, _args, null)
-
-    def getAlignmentVertical(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AspectRatioContainer.Binds.getAlignmentVertical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def ratio: Ptr[Byte] = getRatio()
-    def ratio_=(v: Ptr[Byte]): Unit = setRatio(v)
-    def stretchMode: Ptr[Byte] = getStretchMode()
-    def stretchMode_=(v: Ptr[Byte]): Unit = setStretchMode(v)
-    def alignmentHorizontal: Ptr[Byte] = getAlignmentHorizontal()
-    def alignmentHorizontal_=(v: Ptr[Byte]): Unit = setAlignmentHorizontal(v)
-    def alignmentVertical: Ptr[Byte] = getAlignmentVertical()
-    def alignmentVertical_=(v: Ptr[Byte]): Unit = setAlignmentVertical(v)
+class AspectRatioContainer extends Container {
+    def ratio: Float = getRatio()
+    def ratio_=(v: Float): Unit = setRatio(v)
+    def stretchMode: Int = getStretchMode()
+    def stretchMode_=(v: Int): Unit = setStretchMode(v)
+    def alignmentHorizontal: Int = getAlignmentHorizontal()
+    def alignmentHorizontal_=(v: Int): Unit = setAlignmentHorizontal(v)
+    def alignmentVertical: Int = getAlignmentVertical()
+    def alignmentVertical_=(v: Int): Unit = setAlignmentVertical(v)
+}
 
 object AspectRatioContainer:
-    object Binds:
-        var setRatio: Ptr[Byte] = null
-        var getRatio: Ptr[Byte] = null
-        var setStretchMode: Ptr[Byte] = null
-        var getStretchMode: Ptr[Byte] = null
-        var setAlignmentHorizontal: Ptr[Byte] = null
-        var getAlignmentHorizontal: Ptr[Byte] = null
-        var setAlignmentVertical: Ptr[Byte] = null
-        var getAlignmentVertical: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setRatio = GdxApi.getMethodBind(c"AspectRatioContainer", c"set_ratio", 373806689L)
-            Binds.getRatio = GdxApi.getMethodBind(c"AspectRatioContainer", c"get_ratio", 1740695150L)
-            Binds.setStretchMode = GdxApi.getMethodBind(c"AspectRatioContainer", c"set_stretch_mode", 1876743467L)
-            Binds.getStretchMode = GdxApi.getMethodBind(c"AspectRatioContainer", c"get_stretch_mode", 3416449033L)
-            Binds.setAlignmentHorizontal = GdxApi.getMethodBind(c"AspectRatioContainer", c"set_alignment_horizontal", 2147829016L)
-            Binds.getAlignmentHorizontal = GdxApi.getMethodBind(c"AspectRatioContainer", c"get_alignment_horizontal", 3838875429L)
-            Binds.setAlignmentVertical = GdxApi.getMethodBind(c"AspectRatioContainer", c"set_alignment_vertical", 2147829016L)
-            Binds.getAlignmentVertical = GdxApi.getMethodBind(c"AspectRatioContainer", c"get_alignment_vertical", 3838875429L)
-
-    def apply(): AspectRatioContainer =
-        val obj = new AspectRatioContainer()
-        obj.ptr = GdxApi.constructObject(c"AspectRatioContainer")
-        obj
+def apply(): AspectRatioContainer = {
+  val obj = new AspectRatioContainer()
+  obj.ptr = GdxApi.constructObject(c"AspectRatioContainer")
+  obj
+}

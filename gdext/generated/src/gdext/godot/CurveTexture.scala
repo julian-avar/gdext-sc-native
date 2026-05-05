@@ -5,58 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CurveTexture extends Texture2D
-
-    def setWidth(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CurveTexture.Binds.setWidth, ptr, _args, null)
-
-    def setCurve(curve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = curve.ptr
-        GdxApi.ptrcall(CurveTexture.Binds.setCurve, ptr, _args, null)
-
-    def getCurve(): Curve =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CurveTexture.Binds.getCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setTextureMode(textureMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = textureMode.ptr
-        GdxApi.ptrcall(CurveTexture.Binds.setTextureMode, ptr, _args, null)
-
-    def getTextureMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CurveTexture.Binds.getTextureMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
+class CurveTexture extends Texture2D {
     def width: Ptr[Byte] = getWidth()
-    def width_=(v: Ptr[Byte]): Unit = setWidth(v)
-    def textureMode: Ptr[Byte] = getTextureMode()
-    def textureMode_=(v: Ptr[Byte]): Unit = setTextureMode(v)
-    def curve: Ptr[Byte] = getCurve()
-    def curve_=(v: Ptr[Byte]): Unit = setCurve(v)
+    def width_=(v: Int): Unit = setWidth(v)
+    def textureMode: Int = getTextureMode()
+    def textureMode_=(v: Int): Unit = setTextureMode(v)
+    def curve: Curve = getCurve()
+    def curve_=(v: Curve): Unit = setCurve(v)
+}
 
 object CurveTexture:
-    object Binds:
-        var setWidth: Ptr[Byte] = null
-        var setCurve: Ptr[Byte] = null
-        var getCurve: Ptr[Byte] = null
-        var setTextureMode: Ptr[Byte] = null
-        var getTextureMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setWidth = GdxApi.getMethodBind(c"CurveTexture", c"set_width", 1286410249L)
-            Binds.setCurve = GdxApi.getMethodBind(c"CurveTexture", c"set_curve", 270443179L)
-            Binds.getCurve = GdxApi.getMethodBind(c"CurveTexture", c"get_curve", 2460114913L)
-            Binds.setTextureMode = GdxApi.getMethodBind(c"CurveTexture", c"set_texture_mode", 1321955367L)
-            Binds.getTextureMode = GdxApi.getMethodBind(c"CurveTexture", c"get_texture_mode", 715756376L)
-
-    def apply(): CurveTexture =
-        val obj = new CurveTexture()
-        obj.ptr = GdxApi.constructObject(c"CurveTexture")
-        obj
+def apply(): CurveTexture = {
+  val obj = new CurveTexture()
+  obj.ptr = GdxApi.constructObject(c"CurveTexture")
+  obj
+}

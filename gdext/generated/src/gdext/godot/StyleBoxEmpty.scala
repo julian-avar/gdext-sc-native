@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StyleBoxEmpty extends StyleBox
-
-
-
+class StyleBoxEmpty extends StyleBox {}
 
 object StyleBoxEmpty:
-    def apply(): StyleBoxEmpty =
-        val obj = new StyleBoxEmpty()
-        obj.ptr = GdxApi.constructObject(c"StyleBoxEmpty")
-        obj
+def apply(): StyleBoxEmpty = {
+  val obj = new StyleBoxEmpty()
+  obj.ptr = GdxApi.constructObject(c"StyleBoxEmpty")
+  obj
+}

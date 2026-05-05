@@ -5,17 +5,19 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorToaster extends HBoxContainer
-
-    def pushToast(message: CString): Unit =
+class EditorToaster extends HBoxContainer {
+    def pushToast(message: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         GdxApi.ptrcall(EditorToaster.Binds.pushToast, ptr, _args, null)
-
+}
+}
 
 object EditorToaster:
-    object Binds:
-        var pushToast: Ptr[Byte] = null
+object Binds {
+          var pushToast: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.pushToast = GdxApi.getMethodBind(c"EditorToaster", c"push_toast", 1813923476L)
+  def loadBinds(): Unit = {
+                Binds.pushToast = GdxApi.getMethodBind(c"EditorToaster", c"push_toast", 1813923476L)
+  }
+}

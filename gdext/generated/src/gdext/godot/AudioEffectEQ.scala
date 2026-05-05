@@ -5,43 +5,48 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectEQ extends AudioEffect
-
-    def setBandGainDb(bandIdx: Int, volumeDb: Float): Unit =
+class AudioEffectEQ extends AudioEffect {
+    def setBandGainDb(bandIdx: Int, volumeDb: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = bandIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bandIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = volumeDb.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioEffectEQ.Binds.setBandGainDb, ptr, _args, null)
+}
 
-    def getBandGainDb(bandIdx: Int): Float =
+    def getBandGainDb(bandIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bandIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bandIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AudioEffectEQ.Binds.getBandGainDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getBandCount(): Int =
+    def getBandCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioEffectEQ.Binds.getBandCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object AudioEffectEQ:
-    object Binds:
-        var setBandGainDb: Ptr[Byte] = null
+object Binds {
+          var setBandGainDb: Ptr[Byte] = null
         var getBandGainDb: Ptr[Byte] = null
         var getBandCount: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setBandGainDb = GdxApi.getMethodBind(c"AudioEffectEQ", c"set_band_gain_db", 1602489585L)
+  def loadBinds(): Unit = {
+                Binds.setBandGainDb = GdxApi.getMethodBind(c"AudioEffectEQ", c"set_band_gain_db", 1602489585L)
             Binds.getBandGainDb = GdxApi.getMethodBind(c"AudioEffectEQ", c"get_band_gain_db", 2339986948L)
             Binds.getBandCount = GdxApi.getMethodBind(c"AudioEffectEQ", c"get_band_count", 3905245786L)
+  }
+}
 
-    def apply(): AudioEffectEQ =
-        val obj = new AudioEffectEQ()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectEQ")
-        obj
+def apply(): AudioEffectEQ = {
+  val obj = new AudioEffectEQ()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectEQ")
+  obj
+}

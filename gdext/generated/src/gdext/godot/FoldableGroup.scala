@@ -5,48 +5,38 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FoldableGroup extends Resource
-
-    def getExpandedContainer(): FoldableContainer =
+class FoldableGroup extends Resource {
+    def getExpandedContainer(): FoldableContainer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FoldableGroup.Binds.getExpandedContainer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new FoldableContainer(!_ret)
+}
 
-    def getContainers(): Ptr[Byte] =
+    def getContainers(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FoldableGroup.Binds.getContainers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setAllowFoldingAll(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FoldableGroup.Binds.setAllowFoldingAll, ptr, _args, null)
-
-    def isAllowFoldingAll(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FoldableGroup.Binds.isAllowFoldingAll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def allowFoldingAll: Ptr[Byte] = isAllowFoldingAll()
-    def allowFoldingAll_=(v: Ptr[Byte]): Unit = setAllowFoldingAll(v)
+    def allowFoldingAll: Boolean = isAllowFoldingAll()
+    def allowFoldingAll_=(v: Boolean): Unit = setAllowFoldingAll(v)
+}
 
 object FoldableGroup:
-    object Binds:
-        var getExpandedContainer: Ptr[Byte] = null
+object Binds {
+          var getExpandedContainer: Ptr[Byte] = null
         var getContainers: Ptr[Byte] = null
-        var setAllowFoldingAll: Ptr[Byte] = null
-        var isAllowFoldingAll: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getExpandedContainer = GdxApi.getMethodBind(c"FoldableGroup", c"get_expanded_container", 1427441056L)
+  def loadBinds(): Unit = {
+                Binds.getExpandedContainer = GdxApi.getMethodBind(c"FoldableGroup", c"get_expanded_container", 1427441056L)
             Binds.getContainers = GdxApi.getMethodBind(c"FoldableGroup", c"get_containers", 3995934104L)
-            Binds.setAllowFoldingAll = GdxApi.getMethodBind(c"FoldableGroup", c"set_allow_folding_all", 2586408642L)
-            Binds.isAllowFoldingAll = GdxApi.getMethodBind(c"FoldableGroup", c"is_allow_folding_all", 36873697L)
+  }
+}
 
-    def apply(): FoldableGroup =
-        val obj = new FoldableGroup()
-        obj.ptr = GdxApi.constructObject(c"FoldableGroup")
-        obj
+def apply(): FoldableGroup = {
+  val obj = new FoldableGroup()
+  obj.ptr = GdxApi.constructObject(c"FoldableGroup")
+  obj
+}

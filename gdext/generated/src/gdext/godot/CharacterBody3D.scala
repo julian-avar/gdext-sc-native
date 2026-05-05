@@ -5,362 +5,176 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CharacterBody3D extends PhysicsBody3D
-
-    def moveAndSlide(): Boolean =
+class CharacterBody3D extends PhysicsBody3D {
+    def moveAndSlide(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.moveAndSlide, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def applyFloorSnap(): Unit =
+    def applyFloorSnap(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CharacterBody3D.Binds.applyFloorSnap, ptr, _args, null)
+}
 
-    def setVelocity(velocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = velocity.ptr
-        GdxApi.ptrcall(CharacterBody3D.Binds.setVelocity, ptr, _args, null)
-
-    def getVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setSafeMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setSafeMargin, ptr, _args, null)
-
-    def getSafeMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getSafeMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def isFloorStopOnSlopeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.isFloorStopOnSlopeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFloorStopOnSlopeEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setFloorStopOnSlopeEnabled, ptr, _args, null)
-
-    def setFloorConstantSpeedEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setFloorConstantSpeedEnabled, ptr, _args, null)
-
-    def isFloorConstantSpeedEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.isFloorConstantSpeedEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFloorBlockOnWallEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setFloorBlockOnWallEnabled, ptr, _args, null)
-
-    def isFloorBlockOnWallEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.isFloorBlockOnWallEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSlideOnCeilingEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setSlideOnCeilingEnabled, ptr, _args, null)
-
-    def isSlideOnCeilingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.isSlideOnCeilingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPlatformFloorLayers(excludeLayer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = excludeLayer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setPlatformFloorLayers, ptr, _args, null)
-
-    def getPlatformFloorLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getPlatformFloorLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPlatformWallLayers(excludeLayer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = excludeLayer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setPlatformWallLayers, ptr, _args, null)
-
-    def getPlatformWallLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getPlatformWallLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getMaxSlides(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getMaxSlides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxSlides(maxSlides: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxSlides.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setMaxSlides, ptr, _args, null)
-
-    def getFloorMaxAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getFloorMaxAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFloorMaxAngle(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setFloorMaxAngle, ptr, _args, null)
-
-    def getFloorSnapLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getFloorSnapLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFloorSnapLength(floorSnapLength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = floorSnapLength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setFloorSnapLength, ptr, _args, null)
-
-    def getWallMinSlideAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getWallMinSlideAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setWallMinSlideAngle(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharacterBody3D.Binds.setWallMinSlideAngle, ptr, _args, null)
-
-    def getUpDirection(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getUpDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setUpDirection(upDirection: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = upDirection.ptr
-        GdxApi.ptrcall(CharacterBody3D.Binds.setUpDirection, ptr, _args, null)
-
-    def setMotionMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(CharacterBody3D.Binds.setMotionMode, ptr, _args, null)
-
-    def getMotionMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getMotionMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPlatformOnLeave(onLeaveApplyVelocity: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = onLeaveApplyVelocity.ptr
-        GdxApi.ptrcall(CharacterBody3D.Binds.setPlatformOnLeave, ptr, _args, null)
-
-    def getPlatformOnLeave(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharacterBody3D.Binds.getPlatformOnLeave, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def isOnFloor(): Boolean =
+    def isOnFloor(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.isOnFloor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isOnFloorOnly(): Boolean =
+    def isOnFloorOnly(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.isOnFloorOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isOnCeiling(): Boolean =
+    def isOnCeiling(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.isOnCeiling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isOnCeilingOnly(): Boolean =
+    def isOnCeilingOnly(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.isOnCeilingOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isOnWall(): Boolean =
+    def isOnWall(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.isOnWall, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isOnWallOnly(): Boolean =
+    def isOnWallOnly(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CharacterBody3D.Binds.isOnWallOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFloorNormal(): Vector3 =
+    def getFloorNormal(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getFloorNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getWallNormal(): Vector3 =
+    def getWallNormal(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getWallNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getLastMotion(): Vector3 =
+    def getLastMotion(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getLastMotion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getPositionDelta(): Vector3 =
+    def getPositionDelta(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getPositionDelta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getRealVelocity(): Vector3 =
+    def getRealVelocity(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getRealVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getFloorAngle(): Float =
+    def getFloorAngle(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getFloorAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getPlatformVelocity(): Vector3 =
+    def getPlatformVelocity(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getPlatformVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getPlatformAngularVelocity(): Vector3 =
+    def getPlatformAngularVelocity(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getPlatformAngularVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getSlideCollisionCount(): Int =
+    def getSlideCollisionCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getSlideCollisionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSlideCollision(slideIdx: Int): KinematicCollision3D =
+    def getSlideCollision(slideIdx: Int): KinematicCollision3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = slideIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = slideIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getSlideCollision, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new KinematicCollision3D(!_ret)
+}
 
-    def getLastSlideCollision(): KinematicCollision3D =
+    def getLastSlideCollision(): KinematicCollision3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CharacterBody3D.Binds.getLastSlideCollision, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new KinematicCollision3D(!_ret)
-    def motionMode: Ptr[Byte] = getMotionMode()
-    def motionMode_=(v: Ptr[Byte]): Unit = setMotionMode(v)
-    def upDirection: Ptr[Byte] = getUpDirection()
-    def upDirection_=(v: Ptr[Byte]): Unit = setUpDirection(v)
-    def slideOnCeiling: Ptr[Byte] = isSlideOnCeilingEnabled()
-    def slideOnCeiling_=(v: Ptr[Byte]): Unit = setSlideOnCeilingEnabled(v)
-    def velocity: Ptr[Byte] = getVelocity()
-    def velocity_=(v: Ptr[Byte]): Unit = setVelocity(v)
-    def maxSlides: Ptr[Byte] = getMaxSlides()
-    def maxSlides_=(v: Ptr[Byte]): Unit = setMaxSlides(v)
-    def wallMinSlideAngle: Ptr[Byte] = getWallMinSlideAngle()
-    def wallMinSlideAngle_=(v: Ptr[Byte]): Unit = setWallMinSlideAngle(v)
-    def floorStopOnSlope: Ptr[Byte] = isFloorStopOnSlopeEnabled()
-    def floorStopOnSlope_=(v: Ptr[Byte]): Unit = setFloorStopOnSlopeEnabled(v)
-    def floorConstantSpeed: Ptr[Byte] = isFloorConstantSpeedEnabled()
-    def floorConstantSpeed_=(v: Ptr[Byte]): Unit = setFloorConstantSpeedEnabled(v)
-    def floorBlockOnWall: Ptr[Byte] = isFloorBlockOnWallEnabled()
-    def floorBlockOnWall_=(v: Ptr[Byte]): Unit = setFloorBlockOnWallEnabled(v)
-    def floorMaxAngle: Ptr[Byte] = getFloorMaxAngle()
-    def floorMaxAngle_=(v: Ptr[Byte]): Unit = setFloorMaxAngle(v)
-    def floorSnapLength: Ptr[Byte] = getFloorSnapLength()
-    def floorSnapLength_=(v: Ptr[Byte]): Unit = setFloorSnapLength(v)
-    def platformOnLeave: Ptr[Byte] = getPlatformOnLeave()
-    def platformOnLeave_=(v: Ptr[Byte]): Unit = setPlatformOnLeave(v)
-    def platformFloorLayers: Ptr[Byte] = getPlatformFloorLayers()
-    def platformFloorLayers_=(v: Ptr[Byte]): Unit = setPlatformFloorLayers(v)
-    def platformWallLayers: Ptr[Byte] = getPlatformWallLayers()
-    def platformWallLayers_=(v: Ptr[Byte]): Unit = setPlatformWallLayers(v)
-    def safeMargin: Ptr[Byte] = getSafeMargin()
-    def safeMargin_=(v: Ptr[Byte]): Unit = setSafeMargin(v)
+}
+
+    def motionMode: Int = getMotionMode()
+    def motionMode_=(v: Int): Unit = setMotionMode(v)
+    def upDirection: Vector3 = getUpDirection()
+    def upDirection_=(v: Vector3): Unit = setUpDirection(v)
+    def slideOnCeiling: Boolean = isSlideOnCeilingEnabled()
+    def slideOnCeiling_=(v: Boolean): Unit = setSlideOnCeilingEnabled(v)
+    def velocity: Vector3 = getVelocity()
+    def velocity_=(v: Vector3): Unit = setVelocity(v)
+    def maxSlides: Int = getMaxSlides()
+    def maxSlides_=(v: Int): Unit = setMaxSlides(v)
+    def wallMinSlideAngle: Float = getWallMinSlideAngle()
+    def wallMinSlideAngle_=(v: Float): Unit = setWallMinSlideAngle(v)
+    def floorStopOnSlope: Boolean = isFloorStopOnSlopeEnabled()
+    def floorStopOnSlope_=(v: Boolean): Unit = setFloorStopOnSlopeEnabled(v)
+    def floorConstantSpeed: Boolean = isFloorConstantSpeedEnabled()
+    def floorConstantSpeed_=(v: Boolean): Unit = setFloorConstantSpeedEnabled(v)
+    def floorBlockOnWall: Boolean = isFloorBlockOnWallEnabled()
+    def floorBlockOnWall_=(v: Boolean): Unit = setFloorBlockOnWallEnabled(v)
+    def floorMaxAngle: Float = getFloorMaxAngle()
+    def floorMaxAngle_=(v: Float): Unit = setFloorMaxAngle(v)
+    def floorSnapLength: Float = getFloorSnapLength()
+    def floorSnapLength_=(v: Float): Unit = setFloorSnapLength(v)
+    def platformOnLeave: Int = getPlatformOnLeave()
+    def platformOnLeave_=(v: Int): Unit = setPlatformOnLeave(v)
+    def platformFloorLayers: Int = getPlatformFloorLayers()
+    def platformFloorLayers_=(v: Int): Unit = setPlatformFloorLayers(v)
+    def platformWallLayers: Int = getPlatformWallLayers()
+    def platformWallLayers_=(v: Int): Unit = setPlatformWallLayers(v)
+    def safeMargin: Float = getSafeMargin()
+    def safeMargin_=(v: Float): Unit = setSafeMargin(v)
+}
 
 object CharacterBody3D:
-    object Binds:
-        var moveAndSlide: Ptr[Byte] = null
+object Binds {
+          var moveAndSlide: Ptr[Byte] = null
         var applyFloorSnap: Ptr[Byte] = null
-        var setVelocity: Ptr[Byte] = null
-        var getVelocity: Ptr[Byte] = null
-        var setSafeMargin: Ptr[Byte] = null
-        var getSafeMargin: Ptr[Byte] = null
-        var isFloorStopOnSlopeEnabled: Ptr[Byte] = null
-        var setFloorStopOnSlopeEnabled: Ptr[Byte] = null
-        var setFloorConstantSpeedEnabled: Ptr[Byte] = null
-        var isFloorConstantSpeedEnabled: Ptr[Byte] = null
-        var setFloorBlockOnWallEnabled: Ptr[Byte] = null
-        var isFloorBlockOnWallEnabled: Ptr[Byte] = null
-        var setSlideOnCeilingEnabled: Ptr[Byte] = null
-        var isSlideOnCeilingEnabled: Ptr[Byte] = null
-        var setPlatformFloorLayers: Ptr[Byte] = null
-        var getPlatformFloorLayers: Ptr[Byte] = null
-        var setPlatformWallLayers: Ptr[Byte] = null
-        var getPlatformWallLayers: Ptr[Byte] = null
-        var getMaxSlides: Ptr[Byte] = null
-        var setMaxSlides: Ptr[Byte] = null
-        var getFloorMaxAngle: Ptr[Byte] = null
-        var setFloorMaxAngle: Ptr[Byte] = null
-        var getFloorSnapLength: Ptr[Byte] = null
-        var setFloorSnapLength: Ptr[Byte] = null
-        var getWallMinSlideAngle: Ptr[Byte] = null
-        var setWallMinSlideAngle: Ptr[Byte] = null
-        var getUpDirection: Ptr[Byte] = null
-        var setUpDirection: Ptr[Byte] = null
-        var setMotionMode: Ptr[Byte] = null
-        var getMotionMode: Ptr[Byte] = null
-        var setPlatformOnLeave: Ptr[Byte] = null
-        var getPlatformOnLeave: Ptr[Byte] = null
         var isOnFloor: Ptr[Byte] = null
         var isOnFloorOnly: Ptr[Byte] = null
         var isOnCeiling: Ptr[Byte] = null
@@ -379,39 +193,9 @@ object CharacterBody3D:
         var getSlideCollision: Ptr[Byte] = null
         var getLastSlideCollision: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.moveAndSlide = GdxApi.getMethodBind(c"CharacterBody3D", c"move_and_slide", 2240911060L)
+  def loadBinds(): Unit = {
+                Binds.moveAndSlide = GdxApi.getMethodBind(c"CharacterBody3D", c"move_and_slide", 2240911060L)
             Binds.applyFloorSnap = GdxApi.getMethodBind(c"CharacterBody3D", c"apply_floor_snap", 3218959716L)
-            Binds.setVelocity = GdxApi.getMethodBind(c"CharacterBody3D", c"set_velocity", 3460891852L)
-            Binds.getVelocity = GdxApi.getMethodBind(c"CharacterBody3D", c"get_velocity", 3360562783L)
-            Binds.setSafeMargin = GdxApi.getMethodBind(c"CharacterBody3D", c"set_safe_margin", 373806689L)
-            Binds.getSafeMargin = GdxApi.getMethodBind(c"CharacterBody3D", c"get_safe_margin", 1740695150L)
-            Binds.isFloorStopOnSlopeEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"is_floor_stop_on_slope_enabled", 36873697L)
-            Binds.setFloorStopOnSlopeEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"set_floor_stop_on_slope_enabled", 2586408642L)
-            Binds.setFloorConstantSpeedEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"set_floor_constant_speed_enabled", 2586408642L)
-            Binds.isFloorConstantSpeedEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"is_floor_constant_speed_enabled", 36873697L)
-            Binds.setFloorBlockOnWallEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"set_floor_block_on_wall_enabled", 2586408642L)
-            Binds.isFloorBlockOnWallEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"is_floor_block_on_wall_enabled", 36873697L)
-            Binds.setSlideOnCeilingEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"set_slide_on_ceiling_enabled", 2586408642L)
-            Binds.isSlideOnCeilingEnabled = GdxApi.getMethodBind(c"CharacterBody3D", c"is_slide_on_ceiling_enabled", 36873697L)
-            Binds.setPlatformFloorLayers = GdxApi.getMethodBind(c"CharacterBody3D", c"set_platform_floor_layers", 1286410249L)
-            Binds.getPlatformFloorLayers = GdxApi.getMethodBind(c"CharacterBody3D", c"get_platform_floor_layers", 3905245786L)
-            Binds.setPlatformWallLayers = GdxApi.getMethodBind(c"CharacterBody3D", c"set_platform_wall_layers", 1286410249L)
-            Binds.getPlatformWallLayers = GdxApi.getMethodBind(c"CharacterBody3D", c"get_platform_wall_layers", 3905245786L)
-            Binds.getMaxSlides = GdxApi.getMethodBind(c"CharacterBody3D", c"get_max_slides", 3905245786L)
-            Binds.setMaxSlides = GdxApi.getMethodBind(c"CharacterBody3D", c"set_max_slides", 1286410249L)
-            Binds.getFloorMaxAngle = GdxApi.getMethodBind(c"CharacterBody3D", c"get_floor_max_angle", 1740695150L)
-            Binds.setFloorMaxAngle = GdxApi.getMethodBind(c"CharacterBody3D", c"set_floor_max_angle", 373806689L)
-            Binds.getFloorSnapLength = GdxApi.getMethodBind(c"CharacterBody3D", c"get_floor_snap_length", 191475506L)
-            Binds.setFloorSnapLength = GdxApi.getMethodBind(c"CharacterBody3D", c"set_floor_snap_length", 373806689L)
-            Binds.getWallMinSlideAngle = GdxApi.getMethodBind(c"CharacterBody3D", c"get_wall_min_slide_angle", 1740695150L)
-            Binds.setWallMinSlideAngle = GdxApi.getMethodBind(c"CharacterBody3D", c"set_wall_min_slide_angle", 373806689L)
-            Binds.getUpDirection = GdxApi.getMethodBind(c"CharacterBody3D", c"get_up_direction", 3360562783L)
-            Binds.setUpDirection = GdxApi.getMethodBind(c"CharacterBody3D", c"set_up_direction", 3460891852L)
-            Binds.setMotionMode = GdxApi.getMethodBind(c"CharacterBody3D", c"set_motion_mode", 2690739026L)
-            Binds.getMotionMode = GdxApi.getMethodBind(c"CharacterBody3D", c"get_motion_mode", 3529553604L)
-            Binds.setPlatformOnLeave = GdxApi.getMethodBind(c"CharacterBody3D", c"set_platform_on_leave", 1459986142L)
-            Binds.getPlatformOnLeave = GdxApi.getMethodBind(c"CharacterBody3D", c"get_platform_on_leave", 996491171L)
             Binds.isOnFloor = GdxApi.getMethodBind(c"CharacterBody3D", c"is_on_floor", 36873697L)
             Binds.isOnFloorOnly = GdxApi.getMethodBind(c"CharacterBody3D", c"is_on_floor_only", 36873697L)
             Binds.isOnCeiling = GdxApi.getMethodBind(c"CharacterBody3D", c"is_on_ceiling", 36873697L)
@@ -429,8 +213,11 @@ object CharacterBody3D:
             Binds.getSlideCollisionCount = GdxApi.getMethodBind(c"CharacterBody3D", c"get_slide_collision_count", 3905245786L)
             Binds.getSlideCollision = GdxApi.getMethodBind(c"CharacterBody3D", c"get_slide_collision", 107003663L)
             Binds.getLastSlideCollision = GdxApi.getMethodBind(c"CharacterBody3D", c"get_last_slide_collision", 186875014L)
+  }
+}
 
-    def apply(): CharacterBody3D =
-        val obj = new CharacterBody3D()
-        obj.ptr = GdxApi.constructObject(c"CharacterBody3D")
-        obj
+def apply(): CharacterBody3D = {
+  val obj = new CharacterBody3D()
+  obj.ptr = GdxApi.constructObject(c"CharacterBody3D")
+  obj
+}

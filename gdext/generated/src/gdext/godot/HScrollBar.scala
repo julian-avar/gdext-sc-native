@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HScrollBar extends ScrollBar
-
-
-
+class HScrollBar extends ScrollBar {}
 
 object HScrollBar:
-    def apply(): HScrollBar =
-        val obj = new HScrollBar()
-        obj.ptr = GdxApi.constructObject(c"HScrollBar")
-        obj
+def apply(): HScrollBar = {
+  val obj = new HScrollBar()
+  obj.ptr = GdxApi.constructObject(c"HScrollBar")
+  obj
+}

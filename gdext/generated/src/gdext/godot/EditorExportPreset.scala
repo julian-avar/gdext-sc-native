@@ -5,171 +5,195 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPreset extends RefCounted
-
-    def has(property: CString): Boolean =
+class EditorExportPreset extends RefCounted {
+    def has(property: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = property.ptr
+        _args(0) = property
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.has, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFilesToExport(): PackedStringArray =
+    def getFilesToExport(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getFilesToExport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getCustomizedFiles(): Dictionary =
+    def getCustomizedFiles(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getCustomizedFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getCustomizedFilesCount(): Int =
+    def getCustomizedFilesCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getCustomizedFilesCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasExportFile(path: CString): Boolean =
+    def hasExportFile(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.hasExportFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFileExportMode(path: CString): Int =
+    def getFileExportMode(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getFileExportMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getProjectSetting(name: CString): Ptr[Byte] =
+    def getProjectSetting(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getProjectSetting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPresetName(): CString =
+    def getPresetName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getPresetName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isRunnable(): Boolean =
+    def isRunnable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.isRunnable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def areAdvancedOptionsEnabled(): Boolean =
+    def areAdvancedOptionsEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.areAdvancedOptionsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isDedicatedServer(): Boolean =
+    def isDedicatedServer(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.isDedicatedServer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getExportFilter(): Int =
+    def getExportFilter(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getExportFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getIncludeFilter(): CString =
+    def getIncludeFilter(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getIncludeFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getExcludeFilter(): CString =
+    def getExcludeFilter(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getExcludeFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCustomFeatures(): CString =
+    def getCustomFeatures(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getCustomFeatures, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPatches(): PackedStringArray =
+    def getPatches(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getPatches, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getExportPath(): CString =
+    def getExportPath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getExportPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getEncryptionInFilter(): CString =
+    def getEncryptionInFilter(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getEncryptionInFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getEncryptionExFilter(): CString =
+    def getEncryptionExFilter(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getEncryptionExFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getEncryptPck(): Boolean =
+    def getEncryptPck(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getEncryptPck, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getEncryptDirectory(): Boolean =
+    def getEncryptDirectory(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getEncryptDirectory, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getEncryptionKey(): CString =
+    def getEncryptionKey(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getEncryptionKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getScriptExportMode(): Int =
+    def getScriptExportMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getScriptExportMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getOrEnv(name: CString, envVar: CString): Ptr[Byte] =
+    def getOrEnv(name: CString, envVar: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = envVar.ptr
+        _args(0) = name
+        _args(1) = envVar
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getOrEnv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVersion(name: CString, windowsVersion: Boolean): CString =
+    def getVersion(name: CString, windowsVersion: Boolean): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Byte](); !_a1 = if windowsVersion then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPreset.Binds.getVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object EditorExportPreset:
-    object Binds:
-        var has: Ptr[Byte] = null
+object Binds {
+          var has: Ptr[Byte] = null
         var getFilesToExport: Ptr[Byte] = null
         var getCustomizedFiles: Ptr[Byte] = null
         var getCustomizedFilesCount: Ptr[Byte] = null
@@ -195,8 +219,8 @@ object EditorExportPreset:
         var getOrEnv: Ptr[Byte] = null
         var getVersion: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.has = GdxApi.getMethodBind(c"EditorExportPreset", c"has", 2619796661L)
+  def loadBinds(): Unit = {
+                Binds.has = GdxApi.getMethodBind(c"EditorExportPreset", c"has", 2619796661L)
             Binds.getFilesToExport = GdxApi.getMethodBind(c"EditorExportPreset", c"get_files_to_export", 1139954409L)
             Binds.getCustomizedFiles = GdxApi.getMethodBind(c"EditorExportPreset", c"get_customized_files", 3102165223L)
             Binds.getCustomizedFilesCount = GdxApi.getMethodBind(c"EditorExportPreset", c"get_customized_files_count", 3905245786L)
@@ -221,3 +245,5 @@ object EditorExportPreset:
             Binds.getScriptExportMode = GdxApi.getMethodBind(c"EditorExportPreset", c"get_script_export_mode", 3905245786L)
             Binds.getOrEnv = GdxApi.getMethodBind(c"EditorExportPreset", c"get_or_env", 389838787L)
             Binds.getVersion = GdxApi.getMethodBind(c"EditorExportPreset", c"get_version", 1132184663L)
+  }
+}

@@ -5,212 +5,47 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDPipelineColorBlendStateAttachment extends RefCounted
-
-    def setAsMix(): Unit =
+class RDPipelineColorBlendStateAttachment extends RefCounted {
+    def setAsMix(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setAsMix, ptr, _args, null)
+}
 
-    def setEnableBlend(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setEnableBlend, ptr, _args, null)
-
-    def getEnableBlend(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getEnableBlend, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSrcColorBlendFactor(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setSrcColorBlendFactor, ptr, _args, null)
-
-    def getSrcColorBlendFactor(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getSrcColorBlendFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDstColorBlendFactor(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setDstColorBlendFactor, ptr, _args, null)
-
-    def getDstColorBlendFactor(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getDstColorBlendFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setColorBlendOp(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setColorBlendOp, ptr, _args, null)
-
-    def getColorBlendOp(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getColorBlendOp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSrcAlphaBlendFactor(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setSrcAlphaBlendFactor, ptr, _args, null)
-
-    def getSrcAlphaBlendFactor(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getSrcAlphaBlendFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDstAlphaBlendFactor(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setDstAlphaBlendFactor, ptr, _args, null)
-
-    def getDstAlphaBlendFactor(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getDstAlphaBlendFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaBlendOp(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setAlphaBlendOp, ptr, _args, null)
-
-    def getAlphaBlendOp(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getAlphaBlendOp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setWriteR(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setWriteR, ptr, _args, null)
-
-    def getWriteR(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getWriteR, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setWriteG(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setWriteG, ptr, _args, null)
-
-    def getWriteG(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getWriteG, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setWriteB(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setWriteB, ptr, _args, null)
-
-    def getWriteB(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getWriteB, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setWriteA(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.setWriteA, ptr, _args, null)
-
-    def getWriteA(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineColorBlendStateAttachment.Binds.getWriteA, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def enableBlend: Ptr[Byte] = getEnableBlend()
-    def enableBlend_=(v: Ptr[Byte]): Unit = setEnableBlend(v)
-    def srcColorBlendFactor: Ptr[Byte] = getSrcColorBlendFactor()
-    def srcColorBlendFactor_=(v: Ptr[Byte]): Unit = setSrcColorBlendFactor(v)
-    def dstColorBlendFactor: Ptr[Byte] = getDstColorBlendFactor()
-    def dstColorBlendFactor_=(v: Ptr[Byte]): Unit = setDstColorBlendFactor(v)
-    def colorBlendOp: Ptr[Byte] = getColorBlendOp()
-    def colorBlendOp_=(v: Ptr[Byte]): Unit = setColorBlendOp(v)
-    def srcAlphaBlendFactor: Ptr[Byte] = getSrcAlphaBlendFactor()
-    def srcAlphaBlendFactor_=(v: Ptr[Byte]): Unit = setSrcAlphaBlendFactor(v)
-    def dstAlphaBlendFactor: Ptr[Byte] = getDstAlphaBlendFactor()
-    def dstAlphaBlendFactor_=(v: Ptr[Byte]): Unit = setDstAlphaBlendFactor(v)
-    def alphaBlendOp: Ptr[Byte] = getAlphaBlendOp()
-    def alphaBlendOp_=(v: Ptr[Byte]): Unit = setAlphaBlendOp(v)
-    def writeR: Ptr[Byte] = getWriteR()
-    def writeR_=(v: Ptr[Byte]): Unit = setWriteR(v)
-    def writeG: Ptr[Byte] = getWriteG()
-    def writeG_=(v: Ptr[Byte]): Unit = setWriteG(v)
-    def writeB: Ptr[Byte] = getWriteB()
-    def writeB_=(v: Ptr[Byte]): Unit = setWriteB(v)
-    def writeA: Ptr[Byte] = getWriteA()
-    def writeA_=(v: Ptr[Byte]): Unit = setWriteA(v)
+    def enableBlend: Boolean = getEnableBlend()
+    def enableBlend_=(v: Boolean): Unit = setEnableBlend(v)
+    def srcColorBlendFactor: Int = getSrcColorBlendFactor()
+    def srcColorBlendFactor_=(v: Int): Unit = setSrcColorBlendFactor(v)
+    def dstColorBlendFactor: Int = getDstColorBlendFactor()
+    def dstColorBlendFactor_=(v: Int): Unit = setDstColorBlendFactor(v)
+    def colorBlendOp: Int = getColorBlendOp()
+    def colorBlendOp_=(v: Int): Unit = setColorBlendOp(v)
+    def srcAlphaBlendFactor: Int = getSrcAlphaBlendFactor()
+    def srcAlphaBlendFactor_=(v: Int): Unit = setSrcAlphaBlendFactor(v)
+    def dstAlphaBlendFactor: Int = getDstAlphaBlendFactor()
+    def dstAlphaBlendFactor_=(v: Int): Unit = setDstAlphaBlendFactor(v)
+    def alphaBlendOp: Int = getAlphaBlendOp()
+    def alphaBlendOp_=(v: Int): Unit = setAlphaBlendOp(v)
+    def writeR: Boolean = getWriteR()
+    def writeR_=(v: Boolean): Unit = setWriteR(v)
+    def writeG: Boolean = getWriteG()
+    def writeG_=(v: Boolean): Unit = setWriteG(v)
+    def writeB: Boolean = getWriteB()
+    def writeB_=(v: Boolean): Unit = setWriteB(v)
+    def writeA: Boolean = getWriteA()
+    def writeA_=(v: Boolean): Unit = setWriteA(v)
+}
 
 object RDPipelineColorBlendStateAttachment:
-    object Binds:
-        var setAsMix: Ptr[Byte] = null
-        var setEnableBlend: Ptr[Byte] = null
-        var getEnableBlend: Ptr[Byte] = null
-        var setSrcColorBlendFactor: Ptr[Byte] = null
-        var getSrcColorBlendFactor: Ptr[Byte] = null
-        var setDstColorBlendFactor: Ptr[Byte] = null
-        var getDstColorBlendFactor: Ptr[Byte] = null
-        var setColorBlendOp: Ptr[Byte] = null
-        var getColorBlendOp: Ptr[Byte] = null
-        var setSrcAlphaBlendFactor: Ptr[Byte] = null
-        var getSrcAlphaBlendFactor: Ptr[Byte] = null
-        var setDstAlphaBlendFactor: Ptr[Byte] = null
-        var getDstAlphaBlendFactor: Ptr[Byte] = null
-        var setAlphaBlendOp: Ptr[Byte] = null
-        var getAlphaBlendOp: Ptr[Byte] = null
-        var setWriteR: Ptr[Byte] = null
-        var getWriteR: Ptr[Byte] = null
-        var setWriteG: Ptr[Byte] = null
-        var getWriteG: Ptr[Byte] = null
-        var setWriteB: Ptr[Byte] = null
-        var getWriteB: Ptr[Byte] = null
-        var setWriteA: Ptr[Byte] = null
-        var getWriteA: Ptr[Byte] = null
+object Binds {
+          var setAsMix: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setAsMix = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_as_mix", 3218959716L)
-            Binds.setEnableBlend = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_enable_blend", 2586408642L)
-            Binds.getEnableBlend = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_enable_blend", 36873697L)
-            Binds.setSrcColorBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_src_color_blend_factor", 2251019273L)
-            Binds.getSrcColorBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_src_color_blend_factor", 3691288359L)
-            Binds.setDstColorBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_dst_color_blend_factor", 2251019273L)
-            Binds.getDstColorBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_dst_color_blend_factor", 3691288359L)
-            Binds.setColorBlendOp = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_color_blend_op", 3073022720L)
-            Binds.getColorBlendOp = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_color_blend_op", 1385093561L)
-            Binds.setSrcAlphaBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_src_alpha_blend_factor", 2251019273L)
-            Binds.getSrcAlphaBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_src_alpha_blend_factor", 3691288359L)
-            Binds.setDstAlphaBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_dst_alpha_blend_factor", 2251019273L)
-            Binds.getDstAlphaBlendFactor = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_dst_alpha_blend_factor", 3691288359L)
-            Binds.setAlphaBlendOp = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_alpha_blend_op", 3073022720L)
-            Binds.getAlphaBlendOp = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_alpha_blend_op", 1385093561L)
-            Binds.setWriteR = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_write_r", 2586408642L)
-            Binds.getWriteR = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_write_r", 36873697L)
-            Binds.setWriteG = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_write_g", 2586408642L)
-            Binds.getWriteG = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_write_g", 36873697L)
-            Binds.setWriteB = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_write_b", 2586408642L)
-            Binds.getWriteB = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_write_b", 36873697L)
-            Binds.setWriteA = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_write_a", 2586408642L)
-            Binds.getWriteA = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"get_write_a", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.setAsMix = GdxApi.getMethodBind(c"RDPipelineColorBlendStateAttachment", c"set_as_mix", 3218959716L)
+  }
+}
 
-    def apply(): RDPipelineColorBlendStateAttachment =
-        val obj = new RDPipelineColorBlendStateAttachment()
-        obj.ptr = GdxApi.constructObject(c"RDPipelineColorBlendStateAttachment")
-        obj
+def apply(): RDPipelineColorBlendStateAttachment = {
+  val obj = new RDPipelineColorBlendStateAttachment()
+  obj.ptr = GdxApi.constructObject(c"RDPipelineColorBlendStateAttachment")
+  obj
+}

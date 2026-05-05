@@ -5,143 +5,71 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimatedTexture extends Texture2D
-
-    def setFrames(frames: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frames.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedTexture.Binds.setFrames, ptr, _args, null)
-
-    def getFrames(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AnimatedTexture.Binds.getFrames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCurrentFrame(frame: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedTexture.Binds.setCurrentFrame, ptr, _args, null)
-
-    def getCurrentFrame(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AnimatedTexture.Binds.getCurrentFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPause(pause: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pause then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedTexture.Binds.setPause, ptr, _args, null)
-
-    def getPause(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimatedTexture.Binds.getPause, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOneShot(oneShot: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if oneShot then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedTexture.Binds.setOneShot, ptr, _args, null)
-
-    def getOneShot(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimatedTexture.Binds.getOneShot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSpeedScale(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedTexture.Binds.setSpeedScale, ptr, _args, null)
-
-    def getSpeedScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AnimatedTexture.Binds.getSpeedScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFrameTexture(frame: Int, texture: Texture2D): Unit =
+class AnimatedTexture extends Texture2D {
+    def setFrameTexture(frame: Int, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frame.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = texture.ptr
         GdxApi.ptrcall(AnimatedTexture.Binds.setFrameTexture, ptr, _args, null)
+}
 
-    def getFrameTexture(frame: Int): Texture2D =
+    def getFrameTexture(frame: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frame.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimatedTexture.Binds.getFrameTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setFrameDuration(frame: Int, duration: Float): Unit =
+    def setFrameDuration(frame: Int, duration: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frame.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = duration.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimatedTexture.Binds.setFrameDuration, ptr, _args, null)
+}
 
-    def getFrameDuration(frame: Int): Float =
+    def getFrameDuration(frame: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frame.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AnimatedTexture.Binds.getFrameDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
-    def frames: Ptr[Byte] = getFrames()
-    def frames_=(v: Ptr[Byte]): Unit = setFrames(v)
-    def currentFrame: Ptr[Byte] = getCurrentFrame()
-    def currentFrame_=(v: Ptr[Byte]): Unit = setCurrentFrame(v)
-    def pause: Ptr[Byte] = getPause()
-    def pause_=(v: Ptr[Byte]): Unit = setPause(v)
-    def oneShot: Ptr[Byte] = getOneShot()
-    def oneShot_=(v: Ptr[Byte]): Unit = setOneShot(v)
-    def speedScale: Ptr[Byte] = getSpeedScale()
-    def speedScale_=(v: Ptr[Byte]): Unit = setSpeedScale(v)
+}
+
+    def frames: Int = getFrames()
+    def frames_=(v: Int): Unit = setFrames(v)
+    def currentFrame: Int = getCurrentFrame()
+    def currentFrame_=(v: Int): Unit = setCurrentFrame(v)
+    def pause: Boolean = getPause()
+    def pause_=(v: Boolean): Unit = setPause(v)
+    def oneShot: Boolean = getOneShot()
+    def oneShot_=(v: Boolean): Unit = setOneShot(v)
+    def speedScale: Float = getSpeedScale()
+    def speedScale_=(v: Float): Unit = setSpeedScale(v)
+}
 
 object AnimatedTexture:
-    object Binds:
-        var setFrames: Ptr[Byte] = null
-        var getFrames: Ptr[Byte] = null
-        var setCurrentFrame: Ptr[Byte] = null
-        var getCurrentFrame: Ptr[Byte] = null
-        var setPause: Ptr[Byte] = null
-        var getPause: Ptr[Byte] = null
-        var setOneShot: Ptr[Byte] = null
-        var getOneShot: Ptr[Byte] = null
-        var setSpeedScale: Ptr[Byte] = null
-        var getSpeedScale: Ptr[Byte] = null
-        var setFrameTexture: Ptr[Byte] = null
+object Binds {
+          var setFrameTexture: Ptr[Byte] = null
         var getFrameTexture: Ptr[Byte] = null
         var setFrameDuration: Ptr[Byte] = null
         var getFrameDuration: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setFrames = GdxApi.getMethodBind(c"AnimatedTexture", c"set_frames", 1286410249L)
-            Binds.getFrames = GdxApi.getMethodBind(c"AnimatedTexture", c"get_frames", 3905245786L)
-            Binds.setCurrentFrame = GdxApi.getMethodBind(c"AnimatedTexture", c"set_current_frame", 1286410249L)
-            Binds.getCurrentFrame = GdxApi.getMethodBind(c"AnimatedTexture", c"get_current_frame", 3905245786L)
-            Binds.setPause = GdxApi.getMethodBind(c"AnimatedTexture", c"set_pause", 2586408642L)
-            Binds.getPause = GdxApi.getMethodBind(c"AnimatedTexture", c"get_pause", 36873697L)
-            Binds.setOneShot = GdxApi.getMethodBind(c"AnimatedTexture", c"set_one_shot", 2586408642L)
-            Binds.getOneShot = GdxApi.getMethodBind(c"AnimatedTexture", c"get_one_shot", 36873697L)
-            Binds.setSpeedScale = GdxApi.getMethodBind(c"AnimatedTexture", c"set_speed_scale", 373806689L)
-            Binds.getSpeedScale = GdxApi.getMethodBind(c"AnimatedTexture", c"get_speed_scale", 1740695150L)
-            Binds.setFrameTexture = GdxApi.getMethodBind(c"AnimatedTexture", c"set_frame_texture", 666127730L)
+  def loadBinds(): Unit = {
+                Binds.setFrameTexture = GdxApi.getMethodBind(c"AnimatedTexture", c"set_frame_texture", 666127730L)
             Binds.getFrameTexture = GdxApi.getMethodBind(c"AnimatedTexture", c"get_frame_texture", 3536238170L)
             Binds.setFrameDuration = GdxApi.getMethodBind(c"AnimatedTexture", c"set_frame_duration", 1602489585L)
             Binds.getFrameDuration = GdxApi.getMethodBind(c"AnimatedTexture", c"get_frame_duration", 2339986948L)
+  }
+}
 
-    def apply(): AnimatedTexture =
-        val obj = new AnimatedTexture()
-        obj.ptr = GdxApi.constructObject(c"AnimatedTexture")
-        obj
+def apply(): AnimatedTexture = {
+  val obj = new AnimatedTexture()
+  obj.ptr = GdxApi.constructObject(c"AnimatedTexture")
+  obj
+}

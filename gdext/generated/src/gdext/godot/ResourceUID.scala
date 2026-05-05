@@ -5,76 +5,84 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceUID extends Object
-
-    def idToText(id: Long): CString =
+class ResourceUID extends Object {
+    def idToText(id: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceUID.Binds.idToText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def textToId(textId: CString): Long =
+    def textToId(textId: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = textId.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = textId
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ResourceUID.Binds.textToId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def createId(): Long =
+    def createId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ResourceUID.Binds.createId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def createIdForPath(path: CString): Long =
+    def createIdForPath(path: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ResourceUID.Binds.createIdForPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasId(id: Long): Boolean =
+    def hasId(id: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ResourceUID.Binds.hasId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addId(id: Long, path: CString): Unit =
+    def addId(id: Long, path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = path.ptr
+        _args(1) = path
         GdxApi.ptrcall(ResourceUID.Binds.addId, ptr, _args, null)
+}
 
-    def setId(id: Long, path: CString): Unit =
+    def setId(id: Long, path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = path.ptr
+        _args(1) = path
         GdxApi.ptrcall(ResourceUID.Binds.setId, ptr, _args, null)
+}
 
-    def getIdPath(id: Long): CString =
+    def getIdPath(id: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceUID.Binds.getIdPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def removeId(id: Long): Unit =
+    def removeId(id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ResourceUID.Binds.removeId, ptr, _args, null)
-
+}
+}
 
 object ResourceUID:
-    object Binds:
-        var idToText: Ptr[Byte] = null
+object Binds {
+          var idToText: Ptr[Byte] = null
         var textToId: Ptr[Byte] = null
         var createId: Ptr[Byte] = null
         var createIdForPath: Ptr[Byte] = null
@@ -84,8 +92,8 @@ object ResourceUID:
         var getIdPath: Ptr[Byte] = null
         var removeId: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.idToText = GdxApi.getMethodBind(c"ResourceUID", c"id_to_text", 844755477L)
+  def loadBinds(): Unit = {
+                Binds.idToText = GdxApi.getMethodBind(c"ResourceUID", c"id_to_text", 844755477L)
             Binds.textToId = GdxApi.getMethodBind(c"ResourceUID", c"text_to_id", 1321353865L)
             Binds.createId = GdxApi.getMethodBind(c"ResourceUID", c"create_id", 2455072627L)
             Binds.createIdForPath = GdxApi.getMethodBind(c"ResourceUID", c"create_id_for_path", 1597066294L)
@@ -94,3 +102,5 @@ object ResourceUID:
             Binds.setId = GdxApi.getMethodBind(c"ResourceUID", c"set_id", 501894301L)
             Binds.getIdPath = GdxApi.getMethodBind(c"ResourceUID", c"get_id_path", 844755477L)
             Binds.removeId = GdxApi.getMethodBind(c"ResourceUID", c"remove_id", 1286410249L)
+  }
+}

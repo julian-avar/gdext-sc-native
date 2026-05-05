@@ -5,215 +5,64 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Range extends Control
+class Range extends Control {
     def _valueChanged(newValue: Double): Unit = ()
-    def getValue(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Range.Binds.getValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
 
-    def getMin(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Range.Binds.getMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getMax(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Range.Binds.getMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getStep(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Range.Binds.getStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getPage(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Range.Binds.getPage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getAsRatio(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Range.Binds.getAsRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setValue(value: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setValue, ptr, _args, null)
-
-    def setValueNoSignal(value: Double): Unit =
+    def setValueNoSignal(value: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Range.Binds.setValueNoSignal, ptr, _args, null)
+}
 
-    def setMin(minimum: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = minimum
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setMin, ptr, _args, null)
-
-    def setMax(maximum: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = maximum
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setMax, ptr, _args, null)
-
-    def setStep(step: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = step
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setStep, ptr, _args, null)
-
-    def setPage(pagesize: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pagesize
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setPage, ptr, _args, null)
-
-    def setAsRatio(value: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setAsRatio, ptr, _args, null)
-
-    def setUseRoundedValues(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setUseRoundedValues, ptr, _args, null)
-
-    def isUsingRoundedValues(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Range.Binds.isUsingRoundedValues, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setExpRatio(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setExpRatio, ptr, _args, null)
-
-    def isRatioExp(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Range.Binds.isRatioExp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAllowGreater(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setAllowGreater, ptr, _args, null)
-
-    def isGreaterAllowed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Range.Binds.isGreaterAllowed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAllowLesser(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Range.Binds.setAllowLesser, ptr, _args, null)
-
-    def isLesserAllowed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Range.Binds.isLesserAllowed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def share(`with`: Node): Unit =
+    def share(`with`: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `with`.ptr
         GdxApi.ptrcall(Range.Binds.share, ptr, _args, null)
+}
 
-    def unshare(): Unit =
+    def unshare(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Range.Binds.unshare, ptr, _args, null)
-    def minValue: Ptr[Byte] = getMin()
-    def minValue_=(v: Ptr[Byte]): Unit = setMin(v)
-    def maxValue: Ptr[Byte] = getMax()
-    def maxValue_=(v: Ptr[Byte]): Unit = setMax(v)
-    def step: Ptr[Byte] = getStep()
-    def step_=(v: Ptr[Byte]): Unit = setStep(v)
-    def page: Ptr[Byte] = getPage()
-    def page_=(v: Ptr[Byte]): Unit = setPage(v)
-    def value: Ptr[Byte] = getValue()
-    def value_=(v: Ptr[Byte]): Unit = setValue(v)
-    def ratio: Ptr[Byte] = getAsRatio()
-    def ratio_=(v: Ptr[Byte]): Unit = setAsRatio(v)
-    def expEdit: Ptr[Byte] = isRatioExp()
-    def expEdit_=(v: Ptr[Byte]): Unit = setExpRatio(v)
-    def rounded: Ptr[Byte] = isUsingRoundedValues()
-    def rounded_=(v: Ptr[Byte]): Unit = setUseRoundedValues(v)
-    def allowGreater: Ptr[Byte] = isGreaterAllowed()
-    def allowGreater_=(v: Ptr[Byte]): Unit = setAllowGreater(v)
-    def allowLesser: Ptr[Byte] = isLesserAllowed()
-    def allowLesser_=(v: Ptr[Byte]): Unit = setAllowLesser(v)
+}
+
+    def minValue: Double = getMin()
+    def minValue_=(v: Double): Unit = setMin(v)
+    def maxValue: Double = getMax()
+    def maxValue_=(v: Double): Unit = setMax(v)
+    def step: Double = getStep()
+    def step_=(v: Double): Unit = setStep(v)
+    def page: Double = getPage()
+    def page_=(v: Double): Unit = setPage(v)
+    def value: Double = getValue()
+    def value_=(v: Double): Unit = setValue(v)
+    def ratio: Double = getAsRatio()
+    def ratio_=(v: Double): Unit = setAsRatio(v)
+    def expEdit: Boolean = isRatioExp()
+    def expEdit_=(v: Boolean): Unit = setExpRatio(v)
+    def rounded: Boolean = isUsingRoundedValues()
+    def rounded_=(v: Boolean): Unit = setUseRoundedValues(v)
+    def allowGreater: Boolean = isGreaterAllowed()
+    def allowGreater_=(v: Boolean): Unit = setAllowGreater(v)
+    def allowLesser: Boolean = isLesserAllowed()
+    def allowLesser_=(v: Boolean): Unit = setAllowLesser(v)
+}
 
 object Range:
-    object Binds:
-        var getValue: Ptr[Byte] = null
-        var getMin: Ptr[Byte] = null
-        var getMax: Ptr[Byte] = null
-        var getStep: Ptr[Byte] = null
-        var getPage: Ptr[Byte] = null
-        var getAsRatio: Ptr[Byte] = null
-        var setValue: Ptr[Byte] = null
-        var setValueNoSignal: Ptr[Byte] = null
-        var setMin: Ptr[Byte] = null
-        var setMax: Ptr[Byte] = null
-        var setStep: Ptr[Byte] = null
-        var setPage: Ptr[Byte] = null
-        var setAsRatio: Ptr[Byte] = null
-        var setUseRoundedValues: Ptr[Byte] = null
-        var isUsingRoundedValues: Ptr[Byte] = null
-        var setExpRatio: Ptr[Byte] = null
-        var isRatioExp: Ptr[Byte] = null
-        var setAllowGreater: Ptr[Byte] = null
-        var isGreaterAllowed: Ptr[Byte] = null
-        var setAllowLesser: Ptr[Byte] = null
-        var isLesserAllowed: Ptr[Byte] = null
+object Binds {
+          var setValueNoSignal: Ptr[Byte] = null
         var share: Ptr[Byte] = null
         var unshare: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getValue = GdxApi.getMethodBind(c"Range", c"get_value", 1740695150L)
-            Binds.getMin = GdxApi.getMethodBind(c"Range", c"get_min", 1740695150L)
-            Binds.getMax = GdxApi.getMethodBind(c"Range", c"get_max", 1740695150L)
-            Binds.getStep = GdxApi.getMethodBind(c"Range", c"get_step", 1740695150L)
-            Binds.getPage = GdxApi.getMethodBind(c"Range", c"get_page", 1740695150L)
-            Binds.getAsRatio = GdxApi.getMethodBind(c"Range", c"get_as_ratio", 1740695150L)
-            Binds.setValue = GdxApi.getMethodBind(c"Range", c"set_value", 373806689L)
-            Binds.setValueNoSignal = GdxApi.getMethodBind(c"Range", c"set_value_no_signal", 373806689L)
-            Binds.setMin = GdxApi.getMethodBind(c"Range", c"set_min", 373806689L)
-            Binds.setMax = GdxApi.getMethodBind(c"Range", c"set_max", 373806689L)
-            Binds.setStep = GdxApi.getMethodBind(c"Range", c"set_step", 373806689L)
-            Binds.setPage = GdxApi.getMethodBind(c"Range", c"set_page", 373806689L)
-            Binds.setAsRatio = GdxApi.getMethodBind(c"Range", c"set_as_ratio", 373806689L)
-            Binds.setUseRoundedValues = GdxApi.getMethodBind(c"Range", c"set_use_rounded_values", 2586408642L)
-            Binds.isUsingRoundedValues = GdxApi.getMethodBind(c"Range", c"is_using_rounded_values", 36873697L)
-            Binds.setExpRatio = GdxApi.getMethodBind(c"Range", c"set_exp_ratio", 2586408642L)
-            Binds.isRatioExp = GdxApi.getMethodBind(c"Range", c"is_ratio_exp", 36873697L)
-            Binds.setAllowGreater = GdxApi.getMethodBind(c"Range", c"set_allow_greater", 2586408642L)
-            Binds.isGreaterAllowed = GdxApi.getMethodBind(c"Range", c"is_greater_allowed", 36873697L)
-            Binds.setAllowLesser = GdxApi.getMethodBind(c"Range", c"set_allow_lesser", 2586408642L)
-            Binds.isLesserAllowed = GdxApi.getMethodBind(c"Range", c"is_lesser_allowed", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.setValueNoSignal = GdxApi.getMethodBind(c"Range", c"set_value_no_signal", 373806689L)
             Binds.share = GdxApi.getMethodBind(c"Range", c"share", 1078189570L)
             Binds.unshare = GdxApi.getMethodBind(c"Range", c"unshare", 3218959716L)
+  }
+}
 
-    def apply(): Range =
-        val obj = new Range()
-        obj.ptr = GdxApi.constructObject(c"Range")
-        obj
+def apply(): Range = {
+  val obj = new Range()
+  obj.ptr = GdxApi.constructObject(c"Range")
+  obj
+}

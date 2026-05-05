@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorPlugin extends Node
+class EditorPlugin extends Node {
     def _forwardCanvasGuiInput(event: InputEvent): Boolean = false
     def _forwardCanvasDrawOverViewport(viewportControl: Control): Unit = ()
     def _forwardCanvasForceDrawOverViewport(viewportControl: Control): Unit = ()
@@ -30,271 +30,325 @@ class EditorPlugin extends Node
     def _build(): Boolean = false
     def _enablePlugin(): Unit = ()
     def _disablePlugin(): Unit = ()
-    def addControlToContainer(container: Int, control: Control): Unit =
+
+    def addControlToContainer(container: Int, control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = container.ptr
+        val _a0 = stackalloc[Long](); !_a0 = container.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = control.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addControlToContainer, ptr, _args, null)
+}
 
-    def addControlToBottomPanel(control: Control, title: CString): Button =
+    def addControlToBottomPanel(control: Control, title: CString): Button = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = control.ptr
-        _args(1) = title.ptr
+        _args(1) = title
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPlugin.Binds.addControlToBottomPanel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Button(!_ret)
+}
 
-    def addControlToDock(slot: Int, control: Control): Unit =
+    def addControlToDock(slot: Int, control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = slot.ptr
+        val _a0 = stackalloc[Long](); !_a0 = slot.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = control.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addControlToDock, ptr, _args, null)
+}
 
-    def removeControlFromDocks(control: Control): Unit =
+    def removeControlFromDocks(control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = control.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeControlFromDocks, ptr, _args, null)
+}
 
-    def removeControlFromBottomPanel(control: Control): Unit =
+    def removeControlFromBottomPanel(control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = control.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeControlFromBottomPanel, ptr, _args, null)
+}
 
-    def removeControlFromContainer(container: Int, control: Control): Unit =
+    def removeControlFromContainer(container: Int, control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = container.ptr
+        val _a0 = stackalloc[Long](); !_a0 = container.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = control.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeControlFromContainer, ptr, _args, null)
+}
 
-    def setDockTabIcon(control: Control, icon: Texture2D): Unit =
+    def setDockTabIcon(control: Control, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = control.ptr
         _args(1) = icon.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.setDockTabIcon, ptr, _args, null)
+}
 
-    def addToolMenuItem(name: CString, callable: Callable): Unit =
+    def addToolMenuItem(name: CString, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = callable.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addToolMenuItem, ptr, _args, null)
+}
 
-    def addToolSubmenuItem(name: CString, submenu: PopupMenu): Unit =
+    def addToolSubmenuItem(name: CString, submenu: PopupMenu): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = submenu.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addToolSubmenuItem, ptr, _args, null)
+}
 
-    def removeToolMenuItem(name: CString): Unit =
+    def removeToolMenuItem(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EditorPlugin.Binds.removeToolMenuItem, ptr, _args, null)
+}
 
-    def getExportAsMenu(): PopupMenu =
+    def getExportAsMenu(): PopupMenu = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPlugin.Binds.getExportAsMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PopupMenu(!_ret)
+}
 
-    def addCustomType(`type`: CString, base: CString, script: Script, icon: Texture2D): Unit =
+    def addCustomType(`type`: CString, base: CString, script: Script, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = `type`.ptr
-        _args(1) = base.ptr
+        _args(0) = `type`
+        _args(1) = base
         _args(2) = script.ptr
         _args(3) = icon.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addCustomType, ptr, _args, null)
+}
 
-    def removeCustomType(`type`: CString): Unit =
+    def removeCustomType(`type`: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
+        _args(0) = `type`
         GdxApi.ptrcall(EditorPlugin.Binds.removeCustomType, ptr, _args, null)
+}
 
-    def addAutoloadSingleton(name: CString, path: CString): Unit =
+    def addAutoloadSingleton(name: CString, path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = path.ptr
+        _args(0) = name
+        _args(1) = path
         GdxApi.ptrcall(EditorPlugin.Binds.addAutoloadSingleton, ptr, _args, null)
+}
 
-    def removeAutoloadSingleton(name: CString): Unit =
+    def removeAutoloadSingleton(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EditorPlugin.Binds.removeAutoloadSingleton, ptr, _args, null)
+}
 
-    def updateOverlays(): Int =
+    def updateOverlays(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorPlugin.Binds.updateOverlays, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def makeBottomPanelItemVisible(item: Control): Unit =
+    def makeBottomPanelItemVisible(item: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = item.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.makeBottomPanelItemVisible, ptr, _args, null)
+}
 
-    def hideBottomPanel(): Unit =
+    def hideBottomPanel(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorPlugin.Binds.hideBottomPanel, ptr, _args, null)
+}
 
-    def getUndoRedo(): EditorUndoRedoManager =
+    def getUndoRedo(): EditorUndoRedoManager = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPlugin.Binds.getUndoRedo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorUndoRedoManager(!_ret)
+}
 
-    def addUndoRedoInspectorHookCallback(callable: Callable): Unit =
+    def addUndoRedoInspectorHookCallback(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addUndoRedoInspectorHookCallback, ptr, _args, null)
+}
 
-    def removeUndoRedoInspectorHookCallback(callable: Callable): Unit =
+    def removeUndoRedoInspectorHookCallback(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeUndoRedoInspectorHookCallback, ptr, _args, null)
+}
 
-    def queueSaveLayout(): Unit =
+    def queueSaveLayout(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorPlugin.Binds.queueSaveLayout, ptr, _args, null)
+}
 
-    def addTranslationParserPlugin(parser: EditorTranslationParserPlugin): Unit =
+    def addTranslationParserPlugin(parser: EditorTranslationParserPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = parser.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addTranslationParserPlugin, ptr, _args, null)
+}
 
-    def removeTranslationParserPlugin(parser: EditorTranslationParserPlugin): Unit =
+    def removeTranslationParserPlugin(parser: EditorTranslationParserPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = parser.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeTranslationParserPlugin, ptr, _args, null)
+}
 
-    def addImportPlugin(importer: EditorImportPlugin): Unit =
+    def addImportPlugin(importer: EditorImportPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = importer.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addImportPlugin, ptr, _args, null)
+}
 
-    def removeImportPlugin(importer: EditorImportPlugin): Unit =
+    def removeImportPlugin(importer: EditorImportPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = importer.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeImportPlugin, ptr, _args, null)
+}
 
-    def addSceneFormatImporterPlugin(sceneFormatImporter: EditorSceneFormatImporter): Unit =
+    def addSceneFormatImporterPlugin(sceneFormatImporter: EditorSceneFormatImporter): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = sceneFormatImporter.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addSceneFormatImporterPlugin, ptr, _args, null)
+}
 
-    def removeSceneFormatImporterPlugin(sceneFormatImporter: EditorSceneFormatImporter): Unit =
+    def removeSceneFormatImporterPlugin(sceneFormatImporter: EditorSceneFormatImporter): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = sceneFormatImporter.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeSceneFormatImporterPlugin, ptr, _args, null)
+}
 
-    def addScenePostImportPlugin(sceneImportPlugin: EditorScenePostImportPlugin): Unit =
+    def addScenePostImportPlugin(sceneImportPlugin: EditorScenePostImportPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = sceneImportPlugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addScenePostImportPlugin, ptr, _args, null)
+}
 
-    def removeScenePostImportPlugin(sceneImportPlugin: EditorScenePostImportPlugin): Unit =
+    def removeScenePostImportPlugin(sceneImportPlugin: EditorScenePostImportPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = sceneImportPlugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeScenePostImportPlugin, ptr, _args, null)
+}
 
-    def addExportPlugin(plugin: EditorExportPlugin): Unit =
+    def addExportPlugin(plugin: EditorExportPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addExportPlugin, ptr, _args, null)
+}
 
-    def removeExportPlugin(plugin: EditorExportPlugin): Unit =
+    def removeExportPlugin(plugin: EditorExportPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeExportPlugin, ptr, _args, null)
+}
 
-    def addExportPlatform(platform: EditorExportPlatform): Unit =
+    def addExportPlatform(platform: EditorExportPlatform): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = platform.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addExportPlatform, ptr, _args, null)
+}
 
-    def removeExportPlatform(platform: EditorExportPlatform): Unit =
+    def removeExportPlatform(platform: EditorExportPlatform): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = platform.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeExportPlatform, ptr, _args, null)
+}
 
-    def addNode3dGizmoPlugin(plugin: EditorNode3DGizmoPlugin): Unit =
+    def addNode3dGizmoPlugin(plugin: EditorNode3DGizmoPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addNode3dGizmoPlugin, ptr, _args, null)
+}
 
-    def removeNode3dGizmoPlugin(plugin: EditorNode3DGizmoPlugin): Unit =
+    def removeNode3dGizmoPlugin(plugin: EditorNode3DGizmoPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeNode3dGizmoPlugin, ptr, _args, null)
+}
 
-    def addInspectorPlugin(plugin: EditorInspectorPlugin): Unit =
+    def addInspectorPlugin(plugin: EditorInspectorPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addInspectorPlugin, ptr, _args, null)
+}
 
-    def removeInspectorPlugin(plugin: EditorInspectorPlugin): Unit =
+    def removeInspectorPlugin(plugin: EditorInspectorPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeInspectorPlugin, ptr, _args, null)
+}
 
-    def addResourceConversionPlugin(plugin: EditorResourceConversionPlugin): Unit =
+    def addResourceConversionPlugin(plugin: EditorResourceConversionPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addResourceConversionPlugin, ptr, _args, null)
+}
 
-    def removeResourceConversionPlugin(plugin: EditorResourceConversionPlugin): Unit =
+    def removeResourceConversionPlugin(plugin: EditorResourceConversionPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeResourceConversionPlugin, ptr, _args, null)
+}
 
-    def setInputEventForwardingAlwaysEnabled(): Unit =
+    def setInputEventForwardingAlwaysEnabled(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorPlugin.Binds.setInputEventForwardingAlwaysEnabled, ptr, _args, null)
+}
 
-    def setForceDrawOverForwardingEnabled(): Unit =
+    def setForceDrawOverForwardingEnabled(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorPlugin.Binds.setForceDrawOverForwardingEnabled, ptr, _args, null)
+}
 
-    def addContextMenuPlugin(slot: Int, plugin: EditorContextMenuPlugin): Unit =
+    def addContextMenuPlugin(slot: Int, plugin: EditorContextMenuPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = slot.ptr
+        val _a0 = stackalloc[Long](); !_a0 = slot.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addContextMenuPlugin, ptr, _args, null)
+}
 
-    def removeContextMenuPlugin(plugin: EditorContextMenuPlugin): Unit =
+    def removeContextMenuPlugin(plugin: EditorContextMenuPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeContextMenuPlugin, ptr, _args, null)
+}
 
-    def getEditorInterface(): EditorInterface =
+    def getEditorInterface(): EditorInterface = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPlugin.Binds.getEditorInterface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorInterface(!_ret)
+}
 
-    def getScriptCreateDialog(): ScriptCreateDialog =
+    def getScriptCreateDialog(): ScriptCreateDialog = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPlugin.Binds.getScriptCreateDialog, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ScriptCreateDialog(!_ret)
+}
 
-    def addDebuggerPlugin(script: EditorDebuggerPlugin): Unit =
+    def addDebuggerPlugin(script: EditorDebuggerPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = script.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.addDebuggerPlugin, ptr, _args, null)
+}
 
-    def removeDebuggerPlugin(script: EditorDebuggerPlugin): Unit =
+    def removeDebuggerPlugin(script: EditorDebuggerPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = script.ptr
         GdxApi.ptrcall(EditorPlugin.Binds.removeDebuggerPlugin, ptr, _args, null)
+}
 
-    def getPluginVersion(): CString =
+    def getPluginVersion(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPlugin.Binds.getPluginVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object EditorPlugin:
-    object Binds:
-        var addControlToContainer: Ptr[Byte] = null
+object Binds {
+          var addControlToContainer: Ptr[Byte] = null
         var addControlToBottomPanel: Ptr[Byte] = null
         var addControlToDock: Ptr[Byte] = null
         var removeControlFromDocks: Ptr[Byte] = null
@@ -344,8 +398,8 @@ object EditorPlugin:
         var removeDebuggerPlugin: Ptr[Byte] = null
         var getPluginVersion: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addControlToContainer = GdxApi.getMethodBind(c"EditorPlugin", c"add_control_to_container", 3092750152L)
+  def loadBinds(): Unit = {
+                Binds.addControlToContainer = GdxApi.getMethodBind(c"EditorPlugin", c"add_control_to_container", 3092750152L)
             Binds.addControlToBottomPanel = GdxApi.getMethodBind(c"EditorPlugin", c"add_control_to_bottom_panel", 111032269L)
             Binds.addControlToDock = GdxApi.getMethodBind(c"EditorPlugin", c"add_control_to_dock", 2994930786L)
             Binds.removeControlFromDocks = GdxApi.getMethodBind(c"EditorPlugin", c"remove_control_from_docks", 1496901182L)
@@ -394,8 +448,11 @@ object EditorPlugin:
             Binds.addDebuggerPlugin = GdxApi.getMethodBind(c"EditorPlugin", c"add_debugger_plugin", 3749880309L)
             Binds.removeDebuggerPlugin = GdxApi.getMethodBind(c"EditorPlugin", c"remove_debugger_plugin", 3749880309L)
             Binds.getPluginVersion = GdxApi.getMethodBind(c"EditorPlugin", c"get_plugin_version", 201670096L)
+  }
+}
 
-    def apply(): EditorPlugin =
-        val obj = new EditorPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorPlugin")
-        obj
+def apply(): EditorPlugin = {
+  val obj = new EditorPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorPlugin")
+  obj
+}

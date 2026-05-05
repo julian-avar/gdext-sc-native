@@ -5,39 +5,29 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRRenderModel extends Node3D
-
-    def getTopLevelPath(): CString =
+class OpenXRRenderModel extends Node3D {
+    def getTopLevelPath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRRenderModel.Binds.getTopLevelPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getRenderModel(): RID =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRRenderModel.Binds.getRenderModel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new RID(!_ret)
-
-    def setRenderModel(renderModel: RID): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = renderModel.ptr
-        GdxApi.ptrcall(OpenXRRenderModel.Binds.setRenderModel, ptr, _args, null)
-    def renderModel: Ptr[Byte] = getRenderModel()
-    def renderModel_=(v: Ptr[Byte]): Unit = setRenderModel(v)
+    def renderModel: RID = getRenderModel()
+    def renderModel_=(v: RID): Unit = setRenderModel(v)
+}
 
 object OpenXRRenderModel:
-    object Binds:
-        var getTopLevelPath: Ptr[Byte] = null
-        var getRenderModel: Ptr[Byte] = null
-        var setRenderModel: Ptr[Byte] = null
+object Binds {
+          var getTopLevelPath: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTopLevelPath = GdxApi.getMethodBind(c"OpenXRRenderModel", c"get_top_level_path", 201670096L)
-            Binds.getRenderModel = GdxApi.getMethodBind(c"OpenXRRenderModel", c"get_render_model", 2944877500L)
-            Binds.setRenderModel = GdxApi.getMethodBind(c"OpenXRRenderModel", c"set_render_model", 2722037293L)
+  def loadBinds(): Unit = {
+                Binds.getTopLevelPath = GdxApi.getMethodBind(c"OpenXRRenderModel", c"get_top_level_path", 201670096L)
+  }
+}
 
-    def apply(): OpenXRRenderModel =
-        val obj = new OpenXRRenderModel()
-        obj.ptr = GdxApi.constructObject(c"OpenXRRenderModel")
-        obj
+def apply(): OpenXRRenderModel = {
+  val obj = new OpenXRRenderModel()
+  obj.ptr = GdxApi.constructObject(c"OpenXRRenderModel")
+  obj
+}

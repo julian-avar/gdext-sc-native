@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextServerAdvanced extends TextServerExtension
-
-
-
+class TextServerAdvanced extends TextServerExtension {}
 
 object TextServerAdvanced:
-    def apply(): TextServerAdvanced =
-        val obj = new TextServerAdvanced()
-        obj.ptr = GdxApi.constructObject(c"TextServerAdvanced")
-        obj
+def apply(): TextServerAdvanced = {
+  val obj = new TextServerAdvanced()
+  obj.ptr = GdxApi.constructObject(c"TextServerAdvanced")
+  obj
+}

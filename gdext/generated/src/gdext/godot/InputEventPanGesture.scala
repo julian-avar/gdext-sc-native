@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventPanGesture extends InputEventGesture
-
-    def setDelta(delta: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = delta.ptr
-        GdxApi.ptrcall(InputEventPanGesture.Binds.setDelta, ptr, _args, null)
-
-    def getDelta(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(InputEventPanGesture.Binds.getDelta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def delta: Ptr[Byte] = getDelta()
-    def delta_=(v: Ptr[Byte]): Unit = setDelta(v)
+class InputEventPanGesture extends InputEventGesture {
+    def delta: Vector2 = getDelta()
+    def delta_=(v: Vector2): Unit = setDelta(v)
+}
 
 object InputEventPanGesture:
-    object Binds:
-        var setDelta: Ptr[Byte] = null
-        var getDelta: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setDelta = GdxApi.getMethodBind(c"InputEventPanGesture", c"set_delta", 743155724L)
-            Binds.getDelta = GdxApi.getMethodBind(c"InputEventPanGesture", c"get_delta", 3341600327L)
-
-    def apply(): InputEventPanGesture =
-        val obj = new InputEventPanGesture()
-        obj.ptr = GdxApi.constructObject(c"InputEventPanGesture")
-        obj
+def apply(): InputEventPanGesture = {
+  val obj = new InputEventPanGesture()
+  obj.ptr = GdxApi.constructObject(c"InputEventPanGesture")
+  obj
+}

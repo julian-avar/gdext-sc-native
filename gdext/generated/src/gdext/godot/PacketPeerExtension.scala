@@ -5,16 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PacketPeerExtension extends PacketPeer
+class PacketPeerExtension extends PacketPeer {
     def _getPacket(rBuffer: Ptr[Byte], rBufferSize: Ptr[Byte]): Int = null
     def _putPacket(pBuffer: Ptr[Byte], pBufferSize: Int): Int = null
     def _getAvailablePacketCount(): Int = 0
     def _getMaxPacketSize(): Int = 0
-
-
+}
 
 object PacketPeerExtension:
-    def apply(): PacketPeerExtension =
-        val obj = new PacketPeerExtension()
-        obj.ptr = GdxApi.constructObject(c"PacketPeerExtension")
-        obj
+def apply(): PacketPeerExtension = {
+  val obj = new PacketPeerExtension()
+  obj.ptr = GdxApi.constructObject(c"PacketPeerExtension")
+  obj
+}

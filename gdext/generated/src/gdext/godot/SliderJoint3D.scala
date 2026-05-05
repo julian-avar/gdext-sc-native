@@ -5,33 +5,39 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SliderJoint3D extends Joint3D
-
-    def setParam(param: Int, value: Float): Unit =
+class SliderJoint3D extends Joint3D {
+    def setParam(param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
+        val _a0 = stackalloc[Long](); !_a0 = param.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = value.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SliderJoint3D.Binds.setParam, ptr, _args, null)
+}
 
-    def getParam(param: Int): Float =
+    def getParam(param: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
+        val _a0 = stackalloc[Long](); !_a0 = param.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SliderJoint3D.Binds.getParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
-
+}
+}
 
 object SliderJoint3D:
-    object Binds:
-        var setParam: Ptr[Byte] = null
+object Binds {
+          var setParam: Ptr[Byte] = null
         var getParam: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setParam = GdxApi.getMethodBind(c"SliderJoint3D", c"set_param", 918243683L)
+  def loadBinds(): Unit = {
+                Binds.setParam = GdxApi.getMethodBind(c"SliderJoint3D", c"set_param", 918243683L)
             Binds.getParam = GdxApi.getMethodBind(c"SliderJoint3D", c"get_param", 959925627L)
+  }
+}
 
-    def apply(): SliderJoint3D =
-        val obj = new SliderJoint3D()
-        obj.ptr = GdxApi.constructObject(c"SliderJoint3D")
-        obj
+def apply(): SliderJoint3D = {
+  val obj = new SliderJoint3D()
+  obj.ptr = GdxApi.constructObject(c"SliderJoint3D")
+  obj
+}

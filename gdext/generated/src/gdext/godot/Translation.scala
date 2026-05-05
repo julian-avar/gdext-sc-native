@@ -5,81 +5,79 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Translation extends Resource
+class Translation extends Resource {
     def _getPluralMessage(srcMessage: CString, srcPluralMessage: CString, n: Int, context: CString): CString = null
     def _getMessage(srcMessage: CString, context: CString): CString = null
-    def setLocale(locale: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
-        GdxApi.ptrcall(Translation.Binds.setLocale, ptr, _args, null)
 
-    def getLocale(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Translation.Binds.getLocale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def addMessage(srcMessage: CString, xlatedMessage: CString): Unit =
+    def addMessage(srcMessage: CString, xlatedMessage: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = srcMessage.ptr
-        _args(1) = xlatedMessage.ptr
+        _args(0) = srcMessage
+        _args(1) = xlatedMessage
         GdxApi.ptrcall(Translation.Binds.addMessage, ptr, _args, null)
+}
 
-    def addPluralMessage(srcMessage: CString, xlatedMessages: PackedStringArray): Unit =
+    def addPluralMessage(srcMessage: CString, xlatedMessages: PackedStringArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = srcMessage.ptr
+        _args(0) = srcMessage
         _args(1) = xlatedMessages.ptr
         GdxApi.ptrcall(Translation.Binds.addPluralMessage, ptr, _args, null)
+}
 
-    def getMessage(srcMessage: CString): CString =
+    def getMessage(srcMessage: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = srcMessage.ptr
+        _args(0) = srcMessage
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Translation.Binds.getMessage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPluralMessage(srcMessage: CString, srcPluralMessage: CString, n: Int): CString =
+    def getPluralMessage(srcMessage: CString, srcPluralMessage: CString, n: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = srcMessage.ptr
-        _args(1) = srcPluralMessage.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = n.toLong
+        _args(0) = srcMessage
+        _args(1) = srcPluralMessage
+        val _a2 = stackalloc[Long](); !_a2 = n.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Translation.Binds.getPluralMessage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def eraseMessage(srcMessage: CString): Unit =
+    def eraseMessage(srcMessage: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = srcMessage.ptr
+        _args(0) = srcMessage
         GdxApi.ptrcall(Translation.Binds.eraseMessage, ptr, _args, null)
+}
 
-    def getMessageList(): PackedStringArray =
+    def getMessageList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Translation.Binds.getMessageList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getTranslatedMessageList(): PackedStringArray =
+    def getTranslatedMessageList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Translation.Binds.getTranslatedMessageList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getMessageCount(): Int =
+    def getMessageCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Translation.Binds.getMessageCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
+
     def messages: Ptr[Byte] = _getMessages()
     def messages_=(v: Ptr[Byte]): Unit = _setMessages(v)
-    def locale: Ptr[Byte] = getLocale()
-    def locale_=(v: Ptr[Byte]): Unit = setLocale(v)
+    def locale: CString = getLocale()
+    def locale_=(v: CString): Unit = setLocale(v)
+}
 
 object Translation:
-    object Binds:
-        var setLocale: Ptr[Byte] = null
-        var getLocale: Ptr[Byte] = null
-        var addMessage: Ptr[Byte] = null
+object Binds {
+          var addMessage: Ptr[Byte] = null
         var addPluralMessage: Ptr[Byte] = null
         var getMessage: Ptr[Byte] = null
         var getPluralMessage: Ptr[Byte] = null
@@ -88,10 +86,8 @@ object Translation:
         var getTranslatedMessageList: Ptr[Byte] = null
         var getMessageCount: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setLocale = GdxApi.getMethodBind(c"Translation", c"set_locale", 83702148L)
-            Binds.getLocale = GdxApi.getMethodBind(c"Translation", c"get_locale", 201670096L)
-            Binds.addMessage = GdxApi.getMethodBind(c"Translation", c"add_message", 3898530326L)
+  def loadBinds(): Unit = {
+                Binds.addMessage = GdxApi.getMethodBind(c"Translation", c"add_message", 3898530326L)
             Binds.addPluralMessage = GdxApi.getMethodBind(c"Translation", c"add_plural_message", 2356982266L)
             Binds.getMessage = GdxApi.getMethodBind(c"Translation", c"get_message", 1829228469L)
             Binds.getPluralMessage = GdxApi.getMethodBind(c"Translation", c"get_plural_message", 229954002L)
@@ -99,8 +95,11 @@ object Translation:
             Binds.getMessageList = GdxApi.getMethodBind(c"Translation", c"get_message_list", 1139954409L)
             Binds.getTranslatedMessageList = GdxApi.getMethodBind(c"Translation", c"get_translated_message_list", 1139954409L)
             Binds.getMessageCount = GdxApi.getMethodBind(c"Translation", c"get_message_count", 3905245786L)
+  }
+}
 
-    def apply(): Translation =
-        val obj = new Translation()
-        obj.ptr = GdxApi.constructObject(c"Translation")
-        obj
+def apply(): Translation = {
+  val obj = new Translation()
+  obj.ptr = GdxApi.constructObject(c"Translation")
+  obj
+}

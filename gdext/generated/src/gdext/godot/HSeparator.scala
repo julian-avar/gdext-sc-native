@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HSeparator extends Separator
-
-
-
+class HSeparator extends Separator {}
 
 object HSeparator:
-    def apply(): HSeparator =
-        val obj = new HSeparator()
-        obj.ptr = GdxApi.constructObject(c"HSeparator")
-        obj
+def apply(): HSeparator = {
+  val obj = new HSeparator()
+  obj.ptr = GdxApi.constructObject(c"HSeparator")
+  obj
+}

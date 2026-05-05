@@ -5,83 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ColorPickerButton extends Button
-
-    def setPickColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ColorPickerButton.Binds.setPickColor, ptr, _args, null)
-
-    def getPickColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ColorPickerButton.Binds.getPickColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def getPicker(): ColorPicker =
+class ColorPickerButton extends Button {
+    def getPicker(): ColorPicker = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ColorPickerButton.Binds.getPicker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ColorPicker(!_ret)
+}
 
-    def getPopup(): PopupPanel =
+    def getPopup(): PopupPanel = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ColorPickerButton.Binds.getPopup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PopupPanel(!_ret)
+}
 
-    def setEditAlpha(show: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if show then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ColorPickerButton.Binds.setEditAlpha, ptr, _args, null)
-
-    def isEditingAlpha(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ColorPickerButton.Binds.isEditingAlpha, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEditIntensity(show: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if show then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ColorPickerButton.Binds.setEditIntensity, ptr, _args, null)
-
-    def isEditingIntensity(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ColorPickerButton.Binds.isEditingIntensity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def color: Ptr[Byte] = getPickColor()
-    def color_=(v: Ptr[Byte]): Unit = setPickColor(v)
-    def editAlpha: Ptr[Byte] = isEditingAlpha()
-    def editAlpha_=(v: Ptr[Byte]): Unit = setEditAlpha(v)
-    def editIntensity: Ptr[Byte] = isEditingIntensity()
-    def editIntensity_=(v: Ptr[Byte]): Unit = setEditIntensity(v)
+    def color: Color = getPickColor()
+    def color_=(v: Color): Unit = setPickColor(v)
+    def editAlpha: Boolean = isEditingAlpha()
+    def editAlpha_=(v: Boolean): Unit = setEditAlpha(v)
+    def editIntensity: Boolean = isEditingIntensity()
+    def editIntensity_=(v: Boolean): Unit = setEditIntensity(v)
+}
 
 object ColorPickerButton:
-    object Binds:
-        var setPickColor: Ptr[Byte] = null
-        var getPickColor: Ptr[Byte] = null
-        var getPicker: Ptr[Byte] = null
+object Binds {
+          var getPicker: Ptr[Byte] = null
         var getPopup: Ptr[Byte] = null
-        var setEditAlpha: Ptr[Byte] = null
-        var isEditingAlpha: Ptr[Byte] = null
-        var setEditIntensity: Ptr[Byte] = null
-        var isEditingIntensity: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPickColor = GdxApi.getMethodBind(c"ColorPickerButton", c"set_pick_color", 2920490490L)
-            Binds.getPickColor = GdxApi.getMethodBind(c"ColorPickerButton", c"get_pick_color", 3444240500L)
-            Binds.getPicker = GdxApi.getMethodBind(c"ColorPickerButton", c"get_picker", 331835996L)
+  def loadBinds(): Unit = {
+                Binds.getPicker = GdxApi.getMethodBind(c"ColorPickerButton", c"get_picker", 331835996L)
             Binds.getPopup = GdxApi.getMethodBind(c"ColorPickerButton", c"get_popup", 1322440207L)
-            Binds.setEditAlpha = GdxApi.getMethodBind(c"ColorPickerButton", c"set_edit_alpha", 2586408642L)
-            Binds.isEditingAlpha = GdxApi.getMethodBind(c"ColorPickerButton", c"is_editing_alpha", 36873697L)
-            Binds.setEditIntensity = GdxApi.getMethodBind(c"ColorPickerButton", c"set_edit_intensity", 2586408642L)
-            Binds.isEditingIntensity = GdxApi.getMethodBind(c"ColorPickerButton", c"is_editing_intensity", 36873697L)
+  }
+}
 
-    def apply(): ColorPickerButton =
-        val obj = new ColorPickerButton()
-        obj.ptr = GdxApi.constructObject(c"ColorPickerButton")
-        obj
+def apply(): ColorPickerButton = {
+  val obj = new ColorPickerButton()
+  obj.ptr = GdxApi.constructObject(c"ColorPickerButton")
+  obj
+}

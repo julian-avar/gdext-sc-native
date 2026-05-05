@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRFaceModifier3D extends Node3D
-
-    def setFaceTracker(trackerName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = trackerName.ptr
-        GdxApi.ptrcall(XRFaceModifier3D.Binds.setFaceTracker, ptr, _args, null)
-
-    def getFaceTracker(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRFaceModifier3D.Binds.getFaceTracker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTarget(target: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = target.ptr
-        GdxApi.ptrcall(XRFaceModifier3D.Binds.setTarget, ptr, _args, null)
-
-    def getTarget(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRFaceModifier3D.Binds.getTarget, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-    def faceTracker: Ptr[Byte] = getFaceTracker()
-    def faceTracker_=(v: Ptr[Byte]): Unit = setFaceTracker(v)
-    def target: Ptr[Byte] = getTarget()
-    def target_=(v: Ptr[Byte]): Unit = setTarget(v)
+class XRFaceModifier3D extends Node3D {
+    def faceTracker: CString = getFaceTracker()
+    def faceTracker_=(v: CString): Unit = setFaceTracker(v)
+    def target: NodePath = getTarget()
+    def target_=(v: NodePath): Unit = setTarget(v)
+}
 
 object XRFaceModifier3D:
-    object Binds:
-        var setFaceTracker: Ptr[Byte] = null
-        var getFaceTracker: Ptr[Byte] = null
-        var setTarget: Ptr[Byte] = null
-        var getTarget: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFaceTracker = GdxApi.getMethodBind(c"XRFaceModifier3D", c"set_face_tracker", 3304788590L)
-            Binds.getFaceTracker = GdxApi.getMethodBind(c"XRFaceModifier3D", c"get_face_tracker", 2002593661L)
-            Binds.setTarget = GdxApi.getMethodBind(c"XRFaceModifier3D", c"set_target", 1348162250L)
-            Binds.getTarget = GdxApi.getMethodBind(c"XRFaceModifier3D", c"get_target", 4075236667L)
-
-    def apply(): XRFaceModifier3D =
-        val obj = new XRFaceModifier3D()
-        obj.ptr = GdxApi.constructObject(c"XRFaceModifier3D")
-        obj
+def apply(): XRFaceModifier3D = {
+  val obj = new XRFaceModifier3D()
+  obj.ptr = GdxApi.constructObject(c"XRFaceModifier3D")
+  obj
+}

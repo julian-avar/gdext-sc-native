@@ -5,17 +5,17 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderSceneBuffersExtension extends RenderSceneBuffers
+class RenderSceneBuffersExtension extends RenderSceneBuffers {
     def _configure(config: RenderSceneBuffersConfiguration): Unit = ()
     def _setFsrSharpness(fsrSharpness: Float): Unit = ()
     def _setTextureMipmapBias(textureMipmapBias: Float): Unit = ()
     def _setAnisotropicFilteringLevel(anisotropicFilteringLevel: Int): Unit = ()
     def _setUseDebanding(useDebanding: Boolean): Unit = ()
-
-
+}
 
 object RenderSceneBuffersExtension:
-    def apply(): RenderSceneBuffersExtension =
-        val obj = new RenderSceneBuffersExtension()
-        obj.ptr = GdxApi.constructObject(c"RenderSceneBuffersExtension")
-        obj
+def apply(): RenderSceneBuffersExtension = {
+  val obj = new RenderSceneBuffersExtension()
+  obj.ptr = GdxApi.constructObject(c"RenderSceneBuffersExtension")
+  obj
+}

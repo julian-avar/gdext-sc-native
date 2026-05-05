@@ -5,13 +5,13 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffect extends Resource
+class AudioEffect extends Resource {
     def _instantiate(): AudioEffectInstance = null
-
-
+}
 
 object AudioEffect:
-    def apply(): AudioEffect =
-        val obj = new AudioEffect()
-        obj.ptr = GdxApi.constructObject(c"AudioEffect")
-        obj
+def apply(): AudioEffect = {
+  val obj = new AudioEffect()
+  obj.ptr = GdxApi.constructObject(c"AudioEffect")
+  obj
+}

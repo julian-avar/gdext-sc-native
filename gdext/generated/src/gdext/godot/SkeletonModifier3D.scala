@@ -5,61 +5,36 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonModifier3D extends Node3D
+class SkeletonModifier3D extends Node3D {
     def _processModificationWithDelta(delta: Double): Unit = ()
     def _processModification(): Unit = ()
     def _skeletonChanged(oldSkeleton: Skeleton3D, newSkeleton: Skeleton3D): Unit = ()
     def _validateBoneNames(): Unit = ()
-    def getSkeleton(): Skeleton3D =
+
+    def getSkeleton(): Skeleton3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModifier3D.Binds.getSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Skeleton3D(!_ret)
+}
 
-    def setActive(active: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModifier3D.Binds.setActive, ptr, _args, null)
-
-    def isActive(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SkeletonModifier3D.Binds.isActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setInfluence(influence: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = influence.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModifier3D.Binds.setInfluence, ptr, _args, null)
-
-    def getInfluence(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonModifier3D.Binds.getInfluence, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def active: Ptr[Byte] = isActive()
-    def active_=(v: Ptr[Byte]): Unit = setActive(v)
-    def influence: Ptr[Byte] = getInfluence()
-    def influence_=(v: Ptr[Byte]): Unit = setInfluence(v)
+    def active: Boolean = isActive()
+    def active_=(v: Boolean): Unit = setActive(v)
+    def influence: Float = getInfluence()
+    def influence_=(v: Float): Unit = setInfluence(v)
+}
 
 object SkeletonModifier3D:
-    object Binds:
-        var getSkeleton: Ptr[Byte] = null
-        var setActive: Ptr[Byte] = null
-        var isActive: Ptr[Byte] = null
-        var setInfluence: Ptr[Byte] = null
-        var getInfluence: Ptr[Byte] = null
+object Binds {
+          var getSkeleton: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSkeleton = GdxApi.getMethodBind(c"SkeletonModifier3D", c"get_skeleton", 1488626673L)
-            Binds.setActive = GdxApi.getMethodBind(c"SkeletonModifier3D", c"set_active", 2586408642L)
-            Binds.isActive = GdxApi.getMethodBind(c"SkeletonModifier3D", c"is_active", 36873697L)
-            Binds.setInfluence = GdxApi.getMethodBind(c"SkeletonModifier3D", c"set_influence", 373806689L)
-            Binds.getInfluence = GdxApi.getMethodBind(c"SkeletonModifier3D", c"get_influence", 1740695150L)
+  def loadBinds(): Unit = {
+                Binds.getSkeleton = GdxApi.getMethodBind(c"SkeletonModifier3D", c"get_skeleton", 1488626673L)
+  }
+}
 
-    def apply(): SkeletonModifier3D =
-        val obj = new SkeletonModifier3D()
-        obj.ptr = GdxApi.constructObject(c"SkeletonModifier3D")
-        obj
+def apply(): SkeletonModifier3D = {
+  val obj = new SkeletonModifier3D()
+  obj.ptr = GdxApi.constructObject(c"SkeletonModifier3D")
+  obj
+}

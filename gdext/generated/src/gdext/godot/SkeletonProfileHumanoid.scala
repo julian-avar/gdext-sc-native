@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonProfileHumanoid extends SkeletonProfile
-
-
-
+class SkeletonProfileHumanoid extends SkeletonProfile {}
 
 object SkeletonProfileHumanoid:
-    def apply(): SkeletonProfileHumanoid =
-        val obj = new SkeletonProfileHumanoid()
-        obj.ptr = GdxApi.constructObject(c"SkeletonProfileHumanoid")
-        obj
+def apply(): SkeletonProfileHumanoid = {
+  val obj = new SkeletonProfileHumanoid()
+  obj.ptr = GdxApi.constructObject(c"SkeletonProfileHumanoid")
+  obj
+}

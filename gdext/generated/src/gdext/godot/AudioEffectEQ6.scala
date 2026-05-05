@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectEQ6 extends AudioEffectEQ
-
-
-
+class AudioEffectEQ6 extends AudioEffectEQ {}
 
 object AudioEffectEQ6:
-    def apply(): AudioEffectEQ6 =
-        val obj = new AudioEffectEQ6()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectEQ6")
-        obj
+def apply(): AudioEffectEQ6 = {
+  val obj = new AudioEffectEQ6()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectEQ6")
+  obj
+}

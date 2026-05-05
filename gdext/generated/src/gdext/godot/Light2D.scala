@@ -5,291 +5,60 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Light2D extends Node2D
-
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setEnabled, ptr, _args, null)
-
-    def isEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Light2D.Binds.isEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEditorOnly(editorOnly: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if editorOnly then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setEditorOnly, ptr, _args, null)
-
-    def isEditorOnly(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Light2D.Binds.isEditorOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(Light2D.Binds.setColor, ptr, _args, null)
-
-    def getColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Light2D.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setEnergy(energy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = energy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setEnergy, ptr, _args, null)
-
-    def getEnergy(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Light2D.Binds.getEnergy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setZRangeMin(z: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = z.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setZRangeMin, ptr, _args, null)
-
-    def getZRangeMin(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getZRangeMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setZRangeMax(z: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = z.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setZRangeMax, ptr, _args, null)
-
-    def getZRangeMax(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getZRangeMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLayerRangeMin(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setLayerRangeMin, ptr, _args, null)
-
-    def getLayerRangeMin(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getLayerRangeMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLayerRangeMax(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setLayerRangeMax, ptr, _args, null)
-
-    def getLayerRangeMax(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getLayerRangeMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setItemCullMask(itemCullMask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = itemCullMask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setItemCullMask, ptr, _args, null)
-
-    def getItemCullMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getItemCullMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setItemShadowCullMask(itemShadowCullMask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = itemShadowCullMask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setItemShadowCullMask, ptr, _args, null)
-
-    def getItemShadowCullMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getItemShadowCullMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setShadowEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setShadowEnabled, ptr, _args, null)
-
-    def isShadowEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Light2D.Binds.isShadowEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShadowSmooth(smooth: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = smooth.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Light2D.Binds.setShadowSmooth, ptr, _args, null)
-
-    def getShadowSmooth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Light2D.Binds.getShadowSmooth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setShadowFilter(filter: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
-        GdxApi.ptrcall(Light2D.Binds.setShadowFilter, ptr, _args, null)
-
-    def getShadowFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getShadowFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setShadowColor(shadowColor: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shadowColor.ptr
-        GdxApi.ptrcall(Light2D.Binds.setShadowColor, ptr, _args, null)
-
-    def getShadowColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Light2D.Binds.getShadowColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setBlendMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Light2D.Binds.setBlendMode, ptr, _args, null)
-
-    def getBlendMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Light2D.Binds.getBlendMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHeight(height: Float): Unit =
+class Light2D extends Node2D {
+    def setHeight(height: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = height.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Light2D.Binds.setHeight, ptr, _args, null)
+}
 
-    def getHeight(): Float =
+    def getHeight(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Light2D.Binds.getHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
-    def enabled: Ptr[Byte] = isEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def editorOnly: Ptr[Byte] = isEditorOnly()
-    def editorOnly_=(v: Ptr[Byte]): Unit = setEditorOnly(v)
-    def color: Ptr[Byte] = getColor()
-    def color_=(v: Ptr[Byte]): Unit = setColor(v)
-    def energy: Ptr[Byte] = getEnergy()
-    def energy_=(v: Ptr[Byte]): Unit = setEnergy(v)
-    def blendMode: Ptr[Byte] = getBlendMode()
-    def blendMode_=(v: Ptr[Byte]): Unit = setBlendMode(v)
-    def rangeZMin: Ptr[Byte] = getZRangeMin()
-    def rangeZMin_=(v: Ptr[Byte]): Unit = setZRangeMin(v)
-    def rangeZMax: Ptr[Byte] = getZRangeMax()
-    def rangeZMax_=(v: Ptr[Byte]): Unit = setZRangeMax(v)
-    def rangeLayerMin: Ptr[Byte] = getLayerRangeMin()
-    def rangeLayerMin_=(v: Ptr[Byte]): Unit = setLayerRangeMin(v)
-    def rangeLayerMax: Ptr[Byte] = getLayerRangeMax()
-    def rangeLayerMax_=(v: Ptr[Byte]): Unit = setLayerRangeMax(v)
-    def rangeItemCullMask: Ptr[Byte] = getItemCullMask()
-    def rangeItemCullMask_=(v: Ptr[Byte]): Unit = setItemCullMask(v)
-    def shadowEnabled: Ptr[Byte] = isShadowEnabled()
-    def shadowEnabled_=(v: Ptr[Byte]): Unit = setShadowEnabled(v)
-    def shadowColor: Ptr[Byte] = getShadowColor()
-    def shadowColor_=(v: Ptr[Byte]): Unit = setShadowColor(v)
-    def shadowFilter: Ptr[Byte] = getShadowFilter()
-    def shadowFilter_=(v: Ptr[Byte]): Unit = setShadowFilter(v)
-    def shadowFilterSmooth: Ptr[Byte] = getShadowSmooth()
-    def shadowFilterSmooth_=(v: Ptr[Byte]): Unit = setShadowSmooth(v)
-    def shadowItemCullMask: Ptr[Byte] = getItemShadowCullMask()
-    def shadowItemCullMask_=(v: Ptr[Byte]): Unit = setItemShadowCullMask(v)
+}
+
+    def enabled: Boolean = isEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def editorOnly: Boolean = isEditorOnly()
+    def editorOnly_=(v: Boolean): Unit = setEditorOnly(v)
+    def color: Color = getColor()
+    def color_=(v: Color): Unit = setColor(v)
+    def energy: Float = getEnergy()
+    def energy_=(v: Float): Unit = setEnergy(v)
+    def blendMode: Int = getBlendMode()
+    def blendMode_=(v: Int): Unit = setBlendMode(v)
+    def rangeZMin: Int = getZRangeMin()
+    def rangeZMin_=(v: Int): Unit = setZRangeMin(v)
+    def rangeZMax: Int = getZRangeMax()
+    def rangeZMax_=(v: Int): Unit = setZRangeMax(v)
+    def rangeLayerMin: Int = getLayerRangeMin()
+    def rangeLayerMin_=(v: Int): Unit = setLayerRangeMin(v)
+    def rangeLayerMax: Int = getLayerRangeMax()
+    def rangeLayerMax_=(v: Int): Unit = setLayerRangeMax(v)
+    def rangeItemCullMask: Int = getItemCullMask()
+    def rangeItemCullMask_=(v: Int): Unit = setItemCullMask(v)
+    def shadowEnabled: Boolean = isShadowEnabled()
+    def shadowEnabled_=(v: Boolean): Unit = setShadowEnabled(v)
+    def shadowColor: Color = getShadowColor()
+    def shadowColor_=(v: Color): Unit = setShadowColor(v)
+    def shadowFilter: Int = getShadowFilter()
+    def shadowFilter_=(v: Int): Unit = setShadowFilter(v)
+    def shadowFilterSmooth: Float = getShadowSmooth()
+    def shadowFilterSmooth_=(v: Float): Unit = setShadowSmooth(v)
+    def shadowItemCullMask: Int = getItemShadowCullMask()
+    def shadowItemCullMask_=(v: Int): Unit = setItemShadowCullMask(v)
+}
 
 object Light2D:
-    object Binds:
-        var setEnabled: Ptr[Byte] = null
-        var isEnabled: Ptr[Byte] = null
-        var setEditorOnly: Ptr[Byte] = null
-        var isEditorOnly: Ptr[Byte] = null
-        var setColor: Ptr[Byte] = null
-        var getColor: Ptr[Byte] = null
-        var setEnergy: Ptr[Byte] = null
-        var getEnergy: Ptr[Byte] = null
-        var setZRangeMin: Ptr[Byte] = null
-        var getZRangeMin: Ptr[Byte] = null
-        var setZRangeMax: Ptr[Byte] = null
-        var getZRangeMax: Ptr[Byte] = null
-        var setLayerRangeMin: Ptr[Byte] = null
-        var getLayerRangeMin: Ptr[Byte] = null
-        var setLayerRangeMax: Ptr[Byte] = null
-        var getLayerRangeMax: Ptr[Byte] = null
-        var setItemCullMask: Ptr[Byte] = null
-        var getItemCullMask: Ptr[Byte] = null
-        var setItemShadowCullMask: Ptr[Byte] = null
-        var getItemShadowCullMask: Ptr[Byte] = null
-        var setShadowEnabled: Ptr[Byte] = null
-        var isShadowEnabled: Ptr[Byte] = null
-        var setShadowSmooth: Ptr[Byte] = null
-        var getShadowSmooth: Ptr[Byte] = null
-        var setShadowFilter: Ptr[Byte] = null
-        var getShadowFilter: Ptr[Byte] = null
-        var setShadowColor: Ptr[Byte] = null
-        var getShadowColor: Ptr[Byte] = null
-        var setBlendMode: Ptr[Byte] = null
-        var getBlendMode: Ptr[Byte] = null
-        var setHeight: Ptr[Byte] = null
+object Binds {
+          var setHeight: Ptr[Byte] = null
         var getHeight: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setEnabled = GdxApi.getMethodBind(c"Light2D", c"set_enabled", 2586408642L)
-            Binds.isEnabled = GdxApi.getMethodBind(c"Light2D", c"is_enabled", 36873697L)
-            Binds.setEditorOnly = GdxApi.getMethodBind(c"Light2D", c"set_editor_only", 2586408642L)
-            Binds.isEditorOnly = GdxApi.getMethodBind(c"Light2D", c"is_editor_only", 36873697L)
-            Binds.setColor = GdxApi.getMethodBind(c"Light2D", c"set_color", 2920490490L)
-            Binds.getColor = GdxApi.getMethodBind(c"Light2D", c"get_color", 3444240500L)
-            Binds.setEnergy = GdxApi.getMethodBind(c"Light2D", c"set_energy", 373806689L)
-            Binds.getEnergy = GdxApi.getMethodBind(c"Light2D", c"get_energy", 1740695150L)
-            Binds.setZRangeMin = GdxApi.getMethodBind(c"Light2D", c"set_z_range_min", 1286410249L)
-            Binds.getZRangeMin = GdxApi.getMethodBind(c"Light2D", c"get_z_range_min", 3905245786L)
-            Binds.setZRangeMax = GdxApi.getMethodBind(c"Light2D", c"set_z_range_max", 1286410249L)
-            Binds.getZRangeMax = GdxApi.getMethodBind(c"Light2D", c"get_z_range_max", 3905245786L)
-            Binds.setLayerRangeMin = GdxApi.getMethodBind(c"Light2D", c"set_layer_range_min", 1286410249L)
-            Binds.getLayerRangeMin = GdxApi.getMethodBind(c"Light2D", c"get_layer_range_min", 3905245786L)
-            Binds.setLayerRangeMax = GdxApi.getMethodBind(c"Light2D", c"set_layer_range_max", 1286410249L)
-            Binds.getLayerRangeMax = GdxApi.getMethodBind(c"Light2D", c"get_layer_range_max", 3905245786L)
-            Binds.setItemCullMask = GdxApi.getMethodBind(c"Light2D", c"set_item_cull_mask", 1286410249L)
-            Binds.getItemCullMask = GdxApi.getMethodBind(c"Light2D", c"get_item_cull_mask", 3905245786L)
-            Binds.setItemShadowCullMask = GdxApi.getMethodBind(c"Light2D", c"set_item_shadow_cull_mask", 1286410249L)
-            Binds.getItemShadowCullMask = GdxApi.getMethodBind(c"Light2D", c"get_item_shadow_cull_mask", 3905245786L)
-            Binds.setShadowEnabled = GdxApi.getMethodBind(c"Light2D", c"set_shadow_enabled", 2586408642L)
-            Binds.isShadowEnabled = GdxApi.getMethodBind(c"Light2D", c"is_shadow_enabled", 36873697L)
-            Binds.setShadowSmooth = GdxApi.getMethodBind(c"Light2D", c"set_shadow_smooth", 373806689L)
-            Binds.getShadowSmooth = GdxApi.getMethodBind(c"Light2D", c"get_shadow_smooth", 1740695150L)
-            Binds.setShadowFilter = GdxApi.getMethodBind(c"Light2D", c"set_shadow_filter", 3209356555L)
-            Binds.getShadowFilter = GdxApi.getMethodBind(c"Light2D", c"get_shadow_filter", 1973619177L)
-            Binds.setShadowColor = GdxApi.getMethodBind(c"Light2D", c"set_shadow_color", 2920490490L)
-            Binds.getShadowColor = GdxApi.getMethodBind(c"Light2D", c"get_shadow_color", 3444240500L)
-            Binds.setBlendMode = GdxApi.getMethodBind(c"Light2D", c"set_blend_mode", 2916638796L)
-            Binds.getBlendMode = GdxApi.getMethodBind(c"Light2D", c"get_blend_mode", 936255250L)
-            Binds.setHeight = GdxApi.getMethodBind(c"Light2D", c"set_height", 373806689L)
+  def loadBinds(): Unit = {
+                Binds.setHeight = GdxApi.getMethodBind(c"Light2D", c"set_height", 373806689L)
             Binds.getHeight = GdxApi.getMethodBind(c"Light2D", c"get_height", 1740695150L)
+  }
+}

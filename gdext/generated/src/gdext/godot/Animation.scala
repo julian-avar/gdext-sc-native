@@ -5,726 +5,768 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Animation extends Resource
-
-    def addTrack(`type`: Int): Int =
+class Animation extends Resource {
+    def addTrack(`type`: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.addTrack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeTrack(trackIdx: Int): Unit =
+    def removeTrack(trackIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.removeTrack, ptr, _args, null)
+}
 
-    def getTrackCount(): Int =
+    def getTrackCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.getTrackCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackGetType(trackIdx: Int): Int =
+    def trackGetType(trackIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.trackGetType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackGetPath(trackIdx: Int): NodePath =
+    def trackGetPath(trackIdx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.trackGetPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def trackSetPath(trackIdx: Int, path: NodePath): Unit =
+    def trackSetPath(trackIdx: Int, path: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = path.ptr
         GdxApi.ptrcall(Animation.Binds.trackSetPath, ptr, _args, null)
+}
 
-    def findTrack(path: NodePath, `type`: Int): Int =
+    def findTrack(path: NodePath, `type`: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
-        _args(1) = `type`.ptr
-        val _ret = stackalloc[CLong]()
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.findTrack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackMoveUp(trackIdx: Int): Unit =
+    def trackMoveUp(trackIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackMoveUp, ptr, _args, null)
+}
 
-    def trackMoveDown(trackIdx: Int): Unit =
+    def trackMoveDown(trackIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackMoveDown, ptr, _args, null)
+}
 
-    def trackMoveTo(trackIdx: Int, toIdx: Int): Unit =
+    def trackMoveTo(trackIdx: Int, toIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackMoveTo, ptr, _args, null)
+}
 
-    def trackSwap(trackIdx: Int, withIdx: Int): Unit =
+    def trackSwap(trackIdx: Int, withIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = withIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = withIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSwap, ptr, _args, null)
+}
 
-    def trackSetImported(trackIdx: Int, imported: Boolean): Unit =
+    def trackSetImported(trackIdx: Int, imported: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if imported then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSetImported, ptr, _args, null)
+}
 
-    def trackIsImported(trackIdx: Int): Boolean =
+    def trackIsImported(trackIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Animation.Binds.trackIsImported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def trackSetEnabled(trackIdx: Int, enabled: Boolean): Unit =
+    def trackSetEnabled(trackIdx: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSetEnabled, ptr, _args, null)
+}
 
-    def trackIsEnabled(trackIdx: Int): Boolean =
+    def trackIsEnabled(trackIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Animation.Binds.trackIsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def positionTrackInsertKey(trackIdx: Int, time: Double, position: Vector3): Int =
+    def positionTrackInsertKey(trackIdx: Int, time: Double, position: Vector3): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = position.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.positionTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def rotationTrackInsertKey(trackIdx: Int, time: Double, rotation: Quaternion): Int =
+    def rotationTrackInsertKey(trackIdx: Int, time: Double, rotation: Quaternion): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = rotation.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.rotationTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def scaleTrackInsertKey(trackIdx: Int, time: Double, scale: Vector3): Int =
+    def scaleTrackInsertKey(trackIdx: Int, time: Double, scale: Vector3): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = scale.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.scaleTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def blendShapeTrackInsertKey(trackIdx: Int, time: Double, amount: Float): Int =
+    def blendShapeTrackInsertKey(trackIdx: Int, time: Double, amount: Float): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = amount.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.blendShapeTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def positionTrackInterpolate(trackIdx: Int, timeSec: Double): Vector3 =
+    def positionTrackInterpolate(trackIdx: Int, timeSec: Double): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = timeSec
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.positionTrackInterpolate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def rotationTrackInterpolate(trackIdx: Int, timeSec: Double): Quaternion =
+    def rotationTrackInterpolate(trackIdx: Int, timeSec: Double): Quaternion = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = timeSec
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.rotationTrackInterpolate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Quaternion(!_ret)
+}
 
-    def scaleTrackInterpolate(trackIdx: Int, timeSec: Double): Vector3 =
+    def scaleTrackInterpolate(trackIdx: Int, timeSec: Double): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = timeSec
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.scaleTrackInterpolate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def blendShapeTrackInterpolate(trackIdx: Int, timeSec: Double): Float =
+    def blendShapeTrackInterpolate(trackIdx: Int, timeSec: Double): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = timeSec
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.blendShapeTrackInterpolate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def trackInsertKey(trackIdx: Int, time: Double, key: Ptr[Byte]): Int =
+    def trackInsertKey(trackIdx: Int, time: Double, key: Ptr[Byte]): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = key.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = key
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.trackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackRemoveKey(trackIdx: Int, keyIdx: Int): Unit =
+    def trackRemoveKey(trackIdx: Int, keyIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackRemoveKey, ptr, _args, null)
+}
 
-    def trackRemoveKeyAtTime(trackIdx: Int, time: Double): Unit =
+    def trackRemoveKeyAtTime(trackIdx: Int, time: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackRemoveKeyAtTime, ptr, _args, null)
+}
 
-    def trackSetKeyValue(trackIdx: Int, key: Int, value: Ptr[Byte]): Unit =
+    def trackSetKeyValue(trackIdx: Int, key: Int, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = key.toLong
+        val _a1 = stackalloc[Long](); !_a1 = key.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = value.ptr
+        _args(2) = value
         GdxApi.ptrcall(Animation.Binds.trackSetKeyValue, ptr, _args, null)
+}
 
-    def trackSetKeyTransition(trackIdx: Int, keyIdx: Int, transition: Float): Unit =
+    def trackSetKeyTransition(trackIdx: Int, keyIdx: Int, transition: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = transition.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSetKeyTransition, ptr, _args, null)
+}
 
-    def trackSetKeyTime(trackIdx: Int, keyIdx: Int, time: Double): Unit =
+    def trackSetKeyTime(trackIdx: Int, keyIdx: Int, time: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = time
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSetKeyTime, ptr, _args, null)
+}
 
-    def trackGetKeyTransition(trackIdx: Int, keyIdx: Int): Float =
+    def trackGetKeyTransition(trackIdx: Int, keyIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.trackGetKeyTransition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def trackGetKeyCount(trackIdx: Int): Int =
+    def trackGetKeyCount(trackIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.trackGetKeyCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackGetKeyValue(trackIdx: Int, keyIdx: Int): Ptr[Byte] =
+    def trackGetKeyValue(trackIdx: Int, keyIdx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.trackGetKeyValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def trackGetKeyTime(trackIdx: Int, keyIdx: Int): Double =
+    def trackGetKeyTime(trackIdx: Int, keyIdx: Int): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.trackGetKeyTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def trackFindKey(trackIdx: Int, time: Double): Int =
+    def trackFindKey(trackIdx: Int, time: Double): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.trackFindKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackSetInterpolationType(trackIdx: Int, interpolation: Int): Unit =
+    def trackSetInterpolationType(trackIdx: Int, interpolation: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = interpolation.ptr
+        val _a1 = stackalloc[Long](); !_a1 = interpolation.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSetInterpolationType, ptr, _args, null)
+}
 
-    def trackGetInterpolationType(trackIdx: Int): Int =
+    def trackGetInterpolationType(trackIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.trackGetInterpolationType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def trackSetInterpolationLoopWrap(trackIdx: Int, interpolation: Boolean): Unit =
+    def trackSetInterpolationLoopWrap(trackIdx: Int, interpolation: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if interpolation then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.trackSetInterpolationLoopWrap, ptr, _args, null)
+}
 
-    def trackGetInterpolationLoopWrap(trackIdx: Int): Boolean =
+    def trackGetInterpolationLoopWrap(trackIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Animation.Binds.trackGetInterpolationLoopWrap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def trackIsCompressed(trackIdx: Int): Boolean =
+    def trackIsCompressed(trackIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Animation.Binds.trackIsCompressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def valueTrackSetUpdateMode(trackIdx: Int, mode: Int): Unit =
+    def valueTrackSetUpdateMode(trackIdx: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.valueTrackSetUpdateMode, ptr, _args, null)
+}
 
-    def valueTrackGetUpdateMode(trackIdx: Int): Int =
+    def valueTrackGetUpdateMode(trackIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.valueTrackGetUpdateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def valueTrackInterpolate(trackIdx: Int, timeSec: Double): Ptr[Byte] =
+    def valueTrackInterpolate(trackIdx: Int, timeSec: Double): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = timeSec
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.valueTrackInterpolate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def methodTrackGetName(trackIdx: Int, keyIdx: Int): CString =
+    def methodTrackGetName(trackIdx: Int, keyIdx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.methodTrackGetName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def methodTrackGetParams(trackIdx: Int, keyIdx: Int): Array =
+    def methodTrackGetParams(trackIdx: Int, keyIdx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.methodTrackGetParams, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def bezierTrackInsertKey(trackIdx: Int, time: Double, value: Float): Int =
+    def bezierTrackInsertKey(trackIdx: Int, time: Double, value: Float): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.bezierTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bezierTrackSetKeyValue(trackIdx: Int, keyIdx: Int, value: Float): Unit =
+    def bezierTrackSetKeyValue(trackIdx: Int, keyIdx: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.bezierTrackSetKeyValue, ptr, _args, null)
+}
 
-    def bezierTrackSetKeyInHandle(trackIdx: Int, keyIdx: Int, inHandle: Vector2): Unit =
+    def bezierTrackSetKeyInHandle(trackIdx: Int, keyIdx: Int, inHandle: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = inHandle.ptr
         GdxApi.ptrcall(Animation.Binds.bezierTrackSetKeyInHandle, ptr, _args, null)
+}
 
-    def bezierTrackSetKeyOutHandle(trackIdx: Int, keyIdx: Int, outHandle: Vector2): Unit =
+    def bezierTrackSetKeyOutHandle(trackIdx: Int, keyIdx: Int, outHandle: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = outHandle.ptr
         GdxApi.ptrcall(Animation.Binds.bezierTrackSetKeyOutHandle, ptr, _args, null)
+}
 
-    def bezierTrackGetKeyValue(trackIdx: Int, keyIdx: Int): Float =
+    def bezierTrackGetKeyValue(trackIdx: Int, keyIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.bezierTrackGetKeyValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def bezierTrackGetKeyInHandle(trackIdx: Int, keyIdx: Int): Vector2 =
+    def bezierTrackGetKeyInHandle(trackIdx: Int, keyIdx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.bezierTrackGetKeyInHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def bezierTrackGetKeyOutHandle(trackIdx: Int, keyIdx: Int): Vector2 =
+    def bezierTrackGetKeyOutHandle(trackIdx: Int, keyIdx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.bezierTrackGetKeyOutHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def bezierTrackInterpolate(trackIdx: Int, time: Double): Float =
+    def bezierTrackInterpolate(trackIdx: Int, time: Double): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.bezierTrackInterpolate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def audioTrackInsertKey(trackIdx: Int, time: Double, stream: Resource): Int =
+    def audioTrackInsertKey(trackIdx: Int, time: Double, stream: Resource): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = stream.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.audioTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def audioTrackSetKeyStream(trackIdx: Int, keyIdx: Int, stream: Resource): Unit =
+    def audioTrackSetKeyStream(trackIdx: Int, keyIdx: Int, stream: Resource): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = stream.ptr
         GdxApi.ptrcall(Animation.Binds.audioTrackSetKeyStream, ptr, _args, null)
+}
 
-    def audioTrackSetKeyStartOffset(trackIdx: Int, keyIdx: Int, offset: Float): Unit =
+    def audioTrackSetKeyStartOffset(trackIdx: Int, keyIdx: Int, offset: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = offset.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.audioTrackSetKeyStartOffset, ptr, _args, null)
+}
 
-    def audioTrackSetKeyEndOffset(trackIdx: Int, keyIdx: Int, offset: Float): Unit =
+    def audioTrackSetKeyEndOffset(trackIdx: Int, keyIdx: Int, offset: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = offset.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.audioTrackSetKeyEndOffset, ptr, _args, null)
+}
 
-    def audioTrackGetKeyStream(trackIdx: Int, keyIdx: Int): Resource =
+    def audioTrackGetKeyStream(trackIdx: Int, keyIdx: Int): Resource = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.audioTrackGetKeyStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
+}
 
-    def audioTrackGetKeyStartOffset(trackIdx: Int, keyIdx: Int): Float =
+    def audioTrackGetKeyStartOffset(trackIdx: Int, keyIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.audioTrackGetKeyStartOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def audioTrackGetKeyEndOffset(trackIdx: Int, keyIdx: Int): Float =
+    def audioTrackGetKeyEndOffset(trackIdx: Int, keyIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.audioTrackGetKeyEndOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def audioTrackSetUseBlend(trackIdx: Int, enable: Boolean): Unit =
+    def audioTrackSetUseBlend(trackIdx: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.audioTrackSetUseBlend, ptr, _args, null)
+}
 
-    def audioTrackIsUseBlend(trackIdx: Int): Boolean =
+    def audioTrackIsUseBlend(trackIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Animation.Binds.audioTrackIsUseBlend, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def animationTrackInsertKey(trackIdx: Int, time: Double, animation: CString): Int =
+    def animationTrackInsertKey(trackIdx: Int, time: Double, animation: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = animation.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = animation
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Animation.Binds.animationTrackInsertKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def animationTrackSetKeyAnimation(trackIdx: Int, keyIdx: Int, animation: CString): Unit =
+    def animationTrackSetKeyAnimation(trackIdx: Int, keyIdx: Int, animation: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = animation.ptr
+        _args(2) = animation
         GdxApi.ptrcall(Animation.Binds.animationTrackSetKeyAnimation, ptr, _args, null)
+}
 
-    def animationTrackGetKeyAnimation(trackIdx: Int, keyIdx: Int): CString =
+    def animationTrackGetKeyAnimation(trackIdx: Int, keyIdx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = keyIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = keyIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.animationTrackGetKeyAnimation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addMarker(name: CString, time: Double): Unit =
+    def addMarker(name: CString, time: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Animation.Binds.addMarker, ptr, _args, null)
+}
 
-    def removeMarker(name: CString): Unit =
+    def removeMarker(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Animation.Binds.removeMarker, ptr, _args, null)
+}
 
-    def hasMarker(name: CString): Boolean =
+    def hasMarker(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Animation.Binds.hasMarker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMarkerAtTime(time: Double): CString =
+    def getMarkerAtTime(time: Double): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = time
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.getMarkerAtTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNextMarker(time: Double): CString =
+    def getNextMarker(time: Double): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = time
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.getNextMarker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPrevMarker(time: Double): CString =
+    def getPrevMarker(time: Double): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = time
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.getPrevMarker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMarkerTime(name: CString): Double =
+    def getMarkerTime(name: CString): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Animation.Binds.getMarkerTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMarkerNames(): PackedStringArray =
+    def getMarkerNames(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.getMarkerNames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getMarkerColor(name: CString): Color =
+    def getMarkerColor(name: CString): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Animation.Binds.getMarkerColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setMarkerColor(name: CString, color: Color): Unit =
+    def setMarkerColor(name: CString, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = color.ptr
         GdxApi.ptrcall(Animation.Binds.setMarkerColor, ptr, _args, null)
+}
 
-    def setLength(timeSec: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = timeSec.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Animation.Binds.setLength, ptr, _args, null)
-
-    def getLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Animation.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLoopMode(loopMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = loopMode.ptr
-        GdxApi.ptrcall(Animation.Binds.setLoopMode, ptr, _args, null)
-
-    def getLoopMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Animation.Binds.getLoopMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStep(sizeSec: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = sizeSec.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Animation.Binds.setStep, ptr, _args, null)
-
-    def getStep(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Animation.Binds.getStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Animation.Binds.clear, ptr, _args, null)
+}
 
-    def copyTrack(trackIdx: Int, toAnimation: Animation): Unit =
+    def copyTrack(trackIdx: Int, toAnimation: Animation): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = trackIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = trackIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = toAnimation.ptr
         GdxApi.ptrcall(Animation.Binds.copyTrack, ptr, _args, null)
+}
 
-    def optimize(): Unit =
+    def optimize(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Animation.Binds.optimize, ptr, _args, null)
+}
 
-    def compress(): Unit =
+    def compress(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Animation.Binds.compress, ptr, _args, null)
+}
 
-    def isCaptureIncluded(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Animation.Binds.isCaptureIncluded, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def length: Ptr[Byte] = getLength()
-    def length_=(v: Ptr[Byte]): Unit = setLength(v)
-    def loopMode: Ptr[Byte] = getLoopMode()
-    def loopMode_=(v: Ptr[Byte]): Unit = setLoopMode(v)
-    def step: Ptr[Byte] = getStep()
-    def step_=(v: Ptr[Byte]): Unit = setStep(v)
-    def captureIncluded: Ptr[Byte] = isCaptureIncluded()
+    def length: Float = getLength()
+    def length_=(v: Float): Unit = setLength(v)
+    def loopMode: Int = getLoopMode()
+    def loopMode_=(v: Int): Unit = setLoopMode(v)
+    def step: Float = getStep()
+    def step_=(v: Float): Unit = setStep(v)
+    def captureIncluded: Boolean = isCaptureIncluded()
+}
 
 object Animation:
-    object Binds:
-        var addTrack: Ptr[Byte] = null
+object Binds {
+          var addTrack: Ptr[Byte] = null
         var removeTrack: Ptr[Byte] = null
         var getTrackCount: Ptr[Byte] = null
         var trackGetType: Ptr[Byte] = null
@@ -798,20 +840,13 @@ object Animation:
         var getMarkerNames: Ptr[Byte] = null
         var getMarkerColor: Ptr[Byte] = null
         var setMarkerColor: Ptr[Byte] = null
-        var setLength: Ptr[Byte] = null
-        var getLength: Ptr[Byte] = null
-        var setLoopMode: Ptr[Byte] = null
-        var getLoopMode: Ptr[Byte] = null
-        var setStep: Ptr[Byte] = null
-        var getStep: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
         var copyTrack: Ptr[Byte] = null
         var optimize: Ptr[Byte] = null
         var compress: Ptr[Byte] = null
-        var isCaptureIncluded: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addTrack = GdxApi.getMethodBind(c"Animation", c"add_track", 3843682357L)
+  def loadBinds(): Unit = {
+                Binds.addTrack = GdxApi.getMethodBind(c"Animation", c"add_track", 3843682357L)
             Binds.removeTrack = GdxApi.getMethodBind(c"Animation", c"remove_track", 1286410249L)
             Binds.getTrackCount = GdxApi.getMethodBind(c"Animation", c"get_track_count", 3905245786L)
             Binds.trackGetType = GdxApi.getMethodBind(c"Animation", c"track_get_type", 3445944217L)
@@ -885,19 +920,15 @@ object Animation:
             Binds.getMarkerNames = GdxApi.getMethodBind(c"Animation", c"get_marker_names", 1139954409L)
             Binds.getMarkerColor = GdxApi.getMethodBind(c"Animation", c"get_marker_color", 3742943038L)
             Binds.setMarkerColor = GdxApi.getMethodBind(c"Animation", c"set_marker_color", 4260178595L)
-            Binds.setLength = GdxApi.getMethodBind(c"Animation", c"set_length", 373806689L)
-            Binds.getLength = GdxApi.getMethodBind(c"Animation", c"get_length", 1740695150L)
-            Binds.setLoopMode = GdxApi.getMethodBind(c"Animation", c"set_loop_mode", 3155355575L)
-            Binds.getLoopMode = GdxApi.getMethodBind(c"Animation", c"get_loop_mode", 1988889481L)
-            Binds.setStep = GdxApi.getMethodBind(c"Animation", c"set_step", 373806689L)
-            Binds.getStep = GdxApi.getMethodBind(c"Animation", c"get_step", 1740695150L)
             Binds.clear = GdxApi.getMethodBind(c"Animation", c"clear", 3218959716L)
             Binds.copyTrack = GdxApi.getMethodBind(c"Animation", c"copy_track", 148001024L)
             Binds.optimize = GdxApi.getMethodBind(c"Animation", c"optimize", 3303583852L)
             Binds.compress = GdxApi.getMethodBind(c"Animation", c"compress", 3608408117L)
-            Binds.isCaptureIncluded = GdxApi.getMethodBind(c"Animation", c"is_capture_included", 36873697L)
+  }
+}
 
-    def apply(): Animation =
-        val obj = new Animation()
-        obj.ptr = GdxApi.constructObject(c"Animation")
-        obj
+def apply(): Animation = {
+  val obj = new Animation()
+  obj.ptr = GdxApi.constructObject(c"Animation")
+  obj
+}

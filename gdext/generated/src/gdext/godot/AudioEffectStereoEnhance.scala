@@ -5,68 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectStereoEnhance extends AudioEffect
-
-    def setPanPullout(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectStereoEnhance.Binds.setPanPullout, ptr, _args, null)
-
-    def getPanPullout(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectStereoEnhance.Binds.getPanPullout, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTimePullout(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectStereoEnhance.Binds.setTimePullout, ptr, _args, null)
-
-    def getTimePullout(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectStereoEnhance.Binds.getTimePullout, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSurround(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectStereoEnhance.Binds.setSurround, ptr, _args, null)
-
-    def getSurround(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectStereoEnhance.Binds.getSurround, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def panPullout: Ptr[Byte] = getPanPullout()
-    def panPullout_=(v: Ptr[Byte]): Unit = setPanPullout(v)
-    def timePulloutMs: Ptr[Byte] = getTimePullout()
-    def timePulloutMs_=(v: Ptr[Byte]): Unit = setTimePullout(v)
-    def surround: Ptr[Byte] = getSurround()
-    def surround_=(v: Ptr[Byte]): Unit = setSurround(v)
+class AudioEffectStereoEnhance extends AudioEffect {
+    def panPullout: Float = getPanPullout()
+    def panPullout_=(v: Float): Unit = setPanPullout(v)
+    def timePulloutMs: Float = getTimePullout()
+    def timePulloutMs_=(v: Float): Unit = setTimePullout(v)
+    def surround: Float = getSurround()
+    def surround_=(v: Float): Unit = setSurround(v)
+}
 
 object AudioEffectStereoEnhance:
-    object Binds:
-        var setPanPullout: Ptr[Byte] = null
-        var getPanPullout: Ptr[Byte] = null
-        var setTimePullout: Ptr[Byte] = null
-        var getTimePullout: Ptr[Byte] = null
-        var setSurround: Ptr[Byte] = null
-        var getSurround: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPanPullout = GdxApi.getMethodBind(c"AudioEffectStereoEnhance", c"set_pan_pullout", 373806689L)
-            Binds.getPanPullout = GdxApi.getMethodBind(c"AudioEffectStereoEnhance", c"get_pan_pullout", 1740695150L)
-            Binds.setTimePullout = GdxApi.getMethodBind(c"AudioEffectStereoEnhance", c"set_time_pullout", 373806689L)
-            Binds.getTimePullout = GdxApi.getMethodBind(c"AudioEffectStereoEnhance", c"get_time_pullout", 1740695150L)
-            Binds.setSurround = GdxApi.getMethodBind(c"AudioEffectStereoEnhance", c"set_surround", 373806689L)
-            Binds.getSurround = GdxApi.getMethodBind(c"AudioEffectStereoEnhance", c"get_surround", 1740695150L)
-
-    def apply(): AudioEffectStereoEnhance =
-        val obj = new AudioEffectStereoEnhance()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectStereoEnhance")
-        obj
+def apply(): AudioEffectStereoEnhance = {
+  val obj = new AudioEffectStereoEnhance()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectStereoEnhance")
+  obj
+}

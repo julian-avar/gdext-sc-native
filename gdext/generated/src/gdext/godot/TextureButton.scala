@@ -5,187 +5,32 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextureButton extends BaseButton
-
-    def setTextureNormal(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setTextureNormal, ptr, _args, null)
-
-    def setTexturePressed(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setTexturePressed, ptr, _args, null)
-
-    def setTextureHover(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setTextureHover, ptr, _args, null)
-
-    def setTextureDisabled(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setTextureDisabled, ptr, _args, null)
-
-    def setTextureFocused(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setTextureFocused, ptr, _args, null)
-
-    def setClickMask(mask: BitMap): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mask.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setClickMask, ptr, _args, null)
-
-    def setIgnoreTextureSize(ignore: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ignore then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextureButton.Binds.setIgnoreTextureSize, ptr, _args, null)
-
-    def setStretchMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(TextureButton.Binds.setStretchMode, ptr, _args, null)
-
-    def setFlipH(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextureButton.Binds.setFlipH, ptr, _args, null)
-
-    def isFlippedH(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextureButton.Binds.isFlippedH, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFlipV(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextureButton.Binds.setFlipV, ptr, _args, null)
-
-    def isFlippedV(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextureButton.Binds.isFlippedV, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getTextureNormal(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextureButton.Binds.getTextureNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def getTexturePressed(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextureButton.Binds.getTexturePressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def getTextureHover(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextureButton.Binds.getTextureHover, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def getTextureDisabled(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextureButton.Binds.getTextureDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def getTextureFocused(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextureButton.Binds.getTextureFocused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def getClickMask(): BitMap =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextureButton.Binds.getClickMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new BitMap(!_ret)
-
-    def getIgnoreTextureSize(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextureButton.Binds.getIgnoreTextureSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getStretchMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextureButton.Binds.getStretchMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def textureNormal: Ptr[Byte] = getTextureNormal()
-    def textureNormal_=(v: Ptr[Byte]): Unit = setTextureNormal(v)
-    def texturePressed: Ptr[Byte] = getTexturePressed()
-    def texturePressed_=(v: Ptr[Byte]): Unit = setTexturePressed(v)
-    def textureHover: Ptr[Byte] = getTextureHover()
-    def textureHover_=(v: Ptr[Byte]): Unit = setTextureHover(v)
-    def textureDisabled: Ptr[Byte] = getTextureDisabled()
-    def textureDisabled_=(v: Ptr[Byte]): Unit = setTextureDisabled(v)
-    def textureFocused: Ptr[Byte] = getTextureFocused()
-    def textureFocused_=(v: Ptr[Byte]): Unit = setTextureFocused(v)
-    def textureClickMask: Ptr[Byte] = getClickMask()
-    def textureClickMask_=(v: Ptr[Byte]): Unit = setClickMask(v)
-    def ignoreTextureSize: Ptr[Byte] = getIgnoreTextureSize()
-    def ignoreTextureSize_=(v: Ptr[Byte]): Unit = setIgnoreTextureSize(v)
-    def stretchMode: Ptr[Byte] = getStretchMode()
-    def stretchMode_=(v: Ptr[Byte]): Unit = setStretchMode(v)
-    def flipH: Ptr[Byte] = isFlippedH()
-    def flipH_=(v: Ptr[Byte]): Unit = setFlipH(v)
-    def flipV: Ptr[Byte] = isFlippedV()
-    def flipV_=(v: Ptr[Byte]): Unit = setFlipV(v)
+class TextureButton extends BaseButton {
+    def textureNormal: Texture2D = getTextureNormal()
+    def textureNormal_=(v: Texture2D): Unit = setTextureNormal(v)
+    def texturePressed: Texture2D = getTexturePressed()
+    def texturePressed_=(v: Texture2D): Unit = setTexturePressed(v)
+    def textureHover: Texture2D = getTextureHover()
+    def textureHover_=(v: Texture2D): Unit = setTextureHover(v)
+    def textureDisabled: Texture2D = getTextureDisabled()
+    def textureDisabled_=(v: Texture2D): Unit = setTextureDisabled(v)
+    def textureFocused: Texture2D = getTextureFocused()
+    def textureFocused_=(v: Texture2D): Unit = setTextureFocused(v)
+    def textureClickMask: BitMap = getClickMask()
+    def textureClickMask_=(v: BitMap): Unit = setClickMask(v)
+    def ignoreTextureSize: Boolean = getIgnoreTextureSize()
+    def ignoreTextureSize_=(v: Boolean): Unit = setIgnoreTextureSize(v)
+    def stretchMode: Int = getStretchMode()
+    def stretchMode_=(v: Int): Unit = setStretchMode(v)
+    def flipH: Boolean = isFlippedH()
+    def flipH_=(v: Boolean): Unit = setFlipH(v)
+    def flipV: Boolean = isFlippedV()
+    def flipV_=(v: Boolean): Unit = setFlipV(v)
+}
 
 object TextureButton:
-    object Binds:
-        var setTextureNormal: Ptr[Byte] = null
-        var setTexturePressed: Ptr[Byte] = null
-        var setTextureHover: Ptr[Byte] = null
-        var setTextureDisabled: Ptr[Byte] = null
-        var setTextureFocused: Ptr[Byte] = null
-        var setClickMask: Ptr[Byte] = null
-        var setIgnoreTextureSize: Ptr[Byte] = null
-        var setStretchMode: Ptr[Byte] = null
-        var setFlipH: Ptr[Byte] = null
-        var isFlippedH: Ptr[Byte] = null
-        var setFlipV: Ptr[Byte] = null
-        var isFlippedV: Ptr[Byte] = null
-        var getTextureNormal: Ptr[Byte] = null
-        var getTexturePressed: Ptr[Byte] = null
-        var getTextureHover: Ptr[Byte] = null
-        var getTextureDisabled: Ptr[Byte] = null
-        var getTextureFocused: Ptr[Byte] = null
-        var getClickMask: Ptr[Byte] = null
-        var getIgnoreTextureSize: Ptr[Byte] = null
-        var getStretchMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTextureNormal = GdxApi.getMethodBind(c"TextureButton", c"set_texture_normal", 4051416890L)
-            Binds.setTexturePressed = GdxApi.getMethodBind(c"TextureButton", c"set_texture_pressed", 4051416890L)
-            Binds.setTextureHover = GdxApi.getMethodBind(c"TextureButton", c"set_texture_hover", 4051416890L)
-            Binds.setTextureDisabled = GdxApi.getMethodBind(c"TextureButton", c"set_texture_disabled", 4051416890L)
-            Binds.setTextureFocused = GdxApi.getMethodBind(c"TextureButton", c"set_texture_focused", 4051416890L)
-            Binds.setClickMask = GdxApi.getMethodBind(c"TextureButton", c"set_click_mask", 698588216L)
-            Binds.setIgnoreTextureSize = GdxApi.getMethodBind(c"TextureButton", c"set_ignore_texture_size", 2586408642L)
-            Binds.setStretchMode = GdxApi.getMethodBind(c"TextureButton", c"set_stretch_mode", 252530840L)
-            Binds.setFlipH = GdxApi.getMethodBind(c"TextureButton", c"set_flip_h", 2586408642L)
-            Binds.isFlippedH = GdxApi.getMethodBind(c"TextureButton", c"is_flipped_h", 36873697L)
-            Binds.setFlipV = GdxApi.getMethodBind(c"TextureButton", c"set_flip_v", 2586408642L)
-            Binds.isFlippedV = GdxApi.getMethodBind(c"TextureButton", c"is_flipped_v", 36873697L)
-            Binds.getTextureNormal = GdxApi.getMethodBind(c"TextureButton", c"get_texture_normal", 3635182373L)
-            Binds.getTexturePressed = GdxApi.getMethodBind(c"TextureButton", c"get_texture_pressed", 3635182373L)
-            Binds.getTextureHover = GdxApi.getMethodBind(c"TextureButton", c"get_texture_hover", 3635182373L)
-            Binds.getTextureDisabled = GdxApi.getMethodBind(c"TextureButton", c"get_texture_disabled", 3635182373L)
-            Binds.getTextureFocused = GdxApi.getMethodBind(c"TextureButton", c"get_texture_focused", 3635182373L)
-            Binds.getClickMask = GdxApi.getMethodBind(c"TextureButton", c"get_click_mask", 2459671998L)
-            Binds.getIgnoreTextureSize = GdxApi.getMethodBind(c"TextureButton", c"get_ignore_texture_size", 36873697L)
-            Binds.getStretchMode = GdxApi.getMethodBind(c"TextureButton", c"get_stretch_mode", 33815122L)
-
-    def apply(): TextureButton =
-        val obj = new TextureButton()
-        obj.ptr = GdxApi.constructObject(c"TextureButton")
-        obj
+def apply(): TextureButton = {
+  val obj = new TextureButton()
+  obj.ptr = GdxApi.constructObject(c"TextureButton")
+  obj
+}

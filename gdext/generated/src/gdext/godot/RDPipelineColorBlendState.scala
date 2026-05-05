@@ -5,83 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDPipelineColorBlendState extends RefCounted
-
-    def setEnableLogicOp(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.setEnableLogicOp, ptr, _args, null)
-
-    def getEnableLogicOp(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.getEnableLogicOp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLogicOp(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.setLogicOp, ptr, _args, null)
-
-    def getLogicOp(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.getLogicOp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBlendConstant(pMember: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.setBlendConstant, ptr, _args, null)
-
-    def getBlendConstant(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.getBlendConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setAttachments(attachments: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = attachments.ptr
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.setAttachments, ptr, _args, null)
-
-    def getAttachments(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDPipelineColorBlendState.Binds.getAttachments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def enableLogicOp: Ptr[Byte] = getEnableLogicOp()
-    def enableLogicOp_=(v: Ptr[Byte]): Unit = setEnableLogicOp(v)
-    def logicOp: Ptr[Byte] = getLogicOp()
-    def logicOp_=(v: Ptr[Byte]): Unit = setLogicOp(v)
-    def blendConstant: Ptr[Byte] = getBlendConstant()
-    def blendConstant_=(v: Ptr[Byte]): Unit = setBlendConstant(v)
+class RDPipelineColorBlendState extends RefCounted {
+    def enableLogicOp: Boolean = getEnableLogicOp()
+    def enableLogicOp_=(v: Boolean): Unit = setEnableLogicOp(v)
+    def logicOp: Int = getLogicOp()
+    def logicOp_=(v: Int): Unit = setLogicOp(v)
+    def blendConstant: Color = getBlendConstant()
+    def blendConstant_=(v: Color): Unit = setBlendConstant(v)
     def attachments: Ptr[Byte] = getAttachments()
     def attachments_=(v: Ptr[Byte]): Unit = setAttachments(v)
+}
 
 object RDPipelineColorBlendState:
-    object Binds:
-        var setEnableLogicOp: Ptr[Byte] = null
-        var getEnableLogicOp: Ptr[Byte] = null
-        var setLogicOp: Ptr[Byte] = null
-        var getLogicOp: Ptr[Byte] = null
-        var setBlendConstant: Ptr[Byte] = null
-        var getBlendConstant: Ptr[Byte] = null
-        var setAttachments: Ptr[Byte] = null
-        var getAttachments: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setEnableLogicOp = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"set_enable_logic_op", 2586408642L)
-            Binds.getEnableLogicOp = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"get_enable_logic_op", 36873697L)
-            Binds.setLogicOp = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"set_logic_op", 3610841058L)
-            Binds.getLogicOp = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"get_logic_op", 988254690L)
-            Binds.setBlendConstant = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"set_blend_constant", 2920490490L)
-            Binds.getBlendConstant = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"get_blend_constant", 3444240500L)
-            Binds.setAttachments = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"set_attachments", 381264803L)
-            Binds.getAttachments = GdxApi.getMethodBind(c"RDPipelineColorBlendState", c"get_attachments", 3995934104L)
-
-    def apply(): RDPipelineColorBlendState =
-        val obj = new RDPipelineColorBlendState()
-        obj.ptr = GdxApi.constructObject(c"RDPipelineColorBlendState")
-        obj
+def apply(): RDPipelineColorBlendState = {
+  val obj = new RDPipelineColorBlendState()
+  obj.ptr = GdxApi.constructObject(c"RDPipelineColorBlendState")
+  obj
+}

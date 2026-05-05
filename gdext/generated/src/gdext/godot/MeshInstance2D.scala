@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MeshInstance2D extends Node2D
-
-    def setMesh(mesh: Mesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(MeshInstance2D.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): Mesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MeshInstance2D.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Mesh(!_ret)
-
-    def setTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(MeshInstance2D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MeshInstance2D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
+class MeshInstance2D extends Node2D {
+    def mesh: Mesh = getMesh()
+    def mesh_=(v: Mesh): Unit = setMesh(v)
+    def texture: Texture2D = getTexture()
+    def texture_=(v: Texture2D): Unit = setTexture(v)
+}
 
 object MeshInstance2D:
-    object Binds:
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMesh = GdxApi.getMethodBind(c"MeshInstance2D", c"set_mesh", 194775623L)
-            Binds.getMesh = GdxApi.getMethodBind(c"MeshInstance2D", c"get_mesh", 1808005922L)
-            Binds.setTexture = GdxApi.getMethodBind(c"MeshInstance2D", c"set_texture", 4051416890L)
-            Binds.getTexture = GdxApi.getMethodBind(c"MeshInstance2D", c"get_texture", 3635182373L)
-
-    def apply(): MeshInstance2D =
-        val obj = new MeshInstance2D()
-        obj.ptr = GdxApi.constructObject(c"MeshInstance2D")
-        obj
+def apply(): MeshInstance2D = {
+  val obj = new MeshInstance2D()
+  obj.ptr = GdxApi.constructObject(c"MeshInstance2D")
+  obj
+}

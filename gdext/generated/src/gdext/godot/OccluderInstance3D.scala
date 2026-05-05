@@ -5,87 +5,46 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OccluderInstance3D extends VisualInstance3D
-
-    def setBakeMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OccluderInstance3D.Binds.setBakeMask, ptr, _args, null)
-
-    def getBakeMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OccluderInstance3D.Binds.getBakeMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBakeMaskValue(layerNumber: Int, value: Boolean): Unit =
+class OccluderInstance3D extends VisualInstance3D {
+    def setBakeMaskValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OccluderInstance3D.Binds.setBakeMaskValue, ptr, _args, null)
+}
 
-    def getBakeMaskValue(layerNumber: Int): Boolean =
+    def getBakeMaskValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OccluderInstance3D.Binds.getBakeMaskValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setBakeSimplificationDistance(simplificationDistance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = simplificationDistance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OccluderInstance3D.Binds.setBakeSimplificationDistance, ptr, _args, null)
-
-    def getBakeSimplificationDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OccluderInstance3D.Binds.getBakeSimplificationDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setOccluder(occluder: Occluder3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = occluder.ptr
-        GdxApi.ptrcall(OccluderInstance3D.Binds.setOccluder, ptr, _args, null)
-
-    def getOccluder(): Occluder3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OccluderInstance3D.Binds.getOccluder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Occluder3D(!_ret)
-    def occluder: Ptr[Byte] = getOccluder()
-    def occluder_=(v: Ptr[Byte]): Unit = setOccluder(v)
-    def bakeMask: Ptr[Byte] = getBakeMask()
-    def bakeMask_=(v: Ptr[Byte]): Unit = setBakeMask(v)
-    def bakeSimplificationDistance: Ptr[Byte] = getBakeSimplificationDistance()
-    def bakeSimplificationDistance_=(v: Ptr[Byte]): Unit = setBakeSimplificationDistance(v)
+    def occluder: Occluder3D = getOccluder()
+    def occluder_=(v: Occluder3D): Unit = setOccluder(v)
+    def bakeMask: Int = getBakeMask()
+    def bakeMask_=(v: Int): Unit = setBakeMask(v)
+    def bakeSimplificationDistance: Float = getBakeSimplificationDistance()
+    def bakeSimplificationDistance_=(v: Float): Unit = setBakeSimplificationDistance(v)
+}
 
 object OccluderInstance3D:
-    object Binds:
-        var setBakeMask: Ptr[Byte] = null
-        var getBakeMask: Ptr[Byte] = null
-        var setBakeMaskValue: Ptr[Byte] = null
+object Binds {
+          var setBakeMaskValue: Ptr[Byte] = null
         var getBakeMaskValue: Ptr[Byte] = null
-        var setBakeSimplificationDistance: Ptr[Byte] = null
-        var getBakeSimplificationDistance: Ptr[Byte] = null
-        var setOccluder: Ptr[Byte] = null
-        var getOccluder: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setBakeMask = GdxApi.getMethodBind(c"OccluderInstance3D", c"set_bake_mask", 1286410249L)
-            Binds.getBakeMask = GdxApi.getMethodBind(c"OccluderInstance3D", c"get_bake_mask", 3905245786L)
-            Binds.setBakeMaskValue = GdxApi.getMethodBind(c"OccluderInstance3D", c"set_bake_mask_value", 300928843L)
+  def loadBinds(): Unit = {
+                Binds.setBakeMaskValue = GdxApi.getMethodBind(c"OccluderInstance3D", c"set_bake_mask_value", 300928843L)
             Binds.getBakeMaskValue = GdxApi.getMethodBind(c"OccluderInstance3D", c"get_bake_mask_value", 1116898809L)
-            Binds.setBakeSimplificationDistance = GdxApi.getMethodBind(c"OccluderInstance3D", c"set_bake_simplification_distance", 373806689L)
-            Binds.getBakeSimplificationDistance = GdxApi.getMethodBind(c"OccluderInstance3D", c"get_bake_simplification_distance", 1740695150L)
-            Binds.setOccluder = GdxApi.getMethodBind(c"OccluderInstance3D", c"set_occluder", 1664878165L)
-            Binds.getOccluder = GdxApi.getMethodBind(c"OccluderInstance3D", c"get_occluder", 1696836198L)
+  }
+}
 
-    def apply(): OccluderInstance3D =
-        val obj = new OccluderInstance3D()
-        obj.ptr = GdxApi.constructObject(c"OccluderInstance3D")
-        obj
+def apply(): OccluderInstance3D = {
+  val obj = new OccluderInstance3D()
+  obj.ptr = GdxApi.constructObject(c"OccluderInstance3D")
+  obj
+}

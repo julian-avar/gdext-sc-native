@@ -5,668 +5,694 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TileSet extends Resource
-
-    def getNextSourceId(): Int =
+class TileSet extends Resource {
+    def getNextSourceId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getNextSourceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addSource(source: TileSetSource): Int =
+    def addSource(source: TileSetSource): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = source.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.addSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeSource(sourceId: Int): Unit =
+    def removeSource(sourceId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeSource, ptr, _args, null)
+}
 
-    def setSourceId(sourceId: Int, newSourceId: Int): Unit =
+    def setSourceId(sourceId: Int, newSourceId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = newSourceId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = newSourceId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setSourceId, ptr, _args, null)
+}
 
-    def getSourceCount(): Int =
+    def getSourceCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getSourceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSourceId(index: Int): Int =
+    def getSourceId(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getSourceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasSource(sourceId: Int): Boolean =
+    def hasSource(sourceId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.hasSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSource(sourceId: Int): TileSetSource =
+    def getSource(sourceId: Int): TileSetSource = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TileSetSource(!_ret)
+}
 
-    def setTileShape(shape: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
-        GdxApi.ptrcall(TileSet.Binds.setTileShape, ptr, _args, null)
-
-    def getTileShape(): Int =
+    def getOcclusionLayersCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileSet.Binds.getTileShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTileLayout(layout: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = layout.ptr
-        GdxApi.ptrcall(TileSet.Binds.setTileLayout, ptr, _args, null)
-
-    def getTileLayout(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileSet.Binds.getTileLayout, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTileOffsetAxis(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(TileSet.Binds.setTileOffsetAxis, ptr, _args, null)
-
-    def getTileOffsetAxis(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileSet.Binds.getTileOffsetAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTileSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(TileSet.Binds.setTileSize, ptr, _args, null)
-
-    def getTileSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileSet.Binds.getTileSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setUvClipping(uvClipping: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if uvClipping then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileSet.Binds.setUvClipping, ptr, _args, null)
-
-    def isUvClipping(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileSet.Binds.isUvClipping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getOcclusionLayersCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getOcclusionLayersCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addOcclusionLayer(): Unit =
+    def addOcclusionLayer(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.addOcclusionLayer, ptr, _args, null)
+}
 
-    def moveOcclusionLayer(layerIndex: Int, toPosition: Int): Unit =
+    def moveOcclusionLayer(layerIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.moveOcclusionLayer, ptr, _args, null)
+}
 
-    def removeOcclusionLayer(layerIndex: Int): Unit =
+    def removeOcclusionLayer(layerIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeOcclusionLayer, ptr, _args, null)
+}
 
-    def setOcclusionLayerLightMask(layerIndex: Int, lightMask: Int): Unit =
+    def setOcclusionLayerLightMask(layerIndex: Int, lightMask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = lightMask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = lightMask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setOcclusionLayerLightMask, ptr, _args, null)
+}
 
-    def getOcclusionLayerLightMask(layerIndex: Int): Int =
+    def getOcclusionLayerLightMask(layerIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getOcclusionLayerLightMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setOcclusionLayerSdfCollision(layerIndex: Int, sdfCollision: Boolean): Unit =
+    def setOcclusionLayerSdfCollision(layerIndex: Int, sdfCollision: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if sdfCollision then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setOcclusionLayerSdfCollision, ptr, _args, null)
+}
 
-    def getOcclusionLayerSdfCollision(layerIndex: Int): Boolean =
+    def getOcclusionLayerSdfCollision(layerIndex: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.getOcclusionLayerSdfCollision, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPhysicsLayersCount(): Int =
+    def getPhysicsLayersCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getPhysicsLayersCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addPhysicsLayer(): Unit =
+    def addPhysicsLayer(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.addPhysicsLayer, ptr, _args, null)
+}
 
-    def movePhysicsLayer(layerIndex: Int, toPosition: Int): Unit =
+    def movePhysicsLayer(layerIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.movePhysicsLayer, ptr, _args, null)
+}
 
-    def removePhysicsLayer(layerIndex: Int): Unit =
+    def removePhysicsLayer(layerIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removePhysicsLayer, ptr, _args, null)
+}
 
-    def setPhysicsLayerCollisionLayer(layerIndex: Int, layer: Int): Unit =
+    def setPhysicsLayerCollisionLayer(layerIndex: Int, layer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setPhysicsLayerCollisionLayer, ptr, _args, null)
+}
 
-    def getPhysicsLayerCollisionLayer(layerIndex: Int): Int =
+    def getPhysicsLayerCollisionLayer(layerIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getPhysicsLayerCollisionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setPhysicsLayerCollisionMask(layerIndex: Int, mask: Int): Unit =
+    def setPhysicsLayerCollisionMask(layerIndex: Int, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setPhysicsLayerCollisionMask, ptr, _args, null)
+}
 
-    def getPhysicsLayerCollisionMask(layerIndex: Int): Int =
+    def getPhysicsLayerCollisionMask(layerIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getPhysicsLayerCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setPhysicsLayerCollisionPriority(layerIndex: Int, priority: Float): Unit =
+    def setPhysicsLayerCollisionPriority(layerIndex: Int, priority: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = priority.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setPhysicsLayerCollisionPriority, ptr, _args, null)
+}
 
-    def getPhysicsLayerCollisionPriority(layerIndex: Int): Float =
+    def getPhysicsLayerCollisionPriority(layerIndex: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TileSet.Binds.getPhysicsLayerCollisionPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setPhysicsLayerPhysicsMaterial(layerIndex: Int, physicsMaterial: PhysicsMaterial): Unit =
+    def setPhysicsLayerPhysicsMaterial(layerIndex: Int, physicsMaterial: PhysicsMaterial): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = physicsMaterial.ptr
         GdxApi.ptrcall(TileSet.Binds.setPhysicsLayerPhysicsMaterial, ptr, _args, null)
+}
 
-    def getPhysicsLayerPhysicsMaterial(layerIndex: Int): PhysicsMaterial =
+    def getPhysicsLayerPhysicsMaterial(layerIndex: Int): PhysicsMaterial = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getPhysicsLayerPhysicsMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PhysicsMaterial(!_ret)
+}
 
-    def getTerrainSetsCount(): Int =
+    def getTerrainSetsCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getTerrainSetsCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addTerrainSet(): Unit =
+    def addTerrainSet(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.addTerrainSet, ptr, _args, null)
+}
 
-    def moveTerrainSet(terrainSet: Int, toPosition: Int): Unit =
+    def moveTerrainSet(terrainSet: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.moveTerrainSet, ptr, _args, null)
+}
 
-    def removeTerrainSet(terrainSet: Int): Unit =
+    def removeTerrainSet(terrainSet: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeTerrainSet, ptr, _args, null)
+}
 
-    def setTerrainSetMode(terrainSet: Int, mode: Int): Unit =
+    def setTerrainSetMode(terrainSet: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setTerrainSetMode, ptr, _args, null)
+}
 
-    def getTerrainSetMode(terrainSet: Int): Int =
+    def getTerrainSetMode(terrainSet: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getTerrainSetMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTerrainsCount(terrainSet: Int): Int =
+    def getTerrainsCount(terrainSet: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getTerrainsCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addTerrain(terrainSet: Int): Unit =
+    def addTerrain(terrainSet: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.addTerrain, ptr, _args, null)
+}
 
-    def moveTerrain(terrainSet: Int, terrainIndex: Int, toPosition: Int): Unit =
+    def moveTerrain(terrainSet: Int, terrainIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = terrainIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = terrainIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = toPosition.toLong
+        val _a2 = stackalloc[Long](); !_a2 = toPosition.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.moveTerrain, ptr, _args, null)
+}
 
-    def removeTerrain(terrainSet: Int, terrainIndex: Int): Unit =
+    def removeTerrain(terrainSet: Int, terrainIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = terrainIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = terrainIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeTerrain, ptr, _args, null)
+}
 
-    def setTerrainName(terrainSet: Int, terrainIndex: Int, name: CString): Unit =
+    def setTerrainName(terrainSet: Int, terrainIndex: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = terrainIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = terrainIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = name.ptr
+        _args(2) = name
         GdxApi.ptrcall(TileSet.Binds.setTerrainName, ptr, _args, null)
+}
 
-    def getTerrainName(terrainSet: Int, terrainIndex: Int): CString =
+    def getTerrainName(terrainSet: Int, terrainIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = terrainIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = terrainIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getTerrainName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTerrainColor(terrainSet: Int, terrainIndex: Int, color: Color): Unit =
+    def setTerrainColor(terrainSet: Int, terrainIndex: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = terrainIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = terrainIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = color.ptr
         GdxApi.ptrcall(TileSet.Binds.setTerrainColor, ptr, _args, null)
+}
 
-    def getTerrainColor(terrainSet: Int, terrainIndex: Int): Color =
+    def getTerrainColor(terrainSet: Int, terrainIndex: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = terrainSet.toLong
+        val _a0 = stackalloc[Long](); !_a0 = terrainSet.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = terrainIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = terrainIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getTerrainColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getNavigationLayersCount(): Int =
+    def getNavigationLayersCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getNavigationLayersCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addNavigationLayer(): Unit =
+    def addNavigationLayer(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.addNavigationLayer, ptr, _args, null)
+}
 
-    def moveNavigationLayer(layerIndex: Int, toPosition: Int): Unit =
+    def moveNavigationLayer(layerIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.moveNavigationLayer, ptr, _args, null)
+}
 
-    def removeNavigationLayer(layerIndex: Int): Unit =
+    def removeNavigationLayer(layerIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeNavigationLayer, ptr, _args, null)
+}
 
-    def setNavigationLayerLayers(layerIndex: Int, layers: Int): Unit =
+    def setNavigationLayerLayers(layerIndex: Int, layers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = layers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setNavigationLayerLayers, ptr, _args, null)
+}
 
-    def getNavigationLayerLayers(layerIndex: Int): Int =
+    def getNavigationLayerLayers(layerIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getNavigationLayerLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setNavigationLayerLayerValue(layerIndex: Int, layerNumber: Int, value: Boolean): Unit =
+    def setNavigationLayerLayerValue(layerIndex: Int, layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = layerNumber.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layerNumber.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if value then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setNavigationLayerLayerValue, ptr, _args, null)
+}
 
-    def getNavigationLayerLayerValue(layerIndex: Int, layerNumber: Int): Boolean =
+    def getNavigationLayerLayerValue(layerIndex: Int, layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = layerNumber.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layerNumber.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.getNavigationLayerLayerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCustomDataLayersCount(): Int =
+    def getCustomDataLayersCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getCustomDataLayersCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addCustomDataLayer(): Unit =
+    def addCustomDataLayer(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.addCustomDataLayer, ptr, _args, null)
+}
 
-    def moveCustomDataLayer(layerIndex: Int, toPosition: Int): Unit =
+    def moveCustomDataLayer(layerIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.moveCustomDataLayer, ptr, _args, null)
+}
 
-    def removeCustomDataLayer(layerIndex: Int): Unit =
+    def removeCustomDataLayer(layerIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeCustomDataLayer, ptr, _args, null)
+}
 
-    def getCustomDataLayerByName(layerName: CString): Int =
+    def getCustomDataLayerByName(layerName: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = layerName.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = layerName
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getCustomDataLayerByName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCustomDataLayerName(layerIndex: Int, layerName: CString): Unit =
+    def setCustomDataLayerName(layerIndex: Int, layerName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = layerName.ptr
+        _args(1) = layerName
         GdxApi.ptrcall(TileSet.Binds.setCustomDataLayerName, ptr, _args, null)
+}
 
-    def hasCustomDataLayerByName(layerName: CString): Boolean =
+    def hasCustomDataLayerByName(layerName: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = layerName.ptr
+        _args(0) = layerName
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.hasCustomDataLayerByName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCustomDataLayerName(layerIndex: Int): CString =
+    def getCustomDataLayerName(layerIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getCustomDataLayerName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCustomDataLayerType(layerIndex: Int, layerType: Int): Unit =
+    def setCustomDataLayerType(layerIndex: Int, layerType: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = layerType.ptr
+        val _a1 = stackalloc[Long](); !_a1 = layerType.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setCustomDataLayerType, ptr, _args, null)
+}
 
-    def getCustomDataLayerType(layerIndex: Int): Int =
+    def getCustomDataLayerType(layerIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getCustomDataLayerType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSourceLevelTileProxy(sourceFrom: Int, sourceTo: Int): Unit =
+    def setSourceLevelTileProxy(sourceFrom: Int, sourceTo: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = sourceTo.toLong
+        val _a1 = stackalloc[Long](); !_a1 = sourceTo.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setSourceLevelTileProxy, ptr, _args, null)
+}
 
-    def getSourceLevelTileProxy(sourceFrom: Int): Int =
+    def getSourceLevelTileProxy(sourceFrom: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getSourceLevelTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasSourceLevelTileProxy(sourceFrom: Int): Boolean =
+    def hasSourceLevelTileProxy(sourceFrom: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.hasSourceLevelTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeSourceLevelTileProxy(sourceFrom: Int): Unit =
+    def removeSourceLevelTileProxy(sourceFrom: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeSourceLevelTileProxy, ptr, _args, null)
+}
 
-    def setCoordsLevelTileProxy(pSourceFrom: Int, coordsFrom: Vector2i, sourceTo: Int, coordsTo: Vector2i): Unit =
+    def setCoordsLevelTileProxy(pSourceFrom: Int, coordsFrom: Vector2i, sourceTo: Int, coordsTo: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = pSourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = pSourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = sourceTo.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sourceTo.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = coordsTo.ptr
         GdxApi.ptrcall(TileSet.Binds.setCoordsLevelTileProxy, ptr, _args, null)
+}
 
-    def getCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i): Array =
+    def getCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getCoordsLevelTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i): Boolean =
+    def hasCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.hasCoordsLevelTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i): Unit =
+    def removeCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
         GdxApi.ptrcall(TileSet.Binds.removeCoordsLevelTileProxy, ptr, _args, null)
+}
 
-    def setAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int, sourceTo: Int, coordsTo: Vector2i, alternativeTo: Int): Unit =
+    def setAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int, sourceTo: Int, coordsTo: Vector2i, alternativeTo: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = alternativeFrom.toLong
+        val _a2 = stackalloc[Long](); !_a2 = alternativeFrom.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = sourceTo.toLong
+        val _a3 = stackalloc[Long](); !_a3 = sourceTo.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         _args(4) = coordsTo.ptr
-        val _a5 = stackalloc[CLong](); !_a5 = alternativeTo.toLong
+        val _a5 = stackalloc[Long](); !_a5 = alternativeTo.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.setAlternativeLevelTileProxy, ptr, _args, null)
+}
 
-    def getAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Array =
+    def getAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = alternativeFrom.toLong
+        val _a2 = stackalloc[Long](); !_a2 = alternativeFrom.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getAlternativeLevelTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Boolean =
+    def hasAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = alternativeFrom.toLong
+        val _a2 = stackalloc[Long](); !_a2 = alternativeFrom.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSet.Binds.hasAlternativeLevelTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Unit =
+    def removeAlternativeLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = alternativeFrom.toLong
+        val _a2 = stackalloc[Long](); !_a2 = alternativeFrom.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removeAlternativeLevelTileProxy, ptr, _args, null)
+}
 
-    def mapTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Array =
+    def mapTileProxy(sourceFrom: Int, coordsFrom: Vector2i, alternativeFrom: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = sourceFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sourceFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = coordsFrom.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = alternativeFrom.toLong
+        val _a2 = stackalloc[Long](); !_a2 = alternativeFrom.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.mapTileProxy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def cleanupInvalidTileProxies(): Unit =
+    def cleanupInvalidTileProxies(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.cleanupInvalidTileProxies, ptr, _args, null)
+}
 
-    def clearTileProxies(): Unit =
+    def clearTileProxies(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSet.Binds.clearTileProxies, ptr, _args, null)
+}
 
-    def addPattern(pattern: TileMapPattern): Int =
+    def addPattern(pattern: TileMapPattern): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = pattern.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.addPattern, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPattern(): TileMapPattern =
+    def getPattern(): TileMapPattern = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSet.Binds.getPattern, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TileMapPattern(!_ret)
+}
 
-    def removePattern(index: Int): Unit =
+    def removePattern(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSet.Binds.removePattern, ptr, _args, null)
+}
 
-    def getPatternsCount(): Int =
+    def getPatternsCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSet.Binds.getPatternsCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def tileShape: Ptr[Byte] = getTileShape()
-    def tileShape_=(v: Ptr[Byte]): Unit = setTileShape(v)
-    def tileLayout: Ptr[Byte] = getTileLayout()
-    def tileLayout_=(v: Ptr[Byte]): Unit = setTileLayout(v)
-    def tileOffsetAxis: Ptr[Byte] = getTileOffsetAxis()
-    def tileOffsetAxis_=(v: Ptr[Byte]): Unit = setTileOffsetAxis(v)
-    def tileSize: Ptr[Byte] = getTileSize()
-    def tileSize_=(v: Ptr[Byte]): Unit = setTileSize(v)
-    def uvClipping: Ptr[Byte] = isUvClipping()
-    def uvClipping_=(v: Ptr[Byte]): Unit = setUvClipping(v)
+}
+
+    def tileShape: Int = getTileShape()
+    def tileShape_=(v: Int): Unit = setTileShape(v)
+    def tileLayout: Int = getTileLayout()
+    def tileLayout_=(v: Int): Unit = setTileLayout(v)
+    def tileOffsetAxis: Int = getTileOffsetAxis()
+    def tileOffsetAxis_=(v: Int): Unit = setTileOffsetAxis(v)
+    def tileSize: Vector2i = getTileSize()
+    def tileSize_=(v: Vector2i): Unit = setTileSize(v)
+    def uvClipping: Boolean = isUvClipping()
+    def uvClipping_=(v: Boolean): Unit = setUvClipping(v)
+}
 
 object TileSet:
-    object Binds:
-        var getNextSourceId: Ptr[Byte] = null
+object Binds {
+          var getNextSourceId: Ptr[Byte] = null
         var addSource: Ptr[Byte] = null
         var removeSource: Ptr[Byte] = null
         var setSourceId: Ptr[Byte] = null
@@ -674,16 +700,6 @@ object TileSet:
         var getSourceId: Ptr[Byte] = null
         var hasSource: Ptr[Byte] = null
         var getSource: Ptr[Byte] = null
-        var setTileShape: Ptr[Byte] = null
-        var getTileShape: Ptr[Byte] = null
-        var setTileLayout: Ptr[Byte] = null
-        var getTileLayout: Ptr[Byte] = null
-        var setTileOffsetAxis: Ptr[Byte] = null
-        var getTileOffsetAxis: Ptr[Byte] = null
-        var setTileSize: Ptr[Byte] = null
-        var getTileSize: Ptr[Byte] = null
-        var setUvClipping: Ptr[Byte] = null
-        var isUvClipping: Ptr[Byte] = null
         var getOcclusionLayersCount: Ptr[Byte] = null
         var addOcclusionLayer: Ptr[Byte] = null
         var moveOcclusionLayer: Ptr[Byte] = null
@@ -756,8 +772,8 @@ object TileSet:
         var removePattern: Ptr[Byte] = null
         var getPatternsCount: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getNextSourceId = GdxApi.getMethodBind(c"TileSet", c"get_next_source_id", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getNextSourceId = GdxApi.getMethodBind(c"TileSet", c"get_next_source_id", 3905245786L)
             Binds.addSource = GdxApi.getMethodBind(c"TileSet", c"add_source", 1059186179L)
             Binds.removeSource = GdxApi.getMethodBind(c"TileSet", c"remove_source", 1286410249L)
             Binds.setSourceId = GdxApi.getMethodBind(c"TileSet", c"set_source_id", 3937882851L)
@@ -765,16 +781,6 @@ object TileSet:
             Binds.getSourceId = GdxApi.getMethodBind(c"TileSet", c"get_source_id", 923996154L)
             Binds.hasSource = GdxApi.getMethodBind(c"TileSet", c"has_source", 1116898809L)
             Binds.getSource = GdxApi.getMethodBind(c"TileSet", c"get_source", 1763540252L)
-            Binds.setTileShape = GdxApi.getMethodBind(c"TileSet", c"set_tile_shape", 2131427112L)
-            Binds.getTileShape = GdxApi.getMethodBind(c"TileSet", c"get_tile_shape", 716918169L)
-            Binds.setTileLayout = GdxApi.getMethodBind(c"TileSet", c"set_tile_layout", 1071216679L)
-            Binds.getTileLayout = GdxApi.getMethodBind(c"TileSet", c"get_tile_layout", 194628839L)
-            Binds.setTileOffsetAxis = GdxApi.getMethodBind(c"TileSet", c"set_tile_offset_axis", 3300198521L)
-            Binds.getTileOffsetAxis = GdxApi.getMethodBind(c"TileSet", c"get_tile_offset_axis", 762494114L)
-            Binds.setTileSize = GdxApi.getMethodBind(c"TileSet", c"set_tile_size", 1130785943L)
-            Binds.getTileSize = GdxApi.getMethodBind(c"TileSet", c"get_tile_size", 3690982128L)
-            Binds.setUvClipping = GdxApi.getMethodBind(c"TileSet", c"set_uv_clipping", 2586408642L)
-            Binds.isUvClipping = GdxApi.getMethodBind(c"TileSet", c"is_uv_clipping", 36873697L)
             Binds.getOcclusionLayersCount = GdxApi.getMethodBind(c"TileSet", c"get_occlusion_layers_count", 3905245786L)
             Binds.addOcclusionLayer = GdxApi.getMethodBind(c"TileSet", c"add_occlusion_layer", 1025054187L)
             Binds.moveOcclusionLayer = GdxApi.getMethodBind(c"TileSet", c"move_occlusion_layer", 3937882851L)
@@ -846,8 +852,11 @@ object TileSet:
             Binds.getPattern = GdxApi.getMethodBind(c"TileSet", c"get_pattern", 4207737510L)
             Binds.removePattern = GdxApi.getMethodBind(c"TileSet", c"remove_pattern", 1286410249L)
             Binds.getPatternsCount = GdxApi.getMethodBind(c"TileSet", c"get_patterns_count", 2455072627L)
+  }
+}
 
-    def apply(): TileSet =
-        val obj = new TileSet()
-        obj.ptr = GdxApi.constructObject(c"TileSet")
-        obj
+def apply(): TileSet = {
+  val obj = new TileSet()
+  obj.ptr = GdxApi.constructObject(c"TileSet")
+  obj
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsDirectBodyState2DExtension extends PhysicsDirectBodyState2D
+class PhysicsDirectBodyState2DExtension extends PhysicsDirectBodyState2D {
     def _getTotalGravity(): Vector2 = null
     def _getTotalLinearDamp(): Float = 0
     def _getTotalAngularDamp(): Float = 0
@@ -54,11 +54,11 @@ class PhysicsDirectBodyState2DExtension extends PhysicsDirectBodyState2D
     def _getStep(): Float = 0
     def _integrateForces(): Unit = ()
     def _getSpaceState(): PhysicsDirectSpaceState2D = null
-
-
+}
 
 object PhysicsDirectBodyState2DExtension:
-    def apply(): PhysicsDirectBodyState2DExtension =
-        val obj = new PhysicsDirectBodyState2DExtension()
-        obj.ptr = GdxApi.constructObject(c"PhysicsDirectBodyState2DExtension")
-        obj
+def apply(): PhysicsDirectBodyState2DExtension = {
+  val obj = new PhysicsDirectBodyState2DExtension()
+  obj.ptr = GdxApi.constructObject(c"PhysicsDirectBodyState2DExtension")
+  obj
+}

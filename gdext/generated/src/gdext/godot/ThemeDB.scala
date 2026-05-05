@@ -5,117 +5,46 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ThemeDB extends Object
-
-    def getDefaultTheme(): Theme =
+class ThemeDB extends Object {
+    def getDefaultTheme(): Theme = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ThemeDB.Binds.getDefaultTheme, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Theme(!_ret)
+}
 
-    def getProjectTheme(): Theme =
+    def getProjectTheme(): Theme = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ThemeDB.Binds.getProjectTheme, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Theme(!_ret)
+}
 
-    def setFallbackBaseScale(baseScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = baseScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ThemeDB.Binds.setFallbackBaseScale, ptr, _args, null)
-
-    def getFallbackBaseScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ThemeDB.Binds.getFallbackBaseScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFallbackFont(font: Font): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = font.ptr
-        GdxApi.ptrcall(ThemeDB.Binds.setFallbackFont, ptr, _args, null)
-
-    def getFallbackFont(): Font =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ThemeDB.Binds.getFallbackFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Font(!_ret)
-
-    def setFallbackFontSize(fontSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = fontSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ThemeDB.Binds.setFallbackFontSize, ptr, _args, null)
-
-    def getFallbackFontSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ThemeDB.Binds.getFallbackFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFallbackIcon(icon: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = icon.ptr
-        GdxApi.ptrcall(ThemeDB.Binds.setFallbackIcon, ptr, _args, null)
-
-    def getFallbackIcon(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ThemeDB.Binds.getFallbackIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setFallbackStylebox(stylebox: StyleBox): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stylebox.ptr
-        GdxApi.ptrcall(ThemeDB.Binds.setFallbackStylebox, ptr, _args, null)
-
-    def getFallbackStylebox(): StyleBox =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ThemeDB.Binds.getFallbackStylebox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new StyleBox(!_ret)
-    def fallbackBaseScale: Ptr[Byte] = getFallbackBaseScale()
-    def fallbackBaseScale_=(v: Ptr[Byte]): Unit = setFallbackBaseScale(v)
-    def fallbackFont: Ptr[Byte] = getFallbackFont()
-    def fallbackFont_=(v: Ptr[Byte]): Unit = setFallbackFont(v)
-    def fallbackFontSize: Ptr[Byte] = getFallbackFontSize()
-    def fallbackFontSize_=(v: Ptr[Byte]): Unit = setFallbackFontSize(v)
-    def fallbackIcon: Ptr[Byte] = getFallbackIcon()
-    def fallbackIcon_=(v: Ptr[Byte]): Unit = setFallbackIcon(v)
-    def fallbackStylebox: Ptr[Byte] = getFallbackStylebox()
-    def fallbackStylebox_=(v: Ptr[Byte]): Unit = setFallbackStylebox(v)
+    def fallbackBaseScale: Float = getFallbackBaseScale()
+    def fallbackBaseScale_=(v: Float): Unit = setFallbackBaseScale(v)
+    def fallbackFont: Font = getFallbackFont()
+    def fallbackFont_=(v: Font): Unit = setFallbackFont(v)
+    def fallbackFontSize: Int = getFallbackFontSize()
+    def fallbackFontSize_=(v: Int): Unit = setFallbackFontSize(v)
+    def fallbackIcon: Texture2D = getFallbackIcon()
+    def fallbackIcon_=(v: Texture2D): Unit = setFallbackIcon(v)
+    def fallbackStylebox: StyleBox = getFallbackStylebox()
+    def fallbackStylebox_=(v: StyleBox): Unit = setFallbackStylebox(v)
+}
 
 object ThemeDB:
-    object Binds:
-        var getDefaultTheme: Ptr[Byte] = null
+object Binds {
+          var getDefaultTheme: Ptr[Byte] = null
         var getProjectTheme: Ptr[Byte] = null
-        var setFallbackBaseScale: Ptr[Byte] = null
-        var getFallbackBaseScale: Ptr[Byte] = null
-        var setFallbackFont: Ptr[Byte] = null
-        var getFallbackFont: Ptr[Byte] = null
-        var setFallbackFontSize: Ptr[Byte] = null
-        var getFallbackFontSize: Ptr[Byte] = null
-        var setFallbackIcon: Ptr[Byte] = null
-        var getFallbackIcon: Ptr[Byte] = null
-        var setFallbackStylebox: Ptr[Byte] = null
-        var getFallbackStylebox: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getDefaultTheme = GdxApi.getMethodBind(c"ThemeDB", c"get_default_theme", 754276358L)
+  def loadBinds(): Unit = {
+                Binds.getDefaultTheme = GdxApi.getMethodBind(c"ThemeDB", c"get_default_theme", 754276358L)
             Binds.getProjectTheme = GdxApi.getMethodBind(c"ThemeDB", c"get_project_theme", 754276358L)
-            Binds.setFallbackBaseScale = GdxApi.getMethodBind(c"ThemeDB", c"set_fallback_base_scale", 373806689L)
-            Binds.getFallbackBaseScale = GdxApi.getMethodBind(c"ThemeDB", c"get_fallback_base_scale", 191475506L)
-            Binds.setFallbackFont = GdxApi.getMethodBind(c"ThemeDB", c"set_fallback_font", 1262170328L)
-            Binds.getFallbackFont = GdxApi.getMethodBind(c"ThemeDB", c"get_fallback_font", 3656929885L)
-            Binds.setFallbackFontSize = GdxApi.getMethodBind(c"ThemeDB", c"set_fallback_font_size", 1286410249L)
-            Binds.getFallbackFontSize = GdxApi.getMethodBind(c"ThemeDB", c"get_fallback_font_size", 2455072627L)
-            Binds.setFallbackIcon = GdxApi.getMethodBind(c"ThemeDB", c"set_fallback_icon", 4051416890L)
-            Binds.getFallbackIcon = GdxApi.getMethodBind(c"ThemeDB", c"get_fallback_icon", 255860311L)
-            Binds.setFallbackStylebox = GdxApi.getMethodBind(c"ThemeDB", c"set_fallback_stylebox", 2797200388L)
-            Binds.getFallbackStylebox = GdxApi.getMethodBind(c"ThemeDB", c"get_fallback_stylebox", 496040854L)
+  }
+}
 
-    def apply(): ThemeDB =
-        val obj = new ThemeDB()
-        obj.ptr = GdxApi.constructObject(c"ThemeDB")
-        obj
+def apply(): ThemeDB = {
+  val obj = new ThemeDB()
+  obj.ptr = GdxApi.constructObject(c"ThemeDB")
+  obj
+}

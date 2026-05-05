@@ -5,148 +5,125 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MeshInstance3D extends GeometryInstance3D
-
-    def setMesh(mesh: Mesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(MeshInstance3D.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): Mesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MeshInstance3D.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Mesh(!_ret)
-
-    def setSkeletonPath(skeletonPath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skeletonPath.ptr
-        GdxApi.ptrcall(MeshInstance3D.Binds.setSkeletonPath, ptr, _args, null)
-
-    def getSkeletonPath(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MeshInstance3D.Binds.getSkeletonPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setSkin(skin: Skin): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skin.ptr
-        GdxApi.ptrcall(MeshInstance3D.Binds.setSkin, ptr, _args, null)
-
-    def getSkin(): Skin =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MeshInstance3D.Binds.getSkin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Skin(!_ret)
-
-    def getSkinReference(): SkinReference =
+class MeshInstance3D extends GeometryInstance3D {
+    def getSkinReference(): SkinReference = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshInstance3D.Binds.getSkinReference, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SkinReference(!_ret)
+}
 
-    def getSurfaceOverrideMaterialCount(): Int =
+    def getSurfaceOverrideMaterialCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshInstance3D.Binds.getSurfaceOverrideMaterialCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSurfaceOverrideMaterial(surface: Int, material: Material): Unit =
+    def setSurfaceOverrideMaterial(surface: Int, material: Material): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = surface.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surface.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = material.ptr
         GdxApi.ptrcall(MeshInstance3D.Binds.setSurfaceOverrideMaterial, ptr, _args, null)
+}
 
-    def getSurfaceOverrideMaterial(surface: Int): Material =
+    def getSurfaceOverrideMaterial(surface: Int): Material = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = surface.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surface.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshInstance3D.Binds.getSurfaceOverrideMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Material(!_ret)
+}
 
-    def getActiveMaterial(surface: Int): Material =
+    def getActiveMaterial(surface: Int): Material = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = surface.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surface.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshInstance3D.Binds.getActiveMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Material(!_ret)
+}
 
-    def createTrimeshCollision(): Unit =
+    def createTrimeshCollision(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MeshInstance3D.Binds.createTrimeshCollision, ptr, _args, null)
+}
 
-    def createConvexCollision(): Unit =
+    def createConvexCollision(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MeshInstance3D.Binds.createConvexCollision, ptr, _args, null)
+}
 
-    def createMultipleConvexCollisions(): Unit =
+    def createMultipleConvexCollisions(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MeshInstance3D.Binds.createMultipleConvexCollisions, ptr, _args, null)
+}
 
-    def getBlendShapeCount(): Int =
+    def getBlendShapeCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshInstance3D.Binds.getBlendShapeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def findBlendShapeByName(name: CString): Int =
+    def findBlendShapeByName(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshInstance3D.Binds.findBlendShapeByName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBlendShapeValue(blendShapeIdx: Int): Float =
+    def getBlendShapeValue(blendShapeIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = blendShapeIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = blendShapeIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(MeshInstance3D.Binds.getBlendShapeValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setBlendShapeValue(blendShapeIdx: Int, value: Float): Unit =
+    def setBlendShapeValue(blendShapeIdx: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = blendShapeIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = blendShapeIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = value.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MeshInstance3D.Binds.setBlendShapeValue, ptr, _args, null)
+}
 
-    def createDebugTangents(): Unit =
+    def createDebugTangents(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MeshInstance3D.Binds.createDebugTangents, ptr, _args, null)
+}
 
-    def bakeMeshFromCurrentBlendShapeMix(): ArrayMesh =
+    def bakeMeshFromCurrentBlendShapeMix(): ArrayMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshInstance3D.Binds.bakeMeshFromCurrentBlendShapeMix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ArrayMesh(!_ret)
+}
 
-    def bakeMeshFromCurrentSkeletonPose(): ArrayMesh =
+    def bakeMeshFromCurrentSkeletonPose(): ArrayMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshInstance3D.Binds.bakeMeshFromCurrentSkeletonPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ArrayMesh(!_ret)
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def skin: Ptr[Byte] = getSkin()
-    def skin_=(v: Ptr[Byte]): Unit = setSkin(v)
-    def skeleton: Ptr[Byte] = getSkeletonPath()
-    def skeleton_=(v: Ptr[Byte]): Unit = setSkeletonPath(v)
+}
+
+    def mesh: Mesh = getMesh()
+    def mesh_=(v: Mesh): Unit = setMesh(v)
+    def skin: Skin = getSkin()
+    def skin_=(v: Skin): Unit = setSkin(v)
+    def skeleton: NodePath = getSkeletonPath()
+    def skeleton_=(v: NodePath): Unit = setSkeletonPath(v)
+}
 
 object MeshInstance3D:
-    object Binds:
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setSkeletonPath: Ptr[Byte] = null
-        var getSkeletonPath: Ptr[Byte] = null
-        var setSkin: Ptr[Byte] = null
-        var getSkin: Ptr[Byte] = null
-        var getSkinReference: Ptr[Byte] = null
+object Binds {
+          var getSkinReference: Ptr[Byte] = null
         var getSurfaceOverrideMaterialCount: Ptr[Byte] = null
         var setSurfaceOverrideMaterial: Ptr[Byte] = null
         var getSurfaceOverrideMaterial: Ptr[Byte] = null
@@ -162,14 +139,8 @@ object MeshInstance3D:
         var bakeMeshFromCurrentBlendShapeMix: Ptr[Byte] = null
         var bakeMeshFromCurrentSkeletonPose: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setMesh = GdxApi.getMethodBind(c"MeshInstance3D", c"set_mesh", 194775623L)
-            Binds.getMesh = GdxApi.getMethodBind(c"MeshInstance3D", c"get_mesh", 1808005922L)
-            Binds.setSkeletonPath = GdxApi.getMethodBind(c"MeshInstance3D", c"set_skeleton_path", 1348162250L)
-            Binds.getSkeletonPath = GdxApi.getMethodBind(c"MeshInstance3D", c"get_skeleton_path", 277076166L)
-            Binds.setSkin = GdxApi.getMethodBind(c"MeshInstance3D", c"set_skin", 3971435618L)
-            Binds.getSkin = GdxApi.getMethodBind(c"MeshInstance3D", c"get_skin", 2074563878L)
-            Binds.getSkinReference = GdxApi.getMethodBind(c"MeshInstance3D", c"get_skin_reference", 2060603409L)
+  def loadBinds(): Unit = {
+                Binds.getSkinReference = GdxApi.getMethodBind(c"MeshInstance3D", c"get_skin_reference", 2060603409L)
             Binds.getSurfaceOverrideMaterialCount = GdxApi.getMethodBind(c"MeshInstance3D", c"get_surface_override_material_count", 3905245786L)
             Binds.setSurfaceOverrideMaterial = GdxApi.getMethodBind(c"MeshInstance3D", c"set_surface_override_material", 3671737478L)
             Binds.getSurfaceOverrideMaterial = GdxApi.getMethodBind(c"MeshInstance3D", c"get_surface_override_material", 2897466400L)
@@ -184,8 +155,11 @@ object MeshInstance3D:
             Binds.createDebugTangents = GdxApi.getMethodBind(c"MeshInstance3D", c"create_debug_tangents", 3218959716L)
             Binds.bakeMeshFromCurrentBlendShapeMix = GdxApi.getMethodBind(c"MeshInstance3D", c"bake_mesh_from_current_blend_shape_mix", 1457573577L)
             Binds.bakeMeshFromCurrentSkeletonPose = GdxApi.getMethodBind(c"MeshInstance3D", c"bake_mesh_from_current_skeleton_pose", 1457573577L)
+  }
+}
 
-    def apply(): MeshInstance3D =
-        val obj = new MeshInstance3D()
-        obj.ptr = GdxApi.constructObject(c"MeshInstance3D")
-        obj
+def apply(): MeshInstance3D = {
+  val obj = new MeshInstance3D()
+  obj.ptr = GdxApi.constructObject(c"MeshInstance3D")
+  obj
+}

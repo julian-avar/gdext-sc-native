@@ -5,82 +5,84 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ENetMultiplayerPeer extends MultiplayerPeer
-
-    def createServer(port: Int): Int =
+class ENetMultiplayerPeer extends MultiplayerPeer {
+    def createServer(port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
+        val _a0 = stackalloc[Long](); !_a0 = port.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetMultiplayerPeer.Binds.createServer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createClient(address: CString, port: Int): Int =
+    def createClient(address: CString, port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = address.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = address
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetMultiplayerPeer.Binds.createClient, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createMesh(uniqueId: Int): Int =
+    def createMesh(uniqueId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = uniqueId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = uniqueId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetMultiplayerPeer.Binds.createMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addMeshPeer(peerId: Int, host: ENetConnection): Int =
+    def addMeshPeer(peerId: Int, host: ENetConnection): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = host.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetMultiplayerPeer.Binds.addMeshPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setBindIp(ip: CString): Unit =
+    def setBindIp(ip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = ip.ptr
+        _args(0) = ip
         GdxApi.ptrcall(ENetMultiplayerPeer.Binds.setBindIp, ptr, _args, null)
+}
 
-    def getHost(): ENetConnection =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ENetMultiplayerPeer.Binds.getHost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new ENetConnection(!_ret)
-
-    def getPeer(id: Int): ENetPacketPeer =
+    def getPeer(id: Int): ENetPacketPeer = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ENetMultiplayerPeer.Binds.getPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ENetPacketPeer(!_ret)
-    def host: Ptr[Byte] = getHost()
+}
+
+    def host: ENetConnection = getHost()
+}
 
 object ENetMultiplayerPeer:
-    object Binds:
-        var createServer: Ptr[Byte] = null
+object Binds {
+          var createServer: Ptr[Byte] = null
         var createClient: Ptr[Byte] = null
         var createMesh: Ptr[Byte] = null
         var addMeshPeer: Ptr[Byte] = null
         var setBindIp: Ptr[Byte] = null
-        var getHost: Ptr[Byte] = null
         var getPeer: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createServer = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"create_server", 2917761309L)
+  def loadBinds(): Unit = {
+                Binds.createServer = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"create_server", 2917761309L)
             Binds.createClient = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"create_client", 2327163476L)
             Binds.createMesh = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"create_mesh", 844576869L)
             Binds.addMeshPeer = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"add_mesh_peer", 1293458335L)
             Binds.setBindIp = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"set_bind_ip", 83702148L)
-            Binds.getHost = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"get_host", 4103238886L)
             Binds.getPeer = GdxApi.getMethodBind(c"ENetMultiplayerPeer", c"get_peer", 3793311544L)
+  }
+}
 
-    def apply(): ENetMultiplayerPeer =
-        val obj = new ENetMultiplayerPeer()
-        obj.ptr = GdxApi.constructObject(c"ENetMultiplayerPeer")
-        obj
+def apply(): ENetMultiplayerPeer = {
+  val obj = new ENetMultiplayerPeer()
+  obj.ptr = GdxApi.constructObject(c"ENetMultiplayerPeer")
+  obj
+}

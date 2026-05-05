@@ -5,192 +5,214 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SceneState extends RefCounted
-
-    def getPath(): CString =
+class SceneState extends RefCounted {
+    def getPath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getBaseSceneState(): SceneState =
+    def getBaseSceneState(): SceneState = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getBaseSceneState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SceneState(!_ret)
+}
 
-    def getNodeCount(): Int =
+    def getNodeCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneState.Binds.getNodeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNodeType(idx: Int): CString =
+    def getNodeType(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodeType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodeName(idx: Int): CString =
+    def getNodeName(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodeName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodePath(idx: Int): NodePath =
+    def getNodePath(idx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def getNodeOwnerPath(idx: Int): NodePath =
+    def getNodeOwnerPath(idx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodeOwnerPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def isNodeInstancePlaceholder(idx: Int): Boolean =
+    def isNodeInstancePlaceholder(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SceneState.Binds.isNodeInstancePlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getNodeInstancePlaceholder(idx: Int): CString =
+    def getNodeInstancePlaceholder(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodeInstancePlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodeInstance(idx: Int): PackedScene =
+    def getNodeInstance(idx: Int): PackedScene = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodeInstance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedScene(!_ret)
+}
 
-    def getNodeGroups(idx: Int): PackedStringArray =
+    def getNodeGroups(idx: Int): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodeGroups, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getNodeIndex(idx: Int): Int =
+    def getNodeIndex(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneState.Binds.getNodeIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNodePropertyCount(idx: Int): Int =
+    def getNodePropertyCount(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneState.Binds.getNodePropertyCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNodePropertyName(idx: Int, propIdx: Int): CString =
+    def getNodePropertyName(idx: Int, propIdx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = propIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = propIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodePropertyName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodePropertyValue(idx: Int, propIdx: Int): Ptr[Byte] =
+    def getNodePropertyValue(idx: Int, propIdx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = propIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = propIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getNodePropertyValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConnectionCount(): Int =
+    def getConnectionCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getConnectionSource(idx: Int): NodePath =
+    def getConnectionSource(idx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def getConnectionSignal(idx: Int): CString =
+    def getConnectionSignal(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConnectionTarget(idx: Int): NodePath =
+    def getConnectionTarget(idx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionTarget, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def getConnectionMethod(idx: Int): CString =
+    def getConnectionMethod(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionMethod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConnectionFlags(idx: Int): Int =
+    def getConnectionFlags(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getConnectionBinds(idx: Int): Array =
+    def getConnectionBinds(idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionBinds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConnectionUnbinds(idx: Int): Int =
+    def getConnectionUnbinds(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneState.Binds.getConnectionUnbinds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object SceneState:
-    object Binds:
-        var getPath: Ptr[Byte] = null
+object Binds {
+          var getPath: Ptr[Byte] = null
         var getBaseSceneState: Ptr[Byte] = null
         var getNodeCount: Ptr[Byte] = null
         var getNodeType: Ptr[Byte] = null
@@ -214,8 +236,8 @@ object SceneState:
         var getConnectionBinds: Ptr[Byte] = null
         var getConnectionUnbinds: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getPath = GdxApi.getMethodBind(c"SceneState", c"get_path", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getPath = GdxApi.getMethodBind(c"SceneState", c"get_path", 201670096L)
             Binds.getBaseSceneState = GdxApi.getMethodBind(c"SceneState", c"get_base_scene_state", 3479783971L)
             Binds.getNodeCount = GdxApi.getMethodBind(c"SceneState", c"get_node_count", 3905245786L)
             Binds.getNodeType = GdxApi.getMethodBind(c"SceneState", c"get_node_type", 659327637L)
@@ -238,3 +260,5 @@ object SceneState:
             Binds.getConnectionFlags = GdxApi.getMethodBind(c"SceneState", c"get_connection_flags", 923996154L)
             Binds.getConnectionBinds = GdxApi.getMethodBind(c"SceneState", c"get_connection_binds", 663333327L)
             Binds.getConnectionUnbinds = GdxApi.getMethodBind(c"SceneState", c"get_connection_unbinds", 923996154L)
+  }
+}

@@ -5,204 +5,112 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MultiMesh extends Resource
-
-    def setMesh(mesh: Mesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(MultiMesh.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): Mesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MultiMesh.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Mesh(!_ret)
-
-    def setUseColors(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MultiMesh.Binds.setUseColors, ptr, _args, null)
-
-    def isUsingColors(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MultiMesh.Binds.isUsingColors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseCustomData(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MultiMesh.Binds.setUseCustomData, ptr, _args, null)
-
-    def isUsingCustomData(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MultiMesh.Binds.isUsingCustomData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTransformFormat(format: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = format.ptr
-        GdxApi.ptrcall(MultiMesh.Binds.setTransformFormat, ptr, _args, null)
-
-    def getTransformFormat(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MultiMesh.Binds.getTransformFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInstanceCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MultiMesh.Binds.setInstanceCount, ptr, _args, null)
-
-    def getInstanceCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MultiMesh.Binds.getInstanceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVisibleInstanceCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MultiMesh.Binds.setVisibleInstanceCount, ptr, _args, null)
-
-    def getVisibleInstanceCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MultiMesh.Binds.getVisibleInstanceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPhysicsInterpolationQuality(quality: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
-        GdxApi.ptrcall(MultiMesh.Binds.setPhysicsInterpolationQuality, ptr, _args, null)
-
-    def getPhysicsInterpolationQuality(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MultiMesh.Binds.getPhysicsInterpolationQuality, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInstanceTransform(instance: Int, transform: Transform3D): Unit =
+class MultiMesh extends Resource {
+    def setInstanceTransform(instance: Int, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = transform.ptr
         GdxApi.ptrcall(MultiMesh.Binds.setInstanceTransform, ptr, _args, null)
+}
 
-    def setInstanceTransform2d(instance: Int, transform: Transform2D): Unit =
+    def setInstanceTransform2d(instance: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = transform.ptr
         GdxApi.ptrcall(MultiMesh.Binds.setInstanceTransform2d, ptr, _args, null)
+}
 
-    def getInstanceTransform(instance: Int): Transform3D =
+    def getInstanceTransform(instance: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MultiMesh.Binds.getInstanceTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def getInstanceTransform2d(instance: Int): Transform2D =
+    def getInstanceTransform2d(instance: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MultiMesh.Binds.getInstanceTransform2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def setInstanceColor(instance: Int, color: Color): Unit =
+    def setInstanceColor(instance: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(MultiMesh.Binds.setInstanceColor, ptr, _args, null)
+}
 
-    def getInstanceColor(instance: Int): Color =
+    def getInstanceColor(instance: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MultiMesh.Binds.getInstanceColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setInstanceCustomData(instance: Int, customData: Color): Unit =
+    def setInstanceCustomData(instance: Int, customData: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = customData.ptr
         GdxApi.ptrcall(MultiMesh.Binds.setInstanceCustomData, ptr, _args, null)
+}
 
-    def getInstanceCustomData(instance: Int): Color =
+    def getInstanceCustomData(instance: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MultiMesh.Binds.getInstanceCustomData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def resetInstancePhysicsInterpolation(instance: Int): Unit =
+    def resetInstancePhysicsInterpolation(instance: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = instance.toLong
+        val _a0 = stackalloc[Long](); !_a0 = instance.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MultiMesh.Binds.resetInstancePhysicsInterpolation, ptr, _args, null)
+}
 
-    def setCustomAabb(aabb: AABB): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = aabb.ptr
-        GdxApi.ptrcall(MultiMesh.Binds.setCustomAabb, ptr, _args, null)
-
-    def getCustomAabb(): AABB =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MultiMesh.Binds.getCustomAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new AABB(!_ret)
-
-    def getAabb(): AABB =
+    def getAabb(): AABB = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MultiMesh.Binds.getAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def getBuffer(): PackedFloat32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MultiMesh.Binds.getBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedFloat32Array(!_ret)
-
-    def setBuffer(buffer: PackedFloat32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = buffer.ptr
-        GdxApi.ptrcall(MultiMesh.Binds.setBuffer, ptr, _args, null)
-
-    def setBufferInterpolated(bufferCurr: PackedFloat32Array, bufferPrev: PackedFloat32Array): Unit =
+    def setBufferInterpolated(bufferCurr: PackedFloat32Array, bufferPrev: PackedFloat32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = bufferCurr.ptr
         _args(1) = bufferPrev.ptr
         GdxApi.ptrcall(MultiMesh.Binds.setBufferInterpolated, ptr, _args, null)
-    def transformFormat: Ptr[Byte] = getTransformFormat()
-    def transformFormat_=(v: Ptr[Byte]): Unit = setTransformFormat(v)
-    def useColors: Ptr[Byte] = isUsingColors()
-    def useColors_=(v: Ptr[Byte]): Unit = setUseColors(v)
-    def useCustomData: Ptr[Byte] = isUsingCustomData()
-    def useCustomData_=(v: Ptr[Byte]): Unit = setUseCustomData(v)
-    def customAabb: Ptr[Byte] = getCustomAabb()
-    def customAabb_=(v: Ptr[Byte]): Unit = setCustomAabb(v)
-    def instanceCount: Ptr[Byte] = getInstanceCount()
-    def instanceCount_=(v: Ptr[Byte]): Unit = setInstanceCount(v)
-    def visibleInstanceCount: Ptr[Byte] = getVisibleInstanceCount()
-    def visibleInstanceCount_=(v: Ptr[Byte]): Unit = setVisibleInstanceCount(v)
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def buffer: Ptr[Byte] = getBuffer()
-    def buffer_=(v: Ptr[Byte]): Unit = setBuffer(v)
+}
+
+    def transformFormat: Int = getTransformFormat()
+    def transformFormat_=(v: Int): Unit = setTransformFormat(v)
+    def useColors: Boolean = isUsingColors()
+    def useColors_=(v: Boolean): Unit = setUseColors(v)
+    def useCustomData: Boolean = isUsingCustomData()
+    def useCustomData_=(v: Boolean): Unit = setUseCustomData(v)
+    def customAabb: AABB = getCustomAabb()
+    def customAabb_=(v: AABB): Unit = setCustomAabb(v)
+    def instanceCount: Int = getInstanceCount()
+    def instanceCount_=(v: Int): Unit = setInstanceCount(v)
+    def visibleInstanceCount: Int = getVisibleInstanceCount()
+    def visibleInstanceCount_=(v: Int): Unit = setVisibleInstanceCount(v)
+    def mesh: Mesh = getMesh()
+    def mesh_=(v: Mesh): Unit = setMesh(v)
+    def buffer: PackedFloat32Array = getBuffer()
+    def buffer_=(v: PackedFloat32Array): Unit = setBuffer(v)
     def transformArray: Ptr[Byte] = _getTransformArray()
     def transformArray_=(v: Ptr[Byte]): Unit = _setTransformArray(v)
     def transform2dArray: Ptr[Byte] = _getTransform2dArray()
@@ -211,26 +119,13 @@ class MultiMesh extends Resource
     def colorArray_=(v: Ptr[Byte]): Unit = _setColorArray(v)
     def customDataArray: Ptr[Byte] = _getCustomDataArray()
     def customDataArray_=(v: Ptr[Byte]): Unit = _setCustomDataArray(v)
-    def physicsInterpolationQuality: Ptr[Byte] = getPhysicsInterpolationQuality()
-    def physicsInterpolationQuality_=(v: Ptr[Byte]): Unit = setPhysicsInterpolationQuality(v)
+    def physicsInterpolationQuality: Int = getPhysicsInterpolationQuality()
+    def physicsInterpolationQuality_=(v: Int): Unit = setPhysicsInterpolationQuality(v)
+}
 
 object MultiMesh:
-    object Binds:
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setUseColors: Ptr[Byte] = null
-        var isUsingColors: Ptr[Byte] = null
-        var setUseCustomData: Ptr[Byte] = null
-        var isUsingCustomData: Ptr[Byte] = null
-        var setTransformFormat: Ptr[Byte] = null
-        var getTransformFormat: Ptr[Byte] = null
-        var setInstanceCount: Ptr[Byte] = null
-        var getInstanceCount: Ptr[Byte] = null
-        var setVisibleInstanceCount: Ptr[Byte] = null
-        var getVisibleInstanceCount: Ptr[Byte] = null
-        var setPhysicsInterpolationQuality: Ptr[Byte] = null
-        var getPhysicsInterpolationQuality: Ptr[Byte] = null
-        var setInstanceTransform: Ptr[Byte] = null
+object Binds {
+          var setInstanceTransform: Ptr[Byte] = null
         var setInstanceTransform2d: Ptr[Byte] = null
         var getInstanceTransform: Ptr[Byte] = null
         var getInstanceTransform2d: Ptr[Byte] = null
@@ -239,29 +134,11 @@ object MultiMesh:
         var setInstanceCustomData: Ptr[Byte] = null
         var getInstanceCustomData: Ptr[Byte] = null
         var resetInstancePhysicsInterpolation: Ptr[Byte] = null
-        var setCustomAabb: Ptr[Byte] = null
-        var getCustomAabb: Ptr[Byte] = null
         var getAabb: Ptr[Byte] = null
-        var getBuffer: Ptr[Byte] = null
-        var setBuffer: Ptr[Byte] = null
         var setBufferInterpolated: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setMesh = GdxApi.getMethodBind(c"MultiMesh", c"set_mesh", 194775623L)
-            Binds.getMesh = GdxApi.getMethodBind(c"MultiMesh", c"get_mesh", 1808005922L)
-            Binds.setUseColors = GdxApi.getMethodBind(c"MultiMesh", c"set_use_colors", 2586408642L)
-            Binds.isUsingColors = GdxApi.getMethodBind(c"MultiMesh", c"is_using_colors", 36873697L)
-            Binds.setUseCustomData = GdxApi.getMethodBind(c"MultiMesh", c"set_use_custom_data", 2586408642L)
-            Binds.isUsingCustomData = GdxApi.getMethodBind(c"MultiMesh", c"is_using_custom_data", 36873697L)
-            Binds.setTransformFormat = GdxApi.getMethodBind(c"MultiMesh", c"set_transform_format", 2404750322L)
-            Binds.getTransformFormat = GdxApi.getMethodBind(c"MultiMesh", c"get_transform_format", 2444156481L)
-            Binds.setInstanceCount = GdxApi.getMethodBind(c"MultiMesh", c"set_instance_count", 1286410249L)
-            Binds.getInstanceCount = GdxApi.getMethodBind(c"MultiMesh", c"get_instance_count", 3905245786L)
-            Binds.setVisibleInstanceCount = GdxApi.getMethodBind(c"MultiMesh", c"set_visible_instance_count", 1286410249L)
-            Binds.getVisibleInstanceCount = GdxApi.getMethodBind(c"MultiMesh", c"get_visible_instance_count", 3905245786L)
-            Binds.setPhysicsInterpolationQuality = GdxApi.getMethodBind(c"MultiMesh", c"set_physics_interpolation_quality", 1819488408L)
-            Binds.getPhysicsInterpolationQuality = GdxApi.getMethodBind(c"MultiMesh", c"get_physics_interpolation_quality", 1465701882L)
-            Binds.setInstanceTransform = GdxApi.getMethodBind(c"MultiMesh", c"set_instance_transform", 3616898986L)
+  def loadBinds(): Unit = {
+                Binds.setInstanceTransform = GdxApi.getMethodBind(c"MultiMesh", c"set_instance_transform", 3616898986L)
             Binds.setInstanceTransform2d = GdxApi.getMethodBind(c"MultiMesh", c"set_instance_transform_2d", 30160968L)
             Binds.getInstanceTransform = GdxApi.getMethodBind(c"MultiMesh", c"get_instance_transform", 1965739696L)
             Binds.getInstanceTransform2d = GdxApi.getMethodBind(c"MultiMesh", c"get_instance_transform_2d", 3836996910L)
@@ -270,14 +147,13 @@ object MultiMesh:
             Binds.setInstanceCustomData = GdxApi.getMethodBind(c"MultiMesh", c"set_instance_custom_data", 2878471219L)
             Binds.getInstanceCustomData = GdxApi.getMethodBind(c"MultiMesh", c"get_instance_custom_data", 3457211756L)
             Binds.resetInstancePhysicsInterpolation = GdxApi.getMethodBind(c"MultiMesh", c"reset_instance_physics_interpolation", 1286410249L)
-            Binds.setCustomAabb = GdxApi.getMethodBind(c"MultiMesh", c"set_custom_aabb", 259215842L)
-            Binds.getCustomAabb = GdxApi.getMethodBind(c"MultiMesh", c"get_custom_aabb", 1068685055L)
             Binds.getAabb = GdxApi.getMethodBind(c"MultiMesh", c"get_aabb", 1068685055L)
-            Binds.getBuffer = GdxApi.getMethodBind(c"MultiMesh", c"get_buffer", 675695659L)
-            Binds.setBuffer = GdxApi.getMethodBind(c"MultiMesh", c"set_buffer", 2899603908L)
             Binds.setBufferInterpolated = GdxApi.getMethodBind(c"MultiMesh", c"set_buffer_interpolated", 3514430332L)
+  }
+}
 
-    def apply(): MultiMesh =
-        val obj = new MultiMesh()
-        obj.ptr = GdxApi.constructObject(c"MultiMesh")
-        obj
+def apply(): MultiMesh = {
+  val obj = new MultiMesh()
+  obj.ptr = GdxApi.constructObject(c"MultiMesh")
+  obj
+}

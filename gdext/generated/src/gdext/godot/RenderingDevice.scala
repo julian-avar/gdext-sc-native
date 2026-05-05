@@ -5,454 +5,514 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderingDevice extends Object
-
-    def textureCreate(format: RDTextureFormat, view: RDTextureView): RID =
+class RenderingDevice extends Object {
+    def textureCreate(format: RDTextureFormat, view: RDTextureView): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = format.ptr
         _args(1) = view.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureCreateShared(view: RDTextureView, withTexture: RID): RID =
+    def textureCreateShared(view: RDTextureView, withTexture: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = view.ptr
         _args(1) = withTexture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureCreateShared, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureCreateSharedFromSlice(view: RDTextureView, withTexture: RID, layer: Int, mipmap: Int): RID =
+    def textureCreateSharedFromSlice(view: RDTextureView, withTexture: RID, layer: Int, mipmap: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = view.ptr
         _args(1) = withTexture.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = layer.toLong
+        val _a2 = stackalloc[Long](); !_a2 = layer.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = mipmap.toLong
+        val _a3 = stackalloc[Long](); !_a3 = mipmap.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureCreateSharedFromSlice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureCreateFromExtension(`type`: Int, format: Int, samples: Int, usageFlags: Int, image: Long, width: Long, height: Long, depth: Long, layers: Long): RID =
+    def textureCreateFromExtension(`type`: Int, format: Int, samples: Int, usageFlags: Int, image: Long, width: Long, height: Long, depth: Long, layers: Long): RID = {
         val _args = stackalloc[Ptr[Byte]](9)
-        _args(0) = `type`.ptr
-        _args(1) = format.ptr
-        _args(2) = samples.ptr
-        _args(3) = usageFlags.ptr
-        val _a4 = stackalloc[CLong](); !_a4 = image
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = format.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = samples.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
+        val _a3 = stackalloc[Long](); !_a3 = usageFlags.toLong
+        _args(3) = _a3.asInstanceOf[Ptr[Byte]]
+        val _a4 = stackalloc[Long](); !_a4 = image
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = width
+        val _a5 = stackalloc[Long](); !_a5 = width
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
-        val _a6 = stackalloc[CLong](); !_a6 = height
+        val _a6 = stackalloc[Long](); !_a6 = height
         _args(6) = _a6.asInstanceOf[Ptr[Byte]]
-        val _a7 = stackalloc[CLong](); !_a7 = depth
+        val _a7 = stackalloc[Long](); !_a7 = depth
         _args(7) = _a7.asInstanceOf[Ptr[Byte]]
-        val _a8 = stackalloc[CLong](); !_a8 = layers
+        val _a8 = stackalloc[Long](); !_a8 = layers
         _args(8) = _a8.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureCreateFromExtension, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureUpdate(texture: RID, layer: Int, data: PackedByteArray): Int =
+    def textureUpdate(texture: RID, layer: Int, data: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = data.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureUpdate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def textureGetData(texture: RID, layer: Int): PackedByteArray =
+    def textureGetData(texture: RID, layer: Int): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureGetData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def textureGetDataAsync(texture: RID, layer: Int, callback: Callable): Int =
+    def textureGetDataAsync(texture: RID, layer: Int, callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureGetDataAsync, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def textureIsFormatSupportedForUsage(format: Int, usageFlags: Int): Boolean =
+    def textureIsFormatSupportedForUsage(format: Int, usageFlags: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        _args(1) = usageFlags.ptr
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = usageFlags.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureIsFormatSupportedForUsage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def textureIsShared(texture: RID): Boolean =
+    def textureIsShared(texture: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureIsShared, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def textureIsValid(texture: RID): Boolean =
+    def textureIsValid(texture: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureIsValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def textureSetDiscardable(texture: RID, discardable: Boolean): Unit =
+    def textureSetDiscardable(texture: RID, discardable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if discardable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.textureSetDiscardable, ptr, _args, null)
+}
 
-    def textureIsDiscardable(texture: RID): Boolean =
+    def textureIsDiscardable(texture: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureIsDiscardable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def textureCopy(fromTexture: RID, toTexture: RID, fromPos: Vector3, toPos: Vector3, size: Vector3, srcMipmap: Int, dstMipmap: Int, srcLayer: Int, dstLayer: Int): Int =
+    def textureCopy(fromTexture: RID, toTexture: RID, fromPos: Vector3, toPos: Vector3, size: Vector3, srcMipmap: Int, dstMipmap: Int, srcLayer: Int, dstLayer: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](9)
         _args(0) = fromTexture.ptr
         _args(1) = toTexture.ptr
         _args(2) = fromPos.ptr
         _args(3) = toPos.ptr
         _args(4) = size.ptr
-        val _a5 = stackalloc[CLong](); !_a5 = srcMipmap.toLong
+        val _a5 = stackalloc[Long](); !_a5 = srcMipmap.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
-        val _a6 = stackalloc[CLong](); !_a6 = dstMipmap.toLong
+        val _a6 = stackalloc[Long](); !_a6 = dstMipmap.toLong
         _args(6) = _a6.asInstanceOf[Ptr[Byte]]
-        val _a7 = stackalloc[CLong](); !_a7 = srcLayer.toLong
+        val _a7 = stackalloc[Long](); !_a7 = srcLayer.toLong
         _args(7) = _a7.asInstanceOf[Ptr[Byte]]
-        val _a8 = stackalloc[CLong](); !_a8 = dstLayer.toLong
+        val _a8 = stackalloc[Long](); !_a8 = dstLayer.toLong
         _args(8) = _a8.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureCopy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def textureClear(texture: RID, color: Color, baseMipmap: Int, mipmapCount: Int, baseLayer: Int, layerCount: Int): Int =
+    def textureClear(texture: RID, color: Color, baseMipmap: Int, mipmapCount: Int, baseLayer: Int, layerCount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = texture.ptr
         _args(1) = color.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = baseMipmap.toLong
+        val _a2 = stackalloc[Long](); !_a2 = baseMipmap.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = mipmapCount.toLong
+        val _a3 = stackalloc[Long](); !_a3 = mipmapCount.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = baseLayer.toLong
+        val _a4 = stackalloc[Long](); !_a4 = baseLayer.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = layerCount.toLong
+        val _a5 = stackalloc[Long](); !_a5 = layerCount.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureClear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def textureResolveMultisample(fromTexture: RID, toTexture: RID): Int =
+    def textureResolveMultisample(fromTexture: RID, toTexture: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fromTexture.ptr
         _args(1) = toTexture.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureResolveMultisample, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def textureGetFormat(texture: RID): RDTextureFormat =
+    def textureGetFormat(texture: RID): RDTextureFormat = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureGetFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RDTextureFormat(!_ret)
+}
 
-    def textureGetNativeHandle(texture: RID): Long =
+    def textureGetNativeHandle(texture: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureGetNativeHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def framebufferFormatCreate(attachments: Ptr[Byte]): Long =
+    def framebufferFormatCreate(attachments: Ptr[Byte]): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = attachments.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = attachments
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferFormatCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def framebufferFormatCreateMultipass(attachments: Ptr[Byte], passes: Ptr[Byte]): Long =
+    def framebufferFormatCreateMultipass(attachments: Ptr[Byte], passes: Ptr[Byte]): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = attachments.ptr
-        _args(1) = passes.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = attachments
+        _args(1) = passes
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferFormatCreateMultipass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def framebufferFormatCreateEmpty(): Long =
+    def framebufferFormatCreateEmpty(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferFormatCreateEmpty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def framebufferFormatGetTextureSamples(format: Long): Int =
+    def framebufferFormatGetTextureSamples(format: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = format
+        val _a0 = stackalloc[Long](); !_a0 = format
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferFormatGetTextureSamples, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def framebufferCreate(textures: Ptr[Byte]): RID =
+    def framebufferCreate(textures: Ptr[Byte]): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = textures.ptr
+        _args(0) = textures
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def framebufferCreateMultipass(textures: Ptr[Byte], passes: Ptr[Byte]): RID =
+    def framebufferCreateMultipass(textures: Ptr[Byte], passes: Ptr[Byte]): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = textures.ptr
-        _args(1) = passes.ptr
+        _args(0) = textures
+        _args(1) = passes
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferCreateMultipass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def framebufferCreateEmpty(size: Vector2i): RID =
+    def framebufferCreateEmpty(size: Vector2i): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = size.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferCreateEmpty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def framebufferGetFormat(framebuffer: RID): Long =
+    def framebufferGetFormat(framebuffer: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = framebuffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferGetFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def framebufferIsValid(framebuffer: RID): Boolean =
+    def framebufferIsValid(framebuffer: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = framebuffer.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.framebufferIsValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def samplerCreate(state: RDSamplerState): RID =
+    def samplerCreate(state: RDSamplerState): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = state.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.samplerCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def samplerIsFormatSupportedForFilter(format: Int, samplerFilter: Int): Boolean =
+    def samplerIsFormatSupportedForFilter(format: Int, samplerFilter: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        _args(1) = samplerFilter.ptr
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = samplerFilter.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.samplerIsFormatSupportedForFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def vertexBufferCreate(sizeBytes: Int): RID =
+    def vertexBufferCreate(sizeBytes: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sizeBytes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sizeBytes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.vertexBufferCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def vertexFormatCreate(vertexDescriptions: Ptr[Byte]): Long =
+    def vertexFormatCreate(vertexDescriptions: Ptr[Byte]): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = vertexDescriptions.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = vertexDescriptions
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.vertexFormatCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def vertexArrayCreate(vertexCount: Int, vertexFormat: Long, srcBuffers: Ptr[Byte]): RID =
+    def vertexArrayCreate(vertexCount: Int, vertexFormat: Long, srcBuffers: Ptr[Byte]): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = vertexCount.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = vertexFormat
+        val _a1 = stackalloc[Long](); !_a1 = vertexFormat
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = srcBuffers.ptr
+        _args(2) = srcBuffers
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.vertexArrayCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def indexBufferCreate(sizeIndices: Int, format: Int): RID =
+    def indexBufferCreate(sizeIndices: Int, format: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sizeIndices.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sizeIndices.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = format.ptr
+        val _a1 = stackalloc[Long](); !_a1 = format.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.indexBufferCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def indexArrayCreate(indexBuffer: RID, indexOffset: Int, indexCount: Int): RID =
+    def indexArrayCreate(indexBuffer: RID, indexOffset: Int, indexCount: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = indexBuffer.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = indexOffset.toLong
+        val _a1 = stackalloc[Long](); !_a1 = indexOffset.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = indexCount.toLong
+        val _a2 = stackalloc[Long](); !_a2 = indexCount.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.indexArrayCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shaderCompileSpirvFromSource(shaderSource: RDShaderSource): RDShaderSPIRV =
+    def shaderCompileSpirvFromSource(shaderSource: RDShaderSource): RDShaderSPIRV = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaderSource.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.shaderCompileSpirvFromSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RDShaderSPIRV(!_ret)
+}
 
-    def shaderCompileBinaryFromSpirv(spirvData: RDShaderSPIRV): PackedByteArray =
+    def shaderCompileBinaryFromSpirv(spirvData: RDShaderSPIRV): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = spirvData.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.shaderCompileBinaryFromSpirv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def shaderCreateFromSpirv(spirvData: RDShaderSPIRV): RID =
+    def shaderCreateFromSpirv(spirvData: RDShaderSPIRV): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = spirvData.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.shaderCreateFromSpirv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shaderCreateFromBytecode(binaryData: PackedByteArray): RID =
+    def shaderCreateFromBytecode(binaryData: PackedByteArray): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = binaryData.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.shaderCreateFromBytecode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shaderCreatePlaceholder(): RID =
+    def shaderCreatePlaceholder(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.shaderCreatePlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shaderGetVertexInputAttributeMask(shader: RID): Long =
+    def shaderGetVertexInputAttributeMask(shader: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shader.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.shaderGetVertexInputAttributeMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def uniformBufferCreate(sizeBytes: Int): RID =
+    def uniformBufferCreate(sizeBytes: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sizeBytes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sizeBytes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.uniformBufferCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def storageBufferCreate(sizeBytes: Int): RID =
+    def storageBufferCreate(sizeBytes: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = sizeBytes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sizeBytes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.storageBufferCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureBufferCreate(sizeBytes: Int, format: Int): RID =
+    def textureBufferCreate(sizeBytes: Int, format: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = sizeBytes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = sizeBytes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = format.ptr
+        val _a1 = stackalloc[Long](); !_a1 = format.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.textureBufferCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def uniformSetCreate(uniforms: Ptr[Byte], shader: RID, shaderSet: Int): RID =
+    def uniformSetCreate(uniforms: Ptr[Byte], shader: RID, shaderSet: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = uniforms.ptr
+        _args(0) = uniforms
         _args(1) = shader.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = shaderSet.toLong
+        val _a2 = stackalloc[Long](); !_a2 = shaderSet.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.uniformSetCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def uniformSetIsValid(uniformSet: RID): Boolean =
+    def uniformSetIsValid(uniformSet: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = uniformSet.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.uniformSetIsValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def bufferCopy(srcBuffer: RID, dstBuffer: RID, srcOffset: Int, dstOffset: Int, size: Int): Int =
+    def bufferCopy(srcBuffer: RID, dstBuffer: RID, srcOffset: Int, dstOffset: Int, size: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = srcBuffer.ptr
         _args(1) = dstBuffer.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = srcOffset.toLong
+        val _a2 = stackalloc[Long](); !_a2 = srcOffset.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = dstOffset.toLong
+        val _a3 = stackalloc[Long](); !_a3 = dstOffset.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = size.toLong
+        val _a4 = stackalloc[Long](); !_a4 = size.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.bufferCopy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bufferUpdate(buffer: RID, offset: Int, sizeBytes: Int, data: PackedByteArray): Int =
+    def bufferUpdate(buffer: RID, offset: Int, sizeBytes: Int, data: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = buffer.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = offset.toLong
+        val _a1 = stackalloc[Long](); !_a1 = offset.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = sizeBytes.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sizeBytes.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = data.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.bufferUpdate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bufferClear(buffer: RID, offset: Int, sizeBytes: Int): Int =
+    def bufferClear(buffer: RID, offset: Int, sizeBytes: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = buffer.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = offset.toLong
+        val _a1 = stackalloc[Long](); !_a1 = offset.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = sizeBytes.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sizeBytes.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.bufferClear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bufferGetData(buffer: RID): PackedByteArray =
+    def bufferGetData(buffer: RID): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.bufferGetData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def bufferGetDataAsync(buffer: RID, callback: Callable): Int =
+    def bufferGetDataAsync(buffer: RID, callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = buffer.ptr
         _args(1) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.bufferGetDataAsync, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bufferGetDeviceAddress(buffer: RID): Long =
+    def bufferGetDeviceAddress(buffer: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.bufferGetDeviceAddress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def renderPipelineCreate(shader: RID, framebufferFormat: Long, vertexFormat: Long, primitive: Int, rasterizationState: RDPipelineRasterizationState, multisampleState: RDPipelineMultisampleState, stencilState: RDPipelineDepthStencilState, colorBlendState: RDPipelineColorBlendState): RID =
+    def renderPipelineCreate(shader: RID, framebufferFormat: Long, vertexFormat: Long, primitive: Int, rasterizationState: RDPipelineRasterizationState, multisampleState: RDPipelineMultisampleState, stencilState: RDPipelineDepthStencilState, colorBlendState: RDPipelineColorBlendState): RID = {
         val _args = stackalloc[Ptr[Byte]](8)
         _args(0) = shader.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = framebufferFormat
+        val _a1 = stackalloc[Long](); !_a1 = framebufferFormat
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = vertexFormat
+        val _a2 = stackalloc[Long](); !_a2 = vertexFormat
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        _args(3) = primitive.ptr
+        val _a3 = stackalloc[Long](); !_a3 = primitive.toLong
+        _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         _args(4) = rasterizationState.ptr
         _args(5) = multisampleState.ptr
         _args(6) = stencilState.ptr
@@ -460,460 +520,535 @@ class RenderingDevice extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.renderPipelineCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def renderPipelineIsValid(renderPipeline: RID): Boolean =
+    def renderPipelineIsValid(renderPipeline: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = renderPipeline.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.renderPipelineIsValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def computePipelineCreate(shader: RID): RID =
+    def computePipelineCreate(shader: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shader.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.computePipelineCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def computePipelineIsValid(computePipeline: RID): Boolean =
+    def computePipelineIsValid(computePipeline: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = computePipeline.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.computePipelineIsValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def screenGetWidth(): Int =
+    def screenGetWidth(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.screenGetWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def screenGetHeight(): Int =
+    def screenGetHeight(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.screenGetHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def screenGetFramebufferFormat(): Long =
+    def screenGetFramebufferFormat(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.screenGetFramebufferFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def drawListBeginForScreen(): Long =
+    def drawListBeginForScreen(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBeginForScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def drawListBegin(framebuffer: RID): Long =
+    def drawListBegin(framebuffer: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = framebuffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def drawListBeginSplit(framebuffer: RID, splits: Int, initialColorAction: Int, finalColorAction: Int, initialDepthAction: Int, finalDepthAction: Int): PackedInt64Array =
+    def drawListBeginSplit(framebuffer: RID, splits: Int, initialColorAction: Int, finalColorAction: Int, initialDepthAction: Int, finalDepthAction: Int): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = framebuffer.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = splits.toLong
+        val _a1 = stackalloc[Long](); !_a1 = splits.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = initialColorAction.ptr
-        _args(3) = finalColorAction.ptr
-        _args(4) = initialDepthAction.ptr
-        _args(5) = finalDepthAction.ptr
+        val _a2 = stackalloc[Long](); !_a2 = initialColorAction.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
+        val _a3 = stackalloc[Long](); !_a3 = finalColorAction.toLong
+        _args(3) = _a3.asInstanceOf[Ptr[Byte]]
+        val _a4 = stackalloc[Long](); !_a4 = initialDepthAction.toLong
+        _args(4) = _a4.asInstanceOf[Ptr[Byte]]
+        val _a5 = stackalloc[Long](); !_a5 = finalDepthAction.toLong
+        _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBeginSplit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def drawListSetBlendConstants(drawList: Long, color: Color): Unit =
+    def drawListSetBlendConstants(drawList: Long, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawListSetBlendConstants, ptr, _args, null)
+}
 
-    def drawListBindRenderPipeline(drawList: Long, renderPipeline: RID): Unit =
+    def drawListBindRenderPipeline(drawList: Long, renderPipeline: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = renderPipeline.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBindRenderPipeline, ptr, _args, null)
+}
 
-    def drawListBindUniformSet(drawList: Long, uniformSet: RID, setIndex: Int): Unit =
+    def drawListBindUniformSet(drawList: Long, uniformSet: RID, setIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = uniformSet.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = setIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = setIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBindUniformSet, ptr, _args, null)
+}
 
-    def drawListBindVertexArray(drawList: Long, vertexArray: RID): Unit =
+    def drawListBindVertexArray(drawList: Long, vertexArray: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = vertexArray.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBindVertexArray, ptr, _args, null)
+}
 
-    def drawListBindIndexArray(drawList: Long, indexArray: RID): Unit =
+    def drawListBindIndexArray(drawList: Long, indexArray: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = indexArray.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawListBindIndexArray, ptr, _args, null)
+}
 
-    def drawListSetPushConstant(drawList: Long, buffer: PackedByteArray, sizeBytes: Int): Unit =
+    def drawListSetPushConstant(drawList: Long, buffer: PackedByteArray, sizeBytes: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = buffer.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = sizeBytes.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sizeBytes.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawListSetPushConstant, ptr, _args, null)
+}
 
-    def drawListDraw(drawList: Long, useIndices: Boolean, instances: Int): Unit =
+    def drawListDraw(drawList: Long, useIndices: Boolean, instances: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if useIndices then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = instances.toLong
+        val _a2 = stackalloc[Long](); !_a2 = instances.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawListDraw, ptr, _args, null)
+}
 
-    def drawListDrawIndirect(drawList: Long, useIndices: Boolean, buffer: RID): Unit =
+    def drawListDrawIndirect(drawList: Long, useIndices: Boolean, buffer: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if useIndices then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = buffer.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawListDrawIndirect, ptr, _args, null)
+}
 
-    def drawListEnableScissor(drawList: Long): Unit =
+    def drawListEnableScissor(drawList: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawListEnableScissor, ptr, _args, null)
+}
 
-    def drawListDisableScissor(drawList: Long): Unit =
+    def drawListDisableScissor(drawList: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = drawList
+        val _a0 = stackalloc[Long](); !_a0 = drawList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawListDisableScissor, ptr, _args, null)
+}
 
-    def drawListSwitchToNextPass(): Long =
+    def drawListSwitchToNextPass(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.drawListSwitchToNextPass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def drawListSwitchToNextPassSplit(splits: Int): PackedInt64Array =
+    def drawListSwitchToNextPassSplit(splits: Int): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = splits.toLong
+        val _a0 = stackalloc[Long](); !_a0 = splits.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.drawListSwitchToNextPassSplit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def drawListEnd(): Unit =
+    def drawListEnd(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawListEnd, ptr, _args, null)
+}
 
-    def computeListBegin(): Long =
+    def computeListBegin(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.computeListBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def computeListBindComputePipeline(computeList: Long, computePipeline: RID): Unit =
+    def computeListBindComputePipeline(computeList: Long, computePipeline: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = computeList
+        val _a0 = stackalloc[Long](); !_a0 = computeList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = computePipeline.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.computeListBindComputePipeline, ptr, _args, null)
+}
 
-    def computeListSetPushConstant(computeList: Long, buffer: PackedByteArray, sizeBytes: Int): Unit =
+    def computeListSetPushConstant(computeList: Long, buffer: PackedByteArray, sizeBytes: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = computeList
+        val _a0 = stackalloc[Long](); !_a0 = computeList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = buffer.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = sizeBytes.toLong
+        val _a2 = stackalloc[Long](); !_a2 = sizeBytes.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.computeListSetPushConstant, ptr, _args, null)
+}
 
-    def computeListBindUniformSet(computeList: Long, uniformSet: RID, setIndex: Int): Unit =
+    def computeListBindUniformSet(computeList: Long, uniformSet: RID, setIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = computeList
+        val _a0 = stackalloc[Long](); !_a0 = computeList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = uniformSet.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = setIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = setIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.computeListBindUniformSet, ptr, _args, null)
+}
 
-    def computeListDispatch(computeList: Long, xGroups: Int, yGroups: Int, zGroups: Int): Unit =
+    def computeListDispatch(computeList: Long, xGroups: Int, yGroups: Int, zGroups: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = computeList
+        val _a0 = stackalloc[Long](); !_a0 = computeList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = xGroups.toLong
+        val _a1 = stackalloc[Long](); !_a1 = xGroups.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = yGroups.toLong
+        val _a2 = stackalloc[Long](); !_a2 = yGroups.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = zGroups.toLong
+        val _a3 = stackalloc[Long](); !_a3 = zGroups.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.computeListDispatch, ptr, _args, null)
+}
 
-    def computeListDispatchIndirect(computeList: Long, buffer: RID, offset: Int): Unit =
+    def computeListDispatchIndirect(computeList: Long, buffer: RID, offset: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = computeList
+        val _a0 = stackalloc[Long](); !_a0 = computeList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = buffer.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = offset.toLong
+        val _a2 = stackalloc[Long](); !_a2 = offset.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.computeListDispatchIndirect, ptr, _args, null)
+}
 
-    def computeListAddBarrier(computeList: Long): Unit =
+    def computeListAddBarrier(computeList: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = computeList
+        val _a0 = stackalloc[Long](); !_a0 = computeList
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingDevice.Binds.computeListAddBarrier, ptr, _args, null)
+}
 
-    def computeListEnd(): Unit =
+    def computeListEnd(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.computeListEnd, ptr, _args, null)
+}
 
-    def freeRid(rid: RID): Unit =
+    def freeRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.freeRid, ptr, _args, null)
+}
 
-    def captureTimestamp(name: CString): Unit =
+    def captureTimestamp(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(RenderingDevice.Binds.captureTimestamp, ptr, _args, null)
+}
 
-    def getCapturedTimestampsCount(): Int =
+    def getCapturedTimestampsCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getCapturedTimestampsCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCapturedTimestampsFrame(): Long =
+    def getCapturedTimestampsFrame(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getCapturedTimestampsFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCapturedTimestampGpuTime(index: Int): Long =
+    def getCapturedTimestampGpuTime(index: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getCapturedTimestampGpuTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCapturedTimestampCpuTime(index: Int): Long =
+    def getCapturedTimestampCpuTime(index: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getCapturedTimestampCpuTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCapturedTimestampName(index: Int): CString =
+    def getCapturedTimestampName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getCapturedTimestampName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasFeature(feature: Int): Boolean =
+    def hasFeature(feature: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingDevice.Binds.hasFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def limitGet(limit: Int): Long =
+    def limitGet(limit: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = limit.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = limit.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.limitGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFrameDelay(): Int =
+    def getFrameDelay(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getFrameDelay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def submit(): Unit =
+    def submit(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.submit, ptr, _args, null)
+}
 
-    def sync(): Unit =
+    def sync(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.sync, ptr, _args, null)
+}
 
-    def barrier(): Unit =
+    def barrier(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.barrier, ptr, _args, null)
+}
 
-    def fullBarrier(): Unit =
+    def fullBarrier(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.fullBarrier, ptr, _args, null)
+}
 
-    def createLocalDevice(): RenderingDevice =
+    def createLocalDevice(): RenderingDevice = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.createLocalDevice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RenderingDevice(!_ret)
+}
 
-    def setResourceName(id: RID, name: CString): Unit =
+    def setResourceName(id: RID, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(RenderingDevice.Binds.setResourceName, ptr, _args, null)
+}
 
-    def drawCommandBeginLabel(name: CString, color: Color): Unit =
+    def drawCommandBeginLabel(name: CString, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawCommandBeginLabel, ptr, _args, null)
+}
 
-    def drawCommandInsertLabel(name: CString, color: Color): Unit =
+    def drawCommandInsertLabel(name: CString, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingDevice.Binds.drawCommandInsertLabel, ptr, _args, null)
+}
 
-    def drawCommandEndLabel(): Unit =
+    def drawCommandEndLabel(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingDevice.Binds.drawCommandEndLabel, ptr, _args, null)
+}
 
-    def getDeviceVendorName(): CString =
+    def getDeviceVendorName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDeviceVendorName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDeviceName(): CString =
+    def getDeviceName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDeviceName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDevicePipelineCacheUuid(): CString =
+    def getDevicePipelineCacheUuid(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDevicePipelineCacheUuid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMemoryUsage(`type`: Int): Long =
+    def getMemoryUsage(`type`: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getMemoryUsage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDriverResource(resource: Int, rid: RID, index: Long): Long =
+    def getDriverResource(resource: Int, rid: RID, index: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = resource.ptr
+        val _a0 = stackalloc[Long](); !_a0 = resource.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = rid.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = index
+        val _a2 = stackalloc[Long](); !_a2 = index
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDriverResource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPerfReport(): CString =
+    def getPerfReport(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getPerfReport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDriverAndDeviceMemoryReport(): CString =
+    def getDriverAndDeviceMemoryReport(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDriverAndDeviceMemoryReport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTrackedObjectName(typeIndex: Int): CString =
+    def getTrackedObjectName(typeIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = typeIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = typeIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingDevice.Binds.getTrackedObjectName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTrackedObjectTypeCount(): Long =
+    def getTrackedObjectTypeCount(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getTrackedObjectTypeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDriverTotalMemory(): Long =
+    def getDriverTotalMemory(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDriverTotalMemory, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDriverAllocationCount(): Long =
+    def getDriverAllocationCount(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDriverAllocationCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDriverMemoryByObjectType(`type`: Int): Long =
+    def getDriverMemoryByObjectType(`type`: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = `type`.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDriverMemoryByObjectType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDriverAllocsByObjectType(`type`: Int): Long =
+    def getDriverAllocsByObjectType(`type`: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = `type`.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDriverAllocsByObjectType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDeviceTotalMemory(): Long =
+    def getDeviceTotalMemory(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDeviceTotalMemory, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDeviceAllocationCount(): Long =
+    def getDeviceAllocationCount(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDeviceAllocationCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDeviceMemoryByObjectType(`type`: Int): Long =
+    def getDeviceMemoryByObjectType(`type`: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = `type`.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDeviceMemoryByObjectType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDeviceAllocsByObjectType(`type`: Int): Long =
+    def getDeviceAllocsByObjectType(`type`: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = `type`.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingDevice.Binds.getDeviceAllocsByObjectType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object RenderingDevice:
-    object Binds:
-        var textureCreate: Ptr[Byte] = null
+object Binds {
+          var textureCreate: Ptr[Byte] = null
         var textureCreateShared: Ptr[Byte] = null
         var textureCreateSharedFromSlice: Ptr[Byte] = null
         var textureCreateFromExtension: Ptr[Byte] = null
@@ -1031,8 +1166,8 @@ object RenderingDevice:
         var getDeviceMemoryByObjectType: Ptr[Byte] = null
         var getDeviceAllocsByObjectType: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.textureCreate = GdxApi.getMethodBind(c"RenderingDevice", c"texture_create", 3709173589L)
+  def loadBinds(): Unit = {
+                Binds.textureCreate = GdxApi.getMethodBind(c"RenderingDevice", c"texture_create", 3709173589L)
             Binds.textureCreateShared = GdxApi.getMethodBind(c"RenderingDevice", c"texture_create_shared", 3178156134L)
             Binds.textureCreateSharedFromSlice = GdxApi.getMethodBind(c"RenderingDevice", c"texture_create_shared_from_slice", 1808971279L)
             Binds.textureCreateFromExtension = GdxApi.getMethodBind(c"RenderingDevice", c"texture_create_from_extension", 3732868568L)
@@ -1149,3 +1284,5 @@ object RenderingDevice:
             Binds.getDeviceAllocationCount = GdxApi.getMethodBind(c"RenderingDevice", c"get_device_allocation_count", 3905245786L)
             Binds.getDeviceMemoryByObjectType = GdxApi.getMethodBind(c"RenderingDevice", c"get_device_memory_by_object_type", 923996154L)
             Binds.getDeviceAllocsByObjectType = GdxApi.getMethodBind(c"RenderingDevice", c"get_device_allocs_by_object_type", 923996154L)
+  }
+}

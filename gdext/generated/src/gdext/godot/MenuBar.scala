@@ -5,195 +5,126 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MenuBar extends Control
-
-    def setSwitchOnHover(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MenuBar.Binds.setSwitchOnHover, ptr, _args, null)
-
-    def isSwitchOnHover(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MenuBar.Binds.isSwitchOnHover, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDisableShortcuts(disabled: Boolean): Unit =
+class MenuBar extends Control {
+    def setDisableShortcuts(disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if disabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MenuBar.Binds.setDisableShortcuts, ptr, _args, null)
+}
 
-    def setPreferGlobalMenu(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MenuBar.Binds.setPreferGlobalMenu, ptr, _args, null)
-
-    def isPreferGlobalMenu(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MenuBar.Binds.isPreferGlobalMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isNativeMenu(): Boolean =
+    def isNativeMenu(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(MenuBar.Binds.isNativeMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMenuCount(): Int =
+    def getMenuCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MenuBar.Binds.getMenuCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTextDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(MenuBar.Binds.setTextDirection, ptr, _args, null)
-
-    def getTextDirection(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MenuBar.Binds.getTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLanguage(language: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
-        GdxApi.ptrcall(MenuBar.Binds.setLanguage, ptr, _args, null)
-
-    def getLanguage(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MenuBar.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setFlat(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MenuBar.Binds.setFlat, ptr, _args, null)
-
-    def isFlat(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MenuBar.Binds.isFlat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setStartIndex(enabled: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = enabled.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MenuBar.Binds.setStartIndex, ptr, _args, null)
-
-    def getStartIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MenuBar.Binds.getStartIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMenuTitle(menu: Int, title: CString): Unit =
+    def setMenuTitle(menu: Int, title: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = title.ptr
+        _args(1) = title
         GdxApi.ptrcall(MenuBar.Binds.setMenuTitle, ptr, _args, null)
+}
 
-    def getMenuTitle(menu: Int): CString =
+    def getMenuTitle(menu: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MenuBar.Binds.getMenuTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMenuTooltip(menu: Int, tooltip: CString): Unit =
+    def setMenuTooltip(menu: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(MenuBar.Binds.setMenuTooltip, ptr, _args, null)
+}
 
-    def getMenuTooltip(menu: Int): CString =
+    def getMenuTooltip(menu: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MenuBar.Binds.getMenuTooltip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMenuDisabled(menu: Int, disabled: Boolean): Unit =
+    def setMenuDisabled(menu: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if disabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MenuBar.Binds.setMenuDisabled, ptr, _args, null)
+}
 
-    def isMenuDisabled(menu: Int): Boolean =
+    def isMenuDisabled(menu: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(MenuBar.Binds.isMenuDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setMenuHidden(menu: Int, hidden: Boolean): Unit =
+    def setMenuHidden(menu: Int, hidden: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if hidden then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MenuBar.Binds.setMenuHidden, ptr, _args, null)
+}
 
-    def isMenuHidden(menu: Int): Boolean =
+    def isMenuHidden(menu: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(MenuBar.Binds.isMenuHidden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMenuPopup(menu: Int): PopupMenu =
+    def getMenuPopup(menu: Int): PopupMenu = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = menu.toLong
+        val _a0 = stackalloc[Long](); !_a0 = menu.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MenuBar.Binds.getMenuPopup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PopupMenu(!_ret)
-    def flat: Ptr[Byte] = isFlat()
-    def flat_=(v: Ptr[Byte]): Unit = setFlat(v)
-    def startIndex: Ptr[Byte] = getStartIndex()
-    def startIndex_=(v: Ptr[Byte]): Unit = setStartIndex(v)
-    def switchOnHover: Ptr[Byte] = isSwitchOnHover()
-    def switchOnHover_=(v: Ptr[Byte]): Unit = setSwitchOnHover(v)
-    def preferGlobalMenu: Ptr[Byte] = isPreferGlobalMenu()
-    def preferGlobalMenu_=(v: Ptr[Byte]): Unit = setPreferGlobalMenu(v)
-    def textDirection: Ptr[Byte] = getTextDirection()
-    def textDirection_=(v: Ptr[Byte]): Unit = setTextDirection(v)
-    def language: Ptr[Byte] = getLanguage()
-    def language_=(v: Ptr[Byte]): Unit = setLanguage(v)
+}
+
+    def flat: Boolean = isFlat()
+    def flat_=(v: Boolean): Unit = setFlat(v)
+    def startIndex: Int = getStartIndex()
+    def startIndex_=(v: Int): Unit = setStartIndex(v)
+    def switchOnHover: Boolean = isSwitchOnHover()
+    def switchOnHover_=(v: Boolean): Unit = setSwitchOnHover(v)
+    def preferGlobalMenu: Boolean = isPreferGlobalMenu()
+    def preferGlobalMenu_=(v: Boolean): Unit = setPreferGlobalMenu(v)
+    def textDirection: Int = getTextDirection()
+    def textDirection_=(v: Int): Unit = setTextDirection(v)
+    def language: CString = getLanguage()
+    def language_=(v: CString): Unit = setLanguage(v)
+}
 
 object MenuBar:
-    object Binds:
-        var setSwitchOnHover: Ptr[Byte] = null
-        var isSwitchOnHover: Ptr[Byte] = null
-        var setDisableShortcuts: Ptr[Byte] = null
-        var setPreferGlobalMenu: Ptr[Byte] = null
-        var isPreferGlobalMenu: Ptr[Byte] = null
+object Binds {
+          var setDisableShortcuts: Ptr[Byte] = null
         var isNativeMenu: Ptr[Byte] = null
         var getMenuCount: Ptr[Byte] = null
-        var setTextDirection: Ptr[Byte] = null
-        var getTextDirection: Ptr[Byte] = null
-        var setLanguage: Ptr[Byte] = null
-        var getLanguage: Ptr[Byte] = null
-        var setFlat: Ptr[Byte] = null
-        var isFlat: Ptr[Byte] = null
-        var setStartIndex: Ptr[Byte] = null
-        var getStartIndex: Ptr[Byte] = null
         var setMenuTitle: Ptr[Byte] = null
         var getMenuTitle: Ptr[Byte] = null
         var setMenuTooltip: Ptr[Byte] = null
@@ -204,22 +135,10 @@ object MenuBar:
         var isMenuHidden: Ptr[Byte] = null
         var getMenuPopup: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSwitchOnHover = GdxApi.getMethodBind(c"MenuBar", c"set_switch_on_hover", 2586408642L)
-            Binds.isSwitchOnHover = GdxApi.getMethodBind(c"MenuBar", c"is_switch_on_hover", 2240911060L)
-            Binds.setDisableShortcuts = GdxApi.getMethodBind(c"MenuBar", c"set_disable_shortcuts", 2586408642L)
-            Binds.setPreferGlobalMenu = GdxApi.getMethodBind(c"MenuBar", c"set_prefer_global_menu", 2586408642L)
-            Binds.isPreferGlobalMenu = GdxApi.getMethodBind(c"MenuBar", c"is_prefer_global_menu", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.setDisableShortcuts = GdxApi.getMethodBind(c"MenuBar", c"set_disable_shortcuts", 2586408642L)
             Binds.isNativeMenu = GdxApi.getMethodBind(c"MenuBar", c"is_native_menu", 36873697L)
             Binds.getMenuCount = GdxApi.getMethodBind(c"MenuBar", c"get_menu_count", 3905245786L)
-            Binds.setTextDirection = GdxApi.getMethodBind(c"MenuBar", c"set_text_direction", 119160795L)
-            Binds.getTextDirection = GdxApi.getMethodBind(c"MenuBar", c"get_text_direction", 797257663L)
-            Binds.setLanguage = GdxApi.getMethodBind(c"MenuBar", c"set_language", 83702148L)
-            Binds.getLanguage = GdxApi.getMethodBind(c"MenuBar", c"get_language", 201670096L)
-            Binds.setFlat = GdxApi.getMethodBind(c"MenuBar", c"set_flat", 2586408642L)
-            Binds.isFlat = GdxApi.getMethodBind(c"MenuBar", c"is_flat", 36873697L)
-            Binds.setStartIndex = GdxApi.getMethodBind(c"MenuBar", c"set_start_index", 1286410249L)
-            Binds.getStartIndex = GdxApi.getMethodBind(c"MenuBar", c"get_start_index", 3905245786L)
             Binds.setMenuTitle = GdxApi.getMethodBind(c"MenuBar", c"set_menu_title", 501894301L)
             Binds.getMenuTitle = GdxApi.getMethodBind(c"MenuBar", c"get_menu_title", 844755477L)
             Binds.setMenuTooltip = GdxApi.getMethodBind(c"MenuBar", c"set_menu_tooltip", 501894301L)
@@ -229,8 +148,11 @@ object MenuBar:
             Binds.setMenuHidden = GdxApi.getMethodBind(c"MenuBar", c"set_menu_hidden", 300928843L)
             Binds.isMenuHidden = GdxApi.getMethodBind(c"MenuBar", c"is_menu_hidden", 1116898809L)
             Binds.getMenuPopup = GdxApi.getMethodBind(c"MenuBar", c"get_menu_popup", 2100501353L)
+  }
+}
 
-    def apply(): MenuBar =
-        val obj = new MenuBar()
-        obj.ptr = GdxApi.constructObject(c"MenuBar")
-        obj
+def apply(): MenuBar = {
+  val obj = new MenuBar()
+  obj.ptr = GdxApi.constructObject(c"MenuBar")
+  obj
+}

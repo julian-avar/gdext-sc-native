@@ -5,99 +5,98 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNode extends Resource
+class AnimationNode extends Resource {
     def _getChildNodes(): Dictionary = null
-    def _getParameterList(): Array = null
+    def _getParameterList(): Ptr[Byte] = null
     def _getChildByName(name: CString): AnimationNode = null
     def _getParameterDefaultValue(parameter: CString): Ptr[Byte] = null
     def _isParameterReadOnly(parameter: CString): Boolean = false
     def _process(time: Double, seek: Boolean, isExternalSeeking: Boolean, testOnly: Boolean): Double = 0
     def _getCaption(): CString = null
     def _hasFilter(): Boolean = false
-    def addInput(name: CString): Boolean =
+
+    def addInput(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNode.Binds.addInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeInput(index: Int): Unit =
+    def removeInput(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNode.Binds.removeInput, ptr, _args, null)
+}
 
-    def setInputName(input: Int, name: CString): Boolean =
+    def setInputName(input: Int, name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNode.Binds.setInputName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getInputName(input: Int): CString =
+    def getInputName(input: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNode.Binds.getInputName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getInputCount(): Int =
+    def getInputCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AnimationNode.Binds.getInputCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def findInput(name: CString): Int =
+    def findInput(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AnimationNode.Binds.findInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setFilterPath(path: NodePath, enable: Boolean): Unit =
+    def setFilterPath(path: NodePath, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNode.Binds.setFilterPath, ptr, _args, null)
+}
 
-    def isPathFiltered(path: NodePath): Boolean =
+    def isPathFiltered(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNode.Binds.isPathFiltered, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setFilterEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNode.Binds.setFilterEnabled, ptr, _args, null)
-
-    def isFilterEnabled(): Boolean =
+    def getProcessingAnimationTreeInstanceId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNode.Binds.isFilterEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getProcessingAnimationTreeInstanceId(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AnimationNode.Binds.getProcessingAnimationTreeInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isProcessTesting(): Boolean =
+    def isProcessTesting(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNode.Binds.isProcessTesting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def blendAnimation(animation: CString, time: Double, delta: Double, seeked: Boolean, isExternalSeeking: Boolean, blend: Float): Unit =
+    def blendAnimation(animation: CString, time: Double, delta: Double, seeked: Boolean, isExternalSeeking: Boolean, blend: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = animation.ptr
+        _args(0) = animation
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = delta
@@ -109,10 +108,11 @@ class AnimationNode extends Resource
         val _a5 = stackalloc[Double](); !_a5 = blend.toDouble
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNode.Binds.blendAnimation, ptr, _args, null)
+}
 
-    def blendNode(name: CString, node: AnimationNode, time: Double, seek: Boolean, isExternalSeeking: Boolean, blend: Float): Double =
+    def blendNode(name: CString, node: AnimationNode, time: Double, seek: Boolean, isExternalSeeking: Boolean, blend: Float): Double = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = node.ptr
         val _a2 = stackalloc[Double](); !_a2 = time
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
@@ -125,10 +125,11 @@ class AnimationNode extends Resource
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AnimationNode.Binds.blendNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def blendInput(inputIndex: Int, time: Double, seek: Boolean, isExternalSeeking: Boolean, blend: Float): Double =
+    def blendInput(inputIndex: Int, time: Double, seek: Boolean, isExternalSeeking: Boolean, blend: Float): Double = {
         val _args = stackalloc[Ptr[Byte]](5)
-        val _a0 = stackalloc[CLong](); !_a0 = inputIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = inputIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
@@ -141,27 +142,32 @@ class AnimationNode extends Resource
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AnimationNode.Binds.blendInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setParameter(name: CString, value: Ptr[Byte]): Unit =
+    def setParameter(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(AnimationNode.Binds.setParameter, ptr, _args, null)
+}
 
-    def getParameter(name: CString): Ptr[Byte] =
+    def getParameter(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNode.Binds.getParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def filterEnabled: Ptr[Byte] = isFilterEnabled()
-    def filterEnabled_=(v: Ptr[Byte]): Unit = setFilterEnabled(v)
+}
+
+    def filterEnabled: Boolean = isFilterEnabled()
+    def filterEnabled_=(v: Boolean): Unit = setFilterEnabled(v)
     def filters: Ptr[Byte] = _getFilters()
     def filters_=(v: Ptr[Byte]): Unit = _setFilters(v)
+}
 
 object AnimationNode:
-    object Binds:
-        var addInput: Ptr[Byte] = null
+object Binds {
+          var addInput: Ptr[Byte] = null
         var removeInput: Ptr[Byte] = null
         var setInputName: Ptr[Byte] = null
         var getInputName: Ptr[Byte] = null
@@ -169,8 +175,6 @@ object AnimationNode:
         var findInput: Ptr[Byte] = null
         var setFilterPath: Ptr[Byte] = null
         var isPathFiltered: Ptr[Byte] = null
-        var setFilterEnabled: Ptr[Byte] = null
-        var isFilterEnabled: Ptr[Byte] = null
         var getProcessingAnimationTreeInstanceId: Ptr[Byte] = null
         var isProcessTesting: Ptr[Byte] = null
         var blendAnimation: Ptr[Byte] = null
@@ -179,8 +183,8 @@ object AnimationNode:
         var setParameter: Ptr[Byte] = null
         var getParameter: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addInput = GdxApi.getMethodBind(c"AnimationNode", c"add_input", 2323990056L)
+  def loadBinds(): Unit = {
+                Binds.addInput = GdxApi.getMethodBind(c"AnimationNode", c"add_input", 2323990056L)
             Binds.removeInput = GdxApi.getMethodBind(c"AnimationNode", c"remove_input", 1286410249L)
             Binds.setInputName = GdxApi.getMethodBind(c"AnimationNode", c"set_input_name", 215573526L)
             Binds.getInputName = GdxApi.getMethodBind(c"AnimationNode", c"get_input_name", 844755477L)
@@ -188,8 +192,6 @@ object AnimationNode:
             Binds.findInput = GdxApi.getMethodBind(c"AnimationNode", c"find_input", 1321353865L)
             Binds.setFilterPath = GdxApi.getMethodBind(c"AnimationNode", c"set_filter_path", 3868023870L)
             Binds.isPathFiltered = GdxApi.getMethodBind(c"AnimationNode", c"is_path_filtered", 861721659L)
-            Binds.setFilterEnabled = GdxApi.getMethodBind(c"AnimationNode", c"set_filter_enabled", 2586408642L)
-            Binds.isFilterEnabled = GdxApi.getMethodBind(c"AnimationNode", c"is_filter_enabled", 36873697L)
             Binds.getProcessingAnimationTreeInstanceId = GdxApi.getMethodBind(c"AnimationNode", c"get_processing_animation_tree_instance_id", 3905245786L)
             Binds.isProcessTesting = GdxApi.getMethodBind(c"AnimationNode", c"is_process_testing", 36873697L)
             Binds.blendAnimation = GdxApi.getMethodBind(c"AnimationNode", c"blend_animation", 1630801826L)
@@ -197,8 +199,11 @@ object AnimationNode:
             Binds.blendInput = GdxApi.getMethodBind(c"AnimationNode", c"blend_input", 1361527350L)
             Binds.setParameter = GdxApi.getMethodBind(c"AnimationNode", c"set_parameter", 3776071444L)
             Binds.getParameter = GdxApi.getMethodBind(c"AnimationNode", c"get_parameter", 2760726917L)
+  }
+}
 
-    def apply(): AnimationNode =
-        val obj = new AnimationNode()
-        obj.ptr = GdxApi.constructObject(c"AnimationNode")
-        obj
+def apply(): AnimationNode = {
+  val obj = new AnimationNode()
+  obj.ptr = GdxApi.constructObject(c"AnimationNode")
+  obj
+}

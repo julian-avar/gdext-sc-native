@@ -5,14 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectInstance extends RefCounted
+class AudioEffectInstance extends RefCounted {
     def _process(srcBuffer: Ptr[Byte], dstBuffer: Ptr[Byte], frameCount: Int): Unit = ()
     def _processSilence(): Boolean = false
-
-
+}
 
 object AudioEffectInstance:
-    def apply(): AudioEffectInstance =
-        val obj = new AudioEffectInstance()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectInstance")
-        obj
+def apply(): AudioEffectInstance = {
+  val obj = new AudioEffectInstance()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectInstance")
+  obj
+}

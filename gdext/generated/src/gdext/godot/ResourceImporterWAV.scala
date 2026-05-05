@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporterWAV extends ResourceImporter
-
-
-
+class ResourceImporterWAV extends ResourceImporter {}
 
 object ResourceImporterWAV:
-    def apply(): ResourceImporterWAV =
-        val obj = new ResourceImporterWAV()
-        obj.ptr = GdxApi.constructObject(c"ResourceImporterWAV")
-        obj
+def apply(): ResourceImporterWAV = {
+  val obj = new ResourceImporterWAV()
+  obj.ptr = GdxApi.constructObject(c"ResourceImporterWAV")
+  obj
+}

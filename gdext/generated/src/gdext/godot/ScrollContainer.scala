@@ -5,197 +5,62 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScrollContainer extends Container
-
-    def setHScroll(value: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setHScroll, ptr, _args, null)
-
-    def getHScroll(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getHScroll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVScroll(value: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setVScroll, ptr, _args, null)
-
-    def getVScroll(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getVScroll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHorizontalCustomStep(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setHorizontalCustomStep, ptr, _args, null)
-
-    def getHorizontalCustomStep(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getHorizontalCustomStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVerticalCustomStep(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setVerticalCustomStep, ptr, _args, null)
-
-    def getVerticalCustomStep(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getVerticalCustomStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHorizontalScrollMode(enable: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = enable.ptr
-        GdxApi.ptrcall(ScrollContainer.Binds.setHorizontalScrollMode, ptr, _args, null)
-
-    def getHorizontalScrollMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getHorizontalScrollMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVerticalScrollMode(enable: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = enable.ptr
-        GdxApi.ptrcall(ScrollContainer.Binds.setVerticalScrollMode, ptr, _args, null)
-
-    def getVerticalScrollMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getVerticalScrollMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDeadzone(deadzone: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = deadzone.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setDeadzone, ptr, _args, null)
-
-    def getDeadzone(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getDeadzone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFollowFocus(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setFollowFocus, ptr, _args, null)
-
-    def isFollowingFocus(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ScrollContainer.Binds.isFollowingFocus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getHScrollBar(): HScrollBar =
+class ScrollContainer extends Container {
+    def getHScrollBar(): HScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScrollContainer.Binds.getHScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new HScrollBar(!_ret)
+}
 
-    def getVScrollBar(): VScrollBar =
+    def getVScrollBar(): VScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScrollContainer.Binds.getVScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VScrollBar(!_ret)
+}
 
-    def ensureControlVisible(control: Control): Unit =
+    def ensureControlVisible(control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = control.ptr
         GdxApi.ptrcall(ScrollContainer.Binds.ensureControlVisible, ptr, _args, null)
+}
 
-    def setDrawFocusBorder(draw: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if draw then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ScrollContainer.Binds.setDrawFocusBorder, ptr, _args, null)
-
-    def getDrawFocusBorder(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ScrollContainer.Binds.getDrawFocusBorder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def followFocus: Ptr[Byte] = isFollowingFocus()
-    def followFocus_=(v: Ptr[Byte]): Unit = setFollowFocus(v)
-    def drawFocusBorder: Ptr[Byte] = getDrawFocusBorder()
-    def drawFocusBorder_=(v: Ptr[Byte]): Unit = setDrawFocusBorder(v)
-    def scrollHorizontal: Ptr[Byte] = getHScroll()
-    def scrollHorizontal_=(v: Ptr[Byte]): Unit = setHScroll(v)
-    def scrollVertical: Ptr[Byte] = getVScroll()
-    def scrollVertical_=(v: Ptr[Byte]): Unit = setVScroll(v)
-    def scrollHorizontalCustomStep: Ptr[Byte] = getHorizontalCustomStep()
-    def scrollHorizontalCustomStep_=(v: Ptr[Byte]): Unit = setHorizontalCustomStep(v)
-    def scrollVerticalCustomStep: Ptr[Byte] = getVerticalCustomStep()
-    def scrollVerticalCustomStep_=(v: Ptr[Byte]): Unit = setVerticalCustomStep(v)
-    def horizontalScrollMode: Ptr[Byte] = getHorizontalScrollMode()
-    def horizontalScrollMode_=(v: Ptr[Byte]): Unit = setHorizontalScrollMode(v)
-    def verticalScrollMode: Ptr[Byte] = getVerticalScrollMode()
-    def verticalScrollMode_=(v: Ptr[Byte]): Unit = setVerticalScrollMode(v)
-    def scrollDeadzone: Ptr[Byte] = getDeadzone()
-    def scrollDeadzone_=(v: Ptr[Byte]): Unit = setDeadzone(v)
+    def followFocus: Boolean = isFollowingFocus()
+    def followFocus_=(v: Boolean): Unit = setFollowFocus(v)
+    def drawFocusBorder: Boolean = getDrawFocusBorder()
+    def drawFocusBorder_=(v: Boolean): Unit = setDrawFocusBorder(v)
+    def scrollHorizontal: Int = getHScroll()
+    def scrollHorizontal_=(v: Int): Unit = setHScroll(v)
+    def scrollVertical: Int = getVScroll()
+    def scrollVertical_=(v: Int): Unit = setVScroll(v)
+    def scrollHorizontalCustomStep: Float = getHorizontalCustomStep()
+    def scrollHorizontalCustomStep_=(v: Float): Unit = setHorizontalCustomStep(v)
+    def scrollVerticalCustomStep: Float = getVerticalCustomStep()
+    def scrollVerticalCustomStep_=(v: Float): Unit = setVerticalCustomStep(v)
+    def horizontalScrollMode: Int = getHorizontalScrollMode()
+    def horizontalScrollMode_=(v: Int): Unit = setHorizontalScrollMode(v)
+    def verticalScrollMode: Int = getVerticalScrollMode()
+    def verticalScrollMode_=(v: Int): Unit = setVerticalScrollMode(v)
+    def scrollDeadzone: Int = getDeadzone()
+    def scrollDeadzone_=(v: Int): Unit = setDeadzone(v)
+}
 
 object ScrollContainer:
-    object Binds:
-        var setHScroll: Ptr[Byte] = null
-        var getHScroll: Ptr[Byte] = null
-        var setVScroll: Ptr[Byte] = null
-        var getVScroll: Ptr[Byte] = null
-        var setHorizontalCustomStep: Ptr[Byte] = null
-        var getHorizontalCustomStep: Ptr[Byte] = null
-        var setVerticalCustomStep: Ptr[Byte] = null
-        var getVerticalCustomStep: Ptr[Byte] = null
-        var setHorizontalScrollMode: Ptr[Byte] = null
-        var getHorizontalScrollMode: Ptr[Byte] = null
-        var setVerticalScrollMode: Ptr[Byte] = null
-        var getVerticalScrollMode: Ptr[Byte] = null
-        var setDeadzone: Ptr[Byte] = null
-        var getDeadzone: Ptr[Byte] = null
-        var setFollowFocus: Ptr[Byte] = null
-        var isFollowingFocus: Ptr[Byte] = null
-        var getHScrollBar: Ptr[Byte] = null
+object Binds {
+          var getHScrollBar: Ptr[Byte] = null
         var getVScrollBar: Ptr[Byte] = null
         var ensureControlVisible: Ptr[Byte] = null
-        var setDrawFocusBorder: Ptr[Byte] = null
-        var getDrawFocusBorder: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setHScroll = GdxApi.getMethodBind(c"ScrollContainer", c"set_h_scroll", 1286410249L)
-            Binds.getHScroll = GdxApi.getMethodBind(c"ScrollContainer", c"get_h_scroll", 3905245786L)
-            Binds.setVScroll = GdxApi.getMethodBind(c"ScrollContainer", c"set_v_scroll", 1286410249L)
-            Binds.getVScroll = GdxApi.getMethodBind(c"ScrollContainer", c"get_v_scroll", 3905245786L)
-            Binds.setHorizontalCustomStep = GdxApi.getMethodBind(c"ScrollContainer", c"set_horizontal_custom_step", 373806689L)
-            Binds.getHorizontalCustomStep = GdxApi.getMethodBind(c"ScrollContainer", c"get_horizontal_custom_step", 1740695150L)
-            Binds.setVerticalCustomStep = GdxApi.getMethodBind(c"ScrollContainer", c"set_vertical_custom_step", 373806689L)
-            Binds.getVerticalCustomStep = GdxApi.getMethodBind(c"ScrollContainer", c"get_vertical_custom_step", 1740695150L)
-            Binds.setHorizontalScrollMode = GdxApi.getMethodBind(c"ScrollContainer", c"set_horizontal_scroll_mode", 2750506364L)
-            Binds.getHorizontalScrollMode = GdxApi.getMethodBind(c"ScrollContainer", c"get_horizontal_scroll_mode", 3987985145L)
-            Binds.setVerticalScrollMode = GdxApi.getMethodBind(c"ScrollContainer", c"set_vertical_scroll_mode", 2750506364L)
-            Binds.getVerticalScrollMode = GdxApi.getMethodBind(c"ScrollContainer", c"get_vertical_scroll_mode", 3987985145L)
-            Binds.setDeadzone = GdxApi.getMethodBind(c"ScrollContainer", c"set_deadzone", 1286410249L)
-            Binds.getDeadzone = GdxApi.getMethodBind(c"ScrollContainer", c"get_deadzone", 3905245786L)
-            Binds.setFollowFocus = GdxApi.getMethodBind(c"ScrollContainer", c"set_follow_focus", 2586408642L)
-            Binds.isFollowingFocus = GdxApi.getMethodBind(c"ScrollContainer", c"is_following_focus", 36873697L)
-            Binds.getHScrollBar = GdxApi.getMethodBind(c"ScrollContainer", c"get_h_scroll_bar", 4004517983L)
+  def loadBinds(): Unit = {
+                Binds.getHScrollBar = GdxApi.getMethodBind(c"ScrollContainer", c"get_h_scroll_bar", 4004517983L)
             Binds.getVScrollBar = GdxApi.getMethodBind(c"ScrollContainer", c"get_v_scroll_bar", 2630340773L)
             Binds.ensureControlVisible = GdxApi.getMethodBind(c"ScrollContainer", c"ensure_control_visible", 1496901182L)
-            Binds.setDrawFocusBorder = GdxApi.getMethodBind(c"ScrollContainer", c"set_draw_focus_border", 2586408642L)
-            Binds.getDrawFocusBorder = GdxApi.getMethodBind(c"ScrollContainer", c"get_draw_focus_border", 2240911060L)
+  }
+}
 
-    def apply(): ScrollContainer =
-        val obj = new ScrollContainer()
-        obj.ptr = GdxApi.constructObject(c"ScrollContainer")
-        obj
+def apply(): ScrollContainer = {
+  val obj = new ScrollContainer()
+  obj.ptr = GdxApi.constructObject(c"ScrollContainer")
+  obj
+}

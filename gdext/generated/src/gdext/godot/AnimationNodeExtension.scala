@@ -5,13 +5,13 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeExtension extends AnimationNode
+class AnimationNodeExtension extends AnimationNode {
     def _processAnimationNode(playbackInfo: PackedFloat64Array, testOnly: Boolean): PackedFloat32Array = null
-
-
+}
 
 object AnimationNodeExtension:
-    def apply(): AnimationNodeExtension =
-        val obj = new AnimationNodeExtension()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeExtension")
-        obj
+def apply(): AnimationNodeExtension = {
+  val obj = new AnimationNodeExtension()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeExtension")
+  obj
+}

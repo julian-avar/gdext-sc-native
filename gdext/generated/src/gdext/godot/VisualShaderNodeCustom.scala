@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeCustom extends VisualShaderNode
+class VisualShaderNodeCustom extends VisualShaderNode {
     def _getName(): CString = null
     def _getDescription(): CString = null
     def _getCategory(): CString = null
@@ -27,26 +27,33 @@ class VisualShaderNodeCustom extends VisualShaderNode
     def _getGlobalCode(mode: Int): CString = null
     def _isHighend(): Boolean = false
     def _isAvailable(mode: Int, `type`: Int): Boolean = false
-    def getOptionIndex(option: Int): Int =
+
+    def getOptionIndex(option: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShaderNodeCustom.Binds.getOptionIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
+
     def initialized: Ptr[Byte] = _isInitialized()
     def initialized_=(v: Ptr[Byte]): Unit = _setInitialized(v)
     def properties: Ptr[Byte] = _getProperties()
     def properties_=(v: Ptr[Byte]): Unit = _setProperties(v)
+}
 
 object VisualShaderNodeCustom:
-    object Binds:
-        var getOptionIndex: Ptr[Byte] = null
+object Binds {
+          var getOptionIndex: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getOptionIndex = GdxApi.getMethodBind(c"VisualShaderNodeCustom", c"get_option_index", 923996154L)
+  def loadBinds(): Unit = {
+                Binds.getOptionIndex = GdxApi.getMethodBind(c"VisualShaderNodeCustom", c"get_option_index", 923996154L)
+  }
+}
 
-    def apply(): VisualShaderNodeCustom =
-        val obj = new VisualShaderNodeCustom()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCustom")
-        obj
+def apply(): VisualShaderNodeCustom = {
+  val obj = new VisualShaderNodeCustom()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCustom")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParticleOutput extends VisualShaderNodeOutput
-
-
-
+class VisualShaderNodeParticleOutput extends VisualShaderNodeOutput {}
 
 object VisualShaderNodeParticleOutput:
-    def apply(): VisualShaderNodeParticleOutput =
-        val obj = new VisualShaderNodeParticleOutput()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleOutput")
-        obj
+def apply(): VisualShaderNodeParticleOutput = {
+  val obj = new VisualShaderNodeParticleOutput()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleOutput")
+  obj
+}

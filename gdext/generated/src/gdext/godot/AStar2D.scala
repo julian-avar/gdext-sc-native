@@ -5,195 +5,209 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AStar2D extends RefCounted
+class AStar2D extends RefCounted {
     def _filterNeighbor(fromId: Long, neighborId: Long): Boolean = false
     def _estimateCost(fromId: Long, endId: Long): Float = 0
     def _computeCost(fromId: Long, toId: Long): Float = 0
-    def getAvailablePointId(): Long =
+
+    def getAvailablePointId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AStar2D.Binds.getAvailablePointId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addPoint(id: Long, position: Vector2): Unit =
+    def addPoint(id: Long, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = position.ptr
         GdxApi.ptrcall(AStar2D.Binds.addPoint, ptr, _args, null)
+}
 
-    def getPointPosition(id: Long): Vector2 =
+    def getPointPosition(id: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AStar2D.Binds.getPointPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setPointPosition(id: Long, position: Vector2): Unit =
+    def setPointPosition(id: Long, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = position.ptr
         GdxApi.ptrcall(AStar2D.Binds.setPointPosition, ptr, _args, null)
+}
 
-    def getPointWeightScale(id: Long): Float =
+    def getPointWeightScale(id: Long): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AStar2D.Binds.getPointWeightScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setPointWeightScale(id: Long, weightScale: Float): Unit =
+    def setPointWeightScale(id: Long, weightScale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = weightScale.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AStar2D.Binds.setPointWeightScale, ptr, _args, null)
+}
 
-    def removePoint(id: Long): Unit =
+    def removePoint(id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AStar2D.Binds.removePoint, ptr, _args, null)
+}
 
-    def hasPoint(id: Long): Boolean =
+    def hasPoint(id: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AStar2D.Binds.hasPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPointConnections(id: Long): PackedInt64Array =
+    def getPointConnections(id: Long): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AStar2D.Binds.getPointConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def getPointIds(): PackedInt64Array =
+    def getPointIds(): PackedInt64Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AStar2D.Binds.getPointIds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def setNeighborFilterEnabled(enabled: Boolean): Unit =
+    def setPointDisabled(id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AStar2D.Binds.setNeighborFilterEnabled, ptr, _args, null)
-
-    def isNeighborFilterEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AStar2D.Binds.isNeighborFilterEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPointDisabled(id: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AStar2D.Binds.setPointDisabled, ptr, _args, null)
+}
 
-    def isPointDisabled(id: Long): Boolean =
+    def isPointDisabled(id: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AStar2D.Binds.isPointDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def connectPoints(id: Long, toId: Long): Unit =
+    def connectPoints(id: Long, toId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toId
+        val _a1 = stackalloc[Long](); !_a1 = toId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AStar2D.Binds.connectPoints, ptr, _args, null)
+}
 
-    def disconnectPoints(id: Long, toId: Long): Unit =
+    def disconnectPoints(id: Long, toId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toId
+        val _a1 = stackalloc[Long](); !_a1 = toId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AStar2D.Binds.disconnectPoints, ptr, _args, null)
+}
 
-    def arePointsConnected(id: Long, toId: Long): Boolean =
+    def arePointsConnected(id: Long, toId: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id
+        val _a0 = stackalloc[Long](); !_a0 = id
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toId
+        val _a1 = stackalloc[Long](); !_a1 = toId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AStar2D.Binds.arePointsConnected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPointCount(): Long =
+    def getPointCount(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AStar2D.Binds.getPointCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPointCapacity(): Long =
+    def getPointCapacity(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AStar2D.Binds.getPointCapacity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def reserveSpace(numNodes: Long): Unit =
+    def reserveSpace(numNodes: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = numNodes
+        val _a0 = stackalloc[Long](); !_a0 = numNodes
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AStar2D.Binds.reserveSpace, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AStar2D.Binds.clear, ptr, _args, null)
+}
 
-    def getClosestPoint(toPosition: Vector2): Long =
+    def getClosestPoint(toPosition: Vector2): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = toPosition.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AStar2D.Binds.getClosestPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getClosestPositionInSegment(toPosition: Vector2): Vector2 =
+    def getClosestPositionInSegment(toPosition: Vector2): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = toPosition.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AStar2D.Binds.getClosestPositionInSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getPointPath(fromId: Long, toId: Long): PackedVector2Array =
+    def getPointPath(fromId: Long, toId: Long): PackedVector2Array = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromId
+        val _a0 = stackalloc[Long](); !_a0 = fromId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toId
+        val _a1 = stackalloc[Long](); !_a1 = toId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AStar2D.Binds.getPointPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector2Array(!_ret)
+}
 
-    def getIdPath(fromId: Long, toId: Long): PackedInt64Array =
+    def getIdPath(fromId: Long, toId: Long): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromId
+        val _a0 = stackalloc[Long](); !_a0 = fromId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toId
+        val _a1 = stackalloc[Long](); !_a1 = toId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AStar2D.Binds.getIdPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
-    def neighborFilterEnabled: Ptr[Byte] = isNeighborFilterEnabled()
-    def neighborFilterEnabled_=(v: Ptr[Byte]): Unit = setNeighborFilterEnabled(v)
+}
+
+    def neighborFilterEnabled: Boolean = isNeighborFilterEnabled()
+    def neighborFilterEnabled_=(v: Boolean): Unit = setNeighborFilterEnabled(v)
+}
 
 object AStar2D:
-    object Binds:
-        var getAvailablePointId: Ptr[Byte] = null
+object Binds {
+          var getAvailablePointId: Ptr[Byte] = null
         var addPoint: Ptr[Byte] = null
         var getPointPosition: Ptr[Byte] = null
         var setPointPosition: Ptr[Byte] = null
@@ -203,8 +217,6 @@ object AStar2D:
         var hasPoint: Ptr[Byte] = null
         var getPointConnections: Ptr[Byte] = null
         var getPointIds: Ptr[Byte] = null
-        var setNeighborFilterEnabled: Ptr[Byte] = null
-        var isNeighborFilterEnabled: Ptr[Byte] = null
         var setPointDisabled: Ptr[Byte] = null
         var isPointDisabled: Ptr[Byte] = null
         var connectPoints: Ptr[Byte] = null
@@ -219,8 +231,8 @@ object AStar2D:
         var getPointPath: Ptr[Byte] = null
         var getIdPath: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getAvailablePointId = GdxApi.getMethodBind(c"AStar2D", c"get_available_point_id", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getAvailablePointId = GdxApi.getMethodBind(c"AStar2D", c"get_available_point_id", 3905245786L)
             Binds.addPoint = GdxApi.getMethodBind(c"AStar2D", c"add_point", 4074201818L)
             Binds.getPointPosition = GdxApi.getMethodBind(c"AStar2D", c"get_point_position", 2299179447L)
             Binds.setPointPosition = GdxApi.getMethodBind(c"AStar2D", c"set_point_position", 163021252L)
@@ -230,8 +242,6 @@ object AStar2D:
             Binds.hasPoint = GdxApi.getMethodBind(c"AStar2D", c"has_point", 1116898809L)
             Binds.getPointConnections = GdxApi.getMethodBind(c"AStar2D", c"get_point_connections", 2865087369L)
             Binds.getPointIds = GdxApi.getMethodBind(c"AStar2D", c"get_point_ids", 3851388692L)
-            Binds.setNeighborFilterEnabled = GdxApi.getMethodBind(c"AStar2D", c"set_neighbor_filter_enabled", 2586408642L)
-            Binds.isNeighborFilterEnabled = GdxApi.getMethodBind(c"AStar2D", c"is_neighbor_filter_enabled", 36873697L)
             Binds.setPointDisabled = GdxApi.getMethodBind(c"AStar2D", c"set_point_disabled", 972357352L)
             Binds.isPointDisabled = GdxApi.getMethodBind(c"AStar2D", c"is_point_disabled", 1116898809L)
             Binds.connectPoints = GdxApi.getMethodBind(c"AStar2D", c"connect_points", 3710494224L)
@@ -245,8 +255,11 @@ object AStar2D:
             Binds.getClosestPositionInSegment = GdxApi.getMethodBind(c"AStar2D", c"get_closest_position_in_segment", 2656412154L)
             Binds.getPointPath = GdxApi.getMethodBind(c"AStar2D", c"get_point_path", 3427490392L)
             Binds.getIdPath = GdxApi.getMethodBind(c"AStar2D", c"get_id_path", 3136199648L)
+  }
+}
 
-    def apply(): AStar2D =
-        val obj = new AStar2D()
-        obj.ptr = GdxApi.constructObject(c"AStar2D")
-        obj
+def apply(): AStar2D = {
+  val obj = new AStar2D()
+  obj.ptr = GdxApi.constructObject(c"AStar2D")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PlaceholderMaterial extends Material
-
-
-
+class PlaceholderMaterial extends Material {}
 
 object PlaceholderMaterial:
-    def apply(): PlaceholderMaterial =
-        val obj = new PlaceholderMaterial()
-        obj.ptr = GdxApi.constructObject(c"PlaceholderMaterial")
-        obj
+def apply(): PlaceholderMaterial = {
+  val obj = new PlaceholderMaterial()
+  obj.ptr = GdxApi.constructObject(c"PlaceholderMaterial")
+  obj
+}

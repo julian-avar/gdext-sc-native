@@ -5,33 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CompressedTexture3D extends Texture3D
-
-    def load(path: CString): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CompressedTexture3D.Binds.load, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getLoadPath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CompressedTexture3D.Binds.getLoadPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def loadPath: Ptr[Byte] = getLoadPath()
-    def loadPath_=(v: Ptr[Byte]): Unit = load(v)
+class CompressedTexture3D extends Texture3D {
+    def loadPath: CString = getLoadPath()
+    def loadPath_=(v: CString): Unit = load(v)
+}
 
 object CompressedTexture3D:
-    object Binds:
-        var load: Ptr[Byte] = null
-        var getLoadPath: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.load = GdxApi.getMethodBind(c"CompressedTexture3D", c"load", 166001499L)
-            Binds.getLoadPath = GdxApi.getMethodBind(c"CompressedTexture3D", c"get_load_path", 201670096L)
-
-    def apply(): CompressedTexture3D =
-        val obj = new CompressedTexture3D()
-        obj.ptr = GdxApi.constructObject(c"CompressedTexture3D")
-        obj
+def apply(): CompressedTexture3D = {
+  val obj = new CompressedTexture3D()
+  obj.ptr = GdxApi.constructObject(c"CompressedTexture3D")
+  obj
+}

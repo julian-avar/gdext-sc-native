@@ -5,111 +5,126 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorSettings extends Resource
-
-    def hasSetting(name: CString): Boolean =
+class EditorSettings extends Resource {
+    def hasSetting(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorSettings.Binds.hasSetting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSetting(name: CString, value: Ptr[Byte]): Unit =
+    def setSetting(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(EditorSettings.Binds.setSetting, ptr, _args, null)
+}
 
-    def getSetting(name: CString): Ptr[Byte] =
+    def getSetting(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorSettings.Binds.getSetting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def erase(property: CString): Unit =
+    def erase(property: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = property.ptr
+        _args(0) = property
         GdxApi.ptrcall(EditorSettings.Binds.erase, ptr, _args, null)
+}
 
-    def setInitialValue(name: CString, value: Ptr[Byte], updateCurrent: Boolean): Unit =
+    def setInitialValue(name: CString, value: Ptr[Byte], updateCurrent: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         val _a2 = stackalloc[Byte](); !_a2 = if updateCurrent then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorSettings.Binds.setInitialValue, ptr, _args, null)
+}
 
-    def addPropertyInfo(info: Dictionary): Unit =
+    def addPropertyInfo(info: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = info.ptr
         GdxApi.ptrcall(EditorSettings.Binds.addPropertyInfo, ptr, _args, null)
+}
 
-    def setProjectMetadata(section: CString, key: CString, data: Ptr[Byte]): Unit =
+    def setProjectMetadata(section: CString, key: CString, data: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = section.ptr
-        _args(1) = key.ptr
-        _args(2) = data.ptr
+        _args(0) = section
+        _args(1) = key
+        _args(2) = data
         GdxApi.ptrcall(EditorSettings.Binds.setProjectMetadata, ptr, _args, null)
+}
 
-    def getProjectMetadata(section: CString, key: CString): Ptr[Byte] =
+    def getProjectMetadata(section: CString, key: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = section.ptr
-        _args(1) = key.ptr
+        _args(0) = section
+        _args(1) = key
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorSettings.Binds.getProjectMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setFavorites(dirs: PackedStringArray): Unit =
+    def setFavorites(dirs: PackedStringArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = dirs.ptr
         GdxApi.ptrcall(EditorSettings.Binds.setFavorites, ptr, _args, null)
+}
 
-    def getFavorites(): PackedStringArray =
+    def getFavorites(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorSettings.Binds.getFavorites, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setRecentDirs(dirs: PackedStringArray): Unit =
+    def setRecentDirs(dirs: PackedStringArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = dirs.ptr
         GdxApi.ptrcall(EditorSettings.Binds.setRecentDirs, ptr, _args, null)
+}
 
-    def getRecentDirs(): PackedStringArray =
+    def getRecentDirs(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorSettings.Binds.getRecentDirs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setBuiltinActionOverride(name: CString, actionsList: Ptr[Byte]): Unit =
+    def setBuiltinActionOverride(name: CString, actionsList: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = actionsList.ptr
+        _args(0) = name
+        _args(1) = actionsList
         GdxApi.ptrcall(EditorSettings.Binds.setBuiltinActionOverride, ptr, _args, null)
+}
 
-    def checkChangedSettingsInGroup(settingPrefix: CString): Boolean =
+    def checkChangedSettingsInGroup(settingPrefix: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = settingPrefix.ptr
+        _args(0) = settingPrefix
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorSettings.Binds.checkChangedSettingsInGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getChangedSettings(): PackedStringArray =
+    def getChangedSettings(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorSettings.Binds.getChangedSettings, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def markSettingChanged(setting: CString): Unit =
+    def markSettingChanged(setting: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = setting.ptr
+        _args(0) = setting
         GdxApi.ptrcall(EditorSettings.Binds.markSettingChanged, ptr, _args, null)
-
+}
+}
 
 object EditorSettings:
-    object Binds:
-        var hasSetting: Ptr[Byte] = null
+object Binds {
+          var hasSetting: Ptr[Byte] = null
         var setSetting: Ptr[Byte] = null
         var getSetting: Ptr[Byte] = null
         var erase: Ptr[Byte] = null
@@ -126,8 +141,8 @@ object EditorSettings:
         var getChangedSettings: Ptr[Byte] = null
         var markSettingChanged: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasSetting = GdxApi.getMethodBind(c"EditorSettings", c"has_setting", 3927539163L)
+  def loadBinds(): Unit = {
+                Binds.hasSetting = GdxApi.getMethodBind(c"EditorSettings", c"has_setting", 3927539163L)
             Binds.setSetting = GdxApi.getMethodBind(c"EditorSettings", c"set_setting", 402577236L)
             Binds.getSetting = GdxApi.getMethodBind(c"EditorSettings", c"get_setting", 1868160156L)
             Binds.erase = GdxApi.getMethodBind(c"EditorSettings", c"erase", 83702148L)
@@ -143,8 +158,11 @@ object EditorSettings:
             Binds.checkChangedSettingsInGroup = GdxApi.getMethodBind(c"EditorSettings", c"check_changed_settings_in_group", 3927539163L)
             Binds.getChangedSettings = GdxApi.getMethodBind(c"EditorSettings", c"get_changed_settings", 1139954409L)
             Binds.markSettingChanged = GdxApi.getMethodBind(c"EditorSettings", c"mark_setting_changed", 83702148L)
+  }
+}
 
-    def apply(): EditorSettings =
-        val obj = new EditorSettings()
-        obj.ptr = GdxApi.constructObject(c"EditorSettings")
-        obj
+def apply(): EditorSettings = {
+  val obj = new EditorSettings()
+  obj.ptr = GdxApi.constructObject(c"EditorSettings")
+  obj
+}

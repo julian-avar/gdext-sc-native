@@ -5,137 +5,92 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeTransition extends AnimationNodeSync
-
-    def setInputCount(inputCount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = inputCount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.setInputCount, ptr, _args, null)
-
-    def setInputAsAutoAdvance(input: Int, enable: Boolean): Unit =
+class AnimationNodeTransition extends AnimationNodeSync {
+    def setInputAsAutoAdvance(input: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNodeTransition.Binds.setInputAsAutoAdvance, ptr, _args, null)
+}
 
-    def isInputSetAsAutoAdvance(input: Int): Boolean =
+    def isInputSetAsAutoAdvance(input: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeTransition.Binds.isInputSetAsAutoAdvance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setInputBreakLoopAtEnd(input: Int, enable: Boolean): Unit =
+    def setInputBreakLoopAtEnd(input: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNodeTransition.Binds.setInputBreakLoopAtEnd, ptr, _args, null)
+}
 
-    def isInputLoopBrokenAtEnd(input: Int): Boolean =
+    def isInputLoopBrokenAtEnd(input: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeTransition.Binds.isInputLoopBrokenAtEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setInputReset(input: Int, enable: Boolean): Unit =
+    def setInputReset(input: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNodeTransition.Binds.setInputReset, ptr, _args, null)
+}
 
-    def isInputReset(input: Int): Boolean =
+    def isInputReset(input: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = input.toLong
+        val _a0 = stackalloc[Long](); !_a0 = input.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeTransition.Binds.isInputReset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setXfadeTime(time: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = time
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.setXfadeTime, ptr, _args, null)
-
-    def getXfadeTime(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.getXfadeTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setXfadeCurve(curve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = curve.ptr
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.setXfadeCurve, ptr, _args, null)
-
-    def getXfadeCurve(): Curve =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.getXfadeCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setAllowTransitionToSelf(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.setAllowTransitionToSelf, ptr, _args, null)
-
-    def isAllowTransitionToSelf(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeTransition.Binds.isAllowTransitionToSelf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def xfadeTime: Ptr[Byte] = getXfadeTime()
-    def xfadeTime_=(v: Ptr[Byte]): Unit = setXfadeTime(v)
-    def xfadeCurve: Ptr[Byte] = getXfadeCurve()
-    def xfadeCurve_=(v: Ptr[Byte]): Unit = setXfadeCurve(v)
-    def allowTransitionToSelf: Ptr[Byte] = isAllowTransitionToSelf()
-    def allowTransitionToSelf_=(v: Ptr[Byte]): Unit = setAllowTransitionToSelf(v)
+    def xfadeTime: Double = getXfadeTime()
+    def xfadeTime_=(v: Double): Unit = setXfadeTime(v)
+    def xfadeCurve: Curve = getXfadeCurve()
+    def xfadeCurve_=(v: Curve): Unit = setXfadeCurve(v)
+    def allowTransitionToSelf: Boolean = isAllowTransitionToSelf()
+    def allowTransitionToSelf_=(v: Boolean): Unit = setAllowTransitionToSelf(v)
     def inputCount: Ptr[Byte] = getInputCount()
-    def inputCount_=(v: Ptr[Byte]): Unit = setInputCount(v)
+    def inputCount_=(v: Int): Unit = setInputCount(v)
+}
 
 object AnimationNodeTransition:
-    object Binds:
-        var setInputCount: Ptr[Byte] = null
-        var setInputAsAutoAdvance: Ptr[Byte] = null
+object Binds {
+          var setInputAsAutoAdvance: Ptr[Byte] = null
         var isInputSetAsAutoAdvance: Ptr[Byte] = null
         var setInputBreakLoopAtEnd: Ptr[Byte] = null
         var isInputLoopBrokenAtEnd: Ptr[Byte] = null
         var setInputReset: Ptr[Byte] = null
         var isInputReset: Ptr[Byte] = null
-        var setXfadeTime: Ptr[Byte] = null
-        var getXfadeTime: Ptr[Byte] = null
-        var setXfadeCurve: Ptr[Byte] = null
-        var getXfadeCurve: Ptr[Byte] = null
-        var setAllowTransitionToSelf: Ptr[Byte] = null
-        var isAllowTransitionToSelf: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setInputCount = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_input_count", 1286410249L)
-            Binds.setInputAsAutoAdvance = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_input_as_auto_advance", 300928843L)
+  def loadBinds(): Unit = {
+                Binds.setInputAsAutoAdvance = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_input_as_auto_advance", 300928843L)
             Binds.isInputSetAsAutoAdvance = GdxApi.getMethodBind(c"AnimationNodeTransition", c"is_input_set_as_auto_advance", 1116898809L)
             Binds.setInputBreakLoopAtEnd = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_input_break_loop_at_end", 300928843L)
             Binds.isInputLoopBrokenAtEnd = GdxApi.getMethodBind(c"AnimationNodeTransition", c"is_input_loop_broken_at_end", 1116898809L)
             Binds.setInputReset = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_input_reset", 300928843L)
             Binds.isInputReset = GdxApi.getMethodBind(c"AnimationNodeTransition", c"is_input_reset", 1116898809L)
-            Binds.setXfadeTime = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_xfade_time", 373806689L)
-            Binds.getXfadeTime = GdxApi.getMethodBind(c"AnimationNodeTransition", c"get_xfade_time", 1740695150L)
-            Binds.setXfadeCurve = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_xfade_curve", 270443179L)
-            Binds.getXfadeCurve = GdxApi.getMethodBind(c"AnimationNodeTransition", c"get_xfade_curve", 2460114913L)
-            Binds.setAllowTransitionToSelf = GdxApi.getMethodBind(c"AnimationNodeTransition", c"set_allow_transition_to_self", 2586408642L)
-            Binds.isAllowTransitionToSelf = GdxApi.getMethodBind(c"AnimationNodeTransition", c"is_allow_transition_to_self", 36873697L)
+  }
+}
 
-    def apply(): AnimationNodeTransition =
-        val obj = new AnimationNodeTransition()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeTransition")
-        obj
+def apply(): AnimationNodeTransition = {
+  val obj = new AnimationNodeTransition()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeTransition")
+  obj
+}

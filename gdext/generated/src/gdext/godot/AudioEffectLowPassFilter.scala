@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectLowPassFilter extends AudioEffectFilter
-
-
-
+class AudioEffectLowPassFilter extends AudioEffectFilter {}
 
 object AudioEffectLowPassFilter:
-    def apply(): AudioEffectLowPassFilter =
-        val obj = new AudioEffectLowPassFilter()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectLowPassFilter")
-        obj
+def apply(): AudioEffectLowPassFilter = {
+  val obj = new AudioEffectLowPassFilter()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectLowPassFilter")
+  obj
+}

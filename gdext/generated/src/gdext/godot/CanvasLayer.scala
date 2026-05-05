@@ -5,200 +5,68 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CanvasLayer extends Node
-
-    def setLayer(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasLayer.Binds.setLayer, ptr, _args, null)
-
-    def getLayer(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVisible(visible: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if visible then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasLayer.Binds.setVisible, ptr, _args, null)
-
-    def isVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasLayer.Binds.isVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def show(): Unit =
+class CanvasLayer extends Node {
+    def show(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasLayer.Binds.show, ptr, _args, null)
+}
 
-    def hide(): Unit =
+    def hide(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasLayer.Binds.hide, ptr, _args, null)
+}
 
-    def setTransform(transform: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = transform.ptr
-        GdxApi.ptrcall(CanvasLayer.Binds.setTransform, ptr, _args, null)
-
-    def getTransform(): Transform2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform2D(!_ret)
-
-    def getFinalTransform(): Transform2D =
+    def getFinalTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasLayer.Binds.getFinalTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def setOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(CanvasLayer.Binds.setOffset, ptr, _args, null)
-
-    def getOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setRotation(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasLayer.Binds.setRotation, ptr, _args, null)
-
-    def getRotation(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setScale(scale: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(CanvasLayer.Binds.setScale, ptr, _args, null)
-
-    def getScale(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setFollowViewport(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasLayer.Binds.setFollowViewport, ptr, _args, null)
-
-    def isFollowingViewport(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasLayer.Binds.isFollowingViewport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFollowViewportScale(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasLayer.Binds.setFollowViewportScale, ptr, _args, null)
-
-    def getFollowViewportScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getFollowViewportScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCustomViewport(viewport: Node): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = viewport.ptr
-        GdxApi.ptrcall(CanvasLayer.Binds.setCustomViewport, ptr, _args, null)
-
-    def getCustomViewport(): Node =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasLayer.Binds.getCustomViewport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Node(!_ret)
-
-    def getCanvas(): RID =
+    def getCanvas(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasLayer.Binds.getCanvas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
-    def layer: Ptr[Byte] = getLayer()
-    def layer_=(v: Ptr[Byte]): Unit = setLayer(v)
-    def visible: Ptr[Byte] = isVisible()
-    def visible_=(v: Ptr[Byte]): Unit = setVisible(v)
-    def offset: Ptr[Byte] = getOffset()
-    def offset_=(v: Ptr[Byte]): Unit = setOffset(v)
-    def rotation: Ptr[Byte] = getRotation()
-    def rotation_=(v: Ptr[Byte]): Unit = setRotation(v)
-    def scale: Ptr[Byte] = getScale()
-    def scale_=(v: Ptr[Byte]): Unit = setScale(v)
-    def transform: Ptr[Byte] = getTransform()
-    def transform_=(v: Ptr[Byte]): Unit = setTransform(v)
-    def customViewport: Ptr[Byte] = getCustomViewport()
-    def customViewport_=(v: Ptr[Byte]): Unit = setCustomViewport(v)
-    def followViewportEnabled: Ptr[Byte] = isFollowingViewport()
-    def followViewportEnabled_=(v: Ptr[Byte]): Unit = setFollowViewport(v)
-    def followViewportScale: Ptr[Byte] = getFollowViewportScale()
-    def followViewportScale_=(v: Ptr[Byte]): Unit = setFollowViewportScale(v)
+}
+
+    def layer: Int = getLayer()
+    def layer_=(v: Int): Unit = setLayer(v)
+    def visible: Boolean = isVisible()
+    def visible_=(v: Boolean): Unit = setVisible(v)
+    def offset: Vector2 = getOffset()
+    def offset_=(v: Vector2): Unit = setOffset(v)
+    def rotation: Float = getRotation()
+    def rotation_=(v: Float): Unit = setRotation(v)
+    def scale: Vector2 = getScale()
+    def scale_=(v: Vector2): Unit = setScale(v)
+    def transform: Transform2D = getTransform()
+    def transform_=(v: Transform2D): Unit = setTransform(v)
+    def customViewport: Node = getCustomViewport()
+    def customViewport_=(v: Node): Unit = setCustomViewport(v)
+    def followViewportEnabled: Boolean = isFollowingViewport()
+    def followViewportEnabled_=(v: Boolean): Unit = setFollowViewport(v)
+    def followViewportScale: Float = getFollowViewportScale()
+    def followViewportScale_=(v: Float): Unit = setFollowViewportScale(v)
+}
 
 object CanvasLayer:
-    object Binds:
-        var setLayer: Ptr[Byte] = null
-        var getLayer: Ptr[Byte] = null
-        var setVisible: Ptr[Byte] = null
-        var isVisible: Ptr[Byte] = null
-        var show: Ptr[Byte] = null
+object Binds {
+          var show: Ptr[Byte] = null
         var hide: Ptr[Byte] = null
-        var setTransform: Ptr[Byte] = null
-        var getTransform: Ptr[Byte] = null
         var getFinalTransform: Ptr[Byte] = null
-        var setOffset: Ptr[Byte] = null
-        var getOffset: Ptr[Byte] = null
-        var setRotation: Ptr[Byte] = null
-        var getRotation: Ptr[Byte] = null
-        var setScale: Ptr[Byte] = null
-        var getScale: Ptr[Byte] = null
-        var setFollowViewport: Ptr[Byte] = null
-        var isFollowingViewport: Ptr[Byte] = null
-        var setFollowViewportScale: Ptr[Byte] = null
-        var getFollowViewportScale: Ptr[Byte] = null
-        var setCustomViewport: Ptr[Byte] = null
-        var getCustomViewport: Ptr[Byte] = null
         var getCanvas: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setLayer = GdxApi.getMethodBind(c"CanvasLayer", c"set_layer", 1286410249L)
-            Binds.getLayer = GdxApi.getMethodBind(c"CanvasLayer", c"get_layer", 3905245786L)
-            Binds.setVisible = GdxApi.getMethodBind(c"CanvasLayer", c"set_visible", 2586408642L)
-            Binds.isVisible = GdxApi.getMethodBind(c"CanvasLayer", c"is_visible", 36873697L)
-            Binds.show = GdxApi.getMethodBind(c"CanvasLayer", c"show", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.show = GdxApi.getMethodBind(c"CanvasLayer", c"show", 3218959716L)
             Binds.hide = GdxApi.getMethodBind(c"CanvasLayer", c"hide", 3218959716L)
-            Binds.setTransform = GdxApi.getMethodBind(c"CanvasLayer", c"set_transform", 2761652528L)
-            Binds.getTransform = GdxApi.getMethodBind(c"CanvasLayer", c"get_transform", 3814499831L)
             Binds.getFinalTransform = GdxApi.getMethodBind(c"CanvasLayer", c"get_final_transform", 3814499831L)
-            Binds.setOffset = GdxApi.getMethodBind(c"CanvasLayer", c"set_offset", 743155724L)
-            Binds.getOffset = GdxApi.getMethodBind(c"CanvasLayer", c"get_offset", 3341600327L)
-            Binds.setRotation = GdxApi.getMethodBind(c"CanvasLayer", c"set_rotation", 373806689L)
-            Binds.getRotation = GdxApi.getMethodBind(c"CanvasLayer", c"get_rotation", 1740695150L)
-            Binds.setScale = GdxApi.getMethodBind(c"CanvasLayer", c"set_scale", 743155724L)
-            Binds.getScale = GdxApi.getMethodBind(c"CanvasLayer", c"get_scale", 3341600327L)
-            Binds.setFollowViewport = GdxApi.getMethodBind(c"CanvasLayer", c"set_follow_viewport", 2586408642L)
-            Binds.isFollowingViewport = GdxApi.getMethodBind(c"CanvasLayer", c"is_following_viewport", 36873697L)
-            Binds.setFollowViewportScale = GdxApi.getMethodBind(c"CanvasLayer", c"set_follow_viewport_scale", 373806689L)
-            Binds.getFollowViewportScale = GdxApi.getMethodBind(c"CanvasLayer", c"get_follow_viewport_scale", 1740695150L)
-            Binds.setCustomViewport = GdxApi.getMethodBind(c"CanvasLayer", c"set_custom_viewport", 1078189570L)
-            Binds.getCustomViewport = GdxApi.getMethodBind(c"CanvasLayer", c"get_custom_viewport", 3160264692L)
             Binds.getCanvas = GdxApi.getMethodBind(c"CanvasLayer", c"get_canvas", 2944877500L)
+  }
+}
 
-    def apply(): CanvasLayer =
-        val obj = new CanvasLayer()
-        obj.ptr = GdxApi.constructObject(c"CanvasLayer")
-        obj
+def apply(): CanvasLayer = {
+  val obj = new CanvasLayer()
+  obj.ptr = GdxApi.constructObject(c"CanvasLayer")
+  obj
+}

@@ -5,49 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventJoypadMotion extends InputEvent
-
-    def setAxis(axis: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = axis.ptr
-        GdxApi.ptrcall(InputEventJoypadMotion.Binds.setAxis, ptr, _args, null)
-
-    def getAxis(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventJoypadMotion.Binds.getAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAxisValue(axisValue: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = axisValue.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventJoypadMotion.Binds.setAxisValue, ptr, _args, null)
-
-    def getAxisValue(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(InputEventJoypadMotion.Binds.getAxisValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def axis: Ptr[Byte] = getAxis()
-    def axis_=(v: Ptr[Byte]): Unit = setAxis(v)
-    def axisValue: Ptr[Byte] = getAxisValue()
-    def axisValue_=(v: Ptr[Byte]): Unit = setAxisValue(v)
+class InputEventJoypadMotion extends InputEvent {
+    def axis: Int = getAxis()
+    def axis_=(v: Int): Unit = setAxis(v)
+    def axisValue: Float = getAxisValue()
+    def axisValue_=(v: Float): Unit = setAxisValue(v)
+}
 
 object InputEventJoypadMotion:
-    object Binds:
-        var setAxis: Ptr[Byte] = null
-        var getAxis: Ptr[Byte] = null
-        var setAxisValue: Ptr[Byte] = null
-        var getAxisValue: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setAxis = GdxApi.getMethodBind(c"InputEventJoypadMotion", c"set_axis", 1332685170L)
-            Binds.getAxis = GdxApi.getMethodBind(c"InputEventJoypadMotion", c"get_axis", 4019121683L)
-            Binds.setAxisValue = GdxApi.getMethodBind(c"InputEventJoypadMotion", c"set_axis_value", 373806689L)
-            Binds.getAxisValue = GdxApi.getMethodBind(c"InputEventJoypadMotion", c"get_axis_value", 1740695150L)
-
-    def apply(): InputEventJoypadMotion =
-        val obj = new InputEventJoypadMotion()
-        obj.ptr = GdxApi.constructObject(c"InputEventJoypadMotion")
-        obj
+def apply(): InputEventJoypadMotion = {
+  val obj = new InputEventJoypadMotion()
+  obj.ptr = GdxApi.constructObject(c"InputEventJoypadMotion")
+  obj
+}

@@ -5,75 +5,86 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AimModifier3D extends BoneConstraint3D
-
-    def setForwardAxis(index: Int, axis: Int): Unit =
+class AimModifier3D extends BoneConstraint3D {
+    def setForwardAxis(index: Int, axis: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axis.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axis.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AimModifier3D.Binds.setForwardAxis, ptr, _args, null)
+}
 
-    def getForwardAxis(index: Int): Int =
+    def getForwardAxis(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AimModifier3D.Binds.getForwardAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setUseEuler(index: Int, enabled: Boolean): Unit =
+    def setUseEuler(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AimModifier3D.Binds.setUseEuler, ptr, _args, null)
+}
 
-    def isUsingEuler(index: Int): Boolean =
+    def isUsingEuler(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AimModifier3D.Binds.isUsingEuler, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setPrimaryRotationAxis(index: Int, axis: Int): Unit =
+    def setPrimaryRotationAxis(index: Int, axis: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axis.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axis.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AimModifier3D.Binds.setPrimaryRotationAxis, ptr, _args, null)
+}
 
-    def getPrimaryRotationAxis(index: Int): Int =
+    def getPrimaryRotationAxis(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AimModifier3D.Binds.getPrimaryRotationAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setUseSecondaryRotation(index: Int, enabled: Boolean): Unit =
+    def setUseSecondaryRotation(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AimModifier3D.Binds.setUseSecondaryRotation, ptr, _args, null)
+}
 
-    def isUsingSecondaryRotation(index: Int): Boolean =
+    def isUsingSecondaryRotation(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AimModifier3D.Binds.isUsingSecondaryRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
+
     def settingCount: Ptr[Byte] = getSettingCount()
     def settingCount_=(v: Ptr[Byte]): Unit = setSettingCount(v)
+}
 
 object AimModifier3D:
-    object Binds:
-        var setForwardAxis: Ptr[Byte] = null
+object Binds {
+          var setForwardAxis: Ptr[Byte] = null
         var getForwardAxis: Ptr[Byte] = null
         var setUseEuler: Ptr[Byte] = null
         var isUsingEuler: Ptr[Byte] = null
@@ -82,8 +93,8 @@ object AimModifier3D:
         var setUseSecondaryRotation: Ptr[Byte] = null
         var isUsingSecondaryRotation: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setForwardAxis = GdxApi.getMethodBind(c"AimModifier3D", c"set_forward_axis", 2496831085L)
+  def loadBinds(): Unit = {
+                Binds.setForwardAxis = GdxApi.getMethodBind(c"AimModifier3D", c"set_forward_axis", 2496831085L)
             Binds.getForwardAxis = GdxApi.getMethodBind(c"AimModifier3D", c"get_forward_axis", 3949866735L)
             Binds.setUseEuler = GdxApi.getMethodBind(c"AimModifier3D", c"set_use_euler", 300928843L)
             Binds.isUsingEuler = GdxApi.getMethodBind(c"AimModifier3D", c"is_using_euler", 1116898809L)
@@ -91,8 +102,11 @@ object AimModifier3D:
             Binds.getPrimaryRotationAxis = GdxApi.getMethodBind(c"AimModifier3D", c"get_primary_rotation_axis", 4131134770L)
             Binds.setUseSecondaryRotation = GdxApi.getMethodBind(c"AimModifier3D", c"set_use_secondary_rotation", 300928843L)
             Binds.isUsingSecondaryRotation = GdxApi.getMethodBind(c"AimModifier3D", c"is_using_secondary_rotation", 1116898809L)
+  }
+}
 
-    def apply(): AimModifier3D =
-        val obj = new AimModifier3D()
-        obj.ptr = GdxApi.constructObject(c"AimModifier3D")
-        obj
+def apply(): AimModifier3D = {
+  val obj = new AimModifier3D()
+  obj.ptr = GdxApi.constructObject(c"AimModifier3D")
+  obj
+}

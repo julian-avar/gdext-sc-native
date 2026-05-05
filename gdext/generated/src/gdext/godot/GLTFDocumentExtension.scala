@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFDocumentExtension extends Resource
+class GLTFDocumentExtension extends Resource {
     def _importPreflight(state: GLTFState, extensions: PackedStringArray): Int = null
     def _getSupportedExtensions(): PackedStringArray = null
     def _parseNodeExtensions(state: GLTFState, gltfNode: GLTFNode, extensions: Dictionary): Int = null
@@ -29,11 +29,11 @@ class GLTFDocumentExtension extends Resource
     def _serializeTextureJson(state: GLTFState, textureJson: Dictionary, gltfTexture: GLTFTexture, imageFormat: CString): Int = null
     def _exportNode(state: GLTFState, gltfNode: GLTFNode, json: Dictionary, node: Node): Int = null
     def _exportPost(state: GLTFState): Int = null
-
-
+}
 
 object GLTFDocumentExtension:
-    def apply(): GLTFDocumentExtension =
-        val obj = new GLTFDocumentExtension()
-        obj.ptr = GdxApi.constructObject(c"GLTFDocumentExtension")
-        obj
+def apply(): GLTFDocumentExtension = {
+  val obj = new GLTFDocumentExtension()
+  obj.ptr = GdxApi.constructObject(c"GLTFDocumentExtension")
+  obj
+}

@@ -5,27 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CSGPrimitive3D extends CSGShape3D
-
-    def setFlipFaces(flipFaces: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flipFaces then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGPrimitive3D.Binds.setFlipFaces, ptr, _args, null)
-
-    def getFlipFaces(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CSGPrimitive3D.Binds.getFlipFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def flipFaces: Ptr[Byte] = getFlipFaces()
-    def flipFaces_=(v: Ptr[Byte]): Unit = setFlipFaces(v)
-
-object CSGPrimitive3D:
-    object Binds:
-        var setFlipFaces: Ptr[Byte] = null
-        var getFlipFaces: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFlipFaces = GdxApi.getMethodBind(c"CSGPrimitive3D", c"set_flip_faces", 2586408642L)
-            Binds.getFlipFaces = GdxApi.getMethodBind(c"CSGPrimitive3D", c"get_flip_faces", 2240911060L)
+class CSGPrimitive3D extends CSGShape3D {
+    def flipFaces: Boolean = getFlipFaces()
+    def flipFaces_=(v: Boolean): Unit = setFlipFaces(v)
+}

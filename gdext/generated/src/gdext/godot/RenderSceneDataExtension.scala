@@ -5,18 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderSceneDataExtension extends RenderSceneData
+class RenderSceneDataExtension extends RenderSceneData {
     def _getCamTransform(): Transform3D = null
     def _getCamProjection(): Projection = null
     def _getViewCount(): Int = 0
     def _getViewEyeOffset(view: Int): Vector3 = null
     def _getViewProjection(view: Int): Projection = null
     def _getUniformBuffer(): RID = null
-
-
+}
 
 object RenderSceneDataExtension:
-    def apply(): RenderSceneDataExtension =
-        val obj = new RenderSceneDataExtension()
-        obj.ptr = GdxApi.constructObject(c"RenderSceneDataExtension")
-        obj
+def apply(): RenderSceneDataExtension = {
+  val obj = new RenderSceneDataExtension()
+  obj.ptr = GdxApi.constructObject(c"RenderSceneDataExtension")
+  obj
+}

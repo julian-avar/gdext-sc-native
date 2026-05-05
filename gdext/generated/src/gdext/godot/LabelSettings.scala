@@ -5,317 +5,171 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LabelSettings extends Resource
-
-    def setLineSpacing(spacing: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = spacing.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setLineSpacing, ptr, _args, null)
-
-    def getLineSpacing(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LabelSettings.Binds.getLineSpacing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setParagraphSpacing(spacing: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = spacing.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setParagraphSpacing, ptr, _args, null)
-
-    def getParagraphSpacing(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LabelSettings.Binds.getParagraphSpacing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFont(font: Font): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = font.ptr
-        GdxApi.ptrcall(LabelSettings.Binds.setFont, ptr, _args, null)
-
-    def getFont(): Font =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LabelSettings.Binds.getFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Font(!_ret)
-
-    def setFontSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setFontSize, ptr, _args, null)
-
-    def getFontSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LabelSettings.Binds.getFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFontColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(LabelSettings.Binds.setFontColor, ptr, _args, null)
-
-    def getFontColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LabelSettings.Binds.getFontColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setOutlineSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setOutlineSize, ptr, _args, null)
-
-    def getOutlineSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LabelSettings.Binds.getOutlineSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setOutlineColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(LabelSettings.Binds.setOutlineColor, ptr, _args, null)
-
-    def getOutlineColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LabelSettings.Binds.getOutlineColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setShadowSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setShadowSize, ptr, _args, null)
-
-    def getShadowSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LabelSettings.Binds.getShadowSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setShadowColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(LabelSettings.Binds.setShadowColor, ptr, _args, null)
-
-    def getShadowColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LabelSettings.Binds.getShadowColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setShadowOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(LabelSettings.Binds.setShadowOffset, ptr, _args, null)
-
-    def getShadowOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LabelSettings.Binds.getShadowOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def getStackedOutlineCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LabelSettings.Binds.getStackedOutlineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStackedOutlineCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setStackedOutlineCount, ptr, _args, null)
-
-    def addStackedOutline(): Unit =
+class LabelSettings extends Resource {
+    def addStackedOutline(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(LabelSettings.Binds.addStackedOutline, ptr, _args, null)
+}
 
-    def moveStackedOutline(fromIndex: Int, toPosition: Int): Unit =
+    def moveStackedOutline(fromIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(LabelSettings.Binds.moveStackedOutline, ptr, _args, null)
+}
 
-    def removeStackedOutline(index: Int): Unit =
+    def removeStackedOutline(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(LabelSettings.Binds.removeStackedOutline, ptr, _args, null)
+}
 
-    def setStackedOutlineSize(index: Int, size: Int): Unit =
+    def setStackedOutlineSize(index: Int, size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(LabelSettings.Binds.setStackedOutlineSize, ptr, _args, null)
+}
 
-    def getStackedOutlineSize(index: Int): Int =
+    def getStackedOutlineSize(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(LabelSettings.Binds.getStackedOutlineSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setStackedOutlineColor(index: Int, color: Color): Unit =
+    def setStackedOutlineColor(index: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(LabelSettings.Binds.setStackedOutlineColor, ptr, _args, null)
+}
 
-    def getStackedOutlineColor(index: Int): Color =
+    def getStackedOutlineColor(index: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(LabelSettings.Binds.getStackedOutlineColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getStackedShadowCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LabelSettings.Binds.getStackedShadowCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStackedShadowCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LabelSettings.Binds.setStackedShadowCount, ptr, _args, null)
-
-    def addStackedShadow(): Unit =
+    def addStackedShadow(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(LabelSettings.Binds.addStackedShadow, ptr, _args, null)
+}
 
-    def moveStackedShadow(fromIndex: Int, toPosition: Int): Unit =
+    def moveStackedShadow(fromIndex: Int, toPosition: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toPosition.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toPosition.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(LabelSettings.Binds.moveStackedShadow, ptr, _args, null)
+}
 
-    def removeStackedShadow(index: Int): Unit =
+    def removeStackedShadow(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(LabelSettings.Binds.removeStackedShadow, ptr, _args, null)
+}
 
-    def setStackedShadowOffset(index: Int, offset: Vector2): Unit =
+    def setStackedShadowOffset(index: Int, offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = offset.ptr
         GdxApi.ptrcall(LabelSettings.Binds.setStackedShadowOffset, ptr, _args, null)
+}
 
-    def getStackedShadowOffset(index: Int): Vector2 =
+    def getStackedShadowOffset(index: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(LabelSettings.Binds.getStackedShadowOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setStackedShadowColor(index: Int, color: Color): Unit =
+    def setStackedShadowColor(index: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(LabelSettings.Binds.setStackedShadowColor, ptr, _args, null)
+}
 
-    def getStackedShadowColor(index: Int): Color =
+    def getStackedShadowColor(index: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(LabelSettings.Binds.getStackedShadowColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setStackedShadowOutlineSize(index: Int, size: Int): Unit =
+    def setStackedShadowOutlineSize(index: Int, size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(LabelSettings.Binds.setStackedShadowOutlineSize, ptr, _args, null)
+}
 
-    def getStackedShadowOutlineSize(index: Int): Int =
+    def getStackedShadowOutlineSize(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(LabelSettings.Binds.getStackedShadowOutlineSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def lineSpacing: Ptr[Byte] = getLineSpacing()
-    def lineSpacing_=(v: Ptr[Byte]): Unit = setLineSpacing(v)
-    def paragraphSpacing: Ptr[Byte] = getParagraphSpacing()
-    def paragraphSpacing_=(v: Ptr[Byte]): Unit = setParagraphSpacing(v)
-    def font: Ptr[Byte] = getFont()
-    def font_=(v: Ptr[Byte]): Unit = setFont(v)
-    def fontSize: Ptr[Byte] = getFontSize()
-    def fontSize_=(v: Ptr[Byte]): Unit = setFontSize(v)
-    def fontColor: Ptr[Byte] = getFontColor()
-    def fontColor_=(v: Ptr[Byte]): Unit = setFontColor(v)
-    def outlineSize: Ptr[Byte] = getOutlineSize()
-    def outlineSize_=(v: Ptr[Byte]): Unit = setOutlineSize(v)
-    def outlineColor: Ptr[Byte] = getOutlineColor()
-    def outlineColor_=(v: Ptr[Byte]): Unit = setOutlineColor(v)
-    def shadowSize: Ptr[Byte] = getShadowSize()
-    def shadowSize_=(v: Ptr[Byte]): Unit = setShadowSize(v)
-    def shadowColor: Ptr[Byte] = getShadowColor()
-    def shadowColor_=(v: Ptr[Byte]): Unit = setShadowColor(v)
-    def shadowOffset: Ptr[Byte] = getShadowOffset()
-    def shadowOffset_=(v: Ptr[Byte]): Unit = setShadowOffset(v)
-    def stackedOutlineCount: Ptr[Byte] = getStackedOutlineCount()
-    def stackedOutlineCount_=(v: Ptr[Byte]): Unit = setStackedOutlineCount(v)
-    def stackedShadowCount: Ptr[Byte] = getStackedShadowCount()
-    def stackedShadowCount_=(v: Ptr[Byte]): Unit = setStackedShadowCount(v)
+}
+
+    def lineSpacing: Float = getLineSpacing()
+    def lineSpacing_=(v: Float): Unit = setLineSpacing(v)
+    def paragraphSpacing: Float = getParagraphSpacing()
+    def paragraphSpacing_=(v: Float): Unit = setParagraphSpacing(v)
+    def font: Font = getFont()
+    def font_=(v: Font): Unit = setFont(v)
+    def fontSize: Int = getFontSize()
+    def fontSize_=(v: Int): Unit = setFontSize(v)
+    def fontColor: Color = getFontColor()
+    def fontColor_=(v: Color): Unit = setFontColor(v)
+    def outlineSize: Int = getOutlineSize()
+    def outlineSize_=(v: Int): Unit = setOutlineSize(v)
+    def outlineColor: Color = getOutlineColor()
+    def outlineColor_=(v: Color): Unit = setOutlineColor(v)
+    def shadowSize: Int = getShadowSize()
+    def shadowSize_=(v: Int): Unit = setShadowSize(v)
+    def shadowColor: Color = getShadowColor()
+    def shadowColor_=(v: Color): Unit = setShadowColor(v)
+    def shadowOffset: Vector2 = getShadowOffset()
+    def shadowOffset_=(v: Vector2): Unit = setShadowOffset(v)
+    def stackedOutlineCount: Int = getStackedOutlineCount()
+    def stackedOutlineCount_=(v: Int): Unit = setStackedOutlineCount(v)
+    def stackedShadowCount: Int = getStackedShadowCount()
+    def stackedShadowCount_=(v: Int): Unit = setStackedShadowCount(v)
+}
 
 object LabelSettings:
-    object Binds:
-        var setLineSpacing: Ptr[Byte] = null
-        var getLineSpacing: Ptr[Byte] = null
-        var setParagraphSpacing: Ptr[Byte] = null
-        var getParagraphSpacing: Ptr[Byte] = null
-        var setFont: Ptr[Byte] = null
-        var getFont: Ptr[Byte] = null
-        var setFontSize: Ptr[Byte] = null
-        var getFontSize: Ptr[Byte] = null
-        var setFontColor: Ptr[Byte] = null
-        var getFontColor: Ptr[Byte] = null
-        var setOutlineSize: Ptr[Byte] = null
-        var getOutlineSize: Ptr[Byte] = null
-        var setOutlineColor: Ptr[Byte] = null
-        var getOutlineColor: Ptr[Byte] = null
-        var setShadowSize: Ptr[Byte] = null
-        var getShadowSize: Ptr[Byte] = null
-        var setShadowColor: Ptr[Byte] = null
-        var getShadowColor: Ptr[Byte] = null
-        var setShadowOffset: Ptr[Byte] = null
-        var getShadowOffset: Ptr[Byte] = null
-        var getStackedOutlineCount: Ptr[Byte] = null
-        var setStackedOutlineCount: Ptr[Byte] = null
-        var addStackedOutline: Ptr[Byte] = null
+object Binds {
+          var addStackedOutline: Ptr[Byte] = null
         var moveStackedOutline: Ptr[Byte] = null
         var removeStackedOutline: Ptr[Byte] = null
         var setStackedOutlineSize: Ptr[Byte] = null
         var getStackedOutlineSize: Ptr[Byte] = null
         var setStackedOutlineColor: Ptr[Byte] = null
         var getStackedOutlineColor: Ptr[Byte] = null
-        var getStackedShadowCount: Ptr[Byte] = null
-        var setStackedShadowCount: Ptr[Byte] = null
         var addStackedShadow: Ptr[Byte] = null
         var moveStackedShadow: Ptr[Byte] = null
         var removeStackedShadow: Ptr[Byte] = null
@@ -326,38 +180,14 @@ object LabelSettings:
         var setStackedShadowOutlineSize: Ptr[Byte] = null
         var getStackedShadowOutlineSize: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setLineSpacing = GdxApi.getMethodBind(c"LabelSettings", c"set_line_spacing", 373806689L)
-            Binds.getLineSpacing = GdxApi.getMethodBind(c"LabelSettings", c"get_line_spacing", 1740695150L)
-            Binds.setParagraphSpacing = GdxApi.getMethodBind(c"LabelSettings", c"set_paragraph_spacing", 373806689L)
-            Binds.getParagraphSpacing = GdxApi.getMethodBind(c"LabelSettings", c"get_paragraph_spacing", 1740695150L)
-            Binds.setFont = GdxApi.getMethodBind(c"LabelSettings", c"set_font", 1262170328L)
-            Binds.getFont = GdxApi.getMethodBind(c"LabelSettings", c"get_font", 3229501585L)
-            Binds.setFontSize = GdxApi.getMethodBind(c"LabelSettings", c"set_font_size", 1286410249L)
-            Binds.getFontSize = GdxApi.getMethodBind(c"LabelSettings", c"get_font_size", 3905245786L)
-            Binds.setFontColor = GdxApi.getMethodBind(c"LabelSettings", c"set_font_color", 2920490490L)
-            Binds.getFontColor = GdxApi.getMethodBind(c"LabelSettings", c"get_font_color", 3444240500L)
-            Binds.setOutlineSize = GdxApi.getMethodBind(c"LabelSettings", c"set_outline_size", 1286410249L)
-            Binds.getOutlineSize = GdxApi.getMethodBind(c"LabelSettings", c"get_outline_size", 3905245786L)
-            Binds.setOutlineColor = GdxApi.getMethodBind(c"LabelSettings", c"set_outline_color", 2920490490L)
-            Binds.getOutlineColor = GdxApi.getMethodBind(c"LabelSettings", c"get_outline_color", 3444240500L)
-            Binds.setShadowSize = GdxApi.getMethodBind(c"LabelSettings", c"set_shadow_size", 1286410249L)
-            Binds.getShadowSize = GdxApi.getMethodBind(c"LabelSettings", c"get_shadow_size", 3905245786L)
-            Binds.setShadowColor = GdxApi.getMethodBind(c"LabelSettings", c"set_shadow_color", 2920490490L)
-            Binds.getShadowColor = GdxApi.getMethodBind(c"LabelSettings", c"get_shadow_color", 3444240500L)
-            Binds.setShadowOffset = GdxApi.getMethodBind(c"LabelSettings", c"set_shadow_offset", 743155724L)
-            Binds.getShadowOffset = GdxApi.getMethodBind(c"LabelSettings", c"get_shadow_offset", 3341600327L)
-            Binds.getStackedOutlineCount = GdxApi.getMethodBind(c"LabelSettings", c"get_stacked_outline_count", 3905245786L)
-            Binds.setStackedOutlineCount = GdxApi.getMethodBind(c"LabelSettings", c"set_stacked_outline_count", 1286410249L)
-            Binds.addStackedOutline = GdxApi.getMethodBind(c"LabelSettings", c"add_stacked_outline", 1025054187L)
+  def loadBinds(): Unit = {
+                Binds.addStackedOutline = GdxApi.getMethodBind(c"LabelSettings", c"add_stacked_outline", 1025054187L)
             Binds.moveStackedOutline = GdxApi.getMethodBind(c"LabelSettings", c"move_stacked_outline", 3937882851L)
             Binds.removeStackedOutline = GdxApi.getMethodBind(c"LabelSettings", c"remove_stacked_outline", 1286410249L)
             Binds.setStackedOutlineSize = GdxApi.getMethodBind(c"LabelSettings", c"set_stacked_outline_size", 3937882851L)
             Binds.getStackedOutlineSize = GdxApi.getMethodBind(c"LabelSettings", c"get_stacked_outline_size", 923996154L)
             Binds.setStackedOutlineColor = GdxApi.getMethodBind(c"LabelSettings", c"set_stacked_outline_color", 2878471219L)
             Binds.getStackedOutlineColor = GdxApi.getMethodBind(c"LabelSettings", c"get_stacked_outline_color", 3457211756L)
-            Binds.getStackedShadowCount = GdxApi.getMethodBind(c"LabelSettings", c"get_stacked_shadow_count", 3905245786L)
-            Binds.setStackedShadowCount = GdxApi.getMethodBind(c"LabelSettings", c"set_stacked_shadow_count", 1286410249L)
             Binds.addStackedShadow = GdxApi.getMethodBind(c"LabelSettings", c"add_stacked_shadow", 1025054187L)
             Binds.moveStackedShadow = GdxApi.getMethodBind(c"LabelSettings", c"move_stacked_shadow", 3937882851L)
             Binds.removeStackedShadow = GdxApi.getMethodBind(c"LabelSettings", c"remove_stacked_shadow", 1286410249L)
@@ -367,8 +197,11 @@ object LabelSettings:
             Binds.getStackedShadowColor = GdxApi.getMethodBind(c"LabelSettings", c"get_stacked_shadow_color", 3457211756L)
             Binds.setStackedShadowOutlineSize = GdxApi.getMethodBind(c"LabelSettings", c"set_stacked_shadow_outline_size", 3937882851L)
             Binds.getStackedShadowOutlineSize = GdxApi.getMethodBind(c"LabelSettings", c"get_stacked_shadow_outline_size", 923996154L)
+  }
+}
 
-    def apply(): LabelSettings =
-        val obj = new LabelSettings()
-        obj.ptr = GdxApi.constructObject(c"LabelSettings")
-        obj
+def apply(): LabelSettings = {
+  val obj = new LabelSettings()
+  obj.ptr = GdxApi.constructObject(c"LabelSettings")
+  obj
+}

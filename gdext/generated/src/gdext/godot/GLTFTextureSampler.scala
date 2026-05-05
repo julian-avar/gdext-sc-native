@@ -5,86 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFTextureSampler extends Resource
-
-    def getMagFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.getMagFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMagFilter(filterMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = filterMode.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.setMagFilter, ptr, _args, null)
-
-    def getMinFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.getMinFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMinFilter(filterMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = filterMode.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.setMinFilter, ptr, _args, null)
-
-    def getWrapS(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.getWrapS, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setWrapS(wrapMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = wrapMode.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.setWrapS, ptr, _args, null)
-
-    def getWrapT(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.getWrapT, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setWrapT(wrapMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = wrapMode.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFTextureSampler.Binds.setWrapT, ptr, _args, null)
-    def magFilter: Ptr[Byte] = getMagFilter()
-    def magFilter_=(v: Ptr[Byte]): Unit = setMagFilter(v)
-    def minFilter: Ptr[Byte] = getMinFilter()
-    def minFilter_=(v: Ptr[Byte]): Unit = setMinFilter(v)
-    def wrapS: Ptr[Byte] = getWrapS()
-    def wrapS_=(v: Ptr[Byte]): Unit = setWrapS(v)
-    def wrapT: Ptr[Byte] = getWrapT()
-    def wrapT_=(v: Ptr[Byte]): Unit = setWrapT(v)
+class GLTFTextureSampler extends Resource {
+    def magFilter: Int = getMagFilter()
+    def magFilter_=(v: Int): Unit = setMagFilter(v)
+    def minFilter: Int = getMinFilter()
+    def minFilter_=(v: Int): Unit = setMinFilter(v)
+    def wrapS: Int = getWrapS()
+    def wrapS_=(v: Int): Unit = setWrapS(v)
+    def wrapT: Int = getWrapT()
+    def wrapT_=(v: Int): Unit = setWrapT(v)
+}
 
 object GLTFTextureSampler:
-    object Binds:
-        var getMagFilter: Ptr[Byte] = null
-        var setMagFilter: Ptr[Byte] = null
-        var getMinFilter: Ptr[Byte] = null
-        var setMinFilter: Ptr[Byte] = null
-        var getWrapS: Ptr[Byte] = null
-        var setWrapS: Ptr[Byte] = null
-        var getWrapT: Ptr[Byte] = null
-        var setWrapT: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getMagFilter = GdxApi.getMethodBind(c"GLTFTextureSampler", c"get_mag_filter", 3905245786L)
-            Binds.setMagFilter = GdxApi.getMethodBind(c"GLTFTextureSampler", c"set_mag_filter", 1286410249L)
-            Binds.getMinFilter = GdxApi.getMethodBind(c"GLTFTextureSampler", c"get_min_filter", 3905245786L)
-            Binds.setMinFilter = GdxApi.getMethodBind(c"GLTFTextureSampler", c"set_min_filter", 1286410249L)
-            Binds.getWrapS = GdxApi.getMethodBind(c"GLTFTextureSampler", c"get_wrap_s", 3905245786L)
-            Binds.setWrapS = GdxApi.getMethodBind(c"GLTFTextureSampler", c"set_wrap_s", 1286410249L)
-            Binds.getWrapT = GdxApi.getMethodBind(c"GLTFTextureSampler", c"get_wrap_t", 3905245786L)
-            Binds.setWrapT = GdxApi.getMethodBind(c"GLTFTextureSampler", c"set_wrap_t", 1286410249L)
-
-    def apply(): GLTFTextureSampler =
-        val obj = new GLTFTextureSampler()
-        obj.ptr = GdxApi.constructObject(c"GLTFTextureSampler")
-        obj
+def apply(): GLTFTextureSampler = {
+  val obj = new GLTFTextureSampler()
+  obj.ptr = GdxApi.constructObject(c"GLTFTextureSampler")
+  obj
+}

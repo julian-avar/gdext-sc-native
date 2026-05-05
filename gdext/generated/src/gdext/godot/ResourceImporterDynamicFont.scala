@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporterDynamicFont extends ResourceImporter
-
-
-
+class ResourceImporterDynamicFont extends ResourceImporter {}
 
 object ResourceImporterDynamicFont:
-    def apply(): ResourceImporterDynamicFont =
-        val obj = new ResourceImporterDynamicFont()
-        obj.ptr = GdxApi.constructObject(c"ResourceImporterDynamicFont")
-        obj
+def apply(): ResourceImporterDynamicFont = {
+  val obj = new ResourceImporterDynamicFont()
+  obj.ptr = GdxApi.constructObject(c"ResourceImporterDynamicFont")
+  obj
+}

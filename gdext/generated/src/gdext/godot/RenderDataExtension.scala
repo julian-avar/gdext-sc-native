@@ -5,16 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderDataExtension extends RenderData
+class RenderDataExtension extends RenderData {
     def _getRenderSceneBuffers(): RenderSceneBuffers = null
     def _getRenderSceneData(): RenderSceneData = null
     def _getEnvironment(): RID = null
     def _getCameraAttributes(): RID = null
-
-
+}
 
 object RenderDataExtension:
-    def apply(): RenderDataExtension =
-        val obj = new RenderDataExtension()
-        obj.ptr = GdxApi.constructObject(c"RenderDataExtension")
-        obj
+def apply(): RenderDataExtension = {
+  val obj = new RenderDataExtension()
+  obj.ptr = GdxApi.constructObject(c"RenderDataExtension")
+  obj
+}

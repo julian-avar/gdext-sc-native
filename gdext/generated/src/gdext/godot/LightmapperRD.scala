@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LightmapperRD extends Lightmapper
-
-
-
+class LightmapperRD extends Lightmapper {}
 
 object LightmapperRD:
-    def apply(): LightmapperRD =
-        val obj = new LightmapperRD()
-        obj.ptr = GdxApi.constructObject(c"LightmapperRD")
-        obj
+def apply(): LightmapperRD = {
+  val obj = new LightmapperRD()
+  obj.ptr = GdxApi.constructObject(c"LightmapperRD")
+  obj
+}

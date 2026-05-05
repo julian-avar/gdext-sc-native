@@ -5,66 +5,72 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Time extends Object
-
-    def getDatetimeDictFromUnixTime(unixTimeVal: Long): Dictionary =
+class Time extends Object {
+    def getDatetimeDictFromUnixTime(unixTimeVal: Long): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unixTimeVal
+        val _a0 = stackalloc[Long](); !_a0 = unixTimeVal
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDatetimeDictFromUnixTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getDateDictFromUnixTime(unixTimeVal: Long): Dictionary =
+    def getDateDictFromUnixTime(unixTimeVal: Long): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unixTimeVal
+        val _a0 = stackalloc[Long](); !_a0 = unixTimeVal
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDateDictFromUnixTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getTimeDictFromUnixTime(unixTimeVal: Long): Dictionary =
+    def getTimeDictFromUnixTime(unixTimeVal: Long): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unixTimeVal
+        val _a0 = stackalloc[Long](); !_a0 = unixTimeVal
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getTimeDictFromUnixTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getDatetimeStringFromUnixTime(unixTimeVal: Long): CString =
+    def getDatetimeStringFromUnixTime(unixTimeVal: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unixTimeVal
+        val _a0 = stackalloc[Long](); !_a0 = unixTimeVal
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDatetimeStringFromUnixTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDateStringFromUnixTime(unixTimeVal: Long): CString =
+    def getDateStringFromUnixTime(unixTimeVal: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unixTimeVal
+        val _a0 = stackalloc[Long](); !_a0 = unixTimeVal
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDateStringFromUnixTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTimeStringFromUnixTime(unixTimeVal: Long): CString =
+    def getTimeStringFromUnixTime(unixTimeVal: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unixTimeVal
+        val _a0 = stackalloc[Long](); !_a0 = unixTimeVal
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getTimeStringFromUnixTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDatetimeDictFromDatetimeString(datetime: CString, weekday: Boolean): Dictionary =
+    def getDatetimeDictFromDatetimeString(datetime: CString, weekday: Boolean): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = datetime.ptr
+        _args(0) = datetime
         val _a1 = stackalloc[Byte](); !_a1 = if weekday then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDatetimeDictFromDatetimeString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getDatetimeStringFromDatetimeDict(datetime: Dictionary, useSpace: Boolean): CString =
+    def getDatetimeStringFromDatetimeDict(datetime: Dictionary, useSpace: Boolean): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = datetime.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if useSpace then 1.toByte else 0.toByte
@@ -72,93 +78,107 @@ class Time extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDatetimeStringFromDatetimeDict, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getUnixTimeFromDatetimeDict(datetime: Dictionary): Long =
+    def getUnixTimeFromDatetimeDict(datetime: Dictionary): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = datetime.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Time.Binds.getUnixTimeFromDatetimeDict, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getUnixTimeFromDatetimeString(datetime: CString): Long =
+    def getUnixTimeFromDatetimeString(datetime: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = datetime.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = datetime
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Time.Binds.getUnixTimeFromDatetimeString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getOffsetStringFromOffsetMinutes(offsetMinutes: Long): CString =
+    def getOffsetStringFromOffsetMinutes(offsetMinutes: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = offsetMinutes
+        val _a0 = stackalloc[Long](); !_a0 = offsetMinutes
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getOffsetStringFromOffsetMinutes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDatetimeDictFromSystem(): Dictionary =
+    def getDatetimeDictFromSystem(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDatetimeDictFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getDateDictFromSystem(): Dictionary =
+    def getDateDictFromSystem(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDateDictFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getTimeDictFromSystem(): Dictionary =
+    def getTimeDictFromSystem(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getTimeDictFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getDatetimeStringFromSystem(): CString =
+    def getDatetimeStringFromSystem(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDatetimeStringFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDateStringFromSystem(): CString =
+    def getDateStringFromSystem(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getDateStringFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTimeStringFromSystem(): CString =
+    def getTimeStringFromSystem(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getTimeStringFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTimeZoneFromSystem(): Dictionary =
+    def getTimeZoneFromSystem(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Time.Binds.getTimeZoneFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getUnixTimeFromSystem(): Double =
+    def getUnixTimeFromSystem(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Time.Binds.getUnixTimeFromSystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTicksMsec(): Long =
+    def getTicksMsec(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Time.Binds.getTicksMsec, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTicksUsec(): Long =
+    def getTicksUsec(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Time.Binds.getTicksUsec, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object Time:
-    object Binds:
-        var getDatetimeDictFromUnixTime: Ptr[Byte] = null
+object Binds {
+          var getDatetimeDictFromUnixTime: Ptr[Byte] = null
         var getDateDictFromUnixTime: Ptr[Byte] = null
         var getTimeDictFromUnixTime: Ptr[Byte] = null
         var getDatetimeStringFromUnixTime: Ptr[Byte] = null
@@ -180,8 +200,8 @@ object Time:
         var getTicksMsec: Ptr[Byte] = null
         var getTicksUsec: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getDatetimeDictFromUnixTime = GdxApi.getMethodBind(c"Time", c"get_datetime_dict_from_unix_time", 3485342025L)
+  def loadBinds(): Unit = {
+                Binds.getDatetimeDictFromUnixTime = GdxApi.getMethodBind(c"Time", c"get_datetime_dict_from_unix_time", 3485342025L)
             Binds.getDateDictFromUnixTime = GdxApi.getMethodBind(c"Time", c"get_date_dict_from_unix_time", 3485342025L)
             Binds.getTimeDictFromUnixTime = GdxApi.getMethodBind(c"Time", c"get_time_dict_from_unix_time", 3485342025L)
             Binds.getDatetimeStringFromUnixTime = GdxApi.getMethodBind(c"Time", c"get_datetime_string_from_unix_time", 2311239925L)
@@ -202,8 +222,11 @@ object Time:
             Binds.getUnixTimeFromSystem = GdxApi.getMethodBind(c"Time", c"get_unix_time_from_system", 1740695150L)
             Binds.getTicksMsec = GdxApi.getMethodBind(c"Time", c"get_ticks_msec", 3905245786L)
             Binds.getTicksUsec = GdxApi.getMethodBind(c"Time", c"get_ticks_usec", 3905245786L)
+  }
+}
 
-    def apply(): Time =
-        val obj = new Time()
-        obj.ptr = GdxApi.constructObject(c"Time")
-        obj
+def apply(): Time = {
+  val obj = new Time()
+  obj.ptr = GdxApi.constructObject(c"Time")
+  obj
+}

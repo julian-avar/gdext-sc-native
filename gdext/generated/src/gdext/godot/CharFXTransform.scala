@@ -5,242 +5,38 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CharFXTransform extends RefCounted
-
-    def getTransform(): Transform2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform2D(!_ret)
-
-    def setTransform(transform: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = transform.ptr
-        GdxApi.ptrcall(CharFXTransform.Binds.setTransform, ptr, _args, null)
-
-    def getRange(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setRange(range: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = range.ptr
-        GdxApi.ptrcall(CharFXTransform.Binds.setRange, ptr, _args, null)
-
-    def getElapsedTime(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getElapsedTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setElapsedTime(time: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = time
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setElapsedTime, ptr, _args, null)
-
-    def isVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CharFXTransform.Binds.isVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setVisibility(visibility: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if visibility then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setVisibility, ptr, _args, null)
-
-    def isOutline(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CharFXTransform.Binds.isOutline, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOutline(outline: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if outline then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setOutline, ptr, _args, null)
-
-    def getOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(CharFXTransform.Binds.setOffset, ptr, _args, null)
-
-    def getColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(CharFXTransform.Binds.setColor, ptr, _args, null)
-
-    def getEnvironment(): Dictionary =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getEnvironment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Dictionary(!_ret)
-
-    def setEnvironment(environment: Dictionary): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = environment.ptr
-        GdxApi.ptrcall(CharFXTransform.Binds.setEnvironment, ptr, _args, null)
-
-    def getGlyphIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getGlyphIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setGlyphIndex(glyphIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = glyphIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setGlyphIndex, ptr, _args, null)
-
-    def getRelativeIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getRelativeIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRelativeIndex(relativeIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = relativeIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setRelativeIndex, ptr, _args, null)
-
-    def getGlyphCount(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getGlyphCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setGlyphCount(glyphCount: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = glyphCount
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setGlyphCount, ptr, _args, null)
-
-    def getGlyphFlags(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getGlyphFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setGlyphFlags(glyphFlags: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = glyphFlags
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CharFXTransform.Binds.setGlyphFlags, ptr, _args, null)
-
-    def getFont(): RID =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CharFXTransform.Binds.getFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new RID(!_ret)
-
-    def setFont(font: RID): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = font.ptr
-        GdxApi.ptrcall(CharFXTransform.Binds.setFont, ptr, _args, null)
-    def transform: Ptr[Byte] = getTransform()
-    def transform_=(v: Ptr[Byte]): Unit = setTransform(v)
-    def range: Ptr[Byte] = getRange()
-    def range_=(v: Ptr[Byte]): Unit = setRange(v)
-    def elapsedTime: Ptr[Byte] = getElapsedTime()
-    def elapsedTime_=(v: Ptr[Byte]): Unit = setElapsedTime(v)
-    def visible: Ptr[Byte] = isVisible()
-    def visible_=(v: Ptr[Byte]): Unit = setVisibility(v)
-    def outline: Ptr[Byte] = isOutline()
-    def outline_=(v: Ptr[Byte]): Unit = setOutline(v)
-    def offset: Ptr[Byte] = getOffset()
-    def offset_=(v: Ptr[Byte]): Unit = setOffset(v)
-    def color: Ptr[Byte] = getColor()
-    def color_=(v: Ptr[Byte]): Unit = setColor(v)
-    def env: Ptr[Byte] = getEnvironment()
-    def env_=(v: Ptr[Byte]): Unit = setEnvironment(v)
-    def glyphIndex: Ptr[Byte] = getGlyphIndex()
-    def glyphIndex_=(v: Ptr[Byte]): Unit = setGlyphIndex(v)
-    def glyphCount: Ptr[Byte] = getGlyphCount()
-    def glyphCount_=(v: Ptr[Byte]): Unit = setGlyphCount(v)
-    def glyphFlags: Ptr[Byte] = getGlyphFlags()
-    def glyphFlags_=(v: Ptr[Byte]): Unit = setGlyphFlags(v)
-    def relativeIndex: Ptr[Byte] = getRelativeIndex()
-    def relativeIndex_=(v: Ptr[Byte]): Unit = setRelativeIndex(v)
-    def font: Ptr[Byte] = getFont()
-    def font_=(v: Ptr[Byte]): Unit = setFont(v)
+class CharFXTransform extends RefCounted {
+    def transform: Transform2D = getTransform()
+    def transform_=(v: Transform2D): Unit = setTransform(v)
+    def range: Vector2i = getRange()
+    def range_=(v: Vector2i): Unit = setRange(v)
+    def elapsedTime: Double = getElapsedTime()
+    def elapsedTime_=(v: Double): Unit = setElapsedTime(v)
+    def visible: Boolean = isVisible()
+    def visible_=(v: Boolean): Unit = setVisibility(v)
+    def outline: Boolean = isOutline()
+    def outline_=(v: Boolean): Unit = setOutline(v)
+    def offset: Vector2 = getOffset()
+    def offset_=(v: Vector2): Unit = setOffset(v)
+    def color: Color = getColor()
+    def color_=(v: Color): Unit = setColor(v)
+    def env: Dictionary = getEnvironment()
+    def env_=(v: Dictionary): Unit = setEnvironment(v)
+    def glyphIndex: Int = getGlyphIndex()
+    def glyphIndex_=(v: Int): Unit = setGlyphIndex(v)
+    def glyphCount: Long = getGlyphCount()
+    def glyphCount_=(v: Long): Unit = setGlyphCount(v)
+    def glyphFlags: Long = getGlyphFlags()
+    def glyphFlags_=(v: Long): Unit = setGlyphFlags(v)
+    def relativeIndex: Int = getRelativeIndex()
+    def relativeIndex_=(v: Int): Unit = setRelativeIndex(v)
+    def font: RID = getFont()
+    def font_=(v: RID): Unit = setFont(v)
+}
 
 object CharFXTransform:
-    object Binds:
-        var getTransform: Ptr[Byte] = null
-        var setTransform: Ptr[Byte] = null
-        var getRange: Ptr[Byte] = null
-        var setRange: Ptr[Byte] = null
-        var getElapsedTime: Ptr[Byte] = null
-        var setElapsedTime: Ptr[Byte] = null
-        var isVisible: Ptr[Byte] = null
-        var setVisibility: Ptr[Byte] = null
-        var isOutline: Ptr[Byte] = null
-        var setOutline: Ptr[Byte] = null
-        var getOffset: Ptr[Byte] = null
-        var setOffset: Ptr[Byte] = null
-        var getColor: Ptr[Byte] = null
-        var setColor: Ptr[Byte] = null
-        var getEnvironment: Ptr[Byte] = null
-        var setEnvironment: Ptr[Byte] = null
-        var getGlyphIndex: Ptr[Byte] = null
-        var setGlyphIndex: Ptr[Byte] = null
-        var getRelativeIndex: Ptr[Byte] = null
-        var setRelativeIndex: Ptr[Byte] = null
-        var getGlyphCount: Ptr[Byte] = null
-        var setGlyphCount: Ptr[Byte] = null
-        var getGlyphFlags: Ptr[Byte] = null
-        var setGlyphFlags: Ptr[Byte] = null
-        var getFont: Ptr[Byte] = null
-        var setFont: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getTransform = GdxApi.getMethodBind(c"CharFXTransform", c"get_transform", 3761352769L)
-            Binds.setTransform = GdxApi.getMethodBind(c"CharFXTransform", c"set_transform", 2761652528L)
-            Binds.getRange = GdxApi.getMethodBind(c"CharFXTransform", c"get_range", 2741790807L)
-            Binds.setRange = GdxApi.getMethodBind(c"CharFXTransform", c"set_range", 1130785943L)
-            Binds.getElapsedTime = GdxApi.getMethodBind(c"CharFXTransform", c"get_elapsed_time", 191475506L)
-            Binds.setElapsedTime = GdxApi.getMethodBind(c"CharFXTransform", c"set_elapsed_time", 373806689L)
-            Binds.isVisible = GdxApi.getMethodBind(c"CharFXTransform", c"is_visible", 2240911060L)
-            Binds.setVisibility = GdxApi.getMethodBind(c"CharFXTransform", c"set_visibility", 2586408642L)
-            Binds.isOutline = GdxApi.getMethodBind(c"CharFXTransform", c"is_outline", 2240911060L)
-            Binds.setOutline = GdxApi.getMethodBind(c"CharFXTransform", c"set_outline", 2586408642L)
-            Binds.getOffset = GdxApi.getMethodBind(c"CharFXTransform", c"get_offset", 1497962370L)
-            Binds.setOffset = GdxApi.getMethodBind(c"CharFXTransform", c"set_offset", 743155724L)
-            Binds.getColor = GdxApi.getMethodBind(c"CharFXTransform", c"get_color", 3200896285L)
-            Binds.setColor = GdxApi.getMethodBind(c"CharFXTransform", c"set_color", 2920490490L)
-            Binds.getEnvironment = GdxApi.getMethodBind(c"CharFXTransform", c"get_environment", 2382534195L)
-            Binds.setEnvironment = GdxApi.getMethodBind(c"CharFXTransform", c"set_environment", 4155329257L)
-            Binds.getGlyphIndex = GdxApi.getMethodBind(c"CharFXTransform", c"get_glyph_index", 3905245786L)
-            Binds.setGlyphIndex = GdxApi.getMethodBind(c"CharFXTransform", c"set_glyph_index", 1286410249L)
-            Binds.getRelativeIndex = GdxApi.getMethodBind(c"CharFXTransform", c"get_relative_index", 3905245786L)
-            Binds.setRelativeIndex = GdxApi.getMethodBind(c"CharFXTransform", c"set_relative_index", 1286410249L)
-            Binds.getGlyphCount = GdxApi.getMethodBind(c"CharFXTransform", c"get_glyph_count", 3905245786L)
-            Binds.setGlyphCount = GdxApi.getMethodBind(c"CharFXTransform", c"set_glyph_count", 1286410249L)
-            Binds.getGlyphFlags = GdxApi.getMethodBind(c"CharFXTransform", c"get_glyph_flags", 3905245786L)
-            Binds.setGlyphFlags = GdxApi.getMethodBind(c"CharFXTransform", c"set_glyph_flags", 1286410249L)
-            Binds.getFont = GdxApi.getMethodBind(c"CharFXTransform", c"get_font", 2944877500L)
-            Binds.setFont = GdxApi.getMethodBind(c"CharFXTransform", c"set_font", 2722037293L)
-
-    def apply(): CharFXTransform =
-        val obj = new CharFXTransform()
-        obj.ptr = GdxApi.constructObject(c"CharFXTransform")
-        obj
+def apply(): CharFXTransform = {
+  val obj = new CharFXTransform()
+  obj.ptr = GdxApi.constructObject(c"CharFXTransform")
+  obj
+}

@@ -5,67 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectPitchShift extends AudioEffect
-
-    def setPitchScale(rate: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = rate.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPitchShift.Binds.setPitchScale, ptr, _args, null)
-
-    def getPitchScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPitchShift.Binds.getPitchScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setOversampling(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPitchShift.Binds.setOversampling, ptr, _args, null)
-
-    def getOversampling(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioEffectPitchShift.Binds.getOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFftSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(AudioEffectPitchShift.Binds.setFftSize, ptr, _args, null)
-
-    def getFftSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioEffectPitchShift.Binds.getFftSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def pitchScale: Ptr[Byte] = getPitchScale()
-    def pitchScale_=(v: Ptr[Byte]): Unit = setPitchScale(v)
-    def oversampling: Ptr[Byte] = getOversampling()
-    def oversampling_=(v: Ptr[Byte]): Unit = setOversampling(v)
-    def fftSize: Ptr[Byte] = getFftSize()
-    def fftSize_=(v: Ptr[Byte]): Unit = setFftSize(v)
+class AudioEffectPitchShift extends AudioEffect {
+    def pitchScale: Float = getPitchScale()
+    def pitchScale_=(v: Float): Unit = setPitchScale(v)
+    def oversampling: Int = getOversampling()
+    def oversampling_=(v: Int): Unit = setOversampling(v)
+    def fftSize: Int = getFftSize()
+    def fftSize_=(v: Int): Unit = setFftSize(v)
+}
 
 object AudioEffectPitchShift:
-    object Binds:
-        var setPitchScale: Ptr[Byte] = null
-        var getPitchScale: Ptr[Byte] = null
-        var setOversampling: Ptr[Byte] = null
-        var getOversampling: Ptr[Byte] = null
-        var setFftSize: Ptr[Byte] = null
-        var getFftSize: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPitchScale = GdxApi.getMethodBind(c"AudioEffectPitchShift", c"set_pitch_scale", 373806689L)
-            Binds.getPitchScale = GdxApi.getMethodBind(c"AudioEffectPitchShift", c"get_pitch_scale", 1740695150L)
-            Binds.setOversampling = GdxApi.getMethodBind(c"AudioEffectPitchShift", c"set_oversampling", 1286410249L)
-            Binds.getOversampling = GdxApi.getMethodBind(c"AudioEffectPitchShift", c"get_oversampling", 3905245786L)
-            Binds.setFftSize = GdxApi.getMethodBind(c"AudioEffectPitchShift", c"set_fft_size", 2323518741L)
-            Binds.getFftSize = GdxApi.getMethodBind(c"AudioEffectPitchShift", c"get_fft_size", 2361246789L)
-
-    def apply(): AudioEffectPitchShift =
-        val obj = new AudioEffectPitchShift()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectPitchShift")
-        obj
+def apply(): AudioEffectPitchShift = {
+  val obj = new AudioEffectPitchShift()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectPitchShift")
+  obj
+}

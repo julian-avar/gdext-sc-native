@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeBlend2 extends AnimationNodeSync
-
-
-
+class AnimationNodeBlend2 extends AnimationNodeSync {}
 
 object AnimationNodeBlend2:
-    def apply(): AnimationNodeBlend2 =
-        val obj = new AnimationNodeBlend2()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeBlend2")
-        obj
+def apply(): AnimationNodeBlend2 = {
+  val obj = new AnimationNodeBlend2()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeBlend2")
+  obj
+}

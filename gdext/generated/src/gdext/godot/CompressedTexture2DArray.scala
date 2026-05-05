@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CompressedTexture2DArray extends CompressedTextureLayered
-
-
-
+class CompressedTexture2DArray extends CompressedTextureLayered {}
 
 object CompressedTexture2DArray:
-    def apply(): CompressedTexture2DArray =
-        val obj = new CompressedTexture2DArray()
-        obj.ptr = GdxApi.constructObject(c"CompressedTexture2DArray")
-        obj
+def apply(): CompressedTexture2DArray = {
+  val obj = new CompressedTexture2DArray()
+  obj.ptr = GdxApi.constructObject(c"CompressedTexture2DArray")
+  obj
+}

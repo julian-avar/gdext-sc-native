@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextServerExtension extends TextServer
+class TextServerExtension extends TextServer {
     def _hasFeature(feature: Int): Boolean = false
     def _getName(): CString = null
     def _getFeatures(): Long = 0
@@ -154,7 +154,7 @@ class TextServerExtension extends TextServer
     def _shapedTextSetDirection(shaped: RID, direction: Int): Unit = ()
     def _shapedTextGetDirection(shaped: RID): Int = null
     def _shapedTextGetInferredDirection(shaped: RID): Int = null
-    def _shapedTextSetBidiOverride(shaped: RID, `override`: Array): Unit = ()
+    def _shapedTextSetBidiOverride(shaped: RID, `override`: Ptr[Byte]): Unit = ()
     def _shapedTextSetCustomPunctuation(shaped: RID, punct: CString): Unit = ()
     def _shapedTextGetCustomPunctuation(shaped: RID): CString = null
     def _shapedTextSetCustomEllipsis(shaped: RID, char: Long): Unit = ()
@@ -205,7 +205,7 @@ class TextServerExtension extends TextServer
     def _shapedTextGetEllipsisGlyphCount(shaped: RID): Long = 0
     def _shapedTextGetEllipsisGlyphs(shaped: RID): Ptr[Byte] = null
     def _shapedTextOverrunTrimToWidth(shaped: RID, width: Double, trimFlags: Int): Unit = ()
-    def _shapedTextGetObjects(shaped: RID): Array = null
+    def _shapedTextGetObjects(shaped: RID): Ptr[Byte] = null
     def _shapedTextGetObjectRect(shaped: RID, key: Ptr[Byte]): Rect2 = null
     def _shapedTextGetObjectRange(shaped: RID, key: Ptr[Byte]): Vector2i = null
     def _shapedTextGetObjectGlyph(shaped: RID, key: Ptr[Byte]): Long = 0
@@ -242,13 +242,13 @@ class TextServerExtension extends TextServer
     def _stringToUpper(string: CString, language: CString): CString = null
     def _stringToLower(string: CString, language: CString): CString = null
     def _stringToTitle(string: CString, language: CString): CString = null
-    def _parseStructuredText(parserType: Int, args: Array, text: CString): Ptr[Byte] = null
+    def _parseStructuredText(parserType: Int, args: Ptr[Byte], text: CString): Ptr[Byte] = null
     def _cleanup(): Unit = ()
-
-
+}
 
 object TextServerExtension:
-    def apply(): TextServerExtension =
-        val obj = new TextServerExtension()
-        obj.ptr = GdxApi.constructObject(c"TextServerExtension")
-        obj
+def apply(): TextServerExtension = {
+  val obj = new TextServerExtension()
+  obj.ptr = GdxApi.constructObject(c"TextServerExtension")
+  obj
+}

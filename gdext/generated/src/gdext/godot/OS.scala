@@ -5,549 +5,587 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OS extends Object
-
-    def getEntropy(size: Int): PackedByteArray =
+class OS extends Object {
+    def getEntropy(size: Int): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getEntropy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def getSystemCaCertificates(): CString =
+    def getSystemCaCertificates(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getSystemCaCertificates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConnectedMidiInputs(): PackedStringArray =
+    def getConnectedMidiInputs(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getConnectedMidiInputs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def openMidiInputs(): Unit =
+    def openMidiInputs(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OS.Binds.openMidiInputs, ptr, _args, null)
+}
 
-    def closeMidiInputs(): Unit =
+    def closeMidiInputs(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OS.Binds.closeMidiInputs, ptr, _args, null)
+}
 
-    def alert(text: CString): Unit =
+    def alert(text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
+        _args(0) = text
         GdxApi.ptrcall(OS.Binds.alert, ptr, _args, null)
+}
 
-    def crash(message: CString): Unit =
+    def crash(message: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         GdxApi.ptrcall(OS.Binds.crash, ptr, _args, null)
+}
 
-    def setLowProcessorUsageMode(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OS.Binds.setLowProcessorUsageMode, ptr, _args, null)
-
-    def isInLowProcessorUsageMode(): Boolean =
+    def getProcessorCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OS.Binds.isInLowProcessorUsageMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLowProcessorUsageModeSleepUsec(usec: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = usec.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OS.Binds.setLowProcessorUsageModeSleepUsec, ptr, _args, null)
-
-    def getLowProcessorUsageModeSleepUsec(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OS.Binds.getLowProcessorUsageModeSleepUsec, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDeltaSmoothing(deltaSmoothingEnabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if deltaSmoothingEnabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OS.Binds.setDeltaSmoothing, ptr, _args, null)
-
-    def isDeltaSmoothingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OS.Binds.isDeltaSmoothingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getProcessorCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getProcessorCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getProcessorName(): CString =
+    def getProcessorName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getProcessorName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSystemFonts(): PackedStringArray =
+    def getSystemFonts(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getSystemFonts, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getSystemFontPath(fontName: CString): CString =
+    def getSystemFontPath(fontName: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = fontName.ptr
+        _args(0) = fontName
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getSystemFontPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSystemFontPathForText(fontName: CString, text: CString): PackedStringArray =
+    def getSystemFontPathForText(fontName: CString, text: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = fontName.ptr
-        _args(1) = text.ptr
+        _args(0) = fontName
+        _args(1) = text
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getSystemFontPathForText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getExecutablePath(): CString =
+    def getExecutablePath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getExecutablePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def readStringFromStdin(): CString =
+    def readStringFromStdin(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.readStringFromStdin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def readBufferFromStdin(): PackedByteArray =
+    def readBufferFromStdin(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.readBufferFromStdin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def getStdinType(): Int =
+    def getStdinType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getStdinType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getStdoutType(): Int =
+    def getStdoutType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getStdoutType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getStderrType(): Int =
+    def getStderrType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getStderrType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def execute(path: CString, arguments: PackedStringArray): Int =
+    def execute(path: CString, arguments: PackedStringArray): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
+        _args(0) = path
         _args(1) = arguments.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.execute, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def executeWithPipe(path: CString, arguments: PackedStringArray): Dictionary =
+    def executeWithPipe(path: CString, arguments: PackedStringArray): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
+        _args(0) = path
         _args(1) = arguments.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.executeWithPipe, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def createProcess(path: CString, arguments: PackedStringArray): Int =
+    def createProcess(path: CString, arguments: PackedStringArray): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
+        _args(0) = path
         _args(1) = arguments.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.createProcess, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createInstance(arguments: PackedStringArray): Int =
+    def createInstance(arguments: PackedStringArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = arguments.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.createInstance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def openWithProgram(programPath: CString, paths: PackedStringArray): Int =
+    def openWithProgram(programPath: CString, paths: PackedStringArray): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = programPath.ptr
+        _args(0) = programPath
         _args(1) = paths.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.openWithProgram, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def kill(pid: Int): Int =
+    def kill(pid: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pid.toLong
+        val _a0 = stackalloc[Long](); !_a0 = pid.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.kill, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shellOpen(uri: CString): Int =
+    def shellOpen(uri: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = uri.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = uri
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.shellOpen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shellShowInFileManager(fileOrDirPath: CString): Int =
+    def shellShowInFileManager(fileOrDirPath: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = fileOrDirPath.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = fileOrDirPath
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.shellShowInFileManager, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isProcessRunning(pid: Int): Boolean =
+    def isProcessRunning(pid: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pid.toLong
+        val _a0 = stackalloc[Long](); !_a0 = pid.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isProcessRunning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getProcessExitCode(pid: Int): Int =
+    def getProcessExitCode(pid: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pid.toLong
+        val _a0 = stackalloc[Long](); !_a0 = pid.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getProcessExitCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getProcessId(): Int =
+    def getProcessId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getProcessId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasEnvironment(variable: CString): Boolean =
+    def hasEnvironment(variable: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = variable.ptr
+        _args(0) = variable
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.hasEnvironment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getEnvironment(variable: CString): CString =
+    def getEnvironment(variable: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = variable.ptr
+        _args(0) = variable
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getEnvironment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setEnvironment(variable: CString, value: CString): Unit =
+    def setEnvironment(variable: CString, value: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = variable.ptr
-        _args(1) = value.ptr
+        _args(0) = variable
+        _args(1) = value
         GdxApi.ptrcall(OS.Binds.setEnvironment, ptr, _args, null)
+}
 
-    def unsetEnvironment(variable: CString): Unit =
+    def unsetEnvironment(variable: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = variable.ptr
+        _args(0) = variable
         GdxApi.ptrcall(OS.Binds.unsetEnvironment, ptr, _args, null)
+}
 
-    def getName(): CString =
+    def getName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDistributionName(): CString =
+    def getDistributionName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getDistributionName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVersion(): CString =
+    def getVersion(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVersionAlias(): CString =
+    def getVersionAlias(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getVersionAlias, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCmdlineArgs(): PackedStringArray =
+    def getCmdlineArgs(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getCmdlineArgs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getCmdlineUserArgs(): PackedStringArray =
+    def getCmdlineUserArgs(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getCmdlineUserArgs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getVideoAdapterDriverInfo(): PackedStringArray =
+    def getVideoAdapterDriverInfo(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getVideoAdapterDriverInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setRestartOnExit(restart: Boolean): Unit =
+    def setRestartOnExit(restart: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if restart then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OS.Binds.setRestartOnExit, ptr, _args, null)
+}
 
-    def isRestartOnExitSet(): Boolean =
+    def isRestartOnExitSet(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isRestartOnExitSet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getRestartOnExitArguments(): PackedStringArray =
+    def getRestartOnExitArguments(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getRestartOnExitArguments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def delayUsec(usec: Int): Unit =
+    def delayUsec(usec: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = usec.toLong
+        val _a0 = stackalloc[Long](); !_a0 = usec.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OS.Binds.delayUsec, ptr, _args, null)
+}
 
-    def delayMsec(msec: Int): Unit =
+    def delayMsec(msec: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = msec.toLong
+        val _a0 = stackalloc[Long](); !_a0 = msec.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OS.Binds.delayMsec, ptr, _args, null)
+}
 
-    def getLocale(): CString =
+    def getLocale(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getLocale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLocaleLanguage(): CString =
+    def getLocaleLanguage(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getLocaleLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getModelName(): CString =
+    def getModelName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getModelName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isUserfsPersistent(): Boolean =
+    def isUserfsPersistent(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isUserfsPersistent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isStdoutVerbose(): Boolean =
+    def isStdoutVerbose(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isStdoutVerbose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isDebugBuild(): Boolean =
+    def isDebugBuild(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isDebugBuild, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getStaticMemoryUsage(): Long =
+    def getStaticMemoryUsage(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getStaticMemoryUsage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getStaticMemoryPeakUsage(): Long =
+    def getStaticMemoryPeakUsage(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getStaticMemoryPeakUsage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMemoryInfo(): Dictionary =
+    def getMemoryInfo(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getMemoryInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def moveToTrash(path: CString): Int =
+    def moveToTrash(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.moveToTrash, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getUserDataDir(): CString =
+    def getUserDataDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getUserDataDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSystemDir(dir: Int): CString =
+    def getSystemDir(dir: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = dir.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dir.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getSystemDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConfigDir(): CString =
+    def getConfigDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getConfigDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDataDir(): CString =
+    def getDataDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getDataDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCacheDir(): CString =
+    def getCacheDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getCacheDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTempDir(): CString =
+    def getTempDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getTempDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getUniqueId(): CString =
+    def getUniqueId(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getUniqueId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getKeycodeString(code: Int): CString =
+    def getKeycodeString(code: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = code.ptr
+        val _a0 = stackalloc[Long](); !_a0 = code.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getKeycodeString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isKeycodeUnicode(code: Int): Boolean =
+    def isKeycodeUnicode(code: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = code.toLong
+        val _a0 = stackalloc[Long](); !_a0 = code.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isKeycodeUnicode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def findKeycodeFromString(string: CString): Int =
+    def findKeycodeFromString(string: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = string
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.findKeycodeFromString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setUseFileAccessSaveAndSwap(enabled: Boolean): Unit =
+    def setUseFileAccessSaveAndSwap(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OS.Binds.setUseFileAccessSaveAndSwap, ptr, _args, null)
+}
 
-    def setThreadName(name: CString): Int =
+    def setThreadName(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.setThreadName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getThreadCallerId(): Long =
+    def getThreadCallerId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getThreadCallerId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMainThreadId(): Long =
+    def getMainThreadId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OS.Binds.getMainThreadId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasFeature(tagName: CString): Boolean =
+    def hasFeature(tagName: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tagName.ptr
+        _args(0) = tagName
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.hasFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isSandboxed(): Boolean =
+    def isSandboxed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.isSandboxed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def requestPermission(name: CString): Boolean =
+    def requestPermission(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.requestPermission, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def requestPermissions(): Boolean =
+    def requestPermissions(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OS.Binds.requestPermissions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getGrantedPermissions(): PackedStringArray =
+    def getGrantedPermissions(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OS.Binds.getGrantedPermissions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def revokeGrantedPermissions(): Unit =
+    def revokeGrantedPermissions(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OS.Binds.revokeGrantedPermissions, ptr, _args, null)
+}
 
-    def addLogger(logger: Logger): Unit =
+    def addLogger(logger: Logger): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = logger.ptr
         GdxApi.ptrcall(OS.Binds.addLogger, ptr, _args, null)
+}
 
-    def removeLogger(logger: Logger): Unit =
+    def removeLogger(logger: Logger): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = logger.ptr
         GdxApi.ptrcall(OS.Binds.removeLogger, ptr, _args, null)
-    def lowProcessorUsageMode: Ptr[Byte] = isInLowProcessorUsageMode()
-    def lowProcessorUsageMode_=(v: Ptr[Byte]): Unit = setLowProcessorUsageMode(v)
-    def lowProcessorUsageModeSleepUsec: Ptr[Byte] = getLowProcessorUsageModeSleepUsec()
-    def lowProcessorUsageModeSleepUsec_=(v: Ptr[Byte]): Unit = setLowProcessorUsageModeSleepUsec(v)
-    def deltaSmoothing: Ptr[Byte] = isDeltaSmoothingEnabled()
-    def deltaSmoothing_=(v: Ptr[Byte]): Unit = setDeltaSmoothing(v)
+}
+
+    def lowProcessorUsageMode: Boolean = isInLowProcessorUsageMode()
+    def lowProcessorUsageMode_=(v: Boolean): Unit = setLowProcessorUsageMode(v)
+    def lowProcessorUsageModeSleepUsec: Int = getLowProcessorUsageModeSleepUsec()
+    def lowProcessorUsageModeSleepUsec_=(v: Int): Unit = setLowProcessorUsageModeSleepUsec(v)
+    def deltaSmoothing: Boolean = isDeltaSmoothingEnabled()
+    def deltaSmoothing_=(v: Boolean): Unit = setDeltaSmoothing(v)
+}
 
 object OS:
-    object Binds:
-        var getEntropy: Ptr[Byte] = null
+object Binds {
+          var getEntropy: Ptr[Byte] = null
         var getSystemCaCertificates: Ptr[Byte] = null
         var getConnectedMidiInputs: Ptr[Byte] = null
         var openMidiInputs: Ptr[Byte] = null
         var closeMidiInputs: Ptr[Byte] = null
         var alert: Ptr[Byte] = null
         var crash: Ptr[Byte] = null
-        var setLowProcessorUsageMode: Ptr[Byte] = null
-        var isInLowProcessorUsageMode: Ptr[Byte] = null
-        var setLowProcessorUsageModeSleepUsec: Ptr[Byte] = null
-        var getLowProcessorUsageModeSleepUsec: Ptr[Byte] = null
-        var setDeltaSmoothing: Ptr[Byte] = null
-        var isDeltaSmoothingEnabled: Ptr[Byte] = null
         var getProcessorCount: Ptr[Byte] = null
         var getProcessorName: Ptr[Byte] = null
         var getSystemFonts: Ptr[Byte] = null
@@ -619,20 +657,14 @@ object OS:
         var addLogger: Ptr[Byte] = null
         var removeLogger: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getEntropy = GdxApi.getMethodBind(c"OS", c"get_entropy", 47165747L)
+  def loadBinds(): Unit = {
+                Binds.getEntropy = GdxApi.getMethodBind(c"OS", c"get_entropy", 47165747L)
             Binds.getSystemCaCertificates = GdxApi.getMethodBind(c"OS", c"get_system_ca_certificates", 2841200299L)
             Binds.getConnectedMidiInputs = GdxApi.getMethodBind(c"OS", c"get_connected_midi_inputs", 2981934095L)
             Binds.openMidiInputs = GdxApi.getMethodBind(c"OS", c"open_midi_inputs", 3218959716L)
             Binds.closeMidiInputs = GdxApi.getMethodBind(c"OS", c"close_midi_inputs", 3218959716L)
             Binds.alert = GdxApi.getMethodBind(c"OS", c"alert", 1783970740L)
             Binds.crash = GdxApi.getMethodBind(c"OS", c"crash", 83702148L)
-            Binds.setLowProcessorUsageMode = GdxApi.getMethodBind(c"OS", c"set_low_processor_usage_mode", 2586408642L)
-            Binds.isInLowProcessorUsageMode = GdxApi.getMethodBind(c"OS", c"is_in_low_processor_usage_mode", 36873697L)
-            Binds.setLowProcessorUsageModeSleepUsec = GdxApi.getMethodBind(c"OS", c"set_low_processor_usage_mode_sleep_usec", 1286410249L)
-            Binds.getLowProcessorUsageModeSleepUsec = GdxApi.getMethodBind(c"OS", c"get_low_processor_usage_mode_sleep_usec", 3905245786L)
-            Binds.setDeltaSmoothing = GdxApi.getMethodBind(c"OS", c"set_delta_smoothing", 2586408642L)
-            Binds.isDeltaSmoothingEnabled = GdxApi.getMethodBind(c"OS", c"is_delta_smoothing_enabled", 36873697L)
             Binds.getProcessorCount = GdxApi.getMethodBind(c"OS", c"get_processor_count", 3905245786L)
             Binds.getProcessorName = GdxApi.getMethodBind(c"OS", c"get_processor_name", 201670096L)
             Binds.getSystemFonts = GdxApi.getMethodBind(c"OS", c"get_system_fonts", 1139954409L)
@@ -703,8 +735,11 @@ object OS:
             Binds.revokeGrantedPermissions = GdxApi.getMethodBind(c"OS", c"revoke_granted_permissions", 3218959716L)
             Binds.addLogger = GdxApi.getMethodBind(c"OS", c"add_logger", 4261188958L)
             Binds.removeLogger = GdxApi.getMethodBind(c"OS", c"remove_logger", 4261188958L)
+  }
+}
 
-    def apply(): OS =
-        val obj = new OS()
-        obj.ptr = GdxApi.constructObject(c"OS")
-        obj
+def apply(): OS = {
+  val obj = new OS()
+  obj.ptr = GdxApi.constructObject(c"OS")
+  obj
+}

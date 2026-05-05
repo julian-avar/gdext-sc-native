@@ -5,219 +5,245 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPlatform extends RefCounted
-
-    def getOsName(): CString =
+class EditorExportPlatform extends RefCounted {
+    def getOsName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getOsName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def createPreset(): EditorExportPreset =
+    def createPreset(): EditorExportPreset = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.createPreset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorExportPreset(!_ret)
+}
 
-    def findExportTemplate(templateFileName: CString): Dictionary =
+    def findExportTemplate(templateFileName: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = templateFileName.ptr
+        _args(0) = templateFileName
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.findExportTemplate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getCurrentPresets(): Array =
+    def getCurrentPresets(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getCurrentPresets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def savePack(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary =
+    def savePack(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
+        _args(2) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.savePack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def saveZip(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary =
+    def saveZip(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
+        _args(2) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.saveZip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def savePackPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary =
+    def savePackPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
+        _args(2) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.savePackPatch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def saveZipPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary =
+    def saveZipPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
+        _args(2) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.saveZipPatch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def genExportFlags(flags: Int): PackedStringArray =
+    def genExportFlags(flags: Int): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
+        val _a0 = stackalloc[Long](); !_a0 = flags.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.genExportFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def exportProjectFiles(preset: EditorExportPreset, debug: Boolean, saveCb: Callable): Int =
+    def exportProjectFiles(preset: EditorExportPreset, debug: Boolean, saveCb: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = saveCb.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.exportProjectFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def exportProject(preset: EditorExportPreset, debug: Boolean, path: CString): Int =
+    def exportProject(preset: EditorExportPreset, debug: Boolean, path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.exportProject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def exportPack(preset: EditorExportPreset, debug: Boolean, path: CString): Int =
+    def exportPack(preset: EditorExportPreset, debug: Boolean, path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.exportPack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def exportZip(preset: EditorExportPreset, debug: Boolean, path: CString): Int =
+    def exportZip(preset: EditorExportPreset, debug: Boolean, path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.exportZip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def exportPackPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Int =
+    def exportPackPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.exportPackPatch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def exportZipPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Int =
+    def exportZipPatch(preset: EditorExportPreset, debug: Boolean, path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.exportZipPatch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearMessages(): Unit =
+    def clearMessages(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorExportPlatform.Binds.clearMessages, ptr, _args, null)
+}
 
-    def addMessage(`type`: Int, category: CString, message: CString): Unit =
+    def addMessage(`type`: Int, category: CString, message: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = `type`.ptr
-        _args(1) = category.ptr
-        _args(2) = message.ptr
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = category
+        _args(2) = message
         GdxApi.ptrcall(EditorExportPlatform.Binds.addMessage, ptr, _args, null)
+}
 
-    def getMessageCount(): Int =
+    def getMessageCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getMessageCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getMessageType(index: Int): Int =
+    def getMessageType(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getMessageType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getMessageCategory(index: Int): CString =
+    def getMessageCategory(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getMessageCategory, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMessageText(index: Int): CString =
+    def getMessageText(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getMessageText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getWorstMessageType(): Int =
+    def getWorstMessageType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getWorstMessageType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def sshRunOnRemote(host: CString, port: CString, sshArg: PackedStringArray, cmdArgs: CString): Int =
+    def sshRunOnRemote(host: CString, port: CString, sshArg: PackedStringArray, cmdArgs: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = host.ptr
-        _args(1) = port.ptr
+        _args(0) = host
+        _args(1) = port
         _args(2) = sshArg.ptr
-        _args(3) = cmdArgs.ptr
-        val _ret = stackalloc[CLong]()
+        _args(3) = cmdArgs
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.sshRunOnRemote, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def sshRunOnRemoteNoWait(host: CString, port: CString, sshArgs: PackedStringArray, cmdArgs: CString): Long =
+    def sshRunOnRemoteNoWait(host: CString, port: CString, sshArgs: PackedStringArray, cmdArgs: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = host.ptr
-        _args(1) = port.ptr
+        _args(0) = host
+        _args(1) = port
         _args(2) = sshArgs.ptr
-        _args(3) = cmdArgs.ptr
-        val _ret = stackalloc[CLong]()
+        _args(3) = cmdArgs
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.sshRunOnRemoteNoWait, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def sshPushToRemote(host: CString, port: CString, scpArgs: PackedStringArray, srcFile: CString, dstFile: CString): Int =
+    def sshPushToRemote(host: CString, port: CString, scpArgs: PackedStringArray, srcFile: CString, dstFile: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = host.ptr
-        _args(1) = port.ptr
+        _args(0) = host
+        _args(1) = port
         _args(2) = scpArgs.ptr
-        _args(3) = srcFile.ptr
-        _args(4) = dstFile.ptr
-        val _ret = stackalloc[CLong]()
+        _args(3) = srcFile
+        _args(4) = dstFile
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.sshPushToRemote, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getInternalExportFiles(preset: EditorExportPreset, debug: Boolean): Dictionary =
+    def getInternalExportFiles(preset: EditorExportPreset, debug: Boolean): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = preset.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if debug then 1.toByte else 0.toByte
@@ -225,11 +251,12 @@ class EditorExportPlatform extends RefCounted
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatform.Binds.getInternalExportFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
-
+}
+}
 
 object EditorExportPlatform:
-    object Binds:
-        var getOsName: Ptr[Byte] = null
+object Binds {
+          var getOsName: Ptr[Byte] = null
         var createPreset: Ptr[Byte] = null
         var findExportTemplate: Ptr[Byte] = null
         var getCurrentPresets: Ptr[Byte] = null
@@ -256,8 +283,8 @@ object EditorExportPlatform:
         var sshPushToRemote: Ptr[Byte] = null
         var getInternalExportFiles: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getOsName = GdxApi.getMethodBind(c"EditorExportPlatform", c"get_os_name", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getOsName = GdxApi.getMethodBind(c"EditorExportPlatform", c"get_os_name", 201670096L)
             Binds.createPreset = GdxApi.getMethodBind(c"EditorExportPlatform", c"create_preset", 2572397818L)
             Binds.findExportTemplate = GdxApi.getMethodBind(c"EditorExportPlatform", c"find_export_template", 2248993622L)
             Binds.getCurrentPresets = GdxApi.getMethodBind(c"EditorExportPlatform", c"get_current_presets", 3995934104L)
@@ -283,3 +310,5 @@ object EditorExportPlatform:
             Binds.sshRunOnRemoteNoWait = GdxApi.getMethodBind(c"EditorExportPlatform", c"ssh_run_on_remote_no_wait", 3606362233L)
             Binds.sshPushToRemote = GdxApi.getMethodBind(c"EditorExportPlatform", c"ssh_push_to_remote", 218756989L)
             Binds.getInternalExportFiles = GdxApi.getMethodBind(c"EditorExportPlatform", c"get_internal_export_files", 89550086L)
+  }
+}

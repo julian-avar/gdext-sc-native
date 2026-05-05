@@ -5,58 +5,24 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDShaderSource extends RefCounted
-
-    def setStageSource(stage: Int, source: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = stage.ptr
-        _args(1) = source.ptr
-        GdxApi.ptrcall(RDShaderSource.Binds.setStageSource, ptr, _args, null)
-
-    def getStageSource(stage: Int): CString =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stage.ptr
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDShaderSource.Binds.getStageSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setLanguage(language: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
-        GdxApi.ptrcall(RDShaderSource.Binds.setLanguage, ptr, _args, null)
-
-    def getLanguage(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDShaderSource.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def sourceVertex: Ptr[Byte] = getStageSource()
-    def sourceVertex_=(v: Ptr[Byte]): Unit = setStageSource(v)
-    def sourceFragment: Ptr[Byte] = getStageSource()
-    def sourceFragment_=(v: Ptr[Byte]): Unit = setStageSource(v)
-    def sourceTesselationControl: Ptr[Byte] = getStageSource()
-    def sourceTesselationControl_=(v: Ptr[Byte]): Unit = setStageSource(v)
-    def sourceTesselationEvaluation: Ptr[Byte] = getStageSource()
-    def sourceTesselationEvaluation_=(v: Ptr[Byte]): Unit = setStageSource(v)
-    def sourceCompute: Ptr[Byte] = getStageSource()
-    def sourceCompute_=(v: Ptr[Byte]): Unit = setStageSource(v)
-    def language: Ptr[Byte] = getLanguage()
-    def language_=(v: Ptr[Byte]): Unit = setLanguage(v)
+class RDShaderSource extends RefCounted {
+    def sourceVertex: CString = getStageSource()
+    def sourceVertex_=(v: Int): Unit = setStageSource(v)
+    def sourceFragment: CString = getStageSource()
+    def sourceFragment_=(v: Int): Unit = setStageSource(v)
+    def sourceTesselationControl: CString = getStageSource()
+    def sourceTesselationControl_=(v: Int): Unit = setStageSource(v)
+    def sourceTesselationEvaluation: CString = getStageSource()
+    def sourceTesselationEvaluation_=(v: Int): Unit = setStageSource(v)
+    def sourceCompute: CString = getStageSource()
+    def sourceCompute_=(v: Int): Unit = setStageSource(v)
+    def language: Int = getLanguage()
+    def language_=(v: Int): Unit = setLanguage(v)
+}
 
 object RDShaderSource:
-    object Binds:
-        var setStageSource: Ptr[Byte] = null
-        var getStageSource: Ptr[Byte] = null
-        var setLanguage: Ptr[Byte] = null
-        var getLanguage: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setStageSource = GdxApi.getMethodBind(c"RDShaderSource", c"set_stage_source", 620821314L)
-            Binds.getStageSource = GdxApi.getMethodBind(c"RDShaderSource", c"get_stage_source", 3354920045L)
-            Binds.setLanguage = GdxApi.getMethodBind(c"RDShaderSource", c"set_language", 3422186742L)
-            Binds.getLanguage = GdxApi.getMethodBind(c"RDShaderSource", c"get_language", 1063538261L)
-
-    def apply(): RDShaderSource =
-        val obj = new RDShaderSource()
-        obj.ptr = GdxApi.constructObject(c"RDShaderSource")
-        obj
+def apply(): RDShaderSource = {
+  val obj = new RDShaderSource()
+  obj.ptr = GdxApi.constructObject(c"RDShaderSource")
+  obj
+}

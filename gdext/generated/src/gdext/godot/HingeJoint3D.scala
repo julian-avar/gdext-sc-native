@@ -5,51 +5,61 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HingeJoint3D extends Joint3D
-
-    def setParam(param: Int, value: Float): Unit =
+class HingeJoint3D extends Joint3D {
+    def setParam(param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
+        val _a0 = stackalloc[Long](); !_a0 = param.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = value.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HingeJoint3D.Binds.setParam, ptr, _args, null)
+}
 
-    def getParam(param: Int): Float =
+    def getParam(param: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
+        val _a0 = stackalloc[Long](); !_a0 = param.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(HingeJoint3D.Binds.getParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setFlag(flag: Int, enabled: Boolean): Unit =
+    def setFlag(flag: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = flag.ptr
+        val _a0 = stackalloc[Long](); !_a0 = flag.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HingeJoint3D.Binds.setFlag, ptr, _args, null)
+}
 
-    def getFlag(flag: Int): Boolean =
+    def getFlag(flag: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flag.ptr
+        val _a0 = stackalloc[Long](); !_a0 = flag.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(HingeJoint3D.Binds.getFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object HingeJoint3D:
-    object Binds:
-        var setParam: Ptr[Byte] = null
+object Binds {
+          var setParam: Ptr[Byte] = null
         var getParam: Ptr[Byte] = null
         var setFlag: Ptr[Byte] = null
         var getFlag: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setParam = GdxApi.getMethodBind(c"HingeJoint3D", c"set_param", 3082977519L)
+  def loadBinds(): Unit = {
+                Binds.setParam = GdxApi.getMethodBind(c"HingeJoint3D", c"set_param", 3082977519L)
             Binds.getParam = GdxApi.getMethodBind(c"HingeJoint3D", c"get_param", 4066002676L)
             Binds.setFlag = GdxApi.getMethodBind(c"HingeJoint3D", c"set_flag", 1083494620L)
             Binds.getFlag = GdxApi.getMethodBind(c"HingeJoint3D", c"get_flag", 2841369610L)
+  }
+}
 
-    def apply(): HingeJoint3D =
-        val obj = new HingeJoint3D()
-        obj.ptr = GdxApi.constructObject(c"HingeJoint3D")
-        obj
+def apply(): HingeJoint3D = {
+  val obj = new HingeJoint3D()
+  obj.ptr = GdxApi.constructObject(c"HingeJoint3D")
+  obj
+}

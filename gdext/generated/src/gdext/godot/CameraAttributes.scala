@@ -5,104 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CameraAttributes extends Resource
-
-    def setExposureMultiplier(multiplier: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = multiplier.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributes.Binds.setExposureMultiplier, ptr, _args, null)
-
-    def getExposureMultiplier(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributes.Binds.getExposureMultiplier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setExposureSensitivity(sensitivity: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = sensitivity.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributes.Binds.setExposureSensitivity, ptr, _args, null)
-
-    def getExposureSensitivity(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributes.Binds.getExposureSensitivity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAutoExposureEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributes.Binds.setAutoExposureEnabled, ptr, _args, null)
-
-    def isAutoExposureEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CameraAttributes.Binds.isAutoExposureEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoExposureSpeed(exposureSpeed: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = exposureSpeed.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributes.Binds.setAutoExposureSpeed, ptr, _args, null)
-
-    def getAutoExposureSpeed(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributes.Binds.getAutoExposureSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAutoExposureScale(exposureGrey: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = exposureGrey.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributes.Binds.setAutoExposureScale, ptr, _args, null)
-
-    def getAutoExposureScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributes.Binds.getAutoExposureScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def exposureSensitivity: Ptr[Byte] = getExposureSensitivity()
-    def exposureSensitivity_=(v: Ptr[Byte]): Unit = setExposureSensitivity(v)
-    def exposureMultiplier: Ptr[Byte] = getExposureMultiplier()
-    def exposureMultiplier_=(v: Ptr[Byte]): Unit = setExposureMultiplier(v)
-    def autoExposureEnabled: Ptr[Byte] = isAutoExposureEnabled()
-    def autoExposureEnabled_=(v: Ptr[Byte]): Unit = setAutoExposureEnabled(v)
-    def autoExposureScale: Ptr[Byte] = getAutoExposureScale()
-    def autoExposureScale_=(v: Ptr[Byte]): Unit = setAutoExposureScale(v)
-    def autoExposureSpeed: Ptr[Byte] = getAutoExposureSpeed()
-    def autoExposureSpeed_=(v: Ptr[Byte]): Unit = setAutoExposureSpeed(v)
+class CameraAttributes extends Resource {
+    def exposureSensitivity: Float = getExposureSensitivity()
+    def exposureSensitivity_=(v: Float): Unit = setExposureSensitivity(v)
+    def exposureMultiplier: Float = getExposureMultiplier()
+    def exposureMultiplier_=(v: Float): Unit = setExposureMultiplier(v)
+    def autoExposureEnabled: Boolean = isAutoExposureEnabled()
+    def autoExposureEnabled_=(v: Boolean): Unit = setAutoExposureEnabled(v)
+    def autoExposureScale: Float = getAutoExposureScale()
+    def autoExposureScale_=(v: Float): Unit = setAutoExposureScale(v)
+    def autoExposureSpeed: Float = getAutoExposureSpeed()
+    def autoExposureSpeed_=(v: Float): Unit = setAutoExposureSpeed(v)
+}
 
 object CameraAttributes:
-    object Binds:
-        var setExposureMultiplier: Ptr[Byte] = null
-        var getExposureMultiplier: Ptr[Byte] = null
-        var setExposureSensitivity: Ptr[Byte] = null
-        var getExposureSensitivity: Ptr[Byte] = null
-        var setAutoExposureEnabled: Ptr[Byte] = null
-        var isAutoExposureEnabled: Ptr[Byte] = null
-        var setAutoExposureSpeed: Ptr[Byte] = null
-        var getAutoExposureSpeed: Ptr[Byte] = null
-        var setAutoExposureScale: Ptr[Byte] = null
-        var getAutoExposureScale: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setExposureMultiplier = GdxApi.getMethodBind(c"CameraAttributes", c"set_exposure_multiplier", 373806689L)
-            Binds.getExposureMultiplier = GdxApi.getMethodBind(c"CameraAttributes", c"get_exposure_multiplier", 1740695150L)
-            Binds.setExposureSensitivity = GdxApi.getMethodBind(c"CameraAttributes", c"set_exposure_sensitivity", 373806689L)
-            Binds.getExposureSensitivity = GdxApi.getMethodBind(c"CameraAttributes", c"get_exposure_sensitivity", 1740695150L)
-            Binds.setAutoExposureEnabled = GdxApi.getMethodBind(c"CameraAttributes", c"set_auto_exposure_enabled", 2586408642L)
-            Binds.isAutoExposureEnabled = GdxApi.getMethodBind(c"CameraAttributes", c"is_auto_exposure_enabled", 36873697L)
-            Binds.setAutoExposureSpeed = GdxApi.getMethodBind(c"CameraAttributes", c"set_auto_exposure_speed", 373806689L)
-            Binds.getAutoExposureSpeed = GdxApi.getMethodBind(c"CameraAttributes", c"get_auto_exposure_speed", 1740695150L)
-            Binds.setAutoExposureScale = GdxApi.getMethodBind(c"CameraAttributes", c"set_auto_exposure_scale", 373806689L)
-            Binds.getAutoExposureScale = GdxApi.getMethodBind(c"CameraAttributes", c"get_auto_exposure_scale", 1740695150L)
-
-    def apply(): CameraAttributes =
-        val obj = new CameraAttributes()
-        obj.ptr = GdxApi.constructObject(c"CameraAttributes")
-        obj
+def apply(): CameraAttributes = {
+  val obj = new CameraAttributes()
+  obj.ptr = GdxApi.constructObject(c"CameraAttributes")
+  obj
+}

@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FBXState extends GLTFState
-
-    def getAllowGeometryHelperNodes(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FBXState.Binds.getAllowGeometryHelperNodes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAllowGeometryHelperNodes(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FBXState.Binds.setAllowGeometryHelperNodes, ptr, _args, null)
-    def allowGeometryHelperNodes: Ptr[Byte] = getAllowGeometryHelperNodes()
-    def allowGeometryHelperNodes_=(v: Ptr[Byte]): Unit = setAllowGeometryHelperNodes(v)
+class FBXState extends GLTFState {
+    def allowGeometryHelperNodes: Boolean = getAllowGeometryHelperNodes()
+    def allowGeometryHelperNodes_=(v: Boolean): Unit = setAllowGeometryHelperNodes(v)
+}
 
 object FBXState:
-    object Binds:
-        var getAllowGeometryHelperNodes: Ptr[Byte] = null
-        var setAllowGeometryHelperNodes: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getAllowGeometryHelperNodes = GdxApi.getMethodBind(c"FBXState", c"get_allow_geometry_helper_nodes", 2240911060L)
-            Binds.setAllowGeometryHelperNodes = GdxApi.getMethodBind(c"FBXState", c"set_allow_geometry_helper_nodes", 2586408642L)
-
-    def apply(): FBXState =
-        val obj = new FBXState()
-        obj.ptr = GdxApi.constructObject(c"FBXState")
-        obj
+def apply(): FBXState = {
+  val obj = new FBXState()
+  obj.ptr = GdxApi.constructObject(c"FBXState")
+  obj
+}

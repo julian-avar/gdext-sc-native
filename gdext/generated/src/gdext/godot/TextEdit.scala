@@ -5,1739 +5,1312 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextEdit extends Control
+class TextEdit extends Control {
     def _handleUnicodeInput(unicodeChar: Int, caretIndex: Int): Unit = ()
     def _backspace(caretIndex: Int): Unit = ()
     def _cut(caretIndex: Int): Unit = ()
     def _copy(caretIndex: Int): Unit = ()
     def _paste(caretIndex: Int): Unit = ()
     def _pastePrimaryClipboard(caretIndex: Int): Unit = ()
-    def hasImeText(): Boolean =
+
+    def hasImeText(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.hasImeText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def cancelIme(): Unit =
+    def cancelIme(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.cancelIme, ptr, _args, null)
+}
 
-    def applyIme(): Unit =
+    def applyIme(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.applyIme, ptr, _args, null)
+}
 
-    def setEditable(enabled: Boolean): Unit =
+    def setTabSize(size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setEditable, ptr, _args, null)
-
-    def isEditable(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isEditable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTextDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setTextDirection, ptr, _args, null)
-
-    def getTextDirection(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLanguage(language: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setLanguage, ptr, _args, null)
-
-    def getLanguage(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextEdit.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setStructuredTextBidiOverride(parser: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = parser.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setStructuredTextBidiOverride, ptr, _args, null)
-
-    def getStructuredTextBidiOverride(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getStructuredTextBidiOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStructuredTextBidiOverrideOptions(args: Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = args.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setStructuredTextBidiOverrideOptions, ptr, _args, null)
-
-    def getStructuredTextBidiOverrideOptions(): Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextEdit.Binds.getStructuredTextBidiOverrideOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTabSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setTabSize, ptr, _args, null)
+}
 
-    def getTabSize(): Int =
+    def getTabSize(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getTabSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setIndentWrappedLines(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setIndentWrappedLines, ptr, _args, null)
-
-    def isIndentWrappedLines(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isIndentWrappedLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTabInputMode(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setTabInputMode, ptr, _args, null)
-
-    def getTabInputMode(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.getTabInputMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOvertypeModeEnabled(enabled: Boolean): Unit =
+    def setOvertypeModeEnabled(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setOvertypeModeEnabled, ptr, _args, null)
+}
 
-    def isOvertypeModeEnabled(): Boolean =
+    def isOvertypeModeEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isOvertypeModeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setContextMenuEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setContextMenuEnabled, ptr, _args, null)
-
-    def isContextMenuEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isContextMenuEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEmojiMenuEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setEmojiMenuEnabled, ptr, _args, null)
-
-    def isEmojiMenuEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isEmojiMenuEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setBackspaceDeletesCompositeCharacterEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setBackspaceDeletesCompositeCharacterEnabled, ptr, _args, null)
-
-    def isBackspaceDeletesCompositeCharacterEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isBackspaceDeletesCompositeCharacterEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShortcutKeysEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setShortcutKeysEnabled, ptr, _args, null)
-
-    def isShortcutKeysEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isShortcutKeysEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setVirtualKeyboardEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setVirtualKeyboardEnabled, ptr, _args, null)
-
-    def isVirtualKeyboardEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isVirtualKeyboardEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setVirtualKeyboardShowOnFocus(showOnFocus: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if showOnFocus then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setVirtualKeyboardShowOnFocus, ptr, _args, null)
-
-    def getVirtualKeyboardShowOnFocus(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.getVirtualKeyboardShowOnFocus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMiddleMousePasteEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setMiddleMousePasteEnabled, ptr, _args, null)
-
-    def isMiddleMousePasteEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isMiddleMousePasteEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEmptySelectionClipboardEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setEmptySelectionClipboardEnabled, ptr, _args, null)
-
-    def isEmptySelectionClipboardEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isEmptySelectionClipboardEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.clear, ptr, _args, null)
+}
 
-    def setText(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setText, ptr, _args, null)
-
-    def getText(): CString =
+    def getLineCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextEdit.Binds.getText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getLineCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setPlaceholder(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setPlaceholder, ptr, _args, null)
-
-    def getPlaceholder(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextEdit.Binds.getPlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setLine(line: Int, newText: CString): Unit =
+    def setLine(line: Int, newText: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = newText.ptr
+        _args(1) = newText
         GdxApi.ptrcall(TextEdit.Binds.setLine, ptr, _args, null)
+}
 
-    def getLine(line: Int): CString =
+    def getLine(line: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLineWithIme(line: Int): CString =
+    def getLineWithIme(line: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineWithIme, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLineWidth(line: Int): Int =
+    def getLineWidth(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLineWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineHeight(): Int =
+    def getLineHeight(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLineHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getIndentLevel(line: Int): Int =
+    def getIndentLevel(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getIndentLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFirstNonWhitespaceColumn(line: Int): Int =
+    def getFirstNonWhitespaceColumn(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getFirstNonWhitespaceColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def swapLines(fromLine: Int, toLine: Int): Unit =
+    def swapLines(fromLine: Int, toLine: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromLine.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromLine.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toLine.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toLine.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.swapLines, ptr, _args, null)
+}
 
-    def insertLineAt(line: Int, text: CString): Unit =
+    def insertLineAt(line: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = text.ptr
+        _args(1) = text
         GdxApi.ptrcall(TextEdit.Binds.insertLineAt, ptr, _args, null)
+}
 
-    def removeLineAt(line: Int): Unit =
+    def removeLineAt(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.removeLineAt, ptr, _args, null)
+}
 
-    def insertTextAtCaret(text: CString): Unit =
+    def insertTextAtCaret(text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
+        _args(0) = text
         GdxApi.ptrcall(TextEdit.Binds.insertTextAtCaret, ptr, _args, null)
+}
 
-    def insertText(text: CString, line: Int, column: Int): Unit =
+    def insertText(text: CString, line: Int, column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = text.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = line.toLong
+        _args(0) = text
+        val _a1 = stackalloc[Long](); !_a1 = line.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = column.toLong
+        val _a2 = stackalloc[Long](); !_a2 = column.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.insertText, ptr, _args, null)
+}
 
-    def removeText(fromLine: Int, fromColumn: Int, toLine: Int, toColumn: Int): Unit =
+    def removeText(fromLine: Int, fromColumn: Int, toLine: Int, toColumn: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = fromLine.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromLine.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = fromColumn.toLong
+        val _a1 = stackalloc[Long](); !_a1 = fromColumn.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = toLine.toLong
+        val _a2 = stackalloc[Long](); !_a2 = toLine.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toColumn.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toColumn.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.removeText, ptr, _args, null)
+}
 
-    def getLastUnhiddenLine(): Int =
+    def getLastUnhiddenLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLastUnhiddenLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNextVisibleLineOffsetFrom(line: Int, visibleAmount: Int): Int =
+    def getNextVisibleLineOffsetFrom(line: Int, visibleAmount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = visibleAmount.toLong
+        val _a1 = stackalloc[Long](); !_a1 = visibleAmount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getNextVisibleLineOffsetFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNextVisibleLineIndexOffsetFrom(line: Int, wrapIndex: Int, visibleAmount: Int): Vector2i =
+    def getNextVisibleLineIndexOffsetFrom(line: Int, wrapIndex: Int, visibleAmount: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = wrapIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = wrapIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = visibleAmount.toLong
+        val _a2 = stackalloc[Long](); !_a2 = visibleAmount.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getNextVisibleLineIndexOffsetFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def backspace(): Unit =
+    def backspace(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.backspace, ptr, _args, null)
+}
 
-    def cut(): Unit =
+    def cut(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.cut, ptr, _args, null)
+}
 
-    def copy(): Unit =
+    def copy(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.copy, ptr, _args, null)
+}
 
-    def paste(): Unit =
+    def paste(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.paste, ptr, _args, null)
+}
 
-    def pastePrimaryClipboard(): Unit =
+    def pastePrimaryClipboard(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.pastePrimaryClipboard, ptr, _args, null)
+}
 
-    def startAction(action: Int): Unit =
+    def startAction(action: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        val _a0 = stackalloc[Long](); !_a0 = action.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.startAction, ptr, _args, null)
+}
 
-    def endAction(): Unit =
+    def endAction(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.endAction, ptr, _args, null)
+}
 
-    def beginComplexOperation(): Unit =
+    def beginComplexOperation(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.beginComplexOperation, ptr, _args, null)
+}
 
-    def endComplexOperation(): Unit =
+    def endComplexOperation(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.endComplexOperation, ptr, _args, null)
+}
 
-    def hasUndo(): Boolean =
+    def hasUndo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.hasUndo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasRedo(): Boolean =
+    def hasRedo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.hasRedo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def undo(): Unit =
+    def undo(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.undo, ptr, _args, null)
+}
 
-    def redo(): Unit =
+    def redo(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.redo, ptr, _args, null)
+}
 
-    def clearUndoHistory(): Unit =
+    def clearUndoHistory(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.clearUndoHistory, ptr, _args, null)
+}
 
-    def tagSavedVersion(): Unit =
+    def tagSavedVersion(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.tagSavedVersion, ptr, _args, null)
+}
 
-    def getVersion(): Int =
+    def getVersion(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSavedVersion(): Int =
+    def getSavedVersion(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSavedVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSearchText(searchText: CString): Unit =
+    def setSearchText(searchText: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = searchText.ptr
+        _args(0) = searchText
         GdxApi.ptrcall(TextEdit.Binds.setSearchText, ptr, _args, null)
+}
 
-    def setSearchFlags(flags: Int): Unit =
+    def setSearchFlags(flags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = flags.toLong
+        val _a0 = stackalloc[Long](); !_a0 = flags.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setSearchFlags, ptr, _args, null)
+}
 
-    def search(text: CString, flags: Int, fromLine: Int, fromColumn: Int): Vector2i =
+    def search(text: CString, flags: Int, fromLine: Int, fromColumn: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = text.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = flags.toLong
+        _args(0) = text
+        val _a1 = stackalloc[Long](); !_a1 = flags.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromLine.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromLine.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = fromColumn.toLong
+        val _a3 = stackalloc[Long](); !_a3 = fromColumn.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.search, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def setTooltipRequestFunc(callback: Callable): Unit =
+    def setTooltipRequestFunc(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(TextEdit.Binds.setTooltipRequestFunc, ptr, _args, null)
+}
 
-    def getLocalMousePos(): Vector2 =
+    def getLocalMousePos(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLocalMousePos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getWordAtPos(position: Vector2): CString =
+    def getWordAtPos(position: Vector2): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getWordAtPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLineColumnAtPos(position: Vector2i): Vector2i =
+    def getLineColumnAtPos(position: Vector2i): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineColumnAtPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getPosAtLineColumn(line: Int, column: Int): Vector2i =
+    def getPosAtLineColumn(line: Int, column: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getPosAtLineColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getRectAtLineColumn(line: Int, column: Int): Rect2i =
+    def getRectAtLineColumn(line: Int, column: Int): Rect2i = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getRectAtLineColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def getMinimapLineAtPos(position: Vector2i): Int =
+    def getMinimapLineAtPos(position: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getMinimapLineAtPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isDraggingCursor(): Boolean =
+    def isDraggingCursor(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isDraggingCursor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isMouseOverSelection(edges: Boolean): Boolean =
+    def isMouseOverSelection(edges: Boolean): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if edges then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isMouseOverSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCaretType(`type`: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setCaretType, ptr, _args, null)
-
-    def getCaretType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getCaretType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCaretBlinkEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setCaretBlinkEnabled, ptr, _args, null)
-
-    def isCaretBlinkEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isCaretBlinkEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCaretBlinkInterval(interval: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = interval.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setCaretBlinkInterval, ptr, _args, null)
-
-    def getCaretBlinkInterval(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(TextEdit.Binds.getCaretBlinkInterval, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDrawCaretWhenEditableDisabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDrawCaretWhenEditableDisabled, ptr, _args, null)
-
-    def isDrawingCaretWhenEditableDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDrawingCaretWhenEditableDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMoveCaretOnRightClickEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setMoveCaretOnRightClickEnabled, ptr, _args, null)
-
-    def isMoveCaretOnRightClickEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isMoveCaretOnRightClickEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCaretMidGraphemeEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setCaretMidGraphemeEnabled, ptr, _args, null)
-
-    def isCaretMidGraphemeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isCaretMidGraphemeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMultipleCaretsEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setMultipleCaretsEnabled, ptr, _args, null)
-
-    def isMultipleCaretsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isMultipleCaretsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def addCaret(line: Int, column: Int): Int =
+    def addCaret(line: Int, column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.addCaret, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeCaret(caret: Int): Unit =
+    def removeCaret(caret: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = caret.toLong
+        val _a0 = stackalloc[Long](); !_a0 = caret.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.removeCaret, ptr, _args, null)
+}
 
-    def removeSecondaryCarets(): Unit =
+    def removeSecondaryCarets(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.removeSecondaryCarets, ptr, _args, null)
+}
 
-    def getCaretCount(): Int =
+    def getCaretCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getCaretCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addCaretAtCarets(below: Boolean): Unit =
+    def addCaretAtCarets(below: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if below then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.addCaretAtCarets, ptr, _args, null)
+}
 
-    def getSortedCarets(): PackedInt32Array =
+    def getSortedCarets(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getSortedCarets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def collapseCarets(fromLine: Int, fromColumn: Int, toLine: Int, toColumn: Int): Unit =
+    def collapseCarets(fromLine: Int, fromColumn: Int, toLine: Int, toColumn: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = fromLine.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromLine.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = fromColumn.toLong
+        val _a1 = stackalloc[Long](); !_a1 = fromColumn.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = toLine.toLong
+        val _a2 = stackalloc[Long](); !_a2 = toLine.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toColumn.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toColumn.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.collapseCarets, ptr, _args, null)
+}
 
-    def mergeOverlappingCarets(): Unit =
+    def mergeOverlappingCarets(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.mergeOverlappingCarets, ptr, _args, null)
+}
 
-    def beginMulticaretEdit(): Unit =
+    def beginMulticaretEdit(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.beginMulticaretEdit, ptr, _args, null)
+}
 
-    def endMulticaretEdit(): Unit =
+    def endMulticaretEdit(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.endMulticaretEdit, ptr, _args, null)
+}
 
-    def isInMulitcaretEdit(): Boolean =
+    def isInMulitcaretEdit(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isInMulitcaretEdit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def multicaretEditIgnoreCaret(caretIndex: Int): Boolean =
+    def multicaretEditIgnoreCaret(caretIndex: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = caretIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = caretIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.multicaretEditIgnoreCaret, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isCaretVisible(): Boolean =
+    def isCaretVisible(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isCaretVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCaretDrawPos(): Vector2 =
+    def getCaretDrawPos(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getCaretDrawPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setCaretLine(line: Int): Unit =
+    def setCaretLine(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setCaretLine, ptr, _args, null)
+}
 
-    def getCaretLine(): Int =
+    def getCaretLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getCaretLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCaretColumn(column: Int): Unit =
+    def setCaretColumn(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setCaretColumn, ptr, _args, null)
+}
 
-    def getCaretColumn(): Int =
+    def getCaretColumn(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getCaretColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNextCompositeCharacterColumn(line: Int, column: Int): Int =
+    def getNextCompositeCharacterColumn(line: Int, column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getNextCompositeCharacterColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPreviousCompositeCharacterColumn(line: Int, column: Int): Int =
+    def getPreviousCompositeCharacterColumn(line: Int, column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getPreviousCompositeCharacterColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCaretWrapIndex(): Int =
+    def getCaretWrapIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getCaretWrapIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getWordUnderCaret(): CString =
+    def getWordUnderCaret(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getWordUnderCaret, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setUseDefaultWordSeparators(enabled: Boolean): Unit =
+    def setSelectionMode(mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setUseDefaultWordSeparators, ptr, _args, null)
-
-    def isDefaultWordSeparatorsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDefaultWordSeparatorsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseCustomWordSeparators(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setUseCustomWordSeparators, ptr, _args, null)
-
-    def isCustomWordSeparatorsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isCustomWordSeparatorsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCustomWordSeparators(customWordSeparators: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = customWordSeparators.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setCustomWordSeparators, ptr, _args, null)
-
-    def getCustomWordSeparators(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextEdit.Binds.getCustomWordSeparators, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setSelectingEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setSelectingEnabled, ptr, _args, null)
-
-    def isSelectingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isSelectingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDeselectOnFocusLossEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDeselectOnFocusLossEnabled, ptr, _args, null)
-
-    def isDeselectOnFocusLossEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDeselectOnFocusLossEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDragAndDropSelectionEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDragAndDropSelectionEnabled, ptr, _args, null)
-
-    def isDragAndDropSelectionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDragAndDropSelectionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSelectionMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
         GdxApi.ptrcall(TextEdit.Binds.setSelectionMode, ptr, _args, null)
+}
 
-    def getSelectionMode(): Int =
+    def getSelectionMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def selectAll(): Unit =
+    def selectAll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.selectAll, ptr, _args, null)
+}
 
-    def selectWordUnderCaret(): Unit =
+    def selectWordUnderCaret(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.selectWordUnderCaret, ptr, _args, null)
+}
 
-    def addSelectionForNextOccurrence(): Unit =
+    def addSelectionForNextOccurrence(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.addSelectionForNextOccurrence, ptr, _args, null)
+}
 
-    def skipSelectionForNextOccurrence(): Unit =
+    def skipSelectionForNextOccurrence(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.skipSelectionForNextOccurrence, ptr, _args, null)
+}
 
-    def select(originLine: Int, originColumn: Int, caretLine: Int, caretColumn: Int): Unit =
+    def select(originLine: Int, originColumn: Int, caretLine: Int, caretColumn: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = originLine.toLong
+        val _a0 = stackalloc[Long](); !_a0 = originLine.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = originColumn.toLong
+        val _a1 = stackalloc[Long](); !_a1 = originColumn.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = caretLine.toLong
+        val _a2 = stackalloc[Long](); !_a2 = caretLine.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = caretColumn.toLong
+        val _a3 = stackalloc[Long](); !_a3 = caretColumn.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.select, ptr, _args, null)
+}
 
-    def hasSelection(): Boolean =
+    def hasSelection(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.hasSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSelectedText(): CString =
+    def getSelectedText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectedText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSelectionAtLineColumn(line: Int, column: Int): Int =
+    def getSelectionAtLineColumn(line: Int, column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionAtLineColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineRangesFromCarets(): Ptr[Byte] =
+    def getLineRangesFromCarets(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineRangesFromCarets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSelectionOriginLine(): Int =
+    def getSelectionOriginLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionOriginLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionOriginColumn(): Int =
+    def getSelectionOriginColumn(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionOriginColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSelectionOriginLine(line: Int): Unit =
+    def setSelectionOriginLine(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setSelectionOriginLine, ptr, _args, null)
+}
 
-    def setSelectionOriginColumn(column: Int): Unit =
+    def setSelectionOriginColumn(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setSelectionOriginColumn, ptr, _args, null)
+}
 
-    def getSelectionFromLine(): Int =
+    def getSelectionFromLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionFromLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionFromColumn(): Int =
+    def getSelectionFromColumn(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionFromColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionToLine(): Int =
+    def getSelectionToLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionToLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionToColumn(): Int =
+    def getSelectionToColumn(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionToColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isCaretAfterSelectionOrigin(): Boolean =
+    def isCaretAfterSelectionOrigin(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isCaretAfterSelectionOrigin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def deselect(): Unit =
+    def deselect(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.deselect, ptr, _args, null)
+}
 
-    def deleteSelection(): Unit =
+    def deleteSelection(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.deleteSelection, ptr, _args, null)
+}
 
-    def setLineWrappingMode(mode: Int): Unit =
+    def isLineWrapped(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setLineWrappingMode, ptr, _args, null)
-
-    def getLineWrappingMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getLineWrappingMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAutowrapMode(autowrapMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = autowrapMode.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setAutowrapMode, ptr, _args, null)
-
-    def getAutowrapMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getAutowrapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def isLineWrapped(line: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isLineWrapped, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getLineWrapCount(line: Int): Int =
+    def getLineWrapCount(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLineWrapCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineWrapIndexAtColumn(line: Int, column: Int): Int =
+    def getLineWrapIndexAtColumn(line: Int, column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLineWrapIndexAtColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineWrappedText(line: Int): PackedStringArray =
+    def getLineWrappedText(line: Int): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineWrappedText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setSmoothScrollEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setSmoothScrollEnabled, ptr, _args, null)
-
-    def isSmoothScrollEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isSmoothScrollEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getVScrollBar(): VScrollBar =
+    def getVScrollBar(): VScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getVScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VScrollBar(!_ret)
+}
 
-    def getHScrollBar(): HScrollBar =
+    def getHScrollBar(): HScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getHScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new HScrollBar(!_ret)
+}
 
-    def setVScroll(value: Double): Unit =
+    def getScrollPosForLine(line: Int): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setVScroll, ptr, _args, null)
-
-    def getVScroll(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(TextEdit.Binds.getVScroll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setHScroll(value: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setHScroll, ptr, _args, null)
-
-    def getHScroll(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getHScroll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setScrollPastEndOfFileEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setScrollPastEndOfFileEnabled, ptr, _args, null)
-
-    def isScrollPastEndOfFileEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isScrollPastEndOfFileEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setVScrollSpeed(speed: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = speed.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setVScrollSpeed, ptr, _args, null)
-
-    def getVScrollSpeed(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(TextEdit.Binds.getVScrollSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFitContentHeightEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setFitContentHeightEnabled, ptr, _args, null)
-
-    def isFitContentHeightEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isFitContentHeightEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFitContentWidthEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setFitContentWidthEnabled, ptr, _args, null)
-
-    def isFitContentWidthEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isFitContentWidthEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getScrollPosForLine(line: Int): Double =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextEdit.Binds.getScrollPosForLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setLineAsFirstVisible(line: Int): Unit =
+    def setLineAsFirstVisible(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setLineAsFirstVisible, ptr, _args, null)
+}
 
-    def getFirstVisibleLine(): Int =
+    def getFirstVisibleLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getFirstVisibleLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setLineAsCenterVisible(line: Int): Unit =
+    def setLineAsCenterVisible(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setLineAsCenterVisible, ptr, _args, null)
+}
 
-    def setLineAsLastVisible(line: Int): Unit =
+    def setLineAsLastVisible(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setLineAsLastVisible, ptr, _args, null)
+}
 
-    def getLastFullVisibleLine(): Int =
+    def getLastFullVisibleLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLastFullVisibleLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLastFullVisibleLineWrapIndex(): Int =
+    def getLastFullVisibleLineWrapIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getLastFullVisibleLineWrapIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVisibleLineCount(): Int =
+    def getVisibleLineCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getVisibleLineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVisibleLineCountInRange(fromLine: Int, toLine: Int): Int =
+    def getVisibleLineCountInRange(fromLine: Int, toLine: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromLine.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromLine.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toLine.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toLine.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getVisibleLineCountInRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTotalVisibleLineCount(): Int =
+    def getTotalVisibleLineCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getTotalVisibleLineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def adjustViewportToCaret(): Unit =
+    def adjustViewportToCaret(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.adjustViewportToCaret, ptr, _args, null)
+}
 
-    def centerViewportToCaret(): Unit =
+    def centerViewportToCaret(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.centerViewportToCaret, ptr, _args, null)
+}
 
-    def setDrawMinimap(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDrawMinimap, ptr, _args, null)
-
-    def isDrawingMinimap(): Boolean =
+    def getMinimapVisibleLines(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDrawingMinimap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMinimapWidth(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setMinimapWidth, ptr, _args, null)
-
-    def getMinimapWidth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextEdit.Binds.getMinimapWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getMinimapVisibleLines(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getMinimapVisibleLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addGutter(): Unit =
+    def addGutter(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextEdit.Binds.addGutter, ptr, _args, null)
+}
 
-    def removeGutter(gutter: Int): Unit =
+    def removeGutter(gutter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.removeGutter, ptr, _args, null)
+}
 
-    def getGutterCount(): Int =
+    def getGutterCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getGutterCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setGutterName(gutter: Int, name: CString): Unit =
+    def setGutterName(gutter: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(TextEdit.Binds.setGutterName, ptr, _args, null)
+}
 
-    def getGutterName(gutter: Int): CString =
+    def getGutterName(gutter: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getGutterName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setGutterType(gutter: Int, `type`: Int): Unit =
+    def setGutterType(gutter: Int, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = `type`.ptr
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setGutterType, ptr, _args, null)
+}
 
-    def getGutterType(gutter: Int): Int =
+    def getGutterType(gutter: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getGutterType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setGutterWidth(gutter: Int, width: Int): Unit =
+    def setGutterWidth(gutter: Int, width: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
+        val _a1 = stackalloc[Long](); !_a1 = width.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setGutterWidth, ptr, _args, null)
+}
 
-    def getGutterWidth(gutter: Int): Int =
+    def getGutterWidth(gutter: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getGutterWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setGutterDraw(gutter: Int, draw: Boolean): Unit =
+    def setGutterDraw(gutter: Int, draw: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if draw then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setGutterDraw, ptr, _args, null)
+}
 
-    def isGutterDrawn(gutter: Int): Boolean =
+    def isGutterDrawn(gutter: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isGutterDrawn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setGutterClickable(gutter: Int, clickable: Boolean): Unit =
+    def setGutterClickable(gutter: Int, clickable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if clickable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setGutterClickable, ptr, _args, null)
+}
 
-    def isGutterClickable(gutter: Int): Boolean =
+    def isGutterClickable(gutter: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isGutterClickable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setGutterOverwritable(gutter: Int, overwritable: Boolean): Unit =
+    def setGutterOverwritable(gutter: Int, overwritable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if overwritable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setGutterOverwritable, ptr, _args, null)
+}
 
-    def isGutterOverwritable(gutter: Int): Boolean =
+    def isGutterOverwritable(gutter: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = gutter.toLong
+        val _a0 = stackalloc[Long](); !_a0 = gutter.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isGutterOverwritable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def mergeGutters(fromLine: Int, toLine: Int): Unit =
+    def mergeGutters(fromLine: Int, toLine: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromLine.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromLine.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toLine.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toLine.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.mergeGutters, ptr, _args, null)
+}
 
-    def setGutterCustomDraw(column: Int, drawCallback: Callable): Unit =
+    def setGutterCustomDraw(column: Int, drawCallback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = drawCallback.ptr
         GdxApi.ptrcall(TextEdit.Binds.setGutterCustomDraw, ptr, _args, null)
+}
 
-    def getTotalGutterWidth(): Int =
+    def getTotalGutterWidth(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getTotalGutterWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setLineGutterMetadata(line: Int, gutter: Int, metadata: Ptr[Byte]): Unit =
+    def setLineGutterMetadata(line: Int, gutter: Int, metadata: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = metadata.ptr
+        _args(2) = metadata
         GdxApi.ptrcall(TextEdit.Binds.setLineGutterMetadata, ptr, _args, null)
+}
 
-    def getLineGutterMetadata(line: Int, gutter: Int): Ptr[Byte] =
+    def getLineGutterMetadata(line: Int, gutter: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineGutterMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setLineGutterText(line: Int, gutter: Int, text: CString): Unit =
+    def setLineGutterText(line: Int, gutter: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(TextEdit.Binds.setLineGutterText, ptr, _args, null)
+}
 
-    def getLineGutterText(line: Int, gutter: Int): CString =
+    def getLineGutterText(line: Int, gutter: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineGutterText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setLineGutterIcon(line: Int, gutter: Int, icon: Texture2D): Unit =
+    def setLineGutterIcon(line: Int, gutter: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = icon.ptr
         GdxApi.ptrcall(TextEdit.Binds.setLineGutterIcon, ptr, _args, null)
+}
 
-    def getLineGutterIcon(line: Int, gutter: Int): Texture2D =
+    def getLineGutterIcon(line: Int, gutter: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineGutterIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setLineGutterItemColor(line: Int, gutter: Int, color: Color): Unit =
+    def setLineGutterItemColor(line: Int, gutter: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = color.ptr
         GdxApi.ptrcall(TextEdit.Binds.setLineGutterItemColor, ptr, _args, null)
+}
 
-    def getLineGutterItemColor(line: Int, gutter: Int): Color =
+    def getLineGutterItemColor(line: Int, gutter: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineGutterItemColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setLineGutterClickable(line: Int, gutter: Int, clickable: Boolean): Unit =
+    def setLineGutterClickable(line: Int, gutter: Int, clickable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if clickable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.setLineGutterClickable, ptr, _args, null)
+}
 
-    def isLineGutterClickable(line: Int, gutter: Int): Boolean =
+    def isLineGutterClickable(line: Int, gutter: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = gutter.toLong
+        val _a1 = stackalloc[Long](); !_a1 = gutter.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isLineGutterClickable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setLineBackgroundColor(line: Int, color: Color): Unit =
+    def setLineBackgroundColor(line: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(TextEdit.Binds.setLineBackgroundColor, ptr, _args, null)
+}
 
-    def getLineBackgroundColor(line: Int): Color =
+    def getLineBackgroundColor(line: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getLineBackgroundColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setSyntaxHighlighter(syntaxHighlighter: SyntaxHighlighter): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = syntaxHighlighter.ptr
-        GdxApi.ptrcall(TextEdit.Binds.setSyntaxHighlighter, ptr, _args, null)
-
-    def getSyntaxHighlighter(): SyntaxHighlighter =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextEdit.Binds.getSyntaxHighlighter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new SyntaxHighlighter(!_ret)
-
-    def setHighlightCurrentLine(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setHighlightCurrentLine, ptr, _args, null)
-
-    def isHighlightCurrentLineEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isHighlightCurrentLineEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHighlightAllOccurrences(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setHighlightAllOccurrences, ptr, _args, null)
-
-    def isHighlightAllOccurrencesEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isHighlightAllOccurrencesEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getDrawControlChars(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.getDrawControlChars, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDrawControlChars(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDrawControlChars, ptr, _args, null)
-
-    def setDrawTabs(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDrawTabs, ptr, _args, null)
-
-    def isDrawingTabs(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDrawingTabs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDrawSpaces(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextEdit.Binds.setDrawSpaces, ptr, _args, null)
-
-    def isDrawingSpaces(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextEdit.Binds.isDrawingSpaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getMenu(): PopupMenu =
+    def getMenu(): PopupMenu = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PopupMenu(!_ret)
+}
 
-    def isMenuVisible(): Boolean =
+    def isMenuVisible(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextEdit.Binds.isMenuVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def menuOption(option: Int): Unit =
+    def menuOption(option: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.menuOption, ptr, _args, null)
+}
 
-    def adjustCaretsAfterEdit(caret: Int, fromLine: Int, fromCol: Int, toLine: Int, toCol: Int): Unit =
+    def adjustCaretsAfterEdit(caret: Int, fromLine: Int, fromCol: Int, toLine: Int, toCol: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
-        val _a0 = stackalloc[CLong](); !_a0 = caret.toLong
+        val _a0 = stackalloc[Long](); !_a0 = caret.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = fromLine.toLong
+        val _a1 = stackalloc[Long](); !_a1 = fromLine.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromCol.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromCol.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toLine.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toLine.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = toCol.toLong
+        val _a4 = stackalloc[Long](); !_a4 = toCol.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextEdit.Binds.adjustCaretsAfterEdit, ptr, _args, null)
+}
 
-    def getCaretIndexEditOrder(): PackedInt32Array =
+    def getCaretIndexEditOrder(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextEdit.Binds.getCaretIndexEditOrder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getSelectionLine(): Int =
+    def getSelectionLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionColumn(): Int =
+    def getSelectionColumn(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextEdit.Binds.getSelectionColumn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def text: Ptr[Byte] = getText()
-    def text_=(v: Ptr[Byte]): Unit = setText(v)
-    def placeholderText: Ptr[Byte] = getPlaceholder()
-    def placeholderText_=(v: Ptr[Byte]): Unit = setPlaceholder(v)
-    def editable: Ptr[Byte] = isEditable()
-    def editable_=(v: Ptr[Byte]): Unit = setEditable(v)
-    def contextMenuEnabled: Ptr[Byte] = isContextMenuEnabled()
-    def contextMenuEnabled_=(v: Ptr[Byte]): Unit = setContextMenuEnabled(v)
-    def emojiMenuEnabled: Ptr[Byte] = isEmojiMenuEnabled()
-    def emojiMenuEnabled_=(v: Ptr[Byte]): Unit = setEmojiMenuEnabled(v)
-    def backspaceDeletesCompositeCharacterEnabled: Ptr[Byte] = isBackspaceDeletesCompositeCharacterEnabled()
-    def backspaceDeletesCompositeCharacterEnabled_=(v: Ptr[Byte]): Unit = setBackspaceDeletesCompositeCharacterEnabled(v)
-    def shortcutKeysEnabled: Ptr[Byte] = isShortcutKeysEnabled()
-    def shortcutKeysEnabled_=(v: Ptr[Byte]): Unit = setShortcutKeysEnabled(v)
-    def selectingEnabled: Ptr[Byte] = isSelectingEnabled()
-    def selectingEnabled_=(v: Ptr[Byte]): Unit = setSelectingEnabled(v)
-    def deselectOnFocusLossEnabled: Ptr[Byte] = isDeselectOnFocusLossEnabled()
-    def deselectOnFocusLossEnabled_=(v: Ptr[Byte]): Unit = setDeselectOnFocusLossEnabled(v)
-    def dragAndDropSelectionEnabled: Ptr[Byte] = isDragAndDropSelectionEnabled()
-    def dragAndDropSelectionEnabled_=(v: Ptr[Byte]): Unit = setDragAndDropSelectionEnabled(v)
-    def virtualKeyboardEnabled: Ptr[Byte] = isVirtualKeyboardEnabled()
-    def virtualKeyboardEnabled_=(v: Ptr[Byte]): Unit = setVirtualKeyboardEnabled(v)
-    def virtualKeyboardShowOnFocus: Ptr[Byte] = getVirtualKeyboardShowOnFocus()
-    def virtualKeyboardShowOnFocus_=(v: Ptr[Byte]): Unit = setVirtualKeyboardShowOnFocus(v)
-    def middleMousePasteEnabled: Ptr[Byte] = isMiddleMousePasteEnabled()
-    def middleMousePasteEnabled_=(v: Ptr[Byte]): Unit = setMiddleMousePasteEnabled(v)
-    def emptySelectionClipboardEnabled: Ptr[Byte] = isEmptySelectionClipboardEnabled()
-    def emptySelectionClipboardEnabled_=(v: Ptr[Byte]): Unit = setEmptySelectionClipboardEnabled(v)
-    def wrapMode: Ptr[Byte] = getLineWrappingMode()
-    def wrapMode_=(v: Ptr[Byte]): Unit = setLineWrappingMode(v)
-    def autowrapMode: Ptr[Byte] = getAutowrapMode()
-    def autowrapMode_=(v: Ptr[Byte]): Unit = setAutowrapMode(v)
-    def indentWrappedLines: Ptr[Byte] = isIndentWrappedLines()
-    def indentWrappedLines_=(v: Ptr[Byte]): Unit = setIndentWrappedLines(v)
-    def tabInputMode: Ptr[Byte] = getTabInputMode()
-    def tabInputMode_=(v: Ptr[Byte]): Unit = setTabInputMode(v)
-    def scrollSmooth: Ptr[Byte] = isSmoothScrollEnabled()
-    def scrollSmooth_=(v: Ptr[Byte]): Unit = setSmoothScrollEnabled(v)
-    def scrollVScrollSpeed: Ptr[Byte] = getVScrollSpeed()
-    def scrollVScrollSpeed_=(v: Ptr[Byte]): Unit = setVScrollSpeed(v)
-    def scrollPastEndOfFile: Ptr[Byte] = isScrollPastEndOfFileEnabled()
-    def scrollPastEndOfFile_=(v: Ptr[Byte]): Unit = setScrollPastEndOfFileEnabled(v)
-    def scrollVertical: Ptr[Byte] = getVScroll()
-    def scrollVertical_=(v: Ptr[Byte]): Unit = setVScroll(v)
-    def scrollHorizontal: Ptr[Byte] = getHScroll()
-    def scrollHorizontal_=(v: Ptr[Byte]): Unit = setHScroll(v)
-    def scrollFitContentHeight: Ptr[Byte] = isFitContentHeightEnabled()
-    def scrollFitContentHeight_=(v: Ptr[Byte]): Unit = setFitContentHeightEnabled(v)
-    def scrollFitContentWidth: Ptr[Byte] = isFitContentWidthEnabled()
-    def scrollFitContentWidth_=(v: Ptr[Byte]): Unit = setFitContentWidthEnabled(v)
-    def minimapDraw: Ptr[Byte] = isDrawingMinimap()
-    def minimapDraw_=(v: Ptr[Byte]): Unit = setDrawMinimap(v)
-    def minimapWidth: Ptr[Byte] = getMinimapWidth()
-    def minimapWidth_=(v: Ptr[Byte]): Unit = setMinimapWidth(v)
-    def caretType: Ptr[Byte] = getCaretType()
-    def caretType_=(v: Ptr[Byte]): Unit = setCaretType(v)
-    def caretBlink: Ptr[Byte] = isCaretBlinkEnabled()
-    def caretBlink_=(v: Ptr[Byte]): Unit = setCaretBlinkEnabled(v)
-    def caretBlinkInterval: Ptr[Byte] = getCaretBlinkInterval()
-    def caretBlinkInterval_=(v: Ptr[Byte]): Unit = setCaretBlinkInterval(v)
-    def caretDrawWhenEditableDisabled: Ptr[Byte] = isDrawingCaretWhenEditableDisabled()
-    def caretDrawWhenEditableDisabled_=(v: Ptr[Byte]): Unit = setDrawCaretWhenEditableDisabled(v)
-    def caretMoveOnRightClick: Ptr[Byte] = isMoveCaretOnRightClickEnabled()
-    def caretMoveOnRightClick_=(v: Ptr[Byte]): Unit = setMoveCaretOnRightClickEnabled(v)
-    def caretMidGrapheme: Ptr[Byte] = isCaretMidGraphemeEnabled()
-    def caretMidGrapheme_=(v: Ptr[Byte]): Unit = setCaretMidGraphemeEnabled(v)
-    def caretMultiple: Ptr[Byte] = isMultipleCaretsEnabled()
-    def caretMultiple_=(v: Ptr[Byte]): Unit = setMultipleCaretsEnabled(v)
-    def useDefaultWordSeparators: Ptr[Byte] = isDefaultWordSeparatorsEnabled()
-    def useDefaultWordSeparators_=(v: Ptr[Byte]): Unit = setUseDefaultWordSeparators(v)
-    def useCustomWordSeparators: Ptr[Byte] = isCustomWordSeparatorsEnabled()
-    def useCustomWordSeparators_=(v: Ptr[Byte]): Unit = setUseCustomWordSeparators(v)
-    def customWordSeparators: Ptr[Byte] = getCustomWordSeparators()
-    def customWordSeparators_=(v: Ptr[Byte]): Unit = setCustomWordSeparators(v)
-    def syntaxHighlighter: Ptr[Byte] = getSyntaxHighlighter()
-    def syntaxHighlighter_=(v: Ptr[Byte]): Unit = setSyntaxHighlighter(v)
-    def highlightAllOccurrences: Ptr[Byte] = isHighlightAllOccurrencesEnabled()
-    def highlightAllOccurrences_=(v: Ptr[Byte]): Unit = setHighlightAllOccurrences(v)
-    def highlightCurrentLine: Ptr[Byte] = isHighlightCurrentLineEnabled()
-    def highlightCurrentLine_=(v: Ptr[Byte]): Unit = setHighlightCurrentLine(v)
-    def drawControlChars: Ptr[Byte] = getDrawControlChars()
-    def drawControlChars_=(v: Ptr[Byte]): Unit = setDrawControlChars(v)
-    def drawTabs: Ptr[Byte] = isDrawingTabs()
-    def drawTabs_=(v: Ptr[Byte]): Unit = setDrawTabs(v)
-    def drawSpaces: Ptr[Byte] = isDrawingSpaces()
-    def drawSpaces_=(v: Ptr[Byte]): Unit = setDrawSpaces(v)
-    def textDirection: Ptr[Byte] = getTextDirection()
-    def textDirection_=(v: Ptr[Byte]): Unit = setTextDirection(v)
-    def language: Ptr[Byte] = getLanguage()
-    def language_=(v: Ptr[Byte]): Unit = setLanguage(v)
-    def structuredTextBidiOverride: Ptr[Byte] = getStructuredTextBidiOverride()
-    def structuredTextBidiOverride_=(v: Ptr[Byte]): Unit = setStructuredTextBidiOverride(v)
+}
+
+    def text: CString = getText()
+    def text_=(v: CString): Unit = setText(v)
+    def placeholderText: CString = getPlaceholder()
+    def placeholderText_=(v: CString): Unit = setPlaceholder(v)
+    def editable: Boolean = isEditable()
+    def editable_=(v: Boolean): Unit = setEditable(v)
+    def contextMenuEnabled: Boolean = isContextMenuEnabled()
+    def contextMenuEnabled_=(v: Boolean): Unit = setContextMenuEnabled(v)
+    def emojiMenuEnabled: Boolean = isEmojiMenuEnabled()
+    def emojiMenuEnabled_=(v: Boolean): Unit = setEmojiMenuEnabled(v)
+    def backspaceDeletesCompositeCharacterEnabled: Boolean = isBackspaceDeletesCompositeCharacterEnabled()
+    def backspaceDeletesCompositeCharacterEnabled_=(v: Boolean): Unit = setBackspaceDeletesCompositeCharacterEnabled(v)
+    def shortcutKeysEnabled: Boolean = isShortcutKeysEnabled()
+    def shortcutKeysEnabled_=(v: Boolean): Unit = setShortcutKeysEnabled(v)
+    def selectingEnabled: Boolean = isSelectingEnabled()
+    def selectingEnabled_=(v: Boolean): Unit = setSelectingEnabled(v)
+    def deselectOnFocusLossEnabled: Boolean = isDeselectOnFocusLossEnabled()
+    def deselectOnFocusLossEnabled_=(v: Boolean): Unit = setDeselectOnFocusLossEnabled(v)
+    def dragAndDropSelectionEnabled: Boolean = isDragAndDropSelectionEnabled()
+    def dragAndDropSelectionEnabled_=(v: Boolean): Unit = setDragAndDropSelectionEnabled(v)
+    def virtualKeyboardEnabled: Boolean = isVirtualKeyboardEnabled()
+    def virtualKeyboardEnabled_=(v: Boolean): Unit = setVirtualKeyboardEnabled(v)
+    def virtualKeyboardShowOnFocus: Boolean = getVirtualKeyboardShowOnFocus()
+    def virtualKeyboardShowOnFocus_=(v: Boolean): Unit = setVirtualKeyboardShowOnFocus(v)
+    def middleMousePasteEnabled: Boolean = isMiddleMousePasteEnabled()
+    def middleMousePasteEnabled_=(v: Boolean): Unit = setMiddleMousePasteEnabled(v)
+    def emptySelectionClipboardEnabled: Boolean = isEmptySelectionClipboardEnabled()
+    def emptySelectionClipboardEnabled_=(v: Boolean): Unit = setEmptySelectionClipboardEnabled(v)
+    def wrapMode: Int = getLineWrappingMode()
+    def wrapMode_=(v: Int): Unit = setLineWrappingMode(v)
+    def autowrapMode: Int = getAutowrapMode()
+    def autowrapMode_=(v: Int): Unit = setAutowrapMode(v)
+    def indentWrappedLines: Boolean = isIndentWrappedLines()
+    def indentWrappedLines_=(v: Boolean): Unit = setIndentWrappedLines(v)
+    def tabInputMode: Boolean = getTabInputMode()
+    def tabInputMode_=(v: Boolean): Unit = setTabInputMode(v)
+    def scrollSmooth: Boolean = isSmoothScrollEnabled()
+    def scrollSmooth_=(v: Boolean): Unit = setSmoothScrollEnabled(v)
+    def scrollVScrollSpeed: Float = getVScrollSpeed()
+    def scrollVScrollSpeed_=(v: Float): Unit = setVScrollSpeed(v)
+    def scrollPastEndOfFile: Boolean = isScrollPastEndOfFileEnabled()
+    def scrollPastEndOfFile_=(v: Boolean): Unit = setScrollPastEndOfFileEnabled(v)
+    def scrollVertical: Double = getVScroll()
+    def scrollVertical_=(v: Double): Unit = setVScroll(v)
+    def scrollHorizontal: Int = getHScroll()
+    def scrollHorizontal_=(v: Int): Unit = setHScroll(v)
+    def scrollFitContentHeight: Boolean = isFitContentHeightEnabled()
+    def scrollFitContentHeight_=(v: Boolean): Unit = setFitContentHeightEnabled(v)
+    def scrollFitContentWidth: Boolean = isFitContentWidthEnabled()
+    def scrollFitContentWidth_=(v: Boolean): Unit = setFitContentWidthEnabled(v)
+    def minimapDraw: Boolean = isDrawingMinimap()
+    def minimapDraw_=(v: Boolean): Unit = setDrawMinimap(v)
+    def minimapWidth: Int = getMinimapWidth()
+    def minimapWidth_=(v: Int): Unit = setMinimapWidth(v)
+    def caretType: Int = getCaretType()
+    def caretType_=(v: Int): Unit = setCaretType(v)
+    def caretBlink: Boolean = isCaretBlinkEnabled()
+    def caretBlink_=(v: Boolean): Unit = setCaretBlinkEnabled(v)
+    def caretBlinkInterval: Float = getCaretBlinkInterval()
+    def caretBlinkInterval_=(v: Float): Unit = setCaretBlinkInterval(v)
+    def caretDrawWhenEditableDisabled: Boolean = isDrawingCaretWhenEditableDisabled()
+    def caretDrawWhenEditableDisabled_=(v: Boolean): Unit = setDrawCaretWhenEditableDisabled(v)
+    def caretMoveOnRightClick: Boolean = isMoveCaretOnRightClickEnabled()
+    def caretMoveOnRightClick_=(v: Boolean): Unit = setMoveCaretOnRightClickEnabled(v)
+    def caretMidGrapheme: Boolean = isCaretMidGraphemeEnabled()
+    def caretMidGrapheme_=(v: Boolean): Unit = setCaretMidGraphemeEnabled(v)
+    def caretMultiple: Boolean = isMultipleCaretsEnabled()
+    def caretMultiple_=(v: Boolean): Unit = setMultipleCaretsEnabled(v)
+    def useDefaultWordSeparators: Boolean = isDefaultWordSeparatorsEnabled()
+    def useDefaultWordSeparators_=(v: Boolean): Unit = setUseDefaultWordSeparators(v)
+    def useCustomWordSeparators: Boolean = isCustomWordSeparatorsEnabled()
+    def useCustomWordSeparators_=(v: Boolean): Unit = setUseCustomWordSeparators(v)
+    def customWordSeparators: CString = getCustomWordSeparators()
+    def customWordSeparators_=(v: CString): Unit = setCustomWordSeparators(v)
+    def syntaxHighlighter: SyntaxHighlighter = getSyntaxHighlighter()
+    def syntaxHighlighter_=(v: SyntaxHighlighter): Unit = setSyntaxHighlighter(v)
+    def highlightAllOccurrences: Boolean = isHighlightAllOccurrencesEnabled()
+    def highlightAllOccurrences_=(v: Boolean): Unit = setHighlightAllOccurrences(v)
+    def highlightCurrentLine: Boolean = isHighlightCurrentLineEnabled()
+    def highlightCurrentLine_=(v: Boolean): Unit = setHighlightCurrentLine(v)
+    def drawControlChars: Boolean = getDrawControlChars()
+    def drawControlChars_=(v: Boolean): Unit = setDrawControlChars(v)
+    def drawTabs: Boolean = isDrawingTabs()
+    def drawTabs_=(v: Boolean): Unit = setDrawTabs(v)
+    def drawSpaces: Boolean = isDrawingSpaces()
+    def drawSpaces_=(v: Boolean): Unit = setDrawSpaces(v)
+    def textDirection: Int = getTextDirection()
+    def textDirection_=(v: Int): Unit = setTextDirection(v)
+    def language: CString = getLanguage()
+    def language_=(v: CString): Unit = setLanguage(v)
+    def structuredTextBidiOverride: Int = getStructuredTextBidiOverride()
+    def structuredTextBidiOverride_=(v: Int): Unit = setStructuredTextBidiOverride(v)
     def structuredTextBidiOverrideOptions: Ptr[Byte] = getStructuredTextBidiOverrideOptions()
     def structuredTextBidiOverrideOptions_=(v: Ptr[Byte]): Unit = setStructuredTextBidiOverrideOptions(v)
+}
 
 object TextEdit:
-    object Binds:
-        var hasImeText: Ptr[Byte] = null
+object Binds {
+          var hasImeText: Ptr[Byte] = null
         var cancelIme: Ptr[Byte] = null
         var applyIme: Ptr[Byte] = null
-        var setEditable: Ptr[Byte] = null
-        var isEditable: Ptr[Byte] = null
-        var setTextDirection: Ptr[Byte] = null
-        var getTextDirection: Ptr[Byte] = null
-        var setLanguage: Ptr[Byte] = null
-        var getLanguage: Ptr[Byte] = null
-        var setStructuredTextBidiOverride: Ptr[Byte] = null
-        var getStructuredTextBidiOverride: Ptr[Byte] = null
-        var setStructuredTextBidiOverrideOptions: Ptr[Byte] = null
-        var getStructuredTextBidiOverrideOptions: Ptr[Byte] = null
         var setTabSize: Ptr[Byte] = null
         var getTabSize: Ptr[Byte] = null
-        var setIndentWrappedLines: Ptr[Byte] = null
-        var isIndentWrappedLines: Ptr[Byte] = null
-        var setTabInputMode: Ptr[Byte] = null
-        var getTabInputMode: Ptr[Byte] = null
         var setOvertypeModeEnabled: Ptr[Byte] = null
         var isOvertypeModeEnabled: Ptr[Byte] = null
-        var setContextMenuEnabled: Ptr[Byte] = null
-        var isContextMenuEnabled: Ptr[Byte] = null
-        var setEmojiMenuEnabled: Ptr[Byte] = null
-        var isEmojiMenuEnabled: Ptr[Byte] = null
-        var setBackspaceDeletesCompositeCharacterEnabled: Ptr[Byte] = null
-        var isBackspaceDeletesCompositeCharacterEnabled: Ptr[Byte] = null
-        var setShortcutKeysEnabled: Ptr[Byte] = null
-        var isShortcutKeysEnabled: Ptr[Byte] = null
-        var setVirtualKeyboardEnabled: Ptr[Byte] = null
-        var isVirtualKeyboardEnabled: Ptr[Byte] = null
-        var setVirtualKeyboardShowOnFocus: Ptr[Byte] = null
-        var getVirtualKeyboardShowOnFocus: Ptr[Byte] = null
-        var setMiddleMousePasteEnabled: Ptr[Byte] = null
-        var isMiddleMousePasteEnabled: Ptr[Byte] = null
-        var setEmptySelectionClipboardEnabled: Ptr[Byte] = null
-        var isEmptySelectionClipboardEnabled: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
-        var setText: Ptr[Byte] = null
-        var getText: Ptr[Byte] = null
         var getLineCount: Ptr[Byte] = null
-        var setPlaceholder: Ptr[Byte] = null
-        var getPlaceholder: Ptr[Byte] = null
         var setLine: Ptr[Byte] = null
         var getLine: Ptr[Byte] = null
         var getLineWithIme: Ptr[Byte] = null
@@ -1783,20 +1356,6 @@ object TextEdit:
         var getMinimapLineAtPos: Ptr[Byte] = null
         var isDraggingCursor: Ptr[Byte] = null
         var isMouseOverSelection: Ptr[Byte] = null
-        var setCaretType: Ptr[Byte] = null
-        var getCaretType: Ptr[Byte] = null
-        var setCaretBlinkEnabled: Ptr[Byte] = null
-        var isCaretBlinkEnabled: Ptr[Byte] = null
-        var setCaretBlinkInterval: Ptr[Byte] = null
-        var getCaretBlinkInterval: Ptr[Byte] = null
-        var setDrawCaretWhenEditableDisabled: Ptr[Byte] = null
-        var isDrawingCaretWhenEditableDisabled: Ptr[Byte] = null
-        var setMoveCaretOnRightClickEnabled: Ptr[Byte] = null
-        var isMoveCaretOnRightClickEnabled: Ptr[Byte] = null
-        var setCaretMidGraphemeEnabled: Ptr[Byte] = null
-        var isCaretMidGraphemeEnabled: Ptr[Byte] = null
-        var setMultipleCaretsEnabled: Ptr[Byte] = null
-        var isMultipleCaretsEnabled: Ptr[Byte] = null
         var addCaret: Ptr[Byte] = null
         var removeCaret: Ptr[Byte] = null
         var removeSecondaryCarets: Ptr[Byte] = null
@@ -1819,18 +1378,6 @@ object TextEdit:
         var getPreviousCompositeCharacterColumn: Ptr[Byte] = null
         var getCaretWrapIndex: Ptr[Byte] = null
         var getWordUnderCaret: Ptr[Byte] = null
-        var setUseDefaultWordSeparators: Ptr[Byte] = null
-        var isDefaultWordSeparatorsEnabled: Ptr[Byte] = null
-        var setUseCustomWordSeparators: Ptr[Byte] = null
-        var isCustomWordSeparatorsEnabled: Ptr[Byte] = null
-        var setCustomWordSeparators: Ptr[Byte] = null
-        var getCustomWordSeparators: Ptr[Byte] = null
-        var setSelectingEnabled: Ptr[Byte] = null
-        var isSelectingEnabled: Ptr[Byte] = null
-        var setDeselectOnFocusLossEnabled: Ptr[Byte] = null
-        var isDeselectOnFocusLossEnabled: Ptr[Byte] = null
-        var setDragAndDropSelectionEnabled: Ptr[Byte] = null
-        var isDragAndDropSelectionEnabled: Ptr[Byte] = null
         var setSelectionMode: Ptr[Byte] = null
         var getSelectionMode: Ptr[Byte] = null
         var selectAll: Ptr[Byte] = null
@@ -1853,30 +1400,12 @@ object TextEdit:
         var isCaretAfterSelectionOrigin: Ptr[Byte] = null
         var deselect: Ptr[Byte] = null
         var deleteSelection: Ptr[Byte] = null
-        var setLineWrappingMode: Ptr[Byte] = null
-        var getLineWrappingMode: Ptr[Byte] = null
-        var setAutowrapMode: Ptr[Byte] = null
-        var getAutowrapMode: Ptr[Byte] = null
         var isLineWrapped: Ptr[Byte] = null
         var getLineWrapCount: Ptr[Byte] = null
         var getLineWrapIndexAtColumn: Ptr[Byte] = null
         var getLineWrappedText: Ptr[Byte] = null
-        var setSmoothScrollEnabled: Ptr[Byte] = null
-        var isSmoothScrollEnabled: Ptr[Byte] = null
         var getVScrollBar: Ptr[Byte] = null
         var getHScrollBar: Ptr[Byte] = null
-        var setVScroll: Ptr[Byte] = null
-        var getVScroll: Ptr[Byte] = null
-        var setHScroll: Ptr[Byte] = null
-        var getHScroll: Ptr[Byte] = null
-        var setScrollPastEndOfFileEnabled: Ptr[Byte] = null
-        var isScrollPastEndOfFileEnabled: Ptr[Byte] = null
-        var setVScrollSpeed: Ptr[Byte] = null
-        var getVScrollSpeed: Ptr[Byte] = null
-        var setFitContentHeightEnabled: Ptr[Byte] = null
-        var isFitContentHeightEnabled: Ptr[Byte] = null
-        var setFitContentWidthEnabled: Ptr[Byte] = null
-        var isFitContentWidthEnabled: Ptr[Byte] = null
         var getScrollPosForLine: Ptr[Byte] = null
         var setLineAsFirstVisible: Ptr[Byte] = null
         var getFirstVisibleLine: Ptr[Byte] = null
@@ -1889,10 +1418,6 @@ object TextEdit:
         var getTotalVisibleLineCount: Ptr[Byte] = null
         var adjustViewportToCaret: Ptr[Byte] = null
         var centerViewportToCaret: Ptr[Byte] = null
-        var setDrawMinimap: Ptr[Byte] = null
-        var isDrawingMinimap: Ptr[Byte] = null
-        var setMinimapWidth: Ptr[Byte] = null
-        var getMinimapWidth: Ptr[Byte] = null
         var getMinimapVisibleLines: Ptr[Byte] = null
         var addGutter: Ptr[Byte] = null
         var removeGutter: Ptr[Byte] = null
@@ -1924,18 +1449,6 @@ object TextEdit:
         var isLineGutterClickable: Ptr[Byte] = null
         var setLineBackgroundColor: Ptr[Byte] = null
         var getLineBackgroundColor: Ptr[Byte] = null
-        var setSyntaxHighlighter: Ptr[Byte] = null
-        var getSyntaxHighlighter: Ptr[Byte] = null
-        var setHighlightCurrentLine: Ptr[Byte] = null
-        var isHighlightCurrentLineEnabled: Ptr[Byte] = null
-        var setHighlightAllOccurrences: Ptr[Byte] = null
-        var isHighlightAllOccurrencesEnabled: Ptr[Byte] = null
-        var getDrawControlChars: Ptr[Byte] = null
-        var setDrawControlChars: Ptr[Byte] = null
-        var setDrawTabs: Ptr[Byte] = null
-        var isDrawingTabs: Ptr[Byte] = null
-        var setDrawSpaces: Ptr[Byte] = null
-        var isDrawingSpaces: Ptr[Byte] = null
         var getMenu: Ptr[Byte] = null
         var isMenuVisible: Ptr[Byte] = null
         var menuOption: Ptr[Byte] = null
@@ -1944,50 +1457,16 @@ object TextEdit:
         var getSelectionLine: Ptr[Byte] = null
         var getSelectionColumn: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasImeText = GdxApi.getMethodBind(c"TextEdit", c"has_ime_text", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.hasImeText = GdxApi.getMethodBind(c"TextEdit", c"has_ime_text", 36873697L)
             Binds.cancelIme = GdxApi.getMethodBind(c"TextEdit", c"cancel_ime", 3218959716L)
             Binds.applyIme = GdxApi.getMethodBind(c"TextEdit", c"apply_ime", 3218959716L)
-            Binds.setEditable = GdxApi.getMethodBind(c"TextEdit", c"set_editable", 2586408642L)
-            Binds.isEditable = GdxApi.getMethodBind(c"TextEdit", c"is_editable", 36873697L)
-            Binds.setTextDirection = GdxApi.getMethodBind(c"TextEdit", c"set_text_direction", 119160795L)
-            Binds.getTextDirection = GdxApi.getMethodBind(c"TextEdit", c"get_text_direction", 797257663L)
-            Binds.setLanguage = GdxApi.getMethodBind(c"TextEdit", c"set_language", 83702148L)
-            Binds.getLanguage = GdxApi.getMethodBind(c"TextEdit", c"get_language", 201670096L)
-            Binds.setStructuredTextBidiOverride = GdxApi.getMethodBind(c"TextEdit", c"set_structured_text_bidi_override", 55961453L)
-            Binds.getStructuredTextBidiOverride = GdxApi.getMethodBind(c"TextEdit", c"get_structured_text_bidi_override", 3385126229L)
-            Binds.setStructuredTextBidiOverrideOptions = GdxApi.getMethodBind(c"TextEdit", c"set_structured_text_bidi_override_options", 381264803L)
-            Binds.getStructuredTextBidiOverrideOptions = GdxApi.getMethodBind(c"TextEdit", c"get_structured_text_bidi_override_options", 3995934104L)
             Binds.setTabSize = GdxApi.getMethodBind(c"TextEdit", c"set_tab_size", 1286410249L)
             Binds.getTabSize = GdxApi.getMethodBind(c"TextEdit", c"get_tab_size", 3905245786L)
-            Binds.setIndentWrappedLines = GdxApi.getMethodBind(c"TextEdit", c"set_indent_wrapped_lines", 2586408642L)
-            Binds.isIndentWrappedLines = GdxApi.getMethodBind(c"TextEdit", c"is_indent_wrapped_lines", 36873697L)
-            Binds.setTabInputMode = GdxApi.getMethodBind(c"TextEdit", c"set_tab_input_mode", 2586408642L)
-            Binds.getTabInputMode = GdxApi.getMethodBind(c"TextEdit", c"get_tab_input_mode", 36873697L)
             Binds.setOvertypeModeEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_overtype_mode_enabled", 2586408642L)
             Binds.isOvertypeModeEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_overtype_mode_enabled", 36873697L)
-            Binds.setContextMenuEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_context_menu_enabled", 2586408642L)
-            Binds.isContextMenuEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_context_menu_enabled", 36873697L)
-            Binds.setEmojiMenuEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_emoji_menu_enabled", 2586408642L)
-            Binds.isEmojiMenuEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_emoji_menu_enabled", 36873697L)
-            Binds.setBackspaceDeletesCompositeCharacterEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_backspace_deletes_composite_character_enabled", 2586408642L)
-            Binds.isBackspaceDeletesCompositeCharacterEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_backspace_deletes_composite_character_enabled", 36873697L)
-            Binds.setShortcutKeysEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_shortcut_keys_enabled", 2586408642L)
-            Binds.isShortcutKeysEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_shortcut_keys_enabled", 36873697L)
-            Binds.setVirtualKeyboardEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_virtual_keyboard_enabled", 2586408642L)
-            Binds.isVirtualKeyboardEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_virtual_keyboard_enabled", 36873697L)
-            Binds.setVirtualKeyboardShowOnFocus = GdxApi.getMethodBind(c"TextEdit", c"set_virtual_keyboard_show_on_focus", 2586408642L)
-            Binds.getVirtualKeyboardShowOnFocus = GdxApi.getMethodBind(c"TextEdit", c"get_virtual_keyboard_show_on_focus", 36873697L)
-            Binds.setMiddleMousePasteEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_middle_mouse_paste_enabled", 2586408642L)
-            Binds.isMiddleMousePasteEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_middle_mouse_paste_enabled", 36873697L)
-            Binds.setEmptySelectionClipboardEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_empty_selection_clipboard_enabled", 2586408642L)
-            Binds.isEmptySelectionClipboardEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_empty_selection_clipboard_enabled", 36873697L)
             Binds.clear = GdxApi.getMethodBind(c"TextEdit", c"clear", 3218959716L)
-            Binds.setText = GdxApi.getMethodBind(c"TextEdit", c"set_text", 83702148L)
-            Binds.getText = GdxApi.getMethodBind(c"TextEdit", c"get_text", 201670096L)
             Binds.getLineCount = GdxApi.getMethodBind(c"TextEdit", c"get_line_count", 3905245786L)
-            Binds.setPlaceholder = GdxApi.getMethodBind(c"TextEdit", c"set_placeholder", 83702148L)
-            Binds.getPlaceholder = GdxApi.getMethodBind(c"TextEdit", c"get_placeholder", 201670096L)
             Binds.setLine = GdxApi.getMethodBind(c"TextEdit", c"set_line", 501894301L)
             Binds.getLine = GdxApi.getMethodBind(c"TextEdit", c"get_line", 844755477L)
             Binds.getLineWithIme = GdxApi.getMethodBind(c"TextEdit", c"get_line_with_ime", 844755477L)
@@ -2033,20 +1512,6 @@ object TextEdit:
             Binds.getMinimapLineAtPos = GdxApi.getMethodBind(c"TextEdit", c"get_minimap_line_at_pos", 2485466453L)
             Binds.isDraggingCursor = GdxApi.getMethodBind(c"TextEdit", c"is_dragging_cursor", 36873697L)
             Binds.isMouseOverSelection = GdxApi.getMethodBind(c"TextEdit", c"is_mouse_over_selection", 1840282309L)
-            Binds.setCaretType = GdxApi.getMethodBind(c"TextEdit", c"set_caret_type", 1211596914L)
-            Binds.getCaretType = GdxApi.getMethodBind(c"TextEdit", c"get_caret_type", 2830252959L)
-            Binds.setCaretBlinkEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_caret_blink_enabled", 2586408642L)
-            Binds.isCaretBlinkEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_caret_blink_enabled", 36873697L)
-            Binds.setCaretBlinkInterval = GdxApi.getMethodBind(c"TextEdit", c"set_caret_blink_interval", 373806689L)
-            Binds.getCaretBlinkInterval = GdxApi.getMethodBind(c"TextEdit", c"get_caret_blink_interval", 1740695150L)
-            Binds.setDrawCaretWhenEditableDisabled = GdxApi.getMethodBind(c"TextEdit", c"set_draw_caret_when_editable_disabled", 2586408642L)
-            Binds.isDrawingCaretWhenEditableDisabled = GdxApi.getMethodBind(c"TextEdit", c"is_drawing_caret_when_editable_disabled", 36873697L)
-            Binds.setMoveCaretOnRightClickEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_move_caret_on_right_click_enabled", 2586408642L)
-            Binds.isMoveCaretOnRightClickEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_move_caret_on_right_click_enabled", 36873697L)
-            Binds.setCaretMidGraphemeEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_caret_mid_grapheme_enabled", 2586408642L)
-            Binds.isCaretMidGraphemeEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_caret_mid_grapheme_enabled", 36873697L)
-            Binds.setMultipleCaretsEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_multiple_carets_enabled", 2586408642L)
-            Binds.isMultipleCaretsEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_multiple_carets_enabled", 36873697L)
             Binds.addCaret = GdxApi.getMethodBind(c"TextEdit", c"add_caret", 50157827L)
             Binds.removeCaret = GdxApi.getMethodBind(c"TextEdit", c"remove_caret", 1286410249L)
             Binds.removeSecondaryCarets = GdxApi.getMethodBind(c"TextEdit", c"remove_secondary_carets", 3218959716L)
@@ -2069,18 +1534,6 @@ object TextEdit:
             Binds.getPreviousCompositeCharacterColumn = GdxApi.getMethodBind(c"TextEdit", c"get_previous_composite_character_column", 3175239445L)
             Binds.getCaretWrapIndex = GdxApi.getMethodBind(c"TextEdit", c"get_caret_wrap_index", 1591665591L)
             Binds.getWordUnderCaret = GdxApi.getMethodBind(c"TextEdit", c"get_word_under_caret", 3929349208L)
-            Binds.setUseDefaultWordSeparators = GdxApi.getMethodBind(c"TextEdit", c"set_use_default_word_separators", 2586408642L)
-            Binds.isDefaultWordSeparatorsEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_default_word_separators_enabled", 36873697L)
-            Binds.setUseCustomWordSeparators = GdxApi.getMethodBind(c"TextEdit", c"set_use_custom_word_separators", 2586408642L)
-            Binds.isCustomWordSeparatorsEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_custom_word_separators_enabled", 36873697L)
-            Binds.setCustomWordSeparators = GdxApi.getMethodBind(c"TextEdit", c"set_custom_word_separators", 83702148L)
-            Binds.getCustomWordSeparators = GdxApi.getMethodBind(c"TextEdit", c"get_custom_word_separators", 201670096L)
-            Binds.setSelectingEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_selecting_enabled", 2586408642L)
-            Binds.isSelectingEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_selecting_enabled", 36873697L)
-            Binds.setDeselectOnFocusLossEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_deselect_on_focus_loss_enabled", 2586408642L)
-            Binds.isDeselectOnFocusLossEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_deselect_on_focus_loss_enabled", 36873697L)
-            Binds.setDragAndDropSelectionEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_drag_and_drop_selection_enabled", 2586408642L)
-            Binds.isDragAndDropSelectionEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_drag_and_drop_selection_enabled", 36873697L)
             Binds.setSelectionMode = GdxApi.getMethodBind(c"TextEdit", c"set_selection_mode", 1658801786L)
             Binds.getSelectionMode = GdxApi.getMethodBind(c"TextEdit", c"get_selection_mode", 3750106938L)
             Binds.selectAll = GdxApi.getMethodBind(c"TextEdit", c"select_all", 3218959716L)
@@ -2103,30 +1556,12 @@ object TextEdit:
             Binds.isCaretAfterSelectionOrigin = GdxApi.getMethodBind(c"TextEdit", c"is_caret_after_selection_origin", 1051549951L)
             Binds.deselect = GdxApi.getMethodBind(c"TextEdit", c"deselect", 1025054187L)
             Binds.deleteSelection = GdxApi.getMethodBind(c"TextEdit", c"delete_selection", 1025054187L)
-            Binds.setLineWrappingMode = GdxApi.getMethodBind(c"TextEdit", c"set_line_wrapping_mode", 2525115309L)
-            Binds.getLineWrappingMode = GdxApi.getMethodBind(c"TextEdit", c"get_line_wrapping_mode", 3562716114L)
-            Binds.setAutowrapMode = GdxApi.getMethodBind(c"TextEdit", c"set_autowrap_mode", 3289138044L)
-            Binds.getAutowrapMode = GdxApi.getMethodBind(c"TextEdit", c"get_autowrap_mode", 1549071663L)
             Binds.isLineWrapped = GdxApi.getMethodBind(c"TextEdit", c"is_line_wrapped", 1116898809L)
             Binds.getLineWrapCount = GdxApi.getMethodBind(c"TextEdit", c"get_line_wrap_count", 923996154L)
             Binds.getLineWrapIndexAtColumn = GdxApi.getMethodBind(c"TextEdit", c"get_line_wrap_index_at_column", 3175239445L)
             Binds.getLineWrappedText = GdxApi.getMethodBind(c"TextEdit", c"get_line_wrapped_text", 647634434L)
-            Binds.setSmoothScrollEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_smooth_scroll_enabled", 2586408642L)
-            Binds.isSmoothScrollEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_smooth_scroll_enabled", 36873697L)
             Binds.getVScrollBar = GdxApi.getMethodBind(c"TextEdit", c"get_v_scroll_bar", 3226026593L)
             Binds.getHScrollBar = GdxApi.getMethodBind(c"TextEdit", c"get_h_scroll_bar", 3774687988L)
-            Binds.setVScroll = GdxApi.getMethodBind(c"TextEdit", c"set_v_scroll", 373806689L)
-            Binds.getVScroll = GdxApi.getMethodBind(c"TextEdit", c"get_v_scroll", 1740695150L)
-            Binds.setHScroll = GdxApi.getMethodBind(c"TextEdit", c"set_h_scroll", 1286410249L)
-            Binds.getHScroll = GdxApi.getMethodBind(c"TextEdit", c"get_h_scroll", 3905245786L)
-            Binds.setScrollPastEndOfFileEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_scroll_past_end_of_file_enabled", 2586408642L)
-            Binds.isScrollPastEndOfFileEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_scroll_past_end_of_file_enabled", 36873697L)
-            Binds.setVScrollSpeed = GdxApi.getMethodBind(c"TextEdit", c"set_v_scroll_speed", 373806689L)
-            Binds.getVScrollSpeed = GdxApi.getMethodBind(c"TextEdit", c"get_v_scroll_speed", 1740695150L)
-            Binds.setFitContentHeightEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_fit_content_height_enabled", 2586408642L)
-            Binds.isFitContentHeightEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_fit_content_height_enabled", 36873697L)
-            Binds.setFitContentWidthEnabled = GdxApi.getMethodBind(c"TextEdit", c"set_fit_content_width_enabled", 2586408642L)
-            Binds.isFitContentWidthEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_fit_content_width_enabled", 36873697L)
             Binds.getScrollPosForLine = GdxApi.getMethodBind(c"TextEdit", c"get_scroll_pos_for_line", 3929084198L)
             Binds.setLineAsFirstVisible = GdxApi.getMethodBind(c"TextEdit", c"set_line_as_first_visible", 2230941749L)
             Binds.getFirstVisibleLine = GdxApi.getMethodBind(c"TextEdit", c"get_first_visible_line", 3905245786L)
@@ -2139,10 +1574,6 @@ object TextEdit:
             Binds.getTotalVisibleLineCount = GdxApi.getMethodBind(c"TextEdit", c"get_total_visible_line_count", 3905245786L)
             Binds.adjustViewportToCaret = GdxApi.getMethodBind(c"TextEdit", c"adjust_viewport_to_caret", 1995695955L)
             Binds.centerViewportToCaret = GdxApi.getMethodBind(c"TextEdit", c"center_viewport_to_caret", 1995695955L)
-            Binds.setDrawMinimap = GdxApi.getMethodBind(c"TextEdit", c"set_draw_minimap", 2586408642L)
-            Binds.isDrawingMinimap = GdxApi.getMethodBind(c"TextEdit", c"is_drawing_minimap", 36873697L)
-            Binds.setMinimapWidth = GdxApi.getMethodBind(c"TextEdit", c"set_minimap_width", 1286410249L)
-            Binds.getMinimapWidth = GdxApi.getMethodBind(c"TextEdit", c"get_minimap_width", 3905245786L)
             Binds.getMinimapVisibleLines = GdxApi.getMethodBind(c"TextEdit", c"get_minimap_visible_lines", 3905245786L)
             Binds.addGutter = GdxApi.getMethodBind(c"TextEdit", c"add_gutter", 1025054187L)
             Binds.removeGutter = GdxApi.getMethodBind(c"TextEdit", c"remove_gutter", 1286410249L)
@@ -2174,18 +1605,6 @@ object TextEdit:
             Binds.isLineGutterClickable = GdxApi.getMethodBind(c"TextEdit", c"is_line_gutter_clickable", 2522259332L)
             Binds.setLineBackgroundColor = GdxApi.getMethodBind(c"TextEdit", c"set_line_background_color", 2878471219L)
             Binds.getLineBackgroundColor = GdxApi.getMethodBind(c"TextEdit", c"get_line_background_color", 3457211756L)
-            Binds.setSyntaxHighlighter = GdxApi.getMethodBind(c"TextEdit", c"set_syntax_highlighter", 2765644541L)
-            Binds.getSyntaxHighlighter = GdxApi.getMethodBind(c"TextEdit", c"get_syntax_highlighter", 2721131626L)
-            Binds.setHighlightCurrentLine = GdxApi.getMethodBind(c"TextEdit", c"set_highlight_current_line", 2586408642L)
-            Binds.isHighlightCurrentLineEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_highlight_current_line_enabled", 36873697L)
-            Binds.setHighlightAllOccurrences = GdxApi.getMethodBind(c"TextEdit", c"set_highlight_all_occurrences", 2586408642L)
-            Binds.isHighlightAllOccurrencesEnabled = GdxApi.getMethodBind(c"TextEdit", c"is_highlight_all_occurrences_enabled", 36873697L)
-            Binds.getDrawControlChars = GdxApi.getMethodBind(c"TextEdit", c"get_draw_control_chars", 36873697L)
-            Binds.setDrawControlChars = GdxApi.getMethodBind(c"TextEdit", c"set_draw_control_chars", 2586408642L)
-            Binds.setDrawTabs = GdxApi.getMethodBind(c"TextEdit", c"set_draw_tabs", 2586408642L)
-            Binds.isDrawingTabs = GdxApi.getMethodBind(c"TextEdit", c"is_drawing_tabs", 36873697L)
-            Binds.setDrawSpaces = GdxApi.getMethodBind(c"TextEdit", c"set_draw_spaces", 2586408642L)
-            Binds.isDrawingSpaces = GdxApi.getMethodBind(c"TextEdit", c"is_drawing_spaces", 36873697L)
             Binds.getMenu = GdxApi.getMethodBind(c"TextEdit", c"get_menu", 229722558L)
             Binds.isMenuVisible = GdxApi.getMethodBind(c"TextEdit", c"is_menu_visible", 36873697L)
             Binds.menuOption = GdxApi.getMethodBind(c"TextEdit", c"menu_option", 1286410249L)
@@ -2193,8 +1612,11 @@ object TextEdit:
             Binds.getCaretIndexEditOrder = GdxApi.getMethodBind(c"TextEdit", c"get_caret_index_edit_order", 969006518L)
             Binds.getSelectionLine = GdxApi.getMethodBind(c"TextEdit", c"get_selection_line", 1591665591L)
             Binds.getSelectionColumn = GdxApi.getMethodBind(c"TextEdit", c"get_selection_column", 1591665591L)
+  }
+}
 
-    def apply(): TextEdit =
-        val obj = new TextEdit()
-        obj.ptr = GdxApi.constructObject(c"TextEdit")
-        obj
+def apply(): TextEdit = {
+  val obj = new TextEdit()
+  obj.ptr = GdxApi.constructObject(c"TextEdit")
+  obj
+}

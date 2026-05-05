@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ShaderIncludeDB extends Object
-
-
-
+class ShaderIncludeDB extends Object {}
 
 object ShaderIncludeDB:
-    def apply(): ShaderIncludeDB =
-        val obj = new ShaderIncludeDB()
-        obj.ptr = GdxApi.constructObject(c"ShaderIncludeDB")
-        obj
+def apply(): ShaderIncludeDB = {
+  val obj = new ShaderIncludeDB()
+  obj.ptr = GdxApi.constructObject(c"ShaderIncludeDB")
+  obj
+}

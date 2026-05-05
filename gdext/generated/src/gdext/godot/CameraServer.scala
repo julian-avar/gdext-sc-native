@@ -5,72 +5,65 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CameraServer extends Object
-
-    def setMonitoringFeeds(isMonitoringFeeds: Boolean): Unit =
+class CameraServer extends Object {
+    def getFeed(index: Int): CameraFeed = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if isMonitoringFeeds then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraServer.Binds.setMonitoringFeeds, ptr, _args, null)
-
-    def isMonitoringFeeds(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CameraServer.Binds.isMonitoringFeeds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getFeed(index: Int): CameraFeed =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CameraServer.Binds.getFeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CameraFeed(!_ret)
+}
 
-    def getFeedCount(): Int =
+    def getFeedCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CameraServer.Binds.getFeedCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def feeds(): Ptr[Byte] =
+    def feeds(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CameraServer.Binds.feeds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addFeed(feed: CameraFeed): Unit =
+    def addFeed(feed: CameraFeed): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = feed.ptr
         GdxApi.ptrcall(CameraServer.Binds.addFeed, ptr, _args, null)
+}
 
-    def removeFeed(feed: CameraFeed): Unit =
+    def removeFeed(feed: CameraFeed): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = feed.ptr
         GdxApi.ptrcall(CameraServer.Binds.removeFeed, ptr, _args, null)
-    def monitoringFeeds: Ptr[Byte] = isMonitoringFeeds()
-    def monitoringFeeds_=(v: Ptr[Byte]): Unit = setMonitoringFeeds(v)
+}
+
+    def monitoringFeeds: Boolean = isMonitoringFeeds()
+    def monitoringFeeds_=(v: Boolean): Unit = setMonitoringFeeds(v)
+}
 
 object CameraServer:
-    object Binds:
-        var setMonitoringFeeds: Ptr[Byte] = null
-        var isMonitoringFeeds: Ptr[Byte] = null
-        var getFeed: Ptr[Byte] = null
+object Binds {
+          var getFeed: Ptr[Byte] = null
         var getFeedCount: Ptr[Byte] = null
         var feeds: Ptr[Byte] = null
         var addFeed: Ptr[Byte] = null
         var removeFeed: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setMonitoringFeeds = GdxApi.getMethodBind(c"CameraServer", c"set_monitoring_feeds", 2586408642L)
-            Binds.isMonitoringFeeds = GdxApi.getMethodBind(c"CameraServer", c"is_monitoring_feeds", 36873697L)
-            Binds.getFeed = GdxApi.getMethodBind(c"CameraServer", c"get_feed", 361927068L)
+  def loadBinds(): Unit = {
+                Binds.getFeed = GdxApi.getMethodBind(c"CameraServer", c"get_feed", 361927068L)
             Binds.getFeedCount = GdxApi.getMethodBind(c"CameraServer", c"get_feed_count", 2455072627L)
             Binds.feeds = GdxApi.getMethodBind(c"CameraServer", c"feeds", 2915620761L)
             Binds.addFeed = GdxApi.getMethodBind(c"CameraServer", c"add_feed", 3204782488L)
             Binds.removeFeed = GdxApi.getMethodBind(c"CameraServer", c"remove_feed", 3204782488L)
+  }
+}
 
-    def apply(): CameraServer =
-        val obj = new CameraServer()
-        obj.ptr = GdxApi.constructObject(c"CameraServer")
-        obj
+def apply(): CameraServer = {
+  val obj = new CameraServer()
+  obj.ptr = GdxApi.constructObject(c"CameraServer")
+  obj
+}

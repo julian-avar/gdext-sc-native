@@ -5,49 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRFaceTracker extends XRTracker
-
-    def getBlendShape(blendShape: Int): Float =
+class XRFaceTracker extends XRTracker {
+    def getBlendShape(blendShape: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = blendShape.ptr
+        val _a0 = stackalloc[Long](); !_a0 = blendShape.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(XRFaceTracker.Binds.getBlendShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setBlendShape(blendShape: Int, weight: Float): Unit =
+    def setBlendShape(blendShape: Int, weight: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = blendShape.ptr
+        val _a0 = stackalloc[Long](); !_a0 = blendShape.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = weight.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRFaceTracker.Binds.setBlendShape, ptr, _args, null)
+}
 
-    def getBlendShapes(): PackedFloat32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRFaceTracker.Binds.getBlendShapes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedFloat32Array(!_ret)
-
-    def setBlendShapes(weights: PackedFloat32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = weights.ptr
-        GdxApi.ptrcall(XRFaceTracker.Binds.setBlendShapes, ptr, _args, null)
-    def blendShapes: Ptr[Byte] = getBlendShapes()
-    def blendShapes_=(v: Ptr[Byte]): Unit = setBlendShapes(v)
+    def blendShapes: PackedFloat32Array = getBlendShapes()
+    def blendShapes_=(v: PackedFloat32Array): Unit = setBlendShapes(v)
+}
 
 object XRFaceTracker:
-    object Binds:
-        var getBlendShape: Ptr[Byte] = null
+object Binds {
+          var getBlendShape: Ptr[Byte] = null
         var setBlendShape: Ptr[Byte] = null
-        var getBlendShapes: Ptr[Byte] = null
-        var setBlendShapes: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getBlendShape = GdxApi.getMethodBind(c"XRFaceTracker", c"get_blend_shape", 330010046L)
+  def loadBinds(): Unit = {
+                Binds.getBlendShape = GdxApi.getMethodBind(c"XRFaceTracker", c"get_blend_shape", 330010046L)
             Binds.setBlendShape = GdxApi.getMethodBind(c"XRFaceTracker", c"set_blend_shape", 2352588791L)
-            Binds.getBlendShapes = GdxApi.getMethodBind(c"XRFaceTracker", c"get_blend_shapes", 675695659L)
-            Binds.setBlendShapes = GdxApi.getMethodBind(c"XRFaceTracker", c"set_blend_shapes", 2899603908L)
+  }
+}
 
-    def apply(): XRFaceTracker =
-        val obj = new XRFaceTracker()
-        obj.ptr = GdxApi.constructObject(c"XRFaceTracker")
-        obj
+def apply(): XRFaceTracker = {
+  val obj = new XRFaceTracker()
+  obj.ptr = GdxApi.constructObject(c"XRFaceTracker")
+  obj
+}

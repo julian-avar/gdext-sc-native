@@ -7,8 +7,11 @@ object GeneratorMain:
             sys.exit(1)
 
         if args.length < 3 then
-            System.err.println("Usage: GeneratorMain <gdextension_interface.json> <extension_api.json> <outputDir>")
+            System.err.println(
+              "Usage: GeneratorMain <gdextension_interface.json> <extension_api.json> <outputDir>"
+            )
             sys.exit(1)
+        end if
 
         val interfaceApiPath = os.Path(args(0))
         val classApiPath     = os.Path(args(1))
@@ -25,11 +28,8 @@ object GeneratorMain:
 
         println(s"  Found ${classes.size} classes with virtual methods")
 
-        val scalaFiles =
-            Generator.types(types.toVector) ++
-            Generator.interfaces(interfaces) ++
-            Generator.classVirtuals(classes) ++
-            Generator.generateWrappers(classes)
+        val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces) ++
+            Generator.classVirtuals(classes) ++ Generator.generateWrappers(classes)
 
         os.makeDir.all(outDir)
 
@@ -38,6 +38,8 @@ object GeneratorMain:
             os.makeDir.all(filePath / os.up)
             os.write.over(filePath, file.content)
             println(s"  wrote ${file.path}/${file.name}.scala")
+        end for
 
         println(s"Done. Generated ${scalaFiles.size} files into $outDir")
+    end main
 end GeneratorMain

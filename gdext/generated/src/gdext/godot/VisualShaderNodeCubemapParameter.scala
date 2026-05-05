@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeCubemapParameter extends VisualShaderNodeTextureParameter
-
-
-
+class VisualShaderNodeCubemapParameter extends VisualShaderNodeTextureParameter {}
 
 object VisualShaderNodeCubemapParameter:
-    def apply(): VisualShaderNodeCubemapParameter =
-        val obj = new VisualShaderNodeCubemapParameter()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCubemapParameter")
-        obj
+def apply(): VisualShaderNodeCubemapParameter = {
+  val obj = new VisualShaderNodeCubemapParameter()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCubemapParameter")
+  obj
+}

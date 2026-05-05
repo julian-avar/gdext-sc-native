@@ -5,217 +5,70 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonIK3D extends SkeletonModifier3D
-
-    def setRootBone(rootBone: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = rootBone.ptr
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setRootBone, ptr, _args, null)
-
-    def getRootBone(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getRootBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTipBone(tipBone: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tipBone.ptr
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setTipBone, ptr, _args, null)
-
-    def getTipBone(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getTipBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTargetTransform(target: Transform3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = target.ptr
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setTargetTransform, ptr, _args, null)
-
-    def getTargetTransform(): Transform3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getTargetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform3D(!_ret)
-
-    def setTargetNode(node: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = node.ptr
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setTargetNode, ptr, _args, null)
-
-    def getTargetNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getTargetNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setOverrideTipBasis(`override`: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if `override` then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setOverrideTipBasis, ptr, _args, null)
-
-    def isOverrideTipBasis(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.isOverrideTipBasis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseMagnet(use: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if use then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setUseMagnet, ptr, _args, null)
-
-    def isUsingMagnet(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.isUsingMagnet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMagnetPosition(localPosition: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = localPosition.ptr
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setMagnetPosition, ptr, _args, null)
-
-    def getMagnetPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getMagnetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getParentSkeleton(): Skeleton3D =
+class SkeletonIK3D extends SkeletonModifier3D {
+    def getParentSkeleton(): Skeleton3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonIK3D.Binds.getParentSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Skeleton3D(!_ret)
+}
 
-    def isRunning(): Boolean =
+    def isRunning(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonIK3D.Binds.isRunning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setMinDistance(minDistance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = minDistance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setMinDistance, ptr, _args, null)
-
-    def getMinDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getMinDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMaxIterations(iterations: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = iterations.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setMaxIterations, ptr, _args, null)
-
-    def getMaxIterations(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getMaxIterations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def start(): Unit =
+    def start(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SkeletonIK3D.Binds.start, ptr, _args, null)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SkeletonIK3D.Binds.stop, ptr, _args, null)
+}
 
-    def setInterpolation(interpolation: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = interpolation.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonIK3D.Binds.setInterpolation, ptr, _args, null)
-
-    def getInterpolation(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonIK3D.Binds.getInterpolation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def rootBone: Ptr[Byte] = getRootBone()
-    def rootBone_=(v: Ptr[Byte]): Unit = setRootBone(v)
-    def tipBone: Ptr[Byte] = getTipBone()
-    def tipBone_=(v: Ptr[Byte]): Unit = setTipBone(v)
-    def target: Ptr[Byte] = getTargetTransform()
-    def target_=(v: Ptr[Byte]): Unit = setTargetTransform(v)
-    def overrideTipBasis: Ptr[Byte] = isOverrideTipBasis()
-    def overrideTipBasis_=(v: Ptr[Byte]): Unit = setOverrideTipBasis(v)
-    def useMagnet: Ptr[Byte] = isUsingMagnet()
-    def useMagnet_=(v: Ptr[Byte]): Unit = setUseMagnet(v)
-    def magnet: Ptr[Byte] = getMagnetPosition()
-    def magnet_=(v: Ptr[Byte]): Unit = setMagnetPosition(v)
-    def targetNode: Ptr[Byte] = getTargetNode()
-    def targetNode_=(v: Ptr[Byte]): Unit = setTargetNode(v)
-    def minDistance: Ptr[Byte] = getMinDistance()
-    def minDistance_=(v: Ptr[Byte]): Unit = setMinDistance(v)
-    def maxIterations: Ptr[Byte] = getMaxIterations()
-    def maxIterations_=(v: Ptr[Byte]): Unit = setMaxIterations(v)
-    def interpolation: Ptr[Byte] = getInterpolation()
-    def interpolation_=(v: Ptr[Byte]): Unit = setInterpolation(v)
+    def rootBone: CString = getRootBone()
+    def rootBone_=(v: CString): Unit = setRootBone(v)
+    def tipBone: CString = getTipBone()
+    def tipBone_=(v: CString): Unit = setTipBone(v)
+    def target: Transform3D = getTargetTransform()
+    def target_=(v: Transform3D): Unit = setTargetTransform(v)
+    def overrideTipBasis: Boolean = isOverrideTipBasis()
+    def overrideTipBasis_=(v: Boolean): Unit = setOverrideTipBasis(v)
+    def useMagnet: Boolean = isUsingMagnet()
+    def useMagnet_=(v: Boolean): Unit = setUseMagnet(v)
+    def magnet: Vector3 = getMagnetPosition()
+    def magnet_=(v: Vector3): Unit = setMagnetPosition(v)
+    def targetNode: NodePath = getTargetNode()
+    def targetNode_=(v: NodePath): Unit = setTargetNode(v)
+    def minDistance: Float = getMinDistance()
+    def minDistance_=(v: Float): Unit = setMinDistance(v)
+    def maxIterations: Int = getMaxIterations()
+    def maxIterations_=(v: Int): Unit = setMaxIterations(v)
+    def interpolation: Float = getInterpolation()
+    def interpolation_=(v: Float): Unit = setInterpolation(v)
+}
 
 object SkeletonIK3D:
-    object Binds:
-        var setRootBone: Ptr[Byte] = null
-        var getRootBone: Ptr[Byte] = null
-        var setTipBone: Ptr[Byte] = null
-        var getTipBone: Ptr[Byte] = null
-        var setTargetTransform: Ptr[Byte] = null
-        var getTargetTransform: Ptr[Byte] = null
-        var setTargetNode: Ptr[Byte] = null
-        var getTargetNode: Ptr[Byte] = null
-        var setOverrideTipBasis: Ptr[Byte] = null
-        var isOverrideTipBasis: Ptr[Byte] = null
-        var setUseMagnet: Ptr[Byte] = null
-        var isUsingMagnet: Ptr[Byte] = null
-        var setMagnetPosition: Ptr[Byte] = null
-        var getMagnetPosition: Ptr[Byte] = null
-        var getParentSkeleton: Ptr[Byte] = null
+object Binds {
+          var getParentSkeleton: Ptr[Byte] = null
         var isRunning: Ptr[Byte] = null
-        var setMinDistance: Ptr[Byte] = null
-        var getMinDistance: Ptr[Byte] = null
-        var setMaxIterations: Ptr[Byte] = null
-        var getMaxIterations: Ptr[Byte] = null
         var start: Ptr[Byte] = null
         var stop: Ptr[Byte] = null
-        var setInterpolation: Ptr[Byte] = null
-        var getInterpolation: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRootBone = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_root_bone", 3304788590L)
-            Binds.getRootBone = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_root_bone", 2002593661L)
-            Binds.setTipBone = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_tip_bone", 3304788590L)
-            Binds.getTipBone = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_tip_bone", 2002593661L)
-            Binds.setTargetTransform = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_target_transform", 2952846383L)
-            Binds.getTargetTransform = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_target_transform", 3229777777L)
-            Binds.setTargetNode = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_target_node", 1348162250L)
-            Binds.getTargetNode = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_target_node", 277076166L)
-            Binds.setOverrideTipBasis = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_override_tip_basis", 2586408642L)
-            Binds.isOverrideTipBasis = GdxApi.getMethodBind(c"SkeletonIK3D", c"is_override_tip_basis", 36873697L)
-            Binds.setUseMagnet = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_use_magnet", 2586408642L)
-            Binds.isUsingMagnet = GdxApi.getMethodBind(c"SkeletonIK3D", c"is_using_magnet", 36873697L)
-            Binds.setMagnetPosition = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_magnet_position", 3460891852L)
-            Binds.getMagnetPosition = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_magnet_position", 3360562783L)
-            Binds.getParentSkeleton = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_parent_skeleton", 1488626673L)
+  def loadBinds(): Unit = {
+                Binds.getParentSkeleton = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_parent_skeleton", 1488626673L)
             Binds.isRunning = GdxApi.getMethodBind(c"SkeletonIK3D", c"is_running", 2240911060L)
-            Binds.setMinDistance = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_min_distance", 373806689L)
-            Binds.getMinDistance = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_min_distance", 1740695150L)
-            Binds.setMaxIterations = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_max_iterations", 1286410249L)
-            Binds.getMaxIterations = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_max_iterations", 3905245786L)
             Binds.start = GdxApi.getMethodBind(c"SkeletonIK3D", c"start", 107499316L)
             Binds.stop = GdxApi.getMethodBind(c"SkeletonIK3D", c"stop", 3218959716L)
-            Binds.setInterpolation = GdxApi.getMethodBind(c"SkeletonIK3D", c"set_interpolation", 373806689L)
-            Binds.getInterpolation = GdxApi.getMethodBind(c"SkeletonIK3D", c"get_interpolation", 1740695150L)
+  }
+}
 
-    def apply(): SkeletonIK3D =
-        val obj = new SkeletonIK3D()
-        obj.ptr = GdxApi.constructObject(c"SkeletonIK3D")
-        obj
+def apply(): SkeletonIK3D = {
+  val obj = new SkeletonIK3D()
+  obj.ptr = GdxApi.constructObject(c"SkeletonIK3D")
+  obj
+}

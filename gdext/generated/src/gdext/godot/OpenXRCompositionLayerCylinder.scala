@@ -5,86 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRCompositionLayerCylinder extends OpenXRCompositionLayer
-
-    def setRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.setRadius, ptr, _args, null)
-
-    def getRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAspectRatio(aspectRatio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = aspectRatio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.setAspectRatio, ptr, _args, null)
-
-    def getAspectRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.getAspectRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCentralAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.setCentralAngle, ptr, _args, null)
-
-    def getCentralAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.getCentralAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFallbackSegments(segments: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = segments.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.setFallbackSegments, ptr, _args, null)
-
-    def getFallbackSegments(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayerCylinder.Binds.getFallbackSegments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def radius: Ptr[Byte] = getRadius()
-    def radius_=(v: Ptr[Byte]): Unit = setRadius(v)
-    def aspectRatio: Ptr[Byte] = getAspectRatio()
-    def aspectRatio_=(v: Ptr[Byte]): Unit = setAspectRatio(v)
-    def centralAngle: Ptr[Byte] = getCentralAngle()
-    def centralAngle_=(v: Ptr[Byte]): Unit = setCentralAngle(v)
-    def fallbackSegments: Ptr[Byte] = getFallbackSegments()
-    def fallbackSegments_=(v: Ptr[Byte]): Unit = setFallbackSegments(v)
+class OpenXRCompositionLayerCylinder extends OpenXRCompositionLayer {
+    def radius: Float = getRadius()
+    def radius_=(v: Float): Unit = setRadius(v)
+    def aspectRatio: Float = getAspectRatio()
+    def aspectRatio_=(v: Float): Unit = setAspectRatio(v)
+    def centralAngle: Float = getCentralAngle()
+    def centralAngle_=(v: Float): Unit = setCentralAngle(v)
+    def fallbackSegments: Int = getFallbackSegments()
+    def fallbackSegments_=(v: Int): Unit = setFallbackSegments(v)
+}
 
 object OpenXRCompositionLayerCylinder:
-    object Binds:
-        var setRadius: Ptr[Byte] = null
-        var getRadius: Ptr[Byte] = null
-        var setAspectRatio: Ptr[Byte] = null
-        var getAspectRatio: Ptr[Byte] = null
-        var setCentralAngle: Ptr[Byte] = null
-        var getCentralAngle: Ptr[Byte] = null
-        var setFallbackSegments: Ptr[Byte] = null
-        var getFallbackSegments: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setRadius = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"set_radius", 373806689L)
-            Binds.getRadius = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"get_radius", 1740695150L)
-            Binds.setAspectRatio = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"set_aspect_ratio", 373806689L)
-            Binds.getAspectRatio = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"get_aspect_ratio", 1740695150L)
-            Binds.setCentralAngle = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"set_central_angle", 373806689L)
-            Binds.getCentralAngle = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"get_central_angle", 1740695150L)
-            Binds.setFallbackSegments = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"set_fallback_segments", 1286410249L)
-            Binds.getFallbackSegments = GdxApi.getMethodBind(c"OpenXRCompositionLayerCylinder", c"get_fallback_segments", 3905245786L)
-
-    def apply(): OpenXRCompositionLayerCylinder =
-        val obj = new OpenXRCompositionLayerCylinder()
-        obj.ptr = GdxApi.constructObject(c"OpenXRCompositionLayerCylinder")
-        obj
+def apply(): OpenXRCompositionLayerCylinder = {
+  val obj = new OpenXRCompositionLayerCylinder()
+  obj.ptr = GdxApi.constructObject(c"OpenXRCompositionLayerCylinder")
+  obj
+}

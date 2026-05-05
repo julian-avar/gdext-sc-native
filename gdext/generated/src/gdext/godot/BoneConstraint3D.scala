@@ -5,106 +5,118 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class BoneConstraint3D extends SkeletonModifier3D
-
-    def setAmount(index: Int, amount: Float): Unit =
+class BoneConstraint3D extends SkeletonModifier3D {
+    def setAmount(index: Int, amount: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = amount.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BoneConstraint3D.Binds.setAmount, ptr, _args, null)
+}
 
-    def getAmount(index: Int): Float =
+    def getAmount(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(BoneConstraint3D.Binds.getAmount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setApplyBoneName(index: Int, boneName: CString): Unit =
+    def setApplyBoneName(index: Int, boneName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = boneName.ptr
+        _args(1) = boneName
         GdxApi.ptrcall(BoneConstraint3D.Binds.setApplyBoneName, ptr, _args, null)
+}
 
-    def getApplyBoneName(index: Int): CString =
+    def getApplyBoneName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(BoneConstraint3D.Binds.getApplyBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setApplyBone(index: Int, bone: Int): Unit =
+    def setApplyBone(index: Int, bone: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BoneConstraint3D.Binds.setApplyBone, ptr, _args, null)
+}
 
-    def getApplyBone(index: Int): Int =
+    def getApplyBone(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(BoneConstraint3D.Binds.getApplyBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setReferenceBoneName(index: Int, boneName: CString): Unit =
+    def setReferenceBoneName(index: Int, boneName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = boneName.ptr
+        _args(1) = boneName
         GdxApi.ptrcall(BoneConstraint3D.Binds.setReferenceBoneName, ptr, _args, null)
+}
 
-    def getReferenceBoneName(index: Int): CString =
+    def getReferenceBoneName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(BoneConstraint3D.Binds.getReferenceBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setReferenceBone(index: Int, bone: Int): Unit =
+    def setReferenceBone(index: Int, bone: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BoneConstraint3D.Binds.setReferenceBone, ptr, _args, null)
+}
 
-    def getReferenceBone(index: Int): Int =
+    def getReferenceBone(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(BoneConstraint3D.Binds.getReferenceBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSettingCount(count: Int): Unit =
+    def setSettingCount(count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
+        val _a0 = stackalloc[Long](); !_a0 = count.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BoneConstraint3D.Binds.setSettingCount, ptr, _args, null)
+}
 
-    def getSettingCount(): Int =
+    def getSettingCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(BoneConstraint3D.Binds.getSettingCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearSetting(): Unit =
+    def clearSetting(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(BoneConstraint3D.Binds.clearSetting, ptr, _args, null)
-
+}
+}
 
 object BoneConstraint3D:
-    object Binds:
-        var setAmount: Ptr[Byte] = null
+object Binds {
+          var setAmount: Ptr[Byte] = null
         var getAmount: Ptr[Byte] = null
         var setApplyBoneName: Ptr[Byte] = null
         var getApplyBoneName: Ptr[Byte] = null
@@ -118,8 +130,8 @@ object BoneConstraint3D:
         var getSettingCount: Ptr[Byte] = null
         var clearSetting: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setAmount = GdxApi.getMethodBind(c"BoneConstraint3D", c"set_amount", 1602489585L)
+  def loadBinds(): Unit = {
+                Binds.setAmount = GdxApi.getMethodBind(c"BoneConstraint3D", c"set_amount", 1602489585L)
             Binds.getAmount = GdxApi.getMethodBind(c"BoneConstraint3D", c"get_amount", 2339986948L)
             Binds.setApplyBoneName = GdxApi.getMethodBind(c"BoneConstraint3D", c"set_apply_bone_name", 501894301L)
             Binds.getApplyBoneName = GdxApi.getMethodBind(c"BoneConstraint3D", c"get_apply_bone_name", 844755477L)
@@ -132,8 +144,11 @@ object BoneConstraint3D:
             Binds.setSettingCount = GdxApi.getMethodBind(c"BoneConstraint3D", c"set_setting_count", 1286410249L)
             Binds.getSettingCount = GdxApi.getMethodBind(c"BoneConstraint3D", c"get_setting_count", 3905245786L)
             Binds.clearSetting = GdxApi.getMethodBind(c"BoneConstraint3D", c"clear_setting", 3218959716L)
+  }
+}
 
-    def apply(): BoneConstraint3D =
-        val obj = new BoneConstraint3D()
-        obj.ptr = GdxApi.constructObject(c"BoneConstraint3D")
-        obj
+def apply(): BoneConstraint3D = {
+  val obj = new BoneConstraint3D()
+  obj.ptr = GdxApi.constructObject(c"BoneConstraint3D")
+  obj
+}

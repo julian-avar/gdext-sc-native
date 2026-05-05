@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CanvasModulate extends Node2D
-
-    def setColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(CanvasModulate.Binds.setColor, ptr, _args, null)
-
-    def getColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasModulate.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-    def color: Ptr[Byte] = getColor()
-    def color_=(v: Ptr[Byte]): Unit = setColor(v)
+class CanvasModulate extends Node2D {
+    def color: Color = getColor()
+    def color_=(v: Color): Unit = setColor(v)
+}
 
 object CanvasModulate:
-    object Binds:
-        var setColor: Ptr[Byte] = null
-        var getColor: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setColor = GdxApi.getMethodBind(c"CanvasModulate", c"set_color", 2920490490L)
-            Binds.getColor = GdxApi.getMethodBind(c"CanvasModulate", c"get_color", 3444240500L)
-
-    def apply(): CanvasModulate =
-        val obj = new CanvasModulate()
-        obj.ptr = GdxApi.constructObject(c"CanvasModulate")
-        obj
+def apply(): CanvasModulate = {
+  val obj = new CanvasModulate()
+  obj.ptr = GdxApi.constructObject(c"CanvasModulate")
+  obj
+}

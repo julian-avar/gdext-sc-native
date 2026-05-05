@@ -5,99 +5,45 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFMesh extends Resource
-
-    def getOriginalName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFMesh.Binds.getOriginalName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setOriginalName(originalName: CString): Unit =
+class GLTFMesh extends Resource {
+    def getAdditionalData(extensionName: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = originalName.ptr
-        GdxApi.ptrcall(GLTFMesh.Binds.setOriginalName, ptr, _args, null)
-
-    def getMesh(): ImporterMesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFMesh.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new ImporterMesh(!_ret)
-
-    def setMesh(mesh: ImporterMesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(GLTFMesh.Binds.setMesh, ptr, _args, null)
-
-    def getBlendWeights(): PackedFloat32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFMesh.Binds.getBlendWeights, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedFloat32Array(!_ret)
-
-    def setBlendWeights(blendWeights: PackedFloat32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = blendWeights.ptr
-        GdxApi.ptrcall(GLTFMesh.Binds.setBlendWeights, ptr, _args, null)
-
-    def getInstanceMaterials(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFMesh.Binds.getInstanceMaterials, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setInstanceMaterials(instanceMaterials: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = instanceMaterials.ptr
-        GdxApi.ptrcall(GLTFMesh.Binds.setInstanceMaterials, ptr, _args, null)
-
-    def getAdditionalData(extensionName: CString): Ptr[Byte] =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = extensionName.ptr
+        _args(0) = extensionName
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFMesh.Binds.getAdditionalData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setAdditionalData(extensionName: CString, additionalData: Ptr[Byte]): Unit =
+    def setAdditionalData(extensionName: CString, additionalData: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = extensionName.ptr
-        _args(1) = additionalData.ptr
+        _args(0) = extensionName
+        _args(1) = additionalData
         GdxApi.ptrcall(GLTFMesh.Binds.setAdditionalData, ptr, _args, null)
-    def originalName: Ptr[Byte] = getOriginalName()
-    def originalName_=(v: Ptr[Byte]): Unit = setOriginalName(v)
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def blendWeights: Ptr[Byte] = getBlendWeights()
-    def blendWeights_=(v: Ptr[Byte]): Unit = setBlendWeights(v)
+}
+
+    def originalName: CString = getOriginalName()
+    def originalName_=(v: CString): Unit = setOriginalName(v)
+    def mesh: ImporterMesh = getMesh()
+    def mesh_=(v: ImporterMesh): Unit = setMesh(v)
+    def blendWeights: PackedFloat32Array = getBlendWeights()
+    def blendWeights_=(v: PackedFloat32Array): Unit = setBlendWeights(v)
     def instanceMaterials: Ptr[Byte] = getInstanceMaterials()
     def instanceMaterials_=(v: Ptr[Byte]): Unit = setInstanceMaterials(v)
+}
 
 object GLTFMesh:
-    object Binds:
-        var getOriginalName: Ptr[Byte] = null
-        var setOriginalName: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setMesh: Ptr[Byte] = null
-        var getBlendWeights: Ptr[Byte] = null
-        var setBlendWeights: Ptr[Byte] = null
-        var getInstanceMaterials: Ptr[Byte] = null
-        var setInstanceMaterials: Ptr[Byte] = null
-        var getAdditionalData: Ptr[Byte] = null
+object Binds {
+          var getAdditionalData: Ptr[Byte] = null
         var setAdditionalData: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getOriginalName = GdxApi.getMethodBind(c"GLTFMesh", c"get_original_name", 2841200299L)
-            Binds.setOriginalName = GdxApi.getMethodBind(c"GLTFMesh", c"set_original_name", 83702148L)
-            Binds.getMesh = GdxApi.getMethodBind(c"GLTFMesh", c"get_mesh", 3754628756L)
-            Binds.setMesh = GdxApi.getMethodBind(c"GLTFMesh", c"set_mesh", 2255166972L)
-            Binds.getBlendWeights = GdxApi.getMethodBind(c"GLTFMesh", c"get_blend_weights", 2445143706L)
-            Binds.setBlendWeights = GdxApi.getMethodBind(c"GLTFMesh", c"set_blend_weights", 2899603908L)
-            Binds.getInstanceMaterials = GdxApi.getMethodBind(c"GLTFMesh", c"get_instance_materials", 2915620761L)
-            Binds.setInstanceMaterials = GdxApi.getMethodBind(c"GLTFMesh", c"set_instance_materials", 381264803L)
-            Binds.getAdditionalData = GdxApi.getMethodBind(c"GLTFMesh", c"get_additional_data", 2138907829L)
+  def loadBinds(): Unit = {
+                Binds.getAdditionalData = GdxApi.getMethodBind(c"GLTFMesh", c"get_additional_data", 2138907829L)
             Binds.setAdditionalData = GdxApi.getMethodBind(c"GLTFMesh", c"set_additional_data", 3776071444L)
+  }
+}
 
-    def apply(): GLTFMesh =
-        val obj = new GLTFMesh()
-        obj.ptr = GdxApi.constructObject(c"GLTFMesh")
-        obj
+def apply(): GLTFMesh = {
+  val obj = new GLTFMesh()
+  obj.ptr = GdxApi.constructObject(c"GLTFMesh")
+  obj
+}

@@ -5,23 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PlaceholderMesh extends Mesh
-
-    def setAabb(aabb: AABB): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = aabb.ptr
-        GdxApi.ptrcall(PlaceholderMesh.Binds.setAabb, ptr, _args, null)
+class PlaceholderMesh extends Mesh {
     def aabb: Ptr[Byte] = getAabb()
-    def aabb_=(v: Ptr[Byte]): Unit = setAabb(v)
+    def aabb_=(v: AABB): Unit = setAabb(v)
+}
 
 object PlaceholderMesh:
-    object Binds:
-        var setAabb: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setAabb = GdxApi.getMethodBind(c"PlaceholderMesh", c"set_aabb", 259215842L)
-
-    def apply(): PlaceholderMesh =
-        val obj = new PlaceholderMesh()
-        obj.ptr = GdxApi.constructObject(c"PlaceholderMesh")
-        obj
+def apply(): PlaceholderMesh = {
+  val obj = new PlaceholderMesh()
+  obj.ptr = GdxApi.constructObject(c"PlaceholderMesh")
+  obj
+}

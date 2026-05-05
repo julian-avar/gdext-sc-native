@@ -5,11 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Mesh extends Resource
+class Mesh extends Resource {
     def _getSurfaceCount(): Int = 0
     def _surfaceGetArrayLen(index: Int): Int = 0
     def _surfaceGetArrayIndexLen(index: Int): Int = 0
-    def _surfaceGetArrays(index: Int): Array = null
+    def _surfaceGetArrays(index: Int): Ptr[Byte] = null
     def _surfaceGetBlendShapeArrays(index: Int): Ptr[Byte] = null
     def _surfaceGetLods(index: Int): Dictionary = null
     def _surfaceGetFormat(index: Int): Int = 0
@@ -20,105 +20,107 @@ class Mesh extends Resource
     def _getBlendShapeName(index: Int): CString = null
     def _setBlendShapeName(index: Int, name: CString): Unit = ()
     def _getAabb(): AABB = null
-    def setLightmapSizeHint(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(Mesh.Binds.setLightmapSizeHint, ptr, _args, null)
 
-    def getLightmapSizeHint(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Mesh.Binds.getLightmapSizeHint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def getAabb(): AABB =
+    def getAabb(): AABB = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.getAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def getFaces(): PackedVector3Array =
+    def getFaces(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.getFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def getSurfaceCount(): Int =
+    def getSurfaceCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Mesh.Binds.getSurfaceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def surfaceGetArrays(surfIdx: Int): Array =
+    def surfaceGetArrays(surfIdx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = surfIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surfIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.surfaceGetArrays, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def surfaceGetBlendShapeArrays(surfIdx: Int): Ptr[Byte] =
+    def surfaceGetBlendShapeArrays(surfIdx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = surfIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surfIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.surfaceGetBlendShapeArrays, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def surfaceSetMaterial(surfIdx: Int, material: Material): Unit =
+    def surfaceSetMaterial(surfIdx: Int, material: Material): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = surfIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surfIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = material.ptr
         GdxApi.ptrcall(Mesh.Binds.surfaceSetMaterial, ptr, _args, null)
+}
 
-    def surfaceGetMaterial(surfIdx: Int): Material =
+    def surfaceGetMaterial(surfIdx: Int): Material = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = surfIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = surfIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.surfaceGetMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Material(!_ret)
+}
 
-    def createPlaceholder(): Resource =
+    def createPlaceholder(): Resource = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.createPlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
+}
 
-    def createTrimeshShape(): ConcavePolygonShape3D =
+    def createTrimeshShape(): ConcavePolygonShape3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.createTrimeshShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ConcavePolygonShape3D(!_ret)
+}
 
-    def createConvexShape(): ConvexPolygonShape3D =
+    def createConvexShape(): ConvexPolygonShape3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.createConvexShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ConvexPolygonShape3D(!_ret)
+}
 
-    def createOutline(margin: Float): Mesh =
+    def createOutline(margin: Float): Mesh = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.createOutline, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Mesh(!_ret)
+}
 
-    def generateTriangleMesh(): TriangleMesh =
+    def generateTriangleMesh(): TriangleMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Mesh.Binds.generateTriangleMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TriangleMesh(!_ret)
-    def lightmapSizeHint: Ptr[Byte] = getLightmapSizeHint()
-    def lightmapSizeHint_=(v: Ptr[Byte]): Unit = setLightmapSizeHint(v)
+}
+
+    def lightmapSizeHint: Vector2i = getLightmapSizeHint()
+    def lightmapSizeHint_=(v: Vector2i): Unit = setLightmapSizeHint(v)
+}
 
 object Mesh:
-    object Binds:
-        var setLightmapSizeHint: Ptr[Byte] = null
-        var getLightmapSizeHint: Ptr[Byte] = null
-        var getAabb: Ptr[Byte] = null
+object Binds {
+          var getAabb: Ptr[Byte] = null
         var getFaces: Ptr[Byte] = null
         var getSurfaceCount: Ptr[Byte] = null
         var surfaceGetArrays: Ptr[Byte] = null
@@ -131,10 +133,8 @@ object Mesh:
         var createOutline: Ptr[Byte] = null
         var generateTriangleMesh: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setLightmapSizeHint = GdxApi.getMethodBind(c"Mesh", c"set_lightmap_size_hint", 1130785943L)
-            Binds.getLightmapSizeHint = GdxApi.getMethodBind(c"Mesh", c"get_lightmap_size_hint", 3690982128L)
-            Binds.getAabb = GdxApi.getMethodBind(c"Mesh", c"get_aabb", 1068685055L)
+  def loadBinds(): Unit = {
+                Binds.getAabb = GdxApi.getMethodBind(c"Mesh", c"get_aabb", 1068685055L)
             Binds.getFaces = GdxApi.getMethodBind(c"Mesh", c"get_faces", 497664490L)
             Binds.getSurfaceCount = GdxApi.getMethodBind(c"Mesh", c"get_surface_count", 3905245786L)
             Binds.surfaceGetArrays = GdxApi.getMethodBind(c"Mesh", c"surface_get_arrays", 663333327L)
@@ -146,8 +146,11 @@ object Mesh:
             Binds.createConvexShape = GdxApi.getMethodBind(c"Mesh", c"create_convex_shape", 2529984628L)
             Binds.createOutline = GdxApi.getMethodBind(c"Mesh", c"create_outline", 1208642001L)
             Binds.generateTriangleMesh = GdxApi.getMethodBind(c"Mesh", c"generate_triangle_mesh", 3476533166L)
+  }
+}
 
-    def apply(): Mesh =
-        val obj = new Mesh()
-        obj.ptr = GdxApi.constructObject(c"Mesh")
-        obj
+def apply(): Mesh = {
+  val obj = new Mesh()
+  obj.ptr = GdxApi.constructObject(c"Mesh")
+  obj
+}

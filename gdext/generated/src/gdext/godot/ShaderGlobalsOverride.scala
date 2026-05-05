@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ShaderGlobalsOverride extends Node
-
-
-
+class ShaderGlobalsOverride extends Node {}
 
 object ShaderGlobalsOverride:
-    def apply(): ShaderGlobalsOverride =
-        val obj = new ShaderGlobalsOverride()
-        obj.ptr = GdxApi.constructObject(c"ShaderGlobalsOverride")
-        obj
+def apply(): ShaderGlobalsOverride = {
+  val obj = new ShaderGlobalsOverride()
+  obj.ptr = GdxApi.constructObject(c"ShaderGlobalsOverride")
+  obj
+}

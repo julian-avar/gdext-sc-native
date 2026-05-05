@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRInteractionProfileEditor extends OpenXRInteractionProfileEditorBase
-
-
-
+class OpenXRInteractionProfileEditor extends OpenXRInteractionProfileEditorBase {}
 
 object OpenXRInteractionProfileEditor:
-    def apply(): OpenXRInteractionProfileEditor =
-        val obj = new OpenXRInteractionProfileEditor()
-        obj.ptr = GdxApi.constructObject(c"OpenXRInteractionProfileEditor")
-        obj
+def apply(): OpenXRInteractionProfileEditor = {
+  val obj = new OpenXRInteractionProfileEditor()
+  obj.ptr = GdxApi.constructObject(c"OpenXRInteractionProfileEditor")
+  obj
+}

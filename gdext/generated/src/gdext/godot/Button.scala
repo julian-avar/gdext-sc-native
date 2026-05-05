@@ -5,238 +5,38 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Button extends BaseButton
-
-    def setText(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(Button.Binds.setText, ptr, _args, null)
-
-    def getText(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Button.Binds.getText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTextOverrunBehavior(overrunBehavior: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = overrunBehavior.ptr
-        GdxApi.ptrcall(Button.Binds.setTextOverrunBehavior, ptr, _args, null)
-
-    def getTextOverrunBehavior(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getTextOverrunBehavior, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAutowrapMode(autowrapMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = autowrapMode.ptr
-        GdxApi.ptrcall(Button.Binds.setAutowrapMode, ptr, _args, null)
-
-    def getAutowrapMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getAutowrapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAutowrapTrimFlags(autowrapTrimFlags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = autowrapTrimFlags.ptr
-        GdxApi.ptrcall(Button.Binds.setAutowrapTrimFlags, ptr, _args, null)
-
-    def getAutowrapTrimFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getAutowrapTrimFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(Button.Binds.setTextDirection, ptr, _args, null)
-
-    def getTextDirection(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLanguage(language: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
-        GdxApi.ptrcall(Button.Binds.setLanguage, ptr, _args, null)
-
-    def getLanguage(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Button.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setButtonIcon(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(Button.Binds.setButtonIcon, ptr, _args, null)
-
-    def getButtonIcon(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Button.Binds.getButtonIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setFlat(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Button.Binds.setFlat, ptr, _args, null)
-
-    def isFlat(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Button.Binds.isFlat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setClipText(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Button.Binds.setClipText, ptr, _args, null)
-
-    def getClipText(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Button.Binds.getClipText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTextAlignment(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(Button.Binds.setTextAlignment, ptr, _args, null)
-
-    def getTextAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getTextAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setIconAlignment(iconAlignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = iconAlignment.ptr
-        GdxApi.ptrcall(Button.Binds.setIconAlignment, ptr, _args, null)
-
-    def getIconAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getIconAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVerticalIconAlignment(verticalIconAlignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = verticalIconAlignment.ptr
-        GdxApi.ptrcall(Button.Binds.setVerticalIconAlignment, ptr, _args, null)
-
-    def getVerticalIconAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Button.Binds.getVerticalIconAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setExpandIcon(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Button.Binds.setExpandIcon, ptr, _args, null)
-
-    def isExpandIcon(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Button.Binds.isExpandIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def text: Ptr[Byte] = getText()
-    def text_=(v: Ptr[Byte]): Unit = setText(v)
-    def icon: Ptr[Byte] = getButtonIcon()
-    def icon_=(v: Ptr[Byte]): Unit = setButtonIcon(v)
-    def flat: Ptr[Byte] = isFlat()
-    def flat_=(v: Ptr[Byte]): Unit = setFlat(v)
-    def alignment: Ptr[Byte] = getTextAlignment()
-    def alignment_=(v: Ptr[Byte]): Unit = setTextAlignment(v)
-    def textOverrunBehavior: Ptr[Byte] = getTextOverrunBehavior()
-    def textOverrunBehavior_=(v: Ptr[Byte]): Unit = setTextOverrunBehavior(v)
-    def autowrapMode: Ptr[Byte] = getAutowrapMode()
-    def autowrapMode_=(v: Ptr[Byte]): Unit = setAutowrapMode(v)
-    def autowrapTrimFlags: Ptr[Byte] = getAutowrapTrimFlags()
-    def autowrapTrimFlags_=(v: Ptr[Byte]): Unit = setAutowrapTrimFlags(v)
-    def clipText: Ptr[Byte] = getClipText()
-    def clipText_=(v: Ptr[Byte]): Unit = setClipText(v)
-    def iconAlignment: Ptr[Byte] = getIconAlignment()
-    def iconAlignment_=(v: Ptr[Byte]): Unit = setIconAlignment(v)
-    def verticalIconAlignment: Ptr[Byte] = getVerticalIconAlignment()
-    def verticalIconAlignment_=(v: Ptr[Byte]): Unit = setVerticalIconAlignment(v)
-    def expandIcon: Ptr[Byte] = isExpandIcon()
-    def expandIcon_=(v: Ptr[Byte]): Unit = setExpandIcon(v)
-    def textDirection: Ptr[Byte] = getTextDirection()
-    def textDirection_=(v: Ptr[Byte]): Unit = setTextDirection(v)
-    def language: Ptr[Byte] = getLanguage()
-    def language_=(v: Ptr[Byte]): Unit = setLanguage(v)
+class Button extends BaseButton {
+    def text: CString = getText()
+    def text_=(v: CString): Unit = setText(v)
+    def icon: Texture2D = getButtonIcon()
+    def icon_=(v: Texture2D): Unit = setButtonIcon(v)
+    def flat: Boolean = isFlat()
+    def flat_=(v: Boolean): Unit = setFlat(v)
+    def alignment: Int = getTextAlignment()
+    def alignment_=(v: Int): Unit = setTextAlignment(v)
+    def textOverrunBehavior: Int = getTextOverrunBehavior()
+    def textOverrunBehavior_=(v: Int): Unit = setTextOverrunBehavior(v)
+    def autowrapMode: Int = getAutowrapMode()
+    def autowrapMode_=(v: Int): Unit = setAutowrapMode(v)
+    def autowrapTrimFlags: Int = getAutowrapTrimFlags()
+    def autowrapTrimFlags_=(v: Int): Unit = setAutowrapTrimFlags(v)
+    def clipText: Boolean = getClipText()
+    def clipText_=(v: Boolean): Unit = setClipText(v)
+    def iconAlignment: Int = getIconAlignment()
+    def iconAlignment_=(v: Int): Unit = setIconAlignment(v)
+    def verticalIconAlignment: Int = getVerticalIconAlignment()
+    def verticalIconAlignment_=(v: Int): Unit = setVerticalIconAlignment(v)
+    def expandIcon: Boolean = isExpandIcon()
+    def expandIcon_=(v: Boolean): Unit = setExpandIcon(v)
+    def textDirection: Int = getTextDirection()
+    def textDirection_=(v: Int): Unit = setTextDirection(v)
+    def language: CString = getLanguage()
+    def language_=(v: CString): Unit = setLanguage(v)
+}
 
 object Button:
-    object Binds:
-        var setText: Ptr[Byte] = null
-        var getText: Ptr[Byte] = null
-        var setTextOverrunBehavior: Ptr[Byte] = null
-        var getTextOverrunBehavior: Ptr[Byte] = null
-        var setAutowrapMode: Ptr[Byte] = null
-        var getAutowrapMode: Ptr[Byte] = null
-        var setAutowrapTrimFlags: Ptr[Byte] = null
-        var getAutowrapTrimFlags: Ptr[Byte] = null
-        var setTextDirection: Ptr[Byte] = null
-        var getTextDirection: Ptr[Byte] = null
-        var setLanguage: Ptr[Byte] = null
-        var getLanguage: Ptr[Byte] = null
-        var setButtonIcon: Ptr[Byte] = null
-        var getButtonIcon: Ptr[Byte] = null
-        var setFlat: Ptr[Byte] = null
-        var isFlat: Ptr[Byte] = null
-        var setClipText: Ptr[Byte] = null
-        var getClipText: Ptr[Byte] = null
-        var setTextAlignment: Ptr[Byte] = null
-        var getTextAlignment: Ptr[Byte] = null
-        var setIconAlignment: Ptr[Byte] = null
-        var getIconAlignment: Ptr[Byte] = null
-        var setVerticalIconAlignment: Ptr[Byte] = null
-        var getVerticalIconAlignment: Ptr[Byte] = null
-        var setExpandIcon: Ptr[Byte] = null
-        var isExpandIcon: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setText = GdxApi.getMethodBind(c"Button", c"set_text", 83702148L)
-            Binds.getText = GdxApi.getMethodBind(c"Button", c"get_text", 201670096L)
-            Binds.setTextOverrunBehavior = GdxApi.getMethodBind(c"Button", c"set_text_overrun_behavior", 1008890932L)
-            Binds.getTextOverrunBehavior = GdxApi.getMethodBind(c"Button", c"get_text_overrun_behavior", 3779142101L)
-            Binds.setAutowrapMode = GdxApi.getMethodBind(c"Button", c"set_autowrap_mode", 3289138044L)
-            Binds.getAutowrapMode = GdxApi.getMethodBind(c"Button", c"get_autowrap_mode", 1549071663L)
-            Binds.setAutowrapTrimFlags = GdxApi.getMethodBind(c"Button", c"set_autowrap_trim_flags", 2809697122L)
-            Binds.getAutowrapTrimFlags = GdxApi.getMethodBind(c"Button", c"get_autowrap_trim_flags", 2340632602L)
-            Binds.setTextDirection = GdxApi.getMethodBind(c"Button", c"set_text_direction", 119160795L)
-            Binds.getTextDirection = GdxApi.getMethodBind(c"Button", c"get_text_direction", 797257663L)
-            Binds.setLanguage = GdxApi.getMethodBind(c"Button", c"set_language", 83702148L)
-            Binds.getLanguage = GdxApi.getMethodBind(c"Button", c"get_language", 201670096L)
-            Binds.setButtonIcon = GdxApi.getMethodBind(c"Button", c"set_button_icon", 4051416890L)
-            Binds.getButtonIcon = GdxApi.getMethodBind(c"Button", c"get_button_icon", 3635182373L)
-            Binds.setFlat = GdxApi.getMethodBind(c"Button", c"set_flat", 2586408642L)
-            Binds.isFlat = GdxApi.getMethodBind(c"Button", c"is_flat", 36873697L)
-            Binds.setClipText = GdxApi.getMethodBind(c"Button", c"set_clip_text", 2586408642L)
-            Binds.getClipText = GdxApi.getMethodBind(c"Button", c"get_clip_text", 36873697L)
-            Binds.setTextAlignment = GdxApi.getMethodBind(c"Button", c"set_text_alignment", 2312603777L)
-            Binds.getTextAlignment = GdxApi.getMethodBind(c"Button", c"get_text_alignment", 341400642L)
-            Binds.setIconAlignment = GdxApi.getMethodBind(c"Button", c"set_icon_alignment", 2312603777L)
-            Binds.getIconAlignment = GdxApi.getMethodBind(c"Button", c"get_icon_alignment", 341400642L)
-            Binds.setVerticalIconAlignment = GdxApi.getMethodBind(c"Button", c"set_vertical_icon_alignment", 1796458609L)
-            Binds.getVerticalIconAlignment = GdxApi.getMethodBind(c"Button", c"get_vertical_icon_alignment", 3274884059L)
-            Binds.setExpandIcon = GdxApi.getMethodBind(c"Button", c"set_expand_icon", 2586408642L)
-            Binds.isExpandIcon = GdxApi.getMethodBind(c"Button", c"is_expand_icon", 36873697L)
-
-    def apply(): Button =
-        val obj = new Button()
-        obj.ptr = GdxApi.constructObject(c"Button")
-        obj
+def apply(): Button = {
+  val obj = new Button()
+  obj.ptr = GdxApi.constructObject(c"Button")
+  obj
+}

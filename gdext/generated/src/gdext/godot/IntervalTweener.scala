@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class IntervalTweener extends Tweener
-
-
-
+class IntervalTweener extends Tweener {}
 
 object IntervalTweener:
-    def apply(): IntervalTweener =
-        val obj = new IntervalTweener()
-        obj.ptr = GdxApi.constructObject(c"IntervalTweener")
-        obj
+def apply(): IntervalTweener = {
+  val obj = new IntervalTweener()
+  obj.ptr = GdxApi.constructObject(c"IntervalTweener")
+  obj
+}

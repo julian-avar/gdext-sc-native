@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeWorldPositionFromDepth extends VisualShaderNode
-
-
-
+class VisualShaderNodeWorldPositionFromDepth extends VisualShaderNode {}
 
 object VisualShaderNodeWorldPositionFromDepth:
-    def apply(): VisualShaderNodeWorldPositionFromDepth =
-        val obj = new VisualShaderNodeWorldPositionFromDepth()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeWorldPositionFromDepth")
-        obj
+def apply(): VisualShaderNodeWorldPositionFromDepth = {
+  val obj = new VisualShaderNodeWorldPositionFromDepth()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeWorldPositionFromDepth")
+  obj
+}

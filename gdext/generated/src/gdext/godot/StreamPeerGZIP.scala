@@ -5,45 +5,51 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StreamPeerGZIP extends StreamPeer
-
-    def startCompression(): Int =
+class StreamPeerGZIP extends StreamPeer {
+    def startCompression(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeerGZIP.Binds.startCompression, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def startDecompression(): Int =
+    def startDecompression(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeerGZIP.Binds.startDecompression, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def finish(): Int =
+    def finish(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeerGZIP.Binds.finish, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(StreamPeerGZIP.Binds.clear, ptr, _args, null)
-
+}
+}
 
 object StreamPeerGZIP:
-    object Binds:
-        var startCompression: Ptr[Byte] = null
+object Binds {
+          var startCompression: Ptr[Byte] = null
         var startDecompression: Ptr[Byte] = null
         var finish: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.startCompression = GdxApi.getMethodBind(c"StreamPeerGZIP", c"start_compression", 781582770L)
+  def loadBinds(): Unit = {
+                Binds.startCompression = GdxApi.getMethodBind(c"StreamPeerGZIP", c"start_compression", 781582770L)
             Binds.startDecompression = GdxApi.getMethodBind(c"StreamPeerGZIP", c"start_decompression", 781582770L)
             Binds.finish = GdxApi.getMethodBind(c"StreamPeerGZIP", c"finish", 166280745L)
             Binds.clear = GdxApi.getMethodBind(c"StreamPeerGZIP", c"clear", 3218959716L)
+  }
+}
 
-    def apply(): StreamPeerGZIP =
-        val obj = new StreamPeerGZIP()
-        obj.ptr = GdxApi.constructObject(c"StreamPeerGZIP")
-        obj
+def apply(): StreamPeerGZIP = {
+  val obj = new StreamPeerGZIP()
+  obj.ptr = GdxApi.constructObject(c"StreamPeerGZIP")
+  obj
+}

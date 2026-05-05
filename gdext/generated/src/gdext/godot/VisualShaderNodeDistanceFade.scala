@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeDistanceFade extends VisualShaderNode
-
-
-
+class VisualShaderNodeDistanceFade extends VisualShaderNode {}
 
 object VisualShaderNodeDistanceFade:
-    def apply(): VisualShaderNodeDistanceFade =
-        val obj = new VisualShaderNodeDistanceFade()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeDistanceFade")
-        obj
+def apply(): VisualShaderNodeDistanceFade = {
+  val obj = new VisualShaderNodeDistanceFade()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeDistanceFade")
+  obj
+}

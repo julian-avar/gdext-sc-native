@@ -5,152 +5,70 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class UPNPDevice extends RefCounted
-
-    def isValidGateway(): Boolean =
+class UPNPDevice extends RefCounted {
+    def isValidGateway(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UPNPDevice.Binds.isValidGateway, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def queryExternalAddress(): CString =
+    def queryExternalAddress(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UPNPDevice.Binds.queryExternalAddress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addPortMapping(port: Int): Int =
+    def addPortMapping(port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
+        val _a0 = stackalloc[Long](); !_a0 = port.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UPNPDevice.Binds.addPortMapping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def deletePortMapping(port: Int): Int =
+    def deletePortMapping(port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
+        val _a0 = stackalloc[Long](); !_a0 = port.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UPNPDevice.Binds.deletePortMapping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setDescriptionUrl(url: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = url.ptr
-        GdxApi.ptrcall(UPNPDevice.Binds.setDescriptionUrl, ptr, _args, null)
-
-    def getDescriptionUrl(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(UPNPDevice.Binds.getDescriptionUrl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setServiceType(`type`: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(UPNPDevice.Binds.setServiceType, ptr, _args, null)
-
-    def getServiceType(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(UPNPDevice.Binds.getServiceType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setIgdControlUrl(url: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = url.ptr
-        GdxApi.ptrcall(UPNPDevice.Binds.setIgdControlUrl, ptr, _args, null)
-
-    def getIgdControlUrl(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(UPNPDevice.Binds.getIgdControlUrl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setIgdServiceType(`type`: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(UPNPDevice.Binds.setIgdServiceType, ptr, _args, null)
-
-    def getIgdServiceType(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(UPNPDevice.Binds.getIgdServiceType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setIgdOurAddr(addr: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = addr.ptr
-        GdxApi.ptrcall(UPNPDevice.Binds.setIgdOurAddr, ptr, _args, null)
-
-    def getIgdOurAddr(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(UPNPDevice.Binds.getIgdOurAddr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setIgdStatus(status: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = status.ptr
-        GdxApi.ptrcall(UPNPDevice.Binds.setIgdStatus, ptr, _args, null)
-
-    def getIgdStatus(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(UPNPDevice.Binds.getIgdStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def descriptionUrl: Ptr[Byte] = getDescriptionUrl()
-    def descriptionUrl_=(v: Ptr[Byte]): Unit = setDescriptionUrl(v)
-    def serviceType: Ptr[Byte] = getServiceType()
-    def serviceType_=(v: Ptr[Byte]): Unit = setServiceType(v)
-    def igdControlUrl: Ptr[Byte] = getIgdControlUrl()
-    def igdControlUrl_=(v: Ptr[Byte]): Unit = setIgdControlUrl(v)
-    def igdServiceType: Ptr[Byte] = getIgdServiceType()
-    def igdServiceType_=(v: Ptr[Byte]): Unit = setIgdServiceType(v)
-    def igdOurAddr: Ptr[Byte] = getIgdOurAddr()
-    def igdOurAddr_=(v: Ptr[Byte]): Unit = setIgdOurAddr(v)
-    def igdStatus: Ptr[Byte] = getIgdStatus()
-    def igdStatus_=(v: Ptr[Byte]): Unit = setIgdStatus(v)
+    def descriptionUrl: CString = getDescriptionUrl()
+    def descriptionUrl_=(v: CString): Unit = setDescriptionUrl(v)
+    def serviceType: CString = getServiceType()
+    def serviceType_=(v: CString): Unit = setServiceType(v)
+    def igdControlUrl: CString = getIgdControlUrl()
+    def igdControlUrl_=(v: CString): Unit = setIgdControlUrl(v)
+    def igdServiceType: CString = getIgdServiceType()
+    def igdServiceType_=(v: CString): Unit = setIgdServiceType(v)
+    def igdOurAddr: CString = getIgdOurAddr()
+    def igdOurAddr_=(v: CString): Unit = setIgdOurAddr(v)
+    def igdStatus: Int = getIgdStatus()
+    def igdStatus_=(v: Int): Unit = setIgdStatus(v)
+}
 
 object UPNPDevice:
-    object Binds:
-        var isValidGateway: Ptr[Byte] = null
+object Binds {
+          var isValidGateway: Ptr[Byte] = null
         var queryExternalAddress: Ptr[Byte] = null
         var addPortMapping: Ptr[Byte] = null
         var deletePortMapping: Ptr[Byte] = null
-        var setDescriptionUrl: Ptr[Byte] = null
-        var getDescriptionUrl: Ptr[Byte] = null
-        var setServiceType: Ptr[Byte] = null
-        var getServiceType: Ptr[Byte] = null
-        var setIgdControlUrl: Ptr[Byte] = null
-        var getIgdControlUrl: Ptr[Byte] = null
-        var setIgdServiceType: Ptr[Byte] = null
-        var getIgdServiceType: Ptr[Byte] = null
-        var setIgdOurAddr: Ptr[Byte] = null
-        var getIgdOurAddr: Ptr[Byte] = null
-        var setIgdStatus: Ptr[Byte] = null
-        var getIgdStatus: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isValidGateway = GdxApi.getMethodBind(c"UPNPDevice", c"is_valid_gateway", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.isValidGateway = GdxApi.getMethodBind(c"UPNPDevice", c"is_valid_gateway", 36873697L)
             Binds.queryExternalAddress = GdxApi.getMethodBind(c"UPNPDevice", c"query_external_address", 201670096L)
             Binds.addPortMapping = GdxApi.getMethodBind(c"UPNPDevice", c"add_port_mapping", 818314583L)
             Binds.deletePortMapping = GdxApi.getMethodBind(c"UPNPDevice", c"delete_port_mapping", 3444187325L)
-            Binds.setDescriptionUrl = GdxApi.getMethodBind(c"UPNPDevice", c"set_description_url", 83702148L)
-            Binds.getDescriptionUrl = GdxApi.getMethodBind(c"UPNPDevice", c"get_description_url", 201670096L)
-            Binds.setServiceType = GdxApi.getMethodBind(c"UPNPDevice", c"set_service_type", 83702148L)
-            Binds.getServiceType = GdxApi.getMethodBind(c"UPNPDevice", c"get_service_type", 201670096L)
-            Binds.setIgdControlUrl = GdxApi.getMethodBind(c"UPNPDevice", c"set_igd_control_url", 83702148L)
-            Binds.getIgdControlUrl = GdxApi.getMethodBind(c"UPNPDevice", c"get_igd_control_url", 201670096L)
-            Binds.setIgdServiceType = GdxApi.getMethodBind(c"UPNPDevice", c"set_igd_service_type", 83702148L)
-            Binds.getIgdServiceType = GdxApi.getMethodBind(c"UPNPDevice", c"get_igd_service_type", 201670096L)
-            Binds.setIgdOurAddr = GdxApi.getMethodBind(c"UPNPDevice", c"set_igd_our_addr", 83702148L)
-            Binds.getIgdOurAddr = GdxApi.getMethodBind(c"UPNPDevice", c"get_igd_our_addr", 201670096L)
-            Binds.setIgdStatus = GdxApi.getMethodBind(c"UPNPDevice", c"set_igd_status", 519504122L)
-            Binds.getIgdStatus = GdxApi.getMethodBind(c"UPNPDevice", c"get_igd_status", 180887011L)
+  }
+}
 
-    def apply(): UPNPDevice =
-        val obj = new UPNPDevice()
-        obj.ptr = GdxApi.constructObject(c"UPNPDevice")
-        obj
+def apply(): UPNPDevice = {
+  val obj = new UPNPDevice()
+  obj.ptr = GdxApi.constructObject(c"UPNPDevice")
+  obj
+}

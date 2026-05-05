@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EncodedObjectAsID extends RefCounted
-
-    def setObjectId(id: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EncodedObjectAsID.Binds.setObjectId, ptr, _args, null)
-
-    def getObjectId(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(EncodedObjectAsID.Binds.getObjectId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def objectId: Ptr[Byte] = getObjectId()
-    def objectId_=(v: Ptr[Byte]): Unit = setObjectId(v)
+class EncodedObjectAsID extends RefCounted {
+    def objectId: Long = getObjectId()
+    def objectId_=(v: Long): Unit = setObjectId(v)
+}
 
 object EncodedObjectAsID:
-    object Binds:
-        var setObjectId: Ptr[Byte] = null
-        var getObjectId: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setObjectId = GdxApi.getMethodBind(c"EncodedObjectAsID", c"set_object_id", 1286410249L)
-            Binds.getObjectId = GdxApi.getMethodBind(c"EncodedObjectAsID", c"get_object_id", 3905245786L)
-
-    def apply(): EncodedObjectAsID =
-        val obj = new EncodedObjectAsID()
-        obj.ptr = GdxApi.constructObject(c"EncodedObjectAsID")
-        obj
+def apply(): EncodedObjectAsID = {
+  val obj = new EncodedObjectAsID()
+  obj.ptr = GdxApi.constructObject(c"EncodedObjectAsID")
+  obj
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorNode3DGizmoPlugin extends Resource
+class EditorNode3DGizmoPlugin extends Resource {
     def _hasGizmo(forNode3d: Node3D): Boolean = false
     def _createGizmo(forNode3d: Node3D): EditorNode3DGizmo = null
     def _getGizmoName(): CString = null
@@ -24,53 +24,62 @@ class EditorNode3DGizmoPlugin extends Resource
     def _getSubgizmoTransform(gizmo: EditorNode3DGizmo, subgizmoId: Int): Transform3D = null
     def _setSubgizmoTransform(gizmo: EditorNode3DGizmo, subgizmoId: Int, transform: Transform3D): Unit = ()
     def _commitSubgizmos(gizmo: EditorNode3DGizmo, ids: PackedInt32Array, restores: Ptr[Byte], cancel: Boolean): Unit = ()
-    def createMaterial(name: CString, color: Color): Unit =
+
+    def createMaterial(name: CString, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = color.ptr
         GdxApi.ptrcall(EditorNode3DGizmoPlugin.Binds.createMaterial, ptr, _args, null)
+}
 
-    def createIconMaterial(name: CString, texture: Texture2D): Unit =
+    def createIconMaterial(name: CString, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = texture.ptr
         GdxApi.ptrcall(EditorNode3DGizmoPlugin.Binds.createIconMaterial, ptr, _args, null)
+}
 
-    def createHandleMaterial(name: CString): Unit =
+    def createHandleMaterial(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EditorNode3DGizmoPlugin.Binds.createHandleMaterial, ptr, _args, null)
+}
 
-    def addMaterial(name: CString, material: StandardMaterial3D): Unit =
+    def addMaterial(name: CString, material: StandardMaterial3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = material.ptr
         GdxApi.ptrcall(EditorNode3DGizmoPlugin.Binds.addMaterial, ptr, _args, null)
+}
 
-    def getMaterial(name: CString): StandardMaterial3D =
+    def getMaterial(name: CString): StandardMaterial3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorNode3DGizmoPlugin.Binds.getMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new StandardMaterial3D(!_ret)
-
+}
+}
 
 object EditorNode3DGizmoPlugin:
-    object Binds:
-        var createMaterial: Ptr[Byte] = null
+object Binds {
+          var createMaterial: Ptr[Byte] = null
         var createIconMaterial: Ptr[Byte] = null
         var createHandleMaterial: Ptr[Byte] = null
         var addMaterial: Ptr[Byte] = null
         var getMaterial: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createMaterial = GdxApi.getMethodBind(c"EditorNode3DGizmoPlugin", c"create_material", 3486012546L)
+  def loadBinds(): Unit = {
+                Binds.createMaterial = GdxApi.getMethodBind(c"EditorNode3DGizmoPlugin", c"create_material", 3486012546L)
             Binds.createIconMaterial = GdxApi.getMethodBind(c"EditorNode3DGizmoPlugin", c"create_icon_material", 3804976916L)
             Binds.createHandleMaterial = GdxApi.getMethodBind(c"EditorNode3DGizmoPlugin", c"create_handle_material", 2486475223L)
             Binds.addMaterial = GdxApi.getMethodBind(c"EditorNode3DGizmoPlugin", c"add_material", 1374068695L)
             Binds.getMaterial = GdxApi.getMethodBind(c"EditorNode3DGizmoPlugin", c"get_material", 974464017L)
+  }
+}
 
-    def apply(): EditorNode3DGizmoPlugin =
-        val obj = new EditorNode3DGizmoPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorNode3DGizmoPlugin")
-        obj
+def apply(): EditorNode3DGizmoPlugin = {
+  val obj = new EditorNode3DGizmoPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorNode3DGizmoPlugin")
+  obj
+}

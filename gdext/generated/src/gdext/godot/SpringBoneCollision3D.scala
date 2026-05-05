@@ -5,91 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpringBoneCollision3D extends Node3D
-
-    def getSkeleton(): Skeleton3D =
+class SpringBoneCollision3D extends Node3D {
+    def getSkeleton(): Skeleton3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneCollision3D.Binds.getSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Skeleton3D(!_ret)
+}
 
-    def setBoneName(boneName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = boneName.ptr
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.setBoneName, ptr, _args, null)
-
-    def getBoneName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.getBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setBone(bone: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bone.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.setBone, ptr, _args, null)
-
-    def getBone(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.getBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPositionOffset(offset: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.setPositionOffset, ptr, _args, null)
-
-    def getPositionOffset(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.getPositionOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setRotationOffset(offset: Quaternion): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.setRotationOffset, ptr, _args, null)
-
-    def getRotationOffset(): Quaternion =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpringBoneCollision3D.Binds.getRotationOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Quaternion(!_ret)
-    def boneName: Ptr[Byte] = getBoneName()
-    def boneName_=(v: Ptr[Byte]): Unit = setBoneName(v)
-    def bone: Ptr[Byte] = getBone()
-    def bone_=(v: Ptr[Byte]): Unit = setBone(v)
-    def positionOffset: Ptr[Byte] = getPositionOffset()
-    def positionOffset_=(v: Ptr[Byte]): Unit = setPositionOffset(v)
-    def rotationOffset: Ptr[Byte] = getRotationOffset()
-    def rotationOffset_=(v: Ptr[Byte]): Unit = setRotationOffset(v)
+    def boneName: CString = getBoneName()
+    def boneName_=(v: CString): Unit = setBoneName(v)
+    def bone: Int = getBone()
+    def bone_=(v: Int): Unit = setBone(v)
+    def positionOffset: Vector3 = getPositionOffset()
+    def positionOffset_=(v: Vector3): Unit = setPositionOffset(v)
+    def rotationOffset: Quaternion = getRotationOffset()
+    def rotationOffset_=(v: Quaternion): Unit = setRotationOffset(v)
+}
 
 object SpringBoneCollision3D:
-    object Binds:
-        var getSkeleton: Ptr[Byte] = null
-        var setBoneName: Ptr[Byte] = null
-        var getBoneName: Ptr[Byte] = null
-        var setBone: Ptr[Byte] = null
-        var getBone: Ptr[Byte] = null
-        var setPositionOffset: Ptr[Byte] = null
-        var getPositionOffset: Ptr[Byte] = null
-        var setRotationOffset: Ptr[Byte] = null
-        var getRotationOffset: Ptr[Byte] = null
+object Binds {
+          var getSkeleton: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSkeleton = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"get_skeleton", 1488626673L)
-            Binds.setBoneName = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"set_bone_name", 83702148L)
-            Binds.getBoneName = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"get_bone_name", 201670096L)
-            Binds.setBone = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"set_bone", 1286410249L)
-            Binds.getBone = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"get_bone", 3905245786L)
-            Binds.setPositionOffset = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"set_position_offset", 3460891852L)
-            Binds.getPositionOffset = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"get_position_offset", 3360562783L)
-            Binds.setRotationOffset = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"set_rotation_offset", 1727505552L)
-            Binds.getRotationOffset = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"get_rotation_offset", 1222331677L)
+  def loadBinds(): Unit = {
+                Binds.getSkeleton = GdxApi.getMethodBind(c"SpringBoneCollision3D", c"get_skeleton", 1488626673L)
+  }
+}
 
-    def apply(): SpringBoneCollision3D =
-        val obj = new SpringBoneCollision3D()
-        obj.ptr = GdxApi.constructObject(c"SpringBoneCollision3D")
-        obj
+def apply(): SpringBoneCollision3D = {
+  val obj = new SpringBoneCollision3D()
+  obj.ptr = GdxApi.constructObject(c"SpringBoneCollision3D")
+  obj
+}

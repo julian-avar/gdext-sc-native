@@ -5,42 +5,47 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderData extends Object
-
-    def getRenderSceneBuffers(): RenderSceneBuffers =
+class RenderData extends Object {
+    def getRenderSceneBuffers(): RenderSceneBuffers = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderData.Binds.getRenderSceneBuffers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RenderSceneBuffers(!_ret)
+}
 
-    def getRenderSceneData(): RenderSceneData =
+    def getRenderSceneData(): RenderSceneData = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderData.Binds.getRenderSceneData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RenderSceneData(!_ret)
+}
 
-    def getEnvironment(): RID =
+    def getEnvironment(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderData.Binds.getEnvironment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getCameraAttributes(): RID =
+    def getCameraAttributes(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderData.Binds.getCameraAttributes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
-
+}
+}
 
 object RenderData:
-    object Binds:
-        var getRenderSceneBuffers: Ptr[Byte] = null
+object Binds {
+          var getRenderSceneBuffers: Ptr[Byte] = null
         var getRenderSceneData: Ptr[Byte] = null
         var getEnvironment: Ptr[Byte] = null
         var getCameraAttributes: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getRenderSceneBuffers = GdxApi.getMethodBind(c"RenderData", c"get_render_scene_buffers", 2793216201L)
+  def loadBinds(): Unit = {
+                Binds.getRenderSceneBuffers = GdxApi.getMethodBind(c"RenderData", c"get_render_scene_buffers", 2793216201L)
             Binds.getRenderSceneData = GdxApi.getMethodBind(c"RenderData", c"get_render_scene_data", 1288715698L)
             Binds.getEnvironment = GdxApi.getMethodBind(c"RenderData", c"get_environment", 2944877500L)
             Binds.getCameraAttributes = GdxApi.getMethodBind(c"RenderData", c"get_camera_attributes", 2944877500L)
+  }
+}

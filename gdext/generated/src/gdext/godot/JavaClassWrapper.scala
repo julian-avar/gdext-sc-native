@@ -5,32 +5,36 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class JavaClassWrapper extends Object
-
-    def wrap(name: CString): JavaClass =
+class JavaClassWrapper extends Object {
+    def wrap(name: CString): JavaClass = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(JavaClassWrapper.Binds.wrap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new JavaClass(!_ret)
+}
 
-    def getException(): JavaObject =
+    def getException(): JavaObject = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(JavaClassWrapper.Binds.getException, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new JavaObject(!_ret)
-
+}
+}
 
 object JavaClassWrapper:
-    object Binds:
-        var wrap: Ptr[Byte] = null
+object Binds {
+          var wrap: Ptr[Byte] = null
         var getException: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.wrap = GdxApi.getMethodBind(c"JavaClassWrapper", c"wrap", 1124367868L)
+  def loadBinds(): Unit = {
+                Binds.wrap = GdxApi.getMethodBind(c"JavaClassWrapper", c"wrap", 1124367868L)
             Binds.getException = GdxApi.getMethodBind(c"JavaClassWrapper", c"get_exception", 3277089691L)
+  }
+}
 
-    def apply(): JavaClassWrapper =
-        val obj = new JavaClassWrapper()
-        obj.ptr = GdxApi.constructObject(c"JavaClassWrapper")
-        obj
+def apply(): JavaClassWrapper = {
+  val obj = new JavaClassWrapper()
+  obj.ptr = GdxApi.constructObject(c"JavaClassWrapper")
+  obj
+}

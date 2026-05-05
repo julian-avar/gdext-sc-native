@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeRotationByAxis extends VisualShaderNode
-
-
-
+class VisualShaderNodeRotationByAxis extends VisualShaderNode {}
 
 object VisualShaderNodeRotationByAxis:
-    def apply(): VisualShaderNodeRotationByAxis =
-        val obj = new VisualShaderNodeRotationByAxis()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeRotationByAxis")
-        obj
+def apply(): VisualShaderNodeRotationByAxis = {
+  val obj = new VisualShaderNodeRotationByAxis()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeRotationByAxis")
+  obj
+}

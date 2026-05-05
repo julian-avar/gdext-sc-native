@@ -5,120 +5,24 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CollisionPolygon3D extends Node3D
-
-    def setDepth(depth: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = depth.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.setDepth, ptr, _args, null)
-
-    def getDepth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.getDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPolygon(polygon: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = polygon.ptr
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.setPolygon, ptr, _args, null)
-
-    def getPolygon(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.getPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-
-    def setDisabled(disabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.setDisabled, ptr, _args, null)
-
-    def isDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.isDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDebugColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.setDebugColor, ptr, _args, null)
-
-    def getDebugColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.getDebugColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setEnableDebugFill(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.setEnableDebugFill, ptr, _args, null)
-
-    def getEnableDebugFill(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.getEnableDebugFill, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.setMargin, ptr, _args, null)
-
-    def getMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CollisionPolygon3D.Binds.getMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def depth: Ptr[Byte] = getDepth()
-    def depth_=(v: Ptr[Byte]): Unit = setDepth(v)
-    def disabled: Ptr[Byte] = isDisabled()
-    def disabled_=(v: Ptr[Byte]): Unit = setDisabled(v)
-    def polygon: Ptr[Byte] = getPolygon()
-    def polygon_=(v: Ptr[Byte]): Unit = setPolygon(v)
-    def margin: Ptr[Byte] = getMargin()
-    def margin_=(v: Ptr[Byte]): Unit = setMargin(v)
-    def debugColor: Ptr[Byte] = getDebugColor()
-    def debugColor_=(v: Ptr[Byte]): Unit = setDebugColor(v)
-    def debugFill: Ptr[Byte] = getEnableDebugFill()
-    def debugFill_=(v: Ptr[Byte]): Unit = setEnableDebugFill(v)
+class CollisionPolygon3D extends Node3D {
+    def depth: Float = getDepth()
+    def depth_=(v: Float): Unit = setDepth(v)
+    def disabled: Boolean = isDisabled()
+    def disabled_=(v: Boolean): Unit = setDisabled(v)
+    def polygon: PackedVector2Array = getPolygon()
+    def polygon_=(v: PackedVector2Array): Unit = setPolygon(v)
+    def margin: Float = getMargin()
+    def margin_=(v: Float): Unit = setMargin(v)
+    def debugColor: Color = getDebugColor()
+    def debugColor_=(v: Color): Unit = setDebugColor(v)
+    def debugFill: Boolean = getEnableDebugFill()
+    def debugFill_=(v: Boolean): Unit = setEnableDebugFill(v)
+}
 
 object CollisionPolygon3D:
-    object Binds:
-        var setDepth: Ptr[Byte] = null
-        var getDepth: Ptr[Byte] = null
-        var setPolygon: Ptr[Byte] = null
-        var getPolygon: Ptr[Byte] = null
-        var setDisabled: Ptr[Byte] = null
-        var isDisabled: Ptr[Byte] = null
-        var setDebugColor: Ptr[Byte] = null
-        var getDebugColor: Ptr[Byte] = null
-        var setEnableDebugFill: Ptr[Byte] = null
-        var getEnableDebugFill: Ptr[Byte] = null
-        var setMargin: Ptr[Byte] = null
-        var getMargin: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setDepth = GdxApi.getMethodBind(c"CollisionPolygon3D", c"set_depth", 373806689L)
-            Binds.getDepth = GdxApi.getMethodBind(c"CollisionPolygon3D", c"get_depth", 1740695150L)
-            Binds.setPolygon = GdxApi.getMethodBind(c"CollisionPolygon3D", c"set_polygon", 1509147220L)
-            Binds.getPolygon = GdxApi.getMethodBind(c"CollisionPolygon3D", c"get_polygon", 2961356807L)
-            Binds.setDisabled = GdxApi.getMethodBind(c"CollisionPolygon3D", c"set_disabled", 2586408642L)
-            Binds.isDisabled = GdxApi.getMethodBind(c"CollisionPolygon3D", c"is_disabled", 36873697L)
-            Binds.setDebugColor = GdxApi.getMethodBind(c"CollisionPolygon3D", c"set_debug_color", 2920490490L)
-            Binds.getDebugColor = GdxApi.getMethodBind(c"CollisionPolygon3D", c"get_debug_color", 3444240500L)
-            Binds.setEnableDebugFill = GdxApi.getMethodBind(c"CollisionPolygon3D", c"set_enable_debug_fill", 2586408642L)
-            Binds.getEnableDebugFill = GdxApi.getMethodBind(c"CollisionPolygon3D", c"get_enable_debug_fill", 36873697L)
-            Binds.setMargin = GdxApi.getMethodBind(c"CollisionPolygon3D", c"set_margin", 373806689L)
-            Binds.getMargin = GdxApi.getMethodBind(c"CollisionPolygon3D", c"get_margin", 1740695150L)
-
-    def apply(): CollisionPolygon3D =
-        val obj = new CollisionPolygon3D()
-        obj.ptr = GdxApi.constructObject(c"CollisionPolygon3D")
-        obj
+def apply(): CollisionPolygon3D = {
+  val obj = new CollisionPolygon3D()
+  obj.ptr = GdxApi.constructObject(c"CollisionPolygon3D")
+  obj
+}

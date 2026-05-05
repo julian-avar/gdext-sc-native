@@ -5,87 +5,98 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Crypto extends RefCounted
-
-    def generateRandomBytes(size: Int): PackedByteArray =
+class Crypto extends RefCounted {
+    def generateRandomBytes(size: Int): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.generateRandomBytes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def generateRsa(size: Int): CryptoKey =
+    def generateRsa(size: Int): CryptoKey = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.generateRsa, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CryptoKey(!_ret)
+}
 
-    def generateSelfSignedCertificate(key: CryptoKey): X509Certificate =
+    def generateSelfSignedCertificate(key: CryptoKey): X509Certificate = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = key.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.generateSelfSignedCertificate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new X509Certificate(!_ret)
+}
 
-    def sign(hashType: Int, hash: PackedByteArray, key: CryptoKey): PackedByteArray =
+    def sign(hashType: Int, hash: PackedByteArray, key: CryptoKey): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = hashType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hashType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = hash.ptr
         _args(2) = key.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.sign, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def verify(hashType: Int, hash: PackedByteArray, signature: PackedByteArray, key: CryptoKey): Boolean =
+    def verify(hashType: Int, hash: PackedByteArray, signature: PackedByteArray, key: CryptoKey): Boolean = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = hashType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hashType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = hash.ptr
         _args(2) = signature.ptr
         _args(3) = key.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Crypto.Binds.verify, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def encrypt(key: CryptoKey, plaintext: PackedByteArray): PackedByteArray =
+    def encrypt(key: CryptoKey, plaintext: PackedByteArray): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = key.ptr
         _args(1) = plaintext.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.encrypt, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def decrypt(key: CryptoKey, ciphertext: PackedByteArray): PackedByteArray =
+    def decrypt(key: CryptoKey, ciphertext: PackedByteArray): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = key.ptr
         _args(1) = ciphertext.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.decrypt, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def hmacDigest(hashType: Int, key: PackedByteArray, msg: PackedByteArray): PackedByteArray =
+    def hmacDigest(hashType: Int, key: PackedByteArray, msg: PackedByteArray): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = hashType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hashType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = key.ptr
         _args(2) = msg.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Crypto.Binds.hmacDigest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def constantTimeCompare(trusted: PackedByteArray, received: PackedByteArray): Boolean =
+    def constantTimeCompare(trusted: PackedByteArray, received: PackedByteArray): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = trusted.ptr
         _args(1) = received.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Crypto.Binds.constantTimeCompare, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object Crypto:
-    object Binds:
-        var generateRandomBytes: Ptr[Byte] = null
+object Binds {
+          var generateRandomBytes: Ptr[Byte] = null
         var generateRsa: Ptr[Byte] = null
         var generateSelfSignedCertificate: Ptr[Byte] = null
         var sign: Ptr[Byte] = null
@@ -95,8 +106,8 @@ object Crypto:
         var hmacDigest: Ptr[Byte] = null
         var constantTimeCompare: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.generateRandomBytes = GdxApi.getMethodBind(c"Crypto", c"generate_random_bytes", 47165747L)
+  def loadBinds(): Unit = {
+                Binds.generateRandomBytes = GdxApi.getMethodBind(c"Crypto", c"generate_random_bytes", 47165747L)
             Binds.generateRsa = GdxApi.getMethodBind(c"Crypto", c"generate_rsa", 1237515462L)
             Binds.generateSelfSignedCertificate = GdxApi.getMethodBind(c"Crypto", c"generate_self_signed_certificate", 492266173L)
             Binds.sign = GdxApi.getMethodBind(c"Crypto", c"sign", 1673662703L)
@@ -105,8 +116,11 @@ object Crypto:
             Binds.decrypt = GdxApi.getMethodBind(c"Crypto", c"decrypt", 2361793670L)
             Binds.hmacDigest = GdxApi.getMethodBind(c"Crypto", c"hmac_digest", 2368951203L)
             Binds.constantTimeCompare = GdxApi.getMethodBind(c"Crypto", c"constant_time_compare", 1024142237L)
+  }
+}
 
-    def apply(): Crypto =
-        val obj = new Crypto()
-        obj.ptr = GdxApi.constructObject(c"Crypto")
-        obj
+def apply(): Crypto = {
+  val obj = new Crypto()
+  obj.ptr = GdxApi.constructObject(c"Crypto")
+  obj
+}

@@ -5,47 +5,53 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRFutureResult extends RefCounted
-
-    def getStatus(): Int =
+class OpenXRFutureResult extends RefCounted {
+    def getStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRFutureResult.Binds.getStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFuture(): Long =
+    def getFuture(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRFutureResult.Binds.getFuture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def cancelFuture(): Unit =
+    def cancelFuture(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OpenXRFutureResult.Binds.cancelFuture, ptr, _args, null)
+}
 
-    def setResultValue(resultValue: Ptr[Byte]): Unit =
+    def setResultValue(resultValue: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = resultValue.ptr
+        _args(0) = resultValue
         GdxApi.ptrcall(OpenXRFutureResult.Binds.setResultValue, ptr, _args, null)
+}
 
-    def getResultValue(): Ptr[Byte] =
+    def getResultValue(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRFutureResult.Binds.getResultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object OpenXRFutureResult:
-    object Binds:
-        var getStatus: Ptr[Byte] = null
+object Binds {
+          var getStatus: Ptr[Byte] = null
         var getFuture: Ptr[Byte] = null
         var cancelFuture: Ptr[Byte] = null
         var setResultValue: Ptr[Byte] = null
         var getResultValue: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getStatus = GdxApi.getMethodBind(c"OpenXRFutureResult", c"get_status", 2023607463L)
+  def loadBinds(): Unit = {
+                Binds.getStatus = GdxApi.getMethodBind(c"OpenXRFutureResult", c"get_status", 2023607463L)
             Binds.getFuture = GdxApi.getMethodBind(c"OpenXRFutureResult", c"get_future", 3905245786L)
             Binds.cancelFuture = GdxApi.getMethodBind(c"OpenXRFutureResult", c"cancel_future", 3218959716L)
             Binds.setResultValue = GdxApi.getMethodBind(c"OpenXRFutureResult", c"set_result_value", 1114965689L)
             Binds.getResultValue = GdxApi.getMethodBind(c"OpenXRFutureResult", c"get_result_value", 1214101251L)
+  }
+}

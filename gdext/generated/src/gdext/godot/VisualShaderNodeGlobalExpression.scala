@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeGlobalExpression extends VisualShaderNodeExpression
-
-
-
+class VisualShaderNodeGlobalExpression extends VisualShaderNodeExpression {}
 
 object VisualShaderNodeGlobalExpression:
-    def apply(): VisualShaderNodeGlobalExpression =
-        val obj = new VisualShaderNodeGlobalExpression()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeGlobalExpression")
-        obj
+def apply(): VisualShaderNodeGlobalExpression = {
+  val obj = new VisualShaderNodeGlobalExpression()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeGlobalExpression")
+  obj
+}

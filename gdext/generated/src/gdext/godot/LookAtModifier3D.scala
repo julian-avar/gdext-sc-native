@@ -5,550 +5,103 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LookAtModifier3D extends SkeletonModifier3D
-
-    def setTargetNode(targetNode: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetNode.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setTargetNode, ptr, _args, null)
-
-    def getTargetNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getTargetNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setBoneName(boneName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = boneName.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setBoneName, ptr, _args, null)
-
-    def getBoneName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setBone(bone: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bone.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setBone, ptr, _args, null)
-
-    def getBone(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setForwardAxis(forwardAxis: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = forwardAxis.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setForwardAxis, ptr, _args, null)
-
-    def getForwardAxis(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getForwardAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPrimaryRotationAxis(axis: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = axis.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryRotationAxis, ptr, _args, null)
-
-    def getPrimaryRotationAxis(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryRotationAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUseSecondaryRotation(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setUseSecondaryRotation, ptr, _args, null)
-
-    def isUsingSecondaryRotation(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.isUsingSecondaryRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOriginSafeMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setOriginSafeMargin, ptr, _args, null)
-
-    def getOriginSafeMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getOriginSafeMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setOriginFrom(originFrom: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = originFrom.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setOriginFrom, ptr, _args, null)
-
-    def getOriginFrom(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getOriginFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setOriginBoneName(boneName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = boneName.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setOriginBoneName, ptr, _args, null)
-
-    def getOriginBoneName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getOriginBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setOriginBone(bone: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bone.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setOriginBone, ptr, _args, null)
-
-    def getOriginBone(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getOriginBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setOriginExternalNode(externalNode: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = externalNode.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setOriginExternalNode, ptr, _args, null)
-
-    def getOriginExternalNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getOriginExternalNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setOriginOffset(offset: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setOriginOffset, ptr, _args, null)
-
-    def getOriginOffset(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getOriginOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setDuration(duration: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = duration.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setDuration, ptr, _args, null)
-
-    def getDuration(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTransitionType(transitionType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = transitionType.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setTransitionType, ptr, _args, null)
-
-    def getTransitionType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getTransitionType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEaseType(easeType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = easeType.ptr
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setEaseType, ptr, _args, null)
-
-    def getEaseType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getEaseType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUseAngleLimitation(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setUseAngleLimitation, ptr, _args, null)
-
-    def isUsingAngleLimitation(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.isUsingAngleLimitation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSymmetryLimitation(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSymmetryLimitation, ptr, _args, null)
-
-    def isLimitationSymmetry(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.isLimitationSymmetry, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPrimaryLimitAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryLimitAngle, ptr, _args, null)
-
-    def getPrimaryLimitAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryLimitAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPrimaryDampThreshold(power: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = power.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryDampThreshold, ptr, _args, null)
-
-    def getPrimaryDampThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryDampThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPrimaryPositiveLimitAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryPositiveLimitAngle, ptr, _args, null)
-
-    def getPrimaryPositiveLimitAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryPositiveLimitAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPrimaryPositiveDampThreshold(power: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = power.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryPositiveDampThreshold, ptr, _args, null)
-
-    def getPrimaryPositiveDampThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryPositiveDampThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPrimaryNegativeLimitAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryNegativeLimitAngle, ptr, _args, null)
-
-    def getPrimaryNegativeLimitAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryNegativeLimitAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPrimaryNegativeDampThreshold(power: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = power.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setPrimaryNegativeDampThreshold, ptr, _args, null)
-
-    def getPrimaryNegativeDampThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getPrimaryNegativeDampThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSecondaryLimitAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSecondaryLimitAngle, ptr, _args, null)
-
-    def getSecondaryLimitAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getSecondaryLimitAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSecondaryDampThreshold(power: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = power.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSecondaryDampThreshold, ptr, _args, null)
-
-    def getSecondaryDampThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getSecondaryDampThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSecondaryPositiveLimitAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSecondaryPositiveLimitAngle, ptr, _args, null)
-
-    def getSecondaryPositiveLimitAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getSecondaryPositiveLimitAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSecondaryPositiveDampThreshold(power: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = power.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSecondaryPositiveDampThreshold, ptr, _args, null)
-
-    def getSecondaryPositiveDampThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getSecondaryPositiveDampThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSecondaryNegativeLimitAngle(angle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSecondaryNegativeLimitAngle, ptr, _args, null)
-
-    def getSecondaryNegativeLimitAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getSecondaryNegativeLimitAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSecondaryNegativeDampThreshold(power: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = power.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LookAtModifier3D.Binds.setSecondaryNegativeDampThreshold, ptr, _args, null)
-
-    def getSecondaryNegativeDampThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(LookAtModifier3D.Binds.getSecondaryNegativeDampThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getInterpolationRemaining(): Float =
+class LookAtModifier3D extends SkeletonModifier3D {
+    def getInterpolationRemaining(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(LookAtModifier3D.Binds.getInterpolationRemaining, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def isInterpolating(): Boolean =
+    def isInterpolating(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(LookAtModifier3D.Binds.isInterpolating, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isTargetWithinLimitation(): Boolean =
+    def isTargetWithinLimitation(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(LookAtModifier3D.Binds.isTargetWithinLimitation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def targetNode: Ptr[Byte] = getTargetNode()
-    def targetNode_=(v: Ptr[Byte]): Unit = setTargetNode(v)
-    def boneName: Ptr[Byte] = getBoneName()
-    def boneName_=(v: Ptr[Byte]): Unit = setBoneName(v)
-    def bone: Ptr[Byte] = getBone()
-    def bone_=(v: Ptr[Byte]): Unit = setBone(v)
-    def forwardAxis: Ptr[Byte] = getForwardAxis()
-    def forwardAxis_=(v: Ptr[Byte]): Unit = setForwardAxis(v)
-    def primaryRotationAxis: Ptr[Byte] = getPrimaryRotationAxis()
-    def primaryRotationAxis_=(v: Ptr[Byte]): Unit = setPrimaryRotationAxis(v)
-    def useSecondaryRotation: Ptr[Byte] = isUsingSecondaryRotation()
-    def useSecondaryRotation_=(v: Ptr[Byte]): Unit = setUseSecondaryRotation(v)
-    def originFrom: Ptr[Byte] = getOriginFrom()
-    def originFrom_=(v: Ptr[Byte]): Unit = setOriginFrom(v)
-    def originBoneName: Ptr[Byte] = getOriginBoneName()
-    def originBoneName_=(v: Ptr[Byte]): Unit = setOriginBoneName(v)
-    def originBone: Ptr[Byte] = getOriginBone()
-    def originBone_=(v: Ptr[Byte]): Unit = setOriginBone(v)
-    def originExternalNode: Ptr[Byte] = getOriginExternalNode()
-    def originExternalNode_=(v: Ptr[Byte]): Unit = setOriginExternalNode(v)
-    def originOffset: Ptr[Byte] = getOriginOffset()
-    def originOffset_=(v: Ptr[Byte]): Unit = setOriginOffset(v)
-    def originSafeMargin: Ptr[Byte] = getOriginSafeMargin()
-    def originSafeMargin_=(v: Ptr[Byte]): Unit = setOriginSafeMargin(v)
-    def duration: Ptr[Byte] = getDuration()
-    def duration_=(v: Ptr[Byte]): Unit = setDuration(v)
-    def transitionType: Ptr[Byte] = getTransitionType()
-    def transitionType_=(v: Ptr[Byte]): Unit = setTransitionType(v)
-    def easeType: Ptr[Byte] = getEaseType()
-    def easeType_=(v: Ptr[Byte]): Unit = setEaseType(v)
-    def useAngleLimitation: Ptr[Byte] = isUsingAngleLimitation()
-    def useAngleLimitation_=(v: Ptr[Byte]): Unit = setUseAngleLimitation(v)
-    def symmetryLimitation: Ptr[Byte] = isLimitationSymmetry()
-    def symmetryLimitation_=(v: Ptr[Byte]): Unit = setSymmetryLimitation(v)
-    def primaryLimitAngle: Ptr[Byte] = getPrimaryLimitAngle()
-    def primaryLimitAngle_=(v: Ptr[Byte]): Unit = setPrimaryLimitAngle(v)
-    def primaryDampThreshold: Ptr[Byte] = getPrimaryDampThreshold()
-    def primaryDampThreshold_=(v: Ptr[Byte]): Unit = setPrimaryDampThreshold(v)
-    def primaryPositiveLimitAngle: Ptr[Byte] = getPrimaryPositiveLimitAngle()
-    def primaryPositiveLimitAngle_=(v: Ptr[Byte]): Unit = setPrimaryPositiveLimitAngle(v)
-    def primaryPositiveDampThreshold: Ptr[Byte] = getPrimaryPositiveDampThreshold()
-    def primaryPositiveDampThreshold_=(v: Ptr[Byte]): Unit = setPrimaryPositiveDampThreshold(v)
-    def primaryNegativeLimitAngle: Ptr[Byte] = getPrimaryNegativeLimitAngle()
-    def primaryNegativeLimitAngle_=(v: Ptr[Byte]): Unit = setPrimaryNegativeLimitAngle(v)
-    def primaryNegativeDampThreshold: Ptr[Byte] = getPrimaryNegativeDampThreshold()
-    def primaryNegativeDampThreshold_=(v: Ptr[Byte]): Unit = setPrimaryNegativeDampThreshold(v)
-    def secondaryLimitAngle: Ptr[Byte] = getSecondaryLimitAngle()
-    def secondaryLimitAngle_=(v: Ptr[Byte]): Unit = setSecondaryLimitAngle(v)
-    def secondaryDampThreshold: Ptr[Byte] = getSecondaryDampThreshold()
-    def secondaryDampThreshold_=(v: Ptr[Byte]): Unit = setSecondaryDampThreshold(v)
-    def secondaryPositiveLimitAngle: Ptr[Byte] = getSecondaryPositiveLimitAngle()
-    def secondaryPositiveLimitAngle_=(v: Ptr[Byte]): Unit = setSecondaryPositiveLimitAngle(v)
-    def secondaryPositiveDampThreshold: Ptr[Byte] = getSecondaryPositiveDampThreshold()
-    def secondaryPositiveDampThreshold_=(v: Ptr[Byte]): Unit = setSecondaryPositiveDampThreshold(v)
-    def secondaryNegativeLimitAngle: Ptr[Byte] = getSecondaryNegativeLimitAngle()
-    def secondaryNegativeLimitAngle_=(v: Ptr[Byte]): Unit = setSecondaryNegativeLimitAngle(v)
-    def secondaryNegativeDampThreshold: Ptr[Byte] = getSecondaryNegativeDampThreshold()
-    def secondaryNegativeDampThreshold_=(v: Ptr[Byte]): Unit = setSecondaryNegativeDampThreshold(v)
+}
+
+    def targetNode: NodePath = getTargetNode()
+    def targetNode_=(v: NodePath): Unit = setTargetNode(v)
+    def boneName: CString = getBoneName()
+    def boneName_=(v: CString): Unit = setBoneName(v)
+    def bone: Int = getBone()
+    def bone_=(v: Int): Unit = setBone(v)
+    def forwardAxis: Int = getForwardAxis()
+    def forwardAxis_=(v: Int): Unit = setForwardAxis(v)
+    def primaryRotationAxis: Int = getPrimaryRotationAxis()
+    def primaryRotationAxis_=(v: Int): Unit = setPrimaryRotationAxis(v)
+    def useSecondaryRotation: Boolean = isUsingSecondaryRotation()
+    def useSecondaryRotation_=(v: Boolean): Unit = setUseSecondaryRotation(v)
+    def originFrom: Int = getOriginFrom()
+    def originFrom_=(v: Int): Unit = setOriginFrom(v)
+    def originBoneName: CString = getOriginBoneName()
+    def originBoneName_=(v: CString): Unit = setOriginBoneName(v)
+    def originBone: Int = getOriginBone()
+    def originBone_=(v: Int): Unit = setOriginBone(v)
+    def originExternalNode: NodePath = getOriginExternalNode()
+    def originExternalNode_=(v: NodePath): Unit = setOriginExternalNode(v)
+    def originOffset: Vector3 = getOriginOffset()
+    def originOffset_=(v: Vector3): Unit = setOriginOffset(v)
+    def originSafeMargin: Float = getOriginSafeMargin()
+    def originSafeMargin_=(v: Float): Unit = setOriginSafeMargin(v)
+    def duration: Float = getDuration()
+    def duration_=(v: Float): Unit = setDuration(v)
+    def transitionType: Int = getTransitionType()
+    def transitionType_=(v: Int): Unit = setTransitionType(v)
+    def easeType: Int = getEaseType()
+    def easeType_=(v: Int): Unit = setEaseType(v)
+    def useAngleLimitation: Boolean = isUsingAngleLimitation()
+    def useAngleLimitation_=(v: Boolean): Unit = setUseAngleLimitation(v)
+    def symmetryLimitation: Boolean = isLimitationSymmetry()
+    def symmetryLimitation_=(v: Boolean): Unit = setSymmetryLimitation(v)
+    def primaryLimitAngle: Float = getPrimaryLimitAngle()
+    def primaryLimitAngle_=(v: Float): Unit = setPrimaryLimitAngle(v)
+    def primaryDampThreshold: Float = getPrimaryDampThreshold()
+    def primaryDampThreshold_=(v: Float): Unit = setPrimaryDampThreshold(v)
+    def primaryPositiveLimitAngle: Float = getPrimaryPositiveLimitAngle()
+    def primaryPositiveLimitAngle_=(v: Float): Unit = setPrimaryPositiveLimitAngle(v)
+    def primaryPositiveDampThreshold: Float = getPrimaryPositiveDampThreshold()
+    def primaryPositiveDampThreshold_=(v: Float): Unit = setPrimaryPositiveDampThreshold(v)
+    def primaryNegativeLimitAngle: Float = getPrimaryNegativeLimitAngle()
+    def primaryNegativeLimitAngle_=(v: Float): Unit = setPrimaryNegativeLimitAngle(v)
+    def primaryNegativeDampThreshold: Float = getPrimaryNegativeDampThreshold()
+    def primaryNegativeDampThreshold_=(v: Float): Unit = setPrimaryNegativeDampThreshold(v)
+    def secondaryLimitAngle: Float = getSecondaryLimitAngle()
+    def secondaryLimitAngle_=(v: Float): Unit = setSecondaryLimitAngle(v)
+    def secondaryDampThreshold: Float = getSecondaryDampThreshold()
+    def secondaryDampThreshold_=(v: Float): Unit = setSecondaryDampThreshold(v)
+    def secondaryPositiveLimitAngle: Float = getSecondaryPositiveLimitAngle()
+    def secondaryPositiveLimitAngle_=(v: Float): Unit = setSecondaryPositiveLimitAngle(v)
+    def secondaryPositiveDampThreshold: Float = getSecondaryPositiveDampThreshold()
+    def secondaryPositiveDampThreshold_=(v: Float): Unit = setSecondaryPositiveDampThreshold(v)
+    def secondaryNegativeLimitAngle: Float = getSecondaryNegativeLimitAngle()
+    def secondaryNegativeLimitAngle_=(v: Float): Unit = setSecondaryNegativeLimitAngle(v)
+    def secondaryNegativeDampThreshold: Float = getSecondaryNegativeDampThreshold()
+    def secondaryNegativeDampThreshold_=(v: Float): Unit = setSecondaryNegativeDampThreshold(v)
+}
 
 object LookAtModifier3D:
-    object Binds:
-        var setTargetNode: Ptr[Byte] = null
-        var getTargetNode: Ptr[Byte] = null
-        var setBoneName: Ptr[Byte] = null
-        var getBoneName: Ptr[Byte] = null
-        var setBone: Ptr[Byte] = null
-        var getBone: Ptr[Byte] = null
-        var setForwardAxis: Ptr[Byte] = null
-        var getForwardAxis: Ptr[Byte] = null
-        var setPrimaryRotationAxis: Ptr[Byte] = null
-        var getPrimaryRotationAxis: Ptr[Byte] = null
-        var setUseSecondaryRotation: Ptr[Byte] = null
-        var isUsingSecondaryRotation: Ptr[Byte] = null
-        var setOriginSafeMargin: Ptr[Byte] = null
-        var getOriginSafeMargin: Ptr[Byte] = null
-        var setOriginFrom: Ptr[Byte] = null
-        var getOriginFrom: Ptr[Byte] = null
-        var setOriginBoneName: Ptr[Byte] = null
-        var getOriginBoneName: Ptr[Byte] = null
-        var setOriginBone: Ptr[Byte] = null
-        var getOriginBone: Ptr[Byte] = null
-        var setOriginExternalNode: Ptr[Byte] = null
-        var getOriginExternalNode: Ptr[Byte] = null
-        var setOriginOffset: Ptr[Byte] = null
-        var getOriginOffset: Ptr[Byte] = null
-        var setDuration: Ptr[Byte] = null
-        var getDuration: Ptr[Byte] = null
-        var setTransitionType: Ptr[Byte] = null
-        var getTransitionType: Ptr[Byte] = null
-        var setEaseType: Ptr[Byte] = null
-        var getEaseType: Ptr[Byte] = null
-        var setUseAngleLimitation: Ptr[Byte] = null
-        var isUsingAngleLimitation: Ptr[Byte] = null
-        var setSymmetryLimitation: Ptr[Byte] = null
-        var isLimitationSymmetry: Ptr[Byte] = null
-        var setPrimaryLimitAngle: Ptr[Byte] = null
-        var getPrimaryLimitAngle: Ptr[Byte] = null
-        var setPrimaryDampThreshold: Ptr[Byte] = null
-        var getPrimaryDampThreshold: Ptr[Byte] = null
-        var setPrimaryPositiveLimitAngle: Ptr[Byte] = null
-        var getPrimaryPositiveLimitAngle: Ptr[Byte] = null
-        var setPrimaryPositiveDampThreshold: Ptr[Byte] = null
-        var getPrimaryPositiveDampThreshold: Ptr[Byte] = null
-        var setPrimaryNegativeLimitAngle: Ptr[Byte] = null
-        var getPrimaryNegativeLimitAngle: Ptr[Byte] = null
-        var setPrimaryNegativeDampThreshold: Ptr[Byte] = null
-        var getPrimaryNegativeDampThreshold: Ptr[Byte] = null
-        var setSecondaryLimitAngle: Ptr[Byte] = null
-        var getSecondaryLimitAngle: Ptr[Byte] = null
-        var setSecondaryDampThreshold: Ptr[Byte] = null
-        var getSecondaryDampThreshold: Ptr[Byte] = null
-        var setSecondaryPositiveLimitAngle: Ptr[Byte] = null
-        var getSecondaryPositiveLimitAngle: Ptr[Byte] = null
-        var setSecondaryPositiveDampThreshold: Ptr[Byte] = null
-        var getSecondaryPositiveDampThreshold: Ptr[Byte] = null
-        var setSecondaryNegativeLimitAngle: Ptr[Byte] = null
-        var getSecondaryNegativeLimitAngle: Ptr[Byte] = null
-        var setSecondaryNegativeDampThreshold: Ptr[Byte] = null
-        var getSecondaryNegativeDampThreshold: Ptr[Byte] = null
-        var getInterpolationRemaining: Ptr[Byte] = null
+object Binds {
+          var getInterpolationRemaining: Ptr[Byte] = null
         var isInterpolating: Ptr[Byte] = null
         var isTargetWithinLimitation: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTargetNode = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_target_node", 1348162250L)
-            Binds.getTargetNode = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_target_node", 4075236667L)
-            Binds.setBoneName = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_bone_name", 83702148L)
-            Binds.getBoneName = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_bone_name", 201670096L)
-            Binds.setBone = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_bone", 1286410249L)
-            Binds.getBone = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_bone", 3905245786L)
-            Binds.setForwardAxis = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_forward_axis", 3199955933L)
-            Binds.getForwardAxis = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_forward_axis", 4076020284L)
-            Binds.setPrimaryRotationAxis = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_rotation_axis", 1144690656L)
-            Binds.getPrimaryRotationAxis = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_rotation_axis", 3050976882L)
-            Binds.setUseSecondaryRotation = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_use_secondary_rotation", 2586408642L)
-            Binds.isUsingSecondaryRotation = GdxApi.getMethodBind(c"LookAtModifier3D", c"is_using_secondary_rotation", 36873697L)
-            Binds.setOriginSafeMargin = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_origin_safe_margin", 373806689L)
-            Binds.getOriginSafeMargin = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_origin_safe_margin", 1740695150L)
-            Binds.setOriginFrom = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_origin_from", 4254695669L)
-            Binds.getOriginFrom = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_origin_from", 4057166297L)
-            Binds.setOriginBoneName = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_origin_bone_name", 83702148L)
-            Binds.getOriginBoneName = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_origin_bone_name", 201670096L)
-            Binds.setOriginBone = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_origin_bone", 1286410249L)
-            Binds.getOriginBone = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_origin_bone", 3905245786L)
-            Binds.setOriginExternalNode = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_origin_external_node", 1348162250L)
-            Binds.getOriginExternalNode = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_origin_external_node", 4075236667L)
-            Binds.setOriginOffset = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_origin_offset", 3460891852L)
-            Binds.getOriginOffset = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_origin_offset", 3360562783L)
-            Binds.setDuration = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_duration", 373806689L)
-            Binds.getDuration = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_duration", 1740695150L)
-            Binds.setTransitionType = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_transition_type", 1058637742L)
-            Binds.getTransitionType = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_transition_type", 3842314528L)
-            Binds.setEaseType = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_ease_type", 1208105857L)
-            Binds.getEaseType = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_ease_type", 631880200L)
-            Binds.setUseAngleLimitation = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_use_angle_limitation", 2586408642L)
-            Binds.isUsingAngleLimitation = GdxApi.getMethodBind(c"LookAtModifier3D", c"is_using_angle_limitation", 36873697L)
-            Binds.setSymmetryLimitation = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_symmetry_limitation", 2586408642L)
-            Binds.isLimitationSymmetry = GdxApi.getMethodBind(c"LookAtModifier3D", c"is_limitation_symmetry", 36873697L)
-            Binds.setPrimaryLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_limit_angle", 373806689L)
-            Binds.getPrimaryLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_limit_angle", 1740695150L)
-            Binds.setPrimaryDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_damp_threshold", 373806689L)
-            Binds.getPrimaryDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_damp_threshold", 1740695150L)
-            Binds.setPrimaryPositiveLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_positive_limit_angle", 373806689L)
-            Binds.getPrimaryPositiveLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_positive_limit_angle", 1740695150L)
-            Binds.setPrimaryPositiveDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_positive_damp_threshold", 373806689L)
-            Binds.getPrimaryPositiveDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_positive_damp_threshold", 1740695150L)
-            Binds.setPrimaryNegativeLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_negative_limit_angle", 373806689L)
-            Binds.getPrimaryNegativeLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_negative_limit_angle", 1740695150L)
-            Binds.setPrimaryNegativeDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_primary_negative_damp_threshold", 373806689L)
-            Binds.getPrimaryNegativeDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_primary_negative_damp_threshold", 1740695150L)
-            Binds.setSecondaryLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_secondary_limit_angle", 373806689L)
-            Binds.getSecondaryLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_secondary_limit_angle", 1740695150L)
-            Binds.setSecondaryDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_secondary_damp_threshold", 373806689L)
-            Binds.getSecondaryDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_secondary_damp_threshold", 1740695150L)
-            Binds.setSecondaryPositiveLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_secondary_positive_limit_angle", 373806689L)
-            Binds.getSecondaryPositiveLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_secondary_positive_limit_angle", 1740695150L)
-            Binds.setSecondaryPositiveDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_secondary_positive_damp_threshold", 373806689L)
-            Binds.getSecondaryPositiveDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_secondary_positive_damp_threshold", 1740695150L)
-            Binds.setSecondaryNegativeLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_secondary_negative_limit_angle", 373806689L)
-            Binds.getSecondaryNegativeLimitAngle = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_secondary_negative_limit_angle", 1740695150L)
-            Binds.setSecondaryNegativeDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"set_secondary_negative_damp_threshold", 373806689L)
-            Binds.getSecondaryNegativeDampThreshold = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_secondary_negative_damp_threshold", 1740695150L)
-            Binds.getInterpolationRemaining = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_interpolation_remaining", 1740695150L)
+  def loadBinds(): Unit = {
+                Binds.getInterpolationRemaining = GdxApi.getMethodBind(c"LookAtModifier3D", c"get_interpolation_remaining", 1740695150L)
             Binds.isInterpolating = GdxApi.getMethodBind(c"LookAtModifier3D", c"is_interpolating", 36873697L)
             Binds.isTargetWithinLimitation = GdxApi.getMethodBind(c"LookAtModifier3D", c"is_target_within_limitation", 36873697L)
+  }
+}
 
-    def apply(): LookAtModifier3D =
-        val obj = new LookAtModifier3D()
-        obj.ptr = GdxApi.constructObject(c"LookAtModifier3D")
-        obj
+def apply(): LookAtModifier3D = {
+  val obj = new LookAtModifier3D()
+  obj.ptr = GdxApi.constructObject(c"LookAtModifier3D")
+  obj
+}

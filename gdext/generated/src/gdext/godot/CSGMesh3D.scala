@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CSGMesh3D extends CSGPrimitive3D
-
-    def setMesh(mesh: Mesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(CSGMesh3D.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): Mesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CSGMesh3D.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Mesh(!_ret)
-
-    def setMaterial(material: Material): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = material.ptr
-        GdxApi.ptrcall(CSGMesh3D.Binds.setMaterial, ptr, _args, null)
-
-    def getMaterial(): Material =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CSGMesh3D.Binds.getMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Material(!_ret)
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def material: Ptr[Byte] = getMaterial()
-    def material_=(v: Ptr[Byte]): Unit = setMaterial(v)
+class CSGMesh3D extends CSGPrimitive3D {
+    def mesh: Mesh = getMesh()
+    def mesh_=(v: Mesh): Unit = setMesh(v)
+    def material: Material = getMaterial()
+    def material_=(v: Material): Unit = setMaterial(v)
+}
 
 object CSGMesh3D:
-    object Binds:
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setMaterial: Ptr[Byte] = null
-        var getMaterial: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMesh = GdxApi.getMethodBind(c"CSGMesh3D", c"set_mesh", 194775623L)
-            Binds.getMesh = GdxApi.getMethodBind(c"CSGMesh3D", c"get_mesh", 4081188045L)
-            Binds.setMaterial = GdxApi.getMethodBind(c"CSGMesh3D", c"set_material", 2757459619L)
-            Binds.getMaterial = GdxApi.getMethodBind(c"CSGMesh3D", c"get_material", 5934680L)
-
-    def apply(): CSGMesh3D =
-        val obj = new CSGMesh3D()
-        obj.ptr = GdxApi.constructObject(c"CSGMesh3D")
-        obj
+def apply(): CSGMesh3D = {
+  val obj = new CSGMesh3D()
+  obj.ptr = GdxApi.constructObject(c"CSGMesh3D")
+  obj
+}

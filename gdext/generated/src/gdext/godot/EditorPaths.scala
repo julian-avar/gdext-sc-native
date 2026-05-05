@@ -5,63 +5,71 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorPaths extends Object
-
-    def getDataDir(): CString =
+class EditorPaths extends Object {
+    def getDataDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPaths.Binds.getDataDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConfigDir(): CString =
+    def getConfigDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPaths.Binds.getConfigDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCacheDir(): CString =
+    def getCacheDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPaths.Binds.getCacheDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isSelfContained(): Boolean =
+    def isSelfContained(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorPaths.Binds.isSelfContained, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSelfContainedFile(): CString =
+    def getSelfContainedFile(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPaths.Binds.getSelfContainedFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getProjectSettingsDir(): CString =
+    def getProjectSettingsDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorPaths.Binds.getProjectSettingsDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object EditorPaths:
-    object Binds:
-        var getDataDir: Ptr[Byte] = null
+object Binds {
+          var getDataDir: Ptr[Byte] = null
         var getConfigDir: Ptr[Byte] = null
         var getCacheDir: Ptr[Byte] = null
         var isSelfContained: Ptr[Byte] = null
         var getSelfContainedFile: Ptr[Byte] = null
         var getProjectSettingsDir: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getDataDir = GdxApi.getMethodBind(c"EditorPaths", c"get_data_dir", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getDataDir = GdxApi.getMethodBind(c"EditorPaths", c"get_data_dir", 201670096L)
             Binds.getConfigDir = GdxApi.getMethodBind(c"EditorPaths", c"get_config_dir", 201670096L)
             Binds.getCacheDir = GdxApi.getMethodBind(c"EditorPaths", c"get_cache_dir", 201670096L)
             Binds.isSelfContained = GdxApi.getMethodBind(c"EditorPaths", c"is_self_contained", 36873697L)
             Binds.getSelfContainedFile = GdxApi.getMethodBind(c"EditorPaths", c"get_self_contained_file", 201670096L)
             Binds.getProjectSettingsDir = GdxApi.getMethodBind(c"EditorPaths", c"get_project_settings_dir", 201670096L)
+  }
+}
 
-    def apply(): EditorPaths =
-        val obj = new EditorPaths()
-        obj.ptr = GdxApi.constructObject(c"EditorPaths")
-        obj
+def apply(): EditorPaths = {
+  val obj = new EditorPaths()
+  obj.ptr = GdxApi.constructObject(c"EditorPaths")
+  obj
+}

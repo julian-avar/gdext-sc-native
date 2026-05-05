@@ -5,168 +5,143 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonModification2DCCDIK extends SkeletonModification2D
-
-    def setTargetNode(targetNodepath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetNodepath.ptr
-        GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setTargetNode, ptr, _args, null)
-
-    def getTargetNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getTargetNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setTipNode(tipNodepath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tipNodepath.ptr
-        GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setTipNode, ptr, _args, null)
-
-    def getTipNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getTipNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setCcdikDataChainLength(length: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = length.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikDataChainLength, ptr, _args, null)
-
-    def getCcdikDataChainLength(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikDataChainLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCcdikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit =
+class SkeletonModification2DCCDIK extends SkeletonModification2D {
+    def setCcdikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = bone2dNodepath.ptr
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointBone2dNode, ptr, _args, null)
+}
 
-    def getCcdikJointBone2dNode(jointIdx: Int): NodePath =
+    def getCcdikJointBone2dNode(jointIdx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointBone2dNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setCcdikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit =
+    def setCcdikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = boneIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = boneIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointBoneIndex, ptr, _args, null)
+}
 
-    def getCcdikJointBoneIndex(jointIdx: Int): Int =
+    def getCcdikJointBoneIndex(jointIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointBoneIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCcdikJointRotateFromJoint(jointIdx: Int, rotateFromJoint: Boolean): Unit =
+    def setCcdikJointRotateFromJoint(jointIdx: Int, rotateFromJoint: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if rotateFromJoint then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointRotateFromJoint, ptr, _args, null)
+}
 
-    def getCcdikJointRotateFromJoint(jointIdx: Int): Boolean =
+    def getCcdikJointRotateFromJoint(jointIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointRotateFromJoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCcdikJointEnableConstraint(jointIdx: Int, enableConstraint: Boolean): Unit =
+    def setCcdikJointEnableConstraint(jointIdx: Int, enableConstraint: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enableConstraint then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointEnableConstraint, ptr, _args, null)
+}
 
-    def getCcdikJointEnableConstraint(jointIdx: Int): Boolean =
+    def getCcdikJointEnableConstraint(jointIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointEnableConstraint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCcdikJointConstraintAngleMin(jointIdx: Int, angleMin: Float): Unit =
+    def setCcdikJointConstraintAngleMin(jointIdx: Int, angleMin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = angleMin.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointConstraintAngleMin, ptr, _args, null)
+}
 
-    def getCcdikJointConstraintAngleMin(jointIdx: Int): Float =
+    def getCcdikJointConstraintAngleMin(jointIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointConstraintAngleMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCcdikJointConstraintAngleMax(jointIdx: Int, angleMax: Float): Unit =
+    def setCcdikJointConstraintAngleMax(jointIdx: Int, angleMax: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = angleMax.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointConstraintAngleMax, ptr, _args, null)
+}
 
-    def getCcdikJointConstraintAngleMax(jointIdx: Int): Float =
+    def getCcdikJointConstraintAngleMax(jointIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointConstraintAngleMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCcdikJointConstraintAngleInvert(jointIdx: Int, invert: Boolean): Unit =
+    def setCcdikJointConstraintAngleInvert(jointIdx: Int, invert: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if invert then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.setCcdikJointConstraintAngleInvert, ptr, _args, null)
+}
 
-    def getCcdikJointConstraintAngleInvert(jointIdx: Int): Boolean =
+    def getCcdikJointConstraintAngleInvert(jointIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DCCDIK.Binds.getCcdikJointConstraintAngleInvert, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def targetNodepath: Ptr[Byte] = getTargetNode()
-    def targetNodepath_=(v: Ptr[Byte]): Unit = setTargetNode(v)
-    def tipNodepath: Ptr[Byte] = getTipNode()
-    def tipNodepath_=(v: Ptr[Byte]): Unit = setTipNode(v)
-    def ccdikDataChainLength: Ptr[Byte] = getCcdikDataChainLength()
-    def ccdikDataChainLength_=(v: Ptr[Byte]): Unit = setCcdikDataChainLength(v)
+}
+
+    def targetNodepath: NodePath = getTargetNode()
+    def targetNodepath_=(v: NodePath): Unit = setTargetNode(v)
+    def tipNodepath: NodePath = getTipNode()
+    def tipNodepath_=(v: NodePath): Unit = setTipNode(v)
+    def ccdikDataChainLength: Int = getCcdikDataChainLength()
+    def ccdikDataChainLength_=(v: Int): Unit = setCcdikDataChainLength(v)
+}
 
 object SkeletonModification2DCCDIK:
-    object Binds:
-        var setTargetNode: Ptr[Byte] = null
-        var getTargetNode: Ptr[Byte] = null
-        var setTipNode: Ptr[Byte] = null
-        var getTipNode: Ptr[Byte] = null
-        var setCcdikDataChainLength: Ptr[Byte] = null
-        var getCcdikDataChainLength: Ptr[Byte] = null
-        var setCcdikJointBone2dNode: Ptr[Byte] = null
+object Binds {
+          var setCcdikJointBone2dNode: Ptr[Byte] = null
         var getCcdikJointBone2dNode: Ptr[Byte] = null
         var setCcdikJointBoneIndex: Ptr[Byte] = null
         var getCcdikJointBoneIndex: Ptr[Byte] = null
@@ -181,14 +156,8 @@ object SkeletonModification2DCCDIK:
         var setCcdikJointConstraintAngleInvert: Ptr[Byte] = null
         var getCcdikJointConstraintAngleInvert: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_target_node", 1348162250L)
-            Binds.getTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_target_node", 4075236667L)
-            Binds.setTipNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_tip_node", 1348162250L)
-            Binds.getTipNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_tip_node", 4075236667L)
-            Binds.setCcdikDataChainLength = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_ccdik_data_chain_length", 1286410249L)
-            Binds.getCcdikDataChainLength = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_ccdik_data_chain_length", 2455072627L)
-            Binds.setCcdikJointBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_ccdik_joint_bone2d_node", 2761262315L)
+  def loadBinds(): Unit = {
+                Binds.setCcdikJointBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_ccdik_joint_bone2d_node", 2761262315L)
             Binds.getCcdikJointBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_ccdik_joint_bone2d_node", 408788394L)
             Binds.setCcdikJointBoneIndex = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_ccdik_joint_bone_index", 3937882851L)
             Binds.getCcdikJointBoneIndex = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_ccdik_joint_bone_index", 923996154L)
@@ -202,8 +171,11 @@ object SkeletonModification2DCCDIK:
             Binds.getCcdikJointConstraintAngleMax = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_ccdik_joint_constraint_angle_max", 2339986948L)
             Binds.setCcdikJointConstraintAngleInvert = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"set_ccdik_joint_constraint_angle_invert", 300928843L)
             Binds.getCcdikJointConstraintAngleInvert = GdxApi.getMethodBind(c"SkeletonModification2DCCDIK", c"get_ccdik_joint_constraint_angle_invert", 1116898809L)
+  }
+}
 
-    def apply(): SkeletonModification2DCCDIK =
-        val obj = new SkeletonModification2DCCDIK()
-        obj.ptr = GdxApi.constructObject(c"SkeletonModification2DCCDIK")
-        obj
+def apply(): SkeletonModification2DCCDIK = {
+  val obj = new SkeletonModification2DCCDIK()
+  obj.ptr = GdxApi.constructObject(c"SkeletonModification2DCCDIK")
+  obj
+}

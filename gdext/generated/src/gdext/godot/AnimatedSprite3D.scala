@@ -5,169 +5,87 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimatedSprite3D extends SpriteBase3D
-
-    def setSpriteFrames(spriteFrames: SpriteFrames): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = spriteFrames.ptr
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.setSpriteFrames, ptr, _args, null)
-
-    def getSpriteFrames(): SpriteFrames =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.getSpriteFrames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new SpriteFrames(!_ret)
-
-    def setAnimation(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.setAnimation, ptr, _args, null)
-
-    def getAnimation(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.getAnimation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setAutoplay(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.setAutoplay, ptr, _args, null)
-
-    def getAutoplay(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.getAutoplay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def isPlaying(): Boolean =
+class AnimatedSprite3D extends SpriteBase3D {
+    def isPlaying(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimatedSprite3D.Binds.isPlaying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def play(): Unit =
+    def play(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AnimatedSprite3D.Binds.play, ptr, _args, null)
+}
 
-    def playBackwards(): Unit =
+    def playBackwards(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AnimatedSprite3D.Binds.playBackwards, ptr, _args, null)
+}
 
-    def pause(): Unit =
+    def pause(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AnimatedSprite3D.Binds.pause, ptr, _args, null)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AnimatedSprite3D.Binds.stop, ptr, _args, null)
+}
 
-    def setFrame(frame: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.setFrame, ptr, _args, null)
-
-    def getFrame(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.getFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrameProgress(progress: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = progress.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.setFrameProgress, ptr, _args, null)
-
-    def getFrameProgress(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.getFrameProgress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFrameAndProgress(frame: Int, progress: Float): Unit =
+    def setFrameAndProgress(frame: Int, progress: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frame.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = progress.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimatedSprite3D.Binds.setFrameAndProgress, ptr, _args, null)
+}
 
-    def setSpeedScale(speedScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = speedScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.setSpeedScale, ptr, _args, null)
-
-    def getSpeedScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AnimatedSprite3D.Binds.getSpeedScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getPlayingSpeed(): Float =
+    def getPlayingSpeed(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AnimatedSprite3D.Binds.getPlayingSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
-    def spriteFrames: Ptr[Byte] = getSpriteFrames()
-    def spriteFrames_=(v: Ptr[Byte]): Unit = setSpriteFrames(v)
-    def animation: Ptr[Byte] = getAnimation()
-    def animation_=(v: Ptr[Byte]): Unit = setAnimation(v)
-    def autoplay: Ptr[Byte] = getAutoplay()
-    def autoplay_=(v: Ptr[Byte]): Unit = setAutoplay(v)
-    def frame: Ptr[Byte] = getFrame()
-    def frame_=(v: Ptr[Byte]): Unit = setFrame(v)
-    def frameProgress: Ptr[Byte] = getFrameProgress()
-    def frameProgress_=(v: Ptr[Byte]): Unit = setFrameProgress(v)
-    def speedScale: Ptr[Byte] = getSpeedScale()
-    def speedScale_=(v: Ptr[Byte]): Unit = setSpeedScale(v)
+}
+
+    def spriteFrames: SpriteFrames = getSpriteFrames()
+    def spriteFrames_=(v: SpriteFrames): Unit = setSpriteFrames(v)
+    def animation: CString = getAnimation()
+    def animation_=(v: CString): Unit = setAnimation(v)
+    def autoplay: CString = getAutoplay()
+    def autoplay_=(v: CString): Unit = setAutoplay(v)
+    def frame: Int = getFrame()
+    def frame_=(v: Int): Unit = setFrame(v)
+    def frameProgress: Float = getFrameProgress()
+    def frameProgress_=(v: Float): Unit = setFrameProgress(v)
+    def speedScale: Float = getSpeedScale()
+    def speedScale_=(v: Float): Unit = setSpeedScale(v)
+}
 
 object AnimatedSprite3D:
-    object Binds:
-        var setSpriteFrames: Ptr[Byte] = null
-        var getSpriteFrames: Ptr[Byte] = null
-        var setAnimation: Ptr[Byte] = null
-        var getAnimation: Ptr[Byte] = null
-        var setAutoplay: Ptr[Byte] = null
-        var getAutoplay: Ptr[Byte] = null
-        var isPlaying: Ptr[Byte] = null
+object Binds {
+          var isPlaying: Ptr[Byte] = null
         var play: Ptr[Byte] = null
         var playBackwards: Ptr[Byte] = null
         var pause: Ptr[Byte] = null
         var stop: Ptr[Byte] = null
-        var setFrame: Ptr[Byte] = null
-        var getFrame: Ptr[Byte] = null
-        var setFrameProgress: Ptr[Byte] = null
-        var getFrameProgress: Ptr[Byte] = null
         var setFrameAndProgress: Ptr[Byte] = null
-        var setSpeedScale: Ptr[Byte] = null
-        var getSpeedScale: Ptr[Byte] = null
         var getPlayingSpeed: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSpriteFrames = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_sprite_frames", 905781144L)
-            Binds.getSpriteFrames = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_sprite_frames", 3804851214L)
-            Binds.setAnimation = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_animation", 3304788590L)
-            Binds.getAnimation = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_animation", 2002593661L)
-            Binds.setAutoplay = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_autoplay", 83702148L)
-            Binds.getAutoplay = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_autoplay", 201670096L)
-            Binds.isPlaying = GdxApi.getMethodBind(c"AnimatedSprite3D", c"is_playing", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.isPlaying = GdxApi.getMethodBind(c"AnimatedSprite3D", c"is_playing", 36873697L)
             Binds.play = GdxApi.getMethodBind(c"AnimatedSprite3D", c"play", 3269405555L)
             Binds.playBackwards = GdxApi.getMethodBind(c"AnimatedSprite3D", c"play_backwards", 3323268493L)
             Binds.pause = GdxApi.getMethodBind(c"AnimatedSprite3D", c"pause", 3218959716L)
             Binds.stop = GdxApi.getMethodBind(c"AnimatedSprite3D", c"stop", 3218959716L)
-            Binds.setFrame = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_frame", 1286410249L)
-            Binds.getFrame = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_frame", 3905245786L)
-            Binds.setFrameProgress = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_frame_progress", 373806689L)
-            Binds.getFrameProgress = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_frame_progress", 1740695150L)
             Binds.setFrameAndProgress = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_frame_and_progress", 1602489585L)
-            Binds.setSpeedScale = GdxApi.getMethodBind(c"AnimatedSprite3D", c"set_speed_scale", 373806689L)
-            Binds.getSpeedScale = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_speed_scale", 1740695150L)
             Binds.getPlayingSpeed = GdxApi.getMethodBind(c"AnimatedSprite3D", c"get_playing_speed", 1740695150L)
+  }
+}
 
-    def apply(): AnimatedSprite3D =
-        val obj = new AnimatedSprite3D()
-        obj.ptr = GdxApi.constructObject(c"AnimatedSprite3D")
-        obj
+def apply(): AnimatedSprite3D = {
+  val obj = new AnimatedSprite3D()
+  obj.ptr = GdxApi.constructObject(c"AnimatedSprite3D")
+  obj
+}

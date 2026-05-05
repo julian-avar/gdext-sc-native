@@ -5,128 +5,39 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GraphFrame extends GraphElement
-
-    def setTitle(title: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = title.ptr
-        GdxApi.ptrcall(GraphFrame.Binds.setTitle, ptr, _args, null)
-
-    def getTitle(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GraphFrame.Binds.getTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getTitlebarHbox(): HBoxContainer =
+class GraphFrame extends GraphElement {
+    def getTitlebarHbox(): HBoxContainer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GraphFrame.Binds.getTitlebarHbox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new HBoxContainer(!_ret)
+}
 
-    def setAutoshrinkEnabled(shrink: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if shrink then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GraphFrame.Binds.setAutoshrinkEnabled, ptr, _args, null)
-
-    def isAutoshrinkEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(GraphFrame.Binds.isAutoshrinkEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoshrinkMargin(autoshrinkMargin: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = autoshrinkMargin.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GraphFrame.Binds.setAutoshrinkMargin, ptr, _args, null)
-
-    def getAutoshrinkMargin(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GraphFrame.Binds.getAutoshrinkMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDragMargin(dragMargin: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = dragMargin.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GraphFrame.Binds.setDragMargin, ptr, _args, null)
-
-    def getDragMargin(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GraphFrame.Binds.getDragMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTintColorEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GraphFrame.Binds.setTintColorEnabled, ptr, _args, null)
-
-    def isTintColorEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(GraphFrame.Binds.isTintColorEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTintColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(GraphFrame.Binds.setTintColor, ptr, _args, null)
-
-    def getTintColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GraphFrame.Binds.getTintColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-    def title: Ptr[Byte] = getTitle()
-    def title_=(v: Ptr[Byte]): Unit = setTitle(v)
-    def autoshrinkEnabled: Ptr[Byte] = isAutoshrinkEnabled()
-    def autoshrinkEnabled_=(v: Ptr[Byte]): Unit = setAutoshrinkEnabled(v)
-    def autoshrinkMargin: Ptr[Byte] = getAutoshrinkMargin()
-    def autoshrinkMargin_=(v: Ptr[Byte]): Unit = setAutoshrinkMargin(v)
-    def dragMargin: Ptr[Byte] = getDragMargin()
-    def dragMargin_=(v: Ptr[Byte]): Unit = setDragMargin(v)
-    def tintColorEnabled: Ptr[Byte] = isTintColorEnabled()
-    def tintColorEnabled_=(v: Ptr[Byte]): Unit = setTintColorEnabled(v)
-    def tintColor: Ptr[Byte] = getTintColor()
-    def tintColor_=(v: Ptr[Byte]): Unit = setTintColor(v)
+    def title: CString = getTitle()
+    def title_=(v: CString): Unit = setTitle(v)
+    def autoshrinkEnabled: Boolean = isAutoshrinkEnabled()
+    def autoshrinkEnabled_=(v: Boolean): Unit = setAutoshrinkEnabled(v)
+    def autoshrinkMargin: Int = getAutoshrinkMargin()
+    def autoshrinkMargin_=(v: Int): Unit = setAutoshrinkMargin(v)
+    def dragMargin: Int = getDragMargin()
+    def dragMargin_=(v: Int): Unit = setDragMargin(v)
+    def tintColorEnabled: Boolean = isTintColorEnabled()
+    def tintColorEnabled_=(v: Boolean): Unit = setTintColorEnabled(v)
+    def tintColor: Color = getTintColor()
+    def tintColor_=(v: Color): Unit = setTintColor(v)
+}
 
 object GraphFrame:
-    object Binds:
-        var setTitle: Ptr[Byte] = null
-        var getTitle: Ptr[Byte] = null
-        var getTitlebarHbox: Ptr[Byte] = null
-        var setAutoshrinkEnabled: Ptr[Byte] = null
-        var isAutoshrinkEnabled: Ptr[Byte] = null
-        var setAutoshrinkMargin: Ptr[Byte] = null
-        var getAutoshrinkMargin: Ptr[Byte] = null
-        var setDragMargin: Ptr[Byte] = null
-        var getDragMargin: Ptr[Byte] = null
-        var setTintColorEnabled: Ptr[Byte] = null
-        var isTintColorEnabled: Ptr[Byte] = null
-        var setTintColor: Ptr[Byte] = null
-        var getTintColor: Ptr[Byte] = null
+object Binds {
+          var getTitlebarHbox: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTitle = GdxApi.getMethodBind(c"GraphFrame", c"set_title", 83702148L)
-            Binds.getTitle = GdxApi.getMethodBind(c"GraphFrame", c"get_title", 201670096L)
-            Binds.getTitlebarHbox = GdxApi.getMethodBind(c"GraphFrame", c"get_titlebar_hbox", 3590609951L)
-            Binds.setAutoshrinkEnabled = GdxApi.getMethodBind(c"GraphFrame", c"set_autoshrink_enabled", 2586408642L)
-            Binds.isAutoshrinkEnabled = GdxApi.getMethodBind(c"GraphFrame", c"is_autoshrink_enabled", 36873697L)
-            Binds.setAutoshrinkMargin = GdxApi.getMethodBind(c"GraphFrame", c"set_autoshrink_margin", 1286410249L)
-            Binds.getAutoshrinkMargin = GdxApi.getMethodBind(c"GraphFrame", c"get_autoshrink_margin", 3905245786L)
-            Binds.setDragMargin = GdxApi.getMethodBind(c"GraphFrame", c"set_drag_margin", 1286410249L)
-            Binds.getDragMargin = GdxApi.getMethodBind(c"GraphFrame", c"get_drag_margin", 3905245786L)
-            Binds.setTintColorEnabled = GdxApi.getMethodBind(c"GraphFrame", c"set_tint_color_enabled", 2586408642L)
-            Binds.isTintColorEnabled = GdxApi.getMethodBind(c"GraphFrame", c"is_tint_color_enabled", 36873697L)
-            Binds.setTintColor = GdxApi.getMethodBind(c"GraphFrame", c"set_tint_color", 2920490490L)
-            Binds.getTintColor = GdxApi.getMethodBind(c"GraphFrame", c"get_tint_color", 3444240500L)
+  def loadBinds(): Unit = {
+                Binds.getTitlebarHbox = GdxApi.getMethodBind(c"GraphFrame", c"get_titlebar_hbox", 3590609951L)
+  }
+}
 
-    def apply(): GraphFrame =
-        val obj = new GraphFrame()
-        obj.ptr = GdxApi.constructObject(c"GraphFrame")
-        obj
+def apply(): GraphFrame = {
+  val obj = new GraphFrame()
+  obj.ptr = GdxApi.constructObject(c"GraphFrame")
+  obj
+}

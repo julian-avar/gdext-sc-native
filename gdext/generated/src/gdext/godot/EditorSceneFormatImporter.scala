@@ -5,35 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorSceneFormatImporter extends RefCounted
+class EditorSceneFormatImporter extends RefCounted {
     def _getExtensions(): PackedStringArray = null
     def _importScene(path: CString, flags: Int, options: Dictionary): Object = null
     def _getImportOptions(path: CString): Unit = ()
     def _getOptionVisibility(path: CString, forAnimation: Boolean, option: CString): Ptr[Byte] = null
-    def addImportOption(name: CString, value: Ptr[Byte]): Unit =
+
+    def addImportOption(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(EditorSceneFormatImporter.Binds.addImportOption, ptr, _args, null)
+}
 
-    def addImportOptionAdvanced(`type`: Int, name: CString, defaultValue: Ptr[Byte]): Unit =
+    def addImportOptionAdvanced(`type`: Int, name: CString, defaultValue: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = `type`.ptr
-        _args(1) = name.ptr
-        _args(2) = defaultValue.ptr
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = name
+        _args(2) = defaultValue
         GdxApi.ptrcall(EditorSceneFormatImporter.Binds.addImportOptionAdvanced, ptr, _args, null)
-
+}
+}
 
 object EditorSceneFormatImporter:
-    object Binds:
-        var addImportOption: Ptr[Byte] = null
+object Binds {
+          var addImportOption: Ptr[Byte] = null
         var addImportOptionAdvanced: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addImportOption = GdxApi.getMethodBind(c"EditorSceneFormatImporter", c"add_import_option", 402577236L)
+  def loadBinds(): Unit = {
+                Binds.addImportOption = GdxApi.getMethodBind(c"EditorSceneFormatImporter", c"add_import_option", 402577236L)
             Binds.addImportOptionAdvanced = GdxApi.getMethodBind(c"EditorSceneFormatImporter", c"add_import_option_advanced", 3674075649L)
+  }
+}
 
-    def apply(): EditorSceneFormatImporter =
-        val obj = new EditorSceneFormatImporter()
-        obj.ptr = GdxApi.constructObject(c"EditorSceneFormatImporter")
-        obj
+def apply(): EditorSceneFormatImporter = {
+  val obj = new EditorSceneFormatImporter()
+  obj.ptr = GdxApi.constructObject(c"EditorSceneFormatImporter")
+  obj
+}

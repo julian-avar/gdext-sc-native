@@ -5,97 +5,41 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CollisionShape3D extends Node3D
-
-    def resourceChanged(resource: Resource): Unit =
+class CollisionShape3D extends Node3D {
+    def resourceChanged(resource: Resource): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = resource.ptr
         GdxApi.ptrcall(CollisionShape3D.Binds.resourceChanged, ptr, _args, null)
+}
 
-    def setShape(shape: Shape3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
-        GdxApi.ptrcall(CollisionShape3D.Binds.setShape, ptr, _args, null)
-
-    def getShape(): Shape3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CollisionShape3D.Binds.getShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Shape3D(!_ret)
-
-    def setDisabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionShape3D.Binds.setDisabled, ptr, _args, null)
-
-    def isDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CollisionShape3D.Binds.isDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def makeConvexFromSiblings(): Unit =
+    def makeConvexFromSiblings(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CollisionShape3D.Binds.makeConvexFromSiblings, ptr, _args, null)
+}
 
-    def setDebugColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(CollisionShape3D.Binds.setDebugColor, ptr, _args, null)
-
-    def getDebugColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CollisionShape3D.Binds.getDebugColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setEnableDebugFill(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionShape3D.Binds.setEnableDebugFill, ptr, _args, null)
-
-    def getEnableDebugFill(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CollisionShape3D.Binds.getEnableDebugFill, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def shape: Ptr[Byte] = getShape()
-    def shape_=(v: Ptr[Byte]): Unit = setShape(v)
-    def disabled: Ptr[Byte] = isDisabled()
-    def disabled_=(v: Ptr[Byte]): Unit = setDisabled(v)
-    def debugColor: Ptr[Byte] = getDebugColor()
-    def debugColor_=(v: Ptr[Byte]): Unit = setDebugColor(v)
-    def debugFill: Ptr[Byte] = getEnableDebugFill()
-    def debugFill_=(v: Ptr[Byte]): Unit = setEnableDebugFill(v)
+    def shape: Shape3D = getShape()
+    def shape_=(v: Shape3D): Unit = setShape(v)
+    def disabled: Boolean = isDisabled()
+    def disabled_=(v: Boolean): Unit = setDisabled(v)
+    def debugColor: Color = getDebugColor()
+    def debugColor_=(v: Color): Unit = setDebugColor(v)
+    def debugFill: Boolean = getEnableDebugFill()
+    def debugFill_=(v: Boolean): Unit = setEnableDebugFill(v)
+}
 
 object CollisionShape3D:
-    object Binds:
-        var resourceChanged: Ptr[Byte] = null
-        var setShape: Ptr[Byte] = null
-        var getShape: Ptr[Byte] = null
-        var setDisabled: Ptr[Byte] = null
-        var isDisabled: Ptr[Byte] = null
+object Binds {
+          var resourceChanged: Ptr[Byte] = null
         var makeConvexFromSiblings: Ptr[Byte] = null
-        var setDebugColor: Ptr[Byte] = null
-        var getDebugColor: Ptr[Byte] = null
-        var setEnableDebugFill: Ptr[Byte] = null
-        var getEnableDebugFill: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.resourceChanged = GdxApi.getMethodBind(c"CollisionShape3D", c"resource_changed", 968641751L)
-            Binds.setShape = GdxApi.getMethodBind(c"CollisionShape3D", c"set_shape", 1549710052L)
-            Binds.getShape = GdxApi.getMethodBind(c"CollisionShape3D", c"get_shape", 3214262478L)
-            Binds.setDisabled = GdxApi.getMethodBind(c"CollisionShape3D", c"set_disabled", 2586408642L)
-            Binds.isDisabled = GdxApi.getMethodBind(c"CollisionShape3D", c"is_disabled", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.resourceChanged = GdxApi.getMethodBind(c"CollisionShape3D", c"resource_changed", 968641751L)
             Binds.makeConvexFromSiblings = GdxApi.getMethodBind(c"CollisionShape3D", c"make_convex_from_siblings", 3218959716L)
-            Binds.setDebugColor = GdxApi.getMethodBind(c"CollisionShape3D", c"set_debug_color", 2920490490L)
-            Binds.getDebugColor = GdxApi.getMethodBind(c"CollisionShape3D", c"get_debug_color", 3444240500L)
-            Binds.setEnableDebugFill = GdxApi.getMethodBind(c"CollisionShape3D", c"set_enable_debug_fill", 2586408642L)
-            Binds.getEnableDebugFill = GdxApi.getMethodBind(c"CollisionShape3D", c"get_enable_debug_fill", 36873697L)
+  }
+}
 
-    def apply(): CollisionShape3D =
-        val obj = new CollisionShape3D()
-        obj.ptr = GdxApi.constructObject(c"CollisionShape3D")
-        obj
+def apply(): CollisionShape3D = {
+  val obj = new CollisionShape3D()
+  obj.ptr = GdxApi.constructObject(c"CollisionShape3D")
+  obj
+}

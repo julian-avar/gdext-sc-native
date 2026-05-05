@@ -5,60 +5,67 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextServerManager extends Object
-
-    def addInterface(interface: TextServer): Unit =
+class TextServerManager extends Object {
+    def addInterface(interface: TextServer): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = interface.ptr
         GdxApi.ptrcall(TextServerManager.Binds.addInterface, ptr, _args, null)
+}
 
-    def getInterfaceCount(): Int =
+    def getInterfaceCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServerManager.Binds.getInterfaceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeInterface(interface: TextServer): Unit =
+    def removeInterface(interface: TextServer): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = interface.ptr
         GdxApi.ptrcall(TextServerManager.Binds.removeInterface, ptr, _args, null)
+}
 
-    def getInterface(idx: Int): TextServer =
+    def getInterface(idx: Int): TextServer = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServerManager.Binds.getInterface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TextServer(!_ret)
+}
 
-    def getInterfaces(): Ptr[Byte] =
+    def getInterfaces(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServerManager.Binds.getInterfaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def findInterface(name: CString): TextServer =
+    def findInterface(name: CString): TextServer = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServerManager.Binds.findInterface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TextServer(!_ret)
+}
 
-    def setPrimaryInterface(index: TextServer): Unit =
+    def setPrimaryInterface(index: TextServer): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = index.ptr
         GdxApi.ptrcall(TextServerManager.Binds.setPrimaryInterface, ptr, _args, null)
+}
 
-    def getPrimaryInterface(): TextServer =
+    def getPrimaryInterface(): TextServer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServerManager.Binds.getPrimaryInterface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TextServer(!_ret)
-
+}
+}
 
 object TextServerManager:
-    object Binds:
-        var addInterface: Ptr[Byte] = null
+object Binds {
+          var addInterface: Ptr[Byte] = null
         var getInterfaceCount: Ptr[Byte] = null
         var removeInterface: Ptr[Byte] = null
         var getInterface: Ptr[Byte] = null
@@ -67,8 +74,8 @@ object TextServerManager:
         var setPrimaryInterface: Ptr[Byte] = null
         var getPrimaryInterface: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addInterface = GdxApi.getMethodBind(c"TextServerManager", c"add_interface", 1799689403L)
+  def loadBinds(): Unit = {
+                Binds.addInterface = GdxApi.getMethodBind(c"TextServerManager", c"add_interface", 1799689403L)
             Binds.getInterfaceCount = GdxApi.getMethodBind(c"TextServerManager", c"get_interface_count", 3905245786L)
             Binds.removeInterface = GdxApi.getMethodBind(c"TextServerManager", c"remove_interface", 1799689403L)
             Binds.getInterface = GdxApi.getMethodBind(c"TextServerManager", c"get_interface", 1672475555L)
@@ -76,8 +83,11 @@ object TextServerManager:
             Binds.findInterface = GdxApi.getMethodBind(c"TextServerManager", c"find_interface", 2240905781L)
             Binds.setPrimaryInterface = GdxApi.getMethodBind(c"TextServerManager", c"set_primary_interface", 1799689403L)
             Binds.getPrimaryInterface = GdxApi.getMethodBind(c"TextServerManager", c"get_primary_interface", 905850878L)
+  }
+}
 
-    def apply(): TextServerManager =
-        val obj = new TextServerManager()
-        obj.ptr = GdxApi.constructObject(c"TextServerManager")
-        obj
+def apply(): TextServerManager = {
+  val obj = new TextServerManager()
+  obj.ptr = GdxApi.constructObject(c"TextServerManager")
+  obj
+}

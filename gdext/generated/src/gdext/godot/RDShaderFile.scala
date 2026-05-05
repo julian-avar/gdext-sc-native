@@ -5,54 +5,46 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDShaderFile extends Resource
-
-    def setBytecode(bytecode: RDShaderSPIRV): Unit =
+class RDShaderFile extends Resource {
+    def setBytecode(bytecode: RDShaderSPIRV): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = bytecode.ptr
         GdxApi.ptrcall(RDShaderFile.Binds.setBytecode, ptr, _args, null)
+}
 
-    def getSpirv(): RDShaderSPIRV =
+    def getSpirv(): RDShaderSPIRV = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RDShaderFile.Binds.getSpirv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RDShaderSPIRV(!_ret)
+}
 
-    def getVersionList(): Ptr[Byte] =
+    def getVersionList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RDShaderFile.Binds.getVersionList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setBaseError(error: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = error.ptr
-        GdxApi.ptrcall(RDShaderFile.Binds.setBaseError, ptr, _args, null)
-
-    def getBaseError(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDShaderFile.Binds.getBaseError, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def baseError: Ptr[Byte] = getBaseError()
-    def baseError_=(v: Ptr[Byte]): Unit = setBaseError(v)
+    def baseError: CString = getBaseError()
+    def baseError_=(v: CString): Unit = setBaseError(v)
+}
 
 object RDShaderFile:
-    object Binds:
-        var setBytecode: Ptr[Byte] = null
+object Binds {
+          var setBytecode: Ptr[Byte] = null
         var getSpirv: Ptr[Byte] = null
         var getVersionList: Ptr[Byte] = null
-        var setBaseError: Ptr[Byte] = null
-        var getBaseError: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setBytecode = GdxApi.getMethodBind(c"RDShaderFile", c"set_bytecode", 1526857008L)
+  def loadBinds(): Unit = {
+                Binds.setBytecode = GdxApi.getMethodBind(c"RDShaderFile", c"set_bytecode", 1526857008L)
             Binds.getSpirv = GdxApi.getMethodBind(c"RDShaderFile", c"get_spirv", 2689310080L)
             Binds.getVersionList = GdxApi.getMethodBind(c"RDShaderFile", c"get_version_list", 3995934104L)
-            Binds.setBaseError = GdxApi.getMethodBind(c"RDShaderFile", c"set_base_error", 83702148L)
-            Binds.getBaseError = GdxApi.getMethodBind(c"RDShaderFile", c"get_base_error", 201670096L)
+  }
+}
 
-    def apply(): RDShaderFile =
-        val obj = new RDShaderFile()
-        obj.ptr = GdxApi.constructObject(c"RDShaderFile")
-        obj
+def apply(): RDShaderFile = {
+  val obj = new RDShaderFile()
+  obj.ptr = GdxApi.constructObject(c"RDShaderFile")
+  obj
+}

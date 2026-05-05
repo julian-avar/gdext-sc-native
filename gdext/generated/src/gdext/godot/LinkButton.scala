@@ -5,133 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LinkButton extends BaseButton
-
-    def setText(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setText, ptr, _args, null)
-
-    def getText(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LinkButton.Binds.getText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTextDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setTextDirection, ptr, _args, null)
-
-    def getTextDirection(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LinkButton.Binds.getTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLanguage(language: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setLanguage, ptr, _args, null)
-
-    def getLanguage(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LinkButton.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setUri(uri: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = uri.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setUri, ptr, _args, null)
-
-    def getUri(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LinkButton.Binds.getUri, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setUnderlineMode(underlineMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = underlineMode.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setUnderlineMode, ptr, _args, null)
-
-    def getUnderlineMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LinkButton.Binds.getUnderlineMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStructuredTextBidiOverride(parser: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = parser.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setStructuredTextBidiOverride, ptr, _args, null)
-
-    def getStructuredTextBidiOverride(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LinkButton.Binds.getStructuredTextBidiOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStructuredTextBidiOverrideOptions(args: Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = args.ptr
-        GdxApi.ptrcall(LinkButton.Binds.setStructuredTextBidiOverrideOptions, ptr, _args, null)
-
-    def getStructuredTextBidiOverrideOptions(): Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LinkButton.Binds.getStructuredTextBidiOverrideOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def text: Ptr[Byte] = getText()
-    def text_=(v: Ptr[Byte]): Unit = setText(v)
-    def underline: Ptr[Byte] = getUnderlineMode()
-    def underline_=(v: Ptr[Byte]): Unit = setUnderlineMode(v)
-    def uri: Ptr[Byte] = getUri()
-    def uri_=(v: Ptr[Byte]): Unit = setUri(v)
-    def textDirection: Ptr[Byte] = getTextDirection()
-    def textDirection_=(v: Ptr[Byte]): Unit = setTextDirection(v)
-    def language: Ptr[Byte] = getLanguage()
-    def language_=(v: Ptr[Byte]): Unit = setLanguage(v)
-    def structuredTextBidiOverride: Ptr[Byte] = getStructuredTextBidiOverride()
-    def structuredTextBidiOverride_=(v: Ptr[Byte]): Unit = setStructuredTextBidiOverride(v)
+class LinkButton extends BaseButton {
+    def text: CString = getText()
+    def text_=(v: CString): Unit = setText(v)
+    def underline: Int = getUnderlineMode()
+    def underline_=(v: Int): Unit = setUnderlineMode(v)
+    def uri: CString = getUri()
+    def uri_=(v: CString): Unit = setUri(v)
+    def textDirection: Int = getTextDirection()
+    def textDirection_=(v: Int): Unit = setTextDirection(v)
+    def language: CString = getLanguage()
+    def language_=(v: CString): Unit = setLanguage(v)
+    def structuredTextBidiOverride: Int = getStructuredTextBidiOverride()
+    def structuredTextBidiOverride_=(v: Int): Unit = setStructuredTextBidiOverride(v)
     def structuredTextBidiOverrideOptions: Ptr[Byte] = getStructuredTextBidiOverrideOptions()
     def structuredTextBidiOverrideOptions_=(v: Ptr[Byte]): Unit = setStructuredTextBidiOverrideOptions(v)
+}
 
 object LinkButton:
-    object Binds:
-        var setText: Ptr[Byte] = null
-        var getText: Ptr[Byte] = null
-        var setTextDirection: Ptr[Byte] = null
-        var getTextDirection: Ptr[Byte] = null
-        var setLanguage: Ptr[Byte] = null
-        var getLanguage: Ptr[Byte] = null
-        var setUri: Ptr[Byte] = null
-        var getUri: Ptr[Byte] = null
-        var setUnderlineMode: Ptr[Byte] = null
-        var getUnderlineMode: Ptr[Byte] = null
-        var setStructuredTextBidiOverride: Ptr[Byte] = null
-        var getStructuredTextBidiOverride: Ptr[Byte] = null
-        var setStructuredTextBidiOverrideOptions: Ptr[Byte] = null
-        var getStructuredTextBidiOverrideOptions: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setText = GdxApi.getMethodBind(c"LinkButton", c"set_text", 83702148L)
-            Binds.getText = GdxApi.getMethodBind(c"LinkButton", c"get_text", 201670096L)
-            Binds.setTextDirection = GdxApi.getMethodBind(c"LinkButton", c"set_text_direction", 119160795L)
-            Binds.getTextDirection = GdxApi.getMethodBind(c"LinkButton", c"get_text_direction", 797257663L)
-            Binds.setLanguage = GdxApi.getMethodBind(c"LinkButton", c"set_language", 83702148L)
-            Binds.getLanguage = GdxApi.getMethodBind(c"LinkButton", c"get_language", 201670096L)
-            Binds.setUri = GdxApi.getMethodBind(c"LinkButton", c"set_uri", 83702148L)
-            Binds.getUri = GdxApi.getMethodBind(c"LinkButton", c"get_uri", 201670096L)
-            Binds.setUnderlineMode = GdxApi.getMethodBind(c"LinkButton", c"set_underline_mode", 4032947085L)
-            Binds.getUnderlineMode = GdxApi.getMethodBind(c"LinkButton", c"get_underline_mode", 568343738L)
-            Binds.setStructuredTextBidiOverride = GdxApi.getMethodBind(c"LinkButton", c"set_structured_text_bidi_override", 55961453L)
-            Binds.getStructuredTextBidiOverride = GdxApi.getMethodBind(c"LinkButton", c"get_structured_text_bidi_override", 3385126229L)
-            Binds.setStructuredTextBidiOverrideOptions = GdxApi.getMethodBind(c"LinkButton", c"set_structured_text_bidi_override_options", 381264803L)
-            Binds.getStructuredTextBidiOverrideOptions = GdxApi.getMethodBind(c"LinkButton", c"get_structured_text_bidi_override_options", 3995934104L)
-
-    def apply(): LinkButton =
-        val obj = new LinkButton()
-        obj.ptr = GdxApi.constructObject(c"LinkButton")
-        obj
+def apply(): LinkButton = {
+  val obj = new LinkButton()
+  obj.ptr = GdxApi.constructObject(c"LinkButton")
+  obj
+}

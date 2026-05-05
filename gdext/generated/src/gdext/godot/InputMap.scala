@@ -5,100 +5,113 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputMap extends Object
-
-    def hasAction(action: CString): Boolean =
+class InputMap extends Object {
+    def hasAction(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputMap.Binds.hasAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getActions(): Ptr[Byte] =
+    def getActions(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputMap.Binds.getActions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addAction(action: CString): Unit =
+    def addAction(action: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         GdxApi.ptrcall(InputMap.Binds.addAction, ptr, _args, null)
+}
 
-    def eraseAction(action: CString): Unit =
+    def eraseAction(action: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         GdxApi.ptrcall(InputMap.Binds.eraseAction, ptr, _args, null)
+}
 
-    def getActionDescription(action: CString): CString =
+    def getActionDescription(action: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputMap.Binds.getActionDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def actionSetDeadzone(action: CString, deadzone: Float): Unit =
+    def actionSetDeadzone(action: CString, deadzone: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = action.ptr
+        _args(0) = action
         val _a1 = stackalloc[Double](); !_a1 = deadzone.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(InputMap.Binds.actionSetDeadzone, ptr, _args, null)
+}
 
-    def actionGetDeadzone(action: CString): Float =
+    def actionGetDeadzone(action: CString): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(InputMap.Binds.actionGetDeadzone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def actionAddEvent(action: CString, event: InputEvent): Unit =
+    def actionAddEvent(action: CString, event: InputEvent): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = action.ptr
+        _args(0) = action
         _args(1) = event.ptr
         GdxApi.ptrcall(InputMap.Binds.actionAddEvent, ptr, _args, null)
+}
 
-    def actionHasEvent(action: CString, event: InputEvent): Boolean =
+    def actionHasEvent(action: CString, event: InputEvent): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = action.ptr
+        _args(0) = action
         _args(1) = event.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputMap.Binds.actionHasEvent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def actionEraseEvent(action: CString, event: InputEvent): Unit =
+    def actionEraseEvent(action: CString, event: InputEvent): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = action.ptr
+        _args(0) = action
         _args(1) = event.ptr
         GdxApi.ptrcall(InputMap.Binds.actionEraseEvent, ptr, _args, null)
+}
 
-    def actionEraseEvents(action: CString): Unit =
+    def actionEraseEvents(action: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         GdxApi.ptrcall(InputMap.Binds.actionEraseEvents, ptr, _args, null)
+}
 
-    def actionGetEvents(action: CString): Ptr[Byte] =
+    def actionGetEvents(action: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputMap.Binds.actionGetEvents, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def eventIsAction(event: InputEvent, action: CString): Boolean =
+    def eventIsAction(event: InputEvent, action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = event.ptr
-        _args(1) = action.ptr
+        _args(1) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(InputMap.Binds.eventIsAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def loadFromProjectSettings(): Unit =
+    def loadFromProjectSettings(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(InputMap.Binds.loadFromProjectSettings, ptr, _args, null)
-
+}
+}
 
 object InputMap:
-    object Binds:
-        var hasAction: Ptr[Byte] = null
+object Binds {
+          var hasAction: Ptr[Byte] = null
         var getActions: Ptr[Byte] = null
         var addAction: Ptr[Byte] = null
         var eraseAction: Ptr[Byte] = null
@@ -113,8 +126,8 @@ object InputMap:
         var eventIsAction: Ptr[Byte] = null
         var loadFromProjectSettings: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasAction = GdxApi.getMethodBind(c"InputMap", c"has_action", 2619796661L)
+  def loadBinds(): Unit = {
+                Binds.hasAction = GdxApi.getMethodBind(c"InputMap", c"has_action", 2619796661L)
             Binds.getActions = GdxApi.getMethodBind(c"InputMap", c"get_actions", 2915620761L)
             Binds.addAction = GdxApi.getMethodBind(c"InputMap", c"add_action", 1195233573L)
             Binds.eraseAction = GdxApi.getMethodBind(c"InputMap", c"erase_action", 3304788590L)
@@ -128,8 +141,11 @@ object InputMap:
             Binds.actionGetEvents = GdxApi.getMethodBind(c"InputMap", c"action_get_events", 689397652L)
             Binds.eventIsAction = GdxApi.getMethodBind(c"InputMap", c"event_is_action", 3193353650L)
             Binds.loadFromProjectSettings = GdxApi.getMethodBind(c"InputMap", c"load_from_project_settings", 3218959716L)
+  }
+}
 
-    def apply(): InputMap =
-        val obj = new InputMap()
-        obj.ptr = GdxApi.constructObject(c"InputMap")
-        obj
+def apply(): InputMap = {
+  val obj = new InputMap()
+  obj.ptr = GdxApi.constructObject(c"InputMap")
+  obj
+}

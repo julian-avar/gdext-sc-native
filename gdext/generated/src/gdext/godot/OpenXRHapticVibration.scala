@@ -5,68 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRHapticVibration extends OpenXRHapticBase
-
-    def setDuration(duration: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = duration
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRHapticVibration.Binds.setDuration, ptr, _args, null)
-
-    def getDuration(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRHapticVibration.Binds.getDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setFrequency(frequency: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = frequency.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRHapticVibration.Binds.setFrequency, ptr, _args, null)
-
-    def getFrequency(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRHapticVibration.Binds.getFrequency, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAmplitude(amplitude: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amplitude.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRHapticVibration.Binds.setAmplitude, ptr, _args, null)
-
-    def getAmplitude(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRHapticVibration.Binds.getAmplitude, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def duration: Ptr[Byte] = getDuration()
-    def duration_=(v: Ptr[Byte]): Unit = setDuration(v)
-    def frequency: Ptr[Byte] = getFrequency()
-    def frequency_=(v: Ptr[Byte]): Unit = setFrequency(v)
-    def amplitude: Ptr[Byte] = getAmplitude()
-    def amplitude_=(v: Ptr[Byte]): Unit = setAmplitude(v)
+class OpenXRHapticVibration extends OpenXRHapticBase {
+    def duration: Long = getDuration()
+    def duration_=(v: Long): Unit = setDuration(v)
+    def frequency: Float = getFrequency()
+    def frequency_=(v: Float): Unit = setFrequency(v)
+    def amplitude: Float = getAmplitude()
+    def amplitude_=(v: Float): Unit = setAmplitude(v)
+}
 
 object OpenXRHapticVibration:
-    object Binds:
-        var setDuration: Ptr[Byte] = null
-        var getDuration: Ptr[Byte] = null
-        var setFrequency: Ptr[Byte] = null
-        var getFrequency: Ptr[Byte] = null
-        var setAmplitude: Ptr[Byte] = null
-        var getAmplitude: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setDuration = GdxApi.getMethodBind(c"OpenXRHapticVibration", c"set_duration", 1286410249L)
-            Binds.getDuration = GdxApi.getMethodBind(c"OpenXRHapticVibration", c"get_duration", 3905245786L)
-            Binds.setFrequency = GdxApi.getMethodBind(c"OpenXRHapticVibration", c"set_frequency", 373806689L)
-            Binds.getFrequency = GdxApi.getMethodBind(c"OpenXRHapticVibration", c"get_frequency", 1740695150L)
-            Binds.setAmplitude = GdxApi.getMethodBind(c"OpenXRHapticVibration", c"set_amplitude", 373806689L)
-            Binds.getAmplitude = GdxApi.getMethodBind(c"OpenXRHapticVibration", c"get_amplitude", 1740695150L)
-
-    def apply(): OpenXRHapticVibration =
-        val obj = new OpenXRHapticVibration()
-        obj.ptr = GdxApi.constructObject(c"OpenXRHapticVibration")
-        obj
+def apply(): OpenXRHapticVibration = {
+  val obj = new OpenXRHapticVibration()
+  obj.ptr = GdxApi.constructObject(c"OpenXRHapticVibration")
+  obj
+}

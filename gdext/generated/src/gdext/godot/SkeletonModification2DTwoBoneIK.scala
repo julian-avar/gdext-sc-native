@@ -5,120 +5,74 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonModification2DTwoBoneIK extends SkeletonModification2D
-
-    def setTargetNode(targetNodepath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetNodepath.ptr
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setTargetNode, ptr, _args, null)
-
-    def getTargetNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getTargetNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setTargetMinimumDistance(minimumDistance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = minimumDistance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setTargetMinimumDistance, ptr, _args, null)
-
-    def getTargetMinimumDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getTargetMinimumDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTargetMaximumDistance(maximumDistance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = maximumDistance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setTargetMaximumDistance, ptr, _args, null)
-
-    def getTargetMaximumDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getTargetMaximumDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFlipBendDirection(flipDirection: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flipDirection then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setFlipBendDirection, ptr, _args, null)
-
-    def getFlipBendDirection(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getFlipBendDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setJointOneBone2dNode(bone2dNode: NodePath): Unit =
+class SkeletonModification2DTwoBoneIK extends SkeletonModification2D {
+    def setJointOneBone2dNode(bone2dNode: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = bone2dNode.ptr
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setJointOneBone2dNode, ptr, _args, null)
+}
 
-    def getJointOneBone2dNode(): NodePath =
+    def getJointOneBone2dNode(): NodePath = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getJointOneBone2dNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setJointOneBoneIdx(boneIdx: Int): Unit =
+    def setJointOneBoneIdx(boneIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = boneIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = boneIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setJointOneBoneIdx, ptr, _args, null)
+}
 
-    def getJointOneBoneIdx(): Int =
+    def getJointOneBoneIdx(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getJointOneBoneIdx, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setJointTwoBone2dNode(bone2dNode: NodePath): Unit =
+    def setJointTwoBone2dNode(bone2dNode: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = bone2dNode.ptr
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setJointTwoBone2dNode, ptr, _args, null)
+}
 
-    def getJointTwoBone2dNode(): NodePath =
+    def getJointTwoBone2dNode(): NodePath = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getJointTwoBone2dNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setJointTwoBoneIdx(boneIdx: Int): Unit =
+    def setJointTwoBoneIdx(boneIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = boneIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = boneIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.setJointTwoBoneIdx, ptr, _args, null)
+}
 
-    def getJointTwoBoneIdx(): Int =
+    def getJointTwoBoneIdx(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SkeletonModification2DTwoBoneIK.Binds.getJointTwoBoneIdx, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def targetNodepath: Ptr[Byte] = getTargetNode()
-    def targetNodepath_=(v: Ptr[Byte]): Unit = setTargetNode(v)
-    def targetMinimumDistance: Ptr[Byte] = getTargetMinimumDistance()
-    def targetMinimumDistance_=(v: Ptr[Byte]): Unit = setTargetMinimumDistance(v)
-    def targetMaximumDistance: Ptr[Byte] = getTargetMaximumDistance()
-    def targetMaximumDistance_=(v: Ptr[Byte]): Unit = setTargetMaximumDistance(v)
-    def flipBendDirection: Ptr[Byte] = getFlipBendDirection()
-    def flipBendDirection_=(v: Ptr[Byte]): Unit = setFlipBendDirection(v)
+}
+
+    def targetNodepath: NodePath = getTargetNode()
+    def targetNodepath_=(v: NodePath): Unit = setTargetNode(v)
+    def targetMinimumDistance: Float = getTargetMinimumDistance()
+    def targetMinimumDistance_=(v: Float): Unit = setTargetMinimumDistance(v)
+    def targetMaximumDistance: Float = getTargetMaximumDistance()
+    def targetMaximumDistance_=(v: Float): Unit = setTargetMaximumDistance(v)
+    def flipBendDirection: Boolean = getFlipBendDirection()
+    def flipBendDirection_=(v: Boolean): Unit = setFlipBendDirection(v)
+}
 
 object SkeletonModification2DTwoBoneIK:
-    object Binds:
-        var setTargetNode: Ptr[Byte] = null
-        var getTargetNode: Ptr[Byte] = null
-        var setTargetMinimumDistance: Ptr[Byte] = null
-        var getTargetMinimumDistance: Ptr[Byte] = null
-        var setTargetMaximumDistance: Ptr[Byte] = null
-        var getTargetMaximumDistance: Ptr[Byte] = null
-        var setFlipBendDirection: Ptr[Byte] = null
-        var getFlipBendDirection: Ptr[Byte] = null
-        var setJointOneBone2dNode: Ptr[Byte] = null
+object Binds {
+          var setJointOneBone2dNode: Ptr[Byte] = null
         var getJointOneBone2dNode: Ptr[Byte] = null
         var setJointOneBoneIdx: Ptr[Byte] = null
         var getJointOneBoneIdx: Ptr[Byte] = null
@@ -127,16 +81,8 @@ object SkeletonModification2DTwoBoneIK:
         var setJointTwoBoneIdx: Ptr[Byte] = null
         var getJointTwoBoneIdx: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_target_node", 1348162250L)
-            Binds.getTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_target_node", 4075236667L)
-            Binds.setTargetMinimumDistance = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_target_minimum_distance", 373806689L)
-            Binds.getTargetMinimumDistance = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_target_minimum_distance", 1740695150L)
-            Binds.setTargetMaximumDistance = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_target_maximum_distance", 373806689L)
-            Binds.getTargetMaximumDistance = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_target_maximum_distance", 1740695150L)
-            Binds.setFlipBendDirection = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_flip_bend_direction", 2586408642L)
-            Binds.getFlipBendDirection = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_flip_bend_direction", 36873697L)
-            Binds.setJointOneBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_joint_one_bone2d_node", 1348162250L)
+  def loadBinds(): Unit = {
+                Binds.setJointOneBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_joint_one_bone2d_node", 1348162250L)
             Binds.getJointOneBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_joint_one_bone2d_node", 4075236667L)
             Binds.setJointOneBoneIdx = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_joint_one_bone_idx", 1286410249L)
             Binds.getJointOneBoneIdx = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_joint_one_bone_idx", 3905245786L)
@@ -144,8 +90,11 @@ object SkeletonModification2DTwoBoneIK:
             Binds.getJointTwoBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_joint_two_bone2d_node", 4075236667L)
             Binds.setJointTwoBoneIdx = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"set_joint_two_bone_idx", 1286410249L)
             Binds.getJointTwoBoneIdx = GdxApi.getMethodBind(c"SkeletonModification2DTwoBoneIK", c"get_joint_two_bone_idx", 3905245786L)
+  }
+}
 
-    def apply(): SkeletonModification2DTwoBoneIK =
-        val obj = new SkeletonModification2DTwoBoneIK()
-        obj.ptr = GdxApi.constructObject(c"SkeletonModification2DTwoBoneIK")
-        obj
+def apply(): SkeletonModification2DTwoBoneIK = {
+  val obj = new SkeletonModification2DTwoBoneIK()
+  obj.ptr = GdxApi.constructObject(c"SkeletonModification2DTwoBoneIK")
+  obj
+}

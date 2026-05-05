@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPlatformLinuxBSD extends EditorExportPlatformPC
-
-
-
+class EditorExportPlatformLinuxBSD extends EditorExportPlatformPC {}
 
 object EditorExportPlatformLinuxBSD:
-    def apply(): EditorExportPlatformLinuxBSD =
-        val obj = new EditorExportPlatformLinuxBSD()
-        obj.ptr = GdxApi.constructObject(c"EditorExportPlatformLinuxBSD")
-        obj
+def apply(): EditorExportPlatformLinuxBSD = {
+  val obj = new EditorExportPlatformLinuxBSD()
+  obj.ptr = GdxApi.constructObject(c"EditorExportPlatformLinuxBSD")
+  obj
+}

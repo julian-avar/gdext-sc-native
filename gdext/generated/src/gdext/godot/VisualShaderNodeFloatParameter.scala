@@ -5,121 +5,24 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeFloatParameter extends VisualShaderNodeParameter
-
-    def setHint(hint: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hint.ptr
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.setHint, ptr, _args, null)
-
-    def getHint(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.getHint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMin(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.setMin, ptr, _args, null)
-
-    def getMin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.getMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMax(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.setMax, ptr, _args, null)
-
-    def getMax(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.getMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setStep(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.setStep, ptr, _args, null)
-
-    def getStep(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.getStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDefaultValueEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.setDefaultValueEnabled, ptr, _args, null)
-
-    def isDefaultValueEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.isDefaultValueEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDefaultValue(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.setDefaultValue, ptr, _args, null)
-
-    def getDefaultValue(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VisualShaderNodeFloatParameter.Binds.getDefaultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def hint: Ptr[Byte] = getHint()
-    def hint_=(v: Ptr[Byte]): Unit = setHint(v)
-    def min: Ptr[Byte] = getMin()
-    def min_=(v: Ptr[Byte]): Unit = setMin(v)
-    def max: Ptr[Byte] = getMax()
-    def max_=(v: Ptr[Byte]): Unit = setMax(v)
-    def step: Ptr[Byte] = getStep()
-    def step_=(v: Ptr[Byte]): Unit = setStep(v)
-    def defaultValueEnabled: Ptr[Byte] = isDefaultValueEnabled()
-    def defaultValueEnabled_=(v: Ptr[Byte]): Unit = setDefaultValueEnabled(v)
-    def defaultValue: Ptr[Byte] = getDefaultValue()
-    def defaultValue_=(v: Ptr[Byte]): Unit = setDefaultValue(v)
+class VisualShaderNodeFloatParameter extends VisualShaderNodeParameter {
+    def hint: Int = getHint()
+    def hint_=(v: Int): Unit = setHint(v)
+    def min: Float = getMin()
+    def min_=(v: Float): Unit = setMin(v)
+    def max: Float = getMax()
+    def max_=(v: Float): Unit = setMax(v)
+    def step: Float = getStep()
+    def step_=(v: Float): Unit = setStep(v)
+    def defaultValueEnabled: Boolean = isDefaultValueEnabled()
+    def defaultValueEnabled_=(v: Boolean): Unit = setDefaultValueEnabled(v)
+    def defaultValue: Float = getDefaultValue()
+    def defaultValue_=(v: Float): Unit = setDefaultValue(v)
+}
 
 object VisualShaderNodeFloatParameter:
-    object Binds:
-        var setHint: Ptr[Byte] = null
-        var getHint: Ptr[Byte] = null
-        var setMin: Ptr[Byte] = null
-        var getMin: Ptr[Byte] = null
-        var setMax: Ptr[Byte] = null
-        var getMax: Ptr[Byte] = null
-        var setStep: Ptr[Byte] = null
-        var getStep: Ptr[Byte] = null
-        var setDefaultValueEnabled: Ptr[Byte] = null
-        var isDefaultValueEnabled: Ptr[Byte] = null
-        var setDefaultValue: Ptr[Byte] = null
-        var getDefaultValue: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setHint = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"set_hint", 3712586466L)
-            Binds.getHint = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"get_hint", 3042240429L)
-            Binds.setMin = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"set_min", 373806689L)
-            Binds.getMin = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"get_min", 1740695150L)
-            Binds.setMax = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"set_max", 373806689L)
-            Binds.getMax = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"get_max", 1740695150L)
-            Binds.setStep = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"set_step", 373806689L)
-            Binds.getStep = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"get_step", 1740695150L)
-            Binds.setDefaultValueEnabled = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"set_default_value_enabled", 2586408642L)
-            Binds.isDefaultValueEnabled = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"is_default_value_enabled", 36873697L)
-            Binds.setDefaultValue = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"set_default_value", 373806689L)
-            Binds.getDefaultValue = GdxApi.getMethodBind(c"VisualShaderNodeFloatParameter", c"get_default_value", 1740695150L)
-
-    def apply(): VisualShaderNodeFloatParameter =
-        val obj = new VisualShaderNodeFloatParameter()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeFloatParameter")
-        obj
+def apply(): VisualShaderNodeFloatParameter = {
+  val obj = new VisualShaderNodeFloatParameter()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeFloatParameter")
+  obj
+}

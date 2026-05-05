@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorNode3DGizmo extends Node3DGizmo
+class EditorNode3DGizmo extends Node3DGizmo {
     def _redraw(): Unit = ()
     def _getHandleName(id: Int, secondary: Boolean): CString = null
     def _isHandleHighlighted(id: Int, secondary: Boolean): Boolean = false
@@ -18,84 +18,98 @@ class EditorNode3DGizmo extends Node3DGizmo
     def _setSubgizmoTransform(id: Int, transform: Transform3D): Unit = ()
     def _getSubgizmoTransform(id: Int): Transform3D = null
     def _commitSubgizmos(ids: PackedInt32Array, restores: Ptr[Byte], cancel: Boolean): Unit = ()
-    def addLines(lines: PackedVector3Array, material: Material): Unit =
+
+    def addLines(lines: PackedVector3Array, material: Material): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = lines.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.addLines, ptr, _args, null)
+}
 
-    def addMesh(mesh: Mesh): Unit =
+    def addMesh(mesh: Mesh): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.addMesh, ptr, _args, null)
+}
 
-    def addCollisionSegments(segments: PackedVector3Array): Unit =
+    def addCollisionSegments(segments: PackedVector3Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = segments.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.addCollisionSegments, ptr, _args, null)
+}
 
-    def addCollisionTriangles(triangles: TriangleMesh): Unit =
+    def addCollisionTriangles(triangles: TriangleMesh): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = triangles.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.addCollisionTriangles, ptr, _args, null)
+}
 
-    def addUnscaledBillboard(material: Material): Unit =
+    def addUnscaledBillboard(material: Material): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = material.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.addUnscaledBillboard, ptr, _args, null)
+}
 
-    def addHandles(handles: PackedVector3Array, material: Material, ids: PackedInt32Array): Unit =
+    def addHandles(handles: PackedVector3Array, material: Material, ids: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = handles.ptr
         _args(1) = material.ptr
         _args(2) = ids.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.addHandles, ptr, _args, null)
+}
 
-    def setNode3d(node: Node): Unit =
+    def setNode3d(node: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.setNode3d, ptr, _args, null)
+}
 
-    def getNode3d(): Node3D =
+    def getNode3d(): Node3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.getNode3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node3D(!_ret)
+}
 
-    def getPlugin(): EditorNode3DGizmoPlugin =
+    def getPlugin(): EditorNode3DGizmoPlugin = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.getPlugin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorNode3DGizmoPlugin(!_ret)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.clear, ptr, _args, null)
+}
 
-    def setHidden(hidden: Boolean): Unit =
+    def setHidden(hidden: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if hidden then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.setHidden, ptr, _args, null)
+}
 
-    def isSubgizmoSelected(id: Int): Boolean =
+    def isSubgizmoSelected(id: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.isSubgizmoSelected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSubgizmoSelection(): PackedInt32Array =
+    def getSubgizmoSelection(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorNode3DGizmo.Binds.getSubgizmoSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
-
+}
+}
 
 object EditorNode3DGizmo:
-    object Binds:
-        var addLines: Ptr[Byte] = null
+object Binds {
+          var addLines: Ptr[Byte] = null
         var addMesh: Ptr[Byte] = null
         var addCollisionSegments: Ptr[Byte] = null
         var addCollisionTriangles: Ptr[Byte] = null
@@ -109,8 +123,8 @@ object EditorNode3DGizmo:
         var isSubgizmoSelected: Ptr[Byte] = null
         var getSubgizmoSelection: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addLines = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"add_lines", 2910971437L)
+  def loadBinds(): Unit = {
+                Binds.addLines = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"add_lines", 2910971437L)
             Binds.addMesh = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"add_mesh", 1579955111L)
             Binds.addCollisionSegments = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"add_collision_segments", 334873810L)
             Binds.addCollisionTriangles = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"add_collision_triangles", 54901064L)
@@ -123,8 +137,11 @@ object EditorNode3DGizmo:
             Binds.setHidden = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"set_hidden", 2586408642L)
             Binds.isSubgizmoSelected = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"is_subgizmo_selected", 1116898809L)
             Binds.getSubgizmoSelection = GdxApi.getMethodBind(c"EditorNode3DGizmo", c"get_subgizmo_selection", 1930428628L)
+  }
+}
 
-    def apply(): EditorNode3DGizmo =
-        val obj = new EditorNode3DGizmo()
-        obj.ptr = GdxApi.constructObject(c"EditorNode3DGizmo")
-        obj
+def apply(): EditorNode3DGizmo = {
+  val obj = new EditorNode3DGizmo()
+  obj.ptr = GdxApi.constructObject(c"EditorNode3DGizmo")
+  obj
+}

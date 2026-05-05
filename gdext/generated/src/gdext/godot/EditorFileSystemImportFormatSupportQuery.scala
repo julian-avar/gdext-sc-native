@@ -5,15 +5,15 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorFileSystemImportFormatSupportQuery extends RefCounted
+class EditorFileSystemImportFormatSupportQuery extends RefCounted {
     def _isActive(): Boolean = false
     def _getFileExtensions(): PackedStringArray = null
     def _query(): Boolean = false
-
-
+}
 
 object EditorFileSystemImportFormatSupportQuery:
-    def apply(): EditorFileSystemImportFormatSupportQuery =
-        val obj = new EditorFileSystemImportFormatSupportQuery()
-        obj.ptr = GdxApi.constructObject(c"EditorFileSystemImportFormatSupportQuery")
-        obj
+def apply(): EditorFileSystemImportFormatSupportQuery = {
+  val obj = new EditorFileSystemImportFormatSupportQuery()
+  obj.ptr = GdxApi.constructObject(c"EditorFileSystemImportFormatSupportQuery")
+  obj
+}

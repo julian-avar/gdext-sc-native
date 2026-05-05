@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRExtensionWrapperExtension extends OpenXRExtensionWrapper
-
-
-
+class OpenXRExtensionWrapperExtension extends OpenXRExtensionWrapper {}
 
 object OpenXRExtensionWrapperExtension:
-    def apply(): OpenXRExtensionWrapperExtension =
-        val obj = new OpenXRExtensionWrapperExtension()
-        obj.ptr = GdxApi.constructObject(c"OpenXRExtensionWrapperExtension")
-        obj
+def apply(): OpenXRExtensionWrapperExtension = {
+  val obj = new OpenXRExtensionWrapperExtension()
+  obj.ptr = GdxApi.constructObject(c"OpenXRExtensionWrapperExtension")
+  obj
+}

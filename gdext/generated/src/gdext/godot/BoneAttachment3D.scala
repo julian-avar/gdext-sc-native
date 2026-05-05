@@ -5,116 +5,44 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class BoneAttachment3D extends Node3D
-
-    def getSkeleton(): Skeleton3D =
+class BoneAttachment3D extends Node3D {
+    def getSkeleton(): Skeleton3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(BoneAttachment3D.Binds.getSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Skeleton3D(!_ret)
+}
 
-    def setBoneName(boneName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = boneName.ptr
-        GdxApi.ptrcall(BoneAttachment3D.Binds.setBoneName, ptr, _args, null)
-
-    def getBoneName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BoneAttachment3D.Binds.getBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setBoneIdx(boneIdx: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = boneIdx.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BoneAttachment3D.Binds.setBoneIdx, ptr, _args, null)
-
-    def getBoneIdx(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BoneAttachment3D.Binds.getBoneIdx, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def onSkeletonUpdate(): Unit =
+    def onSkeletonUpdate(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(BoneAttachment3D.Binds.onSkeletonUpdate, ptr, _args, null)
+}
 
-    def setOverridePose(overridePose: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if overridePose then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BoneAttachment3D.Binds.setOverridePose, ptr, _args, null)
-
-    def getOverridePose(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BoneAttachment3D.Binds.getOverridePose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseExternalSkeleton(useExternalSkeleton: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useExternalSkeleton then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BoneAttachment3D.Binds.setUseExternalSkeleton, ptr, _args, null)
-
-    def getUseExternalSkeleton(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BoneAttachment3D.Binds.getUseExternalSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setExternalSkeleton(externalSkeleton: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = externalSkeleton.ptr
-        GdxApi.ptrcall(BoneAttachment3D.Binds.setExternalSkeleton, ptr, _args, null)
-
-    def getExternalSkeleton(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BoneAttachment3D.Binds.getExternalSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-    def boneName: Ptr[Byte] = getBoneName()
-    def boneName_=(v: Ptr[Byte]): Unit = setBoneName(v)
-    def boneIdx: Ptr[Byte] = getBoneIdx()
-    def boneIdx_=(v: Ptr[Byte]): Unit = setBoneIdx(v)
-    def overridePose: Ptr[Byte] = getOverridePose()
-    def overridePose_=(v: Ptr[Byte]): Unit = setOverridePose(v)
-    def useExternalSkeleton: Ptr[Byte] = getUseExternalSkeleton()
-    def useExternalSkeleton_=(v: Ptr[Byte]): Unit = setUseExternalSkeleton(v)
-    def externalSkeleton: Ptr[Byte] = getExternalSkeleton()
-    def externalSkeleton_=(v: Ptr[Byte]): Unit = setExternalSkeleton(v)
+    def boneName: CString = getBoneName()
+    def boneName_=(v: CString): Unit = setBoneName(v)
+    def boneIdx: Int = getBoneIdx()
+    def boneIdx_=(v: Int): Unit = setBoneIdx(v)
+    def overridePose: Boolean = getOverridePose()
+    def overridePose_=(v: Boolean): Unit = setOverridePose(v)
+    def useExternalSkeleton: Boolean = getUseExternalSkeleton()
+    def useExternalSkeleton_=(v: Boolean): Unit = setUseExternalSkeleton(v)
+    def externalSkeleton: NodePath = getExternalSkeleton()
+    def externalSkeleton_=(v: NodePath): Unit = setExternalSkeleton(v)
+}
 
 object BoneAttachment3D:
-    object Binds:
-        var getSkeleton: Ptr[Byte] = null
-        var setBoneName: Ptr[Byte] = null
-        var getBoneName: Ptr[Byte] = null
-        var setBoneIdx: Ptr[Byte] = null
-        var getBoneIdx: Ptr[Byte] = null
+object Binds {
+          var getSkeleton: Ptr[Byte] = null
         var onSkeletonUpdate: Ptr[Byte] = null
-        var setOverridePose: Ptr[Byte] = null
-        var getOverridePose: Ptr[Byte] = null
-        var setUseExternalSkeleton: Ptr[Byte] = null
-        var getUseExternalSkeleton: Ptr[Byte] = null
-        var setExternalSkeleton: Ptr[Byte] = null
-        var getExternalSkeleton: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSkeleton = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_skeleton", 1814733083L)
-            Binds.setBoneName = GdxApi.getMethodBind(c"BoneAttachment3D", c"set_bone_name", 83702148L)
-            Binds.getBoneName = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_bone_name", 201670096L)
-            Binds.setBoneIdx = GdxApi.getMethodBind(c"BoneAttachment3D", c"set_bone_idx", 1286410249L)
-            Binds.getBoneIdx = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_bone_idx", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getSkeleton = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_skeleton", 1814733083L)
             Binds.onSkeletonUpdate = GdxApi.getMethodBind(c"BoneAttachment3D", c"on_skeleton_update", 3218959716L)
-            Binds.setOverridePose = GdxApi.getMethodBind(c"BoneAttachment3D", c"set_override_pose", 2586408642L)
-            Binds.getOverridePose = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_override_pose", 36873697L)
-            Binds.setUseExternalSkeleton = GdxApi.getMethodBind(c"BoneAttachment3D", c"set_use_external_skeleton", 2586408642L)
-            Binds.getUseExternalSkeleton = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_use_external_skeleton", 36873697L)
-            Binds.setExternalSkeleton = GdxApi.getMethodBind(c"BoneAttachment3D", c"set_external_skeleton", 1348162250L)
-            Binds.getExternalSkeleton = GdxApi.getMethodBind(c"BoneAttachment3D", c"get_external_skeleton", 4075236667L)
+  }
+}
 
-    def apply(): BoneAttachment3D =
-        val obj = new BoneAttachment3D()
-        obj.ptr = GdxApi.constructObject(c"BoneAttachment3D")
-        obj
+def apply(): BoneAttachment3D = {
+  val obj = new BoneAttachment3D()
+  obj.ptr = GdxApi.constructObject(c"BoneAttachment3D")
+  obj
+}

@@ -5,75 +5,84 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TileMapPattern extends Resource
-
-    def setCell(coords: Vector2i): Unit =
+class TileMapPattern extends Resource {
+    def setCell(coords: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         GdxApi.ptrcall(TileMapPattern.Binds.setCell, ptr, _args, null)
+}
 
-    def hasCell(coords: Vector2i): Boolean =
+    def hasCell(coords: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileMapPattern.Binds.hasCell, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeCell(coords: Vector2i, updateSize: Boolean): Unit =
+    def removeCell(coords: Vector2i, updateSize: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = coords.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if updateSize then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileMapPattern.Binds.removeCell, ptr, _args, null)
+}
 
-    def getCellSourceId(coords: Vector2i): Int =
+    def getCellSourceId(coords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileMapPattern.Binds.getCellSourceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCellAtlasCoords(coords: Vector2i): Vector2i =
+    def getCellAtlasCoords(coords: Vector2i): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapPattern.Binds.getCellAtlasCoords, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getCellAlternativeTile(coords: Vector2i): Int =
+    def getCellAlternativeTile(coords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileMapPattern.Binds.getCellAlternativeTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getUsedCells(): Ptr[Byte] =
+    def getUsedCells(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapPattern.Binds.getUsedCells, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSize(): Vector2i =
+    def getSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapPattern.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def setSize(size: Vector2i): Unit =
+    def setSize(size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = size.ptr
         GdxApi.ptrcall(TileMapPattern.Binds.setSize, ptr, _args, null)
+}
 
-    def isEmpty(): Boolean =
+    def isEmpty(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileMapPattern.Binds.isEmpty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object TileMapPattern:
-    object Binds:
-        var setCell: Ptr[Byte] = null
+object Binds {
+          var setCell: Ptr[Byte] = null
         var hasCell: Ptr[Byte] = null
         var removeCell: Ptr[Byte] = null
         var getCellSourceId: Ptr[Byte] = null
@@ -84,8 +93,8 @@ object TileMapPattern:
         var setSize: Ptr[Byte] = null
         var isEmpty: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setCell = GdxApi.getMethodBind(c"TileMapPattern", c"set_cell", 2224802556L)
+  def loadBinds(): Unit = {
+                Binds.setCell = GdxApi.getMethodBind(c"TileMapPattern", c"set_cell", 2224802556L)
             Binds.hasCell = GdxApi.getMethodBind(c"TileMapPattern", c"has_cell", 3900751641L)
             Binds.removeCell = GdxApi.getMethodBind(c"TileMapPattern", c"remove_cell", 4153096796L)
             Binds.getCellSourceId = GdxApi.getMethodBind(c"TileMapPattern", c"get_cell_source_id", 2485466453L)
@@ -95,8 +104,11 @@ object TileMapPattern:
             Binds.getSize = GdxApi.getMethodBind(c"TileMapPattern", c"get_size", 3690982128L)
             Binds.setSize = GdxApi.getMethodBind(c"TileMapPattern", c"set_size", 1130785943L)
             Binds.isEmpty = GdxApi.getMethodBind(c"TileMapPattern", c"is_empty", 36873697L)
+  }
+}
 
-    def apply(): TileMapPattern =
-        val obj = new TileMapPattern()
-        obj.ptr = GdxApi.constructObject(c"TileMapPattern")
-        obj
+def apply(): TileMapPattern = {
+  val obj = new TileMapPattern()
+  obj.ptr = GdxApi.constructObject(c"TileMapPattern")
+  obj
+}

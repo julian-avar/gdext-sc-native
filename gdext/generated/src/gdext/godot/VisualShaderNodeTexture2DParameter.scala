@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeTexture2DParameter extends VisualShaderNodeTextureParameter
-
-
-
+class VisualShaderNodeTexture2DParameter extends VisualShaderNodeTextureParameter {}
 
 object VisualShaderNodeTexture2DParameter:
-    def apply(): VisualShaderNodeTexture2DParameter =
-        val obj = new VisualShaderNodeTexture2DParameter()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeTexture2DParameter")
-        obj
+def apply(): VisualShaderNodeTexture2DParameter = {
+  val obj = new VisualShaderNodeTexture2DParameter()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeTexture2DParameter")
+  obj
+}

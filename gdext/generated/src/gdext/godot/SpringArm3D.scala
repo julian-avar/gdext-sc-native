@@ -5,115 +5,60 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpringArm3D extends Node3D
-
-    def getHitLength(): Float =
+class SpringArm3D extends Node3D {
+    def getHitLength(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringArm3D.Binds.getHitLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringArm3D.Binds.setLength, ptr, _args, null)
-
-    def getLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpringArm3D.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setShape(shape: Shape3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
-        GdxApi.ptrcall(SpringArm3D.Binds.setShape, ptr, _args, null)
-
-    def getShape(): Shape3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpringArm3D.Binds.getShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Shape3D(!_ret)
-
-    def addExcludedObject(RID: RID): Unit =
+    def addExcludedObject(RID: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = RID.ptr
         GdxApi.ptrcall(SpringArm3D.Binds.addExcludedObject, ptr, _args, null)
+}
 
-    def removeExcludedObject(RID: RID): Boolean =
+    def removeExcludedObject(RID: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = RID.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SpringArm3D.Binds.removeExcludedObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearExcludedObjects(): Unit =
+    def clearExcludedObjects(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SpringArm3D.Binds.clearExcludedObjects, ptr, _args, null)
+}
 
-    def setCollisionMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringArm3D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpringArm3D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringArm3D.Binds.setMargin, ptr, _args, null)
-
-    def getMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpringArm3D.Binds.getMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
-    def shape: Ptr[Byte] = getShape()
-    def shape_=(v: Ptr[Byte]): Unit = setShape(v)
-    def springLength: Ptr[Byte] = getLength()
-    def springLength_=(v: Ptr[Byte]): Unit = setLength(v)
-    def margin: Ptr[Byte] = getMargin()
-    def margin_=(v: Ptr[Byte]): Unit = setMargin(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
+    def shape: Shape3D = getShape()
+    def shape_=(v: Shape3D): Unit = setShape(v)
+    def springLength: Float = getLength()
+    def springLength_=(v: Float): Unit = setLength(v)
+    def margin: Float = getMargin()
+    def margin_=(v: Float): Unit = setMargin(v)
+}
 
 object SpringArm3D:
-    object Binds:
-        var getHitLength: Ptr[Byte] = null
-        var setLength: Ptr[Byte] = null
-        var getLength: Ptr[Byte] = null
-        var setShape: Ptr[Byte] = null
-        var getShape: Ptr[Byte] = null
+object Binds {
+          var getHitLength: Ptr[Byte] = null
         var addExcludedObject: Ptr[Byte] = null
         var removeExcludedObject: Ptr[Byte] = null
         var clearExcludedObjects: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
-        var setMargin: Ptr[Byte] = null
-        var getMargin: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getHitLength = GdxApi.getMethodBind(c"SpringArm3D", c"get_hit_length", 191475506L)
-            Binds.setLength = GdxApi.getMethodBind(c"SpringArm3D", c"set_length", 373806689L)
-            Binds.getLength = GdxApi.getMethodBind(c"SpringArm3D", c"get_length", 1740695150L)
-            Binds.setShape = GdxApi.getMethodBind(c"SpringArm3D", c"set_shape", 1549710052L)
-            Binds.getShape = GdxApi.getMethodBind(c"SpringArm3D", c"get_shape", 3214262478L)
+  def loadBinds(): Unit = {
+                Binds.getHitLength = GdxApi.getMethodBind(c"SpringArm3D", c"get_hit_length", 191475506L)
             Binds.addExcludedObject = GdxApi.getMethodBind(c"SpringArm3D", c"add_excluded_object", 2722037293L)
             Binds.removeExcludedObject = GdxApi.getMethodBind(c"SpringArm3D", c"remove_excluded_object", 3521089500L)
             Binds.clearExcludedObjects = GdxApi.getMethodBind(c"SpringArm3D", c"clear_excluded_objects", 3218959716L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"SpringArm3D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"SpringArm3D", c"get_collision_mask", 2455072627L)
-            Binds.setMargin = GdxApi.getMethodBind(c"SpringArm3D", c"set_margin", 373806689L)
-            Binds.getMargin = GdxApi.getMethodBind(c"SpringArm3D", c"get_margin", 191475506L)
+  }
+}
 
-    def apply(): SpringArm3D =
-        val obj = new SpringArm3D()
-        obj.ptr = GdxApi.constructObject(c"SpringArm3D")
-        obj
+def apply(): SpringArm3D = {
+  val obj = new SpringArm3D()
+  obj.ptr = GdxApi.constructObject(c"SpringArm3D")
+  obj
+}

@@ -5,68 +5,75 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TileSetSource extends Resource
-
-    def getTilesCount(): Int =
+class TileSetSource extends Resource {
+    def getTilesCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetSource.Binds.getTilesCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTileId(index: Int): Vector2i =
+    def getTileId(index: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetSource.Binds.getTileId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def hasTile(atlasCoords: Vector2i): Boolean =
+    def hasTile(atlasCoords: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSetSource.Binds.hasTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getAlternativeTilesCount(atlasCoords: Vector2i): Int =
+    def getAlternativeTilesCount(atlasCoords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetSource.Binds.getAlternativeTilesCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getAlternativeTileId(atlasCoords: Vector2i, index: Int): Int =
+    def getAlternativeTileId(atlasCoords: Vector2i, index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetSource.Binds.getAlternativeTileId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Boolean =
+    def hasAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = alternativeTile.toLong
+        val _a1 = stackalloc[Long](); !_a1 = alternativeTile.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSetSource.Binds.hasAlternativeTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object TileSetSource:
-    object Binds:
-        var getTilesCount: Ptr[Byte] = null
+object Binds {
+          var getTilesCount: Ptr[Byte] = null
         var getTileId: Ptr[Byte] = null
         var hasTile: Ptr[Byte] = null
         var getAlternativeTilesCount: Ptr[Byte] = null
         var getAlternativeTileId: Ptr[Byte] = null
         var hasAlternativeTile: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTilesCount = GdxApi.getMethodBind(c"TileSetSource", c"get_tiles_count", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getTilesCount = GdxApi.getMethodBind(c"TileSetSource", c"get_tiles_count", 3905245786L)
             Binds.getTileId = GdxApi.getMethodBind(c"TileSetSource", c"get_tile_id", 880721226L)
             Binds.hasTile = GdxApi.getMethodBind(c"TileSetSource", c"has_tile", 3900751641L)
             Binds.getAlternativeTilesCount = GdxApi.getMethodBind(c"TileSetSource", c"get_alternative_tiles_count", 2485466453L)
             Binds.getAlternativeTileId = GdxApi.getMethodBind(c"TileSetSource", c"get_alternative_tile_id", 89881719L)
             Binds.hasAlternativeTile = GdxApi.getMethodBind(c"TileSetSource", c"has_alternative_tile", 1073731340L)
+  }
+}

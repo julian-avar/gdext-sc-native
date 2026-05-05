@@ -5,31 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRAnchor3D extends XRNode3D
-
-    def getSize(): Vector3 =
+class XRAnchor3D extends XRNode3D {
+    def getSize(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRAnchor3D.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getPlane(): Plane =
+    def getPlane(): Plane = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRAnchor3D.Binds.getPlane, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Plane(!_ret)
-
+}
+}
 
 object XRAnchor3D:
-    object Binds:
-        var getSize: Ptr[Byte] = null
+object Binds {
+          var getSize: Ptr[Byte] = null
         var getPlane: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSize = GdxApi.getMethodBind(c"XRAnchor3D", c"get_size", 3360562783L)
+  def loadBinds(): Unit = {
+                Binds.getSize = GdxApi.getMethodBind(c"XRAnchor3D", c"get_size", 3360562783L)
             Binds.getPlane = GdxApi.getMethodBind(c"XRAnchor3D", c"get_plane", 2753500971L)
+  }
+}
 
-    def apply(): XRAnchor3D =
-        val obj = new XRAnchor3D()
-        obj.ptr = GdxApi.constructObject(c"XRAnchor3D")
-        obj
+def apply(): XRAnchor3D = {
+  val obj = new XRAnchor3D()
+  obj.ptr = GdxApi.constructObject(c"XRAnchor3D")
+  obj
+}

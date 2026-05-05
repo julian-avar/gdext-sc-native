@@ -5,255 +5,244 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OptionButton extends Button
-
-    def addItem(label: CString): Unit =
+class OptionButton extends Button {
+    def addItem(label: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = label.ptr
+        _args(0) = label
         GdxApi.ptrcall(OptionButton.Binds.addItem, ptr, _args, null)
+}
 
-    def addIconItem(texture: Texture2D, label: CString): Unit =
+    def addIconItem(texture: Texture2D, label: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
-        _args(1) = label.ptr
+        _args(1) = label
         GdxApi.ptrcall(OptionButton.Binds.addIconItem, ptr, _args, null)
+}
 
-    def setItemText(idx: Int, text: CString): Unit =
+    def setItemText(idx: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = text.ptr
+        _args(1) = text
         GdxApi.ptrcall(OptionButton.Binds.setItemText, ptr, _args, null)
+}
 
-    def setItemIcon(idx: Int, texture: Texture2D): Unit =
+    def setItemIcon(idx: Int, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = texture.ptr
         GdxApi.ptrcall(OptionButton.Binds.setItemIcon, ptr, _args, null)
+}
 
-    def setItemDisabled(idx: Int, disabled: Boolean): Unit =
+    def setItemDisabled(idx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if disabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OptionButton.Binds.setItemDisabled, ptr, _args, null)
+}
 
-    def setItemId(idx: Int, id: Int): Unit =
+    def setItemId(idx: Int, id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OptionButton.Binds.setItemId, ptr, _args, null)
+}
 
-    def setItemMetadata(idx: Int, metadata: Ptr[Byte]): Unit =
+    def setItemMetadata(idx: Int, metadata: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = metadata.ptr
+        _args(1) = metadata
         GdxApi.ptrcall(OptionButton.Binds.setItemMetadata, ptr, _args, null)
+}
 
-    def setItemTooltip(idx: Int, tooltip: CString): Unit =
+    def setItemTooltip(idx: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(OptionButton.Binds.setItemTooltip, ptr, _args, null)
+}
 
-    def setItemAutoTranslateMode(idx: Int, mode: Int): Unit =
+    def setItemAutoTranslateMode(idx: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OptionButton.Binds.setItemAutoTranslateMode, ptr, _args, null)
+}
 
-    def getItemText(idx: Int): CString =
+    def getItemText(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OptionButton.Binds.getItemText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemIcon(idx: Int): Texture2D =
+    def getItemIcon(idx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OptionButton.Binds.getItemIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def getItemId(idx: Int): Int =
+    def getItemId(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OptionButton.Binds.getItemId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getItemIndex(id: Int): Int =
+    def getItemIndex(id: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OptionButton.Binds.getItemIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getItemMetadata(idx: Int): Ptr[Byte] =
+    def getItemMetadata(idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OptionButton.Binds.getItemMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemTooltip(idx: Int): CString =
+    def getItemTooltip(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OptionButton.Binds.getItemTooltip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemAutoTranslateMode(idx: Int): Int =
+    def getItemAutoTranslateMode(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OptionButton.Binds.getItemAutoTranslateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isItemDisabled(idx: Int): Boolean =
+    def isItemDisabled(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OptionButton.Binds.isItemDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isItemSeparator(idx: Int): Boolean =
+    def isItemSeparator(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OptionButton.Binds.isItemSeparator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addSeparator(): Unit =
+    def addSeparator(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OptionButton.Binds.addSeparator, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OptionButton.Binds.clear, ptr, _args, null)
+}
 
-    def select(idx: Int): Unit =
+    def select(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OptionButton.Binds.select, ptr, _args, null)
+}
 
-    def getSelected(): Int =
+    def getSelectedId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OptionButton.Binds.getSelected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getSelectedId(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OptionButton.Binds.getSelectedId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectedMetadata(): Ptr[Byte] =
+    def getSelectedMetadata(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OptionButton.Binds.getSelectedMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def removeItem(idx: Int): Unit =
+    def removeItem(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OptionButton.Binds.removeItem, ptr, _args, null)
+}
 
-    def getPopup(): PopupMenu =
+    def getPopup(): PopupMenu = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OptionButton.Binds.getPopup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PopupMenu(!_ret)
+}
 
-    def showPopup(): Unit =
+    def showPopup(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OptionButton.Binds.showPopup, ptr, _args, null)
+}
 
-    def setItemCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OptionButton.Binds.setItemCount, ptr, _args, null)
-
-    def getItemCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OptionButton.Binds.getItemCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def hasSelectableItems(): Boolean =
+    def hasSelectableItems(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OptionButton.Binds.hasSelectableItems, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSelectableItem(): Int =
+    def getSelectableItem(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OptionButton.Binds.getSelectableItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setFitToLongestItem(fit: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if fit then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OptionButton.Binds.setFitToLongestItem, ptr, _args, null)
-
-    def isFitToLongestItem(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OptionButton.Binds.isFitToLongestItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAllowReselect(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OptionButton.Binds.setAllowReselect, ptr, _args, null)
-
-    def getAllowReselect(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OptionButton.Binds.getAllowReselect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDisableShortcuts(disabled: Boolean): Unit =
+    def setDisableShortcuts(disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if disabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OptionButton.Binds.setDisableShortcuts, ptr, _args, null)
-    def selected: Ptr[Byte] = getSelected()
+}
+
+    def selected: Int = getSelected()
     def selected_=(v: Ptr[Byte]): Unit = _selectInt(v)
-    def fitToLongestItem: Ptr[Byte] = isFitToLongestItem()
-    def fitToLongestItem_=(v: Ptr[Byte]): Unit = setFitToLongestItem(v)
-    def allowReselect: Ptr[Byte] = getAllowReselect()
-    def allowReselect_=(v: Ptr[Byte]): Unit = setAllowReselect(v)
-    def itemCount: Ptr[Byte] = getItemCount()
-    def itemCount_=(v: Ptr[Byte]): Unit = setItemCount(v)
+    def fitToLongestItem: Boolean = isFitToLongestItem()
+    def fitToLongestItem_=(v: Boolean): Unit = setFitToLongestItem(v)
+    def allowReselect: Boolean = getAllowReselect()
+    def allowReselect_=(v: Boolean): Unit = setAllowReselect(v)
+    def itemCount: Int = getItemCount()
+    def itemCount_=(v: Int): Unit = setItemCount(v)
+}
 
 object OptionButton:
-    object Binds:
-        var addItem: Ptr[Byte] = null
+object Binds {
+          var addItem: Ptr[Byte] = null
         var addIconItem: Ptr[Byte] = null
         var setItemText: Ptr[Byte] = null
         var setItemIcon: Ptr[Byte] = null
@@ -274,24 +263,17 @@ object OptionButton:
         var addSeparator: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
         var select: Ptr[Byte] = null
-        var getSelected: Ptr[Byte] = null
         var getSelectedId: Ptr[Byte] = null
         var getSelectedMetadata: Ptr[Byte] = null
         var removeItem: Ptr[Byte] = null
         var getPopup: Ptr[Byte] = null
         var showPopup: Ptr[Byte] = null
-        var setItemCount: Ptr[Byte] = null
-        var getItemCount: Ptr[Byte] = null
         var hasSelectableItems: Ptr[Byte] = null
         var getSelectableItem: Ptr[Byte] = null
-        var setFitToLongestItem: Ptr[Byte] = null
-        var isFitToLongestItem: Ptr[Byte] = null
-        var setAllowReselect: Ptr[Byte] = null
-        var getAllowReselect: Ptr[Byte] = null
         var setDisableShortcuts: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addItem = GdxApi.getMethodBind(c"OptionButton", c"add_item", 2697778442L)
+  def loadBinds(): Unit = {
+                Binds.addItem = GdxApi.getMethodBind(c"OptionButton", c"add_item", 2697778442L)
             Binds.addIconItem = GdxApi.getMethodBind(c"OptionButton", c"add_icon_item", 3781678508L)
             Binds.setItemText = GdxApi.getMethodBind(c"OptionButton", c"set_item_text", 501894301L)
             Binds.setItemIcon = GdxApi.getMethodBind(c"OptionButton", c"set_item_icon", 666127730L)
@@ -312,23 +294,19 @@ object OptionButton:
             Binds.addSeparator = GdxApi.getMethodBind(c"OptionButton", c"add_separator", 3005725572L)
             Binds.clear = GdxApi.getMethodBind(c"OptionButton", c"clear", 3218959716L)
             Binds.select = GdxApi.getMethodBind(c"OptionButton", c"select", 1286410249L)
-            Binds.getSelected = GdxApi.getMethodBind(c"OptionButton", c"get_selected", 3905245786L)
             Binds.getSelectedId = GdxApi.getMethodBind(c"OptionButton", c"get_selected_id", 3905245786L)
             Binds.getSelectedMetadata = GdxApi.getMethodBind(c"OptionButton", c"get_selected_metadata", 1214101251L)
             Binds.removeItem = GdxApi.getMethodBind(c"OptionButton", c"remove_item", 1286410249L)
             Binds.getPopup = GdxApi.getMethodBind(c"OptionButton", c"get_popup", 229722558L)
             Binds.showPopup = GdxApi.getMethodBind(c"OptionButton", c"show_popup", 3218959716L)
-            Binds.setItemCount = GdxApi.getMethodBind(c"OptionButton", c"set_item_count", 1286410249L)
-            Binds.getItemCount = GdxApi.getMethodBind(c"OptionButton", c"get_item_count", 3905245786L)
             Binds.hasSelectableItems = GdxApi.getMethodBind(c"OptionButton", c"has_selectable_items", 36873697L)
             Binds.getSelectableItem = GdxApi.getMethodBind(c"OptionButton", c"get_selectable_item", 894402480L)
-            Binds.setFitToLongestItem = GdxApi.getMethodBind(c"OptionButton", c"set_fit_to_longest_item", 2586408642L)
-            Binds.isFitToLongestItem = GdxApi.getMethodBind(c"OptionButton", c"is_fit_to_longest_item", 36873697L)
-            Binds.setAllowReselect = GdxApi.getMethodBind(c"OptionButton", c"set_allow_reselect", 2586408642L)
-            Binds.getAllowReselect = GdxApi.getMethodBind(c"OptionButton", c"get_allow_reselect", 36873697L)
             Binds.setDisableShortcuts = GdxApi.getMethodBind(c"OptionButton", c"set_disable_shortcuts", 2586408642L)
+  }
+}
 
-    def apply(): OptionButton =
-        val obj = new OptionButton()
-        obj.ptr = GdxApi.constructObject(c"OptionButton")
-        obj
+def apply(): OptionButton = {
+  val obj = new OptionButton()
+  obj.ptr = GdxApi.constructObject(c"OptionButton")
+  obj
+}

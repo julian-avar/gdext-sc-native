@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPlayback extends RefCounted
+class AudioStreamPlayback extends RefCounted {
     def _start(fromPos: Double): Unit = ()
     def _stop(): Unit = ()
     def _isPlaying(): Boolean = false
@@ -16,61 +16,71 @@ class AudioStreamPlayback extends RefCounted
     def _tagUsedStreams(): Unit = ()
     def _setParameter(name: CString, value: Ptr[Byte]): Unit = ()
     def _getParameter(name: CString): Ptr[Byte] = null
-    def setSamplePlayback(playbackSample: AudioSamplePlayback): Unit =
+
+    def setSamplePlayback(playbackSample: AudioSamplePlayback): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = playbackSample.ptr
         GdxApi.ptrcall(AudioStreamPlayback.Binds.setSamplePlayback, ptr, _args, null)
+}
 
-    def getSamplePlayback(): AudioSamplePlayback =
+    def getSamplePlayback(): AudioSamplePlayback = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamPlayback.Binds.getSamplePlayback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioSamplePlayback(!_ret)
+}
 
-    def mixAudio(rateScale: Float, frames: Int): PackedVector2Array =
+    def mixAudio(rateScale: Float, frames: Int): PackedVector2Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         val _a0 = stackalloc[Double](); !_a0 = rateScale.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = frames.toLong
+        val _a1 = stackalloc[Long](); !_a1 = frames.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamPlayback.Binds.mixAudio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector2Array(!_ret)
+}
 
-    def start(): Unit =
+    def start(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamPlayback.Binds.start, ptr, _args, null)
+}
 
-    def seek(): Unit =
+    def seek(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamPlayback.Binds.seek, ptr, _args, null)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamPlayback.Binds.stop, ptr, _args, null)
+}
 
-    def getLoopCount(): Int =
+    def getLoopCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamPlayback.Binds.getLoopCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPlaybackPosition(): Double =
+    def getPlaybackPosition(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AudioStreamPlayback.Binds.getPlaybackPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isPlaying(): Boolean =
+    def isPlaying(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamPlayback.Binds.isPlaying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object AudioStreamPlayback:
-    object Binds:
-        var setSamplePlayback: Ptr[Byte] = null
+object Binds {
+          var setSamplePlayback: Ptr[Byte] = null
         var getSamplePlayback: Ptr[Byte] = null
         var mixAudio: Ptr[Byte] = null
         var start: Ptr[Byte] = null
@@ -80,8 +90,8 @@ object AudioStreamPlayback:
         var getPlaybackPosition: Ptr[Byte] = null
         var isPlaying: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSamplePlayback = GdxApi.getMethodBind(c"AudioStreamPlayback", c"set_sample_playback", 3195455091L)
+  def loadBinds(): Unit = {
+                Binds.setSamplePlayback = GdxApi.getMethodBind(c"AudioStreamPlayback", c"set_sample_playback", 3195455091L)
             Binds.getSamplePlayback = GdxApi.getMethodBind(c"AudioStreamPlayback", c"get_sample_playback", 3482738536L)
             Binds.mixAudio = GdxApi.getMethodBind(c"AudioStreamPlayback", c"mix_audio", 3341291446L)
             Binds.start = GdxApi.getMethodBind(c"AudioStreamPlayback", c"start", 1958160172L)
@@ -90,8 +100,11 @@ object AudioStreamPlayback:
             Binds.getLoopCount = GdxApi.getMethodBind(c"AudioStreamPlayback", c"get_loop_count", 3905245786L)
             Binds.getPlaybackPosition = GdxApi.getMethodBind(c"AudioStreamPlayback", c"get_playback_position", 1740695150L)
             Binds.isPlaying = GdxApi.getMethodBind(c"AudioStreamPlayback", c"is_playing", 36873697L)
+  }
+}
 
-    def apply(): AudioStreamPlayback =
-        val obj = new AudioStreamPlayback()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamPlayback")
-        obj
+def apply(): AudioStreamPlayback = {
+  val obj = new AudioStreamPlayback()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamPlayback")
+  obj
+}

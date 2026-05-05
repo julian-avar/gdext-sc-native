@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Node extends Object
+class Node extends Object {
     def _process(delta: Double): Unit = ()
     def _physicsProcess(delta: Double): Unit = ()
     def _enterTree(): Unit = ()
@@ -18,747 +18,687 @@ class Node extends Object
     def _unhandledInput(event: InputEvent): Unit = ()
     def _unhandledKeyInput(event: InputEvent): Unit = ()
     def _getFocusedAccessibilityElement(): RID = null
-    def addSibling(sibling: Node): Unit =
+
+    def addSibling(sibling: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = sibling.ptr
         GdxApi.ptrcall(Node.Binds.addSibling, ptr, _args, null)
+}
 
-    def setName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(Node.Binds.setName, ptr, _args, null)
-
-    def getName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def addChild(node: Node): Unit =
+    def addChild(node: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(Node.Binds.addChild, ptr, _args, null)
+}
 
-    def removeChild(node: Node): Unit =
+    def removeChild(node: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(Node.Binds.removeChild, ptr, _args, null)
+}
 
-    def reparent(newParent: Node): Unit =
+    def reparent(newParent: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = newParent.ptr
         GdxApi.ptrcall(Node.Binds.reparent, ptr, _args, null)
+}
 
-    def getChildCount(): Int =
+    def getChildCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Node.Binds.getChildCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getChildren(): Ptr[Byte] =
+    def getChildren(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getChildren, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getChild(idx: Int): Node =
+    def getChild(idx: Int): Node = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getChild, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def hasNode(path: NodePath): Boolean =
+    def hasNode(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.hasNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getNode(path: NodePath): Node =
+    def getNode(path: NodePath): Node = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def getNodeOrNull(path: NodePath): Node =
+    def getNodeOrNull(path: NodePath): Node = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getNodeOrNull, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def getParent(): Node =
+    def getParent(): Node = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def findChild(pattern: CString): Node =
+    def findChild(pattern: CString): Node = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pattern.ptr
+        _args(0) = pattern
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.findChild, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def findChildren(pattern: CString): Ptr[Byte] =
+    def findChildren(pattern: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pattern.ptr
+        _args(0) = pattern
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.findChildren, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def findParent(pattern: CString): Node =
+    def findParent(pattern: CString): Node = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pattern.ptr
+        _args(0) = pattern
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.findParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def hasNodeAndResource(path: NodePath): Boolean =
+    def hasNodeAndResource(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.hasNodeAndResource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getNodeAndResource(path: NodePath): Array =
+    def getNodeAndResource(path: NodePath): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getNodeAndResource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isInsideTree(): Boolean =
+    def isInsideTree(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isInsideTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPartOfEditedScene(): Boolean =
+    def isPartOfEditedScene(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isPartOfEditedScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isAncestorOf(node: Node): Boolean =
+    def isAncestorOf(node: Node): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isAncestorOf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isGreaterThan(node: Node): Boolean =
+    def isGreaterThan(node: Node): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isGreaterThan, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPath(): NodePath =
+    def getPath(): NodePath = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def getPathTo(node: Node): NodePath =
+    def getPathTo(node: Node): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getPathTo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def addToGroup(group: CString): Unit =
+    def addToGroup(group: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = group.ptr
+        _args(0) = group
         GdxApi.ptrcall(Node.Binds.addToGroup, ptr, _args, null)
+}
 
-    def removeFromGroup(group: CString): Unit =
+    def removeFromGroup(group: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = group.ptr
+        _args(0) = group
         GdxApi.ptrcall(Node.Binds.removeFromGroup, ptr, _args, null)
+}
 
-    def isInGroup(group: CString): Boolean =
+    def isInGroup(group: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = group.ptr
+        _args(0) = group
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isInGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def moveChild(childNode: Node, toIndex: Int): Unit =
+    def moveChild(childNode: Node, toIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = childNode.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = toIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.moveChild, ptr, _args, null)
+}
 
-    def getGroups(): Ptr[Byte] =
+    def getGroups(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getGroups, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setOwner(owner: Node): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = owner.ptr
-        GdxApi.ptrcall(Node.Binds.setOwner, ptr, _args, null)
-
-    def getOwner(): Node =
+    def getIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node.Binds.getOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Node(!_ret)
-
-    def getIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Node.Binds.getIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def printTree(): Unit =
+    def printTree(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.printTree, ptr, _args, null)
+}
 
-    def printTreePretty(): Unit =
+    def printTreePretty(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.printTreePretty, ptr, _args, null)
+}
 
-    def getTreeString(): CString =
+    def getTreeString(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getTreeString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTreeStringPretty(): CString =
+    def getTreeStringPretty(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getTreeStringPretty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setSceneFilePath(sceneFilePath: CString): Unit =
+    def propagateNotification(what: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sceneFilePath.ptr
-        GdxApi.ptrcall(Node.Binds.setSceneFilePath, ptr, _args, null)
-
-    def getSceneFilePath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node.Binds.getSceneFilePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def propagateNotification(what: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = what.toLong
+        val _a0 = stackalloc[Long](); !_a0 = what.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.propagateNotification, ptr, _args, null)
+}
 
-    def propagateCall(method: CString): Unit =
+    def propagateCall(method: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         GdxApi.ptrcall(Node.Binds.propagateCall, ptr, _args, null)
+}
 
-    def setPhysicsProcess(enable: Boolean): Unit =
+    def setPhysicsProcess(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setPhysicsProcess, ptr, _args, null)
+}
 
-    def getPhysicsProcessDeltaTime(): Double =
+    def getPhysicsProcessDeltaTime(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Node.Binds.getPhysicsProcessDeltaTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isPhysicsProcessing(): Boolean =
+    def isPhysicsProcessing(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isPhysicsProcessing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getProcessDeltaTime(): Double =
+    def getProcessDeltaTime(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Node.Binds.getProcessDeltaTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setProcess(enable: Boolean): Unit =
+    def setProcess(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setProcess, ptr, _args, null)
+}
 
-    def setProcessPriority(priority: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = priority.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node.Binds.setProcessPriority, ptr, _args, null)
-
-    def getProcessPriority(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getProcessPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPhysicsProcessPriority(priority: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = priority.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node.Binds.setPhysicsProcessPriority, ptr, _args, null)
-
-    def getPhysicsProcessPriority(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getPhysicsProcessPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def isProcessing(): Boolean =
+    def isProcessing(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isProcessing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessInput(enable: Boolean): Unit =
+    def setProcessInput(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setProcessInput, ptr, _args, null)
+}
 
-    def isProcessingInput(): Boolean =
+    def isProcessingInput(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isProcessingInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessShortcutInput(enable: Boolean): Unit =
+    def setProcessShortcutInput(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setProcessShortcutInput, ptr, _args, null)
+}
 
-    def isProcessingShortcutInput(): Boolean =
+    def isProcessingShortcutInput(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isProcessingShortcutInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessUnhandledInput(enable: Boolean): Unit =
+    def setProcessUnhandledInput(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setProcessUnhandledInput, ptr, _args, null)
+}
 
-    def isProcessingUnhandledInput(): Boolean =
+    def isProcessingUnhandledInput(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isProcessingUnhandledInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessUnhandledKeyInput(enable: Boolean): Unit =
+    def setProcessUnhandledKeyInput(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setProcessUnhandledKeyInput, ptr, _args, null)
+}
 
-    def isProcessingUnhandledKeyInput(): Boolean =
+    def isProcessingUnhandledKeyInput(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isProcessingUnhandledKeyInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Node.Binds.setProcessMode, ptr, _args, null)
-
-    def getProcessMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getProcessMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def canProcess(): Boolean =
+    def canProcess(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.canProcess, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessThreadGroup(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Node.Binds.setProcessThreadGroup, ptr, _args, null)
-
-    def getProcessThreadGroup(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getProcessThreadGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setProcessThreadMessages(flags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
-        GdxApi.ptrcall(Node.Binds.setProcessThreadMessages, ptr, _args, null)
-
-    def getProcessThreadMessages(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getProcessThreadMessages, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setProcessThreadGroupOrder(order: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = order.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node.Binds.setProcessThreadGroupOrder, ptr, _args, null)
-
-    def getProcessThreadGroupOrder(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getProcessThreadGroupOrder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def queueAccessibilityUpdate(): Unit =
+    def queueAccessibilityUpdate(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.queueAccessibilityUpdate, ptr, _args, null)
+}
 
-    def getAccessibilityElement(): RID =
+    def getAccessibilityElement(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getAccessibilityElement, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setDisplayFolded(fold: Boolean): Unit =
+    def setDisplayFolded(fold: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if fold then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setDisplayFolded, ptr, _args, null)
+}
 
-    def isDisplayedFolded(): Boolean =
+    def isDisplayedFolded(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isDisplayedFolded, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setProcessInternal(enable: Boolean): Unit =
+    def setProcessInternal(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setProcessInternal, ptr, _args, null)
+}
 
-    def isProcessingInternal(): Boolean =
+    def isProcessingInternal(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isProcessingInternal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setPhysicsProcessInternal(enable: Boolean): Unit =
+    def setPhysicsProcessInternal(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setPhysicsProcessInternal, ptr, _args, null)
+}
 
-    def isPhysicsProcessingInternal(): Boolean =
+    def isPhysicsProcessingInternal(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isPhysicsProcessingInternal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setPhysicsInterpolationMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Node.Binds.setPhysicsInterpolationMode, ptr, _args, null)
-
-    def getPhysicsInterpolationMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getPhysicsInterpolationMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def isPhysicsInterpolated(): Boolean =
+    def isPhysicsInterpolated(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isPhysicsInterpolated, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPhysicsInterpolatedAndEnabled(): Boolean =
+    def isPhysicsInterpolatedAndEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isPhysicsInterpolatedAndEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def resetPhysicsInterpolation(): Unit =
+    def resetPhysicsInterpolation(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.resetPhysicsInterpolation, ptr, _args, null)
+}
 
-    def setAutoTranslateMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Node.Binds.setAutoTranslateMode, ptr, _args, null)
-
-    def getAutoTranslateMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node.Binds.getAutoTranslateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def canAutoTranslate(): Boolean =
+    def canAutoTranslate(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.canAutoTranslate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setTranslationDomainInherited(): Unit =
+    def setTranslationDomainInherited(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.setTranslationDomainInherited, ptr, _args, null)
+}
 
-    def getWindow(): Window =
+    def getWindow(): Window = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getWindow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Window(!_ret)
+}
 
-    def getLastExclusiveWindow(): Window =
+    def getLastExclusiveWindow(): Window = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getLastExclusiveWindow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Window(!_ret)
+}
 
-    def getTree(): SceneTree =
+    def getTree(): SceneTree = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SceneTree(!_ret)
+}
 
-    def createTween(): Tween =
+    def createTween(): Tween = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.createTween, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def duplicate(): Node =
+    def duplicate(): Node = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.duplicate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def replaceBy(node: Node): Unit =
+    def replaceBy(node: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(Node.Binds.replaceBy, ptr, _args, null)
+}
 
-    def setSceneInstanceLoadPlaceholder(loadPlaceholder: Boolean): Unit =
+    def setSceneInstanceLoadPlaceholder(loadPlaceholder: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if loadPlaceholder then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setSceneInstanceLoadPlaceholder, ptr, _args, null)
+}
 
-    def getSceneInstanceLoadPlaceholder(): Boolean =
+    def getSceneInstanceLoadPlaceholder(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.getSceneInstanceLoadPlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setEditableInstance(node: Node, isEditable: Boolean): Unit =
+    def setEditableInstance(node: Node, isEditable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = node.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if isEditable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setEditableInstance, ptr, _args, null)
+}
 
-    def isEditableInstance(node: Node): Boolean =
+    def isEditableInstance(node: Node): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isEditableInstance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getViewport(): Viewport =
+    def getViewport(): Viewport = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getViewport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Viewport(!_ret)
+}
 
-    def queueFree(): Unit =
+    def queueFree(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.queueFree, ptr, _args, null)
+}
 
-    def requestReady(): Unit =
+    def requestReady(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.requestReady, ptr, _args, null)
+}
 
-    def isNodeReady(): Boolean =
+    def isNodeReady(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isNodeReady, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setMultiplayerAuthority(id: Int): Unit =
+    def setMultiplayerAuthority(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.setMultiplayerAuthority, ptr, _args, null)
+}
 
-    def getMultiplayerAuthority(): Int =
+    def getMultiplayerAuthority(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Node.Binds.getMultiplayerAuthority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isMultiplayerAuthority(): Boolean =
+    def isMultiplayerAuthority(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node.Binds.isMultiplayerAuthority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMultiplayer(): MultiplayerAPI =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node.Binds.getMultiplayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new MultiplayerAPI(!_ret)
-
-    def rpcConfig(method: CString, config: Ptr[Byte]): Unit =
+    def rpcConfig(method: CString, config: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = method.ptr
-        _args(1) = config.ptr
+        _args(0) = method
+        _args(1) = config
         GdxApi.ptrcall(Node.Binds.rpcConfig, ptr, _args, null)
+}
 
-    def getNodeRpcConfig(): Ptr[Byte] =
+    def getNodeRpcConfig(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.getNodeRpcConfig, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setEditorDescription(editorDescription: CString): Unit =
+    def atr(message: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = editorDescription.ptr
-        GdxApi.ptrcall(Node.Binds.setEditorDescription, ptr, _args, null)
-
-    def getEditorDescription(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node.Binds.getEditorDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setUniqueNameInOwner(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node.Binds.setUniqueNameInOwner, ptr, _args, null)
-
-    def isUniqueNameInOwner(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Node.Binds.isUniqueNameInOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def atr(message: CString): CString =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.atr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def atrN(message: CString, pluralMessage: CString, n: Int): CString =
+    def atrN(message: CString, pluralMessage: CString, n: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = message.ptr
-        _args(1) = pluralMessage.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = n.toLong
+        _args(0) = message
+        _args(1) = pluralMessage
+        val _a2 = stackalloc[Long](); !_a2 = n.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.atrN, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def rpc(method: CString): Int =
+    def rpc(method: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = method
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Node.Binds.rpc, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def rpcId(peerId: Long, method: CString): Int =
+    def rpcId(peerId: Long, method: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = peerId
+        val _a0 = stackalloc[Long](); !_a0 = peerId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = method.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = method
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Node.Binds.rpcId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def updateConfigurationWarnings(): Unit =
+    def updateConfigurationWarnings(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node.Binds.updateConfigurationWarnings, ptr, _args, null)
+}
 
-    def callDeferredThreadGroup(method: CString): Ptr[Byte] =
+    def callDeferredThreadGroup(method: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.callDeferredThreadGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setDeferredThreadGroup(property: CString, value: Ptr[Byte]): Unit =
+    def setDeferredThreadGroup(property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = property.ptr
-        _args(1) = value.ptr
+        _args(0) = property
+        _args(1) = value
         GdxApi.ptrcall(Node.Binds.setDeferredThreadGroup, ptr, _args, null)
+}
 
-    def notifyDeferredThreadGroup(what: Int): Unit =
+    def notifyDeferredThreadGroup(what: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = what.toLong
+        val _a0 = stackalloc[Long](); !_a0 = what.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.notifyDeferredThreadGroup, ptr, _args, null)
+}
 
-    def callThreadSafe(method: CString): Ptr[Byte] =
+    def callThreadSafe(method: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node.Binds.callThreadSafe, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setThreadSafe(property: CString, value: Ptr[Byte]): Unit =
+    def setThreadSafe(property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = property.ptr
-        _args(1) = value.ptr
+        _args(0) = property
+        _args(1) = value
         GdxApi.ptrcall(Node.Binds.setThreadSafe, ptr, _args, null)
+}
 
-    def notifyThreadSafe(what: Int): Unit =
+    def notifyThreadSafe(what: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = what.toLong
+        val _a0 = stackalloc[Long](); !_a0 = what.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node.Binds.notifyThreadSafe, ptr, _args, null)
-    def name: Ptr[Byte] = getName()
-    def name_=(v: Ptr[Byte]): Unit = setName(v)
-    def uniqueNameInOwner: Ptr[Byte] = isUniqueNameInOwner()
-    def uniqueNameInOwner_=(v: Ptr[Byte]): Unit = setUniqueNameInOwner(v)
-    def sceneFilePath: Ptr[Byte] = getSceneFilePath()
-    def sceneFilePath_=(v: Ptr[Byte]): Unit = setSceneFilePath(v)
-    def owner: Ptr[Byte] = getOwner()
-    def owner_=(v: Ptr[Byte]): Unit = setOwner(v)
-    def multiplayer: Ptr[Byte] = getMultiplayer()
-    def processMode: Ptr[Byte] = getProcessMode()
-    def processMode_=(v: Ptr[Byte]): Unit = setProcessMode(v)
-    def processPriority: Ptr[Byte] = getProcessPriority()
-    def processPriority_=(v: Ptr[Byte]): Unit = setProcessPriority(v)
-    def processPhysicsPriority: Ptr[Byte] = getPhysicsProcessPriority()
-    def processPhysicsPriority_=(v: Ptr[Byte]): Unit = setPhysicsProcessPriority(v)
-    def processThreadGroup: Ptr[Byte] = getProcessThreadGroup()
-    def processThreadGroup_=(v: Ptr[Byte]): Unit = setProcessThreadGroup(v)
-    def processThreadGroupOrder: Ptr[Byte] = getProcessThreadGroupOrder()
-    def processThreadGroupOrder_=(v: Ptr[Byte]): Unit = setProcessThreadGroupOrder(v)
-    def processThreadMessages: Ptr[Byte] = getProcessThreadMessages()
-    def processThreadMessages_=(v: Ptr[Byte]): Unit = setProcessThreadMessages(v)
-    def physicsInterpolationMode: Ptr[Byte] = getPhysicsInterpolationMode()
-    def physicsInterpolationMode_=(v: Ptr[Byte]): Unit = setPhysicsInterpolationMode(v)
-    def autoTranslateMode: Ptr[Byte] = getAutoTranslateMode()
-    def autoTranslateMode_=(v: Ptr[Byte]): Unit = setAutoTranslateMode(v)
-    def editorDescription: Ptr[Byte] = getEditorDescription()
-    def editorDescription_=(v: Ptr[Byte]): Unit = setEditorDescription(v)
+}
+
+    def name: CString = getName()
+    def name_=(v: CString): Unit = setName(v)
+    def uniqueNameInOwner: Boolean = isUniqueNameInOwner()
+    def uniqueNameInOwner_=(v: Boolean): Unit = setUniqueNameInOwner(v)
+    def sceneFilePath: CString = getSceneFilePath()
+    def sceneFilePath_=(v: CString): Unit = setSceneFilePath(v)
+    def owner: Node = getOwner()
+    def owner_=(v: Node): Unit = setOwner(v)
+    def multiplayer: MultiplayerAPI = getMultiplayer()
+    def processMode: Int = getProcessMode()
+    def processMode_=(v: Int): Unit = setProcessMode(v)
+    def processPriority: Int = getProcessPriority()
+    def processPriority_=(v: Int): Unit = setProcessPriority(v)
+    def processPhysicsPriority: Int = getPhysicsProcessPriority()
+    def processPhysicsPriority_=(v: Int): Unit = setPhysicsProcessPriority(v)
+    def processThreadGroup: Int = getProcessThreadGroup()
+    def processThreadGroup_=(v: Int): Unit = setProcessThreadGroup(v)
+    def processThreadGroupOrder: Int = getProcessThreadGroupOrder()
+    def processThreadGroupOrder_=(v: Int): Unit = setProcessThreadGroupOrder(v)
+    def processThreadMessages: Int = getProcessThreadMessages()
+    def processThreadMessages_=(v: Int): Unit = setProcessThreadMessages(v)
+    def physicsInterpolationMode: Int = getPhysicsInterpolationMode()
+    def physicsInterpolationMode_=(v: Int): Unit = setPhysicsInterpolationMode(v)
+    def autoTranslateMode: Int = getAutoTranslateMode()
+    def autoTranslateMode_=(v: Int): Unit = setAutoTranslateMode(v)
+    def editorDescription: CString = getEditorDescription()
+    def editorDescription_=(v: CString): Unit = setEditorDescription(v)
+}
 
 object Node:
-    object Binds:
-        var addSibling: Ptr[Byte] = null
-        var setName: Ptr[Byte] = null
-        var getName: Ptr[Byte] = null
+object Binds {
+          var addSibling: Ptr[Byte] = null
         var addChild: Ptr[Byte] = null
         var removeChild: Ptr[Byte] = null
         var reparent: Ptr[Byte] = null
@@ -785,15 +725,11 @@ object Node:
         var isInGroup: Ptr[Byte] = null
         var moveChild: Ptr[Byte] = null
         var getGroups: Ptr[Byte] = null
-        var setOwner: Ptr[Byte] = null
-        var getOwner: Ptr[Byte] = null
         var getIndex: Ptr[Byte] = null
         var printTree: Ptr[Byte] = null
         var printTreePretty: Ptr[Byte] = null
         var getTreeString: Ptr[Byte] = null
         var getTreeStringPretty: Ptr[Byte] = null
-        var setSceneFilePath: Ptr[Byte] = null
-        var getSceneFilePath: Ptr[Byte] = null
         var propagateNotification: Ptr[Byte] = null
         var propagateCall: Ptr[Byte] = null
         var setPhysicsProcess: Ptr[Byte] = null
@@ -801,10 +737,6 @@ object Node:
         var isPhysicsProcessing: Ptr[Byte] = null
         var getProcessDeltaTime: Ptr[Byte] = null
         var setProcess: Ptr[Byte] = null
-        var setProcessPriority: Ptr[Byte] = null
-        var getProcessPriority: Ptr[Byte] = null
-        var setPhysicsProcessPriority: Ptr[Byte] = null
-        var getPhysicsProcessPriority: Ptr[Byte] = null
         var isProcessing: Ptr[Byte] = null
         var setProcessInput: Ptr[Byte] = null
         var isProcessingInput: Ptr[Byte] = null
@@ -814,15 +746,7 @@ object Node:
         var isProcessingUnhandledInput: Ptr[Byte] = null
         var setProcessUnhandledKeyInput: Ptr[Byte] = null
         var isProcessingUnhandledKeyInput: Ptr[Byte] = null
-        var setProcessMode: Ptr[Byte] = null
-        var getProcessMode: Ptr[Byte] = null
         var canProcess: Ptr[Byte] = null
-        var setProcessThreadGroup: Ptr[Byte] = null
-        var getProcessThreadGroup: Ptr[Byte] = null
-        var setProcessThreadMessages: Ptr[Byte] = null
-        var getProcessThreadMessages: Ptr[Byte] = null
-        var setProcessThreadGroupOrder: Ptr[Byte] = null
-        var getProcessThreadGroupOrder: Ptr[Byte] = null
         var queueAccessibilityUpdate: Ptr[Byte] = null
         var getAccessibilityElement: Ptr[Byte] = null
         var setDisplayFolded: Ptr[Byte] = null
@@ -831,13 +755,9 @@ object Node:
         var isProcessingInternal: Ptr[Byte] = null
         var setPhysicsProcessInternal: Ptr[Byte] = null
         var isPhysicsProcessingInternal: Ptr[Byte] = null
-        var setPhysicsInterpolationMode: Ptr[Byte] = null
-        var getPhysicsInterpolationMode: Ptr[Byte] = null
         var isPhysicsInterpolated: Ptr[Byte] = null
         var isPhysicsInterpolatedAndEnabled: Ptr[Byte] = null
         var resetPhysicsInterpolation: Ptr[Byte] = null
-        var setAutoTranslateMode: Ptr[Byte] = null
-        var getAutoTranslateMode: Ptr[Byte] = null
         var canAutoTranslate: Ptr[Byte] = null
         var setTranslationDomainInherited: Ptr[Byte] = null
         var getWindow: Ptr[Byte] = null
@@ -857,13 +777,8 @@ object Node:
         var setMultiplayerAuthority: Ptr[Byte] = null
         var getMultiplayerAuthority: Ptr[Byte] = null
         var isMultiplayerAuthority: Ptr[Byte] = null
-        var getMultiplayer: Ptr[Byte] = null
         var rpcConfig: Ptr[Byte] = null
         var getNodeRpcConfig: Ptr[Byte] = null
-        var setEditorDescription: Ptr[Byte] = null
-        var getEditorDescription: Ptr[Byte] = null
-        var setUniqueNameInOwner: Ptr[Byte] = null
-        var isUniqueNameInOwner: Ptr[Byte] = null
         var atr: Ptr[Byte] = null
         var atrN: Ptr[Byte] = null
         var rpc: Ptr[Byte] = null
@@ -876,10 +791,8 @@ object Node:
         var setThreadSafe: Ptr[Byte] = null
         var notifyThreadSafe: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addSibling = GdxApi.getMethodBind(c"Node", c"add_sibling", 2570952461L)
-            Binds.setName = GdxApi.getMethodBind(c"Node", c"set_name", 3304788590L)
-            Binds.getName = GdxApi.getMethodBind(c"Node", c"get_name", 2002593661L)
+  def loadBinds(): Unit = {
+                Binds.addSibling = GdxApi.getMethodBind(c"Node", c"add_sibling", 2570952461L)
             Binds.addChild = GdxApi.getMethodBind(c"Node", c"add_child", 3863233950L)
             Binds.removeChild = GdxApi.getMethodBind(c"Node", c"remove_child", 1078189570L)
             Binds.reparent = GdxApi.getMethodBind(c"Node", c"reparent", 3685795103L)
@@ -906,15 +819,11 @@ object Node:
             Binds.isInGroup = GdxApi.getMethodBind(c"Node", c"is_in_group", 2619796661L)
             Binds.moveChild = GdxApi.getMethodBind(c"Node", c"move_child", 3315886247L)
             Binds.getGroups = GdxApi.getMethodBind(c"Node", c"get_groups", 3995934104L)
-            Binds.setOwner = GdxApi.getMethodBind(c"Node", c"set_owner", 1078189570L)
-            Binds.getOwner = GdxApi.getMethodBind(c"Node", c"get_owner", 3160264692L)
             Binds.getIndex = GdxApi.getMethodBind(c"Node", c"get_index", 894402480L)
             Binds.printTree = GdxApi.getMethodBind(c"Node", c"print_tree", 3218959716L)
             Binds.printTreePretty = GdxApi.getMethodBind(c"Node", c"print_tree_pretty", 3218959716L)
             Binds.getTreeString = GdxApi.getMethodBind(c"Node", c"get_tree_string", 2841200299L)
             Binds.getTreeStringPretty = GdxApi.getMethodBind(c"Node", c"get_tree_string_pretty", 2841200299L)
-            Binds.setSceneFilePath = GdxApi.getMethodBind(c"Node", c"set_scene_file_path", 83702148L)
-            Binds.getSceneFilePath = GdxApi.getMethodBind(c"Node", c"get_scene_file_path", 201670096L)
             Binds.propagateNotification = GdxApi.getMethodBind(c"Node", c"propagate_notification", 1286410249L)
             Binds.propagateCall = GdxApi.getMethodBind(c"Node", c"propagate_call", 1871007965L)
             Binds.setPhysicsProcess = GdxApi.getMethodBind(c"Node", c"set_physics_process", 2586408642L)
@@ -922,10 +831,6 @@ object Node:
             Binds.isPhysicsProcessing = GdxApi.getMethodBind(c"Node", c"is_physics_processing", 36873697L)
             Binds.getProcessDeltaTime = GdxApi.getMethodBind(c"Node", c"get_process_delta_time", 1740695150L)
             Binds.setProcess = GdxApi.getMethodBind(c"Node", c"set_process", 2586408642L)
-            Binds.setProcessPriority = GdxApi.getMethodBind(c"Node", c"set_process_priority", 1286410249L)
-            Binds.getProcessPriority = GdxApi.getMethodBind(c"Node", c"get_process_priority", 3905245786L)
-            Binds.setPhysicsProcessPriority = GdxApi.getMethodBind(c"Node", c"set_physics_process_priority", 1286410249L)
-            Binds.getPhysicsProcessPriority = GdxApi.getMethodBind(c"Node", c"get_physics_process_priority", 3905245786L)
             Binds.isProcessing = GdxApi.getMethodBind(c"Node", c"is_processing", 36873697L)
             Binds.setProcessInput = GdxApi.getMethodBind(c"Node", c"set_process_input", 2586408642L)
             Binds.isProcessingInput = GdxApi.getMethodBind(c"Node", c"is_processing_input", 36873697L)
@@ -935,15 +840,7 @@ object Node:
             Binds.isProcessingUnhandledInput = GdxApi.getMethodBind(c"Node", c"is_processing_unhandled_input", 36873697L)
             Binds.setProcessUnhandledKeyInput = GdxApi.getMethodBind(c"Node", c"set_process_unhandled_key_input", 2586408642L)
             Binds.isProcessingUnhandledKeyInput = GdxApi.getMethodBind(c"Node", c"is_processing_unhandled_key_input", 36873697L)
-            Binds.setProcessMode = GdxApi.getMethodBind(c"Node", c"set_process_mode", 1841290486L)
-            Binds.getProcessMode = GdxApi.getMethodBind(c"Node", c"get_process_mode", 739966102L)
             Binds.canProcess = GdxApi.getMethodBind(c"Node", c"can_process", 36873697L)
-            Binds.setProcessThreadGroup = GdxApi.getMethodBind(c"Node", c"set_process_thread_group", 2275442745L)
-            Binds.getProcessThreadGroup = GdxApi.getMethodBind(c"Node", c"get_process_thread_group", 1866404740L)
-            Binds.setProcessThreadMessages = GdxApi.getMethodBind(c"Node", c"set_process_thread_messages", 1357280998L)
-            Binds.getProcessThreadMessages = GdxApi.getMethodBind(c"Node", c"get_process_thread_messages", 4228993612L)
-            Binds.setProcessThreadGroupOrder = GdxApi.getMethodBind(c"Node", c"set_process_thread_group_order", 1286410249L)
-            Binds.getProcessThreadGroupOrder = GdxApi.getMethodBind(c"Node", c"get_process_thread_group_order", 3905245786L)
             Binds.queueAccessibilityUpdate = GdxApi.getMethodBind(c"Node", c"queue_accessibility_update", 3218959716L)
             Binds.getAccessibilityElement = GdxApi.getMethodBind(c"Node", c"get_accessibility_element", 2944877500L)
             Binds.setDisplayFolded = GdxApi.getMethodBind(c"Node", c"set_display_folded", 2586408642L)
@@ -952,13 +849,9 @@ object Node:
             Binds.isProcessingInternal = GdxApi.getMethodBind(c"Node", c"is_processing_internal", 36873697L)
             Binds.setPhysicsProcessInternal = GdxApi.getMethodBind(c"Node", c"set_physics_process_internal", 2586408642L)
             Binds.isPhysicsProcessingInternal = GdxApi.getMethodBind(c"Node", c"is_physics_processing_internal", 36873697L)
-            Binds.setPhysicsInterpolationMode = GdxApi.getMethodBind(c"Node", c"set_physics_interpolation_mode", 3202404928L)
-            Binds.getPhysicsInterpolationMode = GdxApi.getMethodBind(c"Node", c"get_physics_interpolation_mode", 2920385216L)
             Binds.isPhysicsInterpolated = GdxApi.getMethodBind(c"Node", c"is_physics_interpolated", 36873697L)
             Binds.isPhysicsInterpolatedAndEnabled = GdxApi.getMethodBind(c"Node", c"is_physics_interpolated_and_enabled", 36873697L)
             Binds.resetPhysicsInterpolation = GdxApi.getMethodBind(c"Node", c"reset_physics_interpolation", 3218959716L)
-            Binds.setAutoTranslateMode = GdxApi.getMethodBind(c"Node", c"set_auto_translate_mode", 776149714L)
-            Binds.getAutoTranslateMode = GdxApi.getMethodBind(c"Node", c"get_auto_translate_mode", 2498906432L)
             Binds.canAutoTranslate = GdxApi.getMethodBind(c"Node", c"can_auto_translate", 36873697L)
             Binds.setTranslationDomainInherited = GdxApi.getMethodBind(c"Node", c"set_translation_domain_inherited", 3218959716L)
             Binds.getWindow = GdxApi.getMethodBind(c"Node", c"get_window", 1757182445L)
@@ -978,13 +871,8 @@ object Node:
             Binds.setMultiplayerAuthority = GdxApi.getMethodBind(c"Node", c"set_multiplayer_authority", 972357352L)
             Binds.getMultiplayerAuthority = GdxApi.getMethodBind(c"Node", c"get_multiplayer_authority", 3905245786L)
             Binds.isMultiplayerAuthority = GdxApi.getMethodBind(c"Node", c"is_multiplayer_authority", 36873697L)
-            Binds.getMultiplayer = GdxApi.getMethodBind(c"Node", c"get_multiplayer", 406750475L)
             Binds.rpcConfig = GdxApi.getMethodBind(c"Node", c"rpc_config", 3776071444L)
             Binds.getNodeRpcConfig = GdxApi.getMethodBind(c"Node", c"get_node_rpc_config", 1214101251L)
-            Binds.setEditorDescription = GdxApi.getMethodBind(c"Node", c"set_editor_description", 83702148L)
-            Binds.getEditorDescription = GdxApi.getMethodBind(c"Node", c"get_editor_description", 201670096L)
-            Binds.setUniqueNameInOwner = GdxApi.getMethodBind(c"Node", c"set_unique_name_in_owner", 2586408642L)
-            Binds.isUniqueNameInOwner = GdxApi.getMethodBind(c"Node", c"is_unique_name_in_owner", 36873697L)
             Binds.atr = GdxApi.getMethodBind(c"Node", c"atr", 3344478075L)
             Binds.atrN = GdxApi.getMethodBind(c"Node", c"atr_n", 259354841L)
             Binds.rpc = GdxApi.getMethodBind(c"Node", c"rpc", 4047867050L)
@@ -996,8 +884,11 @@ object Node:
             Binds.callThreadSafe = GdxApi.getMethodBind(c"Node", c"call_thread_safe", 3400424181L)
             Binds.setThreadSafe = GdxApi.getMethodBind(c"Node", c"set_thread_safe", 3776071444L)
             Binds.notifyThreadSafe = GdxApi.getMethodBind(c"Node", c"notify_thread_safe", 1286410249L)
+  }
+}
 
-    def apply(): Node =
-        val obj = new Node()
-        obj.ptr = GdxApi.constructObject(c"Node")
-        obj
+def apply(): Node = {
+  val obj = new Node()
+  obj.ptr = GdxApi.constructObject(c"Node")
+  obj
+}

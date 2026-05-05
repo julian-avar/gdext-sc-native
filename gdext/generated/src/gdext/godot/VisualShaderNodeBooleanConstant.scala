@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeBooleanConstant extends VisualShaderNodeConstant
-
-    def setConstant(constant: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if constant then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeBooleanConstant.Binds.setConstant, ptr, _args, null)
-
-    def getConstant(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VisualShaderNodeBooleanConstant.Binds.getConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def constant: Ptr[Byte] = getConstant()
-    def constant_=(v: Ptr[Byte]): Unit = setConstant(v)
+class VisualShaderNodeBooleanConstant extends VisualShaderNodeConstant {
+    def constant: Boolean = getConstant()
+    def constant_=(v: Boolean): Unit = setConstant(v)
+}
 
 object VisualShaderNodeBooleanConstant:
-    object Binds:
-        var setConstant: Ptr[Byte] = null
-        var getConstant: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setConstant = GdxApi.getMethodBind(c"VisualShaderNodeBooleanConstant", c"set_constant", 2586408642L)
-            Binds.getConstant = GdxApi.getMethodBind(c"VisualShaderNodeBooleanConstant", c"get_constant", 36873697L)
-
-    def apply(): VisualShaderNodeBooleanConstant =
-        val obj = new VisualShaderNodeBooleanConstant()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeBooleanConstant")
-        obj
+def apply(): VisualShaderNodeBooleanConstant = {
+  val obj = new VisualShaderNodeBooleanConstant()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeBooleanConstant")
+  obj
+}

@@ -5,199 +5,200 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class DirAccess extends RefCounted
-
-    def listDirBegin(): Int =
+class DirAccess extends RefCounted {
+    def listDirBegin(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.listDirBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNext(): CString =
+    def getNext(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DirAccess.Binds.getNext, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def currentIsDir(): Boolean =
+    def currentIsDir(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.currentIsDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def listDirEnd(): Unit =
+    def listDirEnd(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DirAccess.Binds.listDirEnd, ptr, _args, null)
+}
 
-    def getFiles(): PackedStringArray =
+    def getFiles(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DirAccess.Binds.getFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getDirectories(): PackedStringArray =
+    def getDirectories(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DirAccess.Binds.getDirectories, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getCurrentDrive(): Int =
+    def getCurrentDrive(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.getCurrentDrive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def changeDir(toDir: CString): Int =
+    def changeDir(toDir: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = toDir.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = toDir
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.changeDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCurrentDir(): CString =
+    def getCurrentDir(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DirAccess.Binds.getCurrentDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def makeDir(path: CString): Int =
+    def makeDir(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.makeDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def makeDirRecursive(path: CString): Int =
+    def makeDirRecursive(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.makeDirRecursive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fileExists(path: CString): Boolean =
+    def fileExists(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.fileExists, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def dirExists(path: CString): Boolean =
+    def dirExists(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.dirExists, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSpaceLeft(): Long =
+    def getSpaceLeft(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.getSpaceLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def copy(from: CString, to: CString): Int =
+    def copy(from: CString, to: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = from.ptr
-        _args(1) = to.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = from
+        _args(1) = to
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.copy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def rename(from: CString, to: CString): Int =
+    def rename(from: CString, to: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = from.ptr
-        _args(1) = to.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = from
+        _args(1) = to
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.rename, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def remove(path: CString): Int =
+    def remove(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.remove, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isLink(path: CString): Boolean =
+    def isLink(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.isLink, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def readLink(path: CString): CString =
+    def readLink(path: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DirAccess.Binds.readLink, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def createLink(source: CString, target: CString): Int =
+    def createLink(source: CString, target: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = source.ptr
-        _args(1) = target.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = source
+        _args(1) = target
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DirAccess.Binds.createLink, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isBundle(path: CString): Boolean =
+    def isBundle(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.isBundle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setIncludeNavigational(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DirAccess.Binds.setIncludeNavigational, ptr, _args, null)
-
-    def getIncludeNavigational(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(DirAccess.Binds.getIncludeNavigational, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setIncludeHidden(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DirAccess.Binds.setIncludeHidden, ptr, _args, null)
-
-    def getIncludeHidden(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(DirAccess.Binds.getIncludeHidden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getFilesystemType(): CString =
+    def getFilesystemType(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DirAccess.Binds.getFilesystemType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isCaseSensitive(path: CString): Boolean =
+    def isCaseSensitive(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.isCaseSensitive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isEquivalent(pathA: CString, pathB: CString): Boolean =
+    def isEquivalent(pathA: CString, pathB: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = pathA.ptr
-        _args(1) = pathB.ptr
+        _args(0) = pathA
+        _args(1) = pathB
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DirAccess.Binds.isEquivalent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def includeNavigational: Ptr[Byte] = getIncludeNavigational()
-    def includeNavigational_=(v: Ptr[Byte]): Unit = setIncludeNavigational(v)
-    def includeHidden: Ptr[Byte] = getIncludeHidden()
-    def includeHidden_=(v: Ptr[Byte]): Unit = setIncludeHidden(v)
+}
+
+    def includeNavigational: Boolean = getIncludeNavigational()
+    def includeNavigational_=(v: Boolean): Unit = setIncludeNavigational(v)
+    def includeHidden: Boolean = getIncludeHidden()
+    def includeHidden_=(v: Boolean): Unit = setIncludeHidden(v)
+}
 
 object DirAccess:
-    object Binds:
-        var listDirBegin: Ptr[Byte] = null
+object Binds {
+          var listDirBegin: Ptr[Byte] = null
         var getNext: Ptr[Byte] = null
         var currentIsDir: Ptr[Byte] = null
         var listDirEnd: Ptr[Byte] = null
@@ -218,16 +219,12 @@ object DirAccess:
         var readLink: Ptr[Byte] = null
         var createLink: Ptr[Byte] = null
         var isBundle: Ptr[Byte] = null
-        var setIncludeNavigational: Ptr[Byte] = null
-        var getIncludeNavigational: Ptr[Byte] = null
-        var setIncludeHidden: Ptr[Byte] = null
-        var getIncludeHidden: Ptr[Byte] = null
         var getFilesystemType: Ptr[Byte] = null
         var isCaseSensitive: Ptr[Byte] = null
         var isEquivalent: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.listDirBegin = GdxApi.getMethodBind(c"DirAccess", c"list_dir_begin", 166280745L)
+  def loadBinds(): Unit = {
+                Binds.listDirBegin = GdxApi.getMethodBind(c"DirAccess", c"list_dir_begin", 166280745L)
             Binds.getNext = GdxApi.getMethodBind(c"DirAccess", c"get_next", 2841200299L)
             Binds.currentIsDir = GdxApi.getMethodBind(c"DirAccess", c"current_is_dir", 36873697L)
             Binds.listDirEnd = GdxApi.getMethodBind(c"DirAccess", c"list_dir_end", 3218959716L)
@@ -248,10 +245,8 @@ object DirAccess:
             Binds.readLink = GdxApi.getMethodBind(c"DirAccess", c"read_link", 1703090593L)
             Binds.createLink = GdxApi.getMethodBind(c"DirAccess", c"create_link", 852856452L)
             Binds.isBundle = GdxApi.getMethodBind(c"DirAccess", c"is_bundle", 3927539163L)
-            Binds.setIncludeNavigational = GdxApi.getMethodBind(c"DirAccess", c"set_include_navigational", 2586408642L)
-            Binds.getIncludeNavigational = GdxApi.getMethodBind(c"DirAccess", c"get_include_navigational", 36873697L)
-            Binds.setIncludeHidden = GdxApi.getMethodBind(c"DirAccess", c"set_include_hidden", 2586408642L)
-            Binds.getIncludeHidden = GdxApi.getMethodBind(c"DirAccess", c"get_include_hidden", 36873697L)
             Binds.getFilesystemType = GdxApi.getMethodBind(c"DirAccess", c"get_filesystem_type", 201670096L)
             Binds.isCaseSensitive = GdxApi.getMethodBind(c"DirAccess", c"is_case_sensitive", 3927539163L)
             Binds.isEquivalent = GdxApi.getMethodBind(c"DirAccess", c"is_equivalent", 820780508L)
+  }
+}

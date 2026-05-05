@@ -5,329 +5,75 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRCompositionLayer extends Node3D
-
-    def setLayerViewport(viewport: SubViewport): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = viewport.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setLayerViewport, ptr, _args, null)
-
-    def getLayerViewport(): SubViewport =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getLayerViewport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new SubViewport(!_ret)
-
-    def setUseAndroidSurface(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setUseAndroidSurface, ptr, _args, null)
-
-    def getUseAndroidSurface(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getUseAndroidSurface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAndroidSurfaceSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setAndroidSurfaceSize, ptr, _args, null)
-
-    def getAndroidSurfaceSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getAndroidSurfaceSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setEnableHolePunch(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setEnableHolePunch, ptr, _args, null)
-
-    def getEnableHolePunch(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getEnableHolePunch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSortOrder(order: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = order.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setSortOrder, ptr, _args, null)
-
-    def getSortOrder(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getSortOrder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaBlend(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setAlphaBlend, ptr, _args, null)
-
-    def getAlphaBlend(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getAlphaBlend, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getAndroidSurface(): JavaObject =
+class OpenXRCompositionLayer extends Node3D {
+    def getAndroidSurface(): JavaObject = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getAndroidSurface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new JavaObject(!_ret)
+}
 
-    def isNativelySupported(): Boolean =
+    def isNativelySupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRCompositionLayer.Binds.isNativelySupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setMinFilter(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setMinFilter, ptr, _args, null)
-
-    def getMinFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getMinFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMagFilter(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setMagFilter, ptr, _args, null)
-
-    def getMagFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getMagFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMipmapMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setMipmapMode, ptr, _args, null)
-
-    def getMipmapMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getMipmapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHorizontalWrap(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setHorizontalWrap, ptr, _args, null)
-
-    def getHorizontalWrap(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getHorizontalWrap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVerticalWrap(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setVerticalWrap, ptr, _args, null)
-
-    def getVerticalWrap(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getVerticalWrap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRedSwizzle(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setRedSwizzle, ptr, _args, null)
-
-    def getRedSwizzle(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getRedSwizzle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setGreenSwizzle(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setGreenSwizzle, ptr, _args, null)
-
-    def getGreenSwizzle(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getGreenSwizzle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBlueSwizzle(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setBlueSwizzle, ptr, _args, null)
-
-    def getBlueSwizzle(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getBlueSwizzle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaSwizzle(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setAlphaSwizzle, ptr, _args, null)
-
-    def getAlphaSwizzle(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getAlphaSwizzle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxAnisotropy(value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = value.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setMaxAnisotropy, ptr, _args, null)
-
-    def getMaxAnisotropy(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getMaxAnisotropy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBorderColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.setBorderColor, ptr, _args, null)
-
-    def getBorderColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRCompositionLayer.Binds.getBorderColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def intersectsRay(origin: Vector3, direction: Vector3): Vector2 =
+    def intersectsRay(origin: Vector3, direction: Vector3): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = origin.ptr
         _args(1) = direction.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRCompositionLayer.Binds.intersectsRay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
-    def layerViewport: Ptr[Byte] = getLayerViewport()
-    def layerViewport_=(v: Ptr[Byte]): Unit = setLayerViewport(v)
-    def useAndroidSurface: Ptr[Byte] = getUseAndroidSurface()
-    def useAndroidSurface_=(v: Ptr[Byte]): Unit = setUseAndroidSurface(v)
-    def androidSurfaceSize: Ptr[Byte] = getAndroidSurfaceSize()
-    def androidSurfaceSize_=(v: Ptr[Byte]): Unit = setAndroidSurfaceSize(v)
-    def sortOrder: Ptr[Byte] = getSortOrder()
-    def sortOrder_=(v: Ptr[Byte]): Unit = setSortOrder(v)
-    def alphaBlend: Ptr[Byte] = getAlphaBlend()
-    def alphaBlend_=(v: Ptr[Byte]): Unit = setAlphaBlend(v)
-    def enableHolePunch: Ptr[Byte] = getEnableHolePunch()
-    def enableHolePunch_=(v: Ptr[Byte]): Unit = setEnableHolePunch(v)
-    def swapchainStateMinFilter: Ptr[Byte] = getMinFilter()
-    def swapchainStateMinFilter_=(v: Ptr[Byte]): Unit = setMinFilter(v)
-    def swapchainStateMagFilter: Ptr[Byte] = getMagFilter()
-    def swapchainStateMagFilter_=(v: Ptr[Byte]): Unit = setMagFilter(v)
-    def swapchainStateMipmapMode: Ptr[Byte] = getMipmapMode()
-    def swapchainStateMipmapMode_=(v: Ptr[Byte]): Unit = setMipmapMode(v)
-    def swapchainStateHorizontalWrap: Ptr[Byte] = getHorizontalWrap()
-    def swapchainStateHorizontalWrap_=(v: Ptr[Byte]): Unit = setHorizontalWrap(v)
-    def swapchainStateVerticalWrap: Ptr[Byte] = getVerticalWrap()
-    def swapchainStateVerticalWrap_=(v: Ptr[Byte]): Unit = setVerticalWrap(v)
-    def swapchainStateRedSwizzle: Ptr[Byte] = getRedSwizzle()
-    def swapchainStateRedSwizzle_=(v: Ptr[Byte]): Unit = setRedSwizzle(v)
-    def swapchainStateGreenSwizzle: Ptr[Byte] = getGreenSwizzle()
-    def swapchainStateGreenSwizzle_=(v: Ptr[Byte]): Unit = setGreenSwizzle(v)
-    def swapchainStateBlueSwizzle: Ptr[Byte] = getBlueSwizzle()
-    def swapchainStateBlueSwizzle_=(v: Ptr[Byte]): Unit = setBlueSwizzle(v)
-    def swapchainStateAlphaSwizzle: Ptr[Byte] = getAlphaSwizzle()
-    def swapchainStateAlphaSwizzle_=(v: Ptr[Byte]): Unit = setAlphaSwizzle(v)
-    def swapchainStateMaxAnisotropy: Ptr[Byte] = getMaxAnisotropy()
-    def swapchainStateMaxAnisotropy_=(v: Ptr[Byte]): Unit = setMaxAnisotropy(v)
-    def swapchainStateBorderColor: Ptr[Byte] = getBorderColor()
-    def swapchainStateBorderColor_=(v: Ptr[Byte]): Unit = setBorderColor(v)
+}
+
+    def layerViewport: SubViewport = getLayerViewport()
+    def layerViewport_=(v: SubViewport): Unit = setLayerViewport(v)
+    def useAndroidSurface: Boolean = getUseAndroidSurface()
+    def useAndroidSurface_=(v: Boolean): Unit = setUseAndroidSurface(v)
+    def androidSurfaceSize: Vector2i = getAndroidSurfaceSize()
+    def androidSurfaceSize_=(v: Vector2i): Unit = setAndroidSurfaceSize(v)
+    def sortOrder: Int = getSortOrder()
+    def sortOrder_=(v: Int): Unit = setSortOrder(v)
+    def alphaBlend: Boolean = getAlphaBlend()
+    def alphaBlend_=(v: Boolean): Unit = setAlphaBlend(v)
+    def enableHolePunch: Boolean = getEnableHolePunch()
+    def enableHolePunch_=(v: Boolean): Unit = setEnableHolePunch(v)
+    def swapchainStateMinFilter: Int = getMinFilter()
+    def swapchainStateMinFilter_=(v: Int): Unit = setMinFilter(v)
+    def swapchainStateMagFilter: Int = getMagFilter()
+    def swapchainStateMagFilter_=(v: Int): Unit = setMagFilter(v)
+    def swapchainStateMipmapMode: Int = getMipmapMode()
+    def swapchainStateMipmapMode_=(v: Int): Unit = setMipmapMode(v)
+    def swapchainStateHorizontalWrap: Int = getHorizontalWrap()
+    def swapchainStateHorizontalWrap_=(v: Int): Unit = setHorizontalWrap(v)
+    def swapchainStateVerticalWrap: Int = getVerticalWrap()
+    def swapchainStateVerticalWrap_=(v: Int): Unit = setVerticalWrap(v)
+    def swapchainStateRedSwizzle: Int = getRedSwizzle()
+    def swapchainStateRedSwizzle_=(v: Int): Unit = setRedSwizzle(v)
+    def swapchainStateGreenSwizzle: Int = getGreenSwizzle()
+    def swapchainStateGreenSwizzle_=(v: Int): Unit = setGreenSwizzle(v)
+    def swapchainStateBlueSwizzle: Int = getBlueSwizzle()
+    def swapchainStateBlueSwizzle_=(v: Int): Unit = setBlueSwizzle(v)
+    def swapchainStateAlphaSwizzle: Int = getAlphaSwizzle()
+    def swapchainStateAlphaSwizzle_=(v: Int): Unit = setAlphaSwizzle(v)
+    def swapchainStateMaxAnisotropy: Float = getMaxAnisotropy()
+    def swapchainStateMaxAnisotropy_=(v: Float): Unit = setMaxAnisotropy(v)
+    def swapchainStateBorderColor: Color = getBorderColor()
+    def swapchainStateBorderColor_=(v: Color): Unit = setBorderColor(v)
+}
 
 object OpenXRCompositionLayer:
-    object Binds:
-        var setLayerViewport: Ptr[Byte] = null
-        var getLayerViewport: Ptr[Byte] = null
-        var setUseAndroidSurface: Ptr[Byte] = null
-        var getUseAndroidSurface: Ptr[Byte] = null
-        var setAndroidSurfaceSize: Ptr[Byte] = null
-        var getAndroidSurfaceSize: Ptr[Byte] = null
-        var setEnableHolePunch: Ptr[Byte] = null
-        var getEnableHolePunch: Ptr[Byte] = null
-        var setSortOrder: Ptr[Byte] = null
-        var getSortOrder: Ptr[Byte] = null
-        var setAlphaBlend: Ptr[Byte] = null
-        var getAlphaBlend: Ptr[Byte] = null
-        var getAndroidSurface: Ptr[Byte] = null
+object Binds {
+          var getAndroidSurface: Ptr[Byte] = null
         var isNativelySupported: Ptr[Byte] = null
-        var setMinFilter: Ptr[Byte] = null
-        var getMinFilter: Ptr[Byte] = null
-        var setMagFilter: Ptr[Byte] = null
-        var getMagFilter: Ptr[Byte] = null
-        var setMipmapMode: Ptr[Byte] = null
-        var getMipmapMode: Ptr[Byte] = null
-        var setHorizontalWrap: Ptr[Byte] = null
-        var getHorizontalWrap: Ptr[Byte] = null
-        var setVerticalWrap: Ptr[Byte] = null
-        var getVerticalWrap: Ptr[Byte] = null
-        var setRedSwizzle: Ptr[Byte] = null
-        var getRedSwizzle: Ptr[Byte] = null
-        var setGreenSwizzle: Ptr[Byte] = null
-        var getGreenSwizzle: Ptr[Byte] = null
-        var setBlueSwizzle: Ptr[Byte] = null
-        var getBlueSwizzle: Ptr[Byte] = null
-        var setAlphaSwizzle: Ptr[Byte] = null
-        var getAlphaSwizzle: Ptr[Byte] = null
-        var setMaxAnisotropy: Ptr[Byte] = null
-        var getMaxAnisotropy: Ptr[Byte] = null
-        var setBorderColor: Ptr[Byte] = null
-        var getBorderColor: Ptr[Byte] = null
         var intersectsRay: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setLayerViewport = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_layer_viewport", 3888077664L)
-            Binds.getLayerViewport = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_layer_viewport", 3750751911L)
-            Binds.setUseAndroidSurface = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_use_android_surface", 2586408642L)
-            Binds.getUseAndroidSurface = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_use_android_surface", 36873697L)
-            Binds.setAndroidSurfaceSize = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_android_surface_size", 1130785943L)
-            Binds.getAndroidSurfaceSize = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_android_surface_size", 3690982128L)
-            Binds.setEnableHolePunch = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_enable_hole_punch", 2586408642L)
-            Binds.getEnableHolePunch = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_enable_hole_punch", 36873697L)
-            Binds.setSortOrder = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_sort_order", 1286410249L)
-            Binds.getSortOrder = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_sort_order", 3905245786L)
-            Binds.setAlphaBlend = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_alpha_blend", 2586408642L)
-            Binds.getAlphaBlend = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_alpha_blend", 36873697L)
-            Binds.getAndroidSurface = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_android_surface", 3277089691L)
+  def loadBinds(): Unit = {
+                Binds.getAndroidSurface = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_android_surface", 3277089691L)
             Binds.isNativelySupported = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"is_natively_supported", 36873697L)
-            Binds.setMinFilter = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_min_filter", 3653437593L)
-            Binds.getMinFilter = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_min_filter", 845677307L)
-            Binds.setMagFilter = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_mag_filter", 3653437593L)
-            Binds.getMagFilter = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_mag_filter", 845677307L)
-            Binds.setMipmapMode = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_mipmap_mode", 3271133183L)
-            Binds.getMipmapMode = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_mipmap_mode", 3962697095L)
-            Binds.setHorizontalWrap = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_horizontal_wrap", 15634990L)
-            Binds.getHorizontalWrap = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_horizontal_wrap", 2798816834L)
-            Binds.setVerticalWrap = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_vertical_wrap", 15634990L)
-            Binds.getVerticalWrap = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_vertical_wrap", 2798816834L)
-            Binds.setRedSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_red_swizzle", 741598951L)
-            Binds.getRedSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_red_swizzle", 2334776767L)
-            Binds.setGreenSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_green_swizzle", 741598951L)
-            Binds.getGreenSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_green_swizzle", 2334776767L)
-            Binds.setBlueSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_blue_swizzle", 741598951L)
-            Binds.getBlueSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_blue_swizzle", 2334776767L)
-            Binds.setAlphaSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_alpha_swizzle", 741598951L)
-            Binds.getAlphaSwizzle = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_alpha_swizzle", 2334776767L)
-            Binds.setMaxAnisotropy = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_max_anisotropy", 373806689L)
-            Binds.getMaxAnisotropy = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_max_anisotropy", 1740695150L)
-            Binds.setBorderColor = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"set_border_color", 2920490490L)
-            Binds.getBorderColor = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"get_border_color", 3444240500L)
             Binds.intersectsRay = GdxApi.getMethodBind(c"OpenXRCompositionLayer", c"intersects_ray", 1091262597L)
+  }
+}

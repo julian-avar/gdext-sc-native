@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SphereShape3D extends Shape3D
-
-    def setRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SphereShape3D.Binds.setRadius, ptr, _args, null)
-
-    def getRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SphereShape3D.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def radius: Ptr[Byte] = getRadius()
-    def radius_=(v: Ptr[Byte]): Unit = setRadius(v)
+class SphereShape3D extends Shape3D {
+    def radius: Float = getRadius()
+    def radius_=(v: Float): Unit = setRadius(v)
+}
 
 object SphereShape3D:
-    object Binds:
-        var setRadius: Ptr[Byte] = null
-        var getRadius: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setRadius = GdxApi.getMethodBind(c"SphereShape3D", c"set_radius", 373806689L)
-            Binds.getRadius = GdxApi.getMethodBind(c"SphereShape3D", c"get_radius", 1740695150L)
-
-    def apply(): SphereShape3D =
-        val obj = new SphereShape3D()
-        obj.ptr = GdxApi.constructObject(c"SphereShape3D")
-        obj
+def apply(): SphereShape3D = {
+  val obj = new SphereShape3D()
+  obj.ptr = GdxApi.constructObject(c"SphereShape3D")
+  obj
+}

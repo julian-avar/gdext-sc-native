@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VSeparator extends Separator
-
-
-
+class VSeparator extends Separator {}
 
 object VSeparator:
-    def apply(): VSeparator =
-        val obj = new VSeparator()
-        obj.ptr = GdxApi.constructObject(c"VSeparator")
-        obj
+def apply(): VSeparator = {
+  val obj = new VSeparator()
+  obj.ptr = GdxApi.constructObject(c"VSeparator")
+  obj
+}

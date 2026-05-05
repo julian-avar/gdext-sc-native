@@ -5,189 +5,136 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WebSocketPeer extends PacketPeer
-
-    def connectToUrl(url: CString): Int =
+class WebSocketPeer extends PacketPeer {
+    def connectToUrl(url: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = url.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = url
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.connectToUrl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def acceptStream(stream: StreamPeer): Int =
+    def acceptStream(stream: StreamPeer): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = stream.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.acceptStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def send(message: PackedByteArray): Int =
+    def send(message: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = message.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.send, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def sendText(message: CString): Int =
+    def sendText(message: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = message
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.sendText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def wasStringPacket(): Boolean =
+    def wasStringPacket(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(WebSocketPeer.Binds.wasStringPacket, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def poll(): Unit =
+    def poll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(WebSocketPeer.Binds.poll, ptr, _args, null)
+}
 
-    def close(): Unit =
+    def close(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(WebSocketPeer.Binds.close, ptr, _args, null)
+}
 
-    def getConnectedHost(): CString =
+    def getConnectedHost(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getConnectedHost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getConnectedPort(): Long =
+    def getConnectedPort(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getConnectedPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSelectedProtocol(): CString =
+    def getSelectedProtocol(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getSelectedProtocol, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getRequestedUrl(): CString =
+    def getRequestedUrl(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getRequestedUrl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setNoDelay(enabled: Boolean): Unit =
+    def setNoDelay(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(WebSocketPeer.Binds.setNoDelay, ptr, _args, null)
+}
 
-    def getCurrentOutboundBufferedAmount(): Int =
+    def getCurrentOutboundBufferedAmount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getCurrentOutboundBufferedAmount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getReadyState(): Int =
+    def getReadyState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getReadyState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCloseCode(): Int =
+    def getCloseCode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getCloseCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCloseReason(): CString =
+    def getCloseReason(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebSocketPeer.Binds.getCloseReason, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSupportedProtocols(): PackedStringArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebSocketPeer.Binds.getSupportedProtocols, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedStringArray(!_ret)
-
-    def setSupportedProtocols(protocols: PackedStringArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = protocols.ptr
-        GdxApi.ptrcall(WebSocketPeer.Binds.setSupportedProtocols, ptr, _args, null)
-
-    def getHandshakeHeaders(): PackedStringArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebSocketPeer.Binds.getHandshakeHeaders, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedStringArray(!_ret)
-
-    def setHandshakeHeaders(protocols: PackedStringArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = protocols.ptr
-        GdxApi.ptrcall(WebSocketPeer.Binds.setHandshakeHeaders, ptr, _args, null)
-
-    def getInboundBufferSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(WebSocketPeer.Binds.getInboundBufferSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInboundBufferSize(bufferSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bufferSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(WebSocketPeer.Binds.setInboundBufferSize, ptr, _args, null)
-
-    def getOutboundBufferSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(WebSocketPeer.Binds.getOutboundBufferSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setOutboundBufferSize(bufferSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bufferSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(WebSocketPeer.Binds.setOutboundBufferSize, ptr, _args, null)
-
-    def setMaxQueuedPackets(bufferSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bufferSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(WebSocketPeer.Binds.setMaxQueuedPackets, ptr, _args, null)
-
-    def getMaxQueuedPackets(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(WebSocketPeer.Binds.getMaxQueuedPackets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHeartbeatInterval(interval: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = interval
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(WebSocketPeer.Binds.setHeartbeatInterval, ptr, _args, null)
-
-    def getHeartbeatInterval(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(WebSocketPeer.Binds.getHeartbeatInterval, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def supportedProtocols: Ptr[Byte] = getSupportedProtocols()
-    def supportedProtocols_=(v: Ptr[Byte]): Unit = setSupportedProtocols(v)
-    def handshakeHeaders: Ptr[Byte] = getHandshakeHeaders()
-    def handshakeHeaders_=(v: Ptr[Byte]): Unit = setHandshakeHeaders(v)
-    def inboundBufferSize: Ptr[Byte] = getInboundBufferSize()
-    def inboundBufferSize_=(v: Ptr[Byte]): Unit = setInboundBufferSize(v)
-    def outboundBufferSize: Ptr[Byte] = getOutboundBufferSize()
-    def outboundBufferSize_=(v: Ptr[Byte]): Unit = setOutboundBufferSize(v)
-    def maxQueuedPackets: Ptr[Byte] = getMaxQueuedPackets()
-    def maxQueuedPackets_=(v: Ptr[Byte]): Unit = setMaxQueuedPackets(v)
-    def heartbeatInterval: Ptr[Byte] = getHeartbeatInterval()
-    def heartbeatInterval_=(v: Ptr[Byte]): Unit = setHeartbeatInterval(v)
+    def supportedProtocols: PackedStringArray = getSupportedProtocols()
+    def supportedProtocols_=(v: PackedStringArray): Unit = setSupportedProtocols(v)
+    def handshakeHeaders: PackedStringArray = getHandshakeHeaders()
+    def handshakeHeaders_=(v: PackedStringArray): Unit = setHandshakeHeaders(v)
+    def inboundBufferSize: Int = getInboundBufferSize()
+    def inboundBufferSize_=(v: Int): Unit = setInboundBufferSize(v)
+    def outboundBufferSize: Int = getOutboundBufferSize()
+    def outboundBufferSize_=(v: Int): Unit = setOutboundBufferSize(v)
+    def maxQueuedPackets: Int = getMaxQueuedPackets()
+    def maxQueuedPackets_=(v: Int): Unit = setMaxQueuedPackets(v)
+    def heartbeatInterval: Double = getHeartbeatInterval()
+    def heartbeatInterval_=(v: Double): Unit = setHeartbeatInterval(v)
+}
 
 object WebSocketPeer:
-    object Binds:
-        var connectToUrl: Ptr[Byte] = null
+object Binds {
+          var connectToUrl: Ptr[Byte] = null
         var acceptStream: Ptr[Byte] = null
         var send: Ptr[Byte] = null
         var sendText: Ptr[Byte] = null
@@ -203,21 +150,9 @@ object WebSocketPeer:
         var getReadyState: Ptr[Byte] = null
         var getCloseCode: Ptr[Byte] = null
         var getCloseReason: Ptr[Byte] = null
-        var getSupportedProtocols: Ptr[Byte] = null
-        var setSupportedProtocols: Ptr[Byte] = null
-        var getHandshakeHeaders: Ptr[Byte] = null
-        var setHandshakeHeaders: Ptr[Byte] = null
-        var getInboundBufferSize: Ptr[Byte] = null
-        var setInboundBufferSize: Ptr[Byte] = null
-        var getOutboundBufferSize: Ptr[Byte] = null
-        var setOutboundBufferSize: Ptr[Byte] = null
-        var setMaxQueuedPackets: Ptr[Byte] = null
-        var getMaxQueuedPackets: Ptr[Byte] = null
-        var setHeartbeatInterval: Ptr[Byte] = null
-        var getHeartbeatInterval: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.connectToUrl = GdxApi.getMethodBind(c"WebSocketPeer", c"connect_to_url", 1966198364L)
+  def loadBinds(): Unit = {
+                Binds.connectToUrl = GdxApi.getMethodBind(c"WebSocketPeer", c"connect_to_url", 1966198364L)
             Binds.acceptStream = GdxApi.getMethodBind(c"WebSocketPeer", c"accept_stream", 255125695L)
             Binds.send = GdxApi.getMethodBind(c"WebSocketPeer", c"send", 2780360567L)
             Binds.sendText = GdxApi.getMethodBind(c"WebSocketPeer", c"send_text", 166001499L)
@@ -233,20 +168,11 @@ object WebSocketPeer:
             Binds.getReadyState = GdxApi.getMethodBind(c"WebSocketPeer", c"get_ready_state", 346482985L)
             Binds.getCloseCode = GdxApi.getMethodBind(c"WebSocketPeer", c"get_close_code", 3905245786L)
             Binds.getCloseReason = GdxApi.getMethodBind(c"WebSocketPeer", c"get_close_reason", 201670096L)
-            Binds.getSupportedProtocols = GdxApi.getMethodBind(c"WebSocketPeer", c"get_supported_protocols", 1139954409L)
-            Binds.setSupportedProtocols = GdxApi.getMethodBind(c"WebSocketPeer", c"set_supported_protocols", 4015028928L)
-            Binds.getHandshakeHeaders = GdxApi.getMethodBind(c"WebSocketPeer", c"get_handshake_headers", 1139954409L)
-            Binds.setHandshakeHeaders = GdxApi.getMethodBind(c"WebSocketPeer", c"set_handshake_headers", 4015028928L)
-            Binds.getInboundBufferSize = GdxApi.getMethodBind(c"WebSocketPeer", c"get_inbound_buffer_size", 3905245786L)
-            Binds.setInboundBufferSize = GdxApi.getMethodBind(c"WebSocketPeer", c"set_inbound_buffer_size", 1286410249L)
-            Binds.getOutboundBufferSize = GdxApi.getMethodBind(c"WebSocketPeer", c"get_outbound_buffer_size", 3905245786L)
-            Binds.setOutboundBufferSize = GdxApi.getMethodBind(c"WebSocketPeer", c"set_outbound_buffer_size", 1286410249L)
-            Binds.setMaxQueuedPackets = GdxApi.getMethodBind(c"WebSocketPeer", c"set_max_queued_packets", 1286410249L)
-            Binds.getMaxQueuedPackets = GdxApi.getMethodBind(c"WebSocketPeer", c"get_max_queued_packets", 3905245786L)
-            Binds.setHeartbeatInterval = GdxApi.getMethodBind(c"WebSocketPeer", c"set_heartbeat_interval", 373806689L)
-            Binds.getHeartbeatInterval = GdxApi.getMethodBind(c"WebSocketPeer", c"get_heartbeat_interval", 1740695150L)
+  }
+}
 
-    def apply(): WebSocketPeer =
-        val obj = new WebSocketPeer()
-        obj.ptr = GdxApi.constructObject(c"WebSocketPeer")
-        obj
+def apply(): WebSocketPeer = {
+  val obj = new WebSocketPeer()
+  obj.ptr = GdxApi.constructObject(c"WebSocketPeer")
+  obj
+}

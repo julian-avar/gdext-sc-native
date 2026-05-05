@@ -5,835 +5,575 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Window extends Viewport
+class Window extends Viewport {
     def _getContentsMinimumSize(): Vector2 = null
-    def setTitle(title: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = title.ptr
-        GdxApi.ptrcall(Window.Binds.setTitle, ptr, _args, null)
 
-    def getTitle(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setInitialPosition(initialPosition: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = initialPosition.ptr
-        GdxApi.ptrcall(Window.Binds.setInitialPosition, ptr, _args, null)
-
-    def getInitialPosition(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Window.Binds.getInitialPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCurrentScreen(index: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setCurrentScreen, ptr, _args, null)
-
-    def getCurrentScreen(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Window.Binds.getCurrentScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPosition(position: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(Window.Binds.setPosition, ptr, _args, null)
-
-    def getPosition(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def moveToCenter(): Unit =
+    def moveToCenter(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.moveToCenter, ptr, _args, null)
+}
 
-    def setSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(Window.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def resetSize(): Unit =
+    def resetSize(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.resetSize, ptr, _args, null)
+}
 
-    def getPositionWithDecorations(): Vector2i =
+    def getPositionWithDecorations(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getPositionWithDecorations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getSizeWithDecorations(): Vector2i =
+    def getSizeWithDecorations(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getSizeWithDecorations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def setMaxSize(maxSize: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = maxSize.ptr
-        GdxApi.ptrcall(Window.Binds.setMaxSize, ptr, _args, null)
-
-    def getMaxSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getMaxSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setMinSize(minSize: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = minSize.ptr
-        GdxApi.ptrcall(Window.Binds.setMinSize, ptr, _args, null)
-
-    def getMinSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getMinSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Window.Binds.setMode, ptr, _args, null)
-
-    def getMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Window.Binds.getMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFlag(flag: Int, enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = flag.ptr
-        val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setFlag, ptr, _args, null)
-
-    def getFlag(flag: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flag.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.getFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isMaximizeAllowed(): Boolean =
+    def isMaximizeAllowed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.isMaximizeAllowed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def requestAttention(): Unit =
+    def requestAttention(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.requestAttention, ptr, _args, null)
+}
 
-    def moveToForeground(): Unit =
+    def moveToForeground(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.moveToForeground, ptr, _args, null)
+}
 
-    def setVisible(visible: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if visible then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setVisible, ptr, _args, null)
-
-    def isVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.isVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def hide(): Unit =
+    def hide(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.hide, ptr, _args, null)
+}
 
-    def show(): Unit =
+    def show(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.show, ptr, _args, null)
+}
 
-    def setTransient(transient: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if transient then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setTransient, ptr, _args, null)
-
-    def isTransient(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.isTransient, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTransientToFocused(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setTransientToFocused, ptr, _args, null)
-
-    def isTransientToFocused(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.isTransientToFocused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setExclusive(exclusive: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if exclusive then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setExclusive, ptr, _args, null)
-
-    def isExclusive(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.isExclusive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUnparentWhenInvisible(unparent: Boolean): Unit =
+    def setUnparentWhenInvisible(unparent: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if unparent then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.setUnparentWhenInvisible, ptr, _args, null)
+}
 
-    def canDraw(): Boolean =
+    def canDraw(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.canDraw, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasFocus(): Boolean =
+    def hasFocus(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasFocus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def grabFocus(): Unit =
+    def grabFocus(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.grabFocus, ptr, _args, null)
+}
 
-    def startDrag(): Unit =
+    def startDrag(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.startDrag, ptr, _args, null)
+}
 
-    def startResize(edge: Int): Unit =
+    def startResize(edge: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = edge.ptr
+        val _a0 = stackalloc[Long](); !_a0 = edge.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.startResize, ptr, _args, null)
+}
 
-    def setImeActive(active: Boolean): Unit =
+    def setImeActive(active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.setImeActive, ptr, _args, null)
+}
 
-    def setImePosition(position: Vector2i): Unit =
+    def setImePosition(position: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(Window.Binds.setImePosition, ptr, _args, null)
+}
 
-    def isEmbedded(): Boolean =
+    def isEmbedded(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.isEmbedded, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getContentsMinimumSize(): Vector2 =
+    def getContentsMinimumSize(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getContentsMinimumSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setForceNative(forceNative: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if forceNative then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setForceNative, ptr, _args, null)
-
-    def getForceNative(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.getForceNative, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setContentScaleSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(Window.Binds.setContentScaleSize, ptr, _args, null)
-
-    def getContentScaleSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getContentScaleSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setContentScaleMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Window.Binds.setContentScaleMode, ptr, _args, null)
-
-    def getContentScaleMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Window.Binds.getContentScaleMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setContentScaleAspect(aspect: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = aspect.ptr
-        GdxApi.ptrcall(Window.Binds.setContentScaleAspect, ptr, _args, null)
-
-    def getContentScaleAspect(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Window.Binds.getContentScaleAspect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setContentScaleStretch(stretch: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stretch.ptr
-        GdxApi.ptrcall(Window.Binds.setContentScaleStretch, ptr, _args, null)
-
-    def getContentScaleStretch(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Window.Binds.getContentScaleStretch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setKeepTitleVisible(titleVisible: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if titleVisible then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setKeepTitleVisible, ptr, _args, null)
-
-    def getKeepTitleVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.getKeepTitleVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setContentScaleFactor(factor: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = factor.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setContentScaleFactor, ptr, _args, null)
-
-    def getContentScaleFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Window.Binds.getContentScaleFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMousePassthroughPolygon(polygon: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = polygon.ptr
-        GdxApi.ptrcall(Window.Binds.setMousePassthroughPolygon, ptr, _args, null)
-
-    def getMousePassthroughPolygon(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getMousePassthroughPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-
-    def setWrapControls(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setWrapControls, ptr, _args, null)
-
-    def isWrappingControls(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.isWrappingControls, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def childControlsChanged(): Unit =
+    def childControlsChanged(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.childControlsChanged, ptr, _args, null)
+}
 
-    def setTheme(theme: Theme): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = theme.ptr
-        GdxApi.ptrcall(Window.Binds.setTheme, ptr, _args, null)
-
-    def getTheme(): Theme =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getTheme, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Theme(!_ret)
-
-    def setThemeTypeVariation(themeType: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
-        GdxApi.ptrcall(Window.Binds.setThemeTypeVariation, ptr, _args, null)
-
-    def getThemeTypeVariation(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getThemeTypeVariation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def beginBulkThemeOverride(): Unit =
+    def beginBulkThemeOverride(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.beginBulkThemeOverride, ptr, _args, null)
+}
 
-    def endBulkThemeOverride(): Unit =
+    def endBulkThemeOverride(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.endBulkThemeOverride, ptr, _args, null)
+}
 
-    def addThemeIconOverride(name: CString, texture: Texture2D): Unit =
+    def addThemeIconOverride(name: CString, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = texture.ptr
         GdxApi.ptrcall(Window.Binds.addThemeIconOverride, ptr, _args, null)
+}
 
-    def addThemeStyleboxOverride(name: CString, stylebox: StyleBox): Unit =
+    def addThemeStyleboxOverride(name: CString, stylebox: StyleBox): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = stylebox.ptr
         GdxApi.ptrcall(Window.Binds.addThemeStyleboxOverride, ptr, _args, null)
+}
 
-    def addThemeFontOverride(name: CString, font: Font): Unit =
+    def addThemeFontOverride(name: CString, font: Font): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = font.ptr
         GdxApi.ptrcall(Window.Binds.addThemeFontOverride, ptr, _args, null)
+}
 
-    def addThemeFontSizeOverride(name: CString, fontSize: Int): Unit =
+    def addThemeFontSizeOverride(name: CString, fontSize: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fontSize.toLong
+        _args(0) = name
+        val _a1 = stackalloc[Long](); !_a1 = fontSize.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.addThemeFontSizeOverride, ptr, _args, null)
+}
 
-    def addThemeColorOverride(name: CString, color: Color): Unit =
+    def addThemeColorOverride(name: CString, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = color.ptr
         GdxApi.ptrcall(Window.Binds.addThemeColorOverride, ptr, _args, null)
+}
 
-    def addThemeConstantOverride(name: CString, constant: Int): Unit =
+    def addThemeConstantOverride(name: CString, constant: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = constant.toLong
+        _args(0) = name
+        val _a1 = stackalloc[Long](); !_a1 = constant.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.addThemeConstantOverride, ptr, _args, null)
+}
 
-    def removeThemeIconOverride(name: CString): Unit =
+    def removeThemeIconOverride(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Window.Binds.removeThemeIconOverride, ptr, _args, null)
+}
 
-    def removeThemeStyleboxOverride(name: CString): Unit =
+    def removeThemeStyleboxOverride(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Window.Binds.removeThemeStyleboxOverride, ptr, _args, null)
+}
 
-    def removeThemeFontOverride(name: CString): Unit =
+    def removeThemeFontOverride(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Window.Binds.removeThemeFontOverride, ptr, _args, null)
+}
 
-    def removeThemeFontSizeOverride(name: CString): Unit =
+    def removeThemeFontSizeOverride(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Window.Binds.removeThemeFontSizeOverride, ptr, _args, null)
+}
 
-    def removeThemeColorOverride(name: CString): Unit =
+    def removeThemeColorOverride(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Window.Binds.removeThemeColorOverride, ptr, _args, null)
+}
 
-    def removeThemeConstantOverride(name: CString): Unit =
+    def removeThemeConstantOverride(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Window.Binds.removeThemeConstantOverride, ptr, _args, null)
+}
 
-    def getThemeIcon(name: CString): Texture2D =
+    def getThemeIcon(name: CString): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getThemeIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def getThemeStylebox(name: CString): StyleBox =
+    def getThemeStylebox(name: CString): StyleBox = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getThemeStylebox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new StyleBox(!_ret)
+}
 
-    def getThemeFont(name: CString): Font =
+    def getThemeFont(name: CString): Font = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getThemeFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Font(!_ret)
+}
 
-    def getThemeFontSize(name: CString): Int =
+    def getThemeFontSize(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Window.Binds.getThemeFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getThemeColor(name: CString): Color =
+    def getThemeColor(name: CString): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getThemeColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getThemeConstant(name: CString): Int =
+    def getThemeConstant(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Window.Binds.getThemeConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasThemeIconOverride(name: CString): Boolean =
+    def hasThemeIconOverride(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeIconOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeStyleboxOverride(name: CString): Boolean =
+    def hasThemeStyleboxOverride(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeStyleboxOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeFontOverride(name: CString): Boolean =
+    def hasThemeFontOverride(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeFontOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeFontSizeOverride(name: CString): Boolean =
+    def hasThemeFontSizeOverride(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeFontSizeOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeColorOverride(name: CString): Boolean =
+    def hasThemeColorOverride(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeColorOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeConstantOverride(name: CString): Boolean =
+    def hasThemeConstantOverride(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeConstantOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeIcon(name: CString): Boolean =
+    def hasThemeIcon(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeStylebox(name: CString): Boolean =
+    def hasThemeStylebox(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeStylebox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeFont(name: CString): Boolean =
+    def hasThemeFont(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeFontSize(name: CString): Boolean =
+    def hasThemeFontSize(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeColor(name: CString): Boolean =
+    def hasThemeColor(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasThemeConstant(name: CString): Boolean =
+    def hasThemeConstant(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.hasThemeConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getThemeDefaultBaseScale(): Float =
+    def getThemeDefaultBaseScale(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Window.Binds.getThemeDefaultBaseScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getThemeDefaultFont(): Font =
+    def getThemeDefaultFont(): Font = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Window.Binds.getThemeDefaultFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Font(!_ret)
+}
 
-    def getThemeDefaultFontSize(): Int =
+    def getThemeDefaultFontSize(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Window.Binds.getThemeDefaultFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getWindowId(): Int =
+    def getWindowId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Window.Binds.getWindowId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setAccessibilityName(name: CString): Unit =
+    def setLayoutDirection(direction: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(Window.Binds.setAccessibilityName, ptr, _args, null)
-
-    def getAccessibilityName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getAccessibilityName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setAccessibilityDescription(description: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = description.ptr
-        GdxApi.ptrcall(Window.Binds.setAccessibilityDescription, ptr, _args, null)
-
-    def getAccessibilityDescription(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Window.Binds.getAccessibilityDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setLayoutDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
+        val _a0 = stackalloc[Long](); !_a0 = direction.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.setLayoutDirection, ptr, _args, null)
+}
 
-    def getLayoutDirection(): Int =
+    def getLayoutDirection(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Window.Binds.getLayoutDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isLayoutRtl(): Boolean =
+    def isLayoutRtl(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.isLayoutRtl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAutoTranslate(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Window.Binds.setAutoTranslate, ptr, _args, null)
-
-    def isAutoTranslating(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Window.Binds.isAutoTranslating, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseFontOversampling(enable: Boolean): Unit =
+    def setUseFontOversampling(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Window.Binds.setUseFontOversampling, ptr, _args, null)
+}
 
-    def isUsingFontOversampling(): Boolean =
+    def isUsingFontOversampling(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Window.Binds.isUsingFontOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def popup(): Unit =
+    def popup(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.popup, ptr, _args, null)
+}
 
-    def popupOnParent(parentRect: Rect2i): Unit =
+    def popupOnParent(parentRect: Rect2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = parentRect.ptr
         GdxApi.ptrcall(Window.Binds.popupOnParent, ptr, _args, null)
+}
 
-    def popupCentered(): Unit =
+    def popupCentered(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.popupCentered, ptr, _args, null)
+}
 
-    def popupCenteredRatio(): Unit =
+    def popupCenteredRatio(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.popupCenteredRatio, ptr, _args, null)
+}
 
-    def popupCenteredClamped(): Unit =
+    def popupCenteredClamped(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Window.Binds.popupCenteredClamped, ptr, _args, null)
+}
 
-    def popupExclusive(fromNode: Node): Unit =
+    def popupExclusive(fromNode: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fromNode.ptr
         GdxApi.ptrcall(Window.Binds.popupExclusive, ptr, _args, null)
+}
 
-    def popupExclusiveOnParent(fromNode: Node, parentRect: Rect2i): Unit =
+    def popupExclusiveOnParent(fromNode: Node, parentRect: Rect2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fromNode.ptr
         _args(1) = parentRect.ptr
         GdxApi.ptrcall(Window.Binds.popupExclusiveOnParent, ptr, _args, null)
+}
 
-    def popupExclusiveCentered(fromNode: Node): Unit =
+    def popupExclusiveCentered(fromNode: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fromNode.ptr
         GdxApi.ptrcall(Window.Binds.popupExclusiveCentered, ptr, _args, null)
+}
 
-    def popupExclusiveCenteredRatio(fromNode: Node): Unit =
+    def popupExclusiveCenteredRatio(fromNode: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fromNode.ptr
         GdxApi.ptrcall(Window.Binds.popupExclusiveCenteredRatio, ptr, _args, null)
+}
 
-    def popupExclusiveCenteredClamped(fromNode: Node): Unit =
+    def popupExclusiveCenteredClamped(fromNode: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fromNode.ptr
         GdxApi.ptrcall(Window.Binds.popupExclusiveCenteredClamped, ptr, _args, null)
-    def mode: Ptr[Byte] = getMode()
-    def mode_=(v: Ptr[Byte]): Unit = setMode(v)
-    def title: Ptr[Byte] = getTitle()
-    def title_=(v: Ptr[Byte]): Unit = setTitle(v)
-    def initialPosition: Ptr[Byte] = getInitialPosition()
-    def initialPosition_=(v: Ptr[Byte]): Unit = setInitialPosition(v)
-    def position: Ptr[Byte] = getPosition()
-    def position_=(v: Ptr[Byte]): Unit = setPosition(v)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def currentScreen: Ptr[Byte] = getCurrentScreen()
-    def currentScreen_=(v: Ptr[Byte]): Unit = setCurrentScreen(v)
-    def mousePassthroughPolygon: Ptr[Byte] = getMousePassthroughPolygon()
-    def mousePassthroughPolygon_=(v: Ptr[Byte]): Unit = setMousePassthroughPolygon(v)
-    def visible: Ptr[Byte] = isVisible()
-    def visible_=(v: Ptr[Byte]): Unit = setVisible(v)
-    def wrapControls: Ptr[Byte] = isWrappingControls()
-    def wrapControls_=(v: Ptr[Byte]): Unit = setWrapControls(v)
-    def transient: Ptr[Byte] = isTransient()
-    def transient_=(v: Ptr[Byte]): Unit = setTransient(v)
-    def transientToFocused: Ptr[Byte] = isTransientToFocused()
-    def transientToFocused_=(v: Ptr[Byte]): Unit = setTransientToFocused(v)
-    def exclusive: Ptr[Byte] = isExclusive()
-    def exclusive_=(v: Ptr[Byte]): Unit = setExclusive(v)
-    def unresizable: Ptr[Byte] = getFlag()
-    def unresizable_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def borderless: Ptr[Byte] = getFlag()
-    def borderless_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def alwaysOnTop: Ptr[Byte] = getFlag()
-    def alwaysOnTop_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def transparent: Ptr[Byte] = getFlag()
-    def transparent_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def unfocusable: Ptr[Byte] = getFlag()
-    def unfocusable_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def popupWindow: Ptr[Byte] = getFlag()
-    def popupWindow_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def extendToTitle: Ptr[Byte] = getFlag()
-    def extendToTitle_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def mousePassthrough: Ptr[Byte] = getFlag()
-    def mousePassthrough_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def sharpCorners: Ptr[Byte] = getFlag()
-    def sharpCorners_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def excludeFromCapture: Ptr[Byte] = getFlag()
-    def excludeFromCapture_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def popupWmHint: Ptr[Byte] = getFlag()
-    def popupWmHint_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def minimizeDisabled: Ptr[Byte] = getFlag()
-    def minimizeDisabled_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def maximizeDisabled: Ptr[Byte] = getFlag()
-    def maximizeDisabled_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def forceNative: Ptr[Byte] = getForceNative()
-    def forceNative_=(v: Ptr[Byte]): Unit = setForceNative(v)
-    def minSize: Ptr[Byte] = getMinSize()
-    def minSize_=(v: Ptr[Byte]): Unit = setMinSize(v)
-    def maxSize: Ptr[Byte] = getMaxSize()
-    def maxSize_=(v: Ptr[Byte]): Unit = setMaxSize(v)
-    def keepTitleVisible: Ptr[Byte] = getKeepTitleVisible()
-    def keepTitleVisible_=(v: Ptr[Byte]): Unit = setKeepTitleVisible(v)
-    def contentScaleSize: Ptr[Byte] = getContentScaleSize()
-    def contentScaleSize_=(v: Ptr[Byte]): Unit = setContentScaleSize(v)
-    def contentScaleMode: Ptr[Byte] = getContentScaleMode()
-    def contentScaleMode_=(v: Ptr[Byte]): Unit = setContentScaleMode(v)
-    def contentScaleAspect: Ptr[Byte] = getContentScaleAspect()
-    def contentScaleAspect_=(v: Ptr[Byte]): Unit = setContentScaleAspect(v)
-    def contentScaleStretch: Ptr[Byte] = getContentScaleStretch()
-    def contentScaleStretch_=(v: Ptr[Byte]): Unit = setContentScaleStretch(v)
-    def contentScaleFactor: Ptr[Byte] = getContentScaleFactor()
-    def contentScaleFactor_=(v: Ptr[Byte]): Unit = setContentScaleFactor(v)
-    def autoTranslate: Ptr[Byte] = isAutoTranslating()
-    def autoTranslate_=(v: Ptr[Byte]): Unit = setAutoTranslate(v)
-    def accessibilityName: Ptr[Byte] = getAccessibilityName()
-    def accessibilityName_=(v: Ptr[Byte]): Unit = setAccessibilityName(v)
-    def accessibilityDescription: Ptr[Byte] = getAccessibilityDescription()
-    def accessibilityDescription_=(v: Ptr[Byte]): Unit = setAccessibilityDescription(v)
-    def theme: Ptr[Byte] = getTheme()
-    def theme_=(v: Ptr[Byte]): Unit = setTheme(v)
-    def themeTypeVariation: Ptr[Byte] = getThemeTypeVariation()
-    def themeTypeVariation_=(v: Ptr[Byte]): Unit = setThemeTypeVariation(v)
+}
+
+    def mode: Int = getMode()
+    def mode_=(v: Int): Unit = setMode(v)
+    def title: CString = getTitle()
+    def title_=(v: CString): Unit = setTitle(v)
+    def initialPosition: Int = getInitialPosition()
+    def initialPosition_=(v: Int): Unit = setInitialPosition(v)
+    def position: Vector2i = getPosition()
+    def position_=(v: Vector2i): Unit = setPosition(v)
+    def size: Vector2i = getSize()
+    def size_=(v: Vector2i): Unit = setSize(v)
+    def currentScreen: Int = getCurrentScreen()
+    def currentScreen_=(v: Int): Unit = setCurrentScreen(v)
+    def mousePassthroughPolygon: PackedVector2Array = getMousePassthroughPolygon()
+    def mousePassthroughPolygon_=(v: PackedVector2Array): Unit = setMousePassthroughPolygon(v)
+    def visible: Boolean = isVisible()
+    def visible_=(v: Boolean): Unit = setVisible(v)
+    def wrapControls: Boolean = isWrappingControls()
+    def wrapControls_=(v: Boolean): Unit = setWrapControls(v)
+    def transient: Boolean = isTransient()
+    def transient_=(v: Boolean): Unit = setTransient(v)
+    def transientToFocused: Boolean = isTransientToFocused()
+    def transientToFocused_=(v: Boolean): Unit = setTransientToFocused(v)
+    def exclusive: Boolean = isExclusive()
+    def exclusive_=(v: Boolean): Unit = setExclusive(v)
+    def unresizable: Boolean = getFlag()
+    def unresizable_=(v: Int): Unit = setFlag(v)
+    def borderless: Boolean = getFlag()
+    def borderless_=(v: Int): Unit = setFlag(v)
+    def alwaysOnTop: Boolean = getFlag()
+    def alwaysOnTop_=(v: Int): Unit = setFlag(v)
+    def transparent: Boolean = getFlag()
+    def transparent_=(v: Int): Unit = setFlag(v)
+    def unfocusable: Boolean = getFlag()
+    def unfocusable_=(v: Int): Unit = setFlag(v)
+    def popupWindow: Boolean = getFlag()
+    def popupWindow_=(v: Int): Unit = setFlag(v)
+    def extendToTitle: Boolean = getFlag()
+    def extendToTitle_=(v: Int): Unit = setFlag(v)
+    def mousePassthrough: Boolean = getFlag()
+    def mousePassthrough_=(v: Int): Unit = setFlag(v)
+    def sharpCorners: Boolean = getFlag()
+    def sharpCorners_=(v: Int): Unit = setFlag(v)
+    def excludeFromCapture: Boolean = getFlag()
+    def excludeFromCapture_=(v: Int): Unit = setFlag(v)
+    def popupWmHint: Boolean = getFlag()
+    def popupWmHint_=(v: Int): Unit = setFlag(v)
+    def minimizeDisabled: Boolean = getFlag()
+    def minimizeDisabled_=(v: Int): Unit = setFlag(v)
+    def maximizeDisabled: Boolean = getFlag()
+    def maximizeDisabled_=(v: Int): Unit = setFlag(v)
+    def forceNative: Boolean = getForceNative()
+    def forceNative_=(v: Boolean): Unit = setForceNative(v)
+    def minSize: Vector2i = getMinSize()
+    def minSize_=(v: Vector2i): Unit = setMinSize(v)
+    def maxSize: Vector2i = getMaxSize()
+    def maxSize_=(v: Vector2i): Unit = setMaxSize(v)
+    def keepTitleVisible: Boolean = getKeepTitleVisible()
+    def keepTitleVisible_=(v: Boolean): Unit = setKeepTitleVisible(v)
+    def contentScaleSize: Vector2i = getContentScaleSize()
+    def contentScaleSize_=(v: Vector2i): Unit = setContentScaleSize(v)
+    def contentScaleMode: Int = getContentScaleMode()
+    def contentScaleMode_=(v: Int): Unit = setContentScaleMode(v)
+    def contentScaleAspect: Int = getContentScaleAspect()
+    def contentScaleAspect_=(v: Int): Unit = setContentScaleAspect(v)
+    def contentScaleStretch: Int = getContentScaleStretch()
+    def contentScaleStretch_=(v: Int): Unit = setContentScaleStretch(v)
+    def contentScaleFactor: Float = getContentScaleFactor()
+    def contentScaleFactor_=(v: Float): Unit = setContentScaleFactor(v)
+    def autoTranslate: Boolean = isAutoTranslating()
+    def autoTranslate_=(v: Boolean): Unit = setAutoTranslate(v)
+    def accessibilityName: CString = getAccessibilityName()
+    def accessibilityName_=(v: CString): Unit = setAccessibilityName(v)
+    def accessibilityDescription: CString = getAccessibilityDescription()
+    def accessibilityDescription_=(v: CString): Unit = setAccessibilityDescription(v)
+    def theme: Theme = getTheme()
+    def theme_=(v: Theme): Unit = setTheme(v)
+    def themeTypeVariation: CString = getThemeTypeVariation()
+    def themeTypeVariation_=(v: CString): Unit = setThemeTypeVariation(v)
+}
 
 object Window:
-    object Binds:
-        var setTitle: Ptr[Byte] = null
-        var getTitle: Ptr[Byte] = null
-        var setInitialPosition: Ptr[Byte] = null
-        var getInitialPosition: Ptr[Byte] = null
-        var setCurrentScreen: Ptr[Byte] = null
-        var getCurrentScreen: Ptr[Byte] = null
-        var setPosition: Ptr[Byte] = null
-        var getPosition: Ptr[Byte] = null
-        var moveToCenter: Ptr[Byte] = null
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
+object Binds {
+          var moveToCenter: Ptr[Byte] = null
         var resetSize: Ptr[Byte] = null
         var getPositionWithDecorations: Ptr[Byte] = null
         var getSizeWithDecorations: Ptr[Byte] = null
-        var setMaxSize: Ptr[Byte] = null
-        var getMaxSize: Ptr[Byte] = null
-        var setMinSize: Ptr[Byte] = null
-        var getMinSize: Ptr[Byte] = null
-        var setMode: Ptr[Byte] = null
-        var getMode: Ptr[Byte] = null
-        var setFlag: Ptr[Byte] = null
-        var getFlag: Ptr[Byte] = null
         var isMaximizeAllowed: Ptr[Byte] = null
         var requestAttention: Ptr[Byte] = null
         var moveToForeground: Ptr[Byte] = null
-        var setVisible: Ptr[Byte] = null
-        var isVisible: Ptr[Byte] = null
         var hide: Ptr[Byte] = null
         var show: Ptr[Byte] = null
-        var setTransient: Ptr[Byte] = null
-        var isTransient: Ptr[Byte] = null
-        var setTransientToFocused: Ptr[Byte] = null
-        var isTransientToFocused: Ptr[Byte] = null
-        var setExclusive: Ptr[Byte] = null
-        var isExclusive: Ptr[Byte] = null
         var setUnparentWhenInvisible: Ptr[Byte] = null
         var canDraw: Ptr[Byte] = null
         var hasFocus: Ptr[Byte] = null
@@ -844,29 +584,7 @@ object Window:
         var setImePosition: Ptr[Byte] = null
         var isEmbedded: Ptr[Byte] = null
         var getContentsMinimumSize: Ptr[Byte] = null
-        var setForceNative: Ptr[Byte] = null
-        var getForceNative: Ptr[Byte] = null
-        var setContentScaleSize: Ptr[Byte] = null
-        var getContentScaleSize: Ptr[Byte] = null
-        var setContentScaleMode: Ptr[Byte] = null
-        var getContentScaleMode: Ptr[Byte] = null
-        var setContentScaleAspect: Ptr[Byte] = null
-        var getContentScaleAspect: Ptr[Byte] = null
-        var setContentScaleStretch: Ptr[Byte] = null
-        var getContentScaleStretch: Ptr[Byte] = null
-        var setKeepTitleVisible: Ptr[Byte] = null
-        var getKeepTitleVisible: Ptr[Byte] = null
-        var setContentScaleFactor: Ptr[Byte] = null
-        var getContentScaleFactor: Ptr[Byte] = null
-        var setMousePassthroughPolygon: Ptr[Byte] = null
-        var getMousePassthroughPolygon: Ptr[Byte] = null
-        var setWrapControls: Ptr[Byte] = null
-        var isWrappingControls: Ptr[Byte] = null
         var childControlsChanged: Ptr[Byte] = null
-        var setTheme: Ptr[Byte] = null
-        var getTheme: Ptr[Byte] = null
-        var setThemeTypeVariation: Ptr[Byte] = null
-        var getThemeTypeVariation: Ptr[Byte] = null
         var beginBulkThemeOverride: Ptr[Byte] = null
         var endBulkThemeOverride: Ptr[Byte] = null
         var addThemeIconOverride: Ptr[Byte] = null
@@ -903,15 +621,9 @@ object Window:
         var getThemeDefaultFont: Ptr[Byte] = null
         var getThemeDefaultFontSize: Ptr[Byte] = null
         var getWindowId: Ptr[Byte] = null
-        var setAccessibilityName: Ptr[Byte] = null
-        var getAccessibilityName: Ptr[Byte] = null
-        var setAccessibilityDescription: Ptr[Byte] = null
-        var getAccessibilityDescription: Ptr[Byte] = null
         var setLayoutDirection: Ptr[Byte] = null
         var getLayoutDirection: Ptr[Byte] = null
         var isLayoutRtl: Ptr[Byte] = null
-        var setAutoTranslate: Ptr[Byte] = null
-        var isAutoTranslating: Ptr[Byte] = null
         var setUseFontOversampling: Ptr[Byte] = null
         var isUsingFontOversampling: Ptr[Byte] = null
         var popup: Ptr[Byte] = null
@@ -925,42 +637,16 @@ object Window:
         var popupExclusiveCenteredRatio: Ptr[Byte] = null
         var popupExclusiveCenteredClamped: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTitle = GdxApi.getMethodBind(c"Window", c"set_title", 83702148L)
-            Binds.getTitle = GdxApi.getMethodBind(c"Window", c"get_title", 201670096L)
-            Binds.setInitialPosition = GdxApi.getMethodBind(c"Window", c"set_initial_position", 4084468099L)
-            Binds.getInitialPosition = GdxApi.getMethodBind(c"Window", c"get_initial_position", 4294066647L)
-            Binds.setCurrentScreen = GdxApi.getMethodBind(c"Window", c"set_current_screen", 1286410249L)
-            Binds.getCurrentScreen = GdxApi.getMethodBind(c"Window", c"get_current_screen", 3905245786L)
-            Binds.setPosition = GdxApi.getMethodBind(c"Window", c"set_position", 1130785943L)
-            Binds.getPosition = GdxApi.getMethodBind(c"Window", c"get_position", 3690982128L)
-            Binds.moveToCenter = GdxApi.getMethodBind(c"Window", c"move_to_center", 3218959716L)
-            Binds.setSize = GdxApi.getMethodBind(c"Window", c"set_size", 1130785943L)
-            Binds.getSize = GdxApi.getMethodBind(c"Window", c"get_size", 3690982128L)
+  def loadBinds(): Unit = {
+                Binds.moveToCenter = GdxApi.getMethodBind(c"Window", c"move_to_center", 3218959716L)
             Binds.resetSize = GdxApi.getMethodBind(c"Window", c"reset_size", 3218959716L)
             Binds.getPositionWithDecorations = GdxApi.getMethodBind(c"Window", c"get_position_with_decorations", 3690982128L)
             Binds.getSizeWithDecorations = GdxApi.getMethodBind(c"Window", c"get_size_with_decorations", 3690982128L)
-            Binds.setMaxSize = GdxApi.getMethodBind(c"Window", c"set_max_size", 1130785943L)
-            Binds.getMaxSize = GdxApi.getMethodBind(c"Window", c"get_max_size", 3690982128L)
-            Binds.setMinSize = GdxApi.getMethodBind(c"Window", c"set_min_size", 1130785943L)
-            Binds.getMinSize = GdxApi.getMethodBind(c"Window", c"get_min_size", 3690982128L)
-            Binds.setMode = GdxApi.getMethodBind(c"Window", c"set_mode", 3095236531L)
-            Binds.getMode = GdxApi.getMethodBind(c"Window", c"get_mode", 2566346114L)
-            Binds.setFlag = GdxApi.getMethodBind(c"Window", c"set_flag", 3426449779L)
-            Binds.getFlag = GdxApi.getMethodBind(c"Window", c"get_flag", 3062752289L)
             Binds.isMaximizeAllowed = GdxApi.getMethodBind(c"Window", c"is_maximize_allowed", 36873697L)
             Binds.requestAttention = GdxApi.getMethodBind(c"Window", c"request_attention", 3218959716L)
             Binds.moveToForeground = GdxApi.getMethodBind(c"Window", c"move_to_foreground", 3218959716L)
-            Binds.setVisible = GdxApi.getMethodBind(c"Window", c"set_visible", 2586408642L)
-            Binds.isVisible = GdxApi.getMethodBind(c"Window", c"is_visible", 36873697L)
             Binds.hide = GdxApi.getMethodBind(c"Window", c"hide", 3218959716L)
             Binds.show = GdxApi.getMethodBind(c"Window", c"show", 3218959716L)
-            Binds.setTransient = GdxApi.getMethodBind(c"Window", c"set_transient", 2586408642L)
-            Binds.isTransient = GdxApi.getMethodBind(c"Window", c"is_transient", 36873697L)
-            Binds.setTransientToFocused = GdxApi.getMethodBind(c"Window", c"set_transient_to_focused", 2586408642L)
-            Binds.isTransientToFocused = GdxApi.getMethodBind(c"Window", c"is_transient_to_focused", 36873697L)
-            Binds.setExclusive = GdxApi.getMethodBind(c"Window", c"set_exclusive", 2586408642L)
-            Binds.isExclusive = GdxApi.getMethodBind(c"Window", c"is_exclusive", 36873697L)
             Binds.setUnparentWhenInvisible = GdxApi.getMethodBind(c"Window", c"set_unparent_when_invisible", 2586408642L)
             Binds.canDraw = GdxApi.getMethodBind(c"Window", c"can_draw", 36873697L)
             Binds.hasFocus = GdxApi.getMethodBind(c"Window", c"has_focus", 36873697L)
@@ -971,29 +657,7 @@ object Window:
             Binds.setImePosition = GdxApi.getMethodBind(c"Window", c"set_ime_position", 1130785943L)
             Binds.isEmbedded = GdxApi.getMethodBind(c"Window", c"is_embedded", 36873697L)
             Binds.getContentsMinimumSize = GdxApi.getMethodBind(c"Window", c"get_contents_minimum_size", 3341600327L)
-            Binds.setForceNative = GdxApi.getMethodBind(c"Window", c"set_force_native", 2586408642L)
-            Binds.getForceNative = GdxApi.getMethodBind(c"Window", c"get_force_native", 36873697L)
-            Binds.setContentScaleSize = GdxApi.getMethodBind(c"Window", c"set_content_scale_size", 1130785943L)
-            Binds.getContentScaleSize = GdxApi.getMethodBind(c"Window", c"get_content_scale_size", 3690982128L)
-            Binds.setContentScaleMode = GdxApi.getMethodBind(c"Window", c"set_content_scale_mode", 2937716473L)
-            Binds.getContentScaleMode = GdxApi.getMethodBind(c"Window", c"get_content_scale_mode", 161585230L)
-            Binds.setContentScaleAspect = GdxApi.getMethodBind(c"Window", c"set_content_scale_aspect", 2370399418L)
-            Binds.getContentScaleAspect = GdxApi.getMethodBind(c"Window", c"get_content_scale_aspect", 4158790715L)
-            Binds.setContentScaleStretch = GdxApi.getMethodBind(c"Window", c"set_content_scale_stretch", 349355940L)
-            Binds.getContentScaleStretch = GdxApi.getMethodBind(c"Window", c"get_content_scale_stretch", 536857316L)
-            Binds.setKeepTitleVisible = GdxApi.getMethodBind(c"Window", c"set_keep_title_visible", 2586408642L)
-            Binds.getKeepTitleVisible = GdxApi.getMethodBind(c"Window", c"get_keep_title_visible", 36873697L)
-            Binds.setContentScaleFactor = GdxApi.getMethodBind(c"Window", c"set_content_scale_factor", 373806689L)
-            Binds.getContentScaleFactor = GdxApi.getMethodBind(c"Window", c"get_content_scale_factor", 1740695150L)
-            Binds.setMousePassthroughPolygon = GdxApi.getMethodBind(c"Window", c"set_mouse_passthrough_polygon", 1509147220L)
-            Binds.getMousePassthroughPolygon = GdxApi.getMethodBind(c"Window", c"get_mouse_passthrough_polygon", 2961356807L)
-            Binds.setWrapControls = GdxApi.getMethodBind(c"Window", c"set_wrap_controls", 2586408642L)
-            Binds.isWrappingControls = GdxApi.getMethodBind(c"Window", c"is_wrapping_controls", 36873697L)
             Binds.childControlsChanged = GdxApi.getMethodBind(c"Window", c"child_controls_changed", 3218959716L)
-            Binds.setTheme = GdxApi.getMethodBind(c"Window", c"set_theme", 2326690814L)
-            Binds.getTheme = GdxApi.getMethodBind(c"Window", c"get_theme", 3846893731L)
-            Binds.setThemeTypeVariation = GdxApi.getMethodBind(c"Window", c"set_theme_type_variation", 3304788590L)
-            Binds.getThemeTypeVariation = GdxApi.getMethodBind(c"Window", c"get_theme_type_variation", 2002593661L)
             Binds.beginBulkThemeOverride = GdxApi.getMethodBind(c"Window", c"begin_bulk_theme_override", 3218959716L)
             Binds.endBulkThemeOverride = GdxApi.getMethodBind(c"Window", c"end_bulk_theme_override", 3218959716L)
             Binds.addThemeIconOverride = GdxApi.getMethodBind(c"Window", c"add_theme_icon_override", 1373065600L)
@@ -1030,15 +694,9 @@ object Window:
             Binds.getThemeDefaultFont = GdxApi.getMethodBind(c"Window", c"get_theme_default_font", 3229501585L)
             Binds.getThemeDefaultFontSize = GdxApi.getMethodBind(c"Window", c"get_theme_default_font_size", 3905245786L)
             Binds.getWindowId = GdxApi.getMethodBind(c"Window", c"get_window_id", 3905245786L)
-            Binds.setAccessibilityName = GdxApi.getMethodBind(c"Window", c"set_accessibility_name", 83702148L)
-            Binds.getAccessibilityName = GdxApi.getMethodBind(c"Window", c"get_accessibility_name", 201670096L)
-            Binds.setAccessibilityDescription = GdxApi.getMethodBind(c"Window", c"set_accessibility_description", 83702148L)
-            Binds.getAccessibilityDescription = GdxApi.getMethodBind(c"Window", c"get_accessibility_description", 201670096L)
             Binds.setLayoutDirection = GdxApi.getMethodBind(c"Window", c"set_layout_direction", 3094704184L)
             Binds.getLayoutDirection = GdxApi.getMethodBind(c"Window", c"get_layout_direction", 3909617982L)
             Binds.isLayoutRtl = GdxApi.getMethodBind(c"Window", c"is_layout_rtl", 36873697L)
-            Binds.setAutoTranslate = GdxApi.getMethodBind(c"Window", c"set_auto_translate", 2586408642L)
-            Binds.isAutoTranslating = GdxApi.getMethodBind(c"Window", c"is_auto_translating", 36873697L)
             Binds.setUseFontOversampling = GdxApi.getMethodBind(c"Window", c"set_use_font_oversampling", 2586408642L)
             Binds.isUsingFontOversampling = GdxApi.getMethodBind(c"Window", c"is_using_font_oversampling", 36873697L)
             Binds.popup = GdxApi.getMethodBind(c"Window", c"popup", 1680304321L)
@@ -1051,8 +709,11 @@ object Window:
             Binds.popupExclusiveCentered = GdxApi.getMethodBind(c"Window", c"popup_exclusive_centered", 3357594017L)
             Binds.popupExclusiveCenteredRatio = GdxApi.getMethodBind(c"Window", c"popup_exclusive_centered_ratio", 2284776287L)
             Binds.popupExclusiveCenteredClamped = GdxApi.getMethodBind(c"Window", c"popup_exclusive_centered_clamped", 2612708785L)
+  }
+}
 
-    def apply(): Window =
-        val obj = new Window()
-        obj.ptr = GdxApi.constructObject(c"Window")
-        obj
+def apply(): Window = {
+  val obj = new Window()
+  obj.ptr = GdxApi.constructObject(c"Window")
+  obj
+}

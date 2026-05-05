@@ -5,79 +5,90 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptEditor extends PanelContainer
-
-    def getCurrentEditor(): ScriptEditorBase =
+class ScriptEditor extends PanelContainer {
+    def getCurrentEditor(): ScriptEditorBase = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptEditor.Binds.getCurrentEditor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ScriptEditorBase(!_ret)
+}
 
-    def getOpenScriptEditors(): Ptr[Byte] =
+    def getOpenScriptEditors(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptEditor.Binds.getOpenScriptEditors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getBreakpoints(): PackedStringArray =
+    def getBreakpoints(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptEditor.Binds.getBreakpoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def registerSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter): Unit =
+    def registerSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = syntaxHighlighter.ptr
         GdxApi.ptrcall(ScriptEditor.Binds.registerSyntaxHighlighter, ptr, _args, null)
+}
 
-    def unregisterSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter): Unit =
+    def unregisterSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = syntaxHighlighter.ptr
         GdxApi.ptrcall(ScriptEditor.Binds.unregisterSyntaxHighlighter, ptr, _args, null)
+}
 
-    def gotoLine(lineNumber: Int): Unit =
+    def gotoLine(lineNumber: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = lineNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = lineNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ScriptEditor.Binds.gotoLine, ptr, _args, null)
+}
 
-    def getCurrentScript(): Script =
+    def getCurrentScript(): Script = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptEditor.Binds.getCurrentScript, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Script(!_ret)
+}
 
-    def getOpenScripts(): Ptr[Byte] =
+    def getOpenScripts(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptEditor.Binds.getOpenScripts, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def openScriptCreateDialog(baseName: CString, basePath: CString): Unit =
+    def openScriptCreateDialog(baseName: CString, basePath: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = baseName.ptr
-        _args(1) = basePath.ptr
+        _args(0) = baseName
+        _args(1) = basePath
         GdxApi.ptrcall(ScriptEditor.Binds.openScriptCreateDialog, ptr, _args, null)
+}
 
-    def gotoHelp(topic: CString): Unit =
+    def gotoHelp(topic: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = topic.ptr
+        _args(0) = topic
         GdxApi.ptrcall(ScriptEditor.Binds.gotoHelp, ptr, _args, null)
+}
 
-    def updateDocsFromScript(script: Script): Unit =
+    def updateDocsFromScript(script: Script): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = script.ptr
         GdxApi.ptrcall(ScriptEditor.Binds.updateDocsFromScript, ptr, _args, null)
+}
 
-    def clearDocsFromScript(script: Script): Unit =
+    def clearDocsFromScript(script: Script): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = script.ptr
         GdxApi.ptrcall(ScriptEditor.Binds.clearDocsFromScript, ptr, _args, null)
-
+}
+}
 
 object ScriptEditor:
-    object Binds:
-        var getCurrentEditor: Ptr[Byte] = null
+object Binds {
+          var getCurrentEditor: Ptr[Byte] = null
         var getOpenScriptEditors: Ptr[Byte] = null
         var getBreakpoints: Ptr[Byte] = null
         var registerSyntaxHighlighter: Ptr[Byte] = null
@@ -90,8 +101,8 @@ object ScriptEditor:
         var updateDocsFromScript: Ptr[Byte] = null
         var clearDocsFromScript: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getCurrentEditor = GdxApi.getMethodBind(c"ScriptEditor", c"get_current_editor", 1906266726L)
+  def loadBinds(): Unit = {
+                Binds.getCurrentEditor = GdxApi.getMethodBind(c"ScriptEditor", c"get_current_editor", 1906266726L)
             Binds.getOpenScriptEditors = GdxApi.getMethodBind(c"ScriptEditor", c"get_open_script_editors", 3995934104L)
             Binds.getBreakpoints = GdxApi.getMethodBind(c"ScriptEditor", c"get_breakpoints", 2981934095L)
             Binds.registerSyntaxHighlighter = GdxApi.getMethodBind(c"ScriptEditor", c"register_syntax_highlighter", 1092774468L)
@@ -103,3 +114,5 @@ object ScriptEditor:
             Binds.gotoHelp = GdxApi.getMethodBind(c"ScriptEditor", c"goto_help", 83702148L)
             Binds.updateDocsFromScript = GdxApi.getMethodBind(c"ScriptEditor", c"update_docs_from_script", 3657522847L)
             Binds.clearDocsFromScript = GdxApi.getMethodBind(c"ScriptEditor", c"clear_docs_from_script", 3657522847L)
+  }
+}

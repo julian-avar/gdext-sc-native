@@ -5,194 +5,112 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationRegion3D extends Node3D
-
-    def getRid(): RID =
+class NavigationRegion3D extends Node3D {
+    def getRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationRegion3D.Binds.getRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setNavigationMesh(navigationMesh: NavigationMesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = navigationMesh.ptr
-        GdxApi.ptrcall(NavigationRegion3D.Binds.setNavigationMesh, ptr, _args, null)
-
-    def getNavigationMesh(): NavigationMesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationRegion3D.Binds.getNavigationMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NavigationMesh(!_ret)
-
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationRegion3D.Binds.setEnabled, ptr, _args, null)
-
-    def isEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationRegion3D.Binds.isEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationMap(navigationMap: RID): Unit =
+    def setNavigationMap(navigationMap: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = navigationMap.ptr
         GdxApi.ptrcall(NavigationRegion3D.Binds.setNavigationMap, ptr, _args, null)
+}
 
-    def getNavigationMap(): RID =
+    def getNavigationMap(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationRegion3D.Binds.getNavigationMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setUseEdgeConnections(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationRegion3D.Binds.setUseEdgeConnections, ptr, _args, null)
-
-    def getUseEdgeConnections(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationRegion3D.Binds.getUseEdgeConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationLayers(navigationLayers: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = navigationLayers.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationRegion3D.Binds.setNavigationLayers, ptr, _args, null)
-
-    def getNavigationLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationRegion3D.Binds.getNavigationLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setNavigationLayerValue(layerNumber: Int, value: Boolean): Unit =
+    def setNavigationLayerValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationRegion3D.Binds.setNavigationLayerValue, ptr, _args, null)
+}
 
-    def getNavigationLayerValue(layerNumber: Int): Boolean =
+    def getNavigationLayerValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationRegion3D.Binds.getNavigationLayerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getRegionRid(): RID =
+    def getRegionRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationRegion3D.Binds.getRegionRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setEnterCost(enterCost: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = enterCost.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationRegion3D.Binds.setEnterCost, ptr, _args, null)
-
-    def getEnterCost(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationRegion3D.Binds.getEnterCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTravelCost(travelCost: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = travelCost.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationRegion3D.Binds.setTravelCost, ptr, _args, null)
-
-    def getTravelCost(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationRegion3D.Binds.getTravelCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def bakeNavigationMesh(): Unit =
+    def bakeNavigationMesh(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(NavigationRegion3D.Binds.bakeNavigationMesh, ptr, _args, null)
+}
 
-    def isBaking(): Boolean =
+    def isBaking(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationRegion3D.Binds.isBaking, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getBounds(): AABB =
+    def getBounds(): AABB = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationRegion3D.Binds.getBounds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
-    def navigationMesh: Ptr[Byte] = getNavigationMesh()
-    def navigationMesh_=(v: Ptr[Byte]): Unit = setNavigationMesh(v)
-    def enabled: Ptr[Byte] = isEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def useEdgeConnections: Ptr[Byte] = getUseEdgeConnections()
-    def useEdgeConnections_=(v: Ptr[Byte]): Unit = setUseEdgeConnections(v)
-    def navigationLayers: Ptr[Byte] = getNavigationLayers()
-    def navigationLayers_=(v: Ptr[Byte]): Unit = setNavigationLayers(v)
-    def enterCost: Ptr[Byte] = getEnterCost()
-    def enterCost_=(v: Ptr[Byte]): Unit = setEnterCost(v)
-    def travelCost: Ptr[Byte] = getTravelCost()
-    def travelCost_=(v: Ptr[Byte]): Unit = setTravelCost(v)
+}
+
+    def navigationMesh: NavigationMesh = getNavigationMesh()
+    def navigationMesh_=(v: NavigationMesh): Unit = setNavigationMesh(v)
+    def enabled: Boolean = isEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def useEdgeConnections: Boolean = getUseEdgeConnections()
+    def useEdgeConnections_=(v: Boolean): Unit = setUseEdgeConnections(v)
+    def navigationLayers: Int = getNavigationLayers()
+    def navigationLayers_=(v: Int): Unit = setNavigationLayers(v)
+    def enterCost: Float = getEnterCost()
+    def enterCost_=(v: Float): Unit = setEnterCost(v)
+    def travelCost: Float = getTravelCost()
+    def travelCost_=(v: Float): Unit = setTravelCost(v)
+}
 
 object NavigationRegion3D:
-    object Binds:
-        var getRid: Ptr[Byte] = null
-        var setNavigationMesh: Ptr[Byte] = null
-        var getNavigationMesh: Ptr[Byte] = null
-        var setEnabled: Ptr[Byte] = null
-        var isEnabled: Ptr[Byte] = null
+object Binds {
+          var getRid: Ptr[Byte] = null
         var setNavigationMap: Ptr[Byte] = null
         var getNavigationMap: Ptr[Byte] = null
-        var setUseEdgeConnections: Ptr[Byte] = null
-        var getUseEdgeConnections: Ptr[Byte] = null
-        var setNavigationLayers: Ptr[Byte] = null
-        var getNavigationLayers: Ptr[Byte] = null
         var setNavigationLayerValue: Ptr[Byte] = null
         var getNavigationLayerValue: Ptr[Byte] = null
         var getRegionRid: Ptr[Byte] = null
-        var setEnterCost: Ptr[Byte] = null
-        var getEnterCost: Ptr[Byte] = null
-        var setTravelCost: Ptr[Byte] = null
-        var getTravelCost: Ptr[Byte] = null
         var bakeNavigationMesh: Ptr[Byte] = null
         var isBaking: Ptr[Byte] = null
         var getBounds: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getRid = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_rid", 2944877500L)
-            Binds.setNavigationMesh = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_navigation_mesh", 2923361153L)
-            Binds.getNavigationMesh = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_navigation_mesh", 1468720886L)
-            Binds.setEnabled = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_enabled", 2586408642L)
-            Binds.isEnabled = GdxApi.getMethodBind(c"NavigationRegion3D", c"is_enabled", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getRid = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_rid", 2944877500L)
             Binds.setNavigationMap = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_navigation_map", 2722037293L)
             Binds.getNavigationMap = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_navigation_map", 2944877500L)
-            Binds.setUseEdgeConnections = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_use_edge_connections", 2586408642L)
-            Binds.getUseEdgeConnections = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_use_edge_connections", 36873697L)
-            Binds.setNavigationLayers = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_navigation_layers", 1286410249L)
-            Binds.getNavigationLayers = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_navigation_layers", 3905245786L)
             Binds.setNavigationLayerValue = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_navigation_layer_value", 300928843L)
             Binds.getNavigationLayerValue = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_navigation_layer_value", 1116898809L)
             Binds.getRegionRid = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_region_rid", 2944877500L)
-            Binds.setEnterCost = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_enter_cost", 373806689L)
-            Binds.getEnterCost = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_enter_cost", 1740695150L)
-            Binds.setTravelCost = GdxApi.getMethodBind(c"NavigationRegion3D", c"set_travel_cost", 373806689L)
-            Binds.getTravelCost = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_travel_cost", 1740695150L)
             Binds.bakeNavigationMesh = GdxApi.getMethodBind(c"NavigationRegion3D", c"bake_navigation_mesh", 3216645846L)
             Binds.isBaking = GdxApi.getMethodBind(c"NavigationRegion3D", c"is_baking", 36873697L)
             Binds.getBounds = GdxApi.getMethodBind(c"NavigationRegion3D", c"get_bounds", 1068685055L)
+  }
+}
 
-    def apply(): NavigationRegion3D =
-        val obj = new NavigationRegion3D()
-        obj.ptr = GdxApi.constructObject(c"NavigationRegion3D")
-        obj
+def apply(): NavigationRegion3D = {
+  val obj = new NavigationRegion3D()
+  obj.ptr = GdxApi.constructObject(c"NavigationRegion3D")
+  obj
+}

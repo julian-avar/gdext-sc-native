@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Texture2DRD extends Texture2D
-
-    def setTextureRdRid(textureRdRid: RID): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = textureRdRid.ptr
-        GdxApi.ptrcall(Texture2DRD.Binds.setTextureRdRid, ptr, _args, null)
-
-    def getTextureRdRid(): RID =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Texture2DRD.Binds.getTextureRdRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new RID(!_ret)
-    def textureRdRid: Ptr[Byte] = getTextureRdRid()
-    def textureRdRid_=(v: Ptr[Byte]): Unit = setTextureRdRid(v)
+class Texture2DRD extends Texture2D {
+    def textureRdRid: RID = getTextureRdRid()
+    def textureRdRid_=(v: RID): Unit = setTextureRdRid(v)
+}
 
 object Texture2DRD:
-    object Binds:
-        var setTextureRdRid: Ptr[Byte] = null
-        var getTextureRdRid: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTextureRdRid = GdxApi.getMethodBind(c"Texture2DRD", c"set_texture_rd_rid", 2722037293L)
-            Binds.getTextureRdRid = GdxApi.getMethodBind(c"Texture2DRD", c"get_texture_rd_rid", 2944877500L)
-
-    def apply(): Texture2DRD =
-        val obj = new Texture2DRD()
-        obj.ptr = GdxApi.constructObject(c"Texture2DRD")
-        obj
+def apply(): Texture2DRD = {
+  val obj = new Texture2DRD()
+  obj.ptr = GdxApi.constructObject(c"Texture2DRD")
+  obj
+}

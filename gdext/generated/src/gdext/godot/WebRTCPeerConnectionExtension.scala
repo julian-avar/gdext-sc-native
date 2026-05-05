@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WebRTCPeerConnectionExtension extends WebRTCPeerConnection
+class WebRTCPeerConnectionExtension extends WebRTCPeerConnection {
     def _getConnectionState(): Int = null
     def _getGatheringState(): Int = null
     def _getSignalingState(): Int = null
@@ -17,11 +17,11 @@ class WebRTCPeerConnectionExtension extends WebRTCPeerConnection
     def _addIceCandidate(pSdpMidName: CString, pSdpMlineIndex: Int, pSdpName: CString): Int = null
     def _poll(): Int = null
     def _close(): Unit = ()
-
-
+}
 
 object WebRTCPeerConnectionExtension:
-    def apply(): WebRTCPeerConnectionExtension =
-        val obj = new WebRTCPeerConnectionExtension()
-        obj.ptr = GdxApi.constructObject(c"WebRTCPeerConnectionExtension")
-        obj
+def apply(): WebRTCPeerConnectionExtension = {
+  val obj = new WebRTCPeerConnectionExtension()
+  obj.ptr = GdxApi.constructObject(c"WebRTCPeerConnectionExtension")
+  obj
+}

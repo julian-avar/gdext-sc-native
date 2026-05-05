@@ -5,18 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRInteractionProfileEditorBase extends HBoxContainer
-
-    def setup(actionMap: OpenXRActionMap, interactionProfile: OpenXRInteractionProfile): Unit =
+class OpenXRInteractionProfileEditorBase extends HBoxContainer {
+    def setup(actionMap: OpenXRActionMap, interactionProfile: OpenXRInteractionProfile): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = actionMap.ptr
         _args(1) = interactionProfile.ptr
         GdxApi.ptrcall(OpenXRInteractionProfileEditorBase.Binds.setup, ptr, _args, null)
-
+}
+}
 
 object OpenXRInteractionProfileEditorBase:
-    object Binds:
-        var setup: Ptr[Byte] = null
+object Binds {
+          var setup: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setup = GdxApi.getMethodBind(c"OpenXRInteractionProfileEditorBase", c"setup", 421962938L)
+  def loadBinds(): Unit = {
+                Binds.setup = GdxApi.getMethodBind(c"OpenXRInteractionProfileEditorBase", c"setup", 421962938L)
+  }
+}

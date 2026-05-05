@@ -5,183 +5,207 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MeshLibrary extends Resource
-
-    def createItem(id: Int): Unit =
+class MeshLibrary extends Resource {
+    def createItem(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MeshLibrary.Binds.createItem, ptr, _args, null)
+}
 
-    def setItemName(id: Int, name: CString): Unit =
+    def setItemName(id: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(MeshLibrary.Binds.setItemName, ptr, _args, null)
+}
 
-    def setItemMesh(id: Int, mesh: Mesh): Unit =
+    def setItemMesh(id: Int, mesh: Mesh): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = mesh.ptr
         GdxApi.ptrcall(MeshLibrary.Binds.setItemMesh, ptr, _args, null)
+}
 
-    def setItemMeshTransform(id: Int, meshTransform: Transform3D): Unit =
+    def setItemMeshTransform(id: Int, meshTransform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = meshTransform.ptr
         GdxApi.ptrcall(MeshLibrary.Binds.setItemMeshTransform, ptr, _args, null)
+}
 
-    def setItemMeshCastShadow(id: Int, shadowCastingSetting: Int): Unit =
+    def setItemMeshCastShadow(id: Int, shadowCastingSetting: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = shadowCastingSetting.ptr
+        val _a1 = stackalloc[Long](); !_a1 = shadowCastingSetting.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MeshLibrary.Binds.setItemMeshCastShadow, ptr, _args, null)
+}
 
-    def setItemNavigationMesh(id: Int, navigationMesh: NavigationMesh): Unit =
+    def setItemNavigationMesh(id: Int, navigationMesh: NavigationMesh): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = navigationMesh.ptr
         GdxApi.ptrcall(MeshLibrary.Binds.setItemNavigationMesh, ptr, _args, null)
+}
 
-    def setItemNavigationMeshTransform(id: Int, navigationMesh: Transform3D): Unit =
+    def setItemNavigationMeshTransform(id: Int, navigationMesh: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = navigationMesh.ptr
         GdxApi.ptrcall(MeshLibrary.Binds.setItemNavigationMeshTransform, ptr, _args, null)
+}
 
-    def setItemNavigationLayers(id: Int, navigationLayers: Int): Unit =
+    def setItemNavigationLayers(id: Int, navigationLayers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = navigationLayers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = navigationLayers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MeshLibrary.Binds.setItemNavigationLayers, ptr, _args, null)
+}
 
-    def setItemShapes(id: Int, shapes: Array): Unit =
+    def setItemShapes(id: Int, shapes: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = shapes.ptr
+        _args(1) = shapes
         GdxApi.ptrcall(MeshLibrary.Binds.setItemShapes, ptr, _args, null)
+}
 
-    def setItemPreview(id: Int, texture: Texture2D): Unit =
+    def setItemPreview(id: Int, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = texture.ptr
         GdxApi.ptrcall(MeshLibrary.Binds.setItemPreview, ptr, _args, null)
+}
 
-    def getItemName(id: Int): CString =
+    def getItemName(id: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemMesh(id: Int): Mesh =
+    def getItemMesh(id: Int): Mesh = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Mesh(!_ret)
+}
 
-    def getItemMeshTransform(id: Int): Transform3D =
+    def getItemMeshTransform(id: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemMeshTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def getItemMeshCastShadow(id: Int): Int =
+    def getItemMeshCastShadow(id: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemMeshCastShadow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getItemNavigationMesh(id: Int): NavigationMesh =
+    def getItemNavigationMesh(id: Int): NavigationMesh = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemNavigationMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NavigationMesh(!_ret)
+}
 
-    def getItemNavigationMeshTransform(id: Int): Transform3D =
+    def getItemNavigationMeshTransform(id: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemNavigationMeshTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def getItemNavigationLayers(id: Int): Int =
+    def getItemNavigationLayers(id: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemNavigationLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getItemShapes(id: Int): Array =
+    def getItemShapes(id: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemShapes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemPreview(id: Int): Texture2D =
+    def getItemPreview(id: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemPreview, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def removeItem(id: Int): Unit =
+    def removeItem(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MeshLibrary.Binds.removeItem, ptr, _args, null)
+}
 
-    def findItemByName(name: CString): Int =
+    def findItemByName(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshLibrary.Binds.findItemByName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MeshLibrary.Binds.clear, ptr, _args, null)
+}
 
-    def getItemList(): PackedInt32Array =
+    def getItemList(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshLibrary.Binds.getItemList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getLastUnusedItemId(): Int =
+    def getLastUnusedItemId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshLibrary.Binds.getLastUnusedItemId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object MeshLibrary:
-    object Binds:
-        var createItem: Ptr[Byte] = null
+object Binds {
+          var createItem: Ptr[Byte] = null
         var setItemName: Ptr[Byte] = null
         var setItemMesh: Ptr[Byte] = null
         var setItemMeshTransform: Ptr[Byte] = null
@@ -206,8 +230,8 @@ object MeshLibrary:
         var getItemList: Ptr[Byte] = null
         var getLastUnusedItemId: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createItem = GdxApi.getMethodBind(c"MeshLibrary", c"create_item", 1286410249L)
+  def loadBinds(): Unit = {
+                Binds.createItem = GdxApi.getMethodBind(c"MeshLibrary", c"create_item", 1286410249L)
             Binds.setItemName = GdxApi.getMethodBind(c"MeshLibrary", c"set_item_name", 501894301L)
             Binds.setItemMesh = GdxApi.getMethodBind(c"MeshLibrary", c"set_item_mesh", 969122797L)
             Binds.setItemMeshTransform = GdxApi.getMethodBind(c"MeshLibrary", c"set_item_mesh_transform", 3616898986L)
@@ -231,8 +255,11 @@ object MeshLibrary:
             Binds.clear = GdxApi.getMethodBind(c"MeshLibrary", c"clear", 3218959716L)
             Binds.getItemList = GdxApi.getMethodBind(c"MeshLibrary", c"get_item_list", 1930428628L)
             Binds.getLastUnusedItemId = GdxApi.getMethodBind(c"MeshLibrary", c"get_last_unused_item_id", 3905245786L)
+  }
+}
 
-    def apply(): MeshLibrary =
-        val obj = new MeshLibrary()
-        obj.ptr = GdxApi.constructObject(c"MeshLibrary")
-        obj
+def apply(): MeshLibrary = {
+  val obj = new MeshLibrary()
+  obj.ptr = GdxApi.constructObject(c"MeshLibrary")
+  obj
+}

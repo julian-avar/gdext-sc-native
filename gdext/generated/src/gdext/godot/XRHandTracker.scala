@@ -5,108 +5,103 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRHandTracker extends XRPositionalTracker
-
-    def setHasTrackingData(hasData: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if hasData then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(XRHandTracker.Binds.setHasTrackingData, ptr, _args, null)
-
-    def getHasTrackingData(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(XRHandTracker.Binds.getHasTrackingData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHandTrackingSource(source: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = source.ptr
-        GdxApi.ptrcall(XRHandTracker.Binds.setHandTrackingSource, ptr, _args, null)
-
-    def getHandTrackingSource(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(XRHandTracker.Binds.getHandTrackingSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHandJointFlags(joint: Int, flags: Int): Unit =
+class XRHandTracker extends XRPositionalTracker {
+    def setHandJointFlags(joint: Int, flags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = joint.ptr
-        _args(1) = flags.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = flags.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRHandTracker.Binds.setHandJointFlags, ptr, _args, null)
+}
 
-    def getHandJointFlags(joint: Int): Int =
+    def getHandJointFlags(joint: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = joint.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XRHandTracker.Binds.getHandJointFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setHandJointTransform(joint: Int, transform: Transform3D): Unit =
+    def setHandJointTransform(joint: Int, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = transform.ptr
         GdxApi.ptrcall(XRHandTracker.Binds.setHandJointTransform, ptr, _args, null)
+}
 
-    def getHandJointTransform(joint: Int): Transform3D =
+    def getHandJointTransform(joint: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRHandTracker.Binds.getHandJointTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def setHandJointRadius(joint: Int, radius: Float): Unit =
+    def setHandJointRadius(joint: Int, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRHandTracker.Binds.setHandJointRadius, ptr, _args, null)
+}
 
-    def getHandJointRadius(joint: Int): Float =
+    def getHandJointRadius(joint: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(XRHandTracker.Binds.getHandJointRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setHandJointLinearVelocity(joint: Int, linearVelocity: Vector3): Unit =
+    def setHandJointLinearVelocity(joint: Int, linearVelocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = linearVelocity.ptr
         GdxApi.ptrcall(XRHandTracker.Binds.setHandJointLinearVelocity, ptr, _args, null)
+}
 
-    def getHandJointLinearVelocity(joint: Int): Vector3 =
+    def getHandJointLinearVelocity(joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRHandTracker.Binds.getHandJointLinearVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setHandJointAngularVelocity(joint: Int, angularVelocity: Vector3): Unit =
+    def setHandJointAngularVelocity(joint: Int, angularVelocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = angularVelocity.ptr
         GdxApi.ptrcall(XRHandTracker.Binds.setHandJointAngularVelocity, ptr, _args, null)
+}
 
-    def getHandJointAngularVelocity(joint: Int): Vector3 =
+    def getHandJointAngularVelocity(joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = joint.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRHandTracker.Binds.getHandJointAngularVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
-    def hasTrackingData: Ptr[Byte] = getHasTrackingData()
-    def hasTrackingData_=(v: Ptr[Byte]): Unit = setHasTrackingData(v)
-    def handTrackingSource: Ptr[Byte] = getHandTrackingSource()
-    def handTrackingSource_=(v: Ptr[Byte]): Unit = setHandTrackingSource(v)
+}
+
+    def hasTrackingData: Boolean = getHasTrackingData()
+    def hasTrackingData_=(v: Boolean): Unit = setHasTrackingData(v)
+    def handTrackingSource: Int = getHandTrackingSource()
+    def handTrackingSource_=(v: Int): Unit = setHandTrackingSource(v)
+}
 
 object XRHandTracker:
-    object Binds:
-        var setHasTrackingData: Ptr[Byte] = null
-        var getHasTrackingData: Ptr[Byte] = null
-        var setHandTrackingSource: Ptr[Byte] = null
-        var getHandTrackingSource: Ptr[Byte] = null
-        var setHandJointFlags: Ptr[Byte] = null
+object Binds {
+          var setHandJointFlags: Ptr[Byte] = null
         var getHandJointFlags: Ptr[Byte] = null
         var setHandJointTransform: Ptr[Byte] = null
         var getHandJointTransform: Ptr[Byte] = null
@@ -117,12 +112,8 @@ object XRHandTracker:
         var setHandJointAngularVelocity: Ptr[Byte] = null
         var getHandJointAngularVelocity: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setHasTrackingData = GdxApi.getMethodBind(c"XRHandTracker", c"set_has_tracking_data", 2586408642L)
-            Binds.getHasTrackingData = GdxApi.getMethodBind(c"XRHandTracker", c"get_has_tracking_data", 36873697L)
-            Binds.setHandTrackingSource = GdxApi.getMethodBind(c"XRHandTracker", c"set_hand_tracking_source", 2958308861L)
-            Binds.getHandTrackingSource = GdxApi.getMethodBind(c"XRHandTracker", c"get_hand_tracking_source", 2475045250L)
-            Binds.setHandJointFlags = GdxApi.getMethodBind(c"XRHandTracker", c"set_hand_joint_flags", 3028437365L)
+  def loadBinds(): Unit = {
+                Binds.setHandJointFlags = GdxApi.getMethodBind(c"XRHandTracker", c"set_hand_joint_flags", 3028437365L)
             Binds.getHandJointFlags = GdxApi.getMethodBind(c"XRHandTracker", c"get_hand_joint_flags", 1730972401L)
             Binds.setHandJointTransform = GdxApi.getMethodBind(c"XRHandTracker", c"set_hand_joint_transform", 2529959613L)
             Binds.getHandJointTransform = GdxApi.getMethodBind(c"XRHandTracker", c"get_hand_joint_transform", 1090840196L)
@@ -132,8 +123,11 @@ object XRHandTracker:
             Binds.getHandJointLinearVelocity = GdxApi.getMethodBind(c"XRHandTracker", c"get_hand_joint_linear_velocity", 547240792L)
             Binds.setHandJointAngularVelocity = GdxApi.getMethodBind(c"XRHandTracker", c"set_hand_joint_angular_velocity", 1978646737L)
             Binds.getHandJointAngularVelocity = GdxApi.getMethodBind(c"XRHandTracker", c"get_hand_joint_angular_velocity", 547240792L)
+  }
+}
 
-    def apply(): XRHandTracker =
-        val obj = new XRHandTracker()
-        obj.ptr = GdxApi.constructObject(c"XRHandTracker")
-        obj
+def apply(): XRHandTracker = {
+  val obj = new XRHandTracker()
+  obj.ptr = GdxApi.constructObject(c"XRHandTracker")
+  obj
+}

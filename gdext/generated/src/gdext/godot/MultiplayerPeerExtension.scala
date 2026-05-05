@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MultiplayerPeerExtension extends MultiplayerPeer
+class MultiplayerPeerExtension extends MultiplayerPeer {
     def _getPacket(rBuffer: Ptr[Byte], rBufferSize: Ptr[Byte]): Int = null
     def _putPacket(pBuffer: Ptr[Byte], pBufferSize: Int): Int = null
     def _getAvailablePacketCount(): Int = 0
@@ -29,11 +29,11 @@ class MultiplayerPeerExtension extends MultiplayerPeer
     def _isRefusingNewConnections(): Boolean = false
     def _isServerRelaySupported(): Boolean = false
     def _getConnectionStatus(): Int = null
-
-
+}
 
 object MultiplayerPeerExtension:
-    def apply(): MultiplayerPeerExtension =
-        val obj = new MultiplayerPeerExtension()
-        obj.ptr = GdxApi.constructObject(c"MultiplayerPeerExtension")
-        obj
+def apply(): MultiplayerPeerExtension = {
+  val obj = new MultiplayerPeerExtension()
+  obj.ptr = GdxApi.constructObject(c"MultiplayerPeerExtension")
+  obj
+}

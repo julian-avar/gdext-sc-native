@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParticleEmit extends VisualShaderNode
-
-    def setFlags(flags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
-        GdxApi.ptrcall(VisualShaderNodeParticleEmit.Binds.setFlags, ptr, _args, null)
-
-    def getFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeParticleEmit.Binds.getFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def flags: Ptr[Byte] = getFlags()
-    def flags_=(v: Ptr[Byte]): Unit = setFlags(v)
+class VisualShaderNodeParticleEmit extends VisualShaderNode {
+    def flags: Int = getFlags()
+    def flags_=(v: Int): Unit = setFlags(v)
+}
 
 object VisualShaderNodeParticleEmit:
-    object Binds:
-        var setFlags: Ptr[Byte] = null
-        var getFlags: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFlags = GdxApi.getMethodBind(c"VisualShaderNodeParticleEmit", c"set_flags", 3960756792L)
-            Binds.getFlags = GdxApi.getMethodBind(c"VisualShaderNodeParticleEmit", c"get_flags", 171277835L)
-
-    def apply(): VisualShaderNodeParticleEmit =
-        val obj = new VisualShaderNodeParticleEmit()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleEmit")
-        obj
+def apply(): VisualShaderNodeParticleEmit = {
+  val obj = new VisualShaderNodeParticleEmit()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleEmit")
+  obj
+}

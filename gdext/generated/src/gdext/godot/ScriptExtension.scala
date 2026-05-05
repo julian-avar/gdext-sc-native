@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptExtension extends Script
+class ScriptExtension extends Script {
     def _editorCanReloadFromFile(): Boolean = false
     def _placeholderErased(placeholder: Ptr[Byte]): Unit = ()
     def _canInstantiate(): Boolean = false
@@ -43,11 +43,11 @@ class ScriptExtension extends Script
     def _getMembers(): Ptr[Byte] = null
     def _isPlaceholderFallbackEnabled(): Boolean = false
     def _getRpcConfig(): Ptr[Byte] = null
-
-
+}
 
 object ScriptExtension:
-    def apply(): ScriptExtension =
-        val obj = new ScriptExtension()
-        obj.ptr = GdxApi.constructObject(c"ScriptExtension")
-        obj
+def apply(): ScriptExtension = {
+  val obj = new ScriptExtension()
+  obj.ptr = GdxApi.constructObject(c"ScriptExtension")
+  obj
+}

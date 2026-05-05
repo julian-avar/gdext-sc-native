@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HFlowContainer extends FlowContainer
-
-
-
+class HFlowContainer extends FlowContainer {}
 
 object HFlowContainer:
-    def apply(): HFlowContainer =
-        val obj = new HFlowContainer()
-        obj.ptr = GdxApi.constructObject(c"HFlowContainer")
-        obj
+def apply(): HFlowContainer = {
+  val obj = new HFlowContainer()
+  obj.ptr = GdxApi.constructObject(c"HFlowContainer")
+  obj
+}

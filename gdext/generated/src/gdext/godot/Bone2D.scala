@@ -5,78 +5,75 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Bone2D extends Node2D
-
-    def setRest(rest: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = rest.ptr
-        GdxApi.ptrcall(Bone2D.Binds.setRest, ptr, _args, null)
-
-    def getRest(): Transform2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Bone2D.Binds.getRest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform2D(!_ret)
-
-    def applyRest(): Unit =
+class Bone2D extends Node2D {
+    def applyRest(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Bone2D.Binds.applyRest, ptr, _args, null)
+}
 
-    def getSkeletonRest(): Transform2D =
+    def getSkeletonRest(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Bone2D.Binds.getSkeletonRest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getIndexInSkeleton(): Int =
+    def getIndexInSkeleton(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Bone2D.Binds.getIndexInSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setAutocalculateLengthAndAngle(autoCalculate: Boolean): Unit =
+    def setAutocalculateLengthAndAngle(autoCalculate: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if autoCalculate then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Bone2D.Binds.setAutocalculateLengthAndAngle, ptr, _args, null)
+}
 
-    def getAutocalculateLengthAndAngle(): Boolean =
+    def getAutocalculateLengthAndAngle(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Bone2D.Binds.getAutocalculateLengthAndAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setLength(length: Float): Unit =
+    def setLength(length: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = length.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Bone2D.Binds.setLength, ptr, _args, null)
+}
 
-    def getLength(): Float =
+    def getLength(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Bone2D.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setBoneAngle(angle: Float): Unit =
+    def setBoneAngle(angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Bone2D.Binds.setBoneAngle, ptr, _args, null)
+}
 
-    def getBoneAngle(): Float =
+    def getBoneAngle(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Bone2D.Binds.getBoneAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
-    def rest: Ptr[Byte] = getRest()
-    def rest_=(v: Ptr[Byte]): Unit = setRest(v)
+}
+
+    def rest: Transform2D = getRest()
+    def rest_=(v: Transform2D): Unit = setRest(v)
+}
 
 object Bone2D:
-    object Binds:
-        var setRest: Ptr[Byte] = null
-        var getRest: Ptr[Byte] = null
-        var applyRest: Ptr[Byte] = null
+object Binds {
+          var applyRest: Ptr[Byte] = null
         var getSkeletonRest: Ptr[Byte] = null
         var getIndexInSkeleton: Ptr[Byte] = null
         var setAutocalculateLengthAndAngle: Ptr[Byte] = null
@@ -86,10 +83,8 @@ object Bone2D:
         var setBoneAngle: Ptr[Byte] = null
         var getBoneAngle: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRest = GdxApi.getMethodBind(c"Bone2D", c"set_rest", 2761652528L)
-            Binds.getRest = GdxApi.getMethodBind(c"Bone2D", c"get_rest", 3814499831L)
-            Binds.applyRest = GdxApi.getMethodBind(c"Bone2D", c"apply_rest", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.applyRest = GdxApi.getMethodBind(c"Bone2D", c"apply_rest", 3218959716L)
             Binds.getSkeletonRest = GdxApi.getMethodBind(c"Bone2D", c"get_skeleton_rest", 3814499831L)
             Binds.getIndexInSkeleton = GdxApi.getMethodBind(c"Bone2D", c"get_index_in_skeleton", 3905245786L)
             Binds.setAutocalculateLengthAndAngle = GdxApi.getMethodBind(c"Bone2D", c"set_autocalculate_length_and_angle", 2586408642L)
@@ -98,8 +93,11 @@ object Bone2D:
             Binds.getLength = GdxApi.getMethodBind(c"Bone2D", c"get_length", 1740695150L)
             Binds.setBoneAngle = GdxApi.getMethodBind(c"Bone2D", c"set_bone_angle", 373806689L)
             Binds.getBoneAngle = GdxApi.getMethodBind(c"Bone2D", c"get_bone_angle", 1740695150L)
+  }
+}
 
-    def apply(): Bone2D =
-        val obj = new Bone2D()
-        obj.ptr = GdxApi.constructObject(c"Bone2D")
-        obj
+def apply(): Bone2D = {
+  val obj = new Bone2D()
+  obj.ptr = GdxApi.constructObject(c"Bone2D")
+  obj
+}

@@ -5,66 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MissingNode extends Node
-
-    def setOriginalClass(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(MissingNode.Binds.setOriginalClass, ptr, _args, null)
-
-    def getOriginalClass(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MissingNode.Binds.getOriginalClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setOriginalScene(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(MissingNode.Binds.setOriginalScene, ptr, _args, null)
-
-    def getOriginalScene(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MissingNode.Binds.getOriginalScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setRecordingProperties(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MissingNode.Binds.setRecordingProperties, ptr, _args, null)
-
-    def isRecordingProperties(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MissingNode.Binds.isRecordingProperties, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def originalClass: Ptr[Byte] = getOriginalClass()
-    def originalClass_=(v: Ptr[Byte]): Unit = setOriginalClass(v)
-    def originalScene: Ptr[Byte] = getOriginalScene()
-    def originalScene_=(v: Ptr[Byte]): Unit = setOriginalScene(v)
-    def recordingProperties: Ptr[Byte] = isRecordingProperties()
-    def recordingProperties_=(v: Ptr[Byte]): Unit = setRecordingProperties(v)
+class MissingNode extends Node {
+    def originalClass: CString = getOriginalClass()
+    def originalClass_=(v: CString): Unit = setOriginalClass(v)
+    def originalScene: CString = getOriginalScene()
+    def originalScene_=(v: CString): Unit = setOriginalScene(v)
+    def recordingProperties: Boolean = isRecordingProperties()
+    def recordingProperties_=(v: Boolean): Unit = setRecordingProperties(v)
+}
 
 object MissingNode:
-    object Binds:
-        var setOriginalClass: Ptr[Byte] = null
-        var getOriginalClass: Ptr[Byte] = null
-        var setOriginalScene: Ptr[Byte] = null
-        var getOriginalScene: Ptr[Byte] = null
-        var setRecordingProperties: Ptr[Byte] = null
-        var isRecordingProperties: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOriginalClass = GdxApi.getMethodBind(c"MissingNode", c"set_original_class", 83702148L)
-            Binds.getOriginalClass = GdxApi.getMethodBind(c"MissingNode", c"get_original_class", 201670096L)
-            Binds.setOriginalScene = GdxApi.getMethodBind(c"MissingNode", c"set_original_scene", 83702148L)
-            Binds.getOriginalScene = GdxApi.getMethodBind(c"MissingNode", c"get_original_scene", 201670096L)
-            Binds.setRecordingProperties = GdxApi.getMethodBind(c"MissingNode", c"set_recording_properties", 2586408642L)
-            Binds.isRecordingProperties = GdxApi.getMethodBind(c"MissingNode", c"is_recording_properties", 36873697L)
-
-    def apply(): MissingNode =
-        val obj = new MissingNode()
-        obj.ptr = GdxApi.constructObject(c"MissingNode")
-        obj
+def apply(): MissingNode = {
+  val obj = new MissingNode()
+  obj.ptr = GdxApi.constructObject(c"MissingNode")
+  obj
+}

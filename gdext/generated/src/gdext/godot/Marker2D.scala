@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Marker2D extends Node2D
-
-    def setGizmoExtents(extents: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = extents.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Marker2D.Binds.setGizmoExtents, ptr, _args, null)
-
-    def getGizmoExtents(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Marker2D.Binds.getGizmoExtents, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def gizmoExtents: Ptr[Byte] = getGizmoExtents()
-    def gizmoExtents_=(v: Ptr[Byte]): Unit = setGizmoExtents(v)
+class Marker2D extends Node2D {
+    def gizmoExtents: Float = getGizmoExtents()
+    def gizmoExtents_=(v: Float): Unit = setGizmoExtents(v)
+}
 
 object Marker2D:
-    object Binds:
-        var setGizmoExtents: Ptr[Byte] = null
-        var getGizmoExtents: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setGizmoExtents = GdxApi.getMethodBind(c"Marker2D", c"set_gizmo_extents", 373806689L)
-            Binds.getGizmoExtents = GdxApi.getMethodBind(c"Marker2D", c"get_gizmo_extents", 1740695150L)
-
-    def apply(): Marker2D =
-        val obj = new Marker2D()
-        obj.ptr = GdxApi.constructObject(c"Marker2D")
-        obj
+def apply(): Marker2D = {
+  val obj = new Marker2D()
+  obj.ptr = GdxApi.constructObject(c"Marker2D")
+  obj
+}

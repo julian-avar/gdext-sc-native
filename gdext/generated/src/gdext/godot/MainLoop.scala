@@ -5,16 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MainLoop extends Object
+class MainLoop extends Object {
     def _initialize(): Unit = ()
     def _physicsProcess(delta: Double): Boolean = false
     def _process(delta: Double): Boolean = false
     def _finalize(): Unit = ()
-
-
+}
 
 object MainLoop:
-    def apply(): MainLoop =
-        val obj = new MainLoop()
-        obj.ptr = GdxApi.constructObject(c"MainLoop")
-        obj
+def apply(): MainLoop = {
+  val obj = new MainLoop()
+  obj.ptr = GdxApi.constructObject(c"MainLoop")
+  obj
+}

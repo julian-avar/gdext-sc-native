@@ -5,104 +5,86 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonModification2DFABRIK extends SkeletonModification2D
-
-    def setTargetNode(targetNodepath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetNodepath.ptr
-        GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.setTargetNode, ptr, _args, null)
-
-    def getTargetNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.getTargetNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setFabrikDataChainLength(length: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = length.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.setFabrikDataChainLength, ptr, _args, null)
-
-    def getFabrikDataChainLength(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.getFabrikDataChainLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFabrikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit =
+class SkeletonModification2DFABRIK extends SkeletonModification2D {
+    def setFabrikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = bone2dNodepath.ptr
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.setFabrikJointBone2dNode, ptr, _args, null)
+}
 
-    def getFabrikJointBone2dNode(jointIdx: Int): NodePath =
+    def getFabrikJointBone2dNode(jointIdx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.getFabrikJointBone2dNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setFabrikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit =
+    def setFabrikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = boneIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = boneIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.setFabrikJointBoneIndex, ptr, _args, null)
+}
 
-    def getFabrikJointBoneIndex(jointIdx: Int): Int =
+    def getFabrikJointBoneIndex(jointIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.getFabrikJointBoneIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setFabrikJointMagnetPosition(jointIdx: Int, magnetPosition: Vector2): Unit =
+    def setFabrikJointMagnetPosition(jointIdx: Int, magnetPosition: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = magnetPosition.ptr
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.setFabrikJointMagnetPosition, ptr, _args, null)
+}
 
-    def getFabrikJointMagnetPosition(jointIdx: Int): Vector2 =
+    def getFabrikJointMagnetPosition(jointIdx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.getFabrikJointMagnetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setFabrikJointUseTargetRotation(jointIdx: Int, useTargetRotation: Boolean): Unit =
+    def setFabrikJointUseTargetRotation(jointIdx: Int, useTargetRotation: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if useTargetRotation then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.setFabrikJointUseTargetRotation, ptr, _args, null)
+}
 
-    def getFabrikJointUseTargetRotation(jointIdx: Int): Boolean =
+    def getFabrikJointUseTargetRotation(jointIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DFABRIK.Binds.getFabrikJointUseTargetRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def targetNodepath: Ptr[Byte] = getTargetNode()
-    def targetNodepath_=(v: Ptr[Byte]): Unit = setTargetNode(v)
-    def fabrikDataChainLength: Ptr[Byte] = getFabrikDataChainLength()
-    def fabrikDataChainLength_=(v: Ptr[Byte]): Unit = setFabrikDataChainLength(v)
+}
+
+    def targetNodepath: NodePath = getTargetNode()
+    def targetNodepath_=(v: NodePath): Unit = setTargetNode(v)
+    def fabrikDataChainLength: Int = getFabrikDataChainLength()
+    def fabrikDataChainLength_=(v: Int): Unit = setFabrikDataChainLength(v)
+}
 
 object SkeletonModification2DFABRIK:
-    object Binds:
-        var setTargetNode: Ptr[Byte] = null
-        var getTargetNode: Ptr[Byte] = null
-        var setFabrikDataChainLength: Ptr[Byte] = null
-        var getFabrikDataChainLength: Ptr[Byte] = null
-        var setFabrikJointBone2dNode: Ptr[Byte] = null
+object Binds {
+          var setFabrikJointBone2dNode: Ptr[Byte] = null
         var getFabrikJointBone2dNode: Ptr[Byte] = null
         var setFabrikJointBoneIndex: Ptr[Byte] = null
         var getFabrikJointBoneIndex: Ptr[Byte] = null
@@ -111,12 +93,8 @@ object SkeletonModification2DFABRIK:
         var setFabrikJointUseTargetRotation: Ptr[Byte] = null
         var getFabrikJointUseTargetRotation: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"set_target_node", 1348162250L)
-            Binds.getTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"get_target_node", 4075236667L)
-            Binds.setFabrikDataChainLength = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"set_fabrik_data_chain_length", 1286410249L)
-            Binds.getFabrikDataChainLength = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"get_fabrik_data_chain_length", 2455072627L)
-            Binds.setFabrikJointBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"set_fabrik_joint_bone2d_node", 2761262315L)
+  def loadBinds(): Unit = {
+                Binds.setFabrikJointBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"set_fabrik_joint_bone2d_node", 2761262315L)
             Binds.getFabrikJointBone2dNode = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"get_fabrik_joint_bone2d_node", 408788394L)
             Binds.setFabrikJointBoneIndex = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"set_fabrik_joint_bone_index", 3937882851L)
             Binds.getFabrikJointBoneIndex = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"get_fabrik_joint_bone_index", 923996154L)
@@ -124,8 +102,11 @@ object SkeletonModification2DFABRIK:
             Binds.getFabrikJointMagnetPosition = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"get_fabrik_joint_magnet_position", 2299179447L)
             Binds.setFabrikJointUseTargetRotation = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"set_fabrik_joint_use_target_rotation", 300928843L)
             Binds.getFabrikJointUseTargetRotation = GdxApi.getMethodBind(c"SkeletonModification2DFABRIK", c"get_fabrik_joint_use_target_rotation", 1116898809L)
+  }
+}
 
-    def apply(): SkeletonModification2DFABRIK =
-        val obj = new SkeletonModification2DFABRIK()
-        obj.ptr = GdxApi.constructObject(c"SkeletonModification2DFABRIK")
-        obj
+def apply(): SkeletonModification2DFABRIK = {
+  val obj = new SkeletonModification2DFABRIK()
+  obj.ptr = GdxApi.constructObject(c"SkeletonModification2DFABRIK")
+  obj
+}

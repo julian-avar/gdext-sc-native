@@ -5,53 +5,33 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonModification2D extends Resource
+class SkeletonModification2D extends Resource {
     def _execute(delta: Double): Unit = ()
     def _setupModification(modificationStack: SkeletonModificationStack2D): Unit = ()
     def _drawEditorGizmo(): Unit = ()
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2D.Binds.setEnabled, ptr, _args, null)
 
-    def getEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SkeletonModification2D.Binds.getEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getModificationStack(): SkeletonModificationStack2D =
+    def getModificationStack(): SkeletonModificationStack2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2D.Binds.getModificationStack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SkeletonModificationStack2D(!_ret)
+}
 
-    def setIsSetup(isSetup: Boolean): Unit =
+    def setIsSetup(isSetup: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if isSetup then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2D.Binds.setIsSetup, ptr, _args, null)
+}
 
-    def getIsSetup(): Boolean =
+    def getIsSetup(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2D.Binds.getIsSetup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setExecutionMode(executionMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = executionMode.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2D.Binds.setExecutionMode, ptr, _args, null)
-
-    def getExecutionMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SkeletonModification2D.Binds.getExecutionMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def clampAngle(angle: Float, min: Float, max: Float, invert: Boolean): Float =
+    def clampAngle(angle: Float, min: Float, max: Float, invert: Boolean): Float = {
         val _args = stackalloc[Ptr[Byte]](4)
         val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -64,49 +44,49 @@ class SkeletonModification2D extends Resource
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SkeletonModification2D.Binds.clampAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setEditorDrawGizmo(drawGizmo: Boolean): Unit =
+    def setEditorDrawGizmo(drawGizmo: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if drawGizmo then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2D.Binds.setEditorDrawGizmo, ptr, _args, null)
+}
 
-    def getEditorDrawGizmo(): Boolean =
+    def getEditorDrawGizmo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2D.Binds.getEditorDrawGizmo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def enabled: Ptr[Byte] = getEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def executionMode: Ptr[Byte] = getExecutionMode()
-    def executionMode_=(v: Ptr[Byte]): Unit = setExecutionMode(v)
+}
+
+    def enabled: Boolean = getEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def executionMode: Int = getExecutionMode()
+    def executionMode_=(v: Int): Unit = setExecutionMode(v)
+}
 
 object SkeletonModification2D:
-    object Binds:
-        var setEnabled: Ptr[Byte] = null
-        var getEnabled: Ptr[Byte] = null
-        var getModificationStack: Ptr[Byte] = null
+object Binds {
+          var getModificationStack: Ptr[Byte] = null
         var setIsSetup: Ptr[Byte] = null
         var getIsSetup: Ptr[Byte] = null
-        var setExecutionMode: Ptr[Byte] = null
-        var getExecutionMode: Ptr[Byte] = null
         var clampAngle: Ptr[Byte] = null
         var setEditorDrawGizmo: Ptr[Byte] = null
         var getEditorDrawGizmo: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setEnabled = GdxApi.getMethodBind(c"SkeletonModification2D", c"set_enabled", 2586408642L)
-            Binds.getEnabled = GdxApi.getMethodBind(c"SkeletonModification2D", c"get_enabled", 2240911060L)
-            Binds.getModificationStack = GdxApi.getMethodBind(c"SkeletonModification2D", c"get_modification_stack", 2137761694L)
+  def loadBinds(): Unit = {
+                Binds.getModificationStack = GdxApi.getMethodBind(c"SkeletonModification2D", c"get_modification_stack", 2137761694L)
             Binds.setIsSetup = GdxApi.getMethodBind(c"SkeletonModification2D", c"set_is_setup", 2586408642L)
             Binds.getIsSetup = GdxApi.getMethodBind(c"SkeletonModification2D", c"get_is_setup", 36873697L)
-            Binds.setExecutionMode = GdxApi.getMethodBind(c"SkeletonModification2D", c"set_execution_mode", 1286410249L)
-            Binds.getExecutionMode = GdxApi.getMethodBind(c"SkeletonModification2D", c"get_execution_mode", 3905245786L)
             Binds.clampAngle = GdxApi.getMethodBind(c"SkeletonModification2D", c"clamp_angle", 1229502682L)
             Binds.setEditorDrawGizmo = GdxApi.getMethodBind(c"SkeletonModification2D", c"set_editor_draw_gizmo", 2586408642L)
             Binds.getEditorDrawGizmo = GdxApi.getMethodBind(c"SkeletonModification2D", c"get_editor_draw_gizmo", 36873697L)
+  }
+}
 
-    def apply(): SkeletonModification2D =
-        val obj = new SkeletonModification2D()
-        obj.ptr = GdxApi.constructObject(c"SkeletonModification2D")
-        obj
+def apply(): SkeletonModification2D = {
+  val obj = new SkeletonModification2D()
+  obj.ptr = GdxApi.constructObject(c"SkeletonModification2D")
+  obj
+}

@@ -5,105 +5,118 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceLoader extends Object
-
-    def loadThreadedRequest(path: CString): Int =
+class ResourceLoader extends Object {
+    def loadThreadedRequest(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ResourceLoader.Binds.loadThreadedRequest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadThreadedGetStatus(path: CString): Int =
+    def loadThreadedGetStatus(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ResourceLoader.Binds.loadThreadedGetStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadThreadedGet(path: CString): Resource =
+    def loadThreadedGet(path: CString): Resource = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceLoader.Binds.loadThreadedGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
+}
 
-    def load(path: CString): Resource =
+    def load(path: CString): Resource = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceLoader.Binds.load, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
+}
 
-    def getRecognizedExtensionsForType(`type`: CString): PackedStringArray =
+    def getRecognizedExtensionsForType(`type`: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
+        _args(0) = `type`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceLoader.Binds.getRecognizedExtensionsForType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def addResourceFormatLoader(formatLoader: ResourceFormatLoader): Unit =
+    def addResourceFormatLoader(formatLoader: ResourceFormatLoader): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = formatLoader.ptr
         GdxApi.ptrcall(ResourceLoader.Binds.addResourceFormatLoader, ptr, _args, null)
+}
 
-    def removeResourceFormatLoader(formatLoader: ResourceFormatLoader): Unit =
+    def removeResourceFormatLoader(formatLoader: ResourceFormatLoader): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = formatLoader.ptr
         GdxApi.ptrcall(ResourceLoader.Binds.removeResourceFormatLoader, ptr, _args, null)
+}
 
-    def setAbortOnMissingResources(abort: Boolean): Unit =
+    def setAbortOnMissingResources(abort: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if abort then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ResourceLoader.Binds.setAbortOnMissingResources, ptr, _args, null)
+}
 
-    def getDependencies(path: CString): PackedStringArray =
+    def getDependencies(path: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceLoader.Binds.getDependencies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def hasCached(path: CString): Boolean =
+    def hasCached(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ResourceLoader.Binds.hasCached, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCachedRef(path: CString): Resource =
+    def getCachedRef(path: CString): Resource = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceLoader.Binds.getCachedRef, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
+}
 
-    def exists(path: CString): Boolean =
+    def exists(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ResourceLoader.Binds.exists, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getResourceUid(path: CString): Long =
+    def getResourceUid(path: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ResourceLoader.Binds.getResourceUid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def listDirectory(directoryPath: CString): PackedStringArray =
+    def listDirectory(directoryPath: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = directoryPath.ptr
+        _args(0) = directoryPath
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ResourceLoader.Binds.listDirectory, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
-
+}
+}
 
 object ResourceLoader:
-    object Binds:
-        var loadThreadedRequest: Ptr[Byte] = null
+object Binds {
+          var loadThreadedRequest: Ptr[Byte] = null
         var loadThreadedGetStatus: Ptr[Byte] = null
         var loadThreadedGet: Ptr[Byte] = null
         var load: Ptr[Byte] = null
@@ -118,8 +131,8 @@ object ResourceLoader:
         var getResourceUid: Ptr[Byte] = null
         var listDirectory: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.loadThreadedRequest = GdxApi.getMethodBind(c"ResourceLoader", c"load_threaded_request", 3614384323L)
+  def loadBinds(): Unit = {
+                Binds.loadThreadedRequest = GdxApi.getMethodBind(c"ResourceLoader", c"load_threaded_request", 3614384323L)
             Binds.loadThreadedGetStatus = GdxApi.getMethodBind(c"ResourceLoader", c"load_threaded_get_status", 4137685479L)
             Binds.loadThreadedGet = GdxApi.getMethodBind(c"ResourceLoader", c"load_threaded_get", 1748875256L)
             Binds.load = GdxApi.getMethodBind(c"ResourceLoader", c"load", 3358495409L)
@@ -133,8 +146,11 @@ object ResourceLoader:
             Binds.exists = GdxApi.getMethodBind(c"ResourceLoader", c"exists", 4185558881L)
             Binds.getResourceUid = GdxApi.getMethodBind(c"ResourceLoader", c"get_resource_uid", 1597066294L)
             Binds.listDirectory = GdxApi.getMethodBind(c"ResourceLoader", c"list_directory", 3538744774L)
+  }
+}
 
-    def apply(): ResourceLoader =
-        val obj = new ResourceLoader()
-        obj.ptr = GdxApi.constructObject(c"ResourceLoader")
-        obj
+def apply(): ResourceLoader = {
+  val obj = new ResourceLoader()
+  obj.ptr = GdxApi.constructObject(c"ResourceLoader")
+  obj
+}

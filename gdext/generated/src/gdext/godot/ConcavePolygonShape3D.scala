@@ -5,49 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConcavePolygonShape3D extends Shape3D
-
-    def setFaces(faces: PackedVector3Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = faces.ptr
-        GdxApi.ptrcall(ConcavePolygonShape3D.Binds.setFaces, ptr, _args, null)
-
-    def getFaces(): PackedVector3Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ConcavePolygonShape3D.Binds.getFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector3Array(!_ret)
-
-    def setBackfaceCollisionEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ConcavePolygonShape3D.Binds.setBackfaceCollisionEnabled, ptr, _args, null)
-
-    def isBackfaceCollisionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ConcavePolygonShape3D.Binds.isBackfaceCollisionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def data: Ptr[Byte] = getFaces()
-    def data_=(v: Ptr[Byte]): Unit = setFaces(v)
-    def backfaceCollision: Ptr[Byte] = isBackfaceCollisionEnabled()
-    def backfaceCollision_=(v: Ptr[Byte]): Unit = setBackfaceCollisionEnabled(v)
+class ConcavePolygonShape3D extends Shape3D {
+    def data: PackedVector3Array = getFaces()
+    def data_=(v: PackedVector3Array): Unit = setFaces(v)
+    def backfaceCollision: Boolean = isBackfaceCollisionEnabled()
+    def backfaceCollision_=(v: Boolean): Unit = setBackfaceCollisionEnabled(v)
+}
 
 object ConcavePolygonShape3D:
-    object Binds:
-        var setFaces: Ptr[Byte] = null
-        var getFaces: Ptr[Byte] = null
-        var setBackfaceCollisionEnabled: Ptr[Byte] = null
-        var isBackfaceCollisionEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFaces = GdxApi.getMethodBind(c"ConcavePolygonShape3D", c"set_faces", 334873810L)
-            Binds.getFaces = GdxApi.getMethodBind(c"ConcavePolygonShape3D", c"get_faces", 497664490L)
-            Binds.setBackfaceCollisionEnabled = GdxApi.getMethodBind(c"ConcavePolygonShape3D", c"set_backface_collision_enabled", 2586408642L)
-            Binds.isBackfaceCollisionEnabled = GdxApi.getMethodBind(c"ConcavePolygonShape3D", c"is_backface_collision_enabled", 36873697L)
-
-    def apply(): ConcavePolygonShape3D =
-        val obj = new ConcavePolygonShape3D()
-        obj.ptr = GdxApi.constructObject(c"ConcavePolygonShape3D")
-        obj
+def apply(): ConcavePolygonShape3D = {
+  val obj = new ConcavePolygonShape3D()
+  obj.ptr = GdxApi.constructObject(c"ConcavePolygonShape3D")
+  obj
+}

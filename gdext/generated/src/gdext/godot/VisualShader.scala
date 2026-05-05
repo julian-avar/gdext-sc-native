@@ -5,206 +5,235 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShader extends Shader
-
-    def setMode(mode: Int): Unit =
+class VisualShader extends Shader {
+    def setMode(mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.setMode, ptr, _args, null)
+}
 
-    def addNode(`type`: Int, node: VisualShaderNode, position: Vector2, id: Int): Unit =
+    def addNode(`type`: Int, node: VisualShaderNode, position: Vector2, id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = `type`.ptr
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = node.ptr
         _args(2) = position.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = id.toLong
+        val _a3 = stackalloc[Long](); !_a3 = id.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.addNode, ptr, _args, null)
+}
 
-    def getNode(`type`: Int, id: Int): VisualShaderNode =
+    def getNode(`type`: Int, id: Int): VisualShaderNode = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VisualShader.Binds.getNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VisualShaderNode(!_ret)
+}
 
-    def setNodePosition(`type`: Int, id: Int, position: Vector2): Unit =
+    def setNodePosition(`type`: Int, id: Int, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = position.ptr
         GdxApi.ptrcall(VisualShader.Binds.setNodePosition, ptr, _args, null)
+}
 
-    def getNodePosition(`type`: Int, id: Int): Vector2 =
+    def getNodePosition(`type`: Int, id: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VisualShader.Binds.getNodePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getNodeList(`type`: Int): PackedInt32Array =
+    def getNodeList(`type`: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VisualShader.Binds.getNodeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getValidNodeId(`type`: Int): Int =
+    def getValidNodeId(`type`: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShader.Binds.getValidNodeId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeNode(`type`: Int, id: Int): Unit =
+    def removeNode(`type`: Int, id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.removeNode, ptr, _args, null)
+}
 
-    def replaceNode(`type`: Int, id: Int, newClass: CString): Unit =
+    def replaceNode(`type`: Int, id: Int, newClass: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = newClass.ptr
+        _args(2) = newClass
         GdxApi.ptrcall(VisualShader.Binds.replaceNode, ptr, _args, null)
+}
 
-    def isNodeConnection(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Boolean =
+    def isNodeConnection(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fromNode.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = fromNode.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromPort.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromPort.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toNode.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toNode.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = toPort.toLong
+        val _a4 = stackalloc[Long](); !_a4 = toPort.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisualShader.Binds.isNodeConnection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def canConnectNodes(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Boolean =
+    def canConnectNodes(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fromNode.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = fromNode.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromPort.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromPort.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toNode.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toNode.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = toPort.toLong
+        val _a4 = stackalloc[Long](); !_a4 = toPort.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisualShader.Binds.canConnectNodes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def connectNodes(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Int =
+    def connectNodes(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fromNode.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = fromNode.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromPort.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromPort.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toNode.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toNode.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = toPort.toLong
+        val _a4 = stackalloc[Long](); !_a4 = toPort.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShader.Binds.connectNodes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def disconnectNodes(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Unit =
+    def disconnectNodes(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fromNode.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = fromNode.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromPort.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromPort.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toNode.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toNode.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = toPort.toLong
+        val _a4 = stackalloc[Long](); !_a4 = toPort.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.disconnectNodes, ptr, _args, null)
+}
 
-    def connectNodesForced(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Unit =
+    def connectNodesForced(`type`: Int, fromNode: Int, fromPort: Int, toNode: Int, toPort: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fromNode.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = fromNode.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = fromPort.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fromPort.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = toNode.toLong
+        val _a3 = stackalloc[Long](); !_a3 = toNode.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = toPort.toLong
+        val _a4 = stackalloc[Long](); !_a4 = toPort.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.connectNodesForced, ptr, _args, null)
+}
 
-    def getNodeConnections(`type`: Int): Ptr[Byte] =
+    def getNodeConnections(`type`: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VisualShader.Binds.getNodeConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def attachNodeToFrame(`type`: Int, id: Int, frame: Int): Unit =
+    def attachNodeToFrame(`type`: Int, id: Int, frame: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = frame.toLong
+        val _a2 = stackalloc[Long](); !_a2 = frame.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.attachNodeToFrame, ptr, _args, null)
+}
 
-    def detachNodeFromFrame(`type`: Int, id: Int): Unit =
+    def detachNodeFromFrame(`type`: Int, id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.detachNodeFromFrame, ptr, _args, null)
+}
 
-    def addVarying(name: CString, mode: Int, `type`: Int): Unit =
+    def addVarying(name: CString, mode: Int, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = mode.ptr
-        _args(2) = `type`.ptr
+        _args(0) = name
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = `type`.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShader.Binds.addVarying, ptr, _args, null)
+}
 
-    def removeVarying(name: CString): Unit =
+    def removeVarying(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(VisualShader.Binds.removeVarying, ptr, _args, null)
+}
 
-    def hasVarying(name: CString): Boolean =
+    def hasVarying(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisualShader.Binds.hasVarying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setGraphOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(VisualShader.Binds.setGraphOffset, ptr, _args, null)
-
-    def getGraphOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShader.Binds.getGraphOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def graphOffset: Ptr[Byte] = getGraphOffset()
-    def graphOffset_=(v: Ptr[Byte]): Unit = setGraphOffset(v)
+    def graphOffset: Vector2 = getGraphOffset()
+    def graphOffset_=(v: Vector2): Unit = setGraphOffset(v)
+}
 
 object VisualShader:
-    object Binds:
-        var setMode: Ptr[Byte] = null
+object Binds {
+          var setMode: Ptr[Byte] = null
         var addNode: Ptr[Byte] = null
         var getNode: Ptr[Byte] = null
         var setNodePosition: Ptr[Byte] = null
@@ -224,11 +253,9 @@ object VisualShader:
         var addVarying: Ptr[Byte] = null
         var removeVarying: Ptr[Byte] = null
         var hasVarying: Ptr[Byte] = null
-        var setGraphOffset: Ptr[Byte] = null
-        var getGraphOffset: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setMode = GdxApi.getMethodBind(c"VisualShader", c"set_mode", 3978014962L)
+  def loadBinds(): Unit = {
+                Binds.setMode = GdxApi.getMethodBind(c"VisualShader", c"set_mode", 3978014962L)
             Binds.addNode = GdxApi.getMethodBind(c"VisualShader", c"add_node", 1560769431L)
             Binds.getNode = GdxApi.getMethodBind(c"VisualShader", c"get_node", 3784670312L)
             Binds.setNodePosition = GdxApi.getMethodBind(c"VisualShader", c"set_node_position", 2726660721L)
@@ -248,10 +275,11 @@ object VisualShader:
             Binds.addVarying = GdxApi.getMethodBind(c"VisualShader", c"add_varying", 2084110726L)
             Binds.removeVarying = GdxApi.getMethodBind(c"VisualShader", c"remove_varying", 83702148L)
             Binds.hasVarying = GdxApi.getMethodBind(c"VisualShader", c"has_varying", 3927539163L)
-            Binds.setGraphOffset = GdxApi.getMethodBind(c"VisualShader", c"set_graph_offset", 743155724L)
-            Binds.getGraphOffset = GdxApi.getMethodBind(c"VisualShader", c"get_graph_offset", 3341600327L)
+  }
+}
 
-    def apply(): VisualShader =
-        val obj = new VisualShader()
-        obj.ptr = GdxApi.constructObject(c"VisualShader")
-        obj
+def apply(): VisualShader = {
+  val obj = new VisualShader()
+  obj.ptr = GdxApi.constructObject(c"VisualShader")
+  obj
+}

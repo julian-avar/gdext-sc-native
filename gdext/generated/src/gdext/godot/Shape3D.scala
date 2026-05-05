@@ -5,53 +5,25 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Shape3D extends Resource
-
-    def setCustomSolverBias(bias: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = bias.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Shape3D.Binds.setCustomSolverBias, ptr, _args, null)
-
-    def getCustomSolverBias(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Shape3D.Binds.getCustomSolverBias, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Shape3D.Binds.setMargin, ptr, _args, null)
-
-    def getMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Shape3D.Binds.getMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getDebugMesh(): ArrayMesh =
+class Shape3D extends Resource {
+    def getDebugMesh(): ArrayMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Shape3D.Binds.getDebugMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ArrayMesh(!_ret)
-    def customSolverBias: Ptr[Byte] = getCustomSolverBias()
-    def customSolverBias_=(v: Ptr[Byte]): Unit = setCustomSolverBias(v)
-    def margin: Ptr[Byte] = getMargin()
-    def margin_=(v: Ptr[Byte]): Unit = setMargin(v)
+}
+
+    def customSolverBias: Float = getCustomSolverBias()
+    def customSolverBias_=(v: Float): Unit = setCustomSolverBias(v)
+    def margin: Float = getMargin()
+    def margin_=(v: Float): Unit = setMargin(v)
+}
 
 object Shape3D:
-    object Binds:
-        var setCustomSolverBias: Ptr[Byte] = null
-        var getCustomSolverBias: Ptr[Byte] = null
-        var setMargin: Ptr[Byte] = null
-        var getMargin: Ptr[Byte] = null
-        var getDebugMesh: Ptr[Byte] = null
+object Binds {
+          var getDebugMesh: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setCustomSolverBias = GdxApi.getMethodBind(c"Shape3D", c"set_custom_solver_bias", 373806689L)
-            Binds.getCustomSolverBias = GdxApi.getMethodBind(c"Shape3D", c"get_custom_solver_bias", 1740695150L)
-            Binds.setMargin = GdxApi.getMethodBind(c"Shape3D", c"set_margin", 373806689L)
-            Binds.getMargin = GdxApi.getMethodBind(c"Shape3D", c"get_margin", 1740695150L)
-            Binds.getDebugMesh = GdxApi.getMethodBind(c"Shape3D", c"get_debug_mesh", 1605880883L)
+  def loadBinds(): Unit = {
+                Binds.getDebugMesh = GdxApi.getMethodBind(c"Shape3D", c"get_debug_mesh", 1605880883L)
+  }
+}

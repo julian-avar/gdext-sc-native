@@ -5,131 +5,150 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpriteFrames extends Resource
-
-    def addAnimation(anim: CString): Unit =
+class SpriteFrames extends Resource {
+    def addAnimation(anim: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
+        _args(0) = anim
         GdxApi.ptrcall(SpriteFrames.Binds.addAnimation, ptr, _args, null)
+}
 
-    def hasAnimation(anim: CString): Boolean =
+    def hasAnimation(anim: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
+        _args(0) = anim
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SpriteFrames.Binds.hasAnimation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def duplicateAnimation(animFrom: CString, animTo: CString): Unit =
+    def duplicateAnimation(animFrom: CString, animTo: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = animFrom.ptr
-        _args(1) = animTo.ptr
+        _args(0) = animFrom
+        _args(1) = animTo
         GdxApi.ptrcall(SpriteFrames.Binds.duplicateAnimation, ptr, _args, null)
+}
 
-    def removeAnimation(anim: CString): Unit =
+    def removeAnimation(anim: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
+        _args(0) = anim
         GdxApi.ptrcall(SpriteFrames.Binds.removeAnimation, ptr, _args, null)
+}
 
-    def renameAnimation(anim: CString, newname: CString): Unit =
+    def renameAnimation(anim: CString, newname: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
-        _args(1) = newname.ptr
+        _args(0) = anim
+        _args(1) = newname
         GdxApi.ptrcall(SpriteFrames.Binds.renameAnimation, ptr, _args, null)
+}
 
-    def getAnimationNames(): PackedStringArray =
+    def getAnimationNames(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpriteFrames.Binds.getAnimationNames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setAnimationSpeed(anim: CString, fps: Double): Unit =
+    def setAnimationSpeed(anim: CString, fps: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
+        _args(0) = anim
         val _a1 = stackalloc[Double](); !_a1 = fps
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpriteFrames.Binds.setAnimationSpeed, ptr, _args, null)
+}
 
-    def getAnimationSpeed(anim: CString): Double =
+    def getAnimationSpeed(anim: CString): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
+        _args(0) = anim
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpriteFrames.Binds.getAnimationSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setAnimationLoop(anim: CString, loop: Boolean): Unit =
+    def setAnimationLoop(anim: CString, loop: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
+        _args(0) = anim
         val _a1 = stackalloc[Byte](); !_a1 = if loop then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpriteFrames.Binds.setAnimationLoop, ptr, _args, null)
+}
 
-    def getAnimationLoop(anim: CString): Boolean =
+    def getAnimationLoop(anim: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
+        _args(0) = anim
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SpriteFrames.Binds.getAnimationLoop, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addFrame(anim: CString, texture: Texture2D): Unit =
+    def addFrame(anim: CString, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
+        _args(0) = anim
         _args(1) = texture.ptr
         GdxApi.ptrcall(SpriteFrames.Binds.addFrame, ptr, _args, null)
+}
 
-    def setFrame(anim: CString, idx: Int, texture: Texture2D): Unit =
+    def setFrame(anim: CString, idx: Int, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = anim.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = anim
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = texture.ptr
         GdxApi.ptrcall(SpriteFrames.Binds.setFrame, ptr, _args, null)
+}
 
-    def removeFrame(anim: CString, idx: Int): Unit =
+    def removeFrame(anim: CString, idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = anim
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpriteFrames.Binds.removeFrame, ptr, _args, null)
+}
 
-    def getFrameCount(anim: CString): Int =
+    def getFrameCount(anim: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = anim
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpriteFrames.Binds.getFrameCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFrameTexture(anim: CString, idx: Int): Texture2D =
+    def getFrameTexture(anim: CString, idx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = anim
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpriteFrames.Binds.getFrameTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def getFrameDuration(anim: CString, idx: Int): Float =
+    def getFrameDuration(anim: CString, idx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = anim.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = anim
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpriteFrames.Binds.getFrameDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def clear(anim: CString): Unit =
+    def clear(anim: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anim.ptr
+        _args(0) = anim
         GdxApi.ptrcall(SpriteFrames.Binds.clear, ptr, _args, null)
+}
 
-    def clearAll(): Unit =
+    def clearAll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SpriteFrames.Binds.clearAll, ptr, _args, null)
+}
+
     def animations: Ptr[Byte] = _getAnimations()
     def animations_=(v: Ptr[Byte]): Unit = _setAnimations(v)
+}
 
 object SpriteFrames:
-    object Binds:
-        var addAnimation: Ptr[Byte] = null
+object Binds {
+          var addAnimation: Ptr[Byte] = null
         var hasAnimation: Ptr[Byte] = null
         var duplicateAnimation: Ptr[Byte] = null
         var removeAnimation: Ptr[Byte] = null
@@ -148,8 +167,8 @@ object SpriteFrames:
         var clear: Ptr[Byte] = null
         var clearAll: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addAnimation = GdxApi.getMethodBind(c"SpriteFrames", c"add_animation", 3304788590L)
+  def loadBinds(): Unit = {
+                Binds.addAnimation = GdxApi.getMethodBind(c"SpriteFrames", c"add_animation", 3304788590L)
             Binds.hasAnimation = GdxApi.getMethodBind(c"SpriteFrames", c"has_animation", 2619796661L)
             Binds.duplicateAnimation = GdxApi.getMethodBind(c"SpriteFrames", c"duplicate_animation", 3740211285L)
             Binds.removeAnimation = GdxApi.getMethodBind(c"SpriteFrames", c"remove_animation", 3304788590L)
@@ -167,8 +186,11 @@ object SpriteFrames:
             Binds.getFrameDuration = GdxApi.getMethodBind(c"SpriteFrames", c"get_frame_duration", 1129309260L)
             Binds.clear = GdxApi.getMethodBind(c"SpriteFrames", c"clear", 3304788590L)
             Binds.clearAll = GdxApi.getMethodBind(c"SpriteFrames", c"clear_all", 3218959716L)
+  }
+}
 
-    def apply(): SpriteFrames =
-        val obj = new SpriteFrames()
-        obj.ptr = GdxApi.constructObject(c"SpriteFrames")
-        obj
+def apply(): SpriteFrames = {
+  val obj = new SpriteFrames()
+  obj.ptr = GdxApi.constructObject(c"SpriteFrames")
+  obj
+}

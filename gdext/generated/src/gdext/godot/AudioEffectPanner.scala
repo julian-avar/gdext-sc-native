@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectPanner extends AudioEffect
-
-    def setPan(cpanume: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = cpanume.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPanner.Binds.setPan, ptr, _args, null)
-
-    def getPan(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPanner.Binds.getPan, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def pan: Ptr[Byte] = getPan()
-    def pan_=(v: Ptr[Byte]): Unit = setPan(v)
+class AudioEffectPanner extends AudioEffect {
+    def pan: Float = getPan()
+    def pan_=(v: Float): Unit = setPan(v)
+}
 
 object AudioEffectPanner:
-    object Binds:
-        var setPan: Ptr[Byte] = null
-        var getPan: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPan = GdxApi.getMethodBind(c"AudioEffectPanner", c"set_pan", 373806689L)
-            Binds.getPan = GdxApi.getMethodBind(c"AudioEffectPanner", c"get_pan", 1740695150L)
-
-    def apply(): AudioEffectPanner =
-        val obj = new AudioEffectPanner()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectPanner")
-        obj
+def apply(): AudioEffectPanner = {
+  val obj = new AudioEffectPanner()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectPanner")
+  obj
+}

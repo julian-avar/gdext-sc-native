@@ -5,155 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeAnimation extends AnimationRootNode
-
-    def setAnimation(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setAnimation, ptr, _args, null)
-
-    def getAnimation(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.getAnimation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPlayMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setPlayMode, ptr, _args, null)
-
-    def getPlayMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.getPlayMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAdvanceOnStart(advanceOnStart: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if advanceOnStart then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setAdvanceOnStart, ptr, _args, null)
-
-    def isAdvanceOnStart(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.isAdvanceOnStart, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseCustomTimeline(useCustomTimeline: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useCustomTimeline then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setUseCustomTimeline, ptr, _args, null)
-
-    def isUsingCustomTimeline(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.isUsingCustomTimeline, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTimelineLength(timelineLength: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = timelineLength
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setTimelineLength, ptr, _args, null)
-
-    def getTimelineLength(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.getTimelineLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setStretchTimeScale(stretchTimeScale: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if stretchTimeScale then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setStretchTimeScale, ptr, _args, null)
-
-    def isStretchingTimeScale(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.isStretchingTimeScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setStartOffset(startOffset: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = startOffset
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setStartOffset, ptr, _args, null)
-
-    def getStartOffset(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.getStartOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setLoopMode(loopMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = loopMode.ptr
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.setLoopMode, ptr, _args, null)
-
-    def getLoopMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AnimationNodeAnimation.Binds.getLoopMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def animation: Ptr[Byte] = getAnimation()
-    def animation_=(v: Ptr[Byte]): Unit = setAnimation(v)
-    def playMode: Ptr[Byte] = getPlayMode()
-    def playMode_=(v: Ptr[Byte]): Unit = setPlayMode(v)
-    def advanceOnStart: Ptr[Byte] = isAdvanceOnStart()
-    def advanceOnStart_=(v: Ptr[Byte]): Unit = setAdvanceOnStart(v)
-    def useCustomTimeline: Ptr[Byte] = isUsingCustomTimeline()
-    def useCustomTimeline_=(v: Ptr[Byte]): Unit = setUseCustomTimeline(v)
-    def timelineLength: Ptr[Byte] = getTimelineLength()
-    def timelineLength_=(v: Ptr[Byte]): Unit = setTimelineLength(v)
-    def stretchTimeScale: Ptr[Byte] = isStretchingTimeScale()
-    def stretchTimeScale_=(v: Ptr[Byte]): Unit = setStretchTimeScale(v)
-    def startOffset: Ptr[Byte] = getStartOffset()
-    def startOffset_=(v: Ptr[Byte]): Unit = setStartOffset(v)
-    def loopMode: Ptr[Byte] = getLoopMode()
-    def loopMode_=(v: Ptr[Byte]): Unit = setLoopMode(v)
+class AnimationNodeAnimation extends AnimationRootNode {
+    def animation: CString = getAnimation()
+    def animation_=(v: CString): Unit = setAnimation(v)
+    def playMode: Int = getPlayMode()
+    def playMode_=(v: Int): Unit = setPlayMode(v)
+    def advanceOnStart: Boolean = isAdvanceOnStart()
+    def advanceOnStart_=(v: Boolean): Unit = setAdvanceOnStart(v)
+    def useCustomTimeline: Boolean = isUsingCustomTimeline()
+    def useCustomTimeline_=(v: Boolean): Unit = setUseCustomTimeline(v)
+    def timelineLength: Double = getTimelineLength()
+    def timelineLength_=(v: Double): Unit = setTimelineLength(v)
+    def stretchTimeScale: Boolean = isStretchingTimeScale()
+    def stretchTimeScale_=(v: Boolean): Unit = setStretchTimeScale(v)
+    def startOffset: Double = getStartOffset()
+    def startOffset_=(v: Double): Unit = setStartOffset(v)
+    def loopMode: Int = getLoopMode()
+    def loopMode_=(v: Int): Unit = setLoopMode(v)
+}
 
 object AnimationNodeAnimation:
-    object Binds:
-        var setAnimation: Ptr[Byte] = null
-        var getAnimation: Ptr[Byte] = null
-        var setPlayMode: Ptr[Byte] = null
-        var getPlayMode: Ptr[Byte] = null
-        var setAdvanceOnStart: Ptr[Byte] = null
-        var isAdvanceOnStart: Ptr[Byte] = null
-        var setUseCustomTimeline: Ptr[Byte] = null
-        var isUsingCustomTimeline: Ptr[Byte] = null
-        var setTimelineLength: Ptr[Byte] = null
-        var getTimelineLength: Ptr[Byte] = null
-        var setStretchTimeScale: Ptr[Byte] = null
-        var isStretchingTimeScale: Ptr[Byte] = null
-        var setStartOffset: Ptr[Byte] = null
-        var getStartOffset: Ptr[Byte] = null
-        var setLoopMode: Ptr[Byte] = null
-        var getLoopMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setAnimation = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_animation", 3304788590L)
-            Binds.getAnimation = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"get_animation", 2002593661L)
-            Binds.setPlayMode = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_play_mode", 3347718873L)
-            Binds.getPlayMode = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"get_play_mode", 2061244637L)
-            Binds.setAdvanceOnStart = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_advance_on_start", 2586408642L)
-            Binds.isAdvanceOnStart = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"is_advance_on_start", 36873697L)
-            Binds.setUseCustomTimeline = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_use_custom_timeline", 2586408642L)
-            Binds.isUsingCustomTimeline = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"is_using_custom_timeline", 36873697L)
-            Binds.setTimelineLength = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_timeline_length", 373806689L)
-            Binds.getTimelineLength = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"get_timeline_length", 1740695150L)
-            Binds.setStretchTimeScale = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_stretch_time_scale", 2586408642L)
-            Binds.isStretchingTimeScale = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"is_stretching_time_scale", 36873697L)
-            Binds.setStartOffset = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_start_offset", 373806689L)
-            Binds.getStartOffset = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"get_start_offset", 1740695150L)
-            Binds.setLoopMode = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"set_loop_mode", 3155355575L)
-            Binds.getLoopMode = GdxApi.getMethodBind(c"AnimationNodeAnimation", c"get_loop_mode", 1988889481L)
-
-    def apply(): AnimationNodeAnimation =
-        val obj = new AnimationNodeAnimation()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeAnimation")
-        obj
+def apply(): AnimationNodeAnimation = {
+  val obj = new AnimationNodeAnimation()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeAnimation")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PopupPanel extends Popup
-
-
-
+class PopupPanel extends Popup {}
 
 object PopupPanel:
-    def apply(): PopupPanel =
-        val obj = new PopupPanel()
-        obj.ptr = GdxApi.constructObject(c"PopupPanel")
-        obj
+def apply(): PopupPanel = {
+  val obj = new PopupPanel()
+  obj.ptr = GdxApi.constructObject(c"PopupPanel")
+  obj
+}

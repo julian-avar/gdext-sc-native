@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CompressedCubemap extends CompressedTextureLayered
-
-
-
+class CompressedCubemap extends CompressedTextureLayered {}
 
 object CompressedCubemap:
-    def apply(): CompressedCubemap =
-        val obj = new CompressedCubemap()
-        obj.ptr = GdxApi.constructObject(c"CompressedCubemap")
-        obj
+def apply(): CompressedCubemap = {
+  val obj = new CompressedCubemap()
+  obj.ptr = GdxApi.constructObject(c"CompressedCubemap")
+  obj
+}

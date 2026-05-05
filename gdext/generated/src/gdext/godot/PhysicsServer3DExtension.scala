@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsServer3DExtension extends PhysicsServer3D
+class PhysicsServer3DExtension extends PhysicsServer3D {
     def _worldBoundaryShapeCreate(): RID = null
     def _separationRayShapeCreate(): RID = null
     def _sphereShapeCreate(): RID = null
@@ -200,32 +200,38 @@ class PhysicsServer3DExtension extends PhysicsServer3D
     def _finish(): Unit = ()
     def _isFlushingQueries(): Boolean = false
     def _getProcessInfo(processInfo: Int): Int = 0
-    def bodyTestMotionIsExcludingBody(body: RID): Boolean =
+
+    def bodyTestMotionIsExcludingBody(body: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer3DExtension.Binds.bodyTestMotionIsExcludingBody, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def bodyTestMotionIsExcludingObject(`object`: Long): Boolean =
+    def bodyTestMotionIsExcludingObject(`object`: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = `object`
+        val _a0 = stackalloc[Long](); !_a0 = `object`
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer3DExtension.Binds.bodyTestMotionIsExcludingObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object PhysicsServer3DExtension:
-    object Binds:
-        var bodyTestMotionIsExcludingBody: Ptr[Byte] = null
+object Binds {
+          var bodyTestMotionIsExcludingBody: Ptr[Byte] = null
         var bodyTestMotionIsExcludingObject: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.bodyTestMotionIsExcludingBody = GdxApi.getMethodBind(c"PhysicsServer3DExtension", c"body_test_motion_is_excluding_body", 4155700596L)
+  def loadBinds(): Unit = {
+                Binds.bodyTestMotionIsExcludingBody = GdxApi.getMethodBind(c"PhysicsServer3DExtension", c"body_test_motion_is_excluding_body", 4155700596L)
             Binds.bodyTestMotionIsExcludingObject = GdxApi.getMethodBind(c"PhysicsServer3DExtension", c"body_test_motion_is_excluding_object", 1116898809L)
+  }
+}
 
-    def apply(): PhysicsServer3DExtension =
-        val obj = new PhysicsServer3DExtension()
-        obj.ptr = GdxApi.constructObject(c"PhysicsServer3DExtension")
-        obj
+def apply(): PhysicsServer3DExtension = {
+  val obj = new PhysicsServer3DExtension()
+  obj.ptr = GdxApi.constructObject(c"PhysicsServer3DExtension")
+  obj
+}

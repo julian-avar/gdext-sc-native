@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeSync extends AnimationNode
-
-    def setUseSync(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeSync.Binds.setUseSync, ptr, _args, null)
-
-    def isUsingSync(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeSync.Binds.isUsingSync, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def sync: Ptr[Byte] = isUsingSync()
-    def sync_=(v: Ptr[Byte]): Unit = setUseSync(v)
+class AnimationNodeSync extends AnimationNode {
+    def sync: Boolean = isUsingSync()
+    def sync_=(v: Boolean): Unit = setUseSync(v)
+}
 
 object AnimationNodeSync:
-    object Binds:
-        var setUseSync: Ptr[Byte] = null
-        var isUsingSync: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setUseSync = GdxApi.getMethodBind(c"AnimationNodeSync", c"set_use_sync", 2586408642L)
-            Binds.isUsingSync = GdxApi.getMethodBind(c"AnimationNodeSync", c"is_using_sync", 36873697L)
-
-    def apply(): AnimationNodeSync =
-        val obj = new AnimationNodeSync()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeSync")
-        obj
+def apply(): AnimationNodeSync = {
+  val obj = new AnimationNodeSync()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeSync")
+  obj
+}

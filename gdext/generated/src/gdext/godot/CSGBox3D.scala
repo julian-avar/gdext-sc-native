@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CSGBox3D extends CSGPrimitive3D
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(CSGBox3D.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CSGBox3D.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setMaterial(material: Material): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = material.ptr
-        GdxApi.ptrcall(CSGBox3D.Binds.setMaterial, ptr, _args, null)
-
-    def getMaterial(): Material =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CSGBox3D.Binds.getMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Material(!_ret)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def material: Ptr[Byte] = getMaterial()
-    def material_=(v: Ptr[Byte]): Unit = setMaterial(v)
+class CSGBox3D extends CSGPrimitive3D {
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def material: Material = getMaterial()
+    def material_=(v: Material): Unit = setMaterial(v)
+}
 
 object CSGBox3D:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setMaterial: Ptr[Byte] = null
-        var getMaterial: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"CSGBox3D", c"set_size", 3460891852L)
-            Binds.getSize = GdxApi.getMethodBind(c"CSGBox3D", c"get_size", 3360562783L)
-            Binds.setMaterial = GdxApi.getMethodBind(c"CSGBox3D", c"set_material", 2757459619L)
-            Binds.getMaterial = GdxApi.getMethodBind(c"CSGBox3D", c"get_material", 5934680L)
-
-    def apply(): CSGBox3D =
-        val obj = new CSGBox3D()
-        obj.ptr = GdxApi.constructObject(c"CSGBox3D")
-        obj
+def apply(): CSGBox3D = {
+  val obj = new CSGBox3D()
+  obj.ptr = GdxApi.constructObject(c"CSGBox3D")
+  obj
+}

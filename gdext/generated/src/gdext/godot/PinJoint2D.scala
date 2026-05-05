@@ -5,122 +5,24 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PinJoint2D extends Joint2D
-
-    def setSoftness(softness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = softness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PinJoint2D.Binds.setSoftness, ptr, _args, null)
-
-    def getSoftness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PinJoint2D.Binds.getSoftness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAngularLimitLower(angularLimitLower: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angularLimitLower.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PinJoint2D.Binds.setAngularLimitLower, ptr, _args, null)
-
-    def getAngularLimitLower(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PinJoint2D.Binds.getAngularLimitLower, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAngularLimitUpper(angularLimitUpper: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angularLimitUpper.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PinJoint2D.Binds.setAngularLimitUpper, ptr, _args, null)
-
-    def getAngularLimitUpper(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PinJoint2D.Binds.getAngularLimitUpper, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMotorTargetVelocity(motorTargetVelocity: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = motorTargetVelocity.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PinJoint2D.Binds.setMotorTargetVelocity, ptr, _args, null)
-
-    def getMotorTargetVelocity(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PinJoint2D.Binds.getMotorTargetVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMotorEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PinJoint2D.Binds.setMotorEnabled, ptr, _args, null)
-
-    def isMotorEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PinJoint2D.Binds.isMotorEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAngularLimitEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PinJoint2D.Binds.setAngularLimitEnabled, ptr, _args, null)
-
-    def isAngularLimitEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PinJoint2D.Binds.isAngularLimitEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def softness: Ptr[Byte] = getSoftness()
-    def softness_=(v: Ptr[Byte]): Unit = setSoftness(v)
-    def angularLimitEnabled: Ptr[Byte] = isAngularLimitEnabled()
-    def angularLimitEnabled_=(v: Ptr[Byte]): Unit = setAngularLimitEnabled(v)
-    def angularLimitLower: Ptr[Byte] = getAngularLimitLower()
-    def angularLimitLower_=(v: Ptr[Byte]): Unit = setAngularLimitLower(v)
-    def angularLimitUpper: Ptr[Byte] = getAngularLimitUpper()
-    def angularLimitUpper_=(v: Ptr[Byte]): Unit = setAngularLimitUpper(v)
-    def motorEnabled: Ptr[Byte] = isMotorEnabled()
-    def motorEnabled_=(v: Ptr[Byte]): Unit = setMotorEnabled(v)
-    def motorTargetVelocity: Ptr[Byte] = getMotorTargetVelocity()
-    def motorTargetVelocity_=(v: Ptr[Byte]): Unit = setMotorTargetVelocity(v)
+class PinJoint2D extends Joint2D {
+    def softness: Float = getSoftness()
+    def softness_=(v: Float): Unit = setSoftness(v)
+    def angularLimitEnabled: Boolean = isAngularLimitEnabled()
+    def angularLimitEnabled_=(v: Boolean): Unit = setAngularLimitEnabled(v)
+    def angularLimitLower: Float = getAngularLimitLower()
+    def angularLimitLower_=(v: Float): Unit = setAngularLimitLower(v)
+    def angularLimitUpper: Float = getAngularLimitUpper()
+    def angularLimitUpper_=(v: Float): Unit = setAngularLimitUpper(v)
+    def motorEnabled: Boolean = isMotorEnabled()
+    def motorEnabled_=(v: Boolean): Unit = setMotorEnabled(v)
+    def motorTargetVelocity: Float = getMotorTargetVelocity()
+    def motorTargetVelocity_=(v: Float): Unit = setMotorTargetVelocity(v)
+}
 
 object PinJoint2D:
-    object Binds:
-        var setSoftness: Ptr[Byte] = null
-        var getSoftness: Ptr[Byte] = null
-        var setAngularLimitLower: Ptr[Byte] = null
-        var getAngularLimitLower: Ptr[Byte] = null
-        var setAngularLimitUpper: Ptr[Byte] = null
-        var getAngularLimitUpper: Ptr[Byte] = null
-        var setMotorTargetVelocity: Ptr[Byte] = null
-        var getMotorTargetVelocity: Ptr[Byte] = null
-        var setMotorEnabled: Ptr[Byte] = null
-        var isMotorEnabled: Ptr[Byte] = null
-        var setAngularLimitEnabled: Ptr[Byte] = null
-        var isAngularLimitEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSoftness = GdxApi.getMethodBind(c"PinJoint2D", c"set_softness", 373806689L)
-            Binds.getSoftness = GdxApi.getMethodBind(c"PinJoint2D", c"get_softness", 1740695150L)
-            Binds.setAngularLimitLower = GdxApi.getMethodBind(c"PinJoint2D", c"set_angular_limit_lower", 373806689L)
-            Binds.getAngularLimitLower = GdxApi.getMethodBind(c"PinJoint2D", c"get_angular_limit_lower", 1740695150L)
-            Binds.setAngularLimitUpper = GdxApi.getMethodBind(c"PinJoint2D", c"set_angular_limit_upper", 373806689L)
-            Binds.getAngularLimitUpper = GdxApi.getMethodBind(c"PinJoint2D", c"get_angular_limit_upper", 1740695150L)
-            Binds.setMotorTargetVelocity = GdxApi.getMethodBind(c"PinJoint2D", c"set_motor_target_velocity", 373806689L)
-            Binds.getMotorTargetVelocity = GdxApi.getMethodBind(c"PinJoint2D", c"get_motor_target_velocity", 1740695150L)
-            Binds.setMotorEnabled = GdxApi.getMethodBind(c"PinJoint2D", c"set_motor_enabled", 2586408642L)
-            Binds.isMotorEnabled = GdxApi.getMethodBind(c"PinJoint2D", c"is_motor_enabled", 36873697L)
-            Binds.setAngularLimitEnabled = GdxApi.getMethodBind(c"PinJoint2D", c"set_angular_limit_enabled", 2586408642L)
-            Binds.isAngularLimitEnabled = GdxApi.getMethodBind(c"PinJoint2D", c"is_angular_limit_enabled", 36873697L)
-
-    def apply(): PinJoint2D =
-        val obj = new PinJoint2D()
-        obj.ptr = GdxApi.constructObject(c"PinJoint2D")
-        obj
+def apply(): PinJoint2D = {
+  val obj = new PinJoint2D()
+  obj.ptr = GdxApi.constructObject(c"PinJoint2D")
+  obj
+}

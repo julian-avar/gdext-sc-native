@@ -5,47 +5,53 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RefCounted extends Object
-
-    def initRef(): Boolean =
+class RefCounted extends Object {
+    def initRef(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RefCounted.Binds.initRef, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def reference(): Boolean =
+    def reference(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RefCounted.Binds.reference, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def unreference(): Boolean =
+    def unreference(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RefCounted.Binds.unreference, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getReferenceCount(): Int =
+    def getReferenceCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RefCounted.Binds.getReferenceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object RefCounted:
-    object Binds:
-        var initRef: Ptr[Byte] = null
+object Binds {
+          var initRef: Ptr[Byte] = null
         var reference: Ptr[Byte] = null
         var unreference: Ptr[Byte] = null
         var getReferenceCount: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.initRef = GdxApi.getMethodBind(c"RefCounted", c"init_ref", 2240911060L)
+  def loadBinds(): Unit = {
+                Binds.initRef = GdxApi.getMethodBind(c"RefCounted", c"init_ref", 2240911060L)
             Binds.reference = GdxApi.getMethodBind(c"RefCounted", c"reference", 2240911060L)
             Binds.unreference = GdxApi.getMethodBind(c"RefCounted", c"unreference", 2240911060L)
             Binds.getReferenceCount = GdxApi.getMethodBind(c"RefCounted", c"get_reference_count", 3905245786L)
+  }
+}
 
-    def apply(): RefCounted =
-        val obj = new RefCounted()
-        obj.ptr = GdxApi.constructObject(c"RefCounted")
-        obj
+def apply(): RefCounted = {
+  val obj = new RefCounted()
+  obj.ptr = GdxApi.constructObject(c"RefCounted")
+  obj
+}

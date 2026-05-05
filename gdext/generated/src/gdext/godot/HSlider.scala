@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HSlider extends Slider
-
-
-
+class HSlider extends Slider {}
 
 object HSlider:
-    def apply(): HSlider =
-        val obj = new HSlider()
-        obj.ptr = GdxApi.constructObject(c"HSlider")
-        obj
+def apply(): HSlider = {
+  val obj = new HSlider()
+  obj.ptr = GdxApi.constructObject(c"HSlider")
+  obj
+}

@@ -5,215 +5,68 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class BaseButton extends Control
+class BaseButton extends Control {
     def _pressed(): Unit = ()
     def _toggled(toggledOn: Boolean): Unit = ()
-    def setPressed(pressed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pressed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseButton.Binds.setPressed, ptr, _args, null)
 
-    def isPressed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseButton.Binds.isPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPressedNoSignal(pressed: Boolean): Unit =
+    def setPressedNoSignal(pressed: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if pressed then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(BaseButton.Binds.setPressedNoSignal, ptr, _args, null)
+}
 
-    def isHovered(): Boolean =
+    def isHovered(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(BaseButton.Binds.isHovered, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setToggleMode(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseButton.Binds.setToggleMode, ptr, _args, null)
-
-    def isToggleMode(): Boolean =
+    def getDrawMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseButton.Binds.isToggleMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShortcutInTooltip(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseButton.Binds.setShortcutInTooltip, ptr, _args, null)
-
-    def isShortcutInTooltipEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseButton.Binds.isShortcutInTooltipEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDisabled(disabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseButton.Binds.setDisabled, ptr, _args, null)
-
-    def isDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseButton.Binds.isDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setActionMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(BaseButton.Binds.setActionMode, ptr, _args, null)
-
-    def getActionMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseButton.Binds.getActionMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setButtonMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mask.ptr
-        GdxApi.ptrcall(BaseButton.Binds.setButtonMask, ptr, _args, null)
-
-    def getButtonMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseButton.Binds.getButtonMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getDrawMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(BaseButton.Binds.getDrawMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setKeepPressedOutside(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseButton.Binds.setKeepPressedOutside, ptr, _args, null)
-
-    def isKeepPressedOutside(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseButton.Binds.isKeepPressedOutside, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShortcutFeedback(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseButton.Binds.setShortcutFeedback, ptr, _args, null)
-
-    def isShortcutFeedback(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseButton.Binds.isShortcutFeedback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShortcut(shortcut: Shortcut): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shortcut.ptr
-        GdxApi.ptrcall(BaseButton.Binds.setShortcut, ptr, _args, null)
-
-    def getShortcut(): Shortcut =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseButton.Binds.getShortcut, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Shortcut(!_ret)
-
-    def setButtonGroup(buttonGroup: ButtonGroup): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = buttonGroup.ptr
-        GdxApi.ptrcall(BaseButton.Binds.setButtonGroup, ptr, _args, null)
-
-    def getButtonGroup(): ButtonGroup =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseButton.Binds.getButtonGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new ButtonGroup(!_ret)
-    def disabled: Ptr[Byte] = isDisabled()
-    def disabled_=(v: Ptr[Byte]): Unit = setDisabled(v)
-    def toggleMode: Ptr[Byte] = isToggleMode()
-    def toggleMode_=(v: Ptr[Byte]): Unit = setToggleMode(v)
-    def buttonPressed: Ptr[Byte] = isPressed()
-    def buttonPressed_=(v: Ptr[Byte]): Unit = setPressed(v)
-    def actionMode: Ptr[Byte] = getActionMode()
-    def actionMode_=(v: Ptr[Byte]): Unit = setActionMode(v)
-    def buttonMask: Ptr[Byte] = getButtonMask()
-    def buttonMask_=(v: Ptr[Byte]): Unit = setButtonMask(v)
-    def keepPressedOutside: Ptr[Byte] = isKeepPressedOutside()
-    def keepPressedOutside_=(v: Ptr[Byte]): Unit = setKeepPressedOutside(v)
-    def buttonGroup: Ptr[Byte] = getButtonGroup()
-    def buttonGroup_=(v: Ptr[Byte]): Unit = setButtonGroup(v)
-    def shortcut: Ptr[Byte] = getShortcut()
-    def shortcut_=(v: Ptr[Byte]): Unit = setShortcut(v)
-    def shortcutFeedback: Ptr[Byte] = isShortcutFeedback()
-    def shortcutFeedback_=(v: Ptr[Byte]): Unit = setShortcutFeedback(v)
-    def shortcutInTooltip: Ptr[Byte] = isShortcutInTooltipEnabled()
-    def shortcutInTooltip_=(v: Ptr[Byte]): Unit = setShortcutInTooltip(v)
+    def disabled: Boolean = isDisabled()
+    def disabled_=(v: Boolean): Unit = setDisabled(v)
+    def toggleMode: Boolean = isToggleMode()
+    def toggleMode_=(v: Boolean): Unit = setToggleMode(v)
+    def buttonPressed: Boolean = isPressed()
+    def buttonPressed_=(v: Boolean): Unit = setPressed(v)
+    def actionMode: Int = getActionMode()
+    def actionMode_=(v: Int): Unit = setActionMode(v)
+    def buttonMask: Int = getButtonMask()
+    def buttonMask_=(v: Int): Unit = setButtonMask(v)
+    def keepPressedOutside: Boolean = isKeepPressedOutside()
+    def keepPressedOutside_=(v: Boolean): Unit = setKeepPressedOutside(v)
+    def buttonGroup: ButtonGroup = getButtonGroup()
+    def buttonGroup_=(v: ButtonGroup): Unit = setButtonGroup(v)
+    def shortcut: Shortcut = getShortcut()
+    def shortcut_=(v: Shortcut): Unit = setShortcut(v)
+    def shortcutFeedback: Boolean = isShortcutFeedback()
+    def shortcutFeedback_=(v: Boolean): Unit = setShortcutFeedback(v)
+    def shortcutInTooltip: Boolean = isShortcutInTooltipEnabled()
+    def shortcutInTooltip_=(v: Boolean): Unit = setShortcutInTooltip(v)
+}
 
 object BaseButton:
-    object Binds:
-        var setPressed: Ptr[Byte] = null
-        var isPressed: Ptr[Byte] = null
-        var setPressedNoSignal: Ptr[Byte] = null
+object Binds {
+          var setPressedNoSignal: Ptr[Byte] = null
         var isHovered: Ptr[Byte] = null
-        var setToggleMode: Ptr[Byte] = null
-        var isToggleMode: Ptr[Byte] = null
-        var setShortcutInTooltip: Ptr[Byte] = null
-        var isShortcutInTooltipEnabled: Ptr[Byte] = null
-        var setDisabled: Ptr[Byte] = null
-        var isDisabled: Ptr[Byte] = null
-        var setActionMode: Ptr[Byte] = null
-        var getActionMode: Ptr[Byte] = null
-        var setButtonMask: Ptr[Byte] = null
-        var getButtonMask: Ptr[Byte] = null
         var getDrawMode: Ptr[Byte] = null
-        var setKeepPressedOutside: Ptr[Byte] = null
-        var isKeepPressedOutside: Ptr[Byte] = null
-        var setShortcutFeedback: Ptr[Byte] = null
-        var isShortcutFeedback: Ptr[Byte] = null
-        var setShortcut: Ptr[Byte] = null
-        var getShortcut: Ptr[Byte] = null
-        var setButtonGroup: Ptr[Byte] = null
-        var getButtonGroup: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPressed = GdxApi.getMethodBind(c"BaseButton", c"set_pressed", 2586408642L)
-            Binds.isPressed = GdxApi.getMethodBind(c"BaseButton", c"is_pressed", 36873697L)
-            Binds.setPressedNoSignal = GdxApi.getMethodBind(c"BaseButton", c"set_pressed_no_signal", 2586408642L)
+  def loadBinds(): Unit = {
+                Binds.setPressedNoSignal = GdxApi.getMethodBind(c"BaseButton", c"set_pressed_no_signal", 2586408642L)
             Binds.isHovered = GdxApi.getMethodBind(c"BaseButton", c"is_hovered", 36873697L)
-            Binds.setToggleMode = GdxApi.getMethodBind(c"BaseButton", c"set_toggle_mode", 2586408642L)
-            Binds.isToggleMode = GdxApi.getMethodBind(c"BaseButton", c"is_toggle_mode", 36873697L)
-            Binds.setShortcutInTooltip = GdxApi.getMethodBind(c"BaseButton", c"set_shortcut_in_tooltip", 2586408642L)
-            Binds.isShortcutInTooltipEnabled = GdxApi.getMethodBind(c"BaseButton", c"is_shortcut_in_tooltip_enabled", 36873697L)
-            Binds.setDisabled = GdxApi.getMethodBind(c"BaseButton", c"set_disabled", 2586408642L)
-            Binds.isDisabled = GdxApi.getMethodBind(c"BaseButton", c"is_disabled", 36873697L)
-            Binds.setActionMode = GdxApi.getMethodBind(c"BaseButton", c"set_action_mode", 1985162088L)
-            Binds.getActionMode = GdxApi.getMethodBind(c"BaseButton", c"get_action_mode", 2589712189L)
-            Binds.setButtonMask = GdxApi.getMethodBind(c"BaseButton", c"set_button_mask", 3950145251L)
-            Binds.getButtonMask = GdxApi.getMethodBind(c"BaseButton", c"get_button_mask", 2512161324L)
             Binds.getDrawMode = GdxApi.getMethodBind(c"BaseButton", c"get_draw_mode", 2492721305L)
-            Binds.setKeepPressedOutside = GdxApi.getMethodBind(c"BaseButton", c"set_keep_pressed_outside", 2586408642L)
-            Binds.isKeepPressedOutside = GdxApi.getMethodBind(c"BaseButton", c"is_keep_pressed_outside", 36873697L)
-            Binds.setShortcutFeedback = GdxApi.getMethodBind(c"BaseButton", c"set_shortcut_feedback", 2586408642L)
-            Binds.isShortcutFeedback = GdxApi.getMethodBind(c"BaseButton", c"is_shortcut_feedback", 36873697L)
-            Binds.setShortcut = GdxApi.getMethodBind(c"BaseButton", c"set_shortcut", 857163497L)
-            Binds.getShortcut = GdxApi.getMethodBind(c"BaseButton", c"get_shortcut", 3415666916L)
-            Binds.setButtonGroup = GdxApi.getMethodBind(c"BaseButton", c"set_button_group", 1794463739L)
-            Binds.getButtonGroup = GdxApi.getMethodBind(c"BaseButton", c"get_button_group", 281644053L)
+  }
+}
 
-    def apply(): BaseButton =
-        val obj = new BaseButton()
-        obj.ptr = GdxApi.constructObject(c"BaseButton")
-        obj
+def apply(): BaseButton = {
+  val obj = new BaseButton()
+  obj.ptr = GdxApi.constructObject(c"BaseButton")
+  obj
+}

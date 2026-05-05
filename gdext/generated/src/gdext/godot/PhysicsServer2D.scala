@@ -5,836 +5,973 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsServer2D extends Object
-
-    def worldBoundaryShapeCreate(): RID =
+class PhysicsServer2D extends Object {
+    def worldBoundaryShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.worldBoundaryShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def separationRayShapeCreate(): RID =
+    def separationRayShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.separationRayShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def segmentShapeCreate(): RID =
+    def segmentShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.segmentShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def circleShapeCreate(): RID =
+    def circleShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.circleShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def rectangleShapeCreate(): RID =
+    def rectangleShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.rectangleShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def capsuleShapeCreate(): RID =
+    def capsuleShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.capsuleShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def convexPolygonShapeCreate(): RID =
+    def convexPolygonShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.convexPolygonShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def concavePolygonShapeCreate(): RID =
+    def concavePolygonShapeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.concavePolygonShapeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shapeSetData(shape: RID, data: Ptr[Byte]): Unit =
+    def shapeSetData(shape: RID, data: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shape.ptr
-        _args(1) = data.ptr
+        _args(1) = data
         GdxApi.ptrcall(PhysicsServer2D.Binds.shapeSetData, ptr, _args, null)
+}
 
-    def shapeGetType(shape: RID): Int =
+    def shapeGetType(shape: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shape.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.shapeGetType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapeGetData(shape: RID): Ptr[Byte] =
+    def shapeGetData(shape: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shape.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.shapeGetData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def spaceCreate(): RID =
+    def spaceCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.spaceCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def spaceSetActive(space: RID, active: Boolean): Unit =
+    def spaceSetActive(space: RID, active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = space.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if active then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.spaceSetActive, ptr, _args, null)
+}
 
-    def spaceIsActive(space: RID): Boolean =
+    def spaceIsActive(space: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = space.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.spaceIsActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def spaceSetParam(space: RID, param: Int, value: Float): Unit =
+    def spaceSetParam(space: RID, param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = space.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.spaceSetParam, ptr, _args, null)
+}
 
-    def spaceGetParam(space: RID, param: Int): Float =
+    def spaceGetParam(space: RID, param: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = space.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.spaceGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def spaceGetDirectState(space: RID): PhysicsDirectSpaceState2D =
+    def spaceGetDirectState(space: RID): PhysicsDirectSpaceState2D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = space.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.spaceGetDirectState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PhysicsDirectSpaceState2D(!_ret)
+}
 
-    def areaCreate(): RID =
+    def areaCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def areaSetSpace(area: RID, space: RID): Unit =
+    def areaSetSpace(area: RID, space: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
         _args(1) = space.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetSpace, ptr, _args, null)
+}
 
-    def areaGetSpace(area: RID): RID =
+    def areaGetSpace(area: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetSpace, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def areaAddShape(area: RID, shape: RID): Unit =
+    def areaAddShape(area: RID, shape: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
         _args(1) = shape.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaAddShape, ptr, _args, null)
+}
 
-    def areaSetShape(area: RID, shapeIdx: Int, shape: RID): Unit =
+    def areaSetShape(area: RID, shapeIdx: Int, shape: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = shape.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetShape, ptr, _args, null)
+}
 
-    def areaSetShapeTransform(area: RID, shapeIdx: Int, transform: Transform2D): Unit =
+    def areaSetShapeTransform(area: RID, shapeIdx: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetShapeTransform, ptr, _args, null)
+}
 
-    def areaSetShapeDisabled(area: RID, shapeIdx: Int, disabled: Boolean): Unit =
+    def areaSetShapeDisabled(area: RID, shapeIdx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if disabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetShapeDisabled, ptr, _args, null)
+}
 
-    def areaGetShapeCount(area: RID): Int =
+    def areaGetShapeCount(area: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetShapeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def areaGetShape(area: RID, shapeIdx: Int): RID =
+    def areaGetShape(area: RID, shapeIdx: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def areaGetShapeTransform(area: RID, shapeIdx: Int): Transform2D =
+    def areaGetShapeTransform(area: RID, shapeIdx: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetShapeTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def areaRemoveShape(area: RID, shapeIdx: Int): Unit =
+    def areaRemoveShape(area: RID, shapeIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaRemoveShape, ptr, _args, null)
+}
 
-    def areaClearShapes(area: RID): Unit =
+    def areaClearShapes(area: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaClearShapes, ptr, _args, null)
+}
 
-    def areaSetCollisionLayer(area: RID, layer: Int): Unit =
+    def areaSetCollisionLayer(area: RID, layer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetCollisionLayer, ptr, _args, null)
+}
 
-    def areaGetCollisionLayer(area: RID): Int =
+    def areaGetCollisionLayer(area: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetCollisionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def areaSetCollisionMask(area: RID, mask: Int): Unit =
+    def areaSetCollisionMask(area: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetCollisionMask, ptr, _args, null)
+}
 
-    def areaGetCollisionMask(area: RID): Int =
+    def areaGetCollisionMask(area: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def areaSetParam(area: RID, param: Int, value: Ptr[Byte]): Unit =
+    def areaSetParam(area: RID, param: Int, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = area.ptr
-        _args(1) = param.ptr
-        _args(2) = value.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        _args(2) = value
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetParam, ptr, _args, null)
+}
 
-    def areaSetTransform(area: RID, transform: Transform2D): Unit =
+    def areaSetTransform(area: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetTransform, ptr, _args, null)
+}
 
-    def areaGetParam(area: RID, param: Int): Ptr[Byte] =
+    def areaGetParam(area: RID, param: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def areaGetTransform(area: RID): Transform2D =
+    def areaGetTransform(area: RID): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def areaAttachObjectInstanceId(area: RID, id: Long): Unit =
+    def areaAttachObjectInstanceId(area: RID, id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id
+        val _a1 = stackalloc[Long](); !_a1 = id
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaAttachObjectInstanceId, ptr, _args, null)
+}
 
-    def areaGetObjectInstanceId(area: RID): Long =
+    def areaGetObjectInstanceId(area: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetObjectInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def areaAttachCanvasInstanceId(area: RID, id: Long): Unit =
+    def areaAttachCanvasInstanceId(area: RID, id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id
+        val _a1 = stackalloc[Long](); !_a1 = id
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaAttachCanvasInstanceId, ptr, _args, null)
+}
 
-    def areaGetCanvasInstanceId(area: RID): Long =
+    def areaGetCanvasInstanceId(area: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaGetCanvasInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def areaSetMonitorCallback(area: RID, callback: Callable): Unit =
+    def areaSetMonitorCallback(area: RID, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetMonitorCallback, ptr, _args, null)
+}
 
-    def areaSetAreaMonitorCallback(area: RID, callback: Callable): Unit =
+    def areaSetAreaMonitorCallback(area: RID, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetAreaMonitorCallback, ptr, _args, null)
+}
 
-    def areaSetMonitorable(area: RID, monitorable: Boolean): Unit =
+    def areaSetMonitorable(area: RID, monitorable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = area.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if monitorable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.areaSetMonitorable, ptr, _args, null)
+}
 
-    def bodyCreate(): RID =
+    def bodyCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def bodySetSpace(body: RID, space: RID): Unit =
+    def bodySetSpace(body: RID, space: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = space.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetSpace, ptr, _args, null)
+}
 
-    def bodyGetSpace(body: RID): RID =
+    def bodyGetSpace(body: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetSpace, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def bodySetMode(body: RID, mode: Int): Unit =
+    def bodySetMode(body: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetMode, ptr, _args, null)
+}
 
-    def bodyGetMode(body: RID): Int =
+    def bodyGetMode(body: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bodyAddShape(body: RID, shape: RID): Unit =
+    def bodyAddShape(body: RID, shape: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = shape.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAddShape, ptr, _args, null)
+}
 
-    def bodySetShape(body: RID, shapeIdx: Int, shape: RID): Unit =
+    def bodySetShape(body: RID, shapeIdx: Int, shape: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = shape.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetShape, ptr, _args, null)
+}
 
-    def bodySetShapeTransform(body: RID, shapeIdx: Int, transform: Transform2D): Unit =
+    def bodySetShapeTransform(body: RID, shapeIdx: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetShapeTransform, ptr, _args, null)
+}
 
-    def bodyGetShapeCount(body: RID): Int =
+    def bodyGetShapeCount(body: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetShapeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bodyGetShape(body: RID, shapeIdx: Int): RID =
+    def bodyGetShape(body: RID, shapeIdx: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def bodyGetShapeTransform(body: RID, shapeIdx: Int): Transform2D =
+    def bodyGetShapeTransform(body: RID, shapeIdx: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetShapeTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def bodyRemoveShape(body: RID, shapeIdx: Int): Unit =
+    def bodyRemoveShape(body: RID, shapeIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyRemoveShape, ptr, _args, null)
+}
 
-    def bodyClearShapes(body: RID): Unit =
+    def bodyClearShapes(body: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyClearShapes, ptr, _args, null)
+}
 
-    def bodySetShapeDisabled(body: RID, shapeIdx: Int, disabled: Boolean): Unit =
+    def bodySetShapeDisabled(body: RID, shapeIdx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if disabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetShapeDisabled, ptr, _args, null)
+}
 
-    def bodySetShapeAsOneWayCollision(body: RID, shapeIdx: Int, enable: Boolean, margin: Float): Unit =
+    def bodySetShapeAsOneWayCollision(body: RID, shapeIdx: Int, enable: Boolean, margin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shapeIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if enable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _a3 = stackalloc[Double](); !_a3 = margin.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetShapeAsOneWayCollision, ptr, _args, null)
+}
 
-    def bodyAttachObjectInstanceId(body: RID, id: Long): Unit =
+    def bodyAttachObjectInstanceId(body: RID, id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id
+        val _a1 = stackalloc[Long](); !_a1 = id
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAttachObjectInstanceId, ptr, _args, null)
+}
 
-    def bodyGetObjectInstanceId(body: RID): Long =
+    def bodyGetObjectInstanceId(body: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetObjectInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def bodyAttachCanvasInstanceId(body: RID, id: Long): Unit =
+    def bodyAttachCanvasInstanceId(body: RID, id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id
+        val _a1 = stackalloc[Long](); !_a1 = id
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAttachCanvasInstanceId, ptr, _args, null)
+}
 
-    def bodyGetCanvasInstanceId(body: RID): Long =
+    def bodyGetCanvasInstanceId(body: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetCanvasInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def bodySetContinuousCollisionDetectionMode(body: RID, mode: Int): Unit =
+    def bodySetContinuousCollisionDetectionMode(body: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetContinuousCollisionDetectionMode, ptr, _args, null)
+}
 
-    def bodyGetContinuousCollisionDetectionMode(body: RID): Int =
+    def bodyGetContinuousCollisionDetectionMode(body: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetContinuousCollisionDetectionMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bodySetCollisionLayer(body: RID, layer: Int): Unit =
+    def bodySetCollisionLayer(body: RID, layer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetCollisionLayer, ptr, _args, null)
+}
 
-    def bodyGetCollisionLayer(body: RID): Int =
+    def bodyGetCollisionLayer(body: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetCollisionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bodySetCollisionMask(body: RID, mask: Int): Unit =
+    def bodySetCollisionMask(body: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetCollisionMask, ptr, _args, null)
+}
 
-    def bodyGetCollisionMask(body: RID): Int =
+    def bodyGetCollisionMask(body: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bodySetCollisionPriority(body: RID, priority: Float): Unit =
+    def bodySetCollisionPriority(body: RID, priority: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         val _a1 = stackalloc[Double](); !_a1 = priority.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetCollisionPriority, ptr, _args, null)
+}
 
-    def bodyGetCollisionPriority(body: RID): Float =
+    def bodyGetCollisionPriority(body: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetCollisionPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def bodySetParam(body: RID, param: Int, value: Ptr[Byte]): Unit =
+    def bodySetParam(body: RID, param: Int, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = body.ptr
-        _args(1) = param.ptr
-        _args(2) = value.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        _args(2) = value
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetParam, ptr, _args, null)
+}
 
-    def bodyGetParam(body: RID, param: Int): Ptr[Byte] =
+    def bodyGetParam(body: RID, param: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def bodyResetMassProperties(body: RID): Unit =
+    def bodyResetMassProperties(body: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyResetMassProperties, ptr, _args, null)
+}
 
-    def bodySetState(body: RID, state: Int, value: Ptr[Byte]): Unit =
+    def bodySetState(body: RID, state: Int, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = body.ptr
-        _args(1) = state.ptr
-        _args(2) = value.ptr
+        val _a1 = stackalloc[Long](); !_a1 = state.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        _args(2) = value
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetState, ptr, _args, null)
+}
 
-    def bodyGetState(body: RID, state: Int): Ptr[Byte] =
+    def bodyGetState(body: RID, state: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        _args(1) = state.ptr
+        val _a1 = stackalloc[Long](); !_a1 = state.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def bodyApplyCentralImpulse(body: RID, impulse: Vector2): Unit =
+    def bodyApplyCentralImpulse(body: RID, impulse: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = impulse.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyApplyCentralImpulse, ptr, _args, null)
+}
 
-    def bodyApplyTorqueImpulse(body: RID, impulse: Float): Unit =
+    def bodyApplyTorqueImpulse(body: RID, impulse: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         val _a1 = stackalloc[Double](); !_a1 = impulse.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyApplyTorqueImpulse, ptr, _args, null)
+}
 
-    def bodyApplyImpulse(body: RID, impulse: Vector2): Unit =
+    def bodyApplyImpulse(body: RID, impulse: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = impulse.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyApplyImpulse, ptr, _args, null)
+}
 
-    def bodyApplyCentralForce(body: RID, force: Vector2): Unit =
+    def bodyApplyCentralForce(body: RID, force: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = force.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyApplyCentralForce, ptr, _args, null)
+}
 
-    def bodyApplyForce(body: RID, force: Vector2): Unit =
+    def bodyApplyForce(body: RID, force: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = force.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyApplyForce, ptr, _args, null)
+}
 
-    def bodyApplyTorque(body: RID, torque: Float): Unit =
+    def bodyApplyTorque(body: RID, torque: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         val _a1 = stackalloc[Double](); !_a1 = torque.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyApplyTorque, ptr, _args, null)
+}
 
-    def bodyAddConstantCentralForce(body: RID, force: Vector2): Unit =
+    def bodyAddConstantCentralForce(body: RID, force: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = force.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAddConstantCentralForce, ptr, _args, null)
+}
 
-    def bodyAddConstantForce(body: RID, force: Vector2): Unit =
+    def bodyAddConstantForce(body: RID, force: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = force.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAddConstantForce, ptr, _args, null)
+}
 
-    def bodyAddConstantTorque(body: RID, torque: Float): Unit =
+    def bodyAddConstantTorque(body: RID, torque: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         val _a1 = stackalloc[Double](); !_a1 = torque.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAddConstantTorque, ptr, _args, null)
+}
 
-    def bodySetConstantForce(body: RID, force: Vector2): Unit =
+    def bodySetConstantForce(body: RID, force: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = force.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetConstantForce, ptr, _args, null)
+}
 
-    def bodyGetConstantForce(body: RID): Vector2 =
+    def bodyGetConstantForce(body: RID): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetConstantForce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def bodySetConstantTorque(body: RID, torque: Float): Unit =
+    def bodySetConstantTorque(body: RID, torque: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         val _a1 = stackalloc[Double](); !_a1 = torque.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetConstantTorque, ptr, _args, null)
+}
 
-    def bodyGetConstantTorque(body: RID): Float =
+    def bodyGetConstantTorque(body: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetConstantTorque, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def bodySetAxisVelocity(body: RID, axisVelocity: Vector2): Unit =
+    def bodySetAxisVelocity(body: RID, axisVelocity: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = axisVelocity.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetAxisVelocity, ptr, _args, null)
+}
 
-    def bodyAddCollisionException(body: RID, exceptedBody: RID): Unit =
+    def bodyAddCollisionException(body: RID, exceptedBody: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = exceptedBody.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyAddCollisionException, ptr, _args, null)
+}
 
-    def bodyRemoveCollisionException(body: RID, exceptedBody: RID): Unit =
+    def bodyRemoveCollisionException(body: RID, exceptedBody: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = exceptedBody.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyRemoveCollisionException, ptr, _args, null)
+}
 
-    def bodySetMaxContactsReported(body: RID, amount: Int): Unit =
+    def bodySetMaxContactsReported(body: RID, amount: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = amount.toLong
+        val _a1 = stackalloc[Long](); !_a1 = amount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetMaxContactsReported, ptr, _args, null)
+}
 
-    def bodyGetMaxContactsReported(body: RID): Int =
+    def bodyGetMaxContactsReported(body: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetMaxContactsReported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def bodySetOmitForceIntegration(body: RID, enable: Boolean): Unit =
+    def bodySetOmitForceIntegration(body: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetOmitForceIntegration, ptr, _args, null)
+}
 
-    def bodyIsOmittingForceIntegration(body: RID): Boolean =
+    def bodyIsOmittingForceIntegration(body: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyIsOmittingForceIntegration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def bodySetStateSyncCallback(body: RID, callable: Callable): Unit =
+    def bodySetStateSyncCallback(body: RID, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = callable.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetStateSyncCallback, ptr, _args, null)
+}
 
-    def bodySetForceIntegrationCallback(body: RID, callable: Callable): Unit =
+    def bodySetForceIntegrationCallback(body: RID, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = callable.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodySetForceIntegrationCallback, ptr, _args, null)
+}
 
-    def bodyTestMotion(body: RID, parameters: PhysicsTestMotionParameters2D): Boolean =
+    def bodyTestMotion(body: RID, parameters: PhysicsTestMotionParameters2D): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = body.ptr
         _args(1) = parameters.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyTestMotion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def bodyGetDirectState(body: RID): PhysicsDirectBodyState2D =
+    def bodyGetDirectState(body: RID): PhysicsDirectBodyState2D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.bodyGetDirectState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PhysicsDirectBodyState2D(!_ret)
+}
 
-    def jointCreate(): RID =
+    def jointCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def jointClear(joint: RID): Unit =
+    def jointClear(joint: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = joint.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointClear, ptr, _args, null)
+}
 
-    def jointSetParam(joint: RID, param: Int, value: Float): Unit =
+    def jointSetParam(joint: RID, param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = joint.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointSetParam, ptr, _args, null)
+}
 
-    def jointGetParam(joint: RID, param: Int): Float =
+    def jointGetParam(joint: RID, param: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = joint.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def jointDisableCollisionsBetweenBodies(joint: RID, disable: Boolean): Unit =
+    def jointDisableCollisionsBetweenBodies(joint: RID, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = joint.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if disable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointDisableCollisionsBetweenBodies, ptr, _args, null)
+}
 
-    def jointIsDisabledCollisionsBetweenBodies(joint: RID): Boolean =
+    def jointIsDisabledCollisionsBetweenBodies(joint: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = joint.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointIsDisabledCollisionsBetweenBodies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def jointMakePin(joint: RID, anchor: Vector2, bodyA: RID): Unit =
+    def jointMakePin(joint: RID, anchor: Vector2, bodyA: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = joint.ptr
         _args(1) = anchor.ptr
         _args(2) = bodyA.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointMakePin, ptr, _args, null)
+}
 
-    def jointMakeGroove(joint: RID, groove1A: Vector2, groove2A: Vector2, anchorB: Vector2): Unit =
+    def jointMakeGroove(joint: RID, groove1A: Vector2, groove2A: Vector2, anchorB: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = joint.ptr
         _args(1) = groove1A.ptr
         _args(2) = groove2A.ptr
         _args(3) = anchorB.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointMakeGroove, ptr, _args, null)
+}
 
-    def jointMakeDampedSpring(joint: RID, anchorA: Vector2, anchorB: Vector2, bodyA: RID): Unit =
+    def jointMakeDampedSpring(joint: RID, anchorA: Vector2, anchorB: Vector2, bodyA: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = joint.ptr
         _args(1) = anchorA.ptr
         _args(2) = anchorB.ptr
         _args(3) = bodyA.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointMakeDampedSpring, ptr, _args, null)
+}
 
-    def pinJointSetFlag(joint: RID, flag: Int, enabled: Boolean): Unit =
+    def pinJointSetFlag(joint: RID, flag: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = joint.ptr
-        _args(1) = flag.ptr
+        val _a1 = stackalloc[Long](); !_a1 = flag.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if enabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.pinJointSetFlag, ptr, _args, null)
+}
 
-    def pinJointGetFlag(joint: RID, flag: Int): Boolean =
+    def pinJointGetFlag(joint: RID, flag: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = joint.ptr
-        _args(1) = flag.ptr
+        val _a1 = stackalloc[Long](); !_a1 = flag.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.pinJointGetFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def pinJointSetParam(joint: RID, param: Int, value: Float): Unit =
+    def pinJointSetParam(joint: RID, param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = joint.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.pinJointSetParam, ptr, _args, null)
+}
 
-    def pinJointGetParam(joint: RID, param: Int): Float =
+    def pinJointGetParam(joint: RID, param: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = joint.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.pinJointGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def dampedSpringJointSetParam(joint: RID, param: Int, value: Float): Unit =
+    def dampedSpringJointSetParam(joint: RID, param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = joint.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.dampedSpringJointSetParam, ptr, _args, null)
+}
 
-    def dampedSpringJointGetParam(joint: RID, param: Int): Float =
+    def dampedSpringJointGetParam(joint: RID, param: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = joint.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.dampedSpringJointGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def jointGetType(joint: RID): Int =
+    def jointGetType(joint: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = joint.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.jointGetType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def freeRid(rid: RID): Unit =
+    def freeRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(PhysicsServer2D.Binds.freeRid, ptr, _args, null)
+}
 
-    def setActive(active: Boolean): Unit =
+    def setActive(active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2D.Binds.setActive, ptr, _args, null)
+}
 
-    def getProcessInfo(processInfo: Int): Int =
+    def getProcessInfo(processInfo: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = processInfo.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = processInfo.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsServer2D.Binds.getProcessInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object PhysicsServer2D:
-    object Binds:
-        var worldBoundaryShapeCreate: Ptr[Byte] = null
+object Binds {
+          var worldBoundaryShapeCreate: Ptr[Byte] = null
         var separationRayShapeCreate: Ptr[Byte] = null
         var segmentShapeCreate: Ptr[Byte] = null
         var circleShapeCreate: Ptr[Byte] = null
@@ -954,8 +1091,8 @@ object PhysicsServer2D:
         var setActive: Ptr[Byte] = null
         var getProcessInfo: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.worldBoundaryShapeCreate = GdxApi.getMethodBind(c"PhysicsServer2D", c"world_boundary_shape_create", 529393457L)
+  def loadBinds(): Unit = {
+                Binds.worldBoundaryShapeCreate = GdxApi.getMethodBind(c"PhysicsServer2D", c"world_boundary_shape_create", 529393457L)
             Binds.separationRayShapeCreate = GdxApi.getMethodBind(c"PhysicsServer2D", c"separation_ray_shape_create", 529393457L)
             Binds.segmentShapeCreate = GdxApi.getMethodBind(c"PhysicsServer2D", c"segment_shape_create", 529393457L)
             Binds.circleShapeCreate = GdxApi.getMethodBind(c"PhysicsServer2D", c"circle_shape_create", 529393457L)
@@ -1074,3 +1211,5 @@ object PhysicsServer2D:
             Binds.freeRid = GdxApi.getMethodBind(c"PhysicsServer2D", c"free_rid", 2722037293L)
             Binds.setActive = GdxApi.getMethodBind(c"PhysicsServer2D", c"set_active", 2586408642L)
             Binds.getProcessInfo = GdxApi.getMethodBind(c"PhysicsServer2D", c"get_process_info", 576496006L)
+  }
+}

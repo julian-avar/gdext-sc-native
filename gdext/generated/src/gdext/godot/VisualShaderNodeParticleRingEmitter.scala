@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParticleRingEmitter extends VisualShaderNodeParticleEmitter
-
-
-
+class VisualShaderNodeParticleRingEmitter extends VisualShaderNodeParticleEmitter {}
 
 object VisualShaderNodeParticleRingEmitter:
-    def apply(): VisualShaderNodeParticleRingEmitter =
-        val obj = new VisualShaderNodeParticleRingEmitter()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleRingEmitter")
-        obj
+def apply(): VisualShaderNodeParticleRingEmitter = {
+  val obj = new VisualShaderNodeParticleRingEmitter()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleRingEmitter")
+  obj
+}

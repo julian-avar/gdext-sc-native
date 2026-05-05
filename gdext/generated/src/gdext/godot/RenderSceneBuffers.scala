@@ -5,17 +5,19 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderSceneBuffers extends RefCounted
-
-    def configure(config: RenderSceneBuffersConfiguration): Unit =
+class RenderSceneBuffers extends RefCounted {
+    def configure(config: RenderSceneBuffersConfiguration): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = config.ptr
         GdxApi.ptrcall(RenderSceneBuffers.Binds.configure, ptr, _args, null)
-
+}
+}
 
 object RenderSceneBuffers:
-    object Binds:
-        var configure: Ptr[Byte] = null
+object Binds {
+          var configure: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.configure = GdxApi.getMethodBind(c"RenderSceneBuffers", c"configure", 3072623270L)
+  def loadBinds(): Unit = {
+                Binds.configure = GdxApi.getMethodBind(c"RenderSceneBuffers", c"configure", 3072623270L)
+  }
+}

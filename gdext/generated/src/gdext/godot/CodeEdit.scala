@@ -5,743 +5,550 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CodeEdit extends TextEdit
+class CodeEdit extends TextEdit {
     def _confirmCodeCompletion(replace: Boolean): Unit = ()
     def _requestCodeCompletion(force: Boolean): Unit = ()
     def _filterCodeCompletionCandidates(candidates: Ptr[Byte]): Ptr[Byte] = null
-    def setIndentSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setIndentSize, ptr, _args, null)
 
-    def getIndentSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CodeEdit.Binds.getIndentSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setIndentUsingSpaces(useSpaces: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useSpaces then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setIndentUsingSpaces, ptr, _args, null)
-
-    def isIndentUsingSpaces(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isIndentUsingSpaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoIndentEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setAutoIndentEnabled, ptr, _args, null)
-
-    def isAutoIndentEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isAutoIndentEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoIndentPrefixes(prefixes: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = prefixes.ptr
-        GdxApi.ptrcall(CodeEdit.Binds.setAutoIndentPrefixes, ptr, _args, null)
-
-    def getAutoIndentPrefixes(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CodeEdit.Binds.getAutoIndentPrefixes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def doIndent(): Unit =
+    def doIndent(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.doIndent, ptr, _args, null)
+}
 
-    def indentLines(): Unit =
+    def indentLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.indentLines, ptr, _args, null)
+}
 
-    def unindentLines(): Unit =
+    def unindentLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.unindentLines, ptr, _args, null)
+}
 
-    def convertIndent(): Unit =
+    def convertIndent(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.convertIndent, ptr, _args, null)
+}
 
-    def setAutoBraceCompletionEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setAutoBraceCompletionEnabled, ptr, _args, null)
-
-    def isAutoBraceCompletionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isAutoBraceCompletionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHighlightMatchingBracesEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setHighlightMatchingBracesEnabled, ptr, _args, null)
-
-    def isHighlightMatchingBracesEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isHighlightMatchingBracesEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def addAutoBraceCompletionPair(startKey: CString, endKey: CString): Unit =
+    def addAutoBraceCompletionPair(startKey: CString, endKey: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = startKey.ptr
-        _args(1) = endKey.ptr
+        _args(0) = startKey
+        _args(1) = endKey
         GdxApi.ptrcall(CodeEdit.Binds.addAutoBraceCompletionPair, ptr, _args, null)
+}
 
-    def setAutoBraceCompletionPairs(pairs: Dictionary): Unit =
+    def hasAutoBraceCompletionOpenKey(openKey: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pairs.ptr
-        GdxApi.ptrcall(CodeEdit.Binds.setAutoBraceCompletionPairs, ptr, _args, null)
-
-    def getAutoBraceCompletionPairs(): Dictionary =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CodeEdit.Binds.getAutoBraceCompletionPairs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Dictionary(!_ret)
-
-    def hasAutoBraceCompletionOpenKey(openKey: CString): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = openKey.ptr
+        _args(0) = openKey
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.hasAutoBraceCompletionOpenKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasAutoBraceCompletionCloseKey(closeKey: CString): Boolean =
+    def hasAutoBraceCompletionCloseKey(closeKey: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = closeKey.ptr
+        _args(0) = closeKey
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.hasAutoBraceCompletionCloseKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getAutoBraceCompletionCloseKey(openKey: CString): CString =
+    def getAutoBraceCompletionCloseKey(openKey: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = openKey.ptr
+        _args(0) = openKey
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getAutoBraceCompletionCloseKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setDrawBreakpointsGutter(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setDrawBreakpointsGutter, ptr, _args, null)
-
-    def isDrawingBreakpointsGutter(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isDrawingBreakpointsGutter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDrawBookmarksGutter(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setDrawBookmarksGutter, ptr, _args, null)
-
-    def isDrawingBookmarksGutter(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isDrawingBookmarksGutter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDrawExecutingLinesGutter(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setDrawExecutingLinesGutter, ptr, _args, null)
-
-    def isDrawingExecutingLinesGutter(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isDrawingExecutingLinesGutter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLineAsBreakpoint(line: Int, breakpointed: Boolean): Unit =
+    def setLineAsBreakpoint(line: Int, breakpointed: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if breakpointed then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.setLineAsBreakpoint, ptr, _args, null)
+}
 
-    def isLineBreakpointed(line: Int): Boolean =
+    def isLineBreakpointed(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.isLineBreakpointed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearBreakpointedLines(): Unit =
+    def clearBreakpointedLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.clearBreakpointedLines, ptr, _args, null)
+}
 
-    def getBreakpointedLines(): PackedInt32Array =
+    def getBreakpointedLines(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getBreakpointedLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def setLineAsBookmarked(line: Int, bookmarked: Boolean): Unit =
+    def setLineAsBookmarked(line: Int, bookmarked: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if bookmarked then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.setLineAsBookmarked, ptr, _args, null)
+}
 
-    def isLineBookmarked(line: Int): Boolean =
+    def isLineBookmarked(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.isLineBookmarked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearBookmarkedLines(): Unit =
+    def clearBookmarkedLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.clearBookmarkedLines, ptr, _args, null)
+}
 
-    def getBookmarkedLines(): PackedInt32Array =
+    def getBookmarkedLines(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getBookmarkedLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def setLineAsExecuting(line: Int, executing: Boolean): Unit =
+    def setLineAsExecuting(line: Int, executing: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if executing then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.setLineAsExecuting, ptr, _args, null)
+}
 
-    def isLineExecuting(line: Int): Boolean =
+    def isLineExecuting(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.isLineExecuting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearExecutingLines(): Unit =
+    def clearExecutingLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.clearExecutingLines, ptr, _args, null)
+}
 
-    def getExecutingLines(): PackedInt32Array =
+    def getExecutingLines(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getExecutingLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def setDrawLineNumbers(enable: Boolean): Unit =
+    def canFoldLine(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setDrawLineNumbers, ptr, _args, null)
-
-    def isDrawLineNumbersEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isDrawLineNumbersEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLineNumbersZeroPadded(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setLineNumbersZeroPadded, ptr, _args, null)
-
-    def isLineNumbersZeroPadded(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isLineNumbersZeroPadded, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDrawFoldGutter(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setDrawFoldGutter, ptr, _args, null)
-
-    def isDrawingFoldGutter(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isDrawingFoldGutter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLineFoldingEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setLineFoldingEnabled, ptr, _args, null)
-
-    def isLineFoldingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isLineFoldingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def canFoldLine(line: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.canFoldLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def foldLine(line: Int): Unit =
+    def foldLine(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.foldLine, ptr, _args, null)
+}
 
-    def unfoldLine(line: Int): Unit =
+    def unfoldLine(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.unfoldLine, ptr, _args, null)
+}
 
-    def foldAllLines(): Unit =
+    def foldAllLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.foldAllLines, ptr, _args, null)
+}
 
-    def unfoldAllLines(): Unit =
+    def unfoldAllLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.unfoldAllLines, ptr, _args, null)
+}
 
-    def toggleFoldableLine(line: Int): Unit =
+    def toggleFoldableLine(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.toggleFoldableLine, ptr, _args, null)
+}
 
-    def toggleFoldableLinesAtCarets(): Unit =
+    def toggleFoldableLinesAtCarets(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.toggleFoldableLinesAtCarets, ptr, _args, null)
+}
 
-    def isLineFolded(line: Int): Boolean =
+    def isLineFolded(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.isLineFolded, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFoldedLines(): Ptr[Byte] =
+    def getFoldedLines(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getFoldedLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def createCodeRegion(): Unit =
+    def createCodeRegion(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.createCodeRegion, ptr, _args, null)
+}
 
-    def getCodeRegionStartTag(): CString =
+    def getCodeRegionStartTag(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getCodeRegionStartTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCodeRegionEndTag(): CString =
+    def getCodeRegionEndTag(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getCodeRegionEndTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCodeRegionTags(): Unit =
+    def setCodeRegionTags(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.setCodeRegionTags, ptr, _args, null)
+}
 
-    def isLineCodeRegionStart(line: Int): Boolean =
+    def isLineCodeRegionStart(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.isLineCodeRegionStart, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isLineCodeRegionEnd(line: Int): Boolean =
+    def isLineCodeRegionEnd(line: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.isLineCodeRegionEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addStringDelimiter(startKey: CString, endKey: CString): Unit =
+    def addStringDelimiter(startKey: CString, endKey: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = startKey.ptr
-        _args(1) = endKey.ptr
+        _args(0) = startKey
+        _args(1) = endKey
         GdxApi.ptrcall(CodeEdit.Binds.addStringDelimiter, ptr, _args, null)
+}
 
-    def removeStringDelimiter(startKey: CString): Unit =
+    def removeStringDelimiter(startKey: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = startKey.ptr
+        _args(0) = startKey
         GdxApi.ptrcall(CodeEdit.Binds.removeStringDelimiter, ptr, _args, null)
+}
 
-    def hasStringDelimiter(startKey: CString): Boolean =
+    def hasStringDelimiter(startKey: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = startKey.ptr
+        _args(0) = startKey
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.hasStringDelimiter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setStringDelimiters(stringDelimiters: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stringDelimiters.ptr
-        GdxApi.ptrcall(CodeEdit.Binds.setStringDelimiters, ptr, _args, null)
-
-    def clearStringDelimiters(): Unit =
+    def clearStringDelimiters(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.clearStringDelimiters, ptr, _args, null)
+}
 
-    def getStringDelimiters(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CodeEdit.Binds.getStringDelimiters, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def isInString(line: Int): Int =
+    def isInString(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CodeEdit.Binds.isInString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addCommentDelimiter(startKey: CString, endKey: CString): Unit =
+    def addCommentDelimiter(startKey: CString, endKey: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = startKey.ptr
-        _args(1) = endKey.ptr
+        _args(0) = startKey
+        _args(1) = endKey
         GdxApi.ptrcall(CodeEdit.Binds.addCommentDelimiter, ptr, _args, null)
+}
 
-    def removeCommentDelimiter(startKey: CString): Unit =
+    def removeCommentDelimiter(startKey: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = startKey.ptr
+        _args(0) = startKey
         GdxApi.ptrcall(CodeEdit.Binds.removeCommentDelimiter, ptr, _args, null)
+}
 
-    def hasCommentDelimiter(startKey: CString): Boolean =
+    def hasCommentDelimiter(startKey: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = startKey.ptr
+        _args(0) = startKey
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CodeEdit.Binds.hasCommentDelimiter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCommentDelimiters(commentDelimiters: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = commentDelimiters.ptr
-        GdxApi.ptrcall(CodeEdit.Binds.setCommentDelimiters, ptr, _args, null)
-
-    def clearCommentDelimiters(): Unit =
+    def clearCommentDelimiters(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.clearCommentDelimiters, ptr, _args, null)
+}
 
-    def getCommentDelimiters(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CodeEdit.Binds.getCommentDelimiters, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def isInComment(line: Int): Int =
+    def isInComment(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CodeEdit.Binds.isInComment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getDelimiterStartKey(delimiterIndex: Int): CString =
+    def getDelimiterStartKey(delimiterIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = delimiterIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = delimiterIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getDelimiterStartKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDelimiterEndKey(delimiterIndex: Int): CString =
+    def getDelimiterEndKey(delimiterIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = delimiterIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = delimiterIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getDelimiterEndKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDelimiterStartPosition(line: Int, column: Int): Vector2 =
+    def getDelimiterStartPosition(line: Int, column: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getDelimiterStartPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getDelimiterEndPosition(line: Int, column: Int): Vector2 =
+    def getDelimiterEndPosition(line: Int, column: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getDelimiterEndPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setCodeHint(codeHint: CString): Unit =
+    def setCodeHint(codeHint: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = codeHint.ptr
+        _args(0) = codeHint
         GdxApi.ptrcall(CodeEdit.Binds.setCodeHint, ptr, _args, null)
+}
 
-    def setCodeHintDrawBelow(drawBelow: Boolean): Unit =
+    def setCodeHintDrawBelow(drawBelow: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if drawBelow then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.setCodeHintDrawBelow, ptr, _args, null)
+}
 
-    def getTextForCodeCompletion(): CString =
+    def getTextForCodeCompletion(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getTextForCodeCompletion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def requestCodeCompletion(): Unit =
+    def requestCodeCompletion(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.requestCodeCompletion, ptr, _args, null)
+}
 
-    def addCodeCompletionOption(`type`: Int, displayText: CString, insertText: CString): Unit =
+    def addCodeCompletionOption(`type`: Int, displayText: CString, insertText: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = `type`.ptr
-        _args(1) = displayText.ptr
-        _args(2) = insertText.ptr
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = displayText
+        _args(2) = insertText
         GdxApi.ptrcall(CodeEdit.Binds.addCodeCompletionOption, ptr, _args, null)
+}
 
-    def updateCodeCompletionOptions(force: Boolean): Unit =
+    def updateCodeCompletionOptions(force: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if force then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.updateCodeCompletionOptions, ptr, _args, null)
+}
 
-    def getCodeCompletionOptions(): Ptr[Byte] =
+    def getCodeCompletionOptions(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getCodeCompletionOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCodeCompletionOption(index: Int): Dictionary =
+    def getCodeCompletionOption(index: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getCodeCompletionOption, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getCodeCompletionSelectedIndex(): Int =
+    def getCodeCompletionSelectedIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CodeEdit.Binds.getCodeCompletionSelectedIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCodeCompletionSelectedIndex(index: Int): Unit =
+    def setCodeCompletionSelectedIndex(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.setCodeCompletionSelectedIndex, ptr, _args, null)
+}
 
-    def confirmCodeCompletion(): Unit =
+    def confirmCodeCompletion(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.confirmCodeCompletion, ptr, _args, null)
+}
 
-    def cancelCodeCompletion(): Unit =
+    def cancelCodeCompletion(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.cancelCodeCompletion, ptr, _args, null)
+}
 
-    def setCodeCompletionEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setCodeCompletionEnabled, ptr, _args, null)
-
-    def isCodeCompletionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isCodeCompletionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCodeCompletionPrefixes(prefixes: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = prefixes.ptr
-        GdxApi.ptrcall(CodeEdit.Binds.setCodeCompletionPrefixes, ptr, _args, null)
-
-    def getCodeCompletionPrefixes(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CodeEdit.Binds.getCodeCompletionPrefixes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setLineLengthGuidelines(guidelineColumns: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = guidelineColumns.ptr
-        GdxApi.ptrcall(CodeEdit.Binds.setLineLengthGuidelines, ptr, _args, null)
-
-    def getLineLengthGuidelines(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CodeEdit.Binds.getLineLengthGuidelines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setSymbolLookupOnClickEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setSymbolLookupOnClickEnabled, ptr, _args, null)
-
-    def isSymbolLookupOnClickEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isSymbolLookupOnClickEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getTextForSymbolLookup(): CString =
+    def getTextForSymbolLookup(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getTextForSymbolLookup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTextWithCursorChar(line: Int, column: Int): CString =
+    def getTextWithCursorChar(line: Int, column: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = column.toLong
+        val _a1 = stackalloc[Long](); !_a1 = column.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CodeEdit.Binds.getTextWithCursorChar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setSymbolLookupWordAsValid(valid: Boolean): Unit =
+    def setSymbolLookupWordAsValid(valid: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if valid then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CodeEdit.Binds.setSymbolLookupWordAsValid, ptr, _args, null)
+}
 
-    def setSymbolTooltipOnHoverEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CodeEdit.Binds.setSymbolTooltipOnHoverEnabled, ptr, _args, null)
-
-    def isSymbolTooltipOnHoverEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CodeEdit.Binds.isSymbolTooltipOnHoverEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def moveLinesUp(): Unit =
+    def moveLinesUp(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.moveLinesUp, ptr, _args, null)
+}
 
-    def moveLinesDown(): Unit =
+    def moveLinesDown(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.moveLinesDown, ptr, _args, null)
+}
 
-    def deleteLines(): Unit =
+    def deleteLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.deleteLines, ptr, _args, null)
+}
 
-    def duplicateSelection(): Unit =
+    def duplicateSelection(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.duplicateSelection, ptr, _args, null)
+}
 
-    def duplicateLines(): Unit =
+    def duplicateLines(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CodeEdit.Binds.duplicateLines, ptr, _args, null)
-    def symbolLookupOnClick: Ptr[Byte] = isSymbolLookupOnClickEnabled()
-    def symbolLookupOnClick_=(v: Ptr[Byte]): Unit = setSymbolLookupOnClickEnabled(v)
-    def symbolTooltipOnHover: Ptr[Byte] = isSymbolTooltipOnHoverEnabled()
-    def symbolTooltipOnHover_=(v: Ptr[Byte]): Unit = setSymbolTooltipOnHoverEnabled(v)
-    def lineFolding: Ptr[Byte] = isLineFoldingEnabled()
-    def lineFolding_=(v: Ptr[Byte]): Unit = setLineFoldingEnabled(v)
+}
+
+    def symbolLookupOnClick: Boolean = isSymbolLookupOnClickEnabled()
+    def symbolLookupOnClick_=(v: Boolean): Unit = setSymbolLookupOnClickEnabled(v)
+    def symbolTooltipOnHover: Boolean = isSymbolTooltipOnHoverEnabled()
+    def symbolTooltipOnHover_=(v: Boolean): Unit = setSymbolTooltipOnHoverEnabled(v)
+    def lineFolding: Boolean = isLineFoldingEnabled()
+    def lineFolding_=(v: Boolean): Unit = setLineFoldingEnabled(v)
     def lineLengthGuidelines: Ptr[Byte] = getLineLengthGuidelines()
     def lineLengthGuidelines_=(v: Ptr[Byte]): Unit = setLineLengthGuidelines(v)
-    def guttersDrawBreakpointsGutter: Ptr[Byte] = isDrawingBreakpointsGutter()
-    def guttersDrawBreakpointsGutter_=(v: Ptr[Byte]): Unit = setDrawBreakpointsGutter(v)
-    def guttersDrawBookmarks: Ptr[Byte] = isDrawingBookmarksGutter()
-    def guttersDrawBookmarks_=(v: Ptr[Byte]): Unit = setDrawBookmarksGutter(v)
-    def guttersDrawExecutingLines: Ptr[Byte] = isDrawingExecutingLinesGutter()
-    def guttersDrawExecutingLines_=(v: Ptr[Byte]): Unit = setDrawExecutingLinesGutter(v)
-    def guttersDrawLineNumbers: Ptr[Byte] = isDrawLineNumbersEnabled()
-    def guttersDrawLineNumbers_=(v: Ptr[Byte]): Unit = setDrawLineNumbers(v)
-    def guttersZeroPadLineNumbers: Ptr[Byte] = isLineNumbersZeroPadded()
-    def guttersZeroPadLineNumbers_=(v: Ptr[Byte]): Unit = setLineNumbersZeroPadded(v)
-    def guttersDrawFoldGutter: Ptr[Byte] = isDrawingFoldGutter()
-    def guttersDrawFoldGutter_=(v: Ptr[Byte]): Unit = setDrawFoldGutter(v)
+    def guttersDrawBreakpointsGutter: Boolean = isDrawingBreakpointsGutter()
+    def guttersDrawBreakpointsGutter_=(v: Boolean): Unit = setDrawBreakpointsGutter(v)
+    def guttersDrawBookmarks: Boolean = isDrawingBookmarksGutter()
+    def guttersDrawBookmarks_=(v: Boolean): Unit = setDrawBookmarksGutter(v)
+    def guttersDrawExecutingLines: Boolean = isDrawingExecutingLinesGutter()
+    def guttersDrawExecutingLines_=(v: Boolean): Unit = setDrawExecutingLinesGutter(v)
+    def guttersDrawLineNumbers: Boolean = isDrawLineNumbersEnabled()
+    def guttersDrawLineNumbers_=(v: Boolean): Unit = setDrawLineNumbers(v)
+    def guttersZeroPadLineNumbers: Boolean = isLineNumbersZeroPadded()
+    def guttersZeroPadLineNumbers_=(v: Boolean): Unit = setLineNumbersZeroPadded(v)
+    def guttersDrawFoldGutter: Boolean = isDrawingFoldGutter()
+    def guttersDrawFoldGutter_=(v: Boolean): Unit = setDrawFoldGutter(v)
     def delimiterStrings: Ptr[Byte] = getStringDelimiters()
     def delimiterStrings_=(v: Ptr[Byte]): Unit = setStringDelimiters(v)
     def delimiterComments: Ptr[Byte] = getCommentDelimiters()
     def delimiterComments_=(v: Ptr[Byte]): Unit = setCommentDelimiters(v)
-    def codeCompletionEnabled: Ptr[Byte] = isCodeCompletionEnabled()
-    def codeCompletionEnabled_=(v: Ptr[Byte]): Unit = setCodeCompletionEnabled(v)
+    def codeCompletionEnabled: Boolean = isCodeCompletionEnabled()
+    def codeCompletionEnabled_=(v: Boolean): Unit = setCodeCompletionEnabled(v)
     def codeCompletionPrefixes: Ptr[Byte] = getCodeCompletionPrefixes()
     def codeCompletionPrefixes_=(v: Ptr[Byte]): Unit = setCodeCompletionPrefixes(v)
-    def indentSize: Ptr[Byte] = getIndentSize()
-    def indentSize_=(v: Ptr[Byte]): Unit = setIndentSize(v)
-    def indentUseSpaces: Ptr[Byte] = isIndentUsingSpaces()
-    def indentUseSpaces_=(v: Ptr[Byte]): Unit = setIndentUsingSpaces(v)
-    def indentAutomatic: Ptr[Byte] = isAutoIndentEnabled()
-    def indentAutomatic_=(v: Ptr[Byte]): Unit = setAutoIndentEnabled(v)
+    def indentSize: Int = getIndentSize()
+    def indentSize_=(v: Int): Unit = setIndentSize(v)
+    def indentUseSpaces: Boolean = isIndentUsingSpaces()
+    def indentUseSpaces_=(v: Boolean): Unit = setIndentUsingSpaces(v)
+    def indentAutomatic: Boolean = isAutoIndentEnabled()
+    def indentAutomatic_=(v: Boolean): Unit = setAutoIndentEnabled(v)
     def indentAutomaticPrefixes: Ptr[Byte] = getAutoIndentPrefixes()
     def indentAutomaticPrefixes_=(v: Ptr[Byte]): Unit = setAutoIndentPrefixes(v)
-    def autoBraceCompletionEnabled: Ptr[Byte] = isAutoBraceCompletionEnabled()
-    def autoBraceCompletionEnabled_=(v: Ptr[Byte]): Unit = setAutoBraceCompletionEnabled(v)
-    def autoBraceCompletionHighlightMatching: Ptr[Byte] = isHighlightMatchingBracesEnabled()
-    def autoBraceCompletionHighlightMatching_=(v: Ptr[Byte]): Unit = setHighlightMatchingBracesEnabled(v)
-    def autoBraceCompletionPairs: Ptr[Byte] = getAutoBraceCompletionPairs()
-    def autoBraceCompletionPairs_=(v: Ptr[Byte]): Unit = setAutoBraceCompletionPairs(v)
+    def autoBraceCompletionEnabled: Boolean = isAutoBraceCompletionEnabled()
+    def autoBraceCompletionEnabled_=(v: Boolean): Unit = setAutoBraceCompletionEnabled(v)
+    def autoBraceCompletionHighlightMatching: Boolean = isHighlightMatchingBracesEnabled()
+    def autoBraceCompletionHighlightMatching_=(v: Boolean): Unit = setHighlightMatchingBracesEnabled(v)
+    def autoBraceCompletionPairs: Dictionary = getAutoBraceCompletionPairs()
+    def autoBraceCompletionPairs_=(v: Dictionary): Unit = setAutoBraceCompletionPairs(v)
+}
 
 object CodeEdit:
-    object Binds:
-        var setIndentSize: Ptr[Byte] = null
-        var getIndentSize: Ptr[Byte] = null
-        var setIndentUsingSpaces: Ptr[Byte] = null
-        var isIndentUsingSpaces: Ptr[Byte] = null
-        var setAutoIndentEnabled: Ptr[Byte] = null
-        var isAutoIndentEnabled: Ptr[Byte] = null
-        var setAutoIndentPrefixes: Ptr[Byte] = null
-        var getAutoIndentPrefixes: Ptr[Byte] = null
-        var doIndent: Ptr[Byte] = null
+object Binds {
+          var doIndent: Ptr[Byte] = null
         var indentLines: Ptr[Byte] = null
         var unindentLines: Ptr[Byte] = null
         var convertIndent: Ptr[Byte] = null
-        var setAutoBraceCompletionEnabled: Ptr[Byte] = null
-        var isAutoBraceCompletionEnabled: Ptr[Byte] = null
-        var setHighlightMatchingBracesEnabled: Ptr[Byte] = null
-        var isHighlightMatchingBracesEnabled: Ptr[Byte] = null
         var addAutoBraceCompletionPair: Ptr[Byte] = null
-        var setAutoBraceCompletionPairs: Ptr[Byte] = null
-        var getAutoBraceCompletionPairs: Ptr[Byte] = null
         var hasAutoBraceCompletionOpenKey: Ptr[Byte] = null
         var hasAutoBraceCompletionCloseKey: Ptr[Byte] = null
         var getAutoBraceCompletionCloseKey: Ptr[Byte] = null
-        var setDrawBreakpointsGutter: Ptr[Byte] = null
-        var isDrawingBreakpointsGutter: Ptr[Byte] = null
-        var setDrawBookmarksGutter: Ptr[Byte] = null
-        var isDrawingBookmarksGutter: Ptr[Byte] = null
-        var setDrawExecutingLinesGutter: Ptr[Byte] = null
-        var isDrawingExecutingLinesGutter: Ptr[Byte] = null
         var setLineAsBreakpoint: Ptr[Byte] = null
         var isLineBreakpointed: Ptr[Byte] = null
         var clearBreakpointedLines: Ptr[Byte] = null
@@ -754,14 +561,6 @@ object CodeEdit:
         var isLineExecuting: Ptr[Byte] = null
         var clearExecutingLines: Ptr[Byte] = null
         var getExecutingLines: Ptr[Byte] = null
-        var setDrawLineNumbers: Ptr[Byte] = null
-        var isDrawLineNumbersEnabled: Ptr[Byte] = null
-        var setLineNumbersZeroPadded: Ptr[Byte] = null
-        var isLineNumbersZeroPadded: Ptr[Byte] = null
-        var setDrawFoldGutter: Ptr[Byte] = null
-        var isDrawingFoldGutter: Ptr[Byte] = null
-        var setLineFoldingEnabled: Ptr[Byte] = null
-        var isLineFoldingEnabled: Ptr[Byte] = null
         var canFoldLine: Ptr[Byte] = null
         var foldLine: Ptr[Byte] = null
         var unfoldLine: Ptr[Byte] = null
@@ -780,16 +579,12 @@ object CodeEdit:
         var addStringDelimiter: Ptr[Byte] = null
         var removeStringDelimiter: Ptr[Byte] = null
         var hasStringDelimiter: Ptr[Byte] = null
-        var setStringDelimiters: Ptr[Byte] = null
         var clearStringDelimiters: Ptr[Byte] = null
-        var getStringDelimiters: Ptr[Byte] = null
         var isInString: Ptr[Byte] = null
         var addCommentDelimiter: Ptr[Byte] = null
         var removeCommentDelimiter: Ptr[Byte] = null
         var hasCommentDelimiter: Ptr[Byte] = null
-        var setCommentDelimiters: Ptr[Byte] = null
         var clearCommentDelimiters: Ptr[Byte] = null
-        var getCommentDelimiters: Ptr[Byte] = null
         var isInComment: Ptr[Byte] = null
         var getDelimiterStartKey: Ptr[Byte] = null
         var getDelimiterEndKey: Ptr[Byte] = null
@@ -807,54 +602,24 @@ object CodeEdit:
         var setCodeCompletionSelectedIndex: Ptr[Byte] = null
         var confirmCodeCompletion: Ptr[Byte] = null
         var cancelCodeCompletion: Ptr[Byte] = null
-        var setCodeCompletionEnabled: Ptr[Byte] = null
-        var isCodeCompletionEnabled: Ptr[Byte] = null
-        var setCodeCompletionPrefixes: Ptr[Byte] = null
-        var getCodeCompletionPrefixes: Ptr[Byte] = null
-        var setLineLengthGuidelines: Ptr[Byte] = null
-        var getLineLengthGuidelines: Ptr[Byte] = null
-        var setSymbolLookupOnClickEnabled: Ptr[Byte] = null
-        var isSymbolLookupOnClickEnabled: Ptr[Byte] = null
         var getTextForSymbolLookup: Ptr[Byte] = null
         var getTextWithCursorChar: Ptr[Byte] = null
         var setSymbolLookupWordAsValid: Ptr[Byte] = null
-        var setSymbolTooltipOnHoverEnabled: Ptr[Byte] = null
-        var isSymbolTooltipOnHoverEnabled: Ptr[Byte] = null
         var moveLinesUp: Ptr[Byte] = null
         var moveLinesDown: Ptr[Byte] = null
         var deleteLines: Ptr[Byte] = null
         var duplicateSelection: Ptr[Byte] = null
         var duplicateLines: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setIndentSize = GdxApi.getMethodBind(c"CodeEdit", c"set_indent_size", 1286410249L)
-            Binds.getIndentSize = GdxApi.getMethodBind(c"CodeEdit", c"get_indent_size", 3905245786L)
-            Binds.setIndentUsingSpaces = GdxApi.getMethodBind(c"CodeEdit", c"set_indent_using_spaces", 2586408642L)
-            Binds.isIndentUsingSpaces = GdxApi.getMethodBind(c"CodeEdit", c"is_indent_using_spaces", 36873697L)
-            Binds.setAutoIndentEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_auto_indent_enabled", 2586408642L)
-            Binds.isAutoIndentEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_auto_indent_enabled", 36873697L)
-            Binds.setAutoIndentPrefixes = GdxApi.getMethodBind(c"CodeEdit", c"set_auto_indent_prefixes", 381264803L)
-            Binds.getAutoIndentPrefixes = GdxApi.getMethodBind(c"CodeEdit", c"get_auto_indent_prefixes", 3995934104L)
-            Binds.doIndent = GdxApi.getMethodBind(c"CodeEdit", c"do_indent", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.doIndent = GdxApi.getMethodBind(c"CodeEdit", c"do_indent", 3218959716L)
             Binds.indentLines = GdxApi.getMethodBind(c"CodeEdit", c"indent_lines", 3218959716L)
             Binds.unindentLines = GdxApi.getMethodBind(c"CodeEdit", c"unindent_lines", 3218959716L)
             Binds.convertIndent = GdxApi.getMethodBind(c"CodeEdit", c"convert_indent", 423910286L)
-            Binds.setAutoBraceCompletionEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_auto_brace_completion_enabled", 2586408642L)
-            Binds.isAutoBraceCompletionEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_auto_brace_completion_enabled", 36873697L)
-            Binds.setHighlightMatchingBracesEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_highlight_matching_braces_enabled", 2586408642L)
-            Binds.isHighlightMatchingBracesEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_highlight_matching_braces_enabled", 36873697L)
             Binds.addAutoBraceCompletionPair = GdxApi.getMethodBind(c"CodeEdit", c"add_auto_brace_completion_pair", 3186203200L)
-            Binds.setAutoBraceCompletionPairs = GdxApi.getMethodBind(c"CodeEdit", c"set_auto_brace_completion_pairs", 4155329257L)
-            Binds.getAutoBraceCompletionPairs = GdxApi.getMethodBind(c"CodeEdit", c"get_auto_brace_completion_pairs", 3102165223L)
             Binds.hasAutoBraceCompletionOpenKey = GdxApi.getMethodBind(c"CodeEdit", c"has_auto_brace_completion_open_key", 3927539163L)
             Binds.hasAutoBraceCompletionCloseKey = GdxApi.getMethodBind(c"CodeEdit", c"has_auto_brace_completion_close_key", 3927539163L)
             Binds.getAutoBraceCompletionCloseKey = GdxApi.getMethodBind(c"CodeEdit", c"get_auto_brace_completion_close_key", 3135753539L)
-            Binds.setDrawBreakpointsGutter = GdxApi.getMethodBind(c"CodeEdit", c"set_draw_breakpoints_gutter", 2586408642L)
-            Binds.isDrawingBreakpointsGutter = GdxApi.getMethodBind(c"CodeEdit", c"is_drawing_breakpoints_gutter", 36873697L)
-            Binds.setDrawBookmarksGutter = GdxApi.getMethodBind(c"CodeEdit", c"set_draw_bookmarks_gutter", 2586408642L)
-            Binds.isDrawingBookmarksGutter = GdxApi.getMethodBind(c"CodeEdit", c"is_drawing_bookmarks_gutter", 36873697L)
-            Binds.setDrawExecutingLinesGutter = GdxApi.getMethodBind(c"CodeEdit", c"set_draw_executing_lines_gutter", 2586408642L)
-            Binds.isDrawingExecutingLinesGutter = GdxApi.getMethodBind(c"CodeEdit", c"is_drawing_executing_lines_gutter", 36873697L)
             Binds.setLineAsBreakpoint = GdxApi.getMethodBind(c"CodeEdit", c"set_line_as_breakpoint", 300928843L)
             Binds.isLineBreakpointed = GdxApi.getMethodBind(c"CodeEdit", c"is_line_breakpointed", 1116898809L)
             Binds.clearBreakpointedLines = GdxApi.getMethodBind(c"CodeEdit", c"clear_breakpointed_lines", 3218959716L)
@@ -867,14 +632,6 @@ object CodeEdit:
             Binds.isLineExecuting = GdxApi.getMethodBind(c"CodeEdit", c"is_line_executing", 1116898809L)
             Binds.clearExecutingLines = GdxApi.getMethodBind(c"CodeEdit", c"clear_executing_lines", 3218959716L)
             Binds.getExecutingLines = GdxApi.getMethodBind(c"CodeEdit", c"get_executing_lines", 1930428628L)
-            Binds.setDrawLineNumbers = GdxApi.getMethodBind(c"CodeEdit", c"set_draw_line_numbers", 2586408642L)
-            Binds.isDrawLineNumbersEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_draw_line_numbers_enabled", 36873697L)
-            Binds.setLineNumbersZeroPadded = GdxApi.getMethodBind(c"CodeEdit", c"set_line_numbers_zero_padded", 2586408642L)
-            Binds.isLineNumbersZeroPadded = GdxApi.getMethodBind(c"CodeEdit", c"is_line_numbers_zero_padded", 36873697L)
-            Binds.setDrawFoldGutter = GdxApi.getMethodBind(c"CodeEdit", c"set_draw_fold_gutter", 2586408642L)
-            Binds.isDrawingFoldGutter = GdxApi.getMethodBind(c"CodeEdit", c"is_drawing_fold_gutter", 36873697L)
-            Binds.setLineFoldingEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_line_folding_enabled", 2586408642L)
-            Binds.isLineFoldingEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_line_folding_enabled", 36873697L)
             Binds.canFoldLine = GdxApi.getMethodBind(c"CodeEdit", c"can_fold_line", 1116898809L)
             Binds.foldLine = GdxApi.getMethodBind(c"CodeEdit", c"fold_line", 1286410249L)
             Binds.unfoldLine = GdxApi.getMethodBind(c"CodeEdit", c"unfold_line", 1286410249L)
@@ -893,16 +650,12 @@ object CodeEdit:
             Binds.addStringDelimiter = GdxApi.getMethodBind(c"CodeEdit", c"add_string_delimiter", 3146098955L)
             Binds.removeStringDelimiter = GdxApi.getMethodBind(c"CodeEdit", c"remove_string_delimiter", 83702148L)
             Binds.hasStringDelimiter = GdxApi.getMethodBind(c"CodeEdit", c"has_string_delimiter", 3927539163L)
-            Binds.setStringDelimiters = GdxApi.getMethodBind(c"CodeEdit", c"set_string_delimiters", 381264803L)
             Binds.clearStringDelimiters = GdxApi.getMethodBind(c"CodeEdit", c"clear_string_delimiters", 3218959716L)
-            Binds.getStringDelimiters = GdxApi.getMethodBind(c"CodeEdit", c"get_string_delimiters", 3995934104L)
             Binds.isInString = GdxApi.getMethodBind(c"CodeEdit", c"is_in_string", 688195400L)
             Binds.addCommentDelimiter = GdxApi.getMethodBind(c"CodeEdit", c"add_comment_delimiter", 3146098955L)
             Binds.removeCommentDelimiter = GdxApi.getMethodBind(c"CodeEdit", c"remove_comment_delimiter", 83702148L)
             Binds.hasCommentDelimiter = GdxApi.getMethodBind(c"CodeEdit", c"has_comment_delimiter", 3927539163L)
-            Binds.setCommentDelimiters = GdxApi.getMethodBind(c"CodeEdit", c"set_comment_delimiters", 381264803L)
             Binds.clearCommentDelimiters = GdxApi.getMethodBind(c"CodeEdit", c"clear_comment_delimiters", 3218959716L)
-            Binds.getCommentDelimiters = GdxApi.getMethodBind(c"CodeEdit", c"get_comment_delimiters", 3995934104L)
             Binds.isInComment = GdxApi.getMethodBind(c"CodeEdit", c"is_in_comment", 688195400L)
             Binds.getDelimiterStartKey = GdxApi.getMethodBind(c"CodeEdit", c"get_delimiter_start_key", 844755477L)
             Binds.getDelimiterEndKey = GdxApi.getMethodBind(c"CodeEdit", c"get_delimiter_end_key", 844755477L)
@@ -920,26 +673,19 @@ object CodeEdit:
             Binds.setCodeCompletionSelectedIndex = GdxApi.getMethodBind(c"CodeEdit", c"set_code_completion_selected_index", 1286410249L)
             Binds.confirmCodeCompletion = GdxApi.getMethodBind(c"CodeEdit", c"confirm_code_completion", 107499316L)
             Binds.cancelCodeCompletion = GdxApi.getMethodBind(c"CodeEdit", c"cancel_code_completion", 3218959716L)
-            Binds.setCodeCompletionEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_code_completion_enabled", 2586408642L)
-            Binds.isCodeCompletionEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_code_completion_enabled", 36873697L)
-            Binds.setCodeCompletionPrefixes = GdxApi.getMethodBind(c"CodeEdit", c"set_code_completion_prefixes", 381264803L)
-            Binds.getCodeCompletionPrefixes = GdxApi.getMethodBind(c"CodeEdit", c"get_code_completion_prefixes", 3995934104L)
-            Binds.setLineLengthGuidelines = GdxApi.getMethodBind(c"CodeEdit", c"set_line_length_guidelines", 381264803L)
-            Binds.getLineLengthGuidelines = GdxApi.getMethodBind(c"CodeEdit", c"get_line_length_guidelines", 3995934104L)
-            Binds.setSymbolLookupOnClickEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_symbol_lookup_on_click_enabled", 2586408642L)
-            Binds.isSymbolLookupOnClickEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_symbol_lookup_on_click_enabled", 36873697L)
             Binds.getTextForSymbolLookup = GdxApi.getMethodBind(c"CodeEdit", c"get_text_for_symbol_lookup", 201670096L)
             Binds.getTextWithCursorChar = GdxApi.getMethodBind(c"CodeEdit", c"get_text_with_cursor_char", 1391810591L)
             Binds.setSymbolLookupWordAsValid = GdxApi.getMethodBind(c"CodeEdit", c"set_symbol_lookup_word_as_valid", 2586408642L)
-            Binds.setSymbolTooltipOnHoverEnabled = GdxApi.getMethodBind(c"CodeEdit", c"set_symbol_tooltip_on_hover_enabled", 2586408642L)
-            Binds.isSymbolTooltipOnHoverEnabled = GdxApi.getMethodBind(c"CodeEdit", c"is_symbol_tooltip_on_hover_enabled", 36873697L)
             Binds.moveLinesUp = GdxApi.getMethodBind(c"CodeEdit", c"move_lines_up", 3218959716L)
             Binds.moveLinesDown = GdxApi.getMethodBind(c"CodeEdit", c"move_lines_down", 3218959716L)
             Binds.deleteLines = GdxApi.getMethodBind(c"CodeEdit", c"delete_lines", 3218959716L)
             Binds.duplicateSelection = GdxApi.getMethodBind(c"CodeEdit", c"duplicate_selection", 3218959716L)
             Binds.duplicateLines = GdxApi.getMethodBind(c"CodeEdit", c"duplicate_lines", 3218959716L)
+  }
+}
 
-    def apply(): CodeEdit =
-        val obj = new CodeEdit()
-        obj.ptr = GdxApi.constructObject(c"CodeEdit")
-        obj
+def apply(): CodeEdit = {
+  val obj = new CodeEdit()
+  obj.ptr = GdxApi.constructObject(c"CodeEdit")
+  obj
+}

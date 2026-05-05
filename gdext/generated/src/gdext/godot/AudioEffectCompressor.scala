@@ -5,139 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectCompressor extends AudioEffect
-
-    def setThreshold(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setThreshold, ptr, _args, null)
-
-    def getThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRatio(ratio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ratio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setRatio, ptr, _args, null)
-
-    def getRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGain(gain: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = gain.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setGain, ptr, _args, null)
-
-    def getGain(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getGain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAttackUs(attackUs: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = attackUs.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setAttackUs, ptr, _args, null)
-
-    def getAttackUs(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getAttackUs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setReleaseMs(releaseMs: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = releaseMs.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setReleaseMs, ptr, _args, null)
-
-    def getReleaseMs(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getReleaseMs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMix(mix: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = mix.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setMix, ptr, _args, null)
-
-    def getMix(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getMix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSidechain(sidechain: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sidechain.ptr
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.setSidechain, ptr, _args, null)
-
-    def getSidechain(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AudioEffectCompressor.Binds.getSidechain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def threshold: Ptr[Byte] = getThreshold()
-    def threshold_=(v: Ptr[Byte]): Unit = setThreshold(v)
-    def ratio: Ptr[Byte] = getRatio()
-    def ratio_=(v: Ptr[Byte]): Unit = setRatio(v)
-    def gain: Ptr[Byte] = getGain()
-    def gain_=(v: Ptr[Byte]): Unit = setGain(v)
-    def attackUs: Ptr[Byte] = getAttackUs()
-    def attackUs_=(v: Ptr[Byte]): Unit = setAttackUs(v)
-    def releaseMs: Ptr[Byte] = getReleaseMs()
-    def releaseMs_=(v: Ptr[Byte]): Unit = setReleaseMs(v)
-    def mix: Ptr[Byte] = getMix()
-    def mix_=(v: Ptr[Byte]): Unit = setMix(v)
-    def sidechain: Ptr[Byte] = getSidechain()
-    def sidechain_=(v: Ptr[Byte]): Unit = setSidechain(v)
+class AudioEffectCompressor extends AudioEffect {
+    def threshold: Float = getThreshold()
+    def threshold_=(v: Float): Unit = setThreshold(v)
+    def ratio: Float = getRatio()
+    def ratio_=(v: Float): Unit = setRatio(v)
+    def gain: Float = getGain()
+    def gain_=(v: Float): Unit = setGain(v)
+    def attackUs: Float = getAttackUs()
+    def attackUs_=(v: Float): Unit = setAttackUs(v)
+    def releaseMs: Float = getReleaseMs()
+    def releaseMs_=(v: Float): Unit = setReleaseMs(v)
+    def mix: Float = getMix()
+    def mix_=(v: Float): Unit = setMix(v)
+    def sidechain: CString = getSidechain()
+    def sidechain_=(v: CString): Unit = setSidechain(v)
+}
 
 object AudioEffectCompressor:
-    object Binds:
-        var setThreshold: Ptr[Byte] = null
-        var getThreshold: Ptr[Byte] = null
-        var setRatio: Ptr[Byte] = null
-        var getRatio: Ptr[Byte] = null
-        var setGain: Ptr[Byte] = null
-        var getGain: Ptr[Byte] = null
-        var setAttackUs: Ptr[Byte] = null
-        var getAttackUs: Ptr[Byte] = null
-        var setReleaseMs: Ptr[Byte] = null
-        var getReleaseMs: Ptr[Byte] = null
-        var setMix: Ptr[Byte] = null
-        var getMix: Ptr[Byte] = null
-        var setSidechain: Ptr[Byte] = null
-        var getSidechain: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setThreshold = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_threshold", 373806689L)
-            Binds.getThreshold = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_threshold", 1740695150L)
-            Binds.setRatio = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_ratio", 373806689L)
-            Binds.getRatio = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_ratio", 1740695150L)
-            Binds.setGain = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_gain", 373806689L)
-            Binds.getGain = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_gain", 1740695150L)
-            Binds.setAttackUs = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_attack_us", 373806689L)
-            Binds.getAttackUs = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_attack_us", 1740695150L)
-            Binds.setReleaseMs = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_release_ms", 373806689L)
-            Binds.getReleaseMs = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_release_ms", 1740695150L)
-            Binds.setMix = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_mix", 373806689L)
-            Binds.getMix = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_mix", 1740695150L)
-            Binds.setSidechain = GdxApi.getMethodBind(c"AudioEffectCompressor", c"set_sidechain", 3304788590L)
-            Binds.getSidechain = GdxApi.getMethodBind(c"AudioEffectCompressor", c"get_sidechain", 2002593661L)
-
-    def apply(): AudioEffectCompressor =
-        val obj = new AudioEffectCompressor()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectCompressor")
-        obj
+def apply(): AudioEffectCompressor = {
+  val obj = new AudioEffectCompressor()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectCompressor")
+  obj
+}

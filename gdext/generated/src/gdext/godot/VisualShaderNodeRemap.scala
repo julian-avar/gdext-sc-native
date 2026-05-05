@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeRemap extends VisualShaderNode
-
-    def setOpType(opType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = opType.ptr
-        GdxApi.ptrcall(VisualShaderNodeRemap.Binds.setOpType, ptr, _args, null)
-
-    def getOpType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeRemap.Binds.getOpType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def opType: Ptr[Byte] = getOpType()
-    def opType_=(v: Ptr[Byte]): Unit = setOpType(v)
+class VisualShaderNodeRemap extends VisualShaderNode {
+    def opType: Int = getOpType()
+    def opType_=(v: Int): Unit = setOpType(v)
+}
 
 object VisualShaderNodeRemap:
-    object Binds:
-        var setOpType: Ptr[Byte] = null
-        var getOpType: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOpType = GdxApi.getMethodBind(c"VisualShaderNodeRemap", c"set_op_type", 1703697889L)
-            Binds.getOpType = GdxApi.getMethodBind(c"VisualShaderNodeRemap", c"get_op_type", 1678380563L)
-
-    def apply(): VisualShaderNodeRemap =
-        val obj = new VisualShaderNodeRemap()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeRemap")
-        obj
+def apply(): VisualShaderNodeRemap = {
+  val obj = new VisualShaderNodeRemap()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeRemap")
+  obj
+}

@@ -5,155 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsRayQueryParameters3D extends RefCounted
-
-    def setFrom(from: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = from.ptr
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setFrom, ptr, _args, null)
-
-    def getFrom(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.getFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setTo(to: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = to.ptr
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setTo, ptr, _args, null)
-
-    def getTo(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.getTo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setCollisionMask(collisionMask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = collisionMask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setExclude(exclude: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = exclude.ptr
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setExclude, ptr, _args, null)
-
-    def getExclude(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.getExclude, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setCollideWithBodies(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setCollideWithBodies, ptr, _args, null)
-
-    def isCollideWithBodiesEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.isCollideWithBodiesEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollideWithAreas(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setCollideWithAreas, ptr, _args, null)
-
-    def isCollideWithAreasEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.isCollideWithAreasEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHitFromInside(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setHitFromInside, ptr, _args, null)
-
-    def isHitFromInsideEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.isHitFromInsideEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHitBackFaces(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.setHitBackFaces, ptr, _args, null)
-
-    def isHitBackFacesEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsRayQueryParameters3D.Binds.isHitBackFacesEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def from: Ptr[Byte] = getFrom()
-    def from_=(v: Ptr[Byte]): Unit = setFrom(v)
-    def to: Ptr[Byte] = getTo()
-    def to_=(v: Ptr[Byte]): Unit = setTo(v)
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
+class PhysicsRayQueryParameters3D extends RefCounted {
+    def from: Vector3 = getFrom()
+    def from_=(v: Vector3): Unit = setFrom(v)
+    def to: Vector3 = getTo()
+    def to_=(v: Vector3): Unit = setTo(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
     def exclude: Ptr[Byte] = getExclude()
     def exclude_=(v: Ptr[Byte]): Unit = setExclude(v)
-    def collideWithBodies: Ptr[Byte] = isCollideWithBodiesEnabled()
-    def collideWithBodies_=(v: Ptr[Byte]): Unit = setCollideWithBodies(v)
-    def collideWithAreas: Ptr[Byte] = isCollideWithAreasEnabled()
-    def collideWithAreas_=(v: Ptr[Byte]): Unit = setCollideWithAreas(v)
-    def hitFromInside: Ptr[Byte] = isHitFromInsideEnabled()
-    def hitFromInside_=(v: Ptr[Byte]): Unit = setHitFromInside(v)
-    def hitBackFaces: Ptr[Byte] = isHitBackFacesEnabled()
-    def hitBackFaces_=(v: Ptr[Byte]): Unit = setHitBackFaces(v)
+    def collideWithBodies: Boolean = isCollideWithBodiesEnabled()
+    def collideWithBodies_=(v: Boolean): Unit = setCollideWithBodies(v)
+    def collideWithAreas: Boolean = isCollideWithAreasEnabled()
+    def collideWithAreas_=(v: Boolean): Unit = setCollideWithAreas(v)
+    def hitFromInside: Boolean = isHitFromInsideEnabled()
+    def hitFromInside_=(v: Boolean): Unit = setHitFromInside(v)
+    def hitBackFaces: Boolean = isHitBackFacesEnabled()
+    def hitBackFaces_=(v: Boolean): Unit = setHitBackFaces(v)
+}
 
 object PhysicsRayQueryParameters3D:
-    object Binds:
-        var setFrom: Ptr[Byte] = null
-        var getFrom: Ptr[Byte] = null
-        var setTo: Ptr[Byte] = null
-        var getTo: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
-        var setExclude: Ptr[Byte] = null
-        var getExclude: Ptr[Byte] = null
-        var setCollideWithBodies: Ptr[Byte] = null
-        var isCollideWithBodiesEnabled: Ptr[Byte] = null
-        var setCollideWithAreas: Ptr[Byte] = null
-        var isCollideWithAreasEnabled: Ptr[Byte] = null
-        var setHitFromInside: Ptr[Byte] = null
-        var isHitFromInsideEnabled: Ptr[Byte] = null
-        var setHitBackFaces: Ptr[Byte] = null
-        var isHitBackFacesEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFrom = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_from", 3460891852L)
-            Binds.getFrom = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"get_from", 3360562783L)
-            Binds.setTo = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_to", 3460891852L)
-            Binds.getTo = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"get_to", 3360562783L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"get_collision_mask", 3905245786L)
-            Binds.setExclude = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_exclude", 381264803L)
-            Binds.getExclude = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"get_exclude", 3995934104L)
-            Binds.setCollideWithBodies = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_collide_with_bodies", 2586408642L)
-            Binds.isCollideWithBodiesEnabled = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"is_collide_with_bodies_enabled", 36873697L)
-            Binds.setCollideWithAreas = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_collide_with_areas", 2586408642L)
-            Binds.isCollideWithAreasEnabled = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"is_collide_with_areas_enabled", 36873697L)
-            Binds.setHitFromInside = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_hit_from_inside", 2586408642L)
-            Binds.isHitFromInsideEnabled = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"is_hit_from_inside_enabled", 36873697L)
-            Binds.setHitBackFaces = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"set_hit_back_faces", 2586408642L)
-            Binds.isHitBackFacesEnabled = GdxApi.getMethodBind(c"PhysicsRayQueryParameters3D", c"is_hit_back_faces_enabled", 36873697L)
-
-    def apply(): PhysicsRayQueryParameters3D =
-        val obj = new PhysicsRayQueryParameters3D()
-        obj.ptr = GdxApi.constructObject(c"PhysicsRayQueryParameters3D")
-        obj
+def apply(): PhysicsRayQueryParameters3D = {
+  val obj = new PhysicsRayQueryParameters3D()
+  obj.ptr = GdxApi.constructObject(c"PhysicsRayQueryParameters3D")
+  obj
+}

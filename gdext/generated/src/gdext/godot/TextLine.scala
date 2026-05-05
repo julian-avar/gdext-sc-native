@@ -5,276 +5,176 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextLine extends RefCounted
-
-    def clear(): Unit =
+class TextLine extends RefCounted {
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextLine.Binds.clear, ptr, _args, null)
+}
 
-    def setDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(TextLine.Binds.setDirection, ptr, _args, null)
-
-    def getDirection(): Int =
+    def getInferredDirection(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextLine.Binds.getDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getInferredDirection(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextLine.Binds.getInferredDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setOrientation(orientation: Int): Unit =
+    def setBidiOverride(`override`: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = orientation.ptr
-        GdxApi.ptrcall(TextLine.Binds.setOrientation, ptr, _args, null)
-
-    def getOrientation(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextLine.Binds.getOrientation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPreserveInvalid(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextLine.Binds.setPreserveInvalid, ptr, _args, null)
-
-    def getPreserveInvalid(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextLine.Binds.getPreserveInvalid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPreserveControl(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextLine.Binds.setPreserveControl, ptr, _args, null)
-
-    def getPreserveControl(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TextLine.Binds.getPreserveControl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setBidiOverride(`override`: Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `override`.ptr
+        _args(0) = `override`
         GdxApi.ptrcall(TextLine.Binds.setBidiOverride, ptr, _args, null)
+}
 
-    def addString(text: CString, font: Font, fontSize: Int): Boolean =
+    def addString(text: CString, font: Font, fontSize: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = text.ptr
+        _args(0) = text
         _args(1) = font.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = fontSize.toLong
+        val _a2 = stackalloc[Long](); !_a2 = fontSize.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextLine.Binds.addString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addObject(key: Ptr[Byte], size: Vector2): Boolean =
+    def addObject(key: Ptr[Byte], size: Vector2): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = key.ptr
+        _args(0) = key
         _args(1) = size.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextLine.Binds.addObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def resizeObject(key: Ptr[Byte], size: Vector2): Boolean =
+    def resizeObject(key: Ptr[Byte], size: Vector2): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = key.ptr
+        _args(0) = key
         _args(1) = size.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextLine.Binds.resizeObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setWidth(width: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = width.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TextLine.Binds.setWidth, ptr, _args, null)
-
-    def getWidth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(TextLine.Binds.getWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHorizontalAlignment(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(TextLine.Binds.setHorizontalAlignment, ptr, _args, null)
-
-    def getHorizontalAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextLine.Binds.getHorizontalAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def tabAlign(tabStops: PackedFloat32Array): Unit =
+    def tabAlign(tabStops: PackedFloat32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = tabStops.ptr
         GdxApi.ptrcall(TextLine.Binds.tabAlign, ptr, _args, null)
+}
 
-    def setFlags(flags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
-        GdxApi.ptrcall(TextLine.Binds.setFlags, ptr, _args, null)
-
-    def getFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextLine.Binds.getFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextOverrunBehavior(overrunBehavior: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = overrunBehavior.ptr
-        GdxApi.ptrcall(TextLine.Binds.setTextOverrunBehavior, ptr, _args, null)
-
-    def getTextOverrunBehavior(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TextLine.Binds.getTextOverrunBehavior, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEllipsisChar(char: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = char.ptr
-        GdxApi.ptrcall(TextLine.Binds.setEllipsisChar, ptr, _args, null)
-
-    def getEllipsisChar(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TextLine.Binds.getEllipsisChar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getObjects(): Array =
+    def getObjects(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextLine.Binds.getObjects, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getObjectRect(key: Ptr[Byte]): Rect2 =
+    def getObjectRect(key: Ptr[Byte]): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = key.ptr
+        _args(0) = key
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextLine.Binds.getObjectRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def getSize(): Vector2 =
+    def getSize(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextLine.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getRid(): RID =
+    def getRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextLine.Binds.getRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getLineAscent(): Float =
+    def getLineAscent(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextLine.Binds.getLineAscent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getLineDescent(): Float =
+    def getLineDescent(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextLine.Binds.getLineDescent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getLineWidth(): Float =
+    def getLineWidth(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextLine.Binds.getLineWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getLineUnderlinePosition(): Float =
+    def getLineUnderlinePosition(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextLine.Binds.getLineUnderlinePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getLineUnderlineThickness(): Float =
+    def getLineUnderlineThickness(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextLine.Binds.getLineUnderlineThickness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def draw(canvas: RID, pos: Vector2): Unit =
+    def draw(canvas: RID, pos: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = canvas.ptr
         _args(1) = pos.ptr
         GdxApi.ptrcall(TextLine.Binds.draw, ptr, _args, null)
+}
 
-    def drawOutline(canvas: RID, pos: Vector2): Unit =
+    def drawOutline(canvas: RID, pos: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = canvas.ptr
         _args(1) = pos.ptr
         GdxApi.ptrcall(TextLine.Binds.drawOutline, ptr, _args, null)
+}
 
-    def hitTest(coords: Float): Int =
+    def hitTest(coords: Float): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = coords.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextLine.Binds.hitTest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def direction: Ptr[Byte] = getDirection()
-    def direction_=(v: Ptr[Byte]): Unit = setDirection(v)
-    def orientation: Ptr[Byte] = getOrientation()
-    def orientation_=(v: Ptr[Byte]): Unit = setOrientation(v)
-    def preserveInvalid: Ptr[Byte] = getPreserveInvalid()
-    def preserveInvalid_=(v: Ptr[Byte]): Unit = setPreserveInvalid(v)
-    def preserveControl: Ptr[Byte] = getPreserveControl()
-    def preserveControl_=(v: Ptr[Byte]): Unit = setPreserveControl(v)
-    def width: Ptr[Byte] = getWidth()
-    def width_=(v: Ptr[Byte]): Unit = setWidth(v)
-    def alignment: Ptr[Byte] = getHorizontalAlignment()
-    def alignment_=(v: Ptr[Byte]): Unit = setHorizontalAlignment(v)
-    def flags: Ptr[Byte] = getFlags()
-    def flags_=(v: Ptr[Byte]): Unit = setFlags(v)
-    def textOverrunBehavior: Ptr[Byte] = getTextOverrunBehavior()
-    def textOverrunBehavior_=(v: Ptr[Byte]): Unit = setTextOverrunBehavior(v)
-    def ellipsisChar: Ptr[Byte] = getEllipsisChar()
-    def ellipsisChar_=(v: Ptr[Byte]): Unit = setEllipsisChar(v)
+}
+
+    def direction: Int = getDirection()
+    def direction_=(v: Int): Unit = setDirection(v)
+    def orientation: Int = getOrientation()
+    def orientation_=(v: Int): Unit = setOrientation(v)
+    def preserveInvalid: Boolean = getPreserveInvalid()
+    def preserveInvalid_=(v: Boolean): Unit = setPreserveInvalid(v)
+    def preserveControl: Boolean = getPreserveControl()
+    def preserveControl_=(v: Boolean): Unit = setPreserveControl(v)
+    def width: Float = getWidth()
+    def width_=(v: Float): Unit = setWidth(v)
+    def alignment: Int = getHorizontalAlignment()
+    def alignment_=(v: Int): Unit = setHorizontalAlignment(v)
+    def flags: Int = getFlags()
+    def flags_=(v: Int): Unit = setFlags(v)
+    def textOverrunBehavior: Int = getTextOverrunBehavior()
+    def textOverrunBehavior_=(v: Int): Unit = setTextOverrunBehavior(v)
+    def ellipsisChar: CString = getEllipsisChar()
+    def ellipsisChar_=(v: CString): Unit = setEllipsisChar(v)
+}
 
 object TextLine:
-    object Binds:
-        var clear: Ptr[Byte] = null
-        var setDirection: Ptr[Byte] = null
-        var getDirection: Ptr[Byte] = null
+object Binds {
+          var clear: Ptr[Byte] = null
         var getInferredDirection: Ptr[Byte] = null
-        var setOrientation: Ptr[Byte] = null
-        var getOrientation: Ptr[Byte] = null
-        var setPreserveInvalid: Ptr[Byte] = null
-        var getPreserveInvalid: Ptr[Byte] = null
-        var setPreserveControl: Ptr[Byte] = null
-        var getPreserveControl: Ptr[Byte] = null
         var setBidiOverride: Ptr[Byte] = null
         var addString: Ptr[Byte] = null
         var addObject: Ptr[Byte] = null
         var resizeObject: Ptr[Byte] = null
-        var setWidth: Ptr[Byte] = null
-        var getWidth: Ptr[Byte] = null
-        var setHorizontalAlignment: Ptr[Byte] = null
-        var getHorizontalAlignment: Ptr[Byte] = null
         var tabAlign: Ptr[Byte] = null
-        var setFlags: Ptr[Byte] = null
-        var getFlags: Ptr[Byte] = null
-        var setTextOverrunBehavior: Ptr[Byte] = null
-        var getTextOverrunBehavior: Ptr[Byte] = null
-        var setEllipsisChar: Ptr[Byte] = null
-        var getEllipsisChar: Ptr[Byte] = null
         var getObjects: Ptr[Byte] = null
         var getObjectRect: Ptr[Byte] = null
         var getSize: Ptr[Byte] = null
@@ -288,32 +188,14 @@ object TextLine:
         var drawOutline: Ptr[Byte] = null
         var hitTest: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.clear = GdxApi.getMethodBind(c"TextLine", c"clear", 3218959716L)
-            Binds.setDirection = GdxApi.getMethodBind(c"TextLine", c"set_direction", 1418190634L)
-            Binds.getDirection = GdxApi.getMethodBind(c"TextLine", c"get_direction", 2516697328L)
+  def loadBinds(): Unit = {
+                Binds.clear = GdxApi.getMethodBind(c"TextLine", c"clear", 3218959716L)
             Binds.getInferredDirection = GdxApi.getMethodBind(c"TextLine", c"get_inferred_direction", 2516697328L)
-            Binds.setOrientation = GdxApi.getMethodBind(c"TextLine", c"set_orientation", 42823726L)
-            Binds.getOrientation = GdxApi.getMethodBind(c"TextLine", c"get_orientation", 175768116L)
-            Binds.setPreserveInvalid = GdxApi.getMethodBind(c"TextLine", c"set_preserve_invalid", 2586408642L)
-            Binds.getPreserveInvalid = GdxApi.getMethodBind(c"TextLine", c"get_preserve_invalid", 36873697L)
-            Binds.setPreserveControl = GdxApi.getMethodBind(c"TextLine", c"set_preserve_control", 2586408642L)
-            Binds.getPreserveControl = GdxApi.getMethodBind(c"TextLine", c"get_preserve_control", 36873697L)
             Binds.setBidiOverride = GdxApi.getMethodBind(c"TextLine", c"set_bidi_override", 381264803L)
             Binds.addString = GdxApi.getMethodBind(c"TextLine", c"add_string", 621426851L)
             Binds.addObject = GdxApi.getMethodBind(c"TextLine", c"add_object", 1316529304L)
             Binds.resizeObject = GdxApi.getMethodBind(c"TextLine", c"resize_object", 2095776372L)
-            Binds.setWidth = GdxApi.getMethodBind(c"TextLine", c"set_width", 373806689L)
-            Binds.getWidth = GdxApi.getMethodBind(c"TextLine", c"get_width", 1740695150L)
-            Binds.setHorizontalAlignment = GdxApi.getMethodBind(c"TextLine", c"set_horizontal_alignment", 2312603777L)
-            Binds.getHorizontalAlignment = GdxApi.getMethodBind(c"TextLine", c"get_horizontal_alignment", 341400642L)
             Binds.tabAlign = GdxApi.getMethodBind(c"TextLine", c"tab_align", 2899603908L)
-            Binds.setFlags = GdxApi.getMethodBind(c"TextLine", c"set_flags", 2877345813L)
-            Binds.getFlags = GdxApi.getMethodBind(c"TextLine", c"get_flags", 1583363614L)
-            Binds.setTextOverrunBehavior = GdxApi.getMethodBind(c"TextLine", c"set_text_overrun_behavior", 1008890932L)
-            Binds.getTextOverrunBehavior = GdxApi.getMethodBind(c"TextLine", c"get_text_overrun_behavior", 3779142101L)
-            Binds.setEllipsisChar = GdxApi.getMethodBind(c"TextLine", c"set_ellipsis_char", 83702148L)
-            Binds.getEllipsisChar = GdxApi.getMethodBind(c"TextLine", c"get_ellipsis_char", 201670096L)
             Binds.getObjects = GdxApi.getMethodBind(c"TextLine", c"get_objects", 3995934104L)
             Binds.getObjectRect = GdxApi.getMethodBind(c"TextLine", c"get_object_rect", 1742700391L)
             Binds.getSize = GdxApi.getMethodBind(c"TextLine", c"get_size", 3341600327L)
@@ -326,8 +208,11 @@ object TextLine:
             Binds.draw = GdxApi.getMethodBind(c"TextLine", c"draw", 3625105422L)
             Binds.drawOutline = GdxApi.getMethodBind(c"TextLine", c"draw_outline", 2592177763L)
             Binds.hitTest = GdxApi.getMethodBind(c"TextLine", c"hit_test", 2401831903L)
+  }
+}
 
-    def apply(): TextLine =
-        val obj = new TextLine()
-        obj.ptr = GdxApi.constructObject(c"TextLine")
-        obj
+def apply(): TextLine = {
+  val obj = new TextLine()
+  obj.ptr = GdxApi.constructObject(c"TextLine")
+  obj
+}

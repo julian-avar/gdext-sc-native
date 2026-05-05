@@ -5,126 +5,30 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NinePatchRect extends Control
-
-    def setTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(NinePatchRect.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NinePatchRect.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setPatchMargin(margin: Int, value: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = margin.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = value.toLong
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NinePatchRect.Binds.setPatchMargin, ptr, _args, null)
-
-    def getPatchMargin(margin: Int): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = margin.ptr
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NinePatchRect.Binds.getPatchMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRegionRect(rect: Rect2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = rect.ptr
-        GdxApi.ptrcall(NinePatchRect.Binds.setRegionRect, ptr, _args, null)
-
-    def getRegionRect(): Rect2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NinePatchRect.Binds.getRegionRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2(!_ret)
-
-    def setDrawCenter(drawCenter: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if drawCenter then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NinePatchRect.Binds.setDrawCenter, ptr, _args, null)
-
-    def isDrawCenterEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NinePatchRect.Binds.isDrawCenterEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHAxisStretchMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(NinePatchRect.Binds.setHAxisStretchMode, ptr, _args, null)
-
-    def getHAxisStretchMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NinePatchRect.Binds.getHAxisStretchMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVAxisStretchMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(NinePatchRect.Binds.setVAxisStretchMode, ptr, _args, null)
-
-    def getVAxisStretchMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NinePatchRect.Binds.getVAxisStretchMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def drawCenter: Ptr[Byte] = isDrawCenterEnabled()
-    def drawCenter_=(v: Ptr[Byte]): Unit = setDrawCenter(v)
-    def regionRect: Ptr[Byte] = getRegionRect()
-    def regionRect_=(v: Ptr[Byte]): Unit = setRegionRect(v)
-    def patchMarginLeft: Ptr[Byte] = getPatchMargin()
-    def patchMarginLeft_=(v: Ptr[Byte]): Unit = setPatchMargin(v)
-    def patchMarginTop: Ptr[Byte] = getPatchMargin()
-    def patchMarginTop_=(v: Ptr[Byte]): Unit = setPatchMargin(v)
-    def patchMarginRight: Ptr[Byte] = getPatchMargin()
-    def patchMarginRight_=(v: Ptr[Byte]): Unit = setPatchMargin(v)
-    def patchMarginBottom: Ptr[Byte] = getPatchMargin()
-    def patchMarginBottom_=(v: Ptr[Byte]): Unit = setPatchMargin(v)
-    def axisStretchHorizontal: Ptr[Byte] = getHAxisStretchMode()
-    def axisStretchHorizontal_=(v: Ptr[Byte]): Unit = setHAxisStretchMode(v)
-    def axisStretchVertical: Ptr[Byte] = getVAxisStretchMode()
-    def axisStretchVertical_=(v: Ptr[Byte]): Unit = setVAxisStretchMode(v)
+class NinePatchRect extends Control {
+    def texture: Texture2D = getTexture()
+    def texture_=(v: Texture2D): Unit = setTexture(v)
+    def drawCenter: Boolean = isDrawCenterEnabled()
+    def drawCenter_=(v: Boolean): Unit = setDrawCenter(v)
+    def regionRect: Rect2 = getRegionRect()
+    def regionRect_=(v: Rect2): Unit = setRegionRect(v)
+    def patchMarginLeft: Int = getPatchMargin()
+    def patchMarginLeft_=(v: Int): Unit = setPatchMargin(v)
+    def patchMarginTop: Int = getPatchMargin()
+    def patchMarginTop_=(v: Int): Unit = setPatchMargin(v)
+    def patchMarginRight: Int = getPatchMargin()
+    def patchMarginRight_=(v: Int): Unit = setPatchMargin(v)
+    def patchMarginBottom: Int = getPatchMargin()
+    def patchMarginBottom_=(v: Int): Unit = setPatchMargin(v)
+    def axisStretchHorizontal: Int = getHAxisStretchMode()
+    def axisStretchHorizontal_=(v: Int): Unit = setHAxisStretchMode(v)
+    def axisStretchVertical: Int = getVAxisStretchMode()
+    def axisStretchVertical_=(v: Int): Unit = setVAxisStretchMode(v)
+}
 
 object NinePatchRect:
-    object Binds:
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-        var setPatchMargin: Ptr[Byte] = null
-        var getPatchMargin: Ptr[Byte] = null
-        var setRegionRect: Ptr[Byte] = null
-        var getRegionRect: Ptr[Byte] = null
-        var setDrawCenter: Ptr[Byte] = null
-        var isDrawCenterEnabled: Ptr[Byte] = null
-        var setHAxisStretchMode: Ptr[Byte] = null
-        var getHAxisStretchMode: Ptr[Byte] = null
-        var setVAxisStretchMode: Ptr[Byte] = null
-        var getVAxisStretchMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTexture = GdxApi.getMethodBind(c"NinePatchRect", c"set_texture", 4051416890L)
-            Binds.getTexture = GdxApi.getMethodBind(c"NinePatchRect", c"get_texture", 3635182373L)
-            Binds.setPatchMargin = GdxApi.getMethodBind(c"NinePatchRect", c"set_patch_margin", 437707142L)
-            Binds.getPatchMargin = GdxApi.getMethodBind(c"NinePatchRect", c"get_patch_margin", 1983885014L)
-            Binds.setRegionRect = GdxApi.getMethodBind(c"NinePatchRect", c"set_region_rect", 2046264180L)
-            Binds.getRegionRect = GdxApi.getMethodBind(c"NinePatchRect", c"get_region_rect", 1639390495L)
-            Binds.setDrawCenter = GdxApi.getMethodBind(c"NinePatchRect", c"set_draw_center", 2586408642L)
-            Binds.isDrawCenterEnabled = GdxApi.getMethodBind(c"NinePatchRect", c"is_draw_center_enabled", 36873697L)
-            Binds.setHAxisStretchMode = GdxApi.getMethodBind(c"NinePatchRect", c"set_h_axis_stretch_mode", 3219608417L)
-            Binds.getHAxisStretchMode = GdxApi.getMethodBind(c"NinePatchRect", c"get_h_axis_stretch_mode", 3317113799L)
-            Binds.setVAxisStretchMode = GdxApi.getMethodBind(c"NinePatchRect", c"set_v_axis_stretch_mode", 3219608417L)
-            Binds.getVAxisStretchMode = GdxApi.getMethodBind(c"NinePatchRect", c"get_v_axis_stretch_mode", 3317113799L)
-
-    def apply(): NinePatchRect =
-        val obj = new NinePatchRect()
-        obj.ptr = GdxApi.constructObject(c"NinePatchRect")
-        obj
+def apply(): NinePatchRect = {
+  val obj = new NinePatchRect()
+  obj.ptr = GdxApi.constructObject(c"NinePatchRect")
+  obj
+}

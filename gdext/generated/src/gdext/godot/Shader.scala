@@ -5,70 +5,64 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Shader extends Resource
-
-    def getMode(): Int =
+class Shader extends Resource {
+    def getMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Shader.Binds.getMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCode(code: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = code.ptr
-        GdxApi.ptrcall(Shader.Binds.setCode, ptr, _args, null)
-
-    def getCode(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Shader.Binds.getCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDefaultTextureParameter(name: CString, texture: Texture): Unit =
+    def setDefaultTextureParameter(name: CString, texture: Texture): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = texture.ptr
         GdxApi.ptrcall(Shader.Binds.setDefaultTextureParameter, ptr, _args, null)
+}
 
-    def getDefaultTextureParameter(name: CString): Texture =
+    def getDefaultTextureParameter(name: CString): Texture = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Shader.Binds.getDefaultTextureParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture(!_ret)
+}
 
-    def getShaderUniformList(): Array =
+    def getShaderUniformList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Shader.Binds.getShaderUniformList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def inspectNativeShaderCode(): Unit =
+    def inspectNativeShaderCode(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Shader.Binds.inspectNativeShaderCode, ptr, _args, null)
-    def code: Ptr[Byte] = getCode()
-    def code_=(v: Ptr[Byte]): Unit = setCode(v)
+}
+
+    def code: CString = getCode()
+    def code_=(v: CString): Unit = setCode(v)
+}
 
 object Shader:
-    object Binds:
-        var getMode: Ptr[Byte] = null
-        var setCode: Ptr[Byte] = null
-        var getCode: Ptr[Byte] = null
+object Binds {
+          var getMode: Ptr[Byte] = null
         var setDefaultTextureParameter: Ptr[Byte] = null
         var getDefaultTextureParameter: Ptr[Byte] = null
         var getShaderUniformList: Ptr[Byte] = null
         var inspectNativeShaderCode: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getMode = GdxApi.getMethodBind(c"Shader", c"get_mode", 3392948163L)
-            Binds.setCode = GdxApi.getMethodBind(c"Shader", c"set_code", 83702148L)
-            Binds.getCode = GdxApi.getMethodBind(c"Shader", c"get_code", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getMode = GdxApi.getMethodBind(c"Shader", c"get_mode", 3392948163L)
             Binds.setDefaultTextureParameter = GdxApi.getMethodBind(c"Shader", c"set_default_texture_parameter", 3850209648L)
             Binds.getDefaultTextureParameter = GdxApi.getMethodBind(c"Shader", c"get_default_texture_parameter", 4213877425L)
             Binds.getShaderUniformList = GdxApi.getMethodBind(c"Shader", c"get_shader_uniform_list", 1230511656L)
             Binds.inspectNativeShaderCode = GdxApi.getMethodBind(c"Shader", c"inspect_native_shader_code", 3218959716L)
+  }
+}
 
-    def apply(): Shader =
-        val obj = new Shader()
-        obj.ptr = GdxApi.constructObject(c"Shader")
-        obj
+def apply(): Shader = {
+  val obj = new Shader()
+  obj.ptr = GdxApi.constructObject(c"Shader")
+  obj
+}

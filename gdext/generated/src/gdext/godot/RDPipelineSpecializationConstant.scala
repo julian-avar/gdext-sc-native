@@ -5,49 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDPipelineSpecializationConstant extends RefCounted
-
-    def setValue(value: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
-        GdxApi.ptrcall(RDPipelineSpecializationConstant.Binds.setValue, ptr, _args, null)
-
-    def getValue(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDPipelineSpecializationConstant.Binds.getValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setConstantId(constantId: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = constantId.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineSpecializationConstant.Binds.setConstantId, ptr, _args, null)
-
-    def getConstantId(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineSpecializationConstant.Binds.getConstantId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
+class RDPipelineSpecializationConstant extends RefCounted {
     def value: Ptr[Byte] = getValue()
     def value_=(v: Ptr[Byte]): Unit = setValue(v)
-    def constantId: Ptr[Byte] = getConstantId()
-    def constantId_=(v: Ptr[Byte]): Unit = setConstantId(v)
+    def constantId: Int = getConstantId()
+    def constantId_=(v: Int): Unit = setConstantId(v)
+}
 
 object RDPipelineSpecializationConstant:
-    object Binds:
-        var setValue: Ptr[Byte] = null
-        var getValue: Ptr[Byte] = null
-        var setConstantId: Ptr[Byte] = null
-        var getConstantId: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setValue = GdxApi.getMethodBind(c"RDPipelineSpecializationConstant", c"set_value", 1114965689L)
-            Binds.getValue = GdxApi.getMethodBind(c"RDPipelineSpecializationConstant", c"get_value", 1214101251L)
-            Binds.setConstantId = GdxApi.getMethodBind(c"RDPipelineSpecializationConstant", c"set_constant_id", 1286410249L)
-            Binds.getConstantId = GdxApi.getMethodBind(c"RDPipelineSpecializationConstant", c"get_constant_id", 3905245786L)
-
-    def apply(): RDPipelineSpecializationConstant =
-        val obj = new RDPipelineSpecializationConstant()
-        obj.ptr = GdxApi.constructObject(c"RDPipelineSpecializationConstant")
-        obj
+def apply(): RDPipelineSpecializationConstant = {
+  val obj = new RDPipelineSpecializationConstant()
+  obj.ptr = GdxApi.constructObject(c"RDPipelineSpecializationConstant")
+  obj
+}

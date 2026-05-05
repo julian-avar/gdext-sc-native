@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptLanguage extends Object
-
-
-
+class ScriptLanguage extends Object {}

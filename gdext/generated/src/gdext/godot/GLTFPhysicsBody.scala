@@ -5,167 +5,52 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFPhysicsBody extends Resource
-
-    def toNode(): CollisionObject3D =
+class GLTFPhysicsBody extends Resource {
+    def toNode(): CollisionObject3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFPhysicsBody.Binds.toNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CollisionObject3D(!_ret)
+}
 
-    def toDictionary(): Dictionary =
+    def toDictionary(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFPhysicsBody.Binds.toDictionary, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getBodyType(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getBodyType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setBodyType(bodyType: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bodyType.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setBodyType, ptr, _args, null)
-
-    def getMass(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMass(mass: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = mass.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setMass, ptr, _args, null)
-
-    def getLinearVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getLinearVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setLinearVelocity(linearVelocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = linearVelocity.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setLinearVelocity, ptr, _args, null)
-
-    def getAngularVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getAngularVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setAngularVelocity(angularVelocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = angularVelocity.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setAngularVelocity, ptr, _args, null)
-
-    def getCenterOfMass(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getCenterOfMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setCenterOfMass(centerOfMass: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = centerOfMass.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setCenterOfMass, ptr, _args, null)
-
-    def getInertiaDiagonal(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getInertiaDiagonal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setInertiaDiagonal(inertiaDiagonal: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = inertiaDiagonal.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setInertiaDiagonal, ptr, _args, null)
-
-    def getInertiaOrientation(): Quaternion =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getInertiaOrientation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Quaternion(!_ret)
-
-    def setInertiaOrientation(inertiaOrientation: Quaternion): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = inertiaOrientation.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setInertiaOrientation, ptr, _args, null)
-
-    def getInertiaTensor(): Basis =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.getInertiaTensor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Basis(!_ret)
-
-    def setInertiaTensor(inertiaTensor: Basis): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = inertiaTensor.ptr
-        GdxApi.ptrcall(GLTFPhysicsBody.Binds.setInertiaTensor, ptr, _args, null)
-    def bodyType: Ptr[Byte] = getBodyType()
-    def bodyType_=(v: Ptr[Byte]): Unit = setBodyType(v)
-    def mass: Ptr[Byte] = getMass()
-    def mass_=(v: Ptr[Byte]): Unit = setMass(v)
-    def linearVelocity: Ptr[Byte] = getLinearVelocity()
-    def linearVelocity_=(v: Ptr[Byte]): Unit = setLinearVelocity(v)
-    def angularVelocity: Ptr[Byte] = getAngularVelocity()
-    def angularVelocity_=(v: Ptr[Byte]): Unit = setAngularVelocity(v)
-    def centerOfMass: Ptr[Byte] = getCenterOfMass()
-    def centerOfMass_=(v: Ptr[Byte]): Unit = setCenterOfMass(v)
-    def inertiaDiagonal: Ptr[Byte] = getInertiaDiagonal()
-    def inertiaDiagonal_=(v: Ptr[Byte]): Unit = setInertiaDiagonal(v)
-    def inertiaOrientation: Ptr[Byte] = getInertiaOrientation()
-    def inertiaOrientation_=(v: Ptr[Byte]): Unit = setInertiaOrientation(v)
-    def inertiaTensor: Ptr[Byte] = getInertiaTensor()
-    def inertiaTensor_=(v: Ptr[Byte]): Unit = setInertiaTensor(v)
+    def bodyType: CString = getBodyType()
+    def bodyType_=(v: CString): Unit = setBodyType(v)
+    def mass: Float = getMass()
+    def mass_=(v: Float): Unit = setMass(v)
+    def linearVelocity: Vector3 = getLinearVelocity()
+    def linearVelocity_=(v: Vector3): Unit = setLinearVelocity(v)
+    def angularVelocity: Vector3 = getAngularVelocity()
+    def angularVelocity_=(v: Vector3): Unit = setAngularVelocity(v)
+    def centerOfMass: Vector3 = getCenterOfMass()
+    def centerOfMass_=(v: Vector3): Unit = setCenterOfMass(v)
+    def inertiaDiagonal: Vector3 = getInertiaDiagonal()
+    def inertiaDiagonal_=(v: Vector3): Unit = setInertiaDiagonal(v)
+    def inertiaOrientation: Quaternion = getInertiaOrientation()
+    def inertiaOrientation_=(v: Quaternion): Unit = setInertiaOrientation(v)
+    def inertiaTensor: Basis = getInertiaTensor()
+    def inertiaTensor_=(v: Basis): Unit = setInertiaTensor(v)
+}
 
 object GLTFPhysicsBody:
-    object Binds:
-        var toNode: Ptr[Byte] = null
+object Binds {
+          var toNode: Ptr[Byte] = null
         var toDictionary: Ptr[Byte] = null
-        var getBodyType: Ptr[Byte] = null
-        var setBodyType: Ptr[Byte] = null
-        var getMass: Ptr[Byte] = null
-        var setMass: Ptr[Byte] = null
-        var getLinearVelocity: Ptr[Byte] = null
-        var setLinearVelocity: Ptr[Byte] = null
-        var getAngularVelocity: Ptr[Byte] = null
-        var setAngularVelocity: Ptr[Byte] = null
-        var getCenterOfMass: Ptr[Byte] = null
-        var setCenterOfMass: Ptr[Byte] = null
-        var getInertiaDiagonal: Ptr[Byte] = null
-        var setInertiaDiagonal: Ptr[Byte] = null
-        var getInertiaOrientation: Ptr[Byte] = null
-        var setInertiaOrientation: Ptr[Byte] = null
-        var getInertiaTensor: Ptr[Byte] = null
-        var setInertiaTensor: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.toNode = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"to_node", 3224013656L)
+  def loadBinds(): Unit = {
+                Binds.toNode = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"to_node", 3224013656L)
             Binds.toDictionary = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"to_dictionary", 3102165223L)
-            Binds.getBodyType = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_body_type", 201670096L)
-            Binds.setBodyType = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_body_type", 83702148L)
-            Binds.getMass = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_mass", 1740695150L)
-            Binds.setMass = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_mass", 373806689L)
-            Binds.getLinearVelocity = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_linear_velocity", 3360562783L)
-            Binds.setLinearVelocity = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_linear_velocity", 3460891852L)
-            Binds.getAngularVelocity = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_angular_velocity", 3360562783L)
-            Binds.setAngularVelocity = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_angular_velocity", 3460891852L)
-            Binds.getCenterOfMass = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_center_of_mass", 3360562783L)
-            Binds.setCenterOfMass = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_center_of_mass", 3460891852L)
-            Binds.getInertiaDiagonal = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_inertia_diagonal", 3360562783L)
-            Binds.setInertiaDiagonal = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_inertia_diagonal", 3460891852L)
-            Binds.getInertiaOrientation = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_inertia_orientation", 1222331677L)
-            Binds.setInertiaOrientation = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_inertia_orientation", 1727505552L)
-            Binds.getInertiaTensor = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"get_inertia_tensor", 2716978435L)
-            Binds.setInertiaTensor = GdxApi.getMethodBind(c"GLTFPhysicsBody", c"set_inertia_tensor", 1055510324L)
+  }
+}
 
-    def apply(): GLTFPhysicsBody =
-        val obj = new GLTFPhysicsBody()
-        obj.ptr = GdxApi.constructObject(c"GLTFPhysicsBody")
-        obj
+def apply(): GLTFPhysicsBody = {
+  val obj = new GLTFPhysicsBody()
+  obj.ptr = GdxApi.constructObject(c"GLTFPhysicsBody")
+  obj
+}

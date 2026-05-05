@@ -5,61 +5,68 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorDebuggerSession extends RefCounted
-
-    def sendMessage(message: CString): Unit =
+class EditorDebuggerSession extends RefCounted {
+    def sendMessage(message: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         GdxApi.ptrcall(EditorDebuggerSession.Binds.sendMessage, ptr, _args, null)
+}
 
-    def toggleProfiler(profiler: CString, enable: Boolean): Unit =
+    def toggleProfiler(profiler: CString, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = profiler.ptr
+        _args(0) = profiler
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorDebuggerSession.Binds.toggleProfiler, ptr, _args, null)
+}
 
-    def isBreaked(): Boolean =
+    def isBreaked(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorDebuggerSession.Binds.isBreaked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isDebuggable(): Boolean =
+    def isDebuggable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorDebuggerSession.Binds.isDebuggable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActive(): Boolean =
+    def isActive(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorDebuggerSession.Binds.isActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addSessionTab(control: Control): Unit =
+    def addSessionTab(control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = control.ptr
         GdxApi.ptrcall(EditorDebuggerSession.Binds.addSessionTab, ptr, _args, null)
+}
 
-    def removeSessionTab(control: Control): Unit =
+    def removeSessionTab(control: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = control.ptr
         GdxApi.ptrcall(EditorDebuggerSession.Binds.removeSessionTab, ptr, _args, null)
+}
 
-    def setBreakpoint(path: CString, line: Int, enabled: Boolean): Unit =
+    def setBreakpoint(path: CString, line: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = path.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = line.toLong
+        _args(0) = path
+        val _a1 = stackalloc[Long](); !_a1 = line.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if enabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorDebuggerSession.Binds.setBreakpoint, ptr, _args, null)
-
+}
+}
 
 object EditorDebuggerSession:
-    object Binds:
-        var sendMessage: Ptr[Byte] = null
+object Binds {
+          var sendMessage: Ptr[Byte] = null
         var toggleProfiler: Ptr[Byte] = null
         var isBreaked: Ptr[Byte] = null
         var isDebuggable: Ptr[Byte] = null
@@ -68,8 +75,8 @@ object EditorDebuggerSession:
         var removeSessionTab: Ptr[Byte] = null
         var setBreakpoint: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.sendMessage = GdxApi.getMethodBind(c"EditorDebuggerSession", c"send_message", 85656714L)
+  def loadBinds(): Unit = {
+                Binds.sendMessage = GdxApi.getMethodBind(c"EditorDebuggerSession", c"send_message", 85656714L)
             Binds.toggleProfiler = GdxApi.getMethodBind(c"EditorDebuggerSession", c"toggle_profiler", 1198443697L)
             Binds.isBreaked = GdxApi.getMethodBind(c"EditorDebuggerSession", c"is_breaked", 2240911060L)
             Binds.isDebuggable = GdxApi.getMethodBind(c"EditorDebuggerSession", c"is_debuggable", 2240911060L)
@@ -77,3 +84,5 @@ object EditorDebuggerSession:
             Binds.addSessionTab = GdxApi.getMethodBind(c"EditorDebuggerSession", c"add_session_tab", 1496901182L)
             Binds.removeSessionTab = GdxApi.getMethodBind(c"EditorDebuggerSession", c"remove_session_tab", 1496901182L)
             Binds.setBreakpoint = GdxApi.getMethodBind(c"EditorDebuggerSession", c"set_breakpoint", 4108344793L)
+  }
+}

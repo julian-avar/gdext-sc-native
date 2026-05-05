@@ -5,135 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventMouseMotion extends InputEventMouse
-
-    def setTilt(tilt: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tilt.ptr
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setTilt, ptr, _args, null)
-
-    def getTilt(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getTilt, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setPressure(pressure: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pressure.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setPressure, ptr, _args, null)
-
-    def getPressure(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getPressure, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPenInverted(penInverted: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if penInverted then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setPenInverted, ptr, _args, null)
-
-    def getPenInverted(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getPenInverted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setRelative(relative: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = relative.ptr
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setRelative, ptr, _args, null)
-
-    def getRelative(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getRelative, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setScreenRelative(relative: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = relative.ptr
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setScreenRelative, ptr, _args, null)
-
-    def getScreenRelative(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getScreenRelative, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setVelocity(velocity: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = velocity.ptr
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setVelocity, ptr, _args, null)
-
-    def getVelocity(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setScreenVelocity(velocity: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = velocity.ptr
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.setScreenVelocity, ptr, _args, null)
-
-    def getScreenVelocity(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(InputEventMouseMotion.Binds.getScreenVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def tilt: Ptr[Byte] = getTilt()
-    def tilt_=(v: Ptr[Byte]): Unit = setTilt(v)
-    def pressure: Ptr[Byte] = getPressure()
-    def pressure_=(v: Ptr[Byte]): Unit = setPressure(v)
-    def penInverted: Ptr[Byte] = getPenInverted()
-    def penInverted_=(v: Ptr[Byte]): Unit = setPenInverted(v)
-    def relative: Ptr[Byte] = getRelative()
-    def relative_=(v: Ptr[Byte]): Unit = setRelative(v)
-    def screenRelative: Ptr[Byte] = getScreenRelative()
-    def screenRelative_=(v: Ptr[Byte]): Unit = setScreenRelative(v)
-    def velocity: Ptr[Byte] = getVelocity()
-    def velocity_=(v: Ptr[Byte]): Unit = setVelocity(v)
-    def screenVelocity: Ptr[Byte] = getScreenVelocity()
-    def screenVelocity_=(v: Ptr[Byte]): Unit = setScreenVelocity(v)
+class InputEventMouseMotion extends InputEventMouse {
+    def tilt: Vector2 = getTilt()
+    def tilt_=(v: Vector2): Unit = setTilt(v)
+    def pressure: Float = getPressure()
+    def pressure_=(v: Float): Unit = setPressure(v)
+    def penInverted: Boolean = getPenInverted()
+    def penInverted_=(v: Boolean): Unit = setPenInverted(v)
+    def relative: Vector2 = getRelative()
+    def relative_=(v: Vector2): Unit = setRelative(v)
+    def screenRelative: Vector2 = getScreenRelative()
+    def screenRelative_=(v: Vector2): Unit = setScreenRelative(v)
+    def velocity: Vector2 = getVelocity()
+    def velocity_=(v: Vector2): Unit = setVelocity(v)
+    def screenVelocity: Vector2 = getScreenVelocity()
+    def screenVelocity_=(v: Vector2): Unit = setScreenVelocity(v)
+}
 
 object InputEventMouseMotion:
-    object Binds:
-        var setTilt: Ptr[Byte] = null
-        var getTilt: Ptr[Byte] = null
-        var setPressure: Ptr[Byte] = null
-        var getPressure: Ptr[Byte] = null
-        var setPenInverted: Ptr[Byte] = null
-        var getPenInverted: Ptr[Byte] = null
-        var setRelative: Ptr[Byte] = null
-        var getRelative: Ptr[Byte] = null
-        var setScreenRelative: Ptr[Byte] = null
-        var getScreenRelative: Ptr[Byte] = null
-        var setVelocity: Ptr[Byte] = null
-        var getVelocity: Ptr[Byte] = null
-        var setScreenVelocity: Ptr[Byte] = null
-        var getScreenVelocity: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTilt = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_tilt", 743155724L)
-            Binds.getTilt = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_tilt", 3341600327L)
-            Binds.setPressure = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_pressure", 373806689L)
-            Binds.getPressure = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_pressure", 1740695150L)
-            Binds.setPenInverted = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_pen_inverted", 2586408642L)
-            Binds.getPenInverted = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_pen_inverted", 36873697L)
-            Binds.setRelative = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_relative", 743155724L)
-            Binds.getRelative = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_relative", 3341600327L)
-            Binds.setScreenRelative = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_screen_relative", 743155724L)
-            Binds.getScreenRelative = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_screen_relative", 3341600327L)
-            Binds.setVelocity = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_velocity", 743155724L)
-            Binds.getVelocity = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_velocity", 3341600327L)
-            Binds.setScreenVelocity = GdxApi.getMethodBind(c"InputEventMouseMotion", c"set_screen_velocity", 743155724L)
-            Binds.getScreenVelocity = GdxApi.getMethodBind(c"InputEventMouseMotion", c"get_screen_velocity", 3341600327L)
-
-    def apply(): InputEventMouseMotion =
-        val obj = new InputEventMouseMotion()
-        obj.ptr = GdxApi.constructObject(c"InputEventMouseMotion")
-        obj
+def apply(): InputEventMouseMotion = {
+  val obj = new InputEventMouseMotion()
+  obj.ptr = GdxApi.constructObject(c"InputEventMouseMotion")
+  obj
+}

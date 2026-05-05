@@ -5,49 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MissingResource extends Resource
-
-    def setOriginalClass(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(MissingResource.Binds.setOriginalClass, ptr, _args, null)
-
-    def getOriginalClass(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MissingResource.Binds.getOriginalClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setRecordingProperties(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MissingResource.Binds.setRecordingProperties, ptr, _args, null)
-
-    def isRecordingProperties(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MissingResource.Binds.isRecordingProperties, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def originalClass: Ptr[Byte] = getOriginalClass()
-    def originalClass_=(v: Ptr[Byte]): Unit = setOriginalClass(v)
-    def recordingProperties: Ptr[Byte] = isRecordingProperties()
-    def recordingProperties_=(v: Ptr[Byte]): Unit = setRecordingProperties(v)
+class MissingResource extends Resource {
+    def originalClass: CString = getOriginalClass()
+    def originalClass_=(v: CString): Unit = setOriginalClass(v)
+    def recordingProperties: Boolean = isRecordingProperties()
+    def recordingProperties_=(v: Boolean): Unit = setRecordingProperties(v)
+}
 
 object MissingResource:
-    object Binds:
-        var setOriginalClass: Ptr[Byte] = null
-        var getOriginalClass: Ptr[Byte] = null
-        var setRecordingProperties: Ptr[Byte] = null
-        var isRecordingProperties: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOriginalClass = GdxApi.getMethodBind(c"MissingResource", c"set_original_class", 83702148L)
-            Binds.getOriginalClass = GdxApi.getMethodBind(c"MissingResource", c"get_original_class", 201670096L)
-            Binds.setRecordingProperties = GdxApi.getMethodBind(c"MissingResource", c"set_recording_properties", 2586408642L)
-            Binds.isRecordingProperties = GdxApi.getMethodBind(c"MissingResource", c"is_recording_properties", 36873697L)
-
-    def apply(): MissingResource =
-        val obj = new MissingResource()
-        obj.ptr = GdxApi.constructObject(c"MissingResource")
-        obj
+def apply(): MissingResource = {
+  val obj = new MissingResource()
+  obj.ptr = GdxApi.constructObject(c"MissingResource")
+  obj
+}

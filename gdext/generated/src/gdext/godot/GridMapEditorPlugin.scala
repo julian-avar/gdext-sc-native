@@ -5,58 +5,65 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GridMapEditorPlugin extends EditorPlugin
-
-    def getCurrentGridMap(): GridMap =
+class GridMapEditorPlugin extends EditorPlugin {
+    def getCurrentGridMap(): GridMap = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.getCurrentGridMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new GridMap(!_ret)
+}
 
-    def setSelection(begin: Vector3i, end: Vector3i): Unit =
+    def setSelection(begin: Vector3i, end: Vector3i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = begin.ptr
         _args(1) = end.ptr
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.setSelection, ptr, _args, null)
+}
 
-    def clearSelection(): Unit =
+    def clearSelection(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.clearSelection, ptr, _args, null)
+}
 
-    def getSelection(): AABB =
+    def getSelection(): AABB = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.getSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def hasSelection(): Boolean =
+    def hasSelection(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.hasSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSelectedCells(): Array =
+    def getSelectedCells(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.getSelectedCells, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setSelectedPaletteItem(item: Int): Unit =
+    def setSelectedPaletteItem(item: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = item.toLong
+        val _a0 = stackalloc[Long](); !_a0 = item.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.setSelectedPaletteItem, ptr, _args, null)
+}
 
-    def getSelectedPaletteItem(): Int =
+    def getSelectedPaletteItem(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GridMapEditorPlugin.Binds.getSelectedPaletteItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object GridMapEditorPlugin:
-    object Binds:
-        var getCurrentGridMap: Ptr[Byte] = null
+object Binds {
+          var getCurrentGridMap: Ptr[Byte] = null
         var setSelection: Ptr[Byte] = null
         var clearSelection: Ptr[Byte] = null
         var getSelection: Ptr[Byte] = null
@@ -65,8 +72,8 @@ object GridMapEditorPlugin:
         var setSelectedPaletteItem: Ptr[Byte] = null
         var getSelectedPaletteItem: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getCurrentGridMap = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"get_current_grid_map", 1184264483L)
+  def loadBinds(): Unit = {
+                Binds.getCurrentGridMap = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"get_current_grid_map", 1184264483L)
             Binds.setSelection = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"set_selection", 3659408297L)
             Binds.clearSelection = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"clear_selection", 3218959716L)
             Binds.getSelection = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"get_selection", 1068685055L)
@@ -74,8 +81,11 @@ object GridMapEditorPlugin:
             Binds.getSelectedCells = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"get_selected_cells", 3995934104L)
             Binds.setSelectedPaletteItem = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"set_selected_palette_item", 998575451L)
             Binds.getSelectedPaletteItem = GdxApi.getMethodBind(c"GridMapEditorPlugin", c"get_selected_palette_item", 3905245786L)
+  }
+}
 
-    def apply(): GridMapEditorPlugin =
-        val obj = new GridMapEditorPlugin()
-        obj.ptr = GdxApi.constructObject(c"GridMapEditorPlugin")
-        obj
+def apply(): GridMapEditorPlugin = {
+  val obj = new GridMapEditorPlugin()
+  obj.ptr = GdxApi.constructObject(c"GridMapEditorPlugin")
+  obj
+}

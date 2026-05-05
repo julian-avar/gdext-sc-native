@@ -5,99 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRHand extends Node3D
-
-    def setHand(hand: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hand.ptr
-        GdxApi.ptrcall(OpenXRHand.Binds.setHand, ptr, _args, null)
-
-    def getHand(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRHand.Binds.getHand, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHandSkeleton(handSkeleton: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = handSkeleton.ptr
-        GdxApi.ptrcall(OpenXRHand.Binds.setHandSkeleton, ptr, _args, null)
-
-    def getHandSkeleton(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRHand.Binds.getHandSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setMotionRange(motionRange: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = motionRange.ptr
-        GdxApi.ptrcall(OpenXRHand.Binds.setMotionRange, ptr, _args, null)
-
-    def getMotionRange(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRHand.Binds.getMotionRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSkeletonRig(skeletonRig: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skeletonRig.ptr
-        GdxApi.ptrcall(OpenXRHand.Binds.setSkeletonRig, ptr, _args, null)
-
-    def getSkeletonRig(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRHand.Binds.getSkeletonRig, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBoneUpdate(boneUpdate: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = boneUpdate.ptr
-        GdxApi.ptrcall(OpenXRHand.Binds.setBoneUpdate, ptr, _args, null)
-
-    def getBoneUpdate(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRHand.Binds.getBoneUpdate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def hand: Ptr[Byte] = getHand()
-    def hand_=(v: Ptr[Byte]): Unit = setHand(v)
-    def motionRange: Ptr[Byte] = getMotionRange()
-    def motionRange_=(v: Ptr[Byte]): Unit = setMotionRange(v)
-    def handSkeleton: Ptr[Byte] = getHandSkeleton()
-    def handSkeleton_=(v: Ptr[Byte]): Unit = setHandSkeleton(v)
-    def skeletonRig: Ptr[Byte] = getSkeletonRig()
-    def skeletonRig_=(v: Ptr[Byte]): Unit = setSkeletonRig(v)
-    def boneUpdate: Ptr[Byte] = getBoneUpdate()
-    def boneUpdate_=(v: Ptr[Byte]): Unit = setBoneUpdate(v)
+class OpenXRHand extends Node3D {
+    def hand: Int = getHand()
+    def hand_=(v: Int): Unit = setHand(v)
+    def motionRange: Int = getMotionRange()
+    def motionRange_=(v: Int): Unit = setMotionRange(v)
+    def handSkeleton: NodePath = getHandSkeleton()
+    def handSkeleton_=(v: NodePath): Unit = setHandSkeleton(v)
+    def skeletonRig: Int = getSkeletonRig()
+    def skeletonRig_=(v: Int): Unit = setSkeletonRig(v)
+    def boneUpdate: Int = getBoneUpdate()
+    def boneUpdate_=(v: Int): Unit = setBoneUpdate(v)
+}
 
 object OpenXRHand:
-    object Binds:
-        var setHand: Ptr[Byte] = null
-        var getHand: Ptr[Byte] = null
-        var setHandSkeleton: Ptr[Byte] = null
-        var getHandSkeleton: Ptr[Byte] = null
-        var setMotionRange: Ptr[Byte] = null
-        var getMotionRange: Ptr[Byte] = null
-        var setSkeletonRig: Ptr[Byte] = null
-        var getSkeletonRig: Ptr[Byte] = null
-        var setBoneUpdate: Ptr[Byte] = null
-        var getBoneUpdate: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setHand = GdxApi.getMethodBind(c"OpenXRHand", c"set_hand", 1849328560L)
-            Binds.getHand = GdxApi.getMethodBind(c"OpenXRHand", c"get_hand", 2850644561L)
-            Binds.setHandSkeleton = GdxApi.getMethodBind(c"OpenXRHand", c"set_hand_skeleton", 1348162250L)
-            Binds.getHandSkeleton = GdxApi.getMethodBind(c"OpenXRHand", c"get_hand_skeleton", 4075236667L)
-            Binds.setMotionRange = GdxApi.getMethodBind(c"OpenXRHand", c"set_motion_range", 3326516003L)
-            Binds.getMotionRange = GdxApi.getMethodBind(c"OpenXRHand", c"get_motion_range", 2191822314L)
-            Binds.setSkeletonRig = GdxApi.getMethodBind(c"OpenXRHand", c"set_skeleton_rig", 1528072213L)
-            Binds.getSkeletonRig = GdxApi.getMethodBind(c"OpenXRHand", c"get_skeleton_rig", 968409338L)
-            Binds.setBoneUpdate = GdxApi.getMethodBind(c"OpenXRHand", c"set_bone_update", 3144625444L)
-            Binds.getBoneUpdate = GdxApi.getMethodBind(c"OpenXRHand", c"get_bone_update", 1310695248L)
-
-    def apply(): OpenXRHand =
-        val obj = new OpenXRHand()
-        obj.ptr = GdxApi.constructObject(c"OpenXRHand")
-        obj
+def apply(): OpenXRHand = {
+  val obj = new OpenXRHand()
+  obj.ptr = GdxApi.constructObject(c"OpenXRHand")
+  obj
+}

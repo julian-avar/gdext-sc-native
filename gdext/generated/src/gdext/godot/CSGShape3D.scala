@@ -5,206 +5,106 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CSGShape3D extends GeometryInstance3D
-
-    def isRootShape(): Boolean =
+class CSGShape3D extends GeometryInstance3D {
+    def isRootShape(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CSGShape3D.Binds.isRootShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setOperation(operation: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = operation.ptr
-        GdxApi.ptrcall(CSGShape3D.Binds.setOperation, ptr, _args, null)
-
-    def getOperation(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CSGShape3D.Binds.getOperation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSnap(snap: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = snap.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGShape3D.Binds.setSnap, ptr, _args, null)
-
-    def getSnap(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CSGShape3D.Binds.getSnap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUseCollision(operation: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if operation then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGShape3D.Binds.setUseCollision, ptr, _args, null)
-
-    def isUsingCollision(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CSGShape3D.Binds.isUsingCollision, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollisionLayer(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGShape3D.Binds.setCollisionLayer, ptr, _args, null)
-
-    def getCollisionLayer(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CSGShape3D.Binds.getCollisionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGShape3D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CSGShape3D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit =
+    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CSGShape3D.Binds.setCollisionMaskValue, ptr, _args, null)
+}
 
-    def getCollisionMaskValue(layerNumber: Int): Boolean =
+    def getCollisionMaskValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CSGShape3D.Binds.getCollisionMaskValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCollisionLayerValue(layerNumber: Int, value: Boolean): Unit =
+    def setCollisionLayerValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CSGShape3D.Binds.setCollisionLayerValue, ptr, _args, null)
+}
 
-    def getCollisionLayerValue(layerNumber: Int): Boolean =
+    def getCollisionLayerValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CSGShape3D.Binds.getCollisionLayerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCollisionPriority(priority: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = priority.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGShape3D.Binds.setCollisionPriority, ptr, _args, null)
-
-    def getCollisionPriority(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CSGShape3D.Binds.getCollisionPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def bakeCollisionShape(): ConcavePolygonShape3D =
+    def bakeCollisionShape(): ConcavePolygonShape3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CSGShape3D.Binds.bakeCollisionShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ConcavePolygonShape3D(!_ret)
+}
 
-    def setCalculateTangents(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CSGShape3D.Binds.setCalculateTangents, ptr, _args, null)
-
-    def isCalculatingTangents(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CSGShape3D.Binds.isCalculatingTangents, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getMeshes(): Array =
+    def getMeshes(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CSGShape3D.Binds.getMeshes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def bakeStaticMesh(): ArrayMesh =
+    def bakeStaticMesh(): ArrayMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CSGShape3D.Binds.bakeStaticMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ArrayMesh(!_ret)
-    def operation: Ptr[Byte] = getOperation()
-    def operation_=(v: Ptr[Byte]): Unit = setOperation(v)
-    def snap: Ptr[Byte] = getSnap()
-    def snap_=(v: Ptr[Byte]): Unit = setSnap(v)
-    def calculateTangents: Ptr[Byte] = isCalculatingTangents()
-    def calculateTangents_=(v: Ptr[Byte]): Unit = setCalculateTangents(v)
-    def useCollision: Ptr[Byte] = isUsingCollision()
-    def useCollision_=(v: Ptr[Byte]): Unit = setUseCollision(v)
-    def collisionLayer: Ptr[Byte] = getCollisionLayer()
-    def collisionLayer_=(v: Ptr[Byte]): Unit = setCollisionLayer(v)
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
-    def collisionPriority: Ptr[Byte] = getCollisionPriority()
-    def collisionPriority_=(v: Ptr[Byte]): Unit = setCollisionPriority(v)
+}
+
+    def operation: Int = getOperation()
+    def operation_=(v: Int): Unit = setOperation(v)
+    def snap: Float = getSnap()
+    def snap_=(v: Float): Unit = setSnap(v)
+    def calculateTangents: Boolean = isCalculatingTangents()
+    def calculateTangents_=(v: Boolean): Unit = setCalculateTangents(v)
+    def useCollision: Boolean = isUsingCollision()
+    def useCollision_=(v: Boolean): Unit = setUseCollision(v)
+    def collisionLayer: Int = getCollisionLayer()
+    def collisionLayer_=(v: Int): Unit = setCollisionLayer(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
+    def collisionPriority: Float = getCollisionPriority()
+    def collisionPriority_=(v: Float): Unit = setCollisionPriority(v)
+}
 
 object CSGShape3D:
-    object Binds:
-        var isRootShape: Ptr[Byte] = null
-        var setOperation: Ptr[Byte] = null
-        var getOperation: Ptr[Byte] = null
-        var setSnap: Ptr[Byte] = null
-        var getSnap: Ptr[Byte] = null
-        var setUseCollision: Ptr[Byte] = null
-        var isUsingCollision: Ptr[Byte] = null
-        var setCollisionLayer: Ptr[Byte] = null
-        var getCollisionLayer: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
+object Binds {
+          var isRootShape: Ptr[Byte] = null
         var setCollisionMaskValue: Ptr[Byte] = null
         var getCollisionMaskValue: Ptr[Byte] = null
         var setCollisionLayerValue: Ptr[Byte] = null
         var getCollisionLayerValue: Ptr[Byte] = null
-        var setCollisionPriority: Ptr[Byte] = null
-        var getCollisionPriority: Ptr[Byte] = null
         var bakeCollisionShape: Ptr[Byte] = null
-        var setCalculateTangents: Ptr[Byte] = null
-        var isCalculatingTangents: Ptr[Byte] = null
         var getMeshes: Ptr[Byte] = null
         var bakeStaticMesh: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isRootShape = GdxApi.getMethodBind(c"CSGShape3D", c"is_root_shape", 36873697L)
-            Binds.setOperation = GdxApi.getMethodBind(c"CSGShape3D", c"set_operation", 811425055L)
-            Binds.getOperation = GdxApi.getMethodBind(c"CSGShape3D", c"get_operation", 2662425879L)
-            Binds.setSnap = GdxApi.getMethodBind(c"CSGShape3D", c"set_snap", 373806689L)
-            Binds.getSnap = GdxApi.getMethodBind(c"CSGShape3D", c"get_snap", 1740695150L)
-            Binds.setUseCollision = GdxApi.getMethodBind(c"CSGShape3D", c"set_use_collision", 2586408642L)
-            Binds.isUsingCollision = GdxApi.getMethodBind(c"CSGShape3D", c"is_using_collision", 36873697L)
-            Binds.setCollisionLayer = GdxApi.getMethodBind(c"CSGShape3D", c"set_collision_layer", 1286410249L)
-            Binds.getCollisionLayer = GdxApi.getMethodBind(c"CSGShape3D", c"get_collision_layer", 3905245786L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"CSGShape3D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"CSGShape3D", c"get_collision_mask", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.isRootShape = GdxApi.getMethodBind(c"CSGShape3D", c"is_root_shape", 36873697L)
             Binds.setCollisionMaskValue = GdxApi.getMethodBind(c"CSGShape3D", c"set_collision_mask_value", 300928843L)
             Binds.getCollisionMaskValue = GdxApi.getMethodBind(c"CSGShape3D", c"get_collision_mask_value", 1116898809L)
             Binds.setCollisionLayerValue = GdxApi.getMethodBind(c"CSGShape3D", c"set_collision_layer_value", 300928843L)
             Binds.getCollisionLayerValue = GdxApi.getMethodBind(c"CSGShape3D", c"get_collision_layer_value", 1116898809L)
-            Binds.setCollisionPriority = GdxApi.getMethodBind(c"CSGShape3D", c"set_collision_priority", 373806689L)
-            Binds.getCollisionPriority = GdxApi.getMethodBind(c"CSGShape3D", c"get_collision_priority", 1740695150L)
             Binds.bakeCollisionShape = GdxApi.getMethodBind(c"CSGShape3D", c"bake_collision_shape", 36102322L)
-            Binds.setCalculateTangents = GdxApi.getMethodBind(c"CSGShape3D", c"set_calculate_tangents", 2586408642L)
-            Binds.isCalculatingTangents = GdxApi.getMethodBind(c"CSGShape3D", c"is_calculating_tangents", 36873697L)
             Binds.getMeshes = GdxApi.getMethodBind(c"CSGShape3D", c"get_meshes", 3995934104L)
             Binds.bakeStaticMesh = GdxApi.getMethodBind(c"CSGShape3D", c"bake_static_mesh", 1605880883L)
+  }
+}

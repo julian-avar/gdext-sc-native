@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorSceneFormatImporterFBX2GLTF extends EditorSceneFormatImporter
-
-
-
+class EditorSceneFormatImporterFBX2GLTF extends EditorSceneFormatImporter {}
 
 object EditorSceneFormatImporterFBX2GLTF:
-    def apply(): EditorSceneFormatImporterFBX2GLTF =
-        val obj = new EditorSceneFormatImporterFBX2GLTF()
-        obj.ptr = GdxApi.constructObject(c"EditorSceneFormatImporterFBX2GLTF")
-        obj
+def apply(): EditorSceneFormatImporterFBX2GLTF = {
+  val obj = new EditorSceneFormatImporterFBX2GLTF()
+  obj.ptr = GdxApi.constructObject(c"EditorSceneFormatImporterFBX2GLTF")
+  obj
+}

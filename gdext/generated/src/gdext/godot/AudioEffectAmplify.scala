@@ -5,50 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectAmplify extends AudioEffect
-
-    def setVolumeDb(volume: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = volume.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectAmplify.Binds.setVolumeDb, ptr, _args, null)
-
-    def getVolumeDb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectAmplify.Binds.getVolumeDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVolumeLinear(volume: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = volume.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectAmplify.Binds.setVolumeLinear, ptr, _args, null)
-
-    def getVolumeLinear(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectAmplify.Binds.getVolumeLinear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def volumeDb: Ptr[Byte] = getVolumeDb()
-    def volumeDb_=(v: Ptr[Byte]): Unit = setVolumeDb(v)
-    def volumeLinear: Ptr[Byte] = getVolumeLinear()
-    def volumeLinear_=(v: Ptr[Byte]): Unit = setVolumeLinear(v)
+class AudioEffectAmplify extends AudioEffect {
+    def volumeDb: Float = getVolumeDb()
+    def volumeDb_=(v: Float): Unit = setVolumeDb(v)
+    def volumeLinear: Float = getVolumeLinear()
+    def volumeLinear_=(v: Float): Unit = setVolumeLinear(v)
+}
 
 object AudioEffectAmplify:
-    object Binds:
-        var setVolumeDb: Ptr[Byte] = null
-        var getVolumeDb: Ptr[Byte] = null
-        var setVolumeLinear: Ptr[Byte] = null
-        var getVolumeLinear: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setVolumeDb = GdxApi.getMethodBind(c"AudioEffectAmplify", c"set_volume_db", 373806689L)
-            Binds.getVolumeDb = GdxApi.getMethodBind(c"AudioEffectAmplify", c"get_volume_db", 1740695150L)
-            Binds.setVolumeLinear = GdxApi.getMethodBind(c"AudioEffectAmplify", c"set_volume_linear", 373806689L)
-            Binds.getVolumeLinear = GdxApi.getMethodBind(c"AudioEffectAmplify", c"get_volume_linear", 1740695150L)
-
-    def apply(): AudioEffectAmplify =
-        val obj = new AudioEffectAmplify()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectAmplify")
-        obj
+def apply(): AudioEffectAmplify = {
+  val obj = new AudioEffectAmplify()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectAmplify")
+  obj
+}

@@ -5,140 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CylinderMesh extends PrimitiveMesh
-
-    def setTopRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setTopRadius, ptr, _args, null)
-
-    def getTopRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CylinderMesh.Binds.getTopRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBottomRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setBottomRadius, ptr, _args, null)
-
-    def getBottomRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CylinderMesh.Binds.getBottomRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHeight(height: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = height.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setHeight, ptr, _args, null)
-
-    def getHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CylinderMesh.Binds.getHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRadialSegments(segments: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = segments.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setRadialSegments, ptr, _args, null)
-
-    def getRadialSegments(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CylinderMesh.Binds.getRadialSegments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRings(rings: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = rings.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setRings, ptr, _args, null)
-
-    def getRings(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CylinderMesh.Binds.getRings, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCapTop(capTop: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if capTop then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setCapTop, ptr, _args, null)
-
-    def isCapTop(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CylinderMesh.Binds.isCapTop, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCapBottom(capBottom: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if capBottom then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CylinderMesh.Binds.setCapBottom, ptr, _args, null)
-
-    def isCapBottom(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CylinderMesh.Binds.isCapBottom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def topRadius: Ptr[Byte] = getTopRadius()
-    def topRadius_=(v: Ptr[Byte]): Unit = setTopRadius(v)
-    def bottomRadius: Ptr[Byte] = getBottomRadius()
-    def bottomRadius_=(v: Ptr[Byte]): Unit = setBottomRadius(v)
-    def height: Ptr[Byte] = getHeight()
-    def height_=(v: Ptr[Byte]): Unit = setHeight(v)
-    def radialSegments: Ptr[Byte] = getRadialSegments()
-    def radialSegments_=(v: Ptr[Byte]): Unit = setRadialSegments(v)
-    def rings: Ptr[Byte] = getRings()
-    def rings_=(v: Ptr[Byte]): Unit = setRings(v)
-    def capTop: Ptr[Byte] = isCapTop()
-    def capTop_=(v: Ptr[Byte]): Unit = setCapTop(v)
-    def capBottom: Ptr[Byte] = isCapBottom()
-    def capBottom_=(v: Ptr[Byte]): Unit = setCapBottom(v)
+class CylinderMesh extends PrimitiveMesh {
+    def topRadius: Float = getTopRadius()
+    def topRadius_=(v: Float): Unit = setTopRadius(v)
+    def bottomRadius: Float = getBottomRadius()
+    def bottomRadius_=(v: Float): Unit = setBottomRadius(v)
+    def height: Float = getHeight()
+    def height_=(v: Float): Unit = setHeight(v)
+    def radialSegments: Int = getRadialSegments()
+    def radialSegments_=(v: Int): Unit = setRadialSegments(v)
+    def rings: Int = getRings()
+    def rings_=(v: Int): Unit = setRings(v)
+    def capTop: Boolean = isCapTop()
+    def capTop_=(v: Boolean): Unit = setCapTop(v)
+    def capBottom: Boolean = isCapBottom()
+    def capBottom_=(v: Boolean): Unit = setCapBottom(v)
+}
 
 object CylinderMesh:
-    object Binds:
-        var setTopRadius: Ptr[Byte] = null
-        var getTopRadius: Ptr[Byte] = null
-        var setBottomRadius: Ptr[Byte] = null
-        var getBottomRadius: Ptr[Byte] = null
-        var setHeight: Ptr[Byte] = null
-        var getHeight: Ptr[Byte] = null
-        var setRadialSegments: Ptr[Byte] = null
-        var getRadialSegments: Ptr[Byte] = null
-        var setRings: Ptr[Byte] = null
-        var getRings: Ptr[Byte] = null
-        var setCapTop: Ptr[Byte] = null
-        var isCapTop: Ptr[Byte] = null
-        var setCapBottom: Ptr[Byte] = null
-        var isCapBottom: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTopRadius = GdxApi.getMethodBind(c"CylinderMesh", c"set_top_radius", 373806689L)
-            Binds.getTopRadius = GdxApi.getMethodBind(c"CylinderMesh", c"get_top_radius", 1740695150L)
-            Binds.setBottomRadius = GdxApi.getMethodBind(c"CylinderMesh", c"set_bottom_radius", 373806689L)
-            Binds.getBottomRadius = GdxApi.getMethodBind(c"CylinderMesh", c"get_bottom_radius", 1740695150L)
-            Binds.setHeight = GdxApi.getMethodBind(c"CylinderMesh", c"set_height", 373806689L)
-            Binds.getHeight = GdxApi.getMethodBind(c"CylinderMesh", c"get_height", 1740695150L)
-            Binds.setRadialSegments = GdxApi.getMethodBind(c"CylinderMesh", c"set_radial_segments", 1286410249L)
-            Binds.getRadialSegments = GdxApi.getMethodBind(c"CylinderMesh", c"get_radial_segments", 3905245786L)
-            Binds.setRings = GdxApi.getMethodBind(c"CylinderMesh", c"set_rings", 1286410249L)
-            Binds.getRings = GdxApi.getMethodBind(c"CylinderMesh", c"get_rings", 3905245786L)
-            Binds.setCapTop = GdxApi.getMethodBind(c"CylinderMesh", c"set_cap_top", 2586408642L)
-            Binds.isCapTop = GdxApi.getMethodBind(c"CylinderMesh", c"is_cap_top", 36873697L)
-            Binds.setCapBottom = GdxApi.getMethodBind(c"CylinderMesh", c"set_cap_bottom", 2586408642L)
-            Binds.isCapBottom = GdxApi.getMethodBind(c"CylinderMesh", c"is_cap_bottom", 36873697L)
-
-    def apply(): CylinderMesh =
-        val obj = new CylinderMesh()
-        obj.ptr = GdxApi.constructObject(c"CylinderMesh")
-        obj
+def apply(): CylinderMesh = {
+  val obj = new CylinderMesh()
+  obj.ptr = GdxApi.constructObject(c"CylinderMesh")
+  obj
+}

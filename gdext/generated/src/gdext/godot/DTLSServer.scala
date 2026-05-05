@@ -5,33 +5,37 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class DTLSServer extends RefCounted
-
-    def setup(serverOptions: TLSOptions): Int =
+class DTLSServer extends RefCounted {
+    def setup(serverOptions: TLSOptions): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = serverOptions.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DTLSServer.Binds.setup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def takeConnection(udpPeer: PacketPeerUDP): PacketPeerDTLS =
+    def takeConnection(udpPeer: PacketPeerUDP): PacketPeerDTLS = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = udpPeer.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DTLSServer.Binds.takeConnection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PacketPeerDTLS(!_ret)
-
+}
+}
 
 object DTLSServer:
-    object Binds:
-        var setup: Ptr[Byte] = null
+object Binds {
+          var setup: Ptr[Byte] = null
         var takeConnection: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setup = GdxApi.getMethodBind(c"DTLSServer", c"setup", 1262296096L)
+  def loadBinds(): Unit = {
+                Binds.setup = GdxApi.getMethodBind(c"DTLSServer", c"setup", 1262296096L)
             Binds.takeConnection = GdxApi.getMethodBind(c"DTLSServer", c"take_connection", 3946580474L)
+  }
+}
 
-    def apply(): DTLSServer =
-        val obj = new DTLSServer()
-        obj.ptr = GdxApi.constructObject(c"DTLSServer")
-        obj
+def apply(): DTLSServer = {
+  val obj = new DTLSServer()
+  obj.ptr = GdxApi.constructObject(c"DTLSServer")
+  obj
+}

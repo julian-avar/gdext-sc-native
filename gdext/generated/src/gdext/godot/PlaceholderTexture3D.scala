@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PlaceholderTexture3D extends Texture3D
-
-    def setSize(size: Vector3i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(PlaceholderTexture3D.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PlaceholderTexture3D.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3i(!_ret)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
+class PlaceholderTexture3D extends Texture3D {
+    def size: Vector3i = getSize()
+    def size_=(v: Vector3i): Unit = setSize(v)
+}
 
 object PlaceholderTexture3D:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"PlaceholderTexture3D", c"set_size", 560364750L)
-            Binds.getSize = GdxApi.getMethodBind(c"PlaceholderTexture3D", c"get_size", 2785653706L)
-
-    def apply(): PlaceholderTexture3D =
-        val obj = new PlaceholderTexture3D()
-        obj.ptr = GdxApi.constructObject(c"PlaceholderTexture3D")
-        obj
+def apply(): PlaceholderTexture3D = {
+  val obj = new PlaceholderTexture3D()
+  obj.ptr = GdxApi.constructObject(c"PlaceholderTexture3D")
+  obj
+}

@@ -5,132 +5,149 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationServer3D extends Object
-
-    def getMaps(): Ptr[Byte] =
+class NavigationServer3D extends Object {
+    def getMaps(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.getMaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def mapCreate(): RID =
+    def mapCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def mapSetActive(map: RID, active: Boolean): Unit =
+    def mapSetActive(map: RID, active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if active then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetActive, ptr, _args, null)
+}
 
-    def mapIsActive(map: RID): Boolean =
+    def mapIsActive(map: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapIsActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def mapSetUp(map: RID, up: Vector3): Unit =
+    def mapSetUp(map: RID, up: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         _args(1) = up.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetUp, ptr, _args, null)
+}
 
-    def mapGetUp(map: RID): Vector3 =
+    def mapGetUp(map: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetUp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def mapSetCellSize(map: RID, cellSize: Float): Unit =
+    def mapSetCellSize(map: RID, cellSize: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Double](); !_a1 = cellSize.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetCellSize, ptr, _args, null)
+}
 
-    def mapGetCellSize(map: RID): Float =
+    def mapGetCellSize(map: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetCellSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def mapSetCellHeight(map: RID, cellHeight: Float): Unit =
+    def mapSetCellHeight(map: RID, cellHeight: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Double](); !_a1 = cellHeight.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetCellHeight, ptr, _args, null)
+}
 
-    def mapGetCellHeight(map: RID): Float =
+    def mapGetCellHeight(map: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetCellHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def mapSetMergeRasterizerCellScale(map: RID, scale: Float): Unit =
+    def mapSetMergeRasterizerCellScale(map: RID, scale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Double](); !_a1 = scale.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetMergeRasterizerCellScale, ptr, _args, null)
+}
 
-    def mapGetMergeRasterizerCellScale(map: RID): Float =
+    def mapGetMergeRasterizerCellScale(map: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetMergeRasterizerCellScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def mapSetUseEdgeConnections(map: RID, enabled: Boolean): Unit =
+    def mapSetUseEdgeConnections(map: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetUseEdgeConnections, ptr, _args, null)
+}
 
-    def mapGetUseEdgeConnections(map: RID): Boolean =
+    def mapGetUseEdgeConnections(map: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetUseEdgeConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def mapSetEdgeConnectionMargin(map: RID, margin: Float): Unit =
+    def mapSetEdgeConnectionMargin(map: RID, margin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Double](); !_a1 = margin.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetEdgeConnectionMargin, ptr, _args, null)
+}
 
-    def mapGetEdgeConnectionMargin(map: RID): Float =
+    def mapGetEdgeConnectionMargin(map: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetEdgeConnectionMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def mapSetLinkConnectionRadius(map: RID, radius: Float): Unit =
+    def mapSetLinkConnectionRadius(map: RID, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetLinkConnectionRadius, ptr, _args, null)
+}
 
-    def mapGetLinkConnectionRadius(map: RID): Float =
+    def mapGetLinkConnectionRadius(map: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetLinkConnectionRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def mapGetPath(map: RID, origin: Vector3, destination: Vector3, optimize: Boolean): PackedVector3Array =
+    def mapGetPath(map: RID, origin: Vector3, destination: Vector3, optimize: Boolean): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = map.ptr
         _args(1) = origin.ptr
@@ -140,8 +157,9 @@ class NavigationServer3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def mapGetClosestPointToSegment(map: RID, start: Vector3, end: Vector3): Vector3 =
+    def mapGetClosestPointToSegment(map: RID, start: Vector3, end: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = map.ptr
         _args(1) = start.ptr
@@ -149,285 +167,325 @@ class NavigationServer3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetClosestPointToSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def mapGetClosestPoint(map: RID, toPoint: Vector3): Vector3 =
+    def mapGetClosestPoint(map: RID, toPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         _args(1) = toPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetClosestPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def mapGetClosestPointNormal(map: RID, toPoint: Vector3): Vector3 =
+    def mapGetClosestPointNormal(map: RID, toPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         _args(1) = toPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetClosestPointNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def mapGetClosestPointOwner(map: RID, toPoint: Vector3): RID =
+    def mapGetClosestPointOwner(map: RID, toPoint: Vector3): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         _args(1) = toPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetClosestPointOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def mapGetLinks(map: RID): Ptr[Byte] =
+    def mapGetLinks(map: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetLinks, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def mapGetRegions(map: RID): Ptr[Byte] =
+    def mapGetRegions(map: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetRegions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def mapGetAgents(map: RID): Ptr[Byte] =
+    def mapGetAgents(map: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetAgents, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def mapGetObstacles(map: RID): Ptr[Byte] =
+    def mapGetObstacles(map: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetObstacles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def mapForceUpdate(map: RID): Unit =
+    def mapForceUpdate(map: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.mapForceUpdate, ptr, _args, null)
+}
 
-    def mapGetIterationId(map: RID): Int =
+    def mapGetIterationId(map: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetIterationId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def mapSetUseAsyncIterations(map: RID, enabled: Boolean): Unit =
+    def mapSetUseAsyncIterations(map: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = map.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.mapSetUseAsyncIterations, ptr, _args, null)
+}
 
-    def mapGetUseAsyncIterations(map: RID): Boolean =
+    def mapGetUseAsyncIterations(map: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetUseAsyncIterations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def mapGetRandomPoint(map: RID, navigationLayers: Int, uniformly: Boolean): Vector3 =
+    def mapGetRandomPoint(map: RID, navigationLayers: Int, uniformly: Boolean): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = map.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = navigationLayers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = navigationLayers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if uniformly then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.mapGetRandomPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def queryPath(parameters: NavigationPathQueryParameters3D, result: NavigationPathQueryResult3D): Unit =
+    def queryPath(parameters: NavigationPathQueryParameters3D, result: NavigationPathQueryResult3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = parameters.ptr
         _args(1) = result.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.queryPath, ptr, _args, null)
+}
 
-    def regionCreate(): RID =
+    def regionCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def regionGetIterationId(region: RID): Int =
+    def regionGetIterationId(region: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetIterationId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def regionSetUseAsyncIterations(region: RID, enabled: Boolean): Unit =
+    def regionSetUseAsyncIterations(region: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetUseAsyncIterations, ptr, _args, null)
+}
 
-    def regionGetUseAsyncIterations(region: RID): Boolean =
+    def regionGetUseAsyncIterations(region: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetUseAsyncIterations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def regionSetEnabled(region: RID, enabled: Boolean): Unit =
+    def regionSetEnabled(region: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetEnabled, ptr, _args, null)
+}
 
-    def regionGetEnabled(region: RID): Boolean =
+    def regionGetEnabled(region: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def regionSetUseEdgeConnections(region: RID, enabled: Boolean): Unit =
+    def regionSetUseEdgeConnections(region: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetUseEdgeConnections, ptr, _args, null)
+}
 
-    def regionGetUseEdgeConnections(region: RID): Boolean =
+    def regionGetUseEdgeConnections(region: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetUseEdgeConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def regionSetEnterCost(region: RID, enterCost: Float): Unit =
+    def regionSetEnterCost(region: RID, enterCost: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         val _a1 = stackalloc[Double](); !_a1 = enterCost.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetEnterCost, ptr, _args, null)
+}
 
-    def regionGetEnterCost(region: RID): Float =
+    def regionGetEnterCost(region: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetEnterCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def regionSetTravelCost(region: RID, travelCost: Float): Unit =
+    def regionSetTravelCost(region: RID, travelCost: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         val _a1 = stackalloc[Double](); !_a1 = travelCost.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetTravelCost, ptr, _args, null)
+}
 
-    def regionGetTravelCost(region: RID): Float =
+    def regionGetTravelCost(region: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetTravelCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def regionSetOwnerId(region: RID, ownerId: Long): Unit =
+    def regionSetOwnerId(region: RID, ownerId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = ownerId
+        val _a1 = stackalloc[Long](); !_a1 = ownerId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetOwnerId, ptr, _args, null)
+}
 
-    def regionGetOwnerId(region: RID): Long =
+    def regionGetOwnerId(region: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetOwnerId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def regionOwnsPoint(region: RID, point: Vector3): Boolean =
+    def regionOwnsPoint(region: RID, point: Vector3): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         _args(1) = point.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionOwnsPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def regionSetMap(region: RID, map: RID): Unit =
+    def regionSetMap(region: RID, map: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         _args(1) = map.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetMap, ptr, _args, null)
+}
 
-    def regionGetMap(region: RID): RID =
+    def regionGetMap(region: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def regionSetNavigationLayers(region: RID, navigationLayers: Int): Unit =
+    def regionSetNavigationLayers(region: RID, navigationLayers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = navigationLayers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = navigationLayers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetNavigationLayers, ptr, _args, null)
+}
 
-    def regionGetNavigationLayers(region: RID): Int =
+    def regionGetNavigationLayers(region: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetNavigationLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def regionSetTransform(region: RID, transform: Transform3D): Unit =
+    def regionSetTransform(region: RID, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetTransform, ptr, _args, null)
+}
 
-    def regionGetTransform(region: RID): Transform3D =
+    def regionGetTransform(region: RID): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def regionSetNavigationMesh(region: RID, navigationMesh: NavigationMesh): Unit =
+    def regionSetNavigationMesh(region: RID, navigationMesh: NavigationMesh): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         _args(1) = navigationMesh.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.regionSetNavigationMesh, ptr, _args, null)
+}
 
-    def regionBakeNavigationMesh(navigationMesh: NavigationMesh, rootNode: Node): Unit =
+    def regionBakeNavigationMesh(navigationMesh: NavigationMesh, rootNode: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = navigationMesh.ptr
         _args(1) = rootNode.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.regionBakeNavigationMesh, ptr, _args, null)
+}
 
-    def regionGetConnectionsCount(region: RID): Int =
+    def regionGetConnectionsCount(region: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetConnectionsCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def regionGetConnectionPathwayStart(region: RID, connection: Int): Vector3 =
+    def regionGetConnectionPathwayStart(region: RID, connection: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = connection.toLong
+        val _a1 = stackalloc[Long](); !_a1 = connection.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetConnectionPathwayStart, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def regionGetConnectionPathwayEnd(region: RID, connection: Int): Vector3 =
+    def regionGetConnectionPathwayEnd(region: RID, connection: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = connection.toLong
+        val _a1 = stackalloc[Long](); !_a1 = connection.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetConnectionPathwayEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def regionGetClosestPointToSegment(region: RID, start: Vector3, end: Vector3): Vector3 =
+    def regionGetClosestPointToSegment(region: RID, start: Vector3, end: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = region.ptr
         _args(1) = start.ptr
@@ -435,611 +493,700 @@ class NavigationServer3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetClosestPointToSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def regionGetClosestPoint(region: RID, toPoint: Vector3): Vector3 =
+    def regionGetClosestPoint(region: RID, toPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         _args(1) = toPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetClosestPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def regionGetClosestPointNormal(region: RID, toPoint: Vector3): Vector3 =
+    def regionGetClosestPointNormal(region: RID, toPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = region.ptr
         _args(1) = toPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetClosestPointNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def regionGetRandomPoint(region: RID, navigationLayers: Int, uniformly: Boolean): Vector3 =
+    def regionGetRandomPoint(region: RID, navigationLayers: Int, uniformly: Boolean): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = region.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = navigationLayers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = navigationLayers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if uniformly then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetRandomPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def regionGetBounds(region: RID): AABB =
+    def regionGetBounds(region: RID): AABB = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.regionGetBounds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def linkCreate(): RID =
+    def linkCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def linkGetIterationId(link: RID): Int =
+    def linkGetIterationId(link: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetIterationId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def linkSetMap(link: RID, map: RID): Unit =
+    def linkSetMap(link: RID, map: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         _args(1) = map.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetMap, ptr, _args, null)
+}
 
-    def linkGetMap(link: RID): RID =
+    def linkGetMap(link: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def linkSetEnabled(link: RID, enabled: Boolean): Unit =
+    def linkSetEnabled(link: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetEnabled, ptr, _args, null)
+}
 
-    def linkGetEnabled(link: RID): Boolean =
+    def linkGetEnabled(link: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def linkSetBidirectional(link: RID, bidirectional: Boolean): Unit =
+    def linkSetBidirectional(link: RID, bidirectional: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if bidirectional then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetBidirectional, ptr, _args, null)
+}
 
-    def linkIsBidirectional(link: RID): Boolean =
+    def linkIsBidirectional(link: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkIsBidirectional, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def linkSetNavigationLayers(link: RID, navigationLayers: Int): Unit =
+    def linkSetNavigationLayers(link: RID, navigationLayers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = navigationLayers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = navigationLayers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetNavigationLayers, ptr, _args, null)
+}
 
-    def linkGetNavigationLayers(link: RID): Int =
+    def linkGetNavigationLayers(link: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetNavigationLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def linkSetStartPosition(link: RID, position: Vector3): Unit =
+    def linkSetStartPosition(link: RID, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         _args(1) = position.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetStartPosition, ptr, _args, null)
+}
 
-    def linkGetStartPosition(link: RID): Vector3 =
+    def linkGetStartPosition(link: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetStartPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def linkSetEndPosition(link: RID, position: Vector3): Unit =
+    def linkSetEndPosition(link: RID, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         _args(1) = position.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetEndPosition, ptr, _args, null)
+}
 
-    def linkGetEndPosition(link: RID): Vector3 =
+    def linkGetEndPosition(link: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetEndPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def linkSetEnterCost(link: RID, enterCost: Float): Unit =
+    def linkSetEnterCost(link: RID, enterCost: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         val _a1 = stackalloc[Double](); !_a1 = enterCost.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetEnterCost, ptr, _args, null)
+}
 
-    def linkGetEnterCost(link: RID): Float =
+    def linkGetEnterCost(link: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetEnterCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def linkSetTravelCost(link: RID, travelCost: Float): Unit =
+    def linkSetTravelCost(link: RID, travelCost: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
         val _a1 = stackalloc[Double](); !_a1 = travelCost.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetTravelCost, ptr, _args, null)
+}
 
-    def linkGetTravelCost(link: RID): Float =
+    def linkGetTravelCost(link: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetTravelCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def linkSetOwnerId(link: RID, ownerId: Long): Unit =
+    def linkSetOwnerId(link: RID, ownerId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = link.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = ownerId
+        val _a1 = stackalloc[Long](); !_a1 = ownerId
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.linkSetOwnerId, ptr, _args, null)
+}
 
-    def linkGetOwnerId(link: RID): Long =
+    def linkGetOwnerId(link: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = link.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.linkGetOwnerId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def agentCreate(): RID =
+    def agentCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def agentSetAvoidanceEnabled(agent: RID, enabled: Boolean): Unit =
+    def agentSetAvoidanceEnabled(agent: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetAvoidanceEnabled, ptr, _args, null)
+}
 
-    def agentGetAvoidanceEnabled(agent: RID): Boolean =
+    def agentGetAvoidanceEnabled(agent: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetAvoidanceEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def agentSetUse3dAvoidance(agent: RID, enabled: Boolean): Unit =
+    def agentSetUse3dAvoidance(agent: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetUse3dAvoidance, ptr, _args, null)
+}
 
-    def agentGetUse3dAvoidance(agent: RID): Boolean =
+    def agentGetUse3dAvoidance(agent: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetUse3dAvoidance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def agentSetMap(agent: RID, map: RID): Unit =
+    def agentSetMap(agent: RID, map: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         _args(1) = map.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetMap, ptr, _args, null)
+}
 
-    def agentGetMap(agent: RID): RID =
+    def agentGetMap(agent: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def agentSetPaused(agent: RID, paused: Boolean): Unit =
+    def agentSetPaused(agent: RID, paused: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if paused then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetPaused, ptr, _args, null)
+}
 
-    def agentGetPaused(agent: RID): Boolean =
+    def agentGetPaused(agent: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetPaused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def agentSetNeighborDistance(agent: RID, distance: Float): Unit =
+    def agentSetNeighborDistance(agent: RID, distance: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = distance.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetNeighborDistance, ptr, _args, null)
+}
 
-    def agentGetNeighborDistance(agent: RID): Float =
+    def agentGetNeighborDistance(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetNeighborDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def agentSetMaxNeighbors(agent: RID, count: Int): Unit =
+    def agentSetMaxNeighbors(agent: RID, count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = count.toLong
+        val _a1 = stackalloc[Long](); !_a1 = count.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetMaxNeighbors, ptr, _args, null)
+}
 
-    def agentGetMaxNeighbors(agent: RID): Int =
+    def agentGetMaxNeighbors(agent: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetMaxNeighbors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def agentSetTimeHorizonAgents(agent: RID, timeHorizon: Float): Unit =
+    def agentSetTimeHorizonAgents(agent: RID, timeHorizon: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = timeHorizon.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetTimeHorizonAgents, ptr, _args, null)
+}
 
-    def agentGetTimeHorizonAgents(agent: RID): Float =
+    def agentGetTimeHorizonAgents(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetTimeHorizonAgents, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def agentSetTimeHorizonObstacles(agent: RID, timeHorizon: Float): Unit =
+    def agentSetTimeHorizonObstacles(agent: RID, timeHorizon: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = timeHorizon.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetTimeHorizonObstacles, ptr, _args, null)
+}
 
-    def agentGetTimeHorizonObstacles(agent: RID): Float =
+    def agentGetTimeHorizonObstacles(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetTimeHorizonObstacles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def agentSetRadius(agent: RID, radius: Float): Unit =
+    def agentSetRadius(agent: RID, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetRadius, ptr, _args, null)
+}
 
-    def agentGetRadius(agent: RID): Float =
+    def agentGetRadius(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def agentSetHeight(agent: RID, height: Float): Unit =
+    def agentSetHeight(agent: RID, height: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = height.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetHeight, ptr, _args, null)
+}
 
-    def agentGetHeight(agent: RID): Float =
+    def agentGetHeight(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def agentSetMaxSpeed(agent: RID, maxSpeed: Float): Unit =
+    def agentSetMaxSpeed(agent: RID, maxSpeed: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = maxSpeed.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetMaxSpeed, ptr, _args, null)
+}
 
-    def agentGetMaxSpeed(agent: RID): Float =
+    def agentGetMaxSpeed(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetMaxSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def agentSetVelocityForced(agent: RID, velocity: Vector3): Unit =
+    def agentSetVelocityForced(agent: RID, velocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         _args(1) = velocity.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetVelocityForced, ptr, _args, null)
+}
 
-    def agentSetVelocity(agent: RID, velocity: Vector3): Unit =
+    def agentSetVelocity(agent: RID, velocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         _args(1) = velocity.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetVelocity, ptr, _args, null)
+}
 
-    def agentGetVelocity(agent: RID): Vector3 =
+    def agentGetVelocity(agent: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def agentSetPosition(agent: RID, position: Vector3): Unit =
+    def agentSetPosition(agent: RID, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         _args(1) = position.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetPosition, ptr, _args, null)
+}
 
-    def agentGetPosition(agent: RID): Vector3 =
+    def agentGetPosition(agent: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def agentIsMapChanged(agent: RID): Boolean =
+    def agentIsMapChanged(agent: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentIsMapChanged, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def agentSetAvoidanceCallback(agent: RID, callback: Callable): Unit =
+    def agentSetAvoidanceCallback(agent: RID, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetAvoidanceCallback, ptr, _args, null)
+}
 
-    def agentHasAvoidanceCallback(agent: RID): Boolean =
+    def agentHasAvoidanceCallback(agent: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentHasAvoidanceCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def agentSetAvoidanceLayers(agent: RID, layers: Int): Unit =
+    def agentSetAvoidanceLayers(agent: RID, layers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetAvoidanceLayers, ptr, _args, null)
+}
 
-    def agentGetAvoidanceLayers(agent: RID): Int =
+    def agentGetAvoidanceLayers(agent: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetAvoidanceLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def agentSetAvoidanceMask(agent: RID, mask: Int): Unit =
+    def agentSetAvoidanceMask(agent: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetAvoidanceMask, ptr, _args, null)
+}
 
-    def agentGetAvoidanceMask(agent: RID): Int =
+    def agentGetAvoidanceMask(agent: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetAvoidanceMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def agentSetAvoidancePriority(agent: RID, priority: Float): Unit =
+    def agentSetAvoidancePriority(agent: RID, priority: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = agent.ptr
         val _a1 = stackalloc[Double](); !_a1 = priority.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.agentSetAvoidancePriority, ptr, _args, null)
+}
 
-    def agentGetAvoidancePriority(agent: RID): Float =
+    def agentGetAvoidancePriority(agent: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = agent.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.agentGetAvoidancePriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def obstacleCreate(): RID =
+    def obstacleCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def obstacleSetAvoidanceEnabled(obstacle: RID, enabled: Boolean): Unit =
+    def obstacleSetAvoidanceEnabled(obstacle: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetAvoidanceEnabled, ptr, _args, null)
+}
 
-    def obstacleGetAvoidanceEnabled(obstacle: RID): Boolean =
+    def obstacleGetAvoidanceEnabled(obstacle: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetAvoidanceEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def obstacleSetUse3dAvoidance(obstacle: RID, enabled: Boolean): Unit =
+    def obstacleSetUse3dAvoidance(obstacle: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetUse3dAvoidance, ptr, _args, null)
+}
 
-    def obstacleGetUse3dAvoidance(obstacle: RID): Boolean =
+    def obstacleGetUse3dAvoidance(obstacle: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetUse3dAvoidance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def obstacleSetMap(obstacle: RID, map: RID): Unit =
+    def obstacleSetMap(obstacle: RID, map: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         _args(1) = map.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetMap, ptr, _args, null)
+}
 
-    def obstacleGetMap(obstacle: RID): RID =
+    def obstacleGetMap(obstacle: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def obstacleSetPaused(obstacle: RID, paused: Boolean): Unit =
+    def obstacleSetPaused(obstacle: RID, paused: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if paused then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetPaused, ptr, _args, null)
+}
 
-    def obstacleGetPaused(obstacle: RID): Boolean =
+    def obstacleGetPaused(obstacle: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetPaused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def obstacleSetRadius(obstacle: RID, radius: Float): Unit =
+    def obstacleSetRadius(obstacle: RID, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetRadius, ptr, _args, null)
+}
 
-    def obstacleGetRadius(obstacle: RID): Float =
+    def obstacleGetRadius(obstacle: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def obstacleSetHeight(obstacle: RID, height: Float): Unit =
+    def obstacleSetHeight(obstacle: RID, height: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         val _a1 = stackalloc[Double](); !_a1 = height.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetHeight, ptr, _args, null)
+}
 
-    def obstacleGetHeight(obstacle: RID): Float =
+    def obstacleGetHeight(obstacle: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def obstacleSetVelocity(obstacle: RID, velocity: Vector3): Unit =
+    def obstacleSetVelocity(obstacle: RID, velocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         _args(1) = velocity.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetVelocity, ptr, _args, null)
+}
 
-    def obstacleGetVelocity(obstacle: RID): Vector3 =
+    def obstacleGetVelocity(obstacle: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def obstacleSetPosition(obstacle: RID, position: Vector3): Unit =
+    def obstacleSetPosition(obstacle: RID, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         _args(1) = position.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetPosition, ptr, _args, null)
+}
 
-    def obstacleGetPosition(obstacle: RID): Vector3 =
+    def obstacleGetPosition(obstacle: RID): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def obstacleSetVertices(obstacle: RID, vertices: PackedVector3Array): Unit =
+    def obstacleSetVertices(obstacle: RID, vertices: PackedVector3Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
         _args(1) = vertices.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetVertices, ptr, _args, null)
+}
 
-    def obstacleGetVertices(obstacle: RID): PackedVector3Array =
+    def obstacleGetVertices(obstacle: RID): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetVertices, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def obstacleSetAvoidanceLayers(obstacle: RID, layers: Int): Unit =
+    def obstacleSetAvoidanceLayers(obstacle: RID, layers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = obstacle.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleSetAvoidanceLayers, ptr, _args, null)
+}
 
-    def obstacleGetAvoidanceLayers(obstacle: RID): Int =
+    def obstacleGetAvoidanceLayers(obstacle: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = obstacle.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.obstacleGetAvoidanceLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def parseSourceGeometryData(navigationMesh: NavigationMesh, sourceGeometryData: NavigationMeshSourceGeometryData3D, rootNode: Node): Unit =
+    def parseSourceGeometryData(navigationMesh: NavigationMesh, sourceGeometryData: NavigationMeshSourceGeometryData3D, rootNode: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = navigationMesh.ptr
         _args(1) = sourceGeometryData.ptr
         _args(2) = rootNode.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.parseSourceGeometryData, ptr, _args, null)
+}
 
-    def bakeFromSourceGeometryData(navigationMesh: NavigationMesh, sourceGeometryData: NavigationMeshSourceGeometryData3D): Unit =
+    def bakeFromSourceGeometryData(navigationMesh: NavigationMesh, sourceGeometryData: NavigationMeshSourceGeometryData3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = navigationMesh.ptr
         _args(1) = sourceGeometryData.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.bakeFromSourceGeometryData, ptr, _args, null)
+}
 
-    def bakeFromSourceGeometryDataAsync(navigationMesh: NavigationMesh, sourceGeometryData: NavigationMeshSourceGeometryData3D): Unit =
+    def bakeFromSourceGeometryDataAsync(navigationMesh: NavigationMesh, sourceGeometryData: NavigationMeshSourceGeometryData3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = navigationMesh.ptr
         _args(1) = sourceGeometryData.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.bakeFromSourceGeometryDataAsync, ptr, _args, null)
+}
 
-    def isBakingNavigationMesh(navigationMesh: NavigationMesh): Boolean =
+    def isBakingNavigationMesh(navigationMesh: NavigationMesh): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = navigationMesh.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.isBakingNavigationMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def sourceGeometryParserCreate(): RID =
+    def sourceGeometryParserCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.sourceGeometryParserCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def sourceGeometryParserSetCallback(parser: RID, callback: Callable): Unit =
+    def sourceGeometryParserSetCallback(parser: RID, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = parser.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.sourceGeometryParserSetCallback, ptr, _args, null)
+}
 
-    def simplifyPath(path: PackedVector3Array, epsilon: Float): PackedVector3Array =
+    def simplifyPath(path: PackedVector3Array, epsilon: Float): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
         val _a1 = stackalloc[Double](); !_a1 = epsilon.toDouble
@@ -1047,41 +1194,48 @@ class NavigationServer3D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationServer3D.Binds.simplifyPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def freeRid(rid: RID): Unit =
+    def freeRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(NavigationServer3D.Binds.freeRid, ptr, _args, null)
+}
 
-    def setActive(active: Boolean): Unit =
+    def setActive(active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.setActive, ptr, _args, null)
+}
 
-    def setDebugEnabled(enabled: Boolean): Unit =
+    def setDebugEnabled(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationServer3D.Binds.setDebugEnabled, ptr, _args, null)
+}
 
-    def getDebugEnabled(): Boolean =
+    def getDebugEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationServer3D.Binds.getDebugEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getProcessInfo(processInfo: Int): Int =
+    def getProcessInfo(processInfo: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = processInfo.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = processInfo.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationServer3D.Binds.getProcessInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object NavigationServer3D:
-    object Binds:
-        var getMaps: Ptr[Byte] = null
+object Binds {
+          var getMaps: Ptr[Byte] = null
         var mapCreate: Ptr[Byte] = null
         var mapSetActive: Ptr[Byte] = null
         var mapIsActive: Ptr[Byte] = null
@@ -1236,8 +1390,8 @@ object NavigationServer3D:
         var getDebugEnabled: Ptr[Byte] = null
         var getProcessInfo: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getMaps = GdxApi.getMethodBind(c"NavigationServer3D", c"get_maps", 3995934104L)
+  def loadBinds(): Unit = {
+                Binds.getMaps = GdxApi.getMethodBind(c"NavigationServer3D", c"get_maps", 3995934104L)
             Binds.mapCreate = GdxApi.getMethodBind(c"NavigationServer3D", c"map_create", 529393457L)
             Binds.mapSetActive = GdxApi.getMethodBind(c"NavigationServer3D", c"map_set_active", 1265174801L)
             Binds.mapIsActive = GdxApi.getMethodBind(c"NavigationServer3D", c"map_is_active", 4155700596L)
@@ -1391,3 +1545,5 @@ object NavigationServer3D:
             Binds.setDebugEnabled = GdxApi.getMethodBind(c"NavigationServer3D", c"set_debug_enabled", 2586408642L)
             Binds.getDebugEnabled = GdxApi.getMethodBind(c"NavigationServer3D", c"get_debug_enabled", 36873697L)
             Binds.getProcessInfo = GdxApi.getMethodBind(c"NavigationServer3D", c"get_process_info", 1938440894L)
+  }
+}

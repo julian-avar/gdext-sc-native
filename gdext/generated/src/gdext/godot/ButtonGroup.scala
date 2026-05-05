@@ -5,48 +5,38 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ButtonGroup extends Resource
-
-    def getPressedButton(): BaseButton =
+class ButtonGroup extends Resource {
+    def getPressedButton(): BaseButton = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ButtonGroup.Binds.getPressedButton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new BaseButton(!_ret)
+}
 
-    def getButtons(): Ptr[Byte] =
+    def getButtons(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ButtonGroup.Binds.getButtons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setAllowUnpress(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ButtonGroup.Binds.setAllowUnpress, ptr, _args, null)
-
-    def isAllowUnpress(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ButtonGroup.Binds.isAllowUnpress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def allowUnpress: Ptr[Byte] = isAllowUnpress()
-    def allowUnpress_=(v: Ptr[Byte]): Unit = setAllowUnpress(v)
+    def allowUnpress: Boolean = isAllowUnpress()
+    def allowUnpress_=(v: Boolean): Unit = setAllowUnpress(v)
+}
 
 object ButtonGroup:
-    object Binds:
-        var getPressedButton: Ptr[Byte] = null
+object Binds {
+          var getPressedButton: Ptr[Byte] = null
         var getButtons: Ptr[Byte] = null
-        var setAllowUnpress: Ptr[Byte] = null
-        var isAllowUnpress: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getPressedButton = GdxApi.getMethodBind(c"ButtonGroup", c"get_pressed_button", 3886434893L)
+  def loadBinds(): Unit = {
+                Binds.getPressedButton = GdxApi.getMethodBind(c"ButtonGroup", c"get_pressed_button", 3886434893L)
             Binds.getButtons = GdxApi.getMethodBind(c"ButtonGroup", c"get_buttons", 2915620761L)
-            Binds.setAllowUnpress = GdxApi.getMethodBind(c"ButtonGroup", c"set_allow_unpress", 2586408642L)
-            Binds.isAllowUnpress = GdxApi.getMethodBind(c"ButtonGroup", c"is_allow_unpress", 2240911060L)
+  }
+}
 
-    def apply(): ButtonGroup =
-        val obj = new ButtonGroup()
-        obj.ptr = GdxApi.constructObject(c"ButtonGroup")
-        obj
+def apply(): ButtonGroup = {
+  val obj = new ButtonGroup()
+  obj.ptr = GdxApi.constructObject(c"ButtonGroup")
+  obj
+}

@@ -5,276 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDSamplerState extends RefCounted
-
-    def setMagFilter(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setMagFilter, ptr, _args, null)
-
-    def getMagFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getMagFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMinFilter(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setMinFilter, ptr, _args, null)
-
-    def getMinFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getMinFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMipFilter(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setMipFilter, ptr, _args, null)
-
-    def getMipFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getMipFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRepeatU(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setRepeatU, ptr, _args, null)
-
-    def getRepeatU(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getRepeatU, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRepeatV(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setRepeatV, ptr, _args, null)
-
-    def getRepeatV(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getRepeatV, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRepeatW(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setRepeatW, ptr, _args, null)
-
-    def getRepeatW(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getRepeatW, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLodBias(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setLodBias, ptr, _args, null)
-
-    def getLodBias(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getLodBias, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUseAnisotropy(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setUseAnisotropy, ptr, _args, null)
-
-    def getUseAnisotropy(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getUseAnisotropy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAnisotropyMax(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setAnisotropyMax, ptr, _args, null)
-
-    def getAnisotropyMax(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getAnisotropyMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEnableCompare(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setEnableCompare, ptr, _args, null)
-
-    def getEnableCompare(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getEnableCompare, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCompareOp(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setCompareOp, ptr, _args, null)
-
-    def getCompareOp(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getCompareOp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMinLod(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setMinLod, ptr, _args, null)
-
-    def getMinLod(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getMinLod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMaxLod(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setMaxLod, ptr, _args, null)
-
-    def getMaxLod(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getMaxLod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBorderColor(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDSamplerState.Binds.setBorderColor, ptr, _args, null)
-
-    def getBorderColor(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getBorderColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUnnormalizedUvw(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDSamplerState.Binds.setUnnormalizedUvw, ptr, _args, null)
-
-    def getUnnormalizedUvw(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDSamplerState.Binds.getUnnormalizedUvw, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def magFilter: Ptr[Byte] = getMagFilter()
-    def magFilter_=(v: Ptr[Byte]): Unit = setMagFilter(v)
-    def minFilter: Ptr[Byte] = getMinFilter()
-    def minFilter_=(v: Ptr[Byte]): Unit = setMinFilter(v)
-    def mipFilter: Ptr[Byte] = getMipFilter()
-    def mipFilter_=(v: Ptr[Byte]): Unit = setMipFilter(v)
-    def repeatU: Ptr[Byte] = getRepeatU()
-    def repeatU_=(v: Ptr[Byte]): Unit = setRepeatU(v)
-    def repeatV: Ptr[Byte] = getRepeatV()
-    def repeatV_=(v: Ptr[Byte]): Unit = setRepeatV(v)
-    def repeatW: Ptr[Byte] = getRepeatW()
-    def repeatW_=(v: Ptr[Byte]): Unit = setRepeatW(v)
-    def lodBias: Ptr[Byte] = getLodBias()
-    def lodBias_=(v: Ptr[Byte]): Unit = setLodBias(v)
-    def useAnisotropy: Ptr[Byte] = getUseAnisotropy()
-    def useAnisotropy_=(v: Ptr[Byte]): Unit = setUseAnisotropy(v)
-    def anisotropyMax: Ptr[Byte] = getAnisotropyMax()
-    def anisotropyMax_=(v: Ptr[Byte]): Unit = setAnisotropyMax(v)
-    def enableCompare: Ptr[Byte] = getEnableCompare()
-    def enableCompare_=(v: Ptr[Byte]): Unit = setEnableCompare(v)
-    def compareOp: Ptr[Byte] = getCompareOp()
-    def compareOp_=(v: Ptr[Byte]): Unit = setCompareOp(v)
-    def minLod: Ptr[Byte] = getMinLod()
-    def minLod_=(v: Ptr[Byte]): Unit = setMinLod(v)
-    def maxLod: Ptr[Byte] = getMaxLod()
-    def maxLod_=(v: Ptr[Byte]): Unit = setMaxLod(v)
-    def borderColor: Ptr[Byte] = getBorderColor()
-    def borderColor_=(v: Ptr[Byte]): Unit = setBorderColor(v)
-    def unnormalizedUvw: Ptr[Byte] = getUnnormalizedUvw()
-    def unnormalizedUvw_=(v: Ptr[Byte]): Unit = setUnnormalizedUvw(v)
+class RDSamplerState extends RefCounted {
+    def magFilter: Int = getMagFilter()
+    def magFilter_=(v: Int): Unit = setMagFilter(v)
+    def minFilter: Int = getMinFilter()
+    def minFilter_=(v: Int): Unit = setMinFilter(v)
+    def mipFilter: Int = getMipFilter()
+    def mipFilter_=(v: Int): Unit = setMipFilter(v)
+    def repeatU: Int = getRepeatU()
+    def repeatU_=(v: Int): Unit = setRepeatU(v)
+    def repeatV: Int = getRepeatV()
+    def repeatV_=(v: Int): Unit = setRepeatV(v)
+    def repeatW: Int = getRepeatW()
+    def repeatW_=(v: Int): Unit = setRepeatW(v)
+    def lodBias: Float = getLodBias()
+    def lodBias_=(v: Float): Unit = setLodBias(v)
+    def useAnisotropy: Boolean = getUseAnisotropy()
+    def useAnisotropy_=(v: Boolean): Unit = setUseAnisotropy(v)
+    def anisotropyMax: Float = getAnisotropyMax()
+    def anisotropyMax_=(v: Float): Unit = setAnisotropyMax(v)
+    def enableCompare: Boolean = getEnableCompare()
+    def enableCompare_=(v: Boolean): Unit = setEnableCompare(v)
+    def compareOp: Int = getCompareOp()
+    def compareOp_=(v: Int): Unit = setCompareOp(v)
+    def minLod: Float = getMinLod()
+    def minLod_=(v: Float): Unit = setMinLod(v)
+    def maxLod: Float = getMaxLod()
+    def maxLod_=(v: Float): Unit = setMaxLod(v)
+    def borderColor: Int = getBorderColor()
+    def borderColor_=(v: Int): Unit = setBorderColor(v)
+    def unnormalizedUvw: Boolean = getUnnormalizedUvw()
+    def unnormalizedUvw_=(v: Boolean): Unit = setUnnormalizedUvw(v)
+}
 
 object RDSamplerState:
-    object Binds:
-        var setMagFilter: Ptr[Byte] = null
-        var getMagFilter: Ptr[Byte] = null
-        var setMinFilter: Ptr[Byte] = null
-        var getMinFilter: Ptr[Byte] = null
-        var setMipFilter: Ptr[Byte] = null
-        var getMipFilter: Ptr[Byte] = null
-        var setRepeatU: Ptr[Byte] = null
-        var getRepeatU: Ptr[Byte] = null
-        var setRepeatV: Ptr[Byte] = null
-        var getRepeatV: Ptr[Byte] = null
-        var setRepeatW: Ptr[Byte] = null
-        var getRepeatW: Ptr[Byte] = null
-        var setLodBias: Ptr[Byte] = null
-        var getLodBias: Ptr[Byte] = null
-        var setUseAnisotropy: Ptr[Byte] = null
-        var getUseAnisotropy: Ptr[Byte] = null
-        var setAnisotropyMax: Ptr[Byte] = null
-        var getAnisotropyMax: Ptr[Byte] = null
-        var setEnableCompare: Ptr[Byte] = null
-        var getEnableCompare: Ptr[Byte] = null
-        var setCompareOp: Ptr[Byte] = null
-        var getCompareOp: Ptr[Byte] = null
-        var setMinLod: Ptr[Byte] = null
-        var getMinLod: Ptr[Byte] = null
-        var setMaxLod: Ptr[Byte] = null
-        var getMaxLod: Ptr[Byte] = null
-        var setBorderColor: Ptr[Byte] = null
-        var getBorderColor: Ptr[Byte] = null
-        var setUnnormalizedUvw: Ptr[Byte] = null
-        var getUnnormalizedUvw: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMagFilter = GdxApi.getMethodBind(c"RDSamplerState", c"set_mag_filter", 1493420382L)
-            Binds.getMagFilter = GdxApi.getMethodBind(c"RDSamplerState", c"get_mag_filter", 2209202801L)
-            Binds.setMinFilter = GdxApi.getMethodBind(c"RDSamplerState", c"set_min_filter", 1493420382L)
-            Binds.getMinFilter = GdxApi.getMethodBind(c"RDSamplerState", c"get_min_filter", 2209202801L)
-            Binds.setMipFilter = GdxApi.getMethodBind(c"RDSamplerState", c"set_mip_filter", 1493420382L)
-            Binds.getMipFilter = GdxApi.getMethodBind(c"RDSamplerState", c"get_mip_filter", 2209202801L)
-            Binds.setRepeatU = GdxApi.getMethodBind(c"RDSamplerState", c"set_repeat_u", 246127626L)
-            Binds.getRepeatU = GdxApi.getMethodBind(c"RDSamplerState", c"get_repeat_u", 3227895872L)
-            Binds.setRepeatV = GdxApi.getMethodBind(c"RDSamplerState", c"set_repeat_v", 246127626L)
-            Binds.getRepeatV = GdxApi.getMethodBind(c"RDSamplerState", c"get_repeat_v", 3227895872L)
-            Binds.setRepeatW = GdxApi.getMethodBind(c"RDSamplerState", c"set_repeat_w", 246127626L)
-            Binds.getRepeatW = GdxApi.getMethodBind(c"RDSamplerState", c"get_repeat_w", 3227895872L)
-            Binds.setLodBias = GdxApi.getMethodBind(c"RDSamplerState", c"set_lod_bias", 373806689L)
-            Binds.getLodBias = GdxApi.getMethodBind(c"RDSamplerState", c"get_lod_bias", 1740695150L)
-            Binds.setUseAnisotropy = GdxApi.getMethodBind(c"RDSamplerState", c"set_use_anisotropy", 2586408642L)
-            Binds.getUseAnisotropy = GdxApi.getMethodBind(c"RDSamplerState", c"get_use_anisotropy", 36873697L)
-            Binds.setAnisotropyMax = GdxApi.getMethodBind(c"RDSamplerState", c"set_anisotropy_max", 373806689L)
-            Binds.getAnisotropyMax = GdxApi.getMethodBind(c"RDSamplerState", c"get_anisotropy_max", 1740695150L)
-            Binds.setEnableCompare = GdxApi.getMethodBind(c"RDSamplerState", c"set_enable_compare", 2586408642L)
-            Binds.getEnableCompare = GdxApi.getMethodBind(c"RDSamplerState", c"get_enable_compare", 36873697L)
-            Binds.setCompareOp = GdxApi.getMethodBind(c"RDSamplerState", c"set_compare_op", 2573711505L)
-            Binds.getCompareOp = GdxApi.getMethodBind(c"RDSamplerState", c"get_compare_op", 269730778L)
-            Binds.setMinLod = GdxApi.getMethodBind(c"RDSamplerState", c"set_min_lod", 373806689L)
-            Binds.getMinLod = GdxApi.getMethodBind(c"RDSamplerState", c"get_min_lod", 1740695150L)
-            Binds.setMaxLod = GdxApi.getMethodBind(c"RDSamplerState", c"set_max_lod", 373806689L)
-            Binds.getMaxLod = GdxApi.getMethodBind(c"RDSamplerState", c"get_max_lod", 1740695150L)
-            Binds.setBorderColor = GdxApi.getMethodBind(c"RDSamplerState", c"set_border_color", 1115869595L)
-            Binds.getBorderColor = GdxApi.getMethodBind(c"RDSamplerState", c"get_border_color", 3514246478L)
-            Binds.setUnnormalizedUvw = GdxApi.getMethodBind(c"RDSamplerState", c"set_unnormalized_uvw", 2586408642L)
-            Binds.getUnnormalizedUvw = GdxApi.getMethodBind(c"RDSamplerState", c"get_unnormalized_uvw", 36873697L)
-
-    def apply(): RDSamplerState =
-        val obj = new RDSamplerState()
-        obj.ptr = GdxApi.constructObject(c"RDSamplerState")
-        obj
+def apply(): RDSamplerState = {
+  val obj = new RDSamplerState()
+  obj.ptr = GdxApi.constructObject(c"RDSamplerState")
+  obj
+}

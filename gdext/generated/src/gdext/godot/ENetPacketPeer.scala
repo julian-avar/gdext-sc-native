@@ -5,112 +5,128 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ENetPacketPeer extends PacketPeer
-
-    def peerDisconnect(): Unit =
+class ENetPacketPeer extends PacketPeer {
+    def peerDisconnect(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.peerDisconnect, ptr, _args, null)
+}
 
-    def peerDisconnectLater(): Unit =
+    def peerDisconnectLater(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.peerDisconnectLater, ptr, _args, null)
+}
 
-    def peerDisconnectNow(): Unit =
+    def peerDisconnectNow(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.peerDisconnectNow, ptr, _args, null)
+}
 
-    def ping(): Unit =
+    def ping(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.ping, ptr, _args, null)
+}
 
-    def pingInterval(pingInterval: Int): Unit =
+    def pingInterval(pingInterval: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pingInterval.toLong
+        val _a0 = stackalloc[Long](); !_a0 = pingInterval.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.pingInterval, ptr, _args, null)
+}
 
-    def reset(): Unit =
+    def reset(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.reset, ptr, _args, null)
+}
 
-    def send(channel: Int, packet: PackedByteArray, flags: Int): Int =
+    def send(channel: Int, packet: PackedByteArray, flags: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = channel.toLong
+        val _a0 = stackalloc[Long](); !_a0 = channel.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = packet.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = flags.toLong
+        val _a2 = stackalloc[Long](); !_a2 = flags.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.send, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def throttleConfigure(interval: Int, acceleration: Int, deceleration: Int): Unit =
+    def throttleConfigure(interval: Int, acceleration: Int, deceleration: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = interval.toLong
+        val _a0 = stackalloc[Long](); !_a0 = interval.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = acceleration.toLong
+        val _a1 = stackalloc[Long](); !_a1 = acceleration.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = deceleration.toLong
+        val _a2 = stackalloc[Long](); !_a2 = deceleration.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.throttleConfigure, ptr, _args, null)
+}
 
-    def setTimeout(timeout: Int, timeoutMin: Int, timeoutMax: Int): Unit =
+    def setTimeout(timeout: Int, timeoutMin: Int, timeoutMax: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = timeout.toLong
+        val _a0 = stackalloc[Long](); !_a0 = timeout.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = timeoutMin.toLong
+        val _a1 = stackalloc[Long](); !_a1 = timeoutMin.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = timeoutMax.toLong
+        val _a2 = stackalloc[Long](); !_a2 = timeoutMax.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetPacketPeer.Binds.setTimeout, ptr, _args, null)
+}
 
-    def getPacketFlags(): Int =
+    def getPacketFlags(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.getPacketFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getRemoteAddress(): CString =
+    def getRemoteAddress(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.getRemoteAddress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getRemotePort(): Int =
+    def getRemotePort(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.getRemotePort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getStatistic(statistic: Int): Double =
+    def getStatistic(statistic: Int): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = statistic.ptr
+        val _a0 = stackalloc[Long](); !_a0 = statistic.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.getStatistic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getState(): Int =
+    def getState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.getState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getChannels(): Int =
+    def getChannels(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.getChannels, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isActive(): Boolean =
+    def isActive(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ENetPacketPeer.Binds.isActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object ENetPacketPeer:
-    object Binds:
-        var peerDisconnect: Ptr[Byte] = null
+object Binds {
+          var peerDisconnect: Ptr[Byte] = null
         var peerDisconnectLater: Ptr[Byte] = null
         var peerDisconnectNow: Ptr[Byte] = null
         var ping: Ptr[Byte] = null
@@ -127,8 +143,8 @@ object ENetPacketPeer:
         var getChannels: Ptr[Byte] = null
         var isActive: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.peerDisconnect = GdxApi.getMethodBind(c"ENetPacketPeer", c"peer_disconnect", 1995695955L)
+  def loadBinds(): Unit = {
+                Binds.peerDisconnect = GdxApi.getMethodBind(c"ENetPacketPeer", c"peer_disconnect", 1995695955L)
             Binds.peerDisconnectLater = GdxApi.getMethodBind(c"ENetPacketPeer", c"peer_disconnect_later", 1995695955L)
             Binds.peerDisconnectNow = GdxApi.getMethodBind(c"ENetPacketPeer", c"peer_disconnect_now", 1995695955L)
             Binds.ping = GdxApi.getMethodBind(c"ENetPacketPeer", c"ping", 3218959716L)
@@ -144,3 +160,5 @@ object ENetPacketPeer:
             Binds.getState = GdxApi.getMethodBind(c"ENetPacketPeer", c"get_state", 711068532L)
             Binds.getChannels = GdxApi.getMethodBind(c"ENetPacketPeer", c"get_channels", 3905245786L)
             Binds.isActive = GdxApi.getMethodBind(c"ENetPacketPeer", c"is_active", 36873697L)
+  }
+}

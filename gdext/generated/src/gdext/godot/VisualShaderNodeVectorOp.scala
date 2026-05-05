@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeVectorOp extends VisualShaderNodeVectorBase
-
-    def setOperator(op: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = op.ptr
-        GdxApi.ptrcall(VisualShaderNodeVectorOp.Binds.setOperator, ptr, _args, null)
-
-    def getOperator(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeVectorOp.Binds.getOperator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def operator: Ptr[Byte] = getOperator()
-    def operator_=(v: Ptr[Byte]): Unit = setOperator(v)
+class VisualShaderNodeVectorOp extends VisualShaderNodeVectorBase {
+    def operator: Int = getOperator()
+    def operator_=(v: Int): Unit = setOperator(v)
+}
 
 object VisualShaderNodeVectorOp:
-    object Binds:
-        var setOperator: Ptr[Byte] = null
-        var getOperator: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOperator = GdxApi.getMethodBind(c"VisualShaderNodeVectorOp", c"set_operator", 3371507302L)
-            Binds.getOperator = GdxApi.getMethodBind(c"VisualShaderNodeVectorOp", c"get_operator", 11793929L)
-
-    def apply(): VisualShaderNodeVectorOp =
-        val obj = new VisualShaderNodeVectorOp()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVectorOp")
-        obj
+def apply(): VisualShaderNodeVectorOp = {
+  val obj = new VisualShaderNodeVectorOp()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVectorOp")
+  obj
+}

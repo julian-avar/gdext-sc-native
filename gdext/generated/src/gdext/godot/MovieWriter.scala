@@ -5,18 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MovieWriter extends Object
+class MovieWriter extends Object {
     def _getAudioMixRate(): Int = 0
     def _getAudioSpeakerMode(): Int = null
     def _handlesFile(path: CString): Boolean = false
     def _writeBegin(movieSize: Vector2i, fps: Int, basePath: CString): Int = null
     def _writeFrame(frameImage: Image, audioFrameBlock: Ptr[Byte]): Int = null
     def _writeEnd(): Unit = ()
-
-
+}
 
 object MovieWriter:
-    def apply(): MovieWriter =
-        val obj = new MovieWriter()
-        obj.ptr = GdxApi.constructObject(c"MovieWriter")
-        obj
+def apply(): MovieWriter = {
+  val obj = new MovieWriter()
+  obj.ptr = GdxApi.constructObject(c"MovieWriter")
+  obj
+}

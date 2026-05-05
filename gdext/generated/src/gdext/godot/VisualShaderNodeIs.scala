@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeIs extends VisualShaderNode
-
-    def setFunction(func: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = func.ptr
-        GdxApi.ptrcall(VisualShaderNodeIs.Binds.setFunction, ptr, _args, null)
-
-    def getFunction(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeIs.Binds.getFunction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def function: Ptr[Byte] = getFunction()
-    def function_=(v: Ptr[Byte]): Unit = setFunction(v)
+class VisualShaderNodeIs extends VisualShaderNode {
+    def function: Int = getFunction()
+    def function_=(v: Int): Unit = setFunction(v)
+}
 
 object VisualShaderNodeIs:
-    object Binds:
-        var setFunction: Ptr[Byte] = null
-        var getFunction: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFunction = GdxApi.getMethodBind(c"VisualShaderNodeIs", c"set_function", 1438374690L)
-            Binds.getFunction = GdxApi.getMethodBind(c"VisualShaderNodeIs", c"get_function", 580678557L)
-
-    def apply(): VisualShaderNodeIs =
-        val obj = new VisualShaderNodeIs()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeIs")
-        obj
+def apply(): VisualShaderNodeIs = {
+  val obj = new VisualShaderNodeIs()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeIs")
+  obj
+}

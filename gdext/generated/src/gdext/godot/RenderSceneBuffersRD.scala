@@ -5,28 +5,30 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderSceneBuffersRD extends RenderSceneBuffers
-
-    def hasTexture(context: CString, name: CString): Boolean =
+class RenderSceneBuffersRD extends RenderSceneBuffers {
+    def hasTexture(context: CString, name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
+        _args(0) = context
+        _args(1) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.hasTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def createTexture(context: CString, name: CString, dataFormat: Int, usageBits: Int, textureSamples: Int, size: Vector2i, layers: Int, mipmaps: Int, unique: Boolean, discardable: Boolean): RID =
+    def createTexture(context: CString, name: CString, dataFormat: Int, usageBits: Int, textureSamples: Int, size: Vector2i, layers: Int, mipmaps: Int, unique: Boolean, discardable: Boolean): RID = {
         val _args = stackalloc[Ptr[Byte]](10)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
-        _args(2) = dataFormat.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = usageBits.toLong
+        _args(0) = context
+        _args(1) = name
+        val _a2 = stackalloc[Long](); !_a2 = dataFormat.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
+        val _a3 = stackalloc[Long](); !_a3 = usageBits.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        _args(4) = textureSamples.ptr
+        val _a4 = stackalloc[Long](); !_a4 = textureSamples.toLong
+        _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         _args(5) = size.ptr
-        val _a6 = stackalloc[CLong](); !_a6 = layers.toLong
+        val _a6 = stackalloc[Long](); !_a6 = layers.toLong
         _args(6) = _a6.asInstanceOf[Ptr[Byte]]
-        val _a7 = stackalloc[CLong](); !_a7 = mipmaps.toLong
+        val _a7 = stackalloc[Long](); !_a7 = mipmaps.toLong
         _args(7) = _a7.asInstanceOf[Ptr[Byte]]
         val _a8 = stackalloc[Byte](); !_a8 = if unique then 1.toByte else 0.toByte
         _args(8) = _a8.asInstanceOf[Ptr[Byte]]
@@ -35,11 +37,12 @@ class RenderSceneBuffersRD extends RenderSceneBuffers
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.createTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def createTextureFromFormat(context: CString, name: CString, format: RDTextureFormat, view: RDTextureView, unique: Boolean): RID =
+    def createTextureFromFormat(context: CString, name: CString, format: RDTextureFormat, view: RDTextureView, unique: Boolean): RID = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
+        _args(0) = context
+        _args(1) = name
         _args(2) = format.ptr
         _args(3) = view.ptr
         val _a4 = stackalloc[Byte](); !_a4 = if unique then 1.toByte else 0.toByte
@@ -47,193 +50,218 @@ class RenderSceneBuffersRD extends RenderSceneBuffers
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.createTextureFromFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def createTextureView(context: CString, name: CString, viewName: CString, view: RDTextureView): RID =
+    def createTextureView(context: CString, name: CString, viewName: CString, view: RDTextureView): RID = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
-        _args(2) = viewName.ptr
+        _args(0) = context
+        _args(1) = name
+        _args(2) = viewName
         _args(3) = view.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.createTextureView, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getTexture(context: CString, name: CString): RID =
+    def getTexture(context: CString, name: CString): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
+        _args(0) = context
+        _args(1) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getTextureFormat(context: CString, name: CString): RDTextureFormat =
+    def getTextureFormat(context: CString, name: CString): RDTextureFormat = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
+        _args(0) = context
+        _args(1) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTextureFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RDTextureFormat(!_ret)
+}
 
-    def getTextureSlice(context: CString, name: CString, layer: Int, mipmap: Int, layers: Int, mipmaps: Int): RID =
+    def getTextureSlice(context: CString, name: CString, layer: Int, mipmap: Int, layers: Int, mipmaps: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = layer.toLong
+        _args(0) = context
+        _args(1) = name
+        val _a2 = stackalloc[Long](); !_a2 = layer.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = mipmap.toLong
+        val _a3 = stackalloc[Long](); !_a3 = mipmap.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = layers.toLong
+        val _a4 = stackalloc[Long](); !_a4 = layers.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = mipmaps.toLong
+        val _a5 = stackalloc[Long](); !_a5 = mipmaps.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTextureSlice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getTextureSliceView(context: CString, name: CString, layer: Int, mipmap: Int, layers: Int, mipmaps: Int, view: RDTextureView): RID =
+    def getTextureSliceView(context: CString, name: CString, layer: Int, mipmap: Int, layers: Int, mipmaps: Int, view: RDTextureView): RID = {
         val _args = stackalloc[Ptr[Byte]](7)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = layer.toLong
+        _args(0) = context
+        _args(1) = name
+        val _a2 = stackalloc[Long](); !_a2 = layer.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = mipmap.toLong
+        val _a3 = stackalloc[Long](); !_a3 = mipmap.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = layers.toLong
+        val _a4 = stackalloc[Long](); !_a4 = layers.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = mipmaps.toLong
+        val _a5 = stackalloc[Long](); !_a5 = mipmaps.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         _args(6) = view.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTextureSliceView, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getTextureSliceSize(context: CString, name: CString, mipmap: Int): Vector2i =
+    def getTextureSliceSize(context: CString, name: CString, mipmap: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = context.ptr
-        _args(1) = name.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = mipmap.toLong
+        _args(0) = context
+        _args(1) = name
+        val _a2 = stackalloc[Long](); !_a2 = mipmap.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTextureSliceSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def clearContext(context: CString): Unit =
+    def clearContext(context: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = context.ptr
+        _args(0) = context
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.clearContext, ptr, _args, null)
+}
 
-    def getColorTexture(): RID =
+    def getColorTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getColorTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getColorLayer(layer: Int): RID =
+    def getColorLayer(layer: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getColorLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getDepthTexture(): RID =
+    def getDepthTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getDepthTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getDepthLayer(layer: Int): RID =
+    def getDepthLayer(layer: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getDepthLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getVelocityTexture(): RID =
+    def getVelocityTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getVelocityTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getVelocityLayer(layer: Int): RID =
+    def getVelocityLayer(layer: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getVelocityLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getRenderTarget(): RID =
+    def getRenderTarget(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getRenderTarget, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getViewCount(): Int =
+    def getViewCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getViewCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getInternalSize(): Vector2i =
+    def getInternalSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getInternalSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getTargetSize(): Vector2i =
+    def getTargetSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTargetSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getScaling3dMode(): Int =
+    def getScaling3dMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getScaling3dMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFsrSharpness(): Float =
+    def getFsrSharpness(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getFsrSharpness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getMsaa3d(): Int =
+    def getMsaa3d(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getMsaa3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTextureSamples(): Int =
+    def getTextureSamples(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getTextureSamples, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getScreenSpaceAa(): Int =
+    def getScreenSpaceAa(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getScreenSpaceAa, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getUseTaa(): Boolean =
+    def getUseTaa(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getUseTaa, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getUseDebanding(): Boolean =
+    def getUseDebanding(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderSceneBuffersRD.Binds.getUseDebanding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object RenderSceneBuffersRD:
-    object Binds:
-        var hasTexture: Ptr[Byte] = null
+object Binds {
+          var hasTexture: Ptr[Byte] = null
         var createTexture: Ptr[Byte] = null
         var createTextureFromFormat: Ptr[Byte] = null
         var createTextureView: Ptr[Byte] = null
@@ -261,8 +289,8 @@ object RenderSceneBuffersRD:
         var getUseTaa: Ptr[Byte] = null
         var getUseDebanding: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasTexture = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"has_texture", 471820014L)
+  def loadBinds(): Unit = {
+                Binds.hasTexture = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"has_texture", 471820014L)
             Binds.createTexture = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"create_texture", 2950875024L)
             Binds.createTextureFromFormat = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"create_texture_from_format", 3344669382L)
             Binds.createTextureView = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"create_texture_view", 283055834L)
@@ -289,8 +317,11 @@ object RenderSceneBuffersRD:
             Binds.getScreenSpaceAa = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"get_screen_space_aa", 641513172L)
             Binds.getUseTaa = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"get_use_taa", 36873697L)
             Binds.getUseDebanding = GdxApi.getMethodBind(c"RenderSceneBuffersRD", c"get_use_debanding", 36873697L)
+  }
+}
 
-    def apply(): RenderSceneBuffersRD =
-        val obj = new RenderSceneBuffersRD()
-        obj.ptr = GdxApi.constructObject(c"RenderSceneBuffersRD")
-        obj
+def apply(): RenderSceneBuffersRD = {
+  val obj = new RenderSceneBuffersRD()
+  obj.ptr = GdxApi.constructObject(c"RenderSceneBuffersRD")
+  obj
+}

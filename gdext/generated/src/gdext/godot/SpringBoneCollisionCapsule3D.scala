@@ -5,86 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpringBoneCollisionCapsule3D extends SpringBoneCollision3D
-
-    def setRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.setRadius, ptr, _args, null)
-
-    def getRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHeight(height: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = height.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.setHeight, ptr, _args, null)
-
-    def getHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.getHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMidHeight(midHeight: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = midHeight.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.setMidHeight, ptr, _args, null)
-
-    def getMidHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.getMidHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setInside(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.setInside, ptr, _args, null)
-
-    def isInside(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SpringBoneCollisionCapsule3D.Binds.isInside, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def radius: Ptr[Byte] = getRadius()
-    def radius_=(v: Ptr[Byte]): Unit = setRadius(v)
-    def height: Ptr[Byte] = getHeight()
-    def height_=(v: Ptr[Byte]): Unit = setHeight(v)
-    def midHeight: Ptr[Byte] = getMidHeight()
-    def midHeight_=(v: Ptr[Byte]): Unit = setMidHeight(v)
-    def inside: Ptr[Byte] = isInside()
-    def inside_=(v: Ptr[Byte]): Unit = setInside(v)
+class SpringBoneCollisionCapsule3D extends SpringBoneCollision3D {
+    def radius: Float = getRadius()
+    def radius_=(v: Float): Unit = setRadius(v)
+    def height: Float = getHeight()
+    def height_=(v: Float): Unit = setHeight(v)
+    def midHeight: Float = getMidHeight()
+    def midHeight_=(v: Float): Unit = setMidHeight(v)
+    def inside: Boolean = isInside()
+    def inside_=(v: Boolean): Unit = setInside(v)
+}
 
 object SpringBoneCollisionCapsule3D:
-    object Binds:
-        var setRadius: Ptr[Byte] = null
-        var getRadius: Ptr[Byte] = null
-        var setHeight: Ptr[Byte] = null
-        var getHeight: Ptr[Byte] = null
-        var setMidHeight: Ptr[Byte] = null
-        var getMidHeight: Ptr[Byte] = null
-        var setInside: Ptr[Byte] = null
-        var isInside: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setRadius = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"set_radius", 373806689L)
-            Binds.getRadius = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"get_radius", 1740695150L)
-            Binds.setHeight = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"set_height", 373806689L)
-            Binds.getHeight = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"get_height", 1740695150L)
-            Binds.setMidHeight = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"set_mid_height", 373806689L)
-            Binds.getMidHeight = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"get_mid_height", 1740695150L)
-            Binds.setInside = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"set_inside", 2586408642L)
-            Binds.isInside = GdxApi.getMethodBind(c"SpringBoneCollisionCapsule3D", c"is_inside", 36873697L)
-
-    def apply(): SpringBoneCollisionCapsule3D =
-        val obj = new SpringBoneCollisionCapsule3D()
-        obj.ptr = GdxApi.constructObject(c"SpringBoneCollisionCapsule3D")
-        obj
+def apply(): SpringBoneCollisionCapsule3D = {
+  val obj = new SpringBoneCollisionCapsule3D()
+  obj.ptr = GdxApi.constructObject(c"SpringBoneCollisionCapsule3D")
+  obj
+}

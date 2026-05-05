@@ -5,271 +5,196 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SkeletonModification2DJiggle extends SkeletonModification2D
-
-    def setTargetNode(targetNodepath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetNodepath.ptr
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setTargetNode, ptr, _args, null)
-
-    def getTargetNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getTargetNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setJiggleDataChainLength(length: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = length.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleDataChainLength, ptr, _args, null)
-
-    def getJiggleDataChainLength(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleDataChainLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStiffness(stiffness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = stiffness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setStiffness, ptr, _args, null)
-
-    def getStiffness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getStiffness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMass(mass: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = mass.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setMass, ptr, _args, null)
-
-    def getMass(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDamping(damping: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = damping.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setDamping, ptr, _args, null)
-
-    def getDamping(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getDamping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUseGravity(useGravity: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useGravity then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setUseGravity, ptr, _args, null)
-
-    def getUseGravity(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getUseGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setGravity(gravity: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = gravity.ptr
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setGravity, ptr, _args, null)
-
-    def getGravity(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setUseColliders(useColliders: Boolean): Unit =
+class SkeletonModification2DJiggle extends SkeletonModification2D {
+    def setUseColliders(useColliders: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if useColliders then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setUseColliders, ptr, _args, null)
+}
 
-    def getUseColliders(): Boolean =
+    def getUseColliders(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getUseColliders, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCollisionMask(collisionMask: Int): Unit =
+    def setCollisionMask(collisionMask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = collisionMask.toLong
+        val _a0 = stackalloc[Long](); !_a0 = collisionMask.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setCollisionMask, ptr, _args, null)
+}
 
-    def getCollisionMask(): Int =
+    def getCollisionMask(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setJiggleJointBone2dNode(jointIdx: Int, bone2dNode: NodePath): Unit =
+    def setJiggleJointBone2dNode(jointIdx: Int, bone2dNode: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = bone2dNode.ptr
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointBone2dNode, ptr, _args, null)
+}
 
-    def getJiggleJointBone2dNode(jointIdx: Int): NodePath =
+    def getJiggleJointBone2dNode(jointIdx: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointBone2dNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setJiggleJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit =
+    def setJiggleJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = boneIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = boneIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointBoneIndex, ptr, _args, null)
+}
 
-    def getJiggleJointBoneIndex(jointIdx: Int): Int =
+    def getJiggleJointBoneIndex(jointIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointBoneIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setJiggleJointOverride(jointIdx: Int, `override`: Boolean): Unit =
+    def setJiggleJointOverride(jointIdx: Int, `override`: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if `override` then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointOverride, ptr, _args, null)
+}
 
-    def getJiggleJointOverride(jointIdx: Int): Boolean =
+    def getJiggleJointOverride(jointIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setJiggleJointStiffness(jointIdx: Int, stiffness: Float): Unit =
+    def setJiggleJointStiffness(jointIdx: Int, stiffness: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = stiffness.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointStiffness, ptr, _args, null)
+}
 
-    def getJiggleJointStiffness(jointIdx: Int): Float =
+    def getJiggleJointStiffness(jointIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointStiffness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJiggleJointMass(jointIdx: Int, mass: Float): Unit =
+    def setJiggleJointMass(jointIdx: Int, mass: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = mass.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointMass, ptr, _args, null)
+}
 
-    def getJiggleJointMass(jointIdx: Int): Float =
+    def getJiggleJointMass(jointIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJiggleJointDamping(jointIdx: Int, damping: Float): Unit =
+    def setJiggleJointDamping(jointIdx: Int, damping: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = damping.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointDamping, ptr, _args, null)
+}
 
-    def getJiggleJointDamping(jointIdx: Int): Float =
+    def getJiggleJointDamping(jointIdx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointDamping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJiggleJointUseGravity(jointIdx: Int, useGravity: Boolean): Unit =
+    def setJiggleJointUseGravity(jointIdx: Int, useGravity: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if useGravity then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointUseGravity, ptr, _args, null)
+}
 
-    def getJiggleJointUseGravity(jointIdx: Int): Boolean =
+    def getJiggleJointUseGravity(jointIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointUseGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setJiggleJointGravity(jointIdx: Int, gravity: Vector2): Unit =
+    def setJiggleJointGravity(jointIdx: Int, gravity: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = gravity.ptr
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.setJiggleJointGravity, ptr, _args, null)
+}
 
-    def getJiggleJointGravity(jointIdx: Int): Vector2 =
+    def getJiggleJointGravity(jointIdx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = jointIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = jointIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SkeletonModification2DJiggle.Binds.getJiggleJointGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
-    def targetNodepath: Ptr[Byte] = getTargetNode()
-    def targetNodepath_=(v: Ptr[Byte]): Unit = setTargetNode(v)
-    def jiggleDataChainLength: Ptr[Byte] = getJiggleDataChainLength()
-    def jiggleDataChainLength_=(v: Ptr[Byte]): Unit = setJiggleDataChainLength(v)
-    def stiffness: Ptr[Byte] = getStiffness()
-    def stiffness_=(v: Ptr[Byte]): Unit = setStiffness(v)
-    def mass: Ptr[Byte] = getMass()
-    def mass_=(v: Ptr[Byte]): Unit = setMass(v)
-    def damping: Ptr[Byte] = getDamping()
-    def damping_=(v: Ptr[Byte]): Unit = setDamping(v)
-    def useGravity: Ptr[Byte] = getUseGravity()
-    def useGravity_=(v: Ptr[Byte]): Unit = setUseGravity(v)
-    def gravity: Ptr[Byte] = getGravity()
-    def gravity_=(v: Ptr[Byte]): Unit = setGravity(v)
+}
+
+    def targetNodepath: NodePath = getTargetNode()
+    def targetNodepath_=(v: NodePath): Unit = setTargetNode(v)
+    def jiggleDataChainLength: Int = getJiggleDataChainLength()
+    def jiggleDataChainLength_=(v: Int): Unit = setJiggleDataChainLength(v)
+    def stiffness: Float = getStiffness()
+    def stiffness_=(v: Float): Unit = setStiffness(v)
+    def mass: Float = getMass()
+    def mass_=(v: Float): Unit = setMass(v)
+    def damping: Float = getDamping()
+    def damping_=(v: Float): Unit = setDamping(v)
+    def useGravity: Boolean = getUseGravity()
+    def useGravity_=(v: Boolean): Unit = setUseGravity(v)
+    def gravity: Vector2 = getGravity()
+    def gravity_=(v: Vector2): Unit = setGravity(v)
+}
 
 object SkeletonModification2DJiggle:
-    object Binds:
-        var setTargetNode: Ptr[Byte] = null
-        var getTargetNode: Ptr[Byte] = null
-        var setJiggleDataChainLength: Ptr[Byte] = null
-        var getJiggleDataChainLength: Ptr[Byte] = null
-        var setStiffness: Ptr[Byte] = null
-        var getStiffness: Ptr[Byte] = null
-        var setMass: Ptr[Byte] = null
-        var getMass: Ptr[Byte] = null
-        var setDamping: Ptr[Byte] = null
-        var getDamping: Ptr[Byte] = null
-        var setUseGravity: Ptr[Byte] = null
-        var getUseGravity: Ptr[Byte] = null
-        var setGravity: Ptr[Byte] = null
-        var getGravity: Ptr[Byte] = null
-        var setUseColliders: Ptr[Byte] = null
+object Binds {
+          var setUseColliders: Ptr[Byte] = null
         var getUseColliders: Ptr[Byte] = null
         var setCollisionMask: Ptr[Byte] = null
         var getCollisionMask: Ptr[Byte] = null
@@ -290,22 +215,8 @@ object SkeletonModification2DJiggle:
         var setJiggleJointGravity: Ptr[Byte] = null
         var getJiggleJointGravity: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_target_node", 1348162250L)
-            Binds.getTargetNode = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_target_node", 4075236667L)
-            Binds.setJiggleDataChainLength = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_jiggle_data_chain_length", 1286410249L)
-            Binds.getJiggleDataChainLength = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_jiggle_data_chain_length", 2455072627L)
-            Binds.setStiffness = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_stiffness", 373806689L)
-            Binds.getStiffness = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_stiffness", 1740695150L)
-            Binds.setMass = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_mass", 373806689L)
-            Binds.getMass = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_mass", 1740695150L)
-            Binds.setDamping = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_damping", 373806689L)
-            Binds.getDamping = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_damping", 1740695150L)
-            Binds.setUseGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_use_gravity", 2586408642L)
-            Binds.getUseGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_use_gravity", 36873697L)
-            Binds.setGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_gravity", 743155724L)
-            Binds.getGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_gravity", 3341600327L)
-            Binds.setUseColliders = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_use_colliders", 2586408642L)
+  def loadBinds(): Unit = {
+                Binds.setUseColliders = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_use_colliders", 2586408642L)
             Binds.getUseColliders = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_use_colliders", 36873697L)
             Binds.setCollisionMask = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_collision_mask", 1286410249L)
             Binds.getCollisionMask = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_collision_mask", 3905245786L)
@@ -325,8 +236,11 @@ object SkeletonModification2DJiggle:
             Binds.getJiggleJointUseGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_jiggle_joint_use_gravity", 1116898809L)
             Binds.setJiggleJointGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"set_jiggle_joint_gravity", 163021252L)
             Binds.getJiggleJointGravity = GdxApi.getMethodBind(c"SkeletonModification2DJiggle", c"get_jiggle_joint_gravity", 2299179447L)
+  }
+}
 
-    def apply(): SkeletonModification2DJiggle =
-        val obj = new SkeletonModification2DJiggle()
-        obj.ptr = GdxApi.constructObject(c"SkeletonModification2DJiggle")
-        obj
+def apply(): SkeletonModification2DJiggle = {
+  val obj = new SkeletonModification2DJiggle()
+  obj.ptr = GdxApi.constructObject(c"SkeletonModification2DJiggle")
+  obj
+}

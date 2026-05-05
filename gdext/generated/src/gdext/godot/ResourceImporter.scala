@@ -5,7 +5,6 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporter extends RefCounted
+class ResourceImporter extends RefCounted {
     def _getBuildDependencies(path: CString): PackedStringArray = null
-
-
+}

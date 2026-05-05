@@ -5,362 +5,397 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorInterface extends Object
-
-    def restartEditor(): Unit =
+class EditorInterface extends Object {
+    def restartEditor(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorInterface.Binds.restartEditor, ptr, _args, null)
+}
 
-    def getCommandPalette(): EditorCommandPalette =
+    def getCommandPalette(): EditorCommandPalette = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getCommandPalette, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorCommandPalette(!_ret)
+}
 
-    def getResourceFilesystem(): EditorFileSystem =
+    def getResourceFilesystem(): EditorFileSystem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getResourceFilesystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorFileSystem(!_ret)
+}
 
-    def getEditorPaths(): EditorPaths =
+    def getEditorPaths(): EditorPaths = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorPaths, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorPaths(!_ret)
+}
 
-    def getResourcePreviewer(): EditorResourcePreview =
+    def getResourcePreviewer(): EditorResourcePreview = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getResourcePreviewer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorResourcePreview(!_ret)
+}
 
-    def getSelection(): EditorSelection =
+    def getSelection(): EditorSelection = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorSelection(!_ret)
+}
 
-    def getEditorSettings(): EditorSettings =
+    def getEditorSettings(): EditorSettings = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorSettings, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorSettings(!_ret)
+}
 
-    def getEditorToaster(): EditorToaster =
+    def getEditorToaster(): EditorToaster = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorToaster, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorToaster(!_ret)
+}
 
-    def getEditorUndoRedo(): EditorUndoRedoManager =
+    def getEditorUndoRedo(): EditorUndoRedoManager = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorUndoRedo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorUndoRedoManager(!_ret)
+}
 
-    def makeMeshPreviews(meshes: Ptr[Byte], previewSize: Int): Ptr[Byte] =
+    def makeMeshPreviews(meshes: Ptr[Byte], previewSize: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = meshes.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = previewSize.toLong
+        _args(0) = meshes
+        val _a1 = stackalloc[Long](); !_a1 = previewSize.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.makeMeshPreviews, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setPluginEnabled(plugin: CString, enabled: Boolean): Unit =
+    def setPluginEnabled(plugin: CString, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = plugin.ptr
+        _args(0) = plugin
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorInterface.Binds.setPluginEnabled, ptr, _args, null)
+}
 
-    def isPluginEnabled(plugin: CString): Boolean =
+    def isPluginEnabled(plugin: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = plugin.ptr
+        _args(0) = plugin
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorInterface.Binds.isPluginEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getEditorTheme(): Theme =
+    def getEditorTheme(): Theme = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorTheme, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Theme(!_ret)
+}
 
-    def getBaseControl(): Control =
+    def getBaseControl(): Control = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getBaseControl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Control(!_ret)
+}
 
-    def getEditorMainScreen(): VBoxContainer =
+    def getEditorMainScreen(): VBoxContainer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorMainScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VBoxContainer(!_ret)
+}
 
-    def getScriptEditor(): ScriptEditor =
+    def getScriptEditor(): ScriptEditor = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getScriptEditor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ScriptEditor(!_ret)
+}
 
-    def getEditorViewport2d(): SubViewport =
+    def getEditorViewport2d(): SubViewport = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorViewport2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SubViewport(!_ret)
+}
 
-    def getEditorViewport3d(): SubViewport =
+    def getEditorViewport3d(): SubViewport = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorViewport3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SubViewport(!_ret)
+}
 
-    def setMainScreenEditor(name: CString): Unit =
+    def setMainScreenEditor(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EditorInterface.Binds.setMainScreenEditor, ptr, _args, null)
+}
 
-    def setDistractionFreeMode(enter: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enter then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorInterface.Binds.setDistractionFreeMode, ptr, _args, null)
-
-    def isDistractionFreeModeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorInterface.Binds.isDistractionFreeModeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isMultiWindowEnabled(): Boolean =
+    def isMultiWindowEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorInterface.Binds.isMultiWindowEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getEditorScale(): Float =
+    def getEditorScale(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditorScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def popupDialog(dialog: Window): Unit =
+    def popupDialog(dialog: Window): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = dialog.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupDialog, ptr, _args, null)
+}
 
-    def popupDialogCentered(dialog: Window): Unit =
+    def popupDialogCentered(dialog: Window): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = dialog.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupDialogCentered, ptr, _args, null)
+}
 
-    def popupDialogCenteredRatio(dialog: Window): Unit =
+    def popupDialogCenteredRatio(dialog: Window): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = dialog.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupDialogCenteredRatio, ptr, _args, null)
+}
 
-    def popupDialogCenteredClamped(dialog: Window): Unit =
+    def popupDialogCenteredClamped(dialog: Window): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = dialog.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupDialogCenteredClamped, ptr, _args, null)
+}
 
-    def getCurrentFeatureProfile(): CString =
+    def getCurrentFeatureProfile(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getCurrentFeatureProfile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCurrentFeatureProfile(profileName: CString): Unit =
+    def setCurrentFeatureProfile(profileName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = profileName.ptr
+        _args(0) = profileName
         GdxApi.ptrcall(EditorInterface.Binds.setCurrentFeatureProfile, ptr, _args, null)
+}
 
-    def popupNodeSelector(callback: Callable): Unit =
+    def popupNodeSelector(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupNodeSelector, ptr, _args, null)
+}
 
-    def popupPropertySelector(`object`: Object, callback: Callable): Unit =
+    def popupPropertySelector(`object`: Object, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupPropertySelector, ptr, _args, null)
+}
 
-    def popupMethodSelector(`object`: Object, callback: Callable): Unit =
+    def popupMethodSelector(`object`: Object, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupMethodSelector, ptr, _args, null)
+}
 
-    def popupQuickOpen(callback: Callable): Unit =
+    def popupQuickOpen(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupQuickOpen, ptr, _args, null)
+}
 
-    def popupCreateDialog(callback: Callable): Unit =
+    def popupCreateDialog(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(EditorInterface.Binds.popupCreateDialog, ptr, _args, null)
+}
 
-    def getFileSystemDock(): FileSystemDock =
+    def getFileSystemDock(): FileSystemDock = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getFileSystemDock, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new FileSystemDock(!_ret)
+}
 
-    def selectFile(file: CString): Unit =
+    def selectFile(file: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = file.ptr
+        _args(0) = file
         GdxApi.ptrcall(EditorInterface.Binds.selectFile, ptr, _args, null)
+}
 
-    def getSelectedPaths(): PackedStringArray =
+    def getSelectedPaths(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getSelectedPaths, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getCurrentPath(): CString =
+    def getCurrentPath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getCurrentPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCurrentDirectory(): CString =
+    def getCurrentDirectory(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getCurrentDirectory, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getInspector(): EditorInspector =
+    def getInspector(): EditorInspector = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getInspector, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorInspector(!_ret)
+}
 
-    def inspectObject(`object`: Object): Unit =
+    def inspectObject(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(EditorInterface.Binds.inspectObject, ptr, _args, null)
+}
 
-    def editResource(resource: Resource): Unit =
+    def editResource(resource: Resource): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = resource.ptr
         GdxApi.ptrcall(EditorInterface.Binds.editResource, ptr, _args, null)
+}
 
-    def editNode(node: Node): Unit =
+    def editNode(node: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(EditorInterface.Binds.editNode, ptr, _args, null)
+}
 
-    def editScript(script: Script): Unit =
+    def editScript(script: Script): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = script.ptr
         GdxApi.ptrcall(EditorInterface.Binds.editScript, ptr, _args, null)
+}
 
-    def openSceneFromPath(sceneFilepath: CString): Unit =
+    def openSceneFromPath(sceneFilepath: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sceneFilepath.ptr
+        _args(0) = sceneFilepath
         GdxApi.ptrcall(EditorInterface.Binds.openSceneFromPath, ptr, _args, null)
+}
 
-    def reloadSceneFromPath(sceneFilepath: CString): Unit =
+    def reloadSceneFromPath(sceneFilepath: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sceneFilepath.ptr
+        _args(0) = sceneFilepath
         GdxApi.ptrcall(EditorInterface.Binds.reloadSceneFromPath, ptr, _args, null)
+}
 
-    def getOpenScenes(): PackedStringArray =
+    def getOpenScenes(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getOpenScenes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getOpenSceneRoots(): Ptr[Byte] =
+    def getOpenSceneRoots(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getOpenSceneRoots, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getEditedSceneRoot(): Node =
+    def getEditedSceneRoot(): Node = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getEditedSceneRoot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def saveScene(): Int =
+    def saveScene(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorInterface.Binds.saveScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveSceneAs(path: CString): Unit =
+    def saveSceneAs(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorInterface.Binds.saveSceneAs, ptr, _args, null)
+}
 
-    def saveAllScenes(): Unit =
+    def saveAllScenes(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorInterface.Binds.saveAllScenes, ptr, _args, null)
+}
 
-    def closeScene(): Int =
+    def closeScene(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorInterface.Binds.closeScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def markSceneAsUnsaved(): Unit =
+    def markSceneAsUnsaved(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorInterface.Binds.markSceneAsUnsaved, ptr, _args, null)
+}
 
-    def playMainScene(): Unit =
+    def playMainScene(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorInterface.Binds.playMainScene, ptr, _args, null)
+}
 
-    def playCurrentScene(): Unit =
+    def playCurrentScene(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorInterface.Binds.playCurrentScene, ptr, _args, null)
+}
 
-    def playCustomScene(sceneFilepath: CString): Unit =
+    def playCustomScene(sceneFilepath: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sceneFilepath.ptr
+        _args(0) = sceneFilepath
         GdxApi.ptrcall(EditorInterface.Binds.playCustomScene, ptr, _args, null)
+}
 
-    def stopPlayingScene(): Unit =
+    def stopPlayingScene(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorInterface.Binds.stopPlayingScene, ptr, _args, null)
+}
 
-    def isPlayingScene(): Boolean =
+    def isPlayingScene(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorInterface.Binds.isPlayingScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPlayingScene(): CString =
+    def getPlayingScene(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorInterface.Binds.getPlayingScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMovieMakerEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorInterface.Binds.setMovieMakerEnabled, ptr, _args, null)
-
-    def isMovieMakerEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorInterface.Binds.isMovieMakerEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def distractionFreeMode: Ptr[Byte] = isDistractionFreeModeEnabled()
-    def distractionFreeMode_=(v: Ptr[Byte]): Unit = setDistractionFreeMode(v)
-    def movieMakerEnabled: Ptr[Byte] = isMovieMakerEnabled()
-    def movieMakerEnabled_=(v: Ptr[Byte]): Unit = setMovieMakerEnabled(v)
+    def distractionFreeMode: Boolean = isDistractionFreeModeEnabled()
+    def distractionFreeMode_=(v: Boolean): Unit = setDistractionFreeMode(v)
+    def movieMakerEnabled: Boolean = isMovieMakerEnabled()
+    def movieMakerEnabled_=(v: Boolean): Unit = setMovieMakerEnabled(v)
+}
 
 object EditorInterface:
-    object Binds:
-        var restartEditor: Ptr[Byte] = null
+object Binds {
+          var restartEditor: Ptr[Byte] = null
         var getCommandPalette: Ptr[Byte] = null
         var getResourceFilesystem: Ptr[Byte] = null
         var getEditorPaths: Ptr[Byte] = null
@@ -379,8 +414,6 @@ object EditorInterface:
         var getEditorViewport2d: Ptr[Byte] = null
         var getEditorViewport3d: Ptr[Byte] = null
         var setMainScreenEditor: Ptr[Byte] = null
-        var setDistractionFreeMode: Ptr[Byte] = null
-        var isDistractionFreeModeEnabled: Ptr[Byte] = null
         var isMultiWindowEnabled: Ptr[Byte] = null
         var getEditorScale: Ptr[Byte] = null
         var popupDialog: Ptr[Byte] = null
@@ -420,11 +453,9 @@ object EditorInterface:
         var stopPlayingScene: Ptr[Byte] = null
         var isPlayingScene: Ptr[Byte] = null
         var getPlayingScene: Ptr[Byte] = null
-        var setMovieMakerEnabled: Ptr[Byte] = null
-        var isMovieMakerEnabled: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.restartEditor = GdxApi.getMethodBind(c"EditorInterface", c"restart_editor", 3216645846L)
+  def loadBinds(): Unit = {
+                Binds.restartEditor = GdxApi.getMethodBind(c"EditorInterface", c"restart_editor", 3216645846L)
             Binds.getCommandPalette = GdxApi.getMethodBind(c"EditorInterface", c"get_command_palette", 2471163807L)
             Binds.getResourceFilesystem = GdxApi.getMethodBind(c"EditorInterface", c"get_resource_filesystem", 780151678L)
             Binds.getEditorPaths = GdxApi.getMethodBind(c"EditorInterface", c"get_editor_paths", 1595760068L)
@@ -443,8 +474,6 @@ object EditorInterface:
             Binds.getEditorViewport2d = GdxApi.getMethodBind(c"EditorInterface", c"get_editor_viewport_2d", 3750751911L)
             Binds.getEditorViewport3d = GdxApi.getMethodBind(c"EditorInterface", c"get_editor_viewport_3d", 1970834490L)
             Binds.setMainScreenEditor = GdxApi.getMethodBind(c"EditorInterface", c"set_main_screen_editor", 83702148L)
-            Binds.setDistractionFreeMode = GdxApi.getMethodBind(c"EditorInterface", c"set_distraction_free_mode", 2586408642L)
-            Binds.isDistractionFreeModeEnabled = GdxApi.getMethodBind(c"EditorInterface", c"is_distraction_free_mode_enabled", 36873697L)
             Binds.isMultiWindowEnabled = GdxApi.getMethodBind(c"EditorInterface", c"is_multi_window_enabled", 36873697L)
             Binds.getEditorScale = GdxApi.getMethodBind(c"EditorInterface", c"get_editor_scale", 1740695150L)
             Binds.popupDialog = GdxApi.getMethodBind(c"EditorInterface", c"popup_dialog", 2015770942L)
@@ -484,5 +513,5 @@ object EditorInterface:
             Binds.stopPlayingScene = GdxApi.getMethodBind(c"EditorInterface", c"stop_playing_scene", 3218959716L)
             Binds.isPlayingScene = GdxApi.getMethodBind(c"EditorInterface", c"is_playing_scene", 36873697L)
             Binds.getPlayingScene = GdxApi.getMethodBind(c"EditorInterface", c"get_playing_scene", 201670096L)
-            Binds.setMovieMakerEnabled = GdxApi.getMethodBind(c"EditorInterface", c"set_movie_maker_enabled", 2586408642L)
-            Binds.isMovieMakerEnabled = GdxApi.getMethodBind(c"EditorInterface", c"is_movie_maker_enabled", 36873697L)
+  }
+}

@@ -5,80 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationTree extends AnimationMixer
-
-    def setTreeRoot(animationNode: AnimationRootNode): Unit =
+class AnimationTree extends AnimationMixer {
+    def setProcessCallback(mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = animationNode.ptr
-        GdxApi.ptrcall(AnimationTree.Binds.setTreeRoot, ptr, _args, null)
-
-    def getTreeRoot(): AnimationRootNode =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimationTree.Binds.getTreeRoot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new AnimationRootNode(!_ret)
-
-    def setAdvanceExpressionBaseNode(path: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(AnimationTree.Binds.setAdvanceExpressionBaseNode, ptr, _args, null)
-
-    def getAdvanceExpressionBaseNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimationTree.Binds.getAdvanceExpressionBaseNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setAnimationPlayer(path: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(AnimationTree.Binds.setAnimationPlayer, ptr, _args, null)
-
-    def getAnimationPlayer(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimationTree.Binds.getAnimationPlayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setProcessCallback(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationTree.Binds.setProcessCallback, ptr, _args, null)
+}
 
-    def getProcessCallback(): Int =
+    def getProcessCallback(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AnimationTree.Binds.getProcessCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def treeRoot: Ptr[Byte] = getTreeRoot()
-    def treeRoot_=(v: Ptr[Byte]): Unit = setTreeRoot(v)
-    def advanceExpressionBaseNode: Ptr[Byte] = getAdvanceExpressionBaseNode()
-    def advanceExpressionBaseNode_=(v: Ptr[Byte]): Unit = setAdvanceExpressionBaseNode(v)
-    def animPlayer: Ptr[Byte] = getAnimationPlayer()
-    def animPlayer_=(v: Ptr[Byte]): Unit = setAnimationPlayer(v)
+}
+
+    def treeRoot: AnimationRootNode = getTreeRoot()
+    def treeRoot_=(v: AnimationRootNode): Unit = setTreeRoot(v)
+    def advanceExpressionBaseNode: NodePath = getAdvanceExpressionBaseNode()
+    def advanceExpressionBaseNode_=(v: NodePath): Unit = setAdvanceExpressionBaseNode(v)
+    def animPlayer: NodePath = getAnimationPlayer()
+    def animPlayer_=(v: NodePath): Unit = setAnimationPlayer(v)
+}
 
 object AnimationTree:
-    object Binds:
-        var setTreeRoot: Ptr[Byte] = null
-        var getTreeRoot: Ptr[Byte] = null
-        var setAdvanceExpressionBaseNode: Ptr[Byte] = null
-        var getAdvanceExpressionBaseNode: Ptr[Byte] = null
-        var setAnimationPlayer: Ptr[Byte] = null
-        var getAnimationPlayer: Ptr[Byte] = null
-        var setProcessCallback: Ptr[Byte] = null
+object Binds {
+          var setProcessCallback: Ptr[Byte] = null
         var getProcessCallback: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTreeRoot = GdxApi.getMethodBind(c"AnimationTree", c"set_tree_root", 2581683800L)
-            Binds.getTreeRoot = GdxApi.getMethodBind(c"AnimationTree", c"get_tree_root", 4110384712L)
-            Binds.setAdvanceExpressionBaseNode = GdxApi.getMethodBind(c"AnimationTree", c"set_advance_expression_base_node", 1348162250L)
-            Binds.getAdvanceExpressionBaseNode = GdxApi.getMethodBind(c"AnimationTree", c"get_advance_expression_base_node", 4075236667L)
-            Binds.setAnimationPlayer = GdxApi.getMethodBind(c"AnimationTree", c"set_animation_player", 1348162250L)
-            Binds.getAnimationPlayer = GdxApi.getMethodBind(c"AnimationTree", c"get_animation_player", 4075236667L)
-            Binds.setProcessCallback = GdxApi.getMethodBind(c"AnimationTree", c"set_process_callback", 1723352826L)
+  def loadBinds(): Unit = {
+                Binds.setProcessCallback = GdxApi.getMethodBind(c"AnimationTree", c"set_process_callback", 1723352826L)
             Binds.getProcessCallback = GdxApi.getMethodBind(c"AnimationTree", c"get_process_callback", 891317132L)
+  }
+}
 
-    def apply(): AnimationTree =
-        val obj = new AnimationTree()
-        obj.ptr = GdxApi.constructObject(c"AnimationTree")
-        obj
+def apply(): AnimationTree = {
+  val obj = new AnimationTree()
+  obj.ptr = GdxApi.constructObject(c"AnimationTree")
+  obj
+}

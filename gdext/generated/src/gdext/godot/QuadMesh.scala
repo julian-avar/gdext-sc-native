@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class QuadMesh extends PlaneMesh
-
-
-
+class QuadMesh extends PlaneMesh {}
 
 object QuadMesh:
-    def apply(): QuadMesh =
-        val obj = new QuadMesh()
-        obj.ptr = GdxApi.constructObject(c"QuadMesh")
-        obj
+def apply(): QuadMesh = {
+  val obj = new QuadMesh()
+  obj.ptr = GdxApi.constructObject(c"QuadMesh")
+  obj
+}

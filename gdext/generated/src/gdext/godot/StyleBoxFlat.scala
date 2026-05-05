@@ -5,317 +5,100 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StyleBoxFlat extends StyleBox
-
-    def setBgColor(color: Color): Unit =
+class StyleBoxFlat extends StyleBox {
+    def setBorderWidthAll(width: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setBgColor, ptr, _args, null)
-
-    def getBgColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getBgColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setBorderColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setBorderColor, ptr, _args, null)
-
-    def getBorderColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getBorderColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setBorderWidthAll(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StyleBoxFlat.Binds.setBorderWidthAll, ptr, _args, null)
+}
 
-    def getBorderWidthMin(): Int =
+    def getBorderWidthMin(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StyleBoxFlat.Binds.getBorderWidthMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setBorderWidth(margin: Int, width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = margin.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setBorderWidth, ptr, _args, null)
-
-    def getBorderWidth(margin: Int): Int =
+    def setCornerRadiusAll(radius: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = margin.ptr
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getBorderWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBorderBlend(blend: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if blend then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setBorderBlend, ptr, _args, null)
-
-    def getBorderBlend(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getBorderBlend, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCornerRadiusAll(radius: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = radius.toLong
+        val _a0 = stackalloc[Long](); !_a0 = radius.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StyleBoxFlat.Binds.setCornerRadiusAll, ptr, _args, null)
+}
 
-    def setCornerRadius(corner: Int, radius: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = corner.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = radius.toLong
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setCornerRadius, ptr, _args, null)
-
-    def getCornerRadius(corner: Int): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = corner.ptr
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getCornerRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setExpandMargin(margin: Int, size: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = margin.ptr
-        val _a1 = stackalloc[Double](); !_a1 = size.toDouble
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setExpandMargin, ptr, _args, null)
-
-    def setExpandMarginAll(size: Float): Unit =
+    def setExpandMarginAll(size: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = size.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StyleBoxFlat.Binds.setExpandMarginAll, ptr, _args, null)
+}
 
-    def getExpandMargin(margin: Int): Float =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = margin.ptr
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getExpandMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDrawCenter(drawCenter: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if drawCenter then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setDrawCenter, ptr, _args, null)
-
-    def isDrawCenterEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.isDrawCenterEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSkew(skew: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skew.ptr
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setSkew, ptr, _args, null)
-
-    def getSkew(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getSkew, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setShadowColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setShadowColor, ptr, _args, null)
-
-    def getShadowColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getShadowColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setShadowSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setShadowSize, ptr, _args, null)
-
-    def getShadowSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getShadowSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setShadowOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setShadowOffset, ptr, _args, null)
-
-    def getShadowOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getShadowOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setAntiAliased(antiAliased: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if antiAliased then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setAntiAliased, ptr, _args, null)
-
-    def isAntiAliased(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.isAntiAliased, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAaSize(size: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = size.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setAaSize, ptr, _args, null)
-
-    def getAaSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getAaSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCornerDetail(detail: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = detail.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxFlat.Binds.setCornerDetail, ptr, _args, null)
-
-    def getCornerDetail(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(StyleBoxFlat.Binds.getCornerDetail, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def bgColor: Ptr[Byte] = getBgColor()
-    def bgColor_=(v: Ptr[Byte]): Unit = setBgColor(v)
-    def drawCenter: Ptr[Byte] = isDrawCenterEnabled()
-    def drawCenter_=(v: Ptr[Byte]): Unit = setDrawCenter(v)
-    def skew: Ptr[Byte] = getSkew()
-    def skew_=(v: Ptr[Byte]): Unit = setSkew(v)
-    def borderWidthLeft: Ptr[Byte] = getBorderWidth()
-    def borderWidthLeft_=(v: Ptr[Byte]): Unit = setBorderWidth(v)
-    def borderWidthTop: Ptr[Byte] = getBorderWidth()
-    def borderWidthTop_=(v: Ptr[Byte]): Unit = setBorderWidth(v)
-    def borderWidthRight: Ptr[Byte] = getBorderWidth()
-    def borderWidthRight_=(v: Ptr[Byte]): Unit = setBorderWidth(v)
-    def borderWidthBottom: Ptr[Byte] = getBorderWidth()
-    def borderWidthBottom_=(v: Ptr[Byte]): Unit = setBorderWidth(v)
-    def borderColor: Ptr[Byte] = getBorderColor()
-    def borderColor_=(v: Ptr[Byte]): Unit = setBorderColor(v)
-    def borderBlend: Ptr[Byte] = getBorderBlend()
-    def borderBlend_=(v: Ptr[Byte]): Unit = setBorderBlend(v)
-    def cornerRadiusTopLeft: Ptr[Byte] = getCornerRadius()
-    def cornerRadiusTopLeft_=(v: Ptr[Byte]): Unit = setCornerRadius(v)
-    def cornerRadiusTopRight: Ptr[Byte] = getCornerRadius()
-    def cornerRadiusTopRight_=(v: Ptr[Byte]): Unit = setCornerRadius(v)
-    def cornerRadiusBottomRight: Ptr[Byte] = getCornerRadius()
-    def cornerRadiusBottomRight_=(v: Ptr[Byte]): Unit = setCornerRadius(v)
-    def cornerRadiusBottomLeft: Ptr[Byte] = getCornerRadius()
-    def cornerRadiusBottomLeft_=(v: Ptr[Byte]): Unit = setCornerRadius(v)
-    def cornerDetail: Ptr[Byte] = getCornerDetail()
-    def cornerDetail_=(v: Ptr[Byte]): Unit = setCornerDetail(v)
-    def expandMarginLeft: Ptr[Byte] = getExpandMargin()
-    def expandMarginLeft_=(v: Ptr[Byte]): Unit = setExpandMargin(v)
-    def expandMarginTop: Ptr[Byte] = getExpandMargin()
-    def expandMarginTop_=(v: Ptr[Byte]): Unit = setExpandMargin(v)
-    def expandMarginRight: Ptr[Byte] = getExpandMargin()
-    def expandMarginRight_=(v: Ptr[Byte]): Unit = setExpandMargin(v)
-    def expandMarginBottom: Ptr[Byte] = getExpandMargin()
-    def expandMarginBottom_=(v: Ptr[Byte]): Unit = setExpandMargin(v)
-    def shadowColor: Ptr[Byte] = getShadowColor()
-    def shadowColor_=(v: Ptr[Byte]): Unit = setShadowColor(v)
-    def shadowSize: Ptr[Byte] = getShadowSize()
-    def shadowSize_=(v: Ptr[Byte]): Unit = setShadowSize(v)
-    def shadowOffset: Ptr[Byte] = getShadowOffset()
-    def shadowOffset_=(v: Ptr[Byte]): Unit = setShadowOffset(v)
-    def antiAliasing: Ptr[Byte] = isAntiAliased()
-    def antiAliasing_=(v: Ptr[Byte]): Unit = setAntiAliased(v)
-    def antiAliasingSize: Ptr[Byte] = getAaSize()
-    def antiAliasingSize_=(v: Ptr[Byte]): Unit = setAaSize(v)
+    def bgColor: Color = getBgColor()
+    def bgColor_=(v: Color): Unit = setBgColor(v)
+    def drawCenter: Boolean = isDrawCenterEnabled()
+    def drawCenter_=(v: Boolean): Unit = setDrawCenter(v)
+    def skew: Vector2 = getSkew()
+    def skew_=(v: Vector2): Unit = setSkew(v)
+    def borderWidthLeft: Int = getBorderWidth()
+    def borderWidthLeft_=(v: Int): Unit = setBorderWidth(v)
+    def borderWidthTop: Int = getBorderWidth()
+    def borderWidthTop_=(v: Int): Unit = setBorderWidth(v)
+    def borderWidthRight: Int = getBorderWidth()
+    def borderWidthRight_=(v: Int): Unit = setBorderWidth(v)
+    def borderWidthBottom: Int = getBorderWidth()
+    def borderWidthBottom_=(v: Int): Unit = setBorderWidth(v)
+    def borderColor: Color = getBorderColor()
+    def borderColor_=(v: Color): Unit = setBorderColor(v)
+    def borderBlend: Boolean = getBorderBlend()
+    def borderBlend_=(v: Boolean): Unit = setBorderBlend(v)
+    def cornerRadiusTopLeft: Int = getCornerRadius()
+    def cornerRadiusTopLeft_=(v: Int): Unit = setCornerRadius(v)
+    def cornerRadiusTopRight: Int = getCornerRadius()
+    def cornerRadiusTopRight_=(v: Int): Unit = setCornerRadius(v)
+    def cornerRadiusBottomRight: Int = getCornerRadius()
+    def cornerRadiusBottomRight_=(v: Int): Unit = setCornerRadius(v)
+    def cornerRadiusBottomLeft: Int = getCornerRadius()
+    def cornerRadiusBottomLeft_=(v: Int): Unit = setCornerRadius(v)
+    def cornerDetail: Int = getCornerDetail()
+    def cornerDetail_=(v: Int): Unit = setCornerDetail(v)
+    def expandMarginLeft: Float = getExpandMargin()
+    def expandMarginLeft_=(v: Int): Unit = setExpandMargin(v)
+    def expandMarginTop: Float = getExpandMargin()
+    def expandMarginTop_=(v: Int): Unit = setExpandMargin(v)
+    def expandMarginRight: Float = getExpandMargin()
+    def expandMarginRight_=(v: Int): Unit = setExpandMargin(v)
+    def expandMarginBottom: Float = getExpandMargin()
+    def expandMarginBottom_=(v: Int): Unit = setExpandMargin(v)
+    def shadowColor: Color = getShadowColor()
+    def shadowColor_=(v: Color): Unit = setShadowColor(v)
+    def shadowSize: Int = getShadowSize()
+    def shadowSize_=(v: Int): Unit = setShadowSize(v)
+    def shadowOffset: Vector2 = getShadowOffset()
+    def shadowOffset_=(v: Vector2): Unit = setShadowOffset(v)
+    def antiAliasing: Boolean = isAntiAliased()
+    def antiAliasing_=(v: Boolean): Unit = setAntiAliased(v)
+    def antiAliasingSize: Float = getAaSize()
+    def antiAliasingSize_=(v: Float): Unit = setAaSize(v)
+}
 
 object StyleBoxFlat:
-    object Binds:
-        var setBgColor: Ptr[Byte] = null
-        var getBgColor: Ptr[Byte] = null
-        var setBorderColor: Ptr[Byte] = null
-        var getBorderColor: Ptr[Byte] = null
-        var setBorderWidthAll: Ptr[Byte] = null
+object Binds {
+          var setBorderWidthAll: Ptr[Byte] = null
         var getBorderWidthMin: Ptr[Byte] = null
-        var setBorderWidth: Ptr[Byte] = null
-        var getBorderWidth: Ptr[Byte] = null
-        var setBorderBlend: Ptr[Byte] = null
-        var getBorderBlend: Ptr[Byte] = null
         var setCornerRadiusAll: Ptr[Byte] = null
-        var setCornerRadius: Ptr[Byte] = null
-        var getCornerRadius: Ptr[Byte] = null
-        var setExpandMargin: Ptr[Byte] = null
         var setExpandMarginAll: Ptr[Byte] = null
-        var getExpandMargin: Ptr[Byte] = null
-        var setDrawCenter: Ptr[Byte] = null
-        var isDrawCenterEnabled: Ptr[Byte] = null
-        var setSkew: Ptr[Byte] = null
-        var getSkew: Ptr[Byte] = null
-        var setShadowColor: Ptr[Byte] = null
-        var getShadowColor: Ptr[Byte] = null
-        var setShadowSize: Ptr[Byte] = null
-        var getShadowSize: Ptr[Byte] = null
-        var setShadowOffset: Ptr[Byte] = null
-        var getShadowOffset: Ptr[Byte] = null
-        var setAntiAliased: Ptr[Byte] = null
-        var isAntiAliased: Ptr[Byte] = null
-        var setAaSize: Ptr[Byte] = null
-        var getAaSize: Ptr[Byte] = null
-        var setCornerDetail: Ptr[Byte] = null
-        var getCornerDetail: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setBgColor = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_bg_color", 2920490490L)
-            Binds.getBgColor = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_bg_color", 3444240500L)
-            Binds.setBorderColor = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_border_color", 2920490490L)
-            Binds.getBorderColor = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_border_color", 3444240500L)
-            Binds.setBorderWidthAll = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_border_width_all", 1286410249L)
+  def loadBinds(): Unit = {
+                Binds.setBorderWidthAll = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_border_width_all", 1286410249L)
             Binds.getBorderWidthMin = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_border_width_min", 3905245786L)
-            Binds.setBorderWidth = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_border_width", 437707142L)
-            Binds.getBorderWidth = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_border_width", 1983885014L)
-            Binds.setBorderBlend = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_border_blend", 2586408642L)
-            Binds.getBorderBlend = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_border_blend", 36873697L)
             Binds.setCornerRadiusAll = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_corner_radius_all", 1286410249L)
-            Binds.setCornerRadius = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_corner_radius", 2696158768L)
-            Binds.getCornerRadius = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_corner_radius", 3982397690L)
-            Binds.setExpandMargin = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_expand_margin", 4290182280L)
             Binds.setExpandMarginAll = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_expand_margin_all", 373806689L)
-            Binds.getExpandMargin = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_expand_margin", 2869120046L)
-            Binds.setDrawCenter = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_draw_center", 2586408642L)
-            Binds.isDrawCenterEnabled = GdxApi.getMethodBind(c"StyleBoxFlat", c"is_draw_center_enabled", 36873697L)
-            Binds.setSkew = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_skew", 743155724L)
-            Binds.getSkew = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_skew", 3341600327L)
-            Binds.setShadowColor = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_shadow_color", 2920490490L)
-            Binds.getShadowColor = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_shadow_color", 3444240500L)
-            Binds.setShadowSize = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_shadow_size", 1286410249L)
-            Binds.getShadowSize = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_shadow_size", 3905245786L)
-            Binds.setShadowOffset = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_shadow_offset", 743155724L)
-            Binds.getShadowOffset = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_shadow_offset", 3341600327L)
-            Binds.setAntiAliased = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_anti_aliased", 2586408642L)
-            Binds.isAntiAliased = GdxApi.getMethodBind(c"StyleBoxFlat", c"is_anti_aliased", 36873697L)
-            Binds.setAaSize = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_aa_size", 373806689L)
-            Binds.getAaSize = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_aa_size", 1740695150L)
-            Binds.setCornerDetail = GdxApi.getMethodBind(c"StyleBoxFlat", c"set_corner_detail", 1286410249L)
-            Binds.getCornerDetail = GdxApi.getMethodBind(c"StyleBoxFlat", c"get_corner_detail", 3905245786L)
+  }
+}
 
-    def apply(): StyleBoxFlat =
-        val obj = new StyleBoxFlat()
-        obj.ptr = GdxApi.constructObject(c"StyleBoxFlat")
-        obj
+def apply(): StyleBoxFlat = {
+  val obj = new StyleBoxFlat()
+  obj.ptr = GdxApi.constructObject(c"StyleBoxFlat")
+  obj
+}

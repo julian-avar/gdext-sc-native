@@ -5,50 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SeparationRayShape2D extends Shape2D
-
-    def setLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SeparationRayShape2D.Binds.setLength, ptr, _args, null)
-
-    def getLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SeparationRayShape2D.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSlideOnSlope(active: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SeparationRayShape2D.Binds.setSlideOnSlope, ptr, _args, null)
-
-    def getSlideOnSlope(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SeparationRayShape2D.Binds.getSlideOnSlope, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def length: Ptr[Byte] = getLength()
-    def length_=(v: Ptr[Byte]): Unit = setLength(v)
-    def slideOnSlope: Ptr[Byte] = getSlideOnSlope()
-    def slideOnSlope_=(v: Ptr[Byte]): Unit = setSlideOnSlope(v)
+class SeparationRayShape2D extends Shape2D {
+    def length: Float = getLength()
+    def length_=(v: Float): Unit = setLength(v)
+    def slideOnSlope: Boolean = getSlideOnSlope()
+    def slideOnSlope_=(v: Boolean): Unit = setSlideOnSlope(v)
+}
 
 object SeparationRayShape2D:
-    object Binds:
-        var setLength: Ptr[Byte] = null
-        var getLength: Ptr[Byte] = null
-        var setSlideOnSlope: Ptr[Byte] = null
-        var getSlideOnSlope: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setLength = GdxApi.getMethodBind(c"SeparationRayShape2D", c"set_length", 373806689L)
-            Binds.getLength = GdxApi.getMethodBind(c"SeparationRayShape2D", c"get_length", 1740695150L)
-            Binds.setSlideOnSlope = GdxApi.getMethodBind(c"SeparationRayShape2D", c"set_slide_on_slope", 2586408642L)
-            Binds.getSlideOnSlope = GdxApi.getMethodBind(c"SeparationRayShape2D", c"get_slide_on_slope", 36873697L)
-
-    def apply(): SeparationRayShape2D =
-        val obj = new SeparationRayShape2D()
-        obj.ptr = GdxApi.constructObject(c"SeparationRayShape2D")
-        obj
+def apply(): SeparationRayShape2D = {
+  val obj = new SeparationRayShape2D()
+  obj.ptr = GdxApi.constructObject(c"SeparationRayShape2D")
+  obj
+}

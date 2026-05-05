@@ -5,118 +5,91 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MultiplayerPeer extends PacketPeer
-
-    def setTransferChannel(channel: Int): Unit =
+class MultiplayerPeer extends PacketPeer {
+    def setTargetPeer(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = channel.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MultiplayerPeer.Binds.setTransferChannel, ptr, _args, null)
-
-    def getTransferChannel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MultiplayerPeer.Binds.getTransferChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTransferMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(MultiplayerPeer.Binds.setTransferMode, ptr, _args, null)
-
-    def getTransferMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(MultiplayerPeer.Binds.getTransferMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTargetPeer(id: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MultiplayerPeer.Binds.setTargetPeer, ptr, _args, null)
+}
 
-    def getPacketPeer(): Int =
+    def getPacketPeer(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.getPacketPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPacketChannel(): Int =
+    def getPacketChannel(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.getPacketChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPacketMode(): Int =
+    def getPacketMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.getPacketMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def poll(): Unit =
+    def poll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MultiplayerPeer.Binds.poll, ptr, _args, null)
+}
 
-    def close(): Unit =
+    def close(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MultiplayerPeer.Binds.close, ptr, _args, null)
+}
 
-    def disconnectPeer(peer: Int): Unit =
+    def disconnectPeer(peer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = peer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(MultiplayerPeer.Binds.disconnectPeer, ptr, _args, null)
+}
 
-    def getConnectionStatus(): Int =
+    def getConnectionStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.getConnectionStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getUniqueId(): Int =
+    def getUniqueId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.getUniqueId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def generateUniqueId(): Int =
+    def generateUniqueId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.generateUniqueId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setRefuseNewConnections(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MultiplayerPeer.Binds.setRefuseNewConnections, ptr, _args, null)
-
-    def isRefusingNewConnections(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(MultiplayerPeer.Binds.isRefusingNewConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isServerRelaySupported(): Boolean =
+    def isServerRelaySupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(MultiplayerPeer.Binds.isServerRelaySupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def refuseNewConnections: Ptr[Byte] = isRefusingNewConnections()
-    def refuseNewConnections_=(v: Ptr[Byte]): Unit = setRefuseNewConnections(v)
-    def transferMode: Ptr[Byte] = getTransferMode()
-    def transferMode_=(v: Ptr[Byte]): Unit = setTransferMode(v)
-    def transferChannel: Ptr[Byte] = getTransferChannel()
-    def transferChannel_=(v: Ptr[Byte]): Unit = setTransferChannel(v)
+}
+
+    def refuseNewConnections: Boolean = isRefusingNewConnections()
+    def refuseNewConnections_=(v: Boolean): Unit = setRefuseNewConnections(v)
+    def transferMode: Int = getTransferMode()
+    def transferMode_=(v: Int): Unit = setTransferMode(v)
+    def transferChannel: Int = getTransferChannel()
+    def transferChannel_=(v: Int): Unit = setTransferChannel(v)
+}
 
 object MultiplayerPeer:
-    object Binds:
-        var setTransferChannel: Ptr[Byte] = null
-        var getTransferChannel: Ptr[Byte] = null
-        var setTransferMode: Ptr[Byte] = null
-        var getTransferMode: Ptr[Byte] = null
-        var setTargetPeer: Ptr[Byte] = null
+object Binds {
+          var setTargetPeer: Ptr[Byte] = null
         var getPacketPeer: Ptr[Byte] = null
         var getPacketChannel: Ptr[Byte] = null
         var getPacketMode: Ptr[Byte] = null
@@ -126,16 +99,10 @@ object MultiplayerPeer:
         var getConnectionStatus: Ptr[Byte] = null
         var getUniqueId: Ptr[Byte] = null
         var generateUniqueId: Ptr[Byte] = null
-        var setRefuseNewConnections: Ptr[Byte] = null
-        var isRefusingNewConnections: Ptr[Byte] = null
         var isServerRelaySupported: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTransferChannel = GdxApi.getMethodBind(c"MultiplayerPeer", c"set_transfer_channel", 1286410249L)
-            Binds.getTransferChannel = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_transfer_channel", 3905245786L)
-            Binds.setTransferMode = GdxApi.getMethodBind(c"MultiplayerPeer", c"set_transfer_mode", 950411049L)
-            Binds.getTransferMode = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_transfer_mode", 3369852622L)
-            Binds.setTargetPeer = GdxApi.getMethodBind(c"MultiplayerPeer", c"set_target_peer", 1286410249L)
+  def loadBinds(): Unit = {
+                Binds.setTargetPeer = GdxApi.getMethodBind(c"MultiplayerPeer", c"set_target_peer", 1286410249L)
             Binds.getPacketPeer = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_packet_peer", 3905245786L)
             Binds.getPacketChannel = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_packet_channel", 3905245786L)
             Binds.getPacketMode = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_packet_mode", 3369852622L)
@@ -145,6 +112,6 @@ object MultiplayerPeer:
             Binds.getConnectionStatus = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_connection_status", 2147374275L)
             Binds.getUniqueId = GdxApi.getMethodBind(c"MultiplayerPeer", c"get_unique_id", 3905245786L)
             Binds.generateUniqueId = GdxApi.getMethodBind(c"MultiplayerPeer", c"generate_unique_id", 3905245786L)
-            Binds.setRefuseNewConnections = GdxApi.getMethodBind(c"MultiplayerPeer", c"set_refuse_new_connections", 2586408642L)
-            Binds.isRefusingNewConnections = GdxApi.getMethodBind(c"MultiplayerPeer", c"is_refusing_new_connections", 36873697L)
             Binds.isServerRelaySupported = GdxApi.getMethodBind(c"MultiplayerPeer", c"is_server_relay_supported", 36873697L)
+  }
+}

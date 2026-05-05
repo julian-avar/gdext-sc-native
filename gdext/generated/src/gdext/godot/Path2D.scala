@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Path2D extends Node2D
-
-    def setCurve(curve: Curve2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = curve.ptr
-        GdxApi.ptrcall(Path2D.Binds.setCurve, ptr, _args, null)
-
-    def getCurve(): Curve2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Path2D.Binds.getCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve2D(!_ret)
-    def curve: Ptr[Byte] = getCurve()
-    def curve_=(v: Ptr[Byte]): Unit = setCurve(v)
+class Path2D extends Node2D {
+    def curve: Curve2D = getCurve()
+    def curve_=(v: Curve2D): Unit = setCurve(v)
+}
 
 object Path2D:
-    object Binds:
-        var setCurve: Ptr[Byte] = null
-        var getCurve: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setCurve = GdxApi.getMethodBind(c"Path2D", c"set_curve", 659985499L)
-            Binds.getCurve = GdxApi.getMethodBind(c"Path2D", c"get_curve", 660369445L)
-
-    def apply(): Path2D =
-        val obj = new Path2D()
-        obj.ptr = GdxApi.constructObject(c"Path2D")
-        obj
+def apply(): Path2D = {
+  val obj = new Path2D()
+  obj.ptr = GdxApi.constructObject(c"Path2D")
+  obj
+}

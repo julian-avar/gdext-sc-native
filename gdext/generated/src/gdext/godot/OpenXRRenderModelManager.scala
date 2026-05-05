@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRRenderModelManager extends Node3D
-
-    def getTracker(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRRenderModelManager.Binds.getTracker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTracker(tracker: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tracker.ptr
-        GdxApi.ptrcall(OpenXRRenderModelManager.Binds.setTracker, ptr, _args, null)
-
-    def getMakeLocalToPose(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRRenderModelManager.Binds.getMakeLocalToPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setMakeLocalToPose(makeLocalToPose: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = makeLocalToPose.ptr
-        GdxApi.ptrcall(OpenXRRenderModelManager.Binds.setMakeLocalToPose, ptr, _args, null)
-    def tracker: Ptr[Byte] = getTracker()
-    def tracker_=(v: Ptr[Byte]): Unit = setTracker(v)
-    def makeLocalToPose: Ptr[Byte] = getMakeLocalToPose()
-    def makeLocalToPose_=(v: Ptr[Byte]): Unit = setMakeLocalToPose(v)
+class OpenXRRenderModelManager extends Node3D {
+    def tracker: Int = getTracker()
+    def tracker_=(v: Int): Unit = setTracker(v)
+    def makeLocalToPose: CString = getMakeLocalToPose()
+    def makeLocalToPose_=(v: CString): Unit = setMakeLocalToPose(v)
+}
 
 object OpenXRRenderModelManager:
-    object Binds:
-        var getTracker: Ptr[Byte] = null
-        var setTracker: Ptr[Byte] = null
-        var getMakeLocalToPose: Ptr[Byte] = null
-        var setMakeLocalToPose: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getTracker = GdxApi.getMethodBind(c"OpenXRRenderModelManager", c"get_tracker", 2456466356L)
-            Binds.setTracker = GdxApi.getMethodBind(c"OpenXRRenderModelManager", c"set_tracker", 2814627380L)
-            Binds.getMakeLocalToPose = GdxApi.getMethodBind(c"OpenXRRenderModelManager", c"get_make_local_to_pose", 201670096L)
-            Binds.setMakeLocalToPose = GdxApi.getMethodBind(c"OpenXRRenderModelManager", c"set_make_local_to_pose", 83702148L)
-
-    def apply(): OpenXRRenderModelManager =
-        val obj = new OpenXRRenderModelManager()
-        obj.ptr = GdxApi.constructObject(c"OpenXRRenderModelManager")
-        obj
+def apply(): OpenXRRenderModelManager = {
+  val obj = new OpenXRRenderModelManager()
+  obj.ptr = GdxApi.constructObject(c"OpenXRRenderModelManager")
+  obj
+}

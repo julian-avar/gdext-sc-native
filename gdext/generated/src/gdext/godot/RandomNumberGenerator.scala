@@ -5,51 +5,29 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RandomNumberGenerator extends RefCounted
-
-    def setSeed(seed: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = seed
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RandomNumberGenerator.Binds.setSeed, ptr, _args, null)
-
-    def getSeed(): Long =
+class RandomNumberGenerator extends RefCounted {
+    def randi(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RandomNumberGenerator.Binds.getSeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setState(state: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = state
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RandomNumberGenerator.Binds.setState, ptr, _args, null)
-
-    def getState(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RandomNumberGenerator.Binds.getState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def randi(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randi, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def randf(): Float =
+    def randf(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def randfn(): Float =
+    def randfn(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randfn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def randfRange(from: Float, to: Float): Float =
+    def randfRange(from: Float, to: Float): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         val _a0 = stackalloc[Double](); !_a0 = from.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -58,39 +36,41 @@ class RandomNumberGenerator extends RefCounted
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randfRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def randiRange(from: Int, to: Int): Int =
+    def randiRange(from: Int, to: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = from.toLong
+        val _a0 = stackalloc[Long](); !_a0 = from.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = to.toLong
+        val _a1 = stackalloc[Long](); !_a1 = to.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randiRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def randWeighted(weights: PackedFloat32Array): Long =
+    def randWeighted(weights: PackedFloat32Array): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = weights.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randWeighted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def randomize(): Unit =
+    def randomize(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RandomNumberGenerator.Binds.randomize, ptr, _args, null)
-    def seed: Ptr[Byte] = getSeed()
-    def seed_=(v: Ptr[Byte]): Unit = setSeed(v)
-    def state: Ptr[Byte] = getState()
-    def state_=(v: Ptr[Byte]): Unit = setState(v)
+}
+
+    def seed: Long = getSeed()
+    def seed_=(v: Long): Unit = setSeed(v)
+    def state: Long = getState()
+    def state_=(v: Long): Unit = setState(v)
+}
 
 object RandomNumberGenerator:
-    object Binds:
-        var setSeed: Ptr[Byte] = null
-        var getSeed: Ptr[Byte] = null
-        var setState: Ptr[Byte] = null
-        var getState: Ptr[Byte] = null
-        var randi: Ptr[Byte] = null
+object Binds {
+          var randi: Ptr[Byte] = null
         var randf: Ptr[Byte] = null
         var randfn: Ptr[Byte] = null
         var randfRange: Ptr[Byte] = null
@@ -98,20 +78,19 @@ object RandomNumberGenerator:
         var randWeighted: Ptr[Byte] = null
         var randomize: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSeed = GdxApi.getMethodBind(c"RandomNumberGenerator", c"set_seed", 1286410249L)
-            Binds.getSeed = GdxApi.getMethodBind(c"RandomNumberGenerator", c"get_seed", 2455072627L)
-            Binds.setState = GdxApi.getMethodBind(c"RandomNumberGenerator", c"set_state", 1286410249L)
-            Binds.getState = GdxApi.getMethodBind(c"RandomNumberGenerator", c"get_state", 3905245786L)
-            Binds.randi = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randi", 2455072627L)
+  def loadBinds(): Unit = {
+                Binds.randi = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randi", 2455072627L)
             Binds.randf = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randf", 191475506L)
             Binds.randfn = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randfn", 837325100L)
             Binds.randfRange = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randf_range", 4269894367L)
             Binds.randiRange = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randi_range", 50157827L)
             Binds.randWeighted = GdxApi.getMethodBind(c"RandomNumberGenerator", c"rand_weighted", 4189642986L)
             Binds.randomize = GdxApi.getMethodBind(c"RandomNumberGenerator", c"randomize", 3218959716L)
+  }
+}
 
-    def apply(): RandomNumberGenerator =
-        val obj = new RandomNumberGenerator()
-        obj.ptr = GdxApi.constructObject(c"RandomNumberGenerator")
-        obj
+def apply(): RandomNumberGenerator = {
+  val obj = new RandomNumberGenerator()
+  obj.ptr = GdxApi.constructObject(c"RandomNumberGenerator")
+  obj
+}

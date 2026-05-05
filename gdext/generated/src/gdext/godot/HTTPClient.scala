@@ -5,159 +5,141 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HTTPClient extends RefCounted
-
-    def connectToHost(host: CString): Int =
+class HTTPClient extends RefCounted {
+    def connectToHost(host: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = host.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = host
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.connectToHost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setConnection(connection: StreamPeer): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = connection.ptr
-        GdxApi.ptrcall(HTTPClient.Binds.setConnection, ptr, _args, null)
-
-    def getConnection(): StreamPeer =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(HTTPClient.Binds.getConnection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new StreamPeer(!_ret)
-
-    def requestRaw(method: Int, url: CString, headers: PackedStringArray, body: PackedByteArray): Int =
+    def requestRaw(method: Int, url: CString, headers: PackedStringArray, body: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = method.ptr
-        _args(1) = url.ptr
+        val _a0 = stackalloc[Long](); !_a0 = method.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = url
         _args(2) = headers.ptr
         _args(3) = body.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.requestRaw, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def request(method: Int, url: CString, headers: PackedStringArray): Int =
+    def request(method: Int, url: CString, headers: PackedStringArray): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = method.ptr
-        _args(1) = url.ptr
+        val _a0 = stackalloc[Long](); !_a0 = method.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = url
         _args(2) = headers.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.request, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def close(): Unit =
+    def close(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(HTTPClient.Binds.close, ptr, _args, null)
+}
 
-    def hasResponse(): Boolean =
+    def hasResponse(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(HTTPClient.Binds.hasResponse, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isResponseChunked(): Boolean =
+    def isResponseChunked(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(HTTPClient.Binds.isResponseChunked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getResponseCode(): Int =
+    def getResponseCode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.getResponseCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getResponseHeaders(): PackedStringArray =
+    def getResponseHeaders(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(HTTPClient.Binds.getResponseHeaders, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getResponseHeadersAsDictionary(): Dictionary =
+    def getResponseHeadersAsDictionary(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(HTTPClient.Binds.getResponseHeadersAsDictionary, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getResponseBodyLength(): Long =
+    def getResponseBodyLength(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.getResponseBodyLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def readResponseBodyChunk(): PackedByteArray =
+    def readResponseBodyChunk(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(HTTPClient.Binds.readResponseBodyChunk, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def setReadChunkSize(bytes: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bytes.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPClient.Binds.setReadChunkSize, ptr, _args, null)
-
-    def getReadChunkSize(): Int =
+    def getStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(HTTPClient.Binds.getReadChunkSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBlockingMode(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPClient.Binds.setBlockingMode, ptr, _args, null)
-
-    def isBlockingModeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(HTTPClient.Binds.isBlockingModeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getStatus(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.getStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def poll(): Int =
+    def poll(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPClient.Binds.poll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setHttpProxy(host: CString, port: Int): Unit =
+    def setHttpProxy(host: CString, port: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = host.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = host
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HTTPClient.Binds.setHttpProxy, ptr, _args, null)
+}
 
-    def setHttpsProxy(host: CString, port: Int): Unit =
+    def setHttpsProxy(host: CString, port: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = host.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = host
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HTTPClient.Binds.setHttpsProxy, ptr, _args, null)
+}
 
-    def queryStringFromDict(fields: Dictionary): CString =
+    def queryStringFromDict(fields: Dictionary): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fields.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(HTTPClient.Binds.queryStringFromDict, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def blockingModeEnabled: Ptr[Byte] = isBlockingModeEnabled()
-    def blockingModeEnabled_=(v: Ptr[Byte]): Unit = setBlockingMode(v)
-    def connection: Ptr[Byte] = getConnection()
-    def connection_=(v: Ptr[Byte]): Unit = setConnection(v)
-    def readChunkSize: Ptr[Byte] = getReadChunkSize()
-    def readChunkSize_=(v: Ptr[Byte]): Unit = setReadChunkSize(v)
+}
+
+    def blockingModeEnabled: Boolean = isBlockingModeEnabled()
+    def blockingModeEnabled_=(v: Boolean): Unit = setBlockingMode(v)
+    def connection: StreamPeer = getConnection()
+    def connection_=(v: StreamPeer): Unit = setConnection(v)
+    def readChunkSize: Int = getReadChunkSize()
+    def readChunkSize_=(v: Int): Unit = setReadChunkSize(v)
+}
 
 object HTTPClient:
-    object Binds:
-        var connectToHost: Ptr[Byte] = null
-        var setConnection: Ptr[Byte] = null
-        var getConnection: Ptr[Byte] = null
+object Binds {
+          var connectToHost: Ptr[Byte] = null
         var requestRaw: Ptr[Byte] = null
         var request: Ptr[Byte] = null
         var close: Ptr[Byte] = null
@@ -168,20 +150,14 @@ object HTTPClient:
         var getResponseHeadersAsDictionary: Ptr[Byte] = null
         var getResponseBodyLength: Ptr[Byte] = null
         var readResponseBodyChunk: Ptr[Byte] = null
-        var setReadChunkSize: Ptr[Byte] = null
-        var getReadChunkSize: Ptr[Byte] = null
-        var setBlockingMode: Ptr[Byte] = null
-        var isBlockingModeEnabled: Ptr[Byte] = null
         var getStatus: Ptr[Byte] = null
         var poll: Ptr[Byte] = null
         var setHttpProxy: Ptr[Byte] = null
         var setHttpsProxy: Ptr[Byte] = null
         var queryStringFromDict: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.connectToHost = GdxApi.getMethodBind(c"HTTPClient", c"connect_to_host", 504540374L)
-            Binds.setConnection = GdxApi.getMethodBind(c"HTTPClient", c"set_connection", 3281897016L)
-            Binds.getConnection = GdxApi.getMethodBind(c"HTTPClient", c"get_connection", 2741655269L)
+  def loadBinds(): Unit = {
+                Binds.connectToHost = GdxApi.getMethodBind(c"HTTPClient", c"connect_to_host", 504540374L)
             Binds.requestRaw = GdxApi.getMethodBind(c"HTTPClient", c"request_raw", 540161961L)
             Binds.request = GdxApi.getMethodBind(c"HTTPClient", c"request", 3778990155L)
             Binds.close = GdxApi.getMethodBind(c"HTTPClient", c"close", 3218959716L)
@@ -192,17 +168,16 @@ object HTTPClient:
             Binds.getResponseHeadersAsDictionary = GdxApi.getMethodBind(c"HTTPClient", c"get_response_headers_as_dictionary", 2382534195L)
             Binds.getResponseBodyLength = GdxApi.getMethodBind(c"HTTPClient", c"get_response_body_length", 3905245786L)
             Binds.readResponseBodyChunk = GdxApi.getMethodBind(c"HTTPClient", c"read_response_body_chunk", 2115431945L)
-            Binds.setReadChunkSize = GdxApi.getMethodBind(c"HTTPClient", c"set_read_chunk_size", 1286410249L)
-            Binds.getReadChunkSize = GdxApi.getMethodBind(c"HTTPClient", c"get_read_chunk_size", 3905245786L)
-            Binds.setBlockingMode = GdxApi.getMethodBind(c"HTTPClient", c"set_blocking_mode", 2586408642L)
-            Binds.isBlockingModeEnabled = GdxApi.getMethodBind(c"HTTPClient", c"is_blocking_mode_enabled", 36873697L)
             Binds.getStatus = GdxApi.getMethodBind(c"HTTPClient", c"get_status", 1426656811L)
             Binds.poll = GdxApi.getMethodBind(c"HTTPClient", c"poll", 166280745L)
             Binds.setHttpProxy = GdxApi.getMethodBind(c"HTTPClient", c"set_http_proxy", 2956805083L)
             Binds.setHttpsProxy = GdxApi.getMethodBind(c"HTTPClient", c"set_https_proxy", 2956805083L)
             Binds.queryStringFromDict = GdxApi.getMethodBind(c"HTTPClient", c"query_string_from_dict", 2538086567L)
+  }
+}
 
-    def apply(): HTTPClient =
-        val obj = new HTTPClient()
-        obj.ptr = GdxApi.constructObject(c"HTTPClient")
-        obj
+def apply(): HTTPClient = {
+  val obj = new HTTPClient()
+  obj.ptr = GdxApi.constructObject(c"HTTPClient")
+  obj
+}

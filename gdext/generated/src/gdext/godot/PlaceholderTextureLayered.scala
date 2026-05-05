@@ -5,36 +5,9 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PlaceholderTextureLayered extends TextureLayered
-
-    def setSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(PlaceholderTextureLayered.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PlaceholderTextureLayered.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setLayers(layers: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layers.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PlaceholderTextureLayered.Binds.setLayers, ptr, _args, null)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
+class PlaceholderTextureLayered extends TextureLayered {
+    def size: Vector2i = getSize()
+    def size_=(v: Vector2i): Unit = setSize(v)
     def layers: Ptr[Byte] = getLayers()
-    def layers_=(v: Ptr[Byte]): Unit = setLayers(v)
-
-object PlaceholderTextureLayered:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setLayers: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"PlaceholderTextureLayered", c"set_size", 1130785943L)
-            Binds.getSize = GdxApi.getMethodBind(c"PlaceholderTextureLayered", c"get_size", 3690982128L)
-            Binds.setLayers = GdxApi.getMethodBind(c"PlaceholderTextureLayered", c"set_layers", 1286410249L)
+    def layers_=(v: Int): Unit = setLayers(v)
+}

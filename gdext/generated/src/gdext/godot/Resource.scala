@@ -5,175 +5,132 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Resource extends RefCounted
+class Resource extends RefCounted {
     def _setupLocalToScene(): Unit = ()
     def _getRid(): RID = null
     def _resetState(): Unit = ()
     def _setPathCache(path: CString): Unit = ()
-    def setPath(path: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(Resource.Binds.setPath, ptr, _args, null)
 
-    def takeOverPath(path: CString): Unit =
+    def takeOverPath(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(Resource.Binds.takeOverPath, ptr, _args, null)
+}
 
-    def getPath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Resource.Binds.getPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPathCache(path: CString): Unit =
+    def setPathCache(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(Resource.Binds.setPathCache, ptr, _args, null)
+}
 
-    def setName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(Resource.Binds.setName, ptr, _args, null)
-
-    def getName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Resource.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getRid(): RID =
+    def getRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Resource.Binds.getRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setLocalToScene(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Resource.Binds.setLocalToScene, ptr, _args, null)
-
-    def isLocalToScene(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Resource.Binds.isLocalToScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getLocalScene(): Node =
+    def getLocalScene(): Node = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Resource.Binds.getLocalScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def setupLocalToScene(): Unit =
+    def setupLocalToScene(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Resource.Binds.setupLocalToScene, ptr, _args, null)
+}
 
-    def resetState(): Unit =
+    def resetState(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Resource.Binds.resetState, ptr, _args, null)
+}
 
-    def setIdForPath(path: CString, id: CString): Unit =
+    def setIdForPath(path: CString, id: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
-        _args(1) = id.ptr
+        _args(0) = path
+        _args(1) = id
         GdxApi.ptrcall(Resource.Binds.setIdForPath, ptr, _args, null)
+}
 
-    def getIdForPath(path: CString): CString =
+    def getIdForPath(path: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Resource.Binds.getIdForPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isBuiltIn(): Boolean =
+    def isBuiltIn(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Resource.Binds.isBuiltIn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSceneUniqueId(id: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = id.ptr
-        GdxApi.ptrcall(Resource.Binds.setSceneUniqueId, ptr, _args, null)
-
-    def getSceneUniqueId(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Resource.Binds.getSceneUniqueId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def emitChanged(): Unit =
+    def emitChanged(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Resource.Binds.emitChanged, ptr, _args, null)
+}
 
-    def duplicate(): Resource =
+    def duplicate(): Resource = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Resource.Binds.duplicate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
+}
 
-    def duplicateDeep(): Resource =
+    def duplicateDeep(): Resource = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Resource.Binds.duplicateDeep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
-    def resourceLocalToScene: Ptr[Byte] = isLocalToScene()
-    def resourceLocalToScene_=(v: Ptr[Byte]): Unit = setLocalToScene(v)
-    def resourcePath: Ptr[Byte] = getPath()
-    def resourcePath_=(v: Ptr[Byte]): Unit = setPath(v)
-    def resourceName: Ptr[Byte] = getName()
-    def resourceName_=(v: Ptr[Byte]): Unit = setName(v)
-    def resourceSceneUniqueId: Ptr[Byte] = getSceneUniqueId()
-    def resourceSceneUniqueId_=(v: Ptr[Byte]): Unit = setSceneUniqueId(v)
+}
+
+    def resourceLocalToScene: Boolean = isLocalToScene()
+    def resourceLocalToScene_=(v: Boolean): Unit = setLocalToScene(v)
+    def resourcePath: CString = getPath()
+    def resourcePath_=(v: CString): Unit = setPath(v)
+    def resourceName: CString = getName()
+    def resourceName_=(v: CString): Unit = setName(v)
+    def resourceSceneUniqueId: CString = getSceneUniqueId()
+    def resourceSceneUniqueId_=(v: CString): Unit = setSceneUniqueId(v)
+}
 
 object Resource:
-    object Binds:
-        var setPath: Ptr[Byte] = null
-        var takeOverPath: Ptr[Byte] = null
-        var getPath: Ptr[Byte] = null
+object Binds {
+          var takeOverPath: Ptr[Byte] = null
         var setPathCache: Ptr[Byte] = null
-        var setName: Ptr[Byte] = null
-        var getName: Ptr[Byte] = null
         var getRid: Ptr[Byte] = null
-        var setLocalToScene: Ptr[Byte] = null
-        var isLocalToScene: Ptr[Byte] = null
         var getLocalScene: Ptr[Byte] = null
         var setupLocalToScene: Ptr[Byte] = null
         var resetState: Ptr[Byte] = null
         var setIdForPath: Ptr[Byte] = null
         var getIdForPath: Ptr[Byte] = null
         var isBuiltIn: Ptr[Byte] = null
-        var setSceneUniqueId: Ptr[Byte] = null
-        var getSceneUniqueId: Ptr[Byte] = null
         var emitChanged: Ptr[Byte] = null
         var duplicate: Ptr[Byte] = null
         var duplicateDeep: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPath = GdxApi.getMethodBind(c"Resource", c"set_path", 83702148L)
-            Binds.takeOverPath = GdxApi.getMethodBind(c"Resource", c"take_over_path", 83702148L)
-            Binds.getPath = GdxApi.getMethodBind(c"Resource", c"get_path", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.takeOverPath = GdxApi.getMethodBind(c"Resource", c"take_over_path", 83702148L)
             Binds.setPathCache = GdxApi.getMethodBind(c"Resource", c"set_path_cache", 83702148L)
-            Binds.setName = GdxApi.getMethodBind(c"Resource", c"set_name", 83702148L)
-            Binds.getName = GdxApi.getMethodBind(c"Resource", c"get_name", 201670096L)
             Binds.getRid = GdxApi.getMethodBind(c"Resource", c"get_rid", 2944877500L)
-            Binds.setLocalToScene = GdxApi.getMethodBind(c"Resource", c"set_local_to_scene", 2586408642L)
-            Binds.isLocalToScene = GdxApi.getMethodBind(c"Resource", c"is_local_to_scene", 36873697L)
             Binds.getLocalScene = GdxApi.getMethodBind(c"Resource", c"get_local_scene", 3160264692L)
             Binds.setupLocalToScene = GdxApi.getMethodBind(c"Resource", c"setup_local_to_scene", 3218959716L)
             Binds.resetState = GdxApi.getMethodBind(c"Resource", c"reset_state", 3218959716L)
             Binds.setIdForPath = GdxApi.getMethodBind(c"Resource", c"set_id_for_path", 3186203200L)
             Binds.getIdForPath = GdxApi.getMethodBind(c"Resource", c"get_id_for_path", 3135753539L)
             Binds.isBuiltIn = GdxApi.getMethodBind(c"Resource", c"is_built_in", 36873697L)
-            Binds.setSceneUniqueId = GdxApi.getMethodBind(c"Resource", c"set_scene_unique_id", 83702148L)
-            Binds.getSceneUniqueId = GdxApi.getMethodBind(c"Resource", c"get_scene_unique_id", 201670096L)
             Binds.emitChanged = GdxApi.getMethodBind(c"Resource", c"emit_changed", 3218959716L)
             Binds.duplicate = GdxApi.getMethodBind(c"Resource", c"duplicate", 482882304L)
             Binds.duplicateDeep = GdxApi.getMethodBind(c"Resource", c"duplicate_deep", 905779109L)
+  }
+}
 
-    def apply(): Resource =
-        val obj = new Resource()
-        obj.ptr = GdxApi.constructObject(c"Resource")
-        obj
+def apply(): Resource = {
+  val obj = new Resource()
+  obj.ptr = GdxApi.constructObject(c"Resource")
+  obj
+}

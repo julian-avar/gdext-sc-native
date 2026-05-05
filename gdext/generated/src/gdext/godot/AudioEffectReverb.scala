@@ -5,158 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectReverb extends AudioEffect
-
-    def setPredelayMsec(msec: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = msec.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setPredelayMsec, ptr, _args, null)
-
-    def getPredelayMsec(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getPredelayMsec, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPredelayFeedback(feedback: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = feedback.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setPredelayFeedback, ptr, _args, null)
-
-    def getPredelayFeedback(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getPredelayFeedback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRoomSize(size: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = size.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setRoomSize, ptr, _args, null)
-
-    def getRoomSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getRoomSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDamping(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setDamping, ptr, _args, null)
-
-    def getDamping(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getDamping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSpread(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setSpread, ptr, _args, null)
-
-    def getSpread(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getSpread, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDry(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setDry, ptr, _args, null)
-
-    def getDry(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getDry, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setWet(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setWet, ptr, _args, null)
-
-    def getWet(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getWet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHpf(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectReverb.Binds.setHpf, ptr, _args, null)
-
-    def getHpf(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectReverb.Binds.getHpf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def predelayMsec: Ptr[Byte] = getPredelayMsec()
-    def predelayMsec_=(v: Ptr[Byte]): Unit = setPredelayMsec(v)
-    def predelayFeedback: Ptr[Byte] = getPredelayFeedback()
-    def predelayFeedback_=(v: Ptr[Byte]): Unit = setPredelayFeedback(v)
-    def roomSize: Ptr[Byte] = getRoomSize()
-    def roomSize_=(v: Ptr[Byte]): Unit = setRoomSize(v)
-    def damping: Ptr[Byte] = getDamping()
-    def damping_=(v: Ptr[Byte]): Unit = setDamping(v)
-    def spread: Ptr[Byte] = getSpread()
-    def spread_=(v: Ptr[Byte]): Unit = setSpread(v)
-    def hipass: Ptr[Byte] = getHpf()
-    def hipass_=(v: Ptr[Byte]): Unit = setHpf(v)
-    def dry: Ptr[Byte] = getDry()
-    def dry_=(v: Ptr[Byte]): Unit = setDry(v)
-    def wet: Ptr[Byte] = getWet()
-    def wet_=(v: Ptr[Byte]): Unit = setWet(v)
+class AudioEffectReverb extends AudioEffect {
+    def predelayMsec: Float = getPredelayMsec()
+    def predelayMsec_=(v: Float): Unit = setPredelayMsec(v)
+    def predelayFeedback: Float = getPredelayFeedback()
+    def predelayFeedback_=(v: Float): Unit = setPredelayFeedback(v)
+    def roomSize: Float = getRoomSize()
+    def roomSize_=(v: Float): Unit = setRoomSize(v)
+    def damping: Float = getDamping()
+    def damping_=(v: Float): Unit = setDamping(v)
+    def spread: Float = getSpread()
+    def spread_=(v: Float): Unit = setSpread(v)
+    def hipass: Float = getHpf()
+    def hipass_=(v: Float): Unit = setHpf(v)
+    def dry: Float = getDry()
+    def dry_=(v: Float): Unit = setDry(v)
+    def wet: Float = getWet()
+    def wet_=(v: Float): Unit = setWet(v)
+}
 
 object AudioEffectReverb:
-    object Binds:
-        var setPredelayMsec: Ptr[Byte] = null
-        var getPredelayMsec: Ptr[Byte] = null
-        var setPredelayFeedback: Ptr[Byte] = null
-        var getPredelayFeedback: Ptr[Byte] = null
-        var setRoomSize: Ptr[Byte] = null
-        var getRoomSize: Ptr[Byte] = null
-        var setDamping: Ptr[Byte] = null
-        var getDamping: Ptr[Byte] = null
-        var setSpread: Ptr[Byte] = null
-        var getSpread: Ptr[Byte] = null
-        var setDry: Ptr[Byte] = null
-        var getDry: Ptr[Byte] = null
-        var setWet: Ptr[Byte] = null
-        var getWet: Ptr[Byte] = null
-        var setHpf: Ptr[Byte] = null
-        var getHpf: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPredelayMsec = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_predelay_msec", 373806689L)
-            Binds.getPredelayMsec = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_predelay_msec", 1740695150L)
-            Binds.setPredelayFeedback = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_predelay_feedback", 373806689L)
-            Binds.getPredelayFeedback = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_predelay_feedback", 1740695150L)
-            Binds.setRoomSize = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_room_size", 373806689L)
-            Binds.getRoomSize = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_room_size", 1740695150L)
-            Binds.setDamping = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_damping", 373806689L)
-            Binds.getDamping = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_damping", 1740695150L)
-            Binds.setSpread = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_spread", 373806689L)
-            Binds.getSpread = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_spread", 1740695150L)
-            Binds.setDry = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_dry", 373806689L)
-            Binds.getDry = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_dry", 1740695150L)
-            Binds.setWet = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_wet", 373806689L)
-            Binds.getWet = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_wet", 1740695150L)
-            Binds.setHpf = GdxApi.getMethodBind(c"AudioEffectReverb", c"set_hpf", 373806689L)
-            Binds.getHpf = GdxApi.getMethodBind(c"AudioEffectReverb", c"get_hpf", 1740695150L)
-
-    def apply(): AudioEffectReverb =
-        val obj = new AudioEffectReverb()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectReverb")
-        obj
+def apply(): AudioEffectReverb = {
+  val obj = new AudioEffectReverb()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectReverb")
+  obj
+}

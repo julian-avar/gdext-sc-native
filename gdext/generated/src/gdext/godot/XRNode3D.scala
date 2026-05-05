@@ -5,63 +5,31 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRNode3D extends Node3D
-
-    def setTracker(trackerName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = trackerName.ptr
-        GdxApi.ptrcall(XRNode3D.Binds.setTracker, ptr, _args, null)
-
-    def getTracker(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRNode3D.Binds.getTracker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPoseName(pose: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pose.ptr
-        GdxApi.ptrcall(XRNode3D.Binds.setPoseName, ptr, _args, null)
-
-    def getPoseName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRNode3D.Binds.getPoseName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setShowWhenTracked(show: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if show then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(XRNode3D.Binds.setShowWhenTracked, ptr, _args, null)
-
-    def getShowWhenTracked(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(XRNode3D.Binds.getShowWhenTracked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getIsActive(): Boolean =
+class XRNode3D extends Node3D {
+    def getIsActive(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRNode3D.Binds.getIsActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getHasTrackingData(): Boolean =
+    def getHasTrackingData(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRNode3D.Binds.getHasTrackingData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPose(): XRPose =
+    def getPose(): XRPose = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRNode3D.Binds.getPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new XRPose(!_ret)
+}
 
-    def triggerHapticPulse(actionName: CString, frequency: Double, amplitude: Double, durationSec: Double, delaySec: Double): Unit =
+    def triggerHapticPulse(actionName: CString, frequency: Double, amplitude: Double, durationSec: Double, delaySec: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = actionName.ptr
+        _args(0) = actionName
         val _a1 = stackalloc[Double](); !_a1 = frequency
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = amplitude
@@ -71,39 +39,33 @@ class XRNode3D extends Node3D
         val _a4 = stackalloc[Double](); !_a4 = delaySec
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRNode3D.Binds.triggerHapticPulse, ptr, _args, null)
-    def tracker: Ptr[Byte] = getTracker()
-    def tracker_=(v: Ptr[Byte]): Unit = setTracker(v)
-    def pose: Ptr[Byte] = getPoseName()
-    def pose_=(v: Ptr[Byte]): Unit = setPoseName(v)
-    def showWhenTracked: Ptr[Byte] = getShowWhenTracked()
-    def showWhenTracked_=(v: Ptr[Byte]): Unit = setShowWhenTracked(v)
+}
+
+    def tracker: CString = getTracker()
+    def tracker_=(v: CString): Unit = setTracker(v)
+    def pose: CString = getPoseName()
+    def pose_=(v: CString): Unit = setPoseName(v)
+    def showWhenTracked: Boolean = getShowWhenTracked()
+    def showWhenTracked_=(v: Boolean): Unit = setShowWhenTracked(v)
+}
 
 object XRNode3D:
-    object Binds:
-        var setTracker: Ptr[Byte] = null
-        var getTracker: Ptr[Byte] = null
-        var setPoseName: Ptr[Byte] = null
-        var getPoseName: Ptr[Byte] = null
-        var setShowWhenTracked: Ptr[Byte] = null
-        var getShowWhenTracked: Ptr[Byte] = null
-        var getIsActive: Ptr[Byte] = null
+object Binds {
+          var getIsActive: Ptr[Byte] = null
         var getHasTrackingData: Ptr[Byte] = null
         var getPose: Ptr[Byte] = null
         var triggerHapticPulse: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTracker = GdxApi.getMethodBind(c"XRNode3D", c"set_tracker", 3304788590L)
-            Binds.getTracker = GdxApi.getMethodBind(c"XRNode3D", c"get_tracker", 2002593661L)
-            Binds.setPoseName = GdxApi.getMethodBind(c"XRNode3D", c"set_pose_name", 3304788590L)
-            Binds.getPoseName = GdxApi.getMethodBind(c"XRNode3D", c"get_pose_name", 2002593661L)
-            Binds.setShowWhenTracked = GdxApi.getMethodBind(c"XRNode3D", c"set_show_when_tracked", 2586408642L)
-            Binds.getShowWhenTracked = GdxApi.getMethodBind(c"XRNode3D", c"get_show_when_tracked", 36873697L)
-            Binds.getIsActive = GdxApi.getMethodBind(c"XRNode3D", c"get_is_active", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getIsActive = GdxApi.getMethodBind(c"XRNode3D", c"get_is_active", 36873697L)
             Binds.getHasTrackingData = GdxApi.getMethodBind(c"XRNode3D", c"get_has_tracking_data", 36873697L)
             Binds.getPose = GdxApi.getMethodBind(c"XRNode3D", c"get_pose", 2806551826L)
             Binds.triggerHapticPulse = GdxApi.getMethodBind(c"XRNode3D", c"trigger_haptic_pulse", 508576839L)
+  }
+}
 
-    def apply(): XRNode3D =
-        val obj = new XRNode3D()
-        obj.ptr = GdxApi.constructObject(c"XRNode3D")
-        obj
+def apply(): XRNode3D = {
+  val obj = new XRNode3D()
+  obj.ptr = GdxApi.constructObject(c"XRNode3D")
+  obj
+}

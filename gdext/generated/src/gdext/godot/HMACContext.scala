@@ -5,42 +5,48 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HMACContext extends RefCounted
-
-    def start(hashType: Int, key: PackedByteArray): Int =
+class HMACContext extends RefCounted {
+    def start(hashType: Int, key: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hashType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hashType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = key.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HMACContext.Binds.start, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def update(data: PackedByteArray): Int =
+    def update(data: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = data.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HMACContext.Binds.update, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def finish(): PackedByteArray =
+    def finish(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(HMACContext.Binds.finish, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
-
+}
+}
 
 object HMACContext:
-    object Binds:
-        var start: Ptr[Byte] = null
+object Binds {
+          var start: Ptr[Byte] = null
         var update: Ptr[Byte] = null
         var finish: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.start = GdxApi.getMethodBind(c"HMACContext", c"start", 3537364598L)
+  def loadBinds(): Unit = {
+                Binds.start = GdxApi.getMethodBind(c"HMACContext", c"start", 3537364598L)
             Binds.update = GdxApi.getMethodBind(c"HMACContext", c"update", 680677267L)
             Binds.finish = GdxApi.getMethodBind(c"HMACContext", c"finish", 2115431945L)
+  }
+}
 
-    def apply(): HMACContext =
-        val obj = new HMACContext()
-        obj.ptr = GdxApi.constructObject(c"HMACContext")
-        obj
+def apply(): HMACContext = {
+  val obj = new HMACContext()
+  obj.ptr = GdxApi.constructObject(c"HMACContext")
+  obj
+}

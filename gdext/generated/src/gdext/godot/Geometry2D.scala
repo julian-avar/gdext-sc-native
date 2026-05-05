@@ -5,9 +5,8 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Geometry2D extends Object
-
-    def isPointInCircle(point: Vector2, circlePosition: Vector2, circleRadius: Float): Boolean =
+class Geometry2D extends Object {
+    def isPointInCircle(point: Vector2, circlePosition: Vector2, circleRadius: Float): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = point.ptr
         _args(1) = circlePosition.ptr
@@ -16,8 +15,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Geometry2D.Binds.isPointInCircle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def segmentIntersectsCircle(segmentFrom: Vector2, segmentTo: Vector2, circlePosition: Vector2, circleRadius: Float): Float =
+    def segmentIntersectsCircle(segmentFrom: Vector2, segmentTo: Vector2, circlePosition: Vector2, circleRadius: Float): Float = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = segmentFrom.ptr
         _args(1) = segmentTo.ptr
@@ -27,8 +27,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Geometry2D.Binds.segmentIntersectsCircle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def segmentIntersectsSegment(fromA: Vector2, toA: Vector2, fromB: Vector2, toB: Vector2): Ptr[Byte] =
+    def segmentIntersectsSegment(fromA: Vector2, toA: Vector2, fromB: Vector2, toB: Vector2): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fromA.ptr
         _args(1) = toA.ptr
@@ -37,8 +38,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.segmentIntersectsSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def lineIntersectsLine(fromA: Vector2, dirA: Vector2, fromB: Vector2, dirB: Vector2): Ptr[Byte] =
+    def lineIntersectsLine(fromA: Vector2, dirA: Vector2, fromB: Vector2, dirB: Vector2): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fromA.ptr
         _args(1) = dirA.ptr
@@ -47,8 +49,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.lineIntersectsLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getClosestPointsBetweenSegments(p1: Vector2, q1: Vector2, p2: Vector2, q2: Vector2): PackedVector2Array =
+    def getClosestPointsBetweenSegments(p1: Vector2, q1: Vector2, p2: Vector2, q2: Vector2): PackedVector2Array = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = p1.ptr
         _args(1) = q1.ptr
@@ -57,8 +60,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.getClosestPointsBetweenSegments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector2Array(!_ret)
+}
 
-    def getClosestPointToSegment(point: Vector2, s1: Vector2, s2: Vector2): Vector2 =
+    def getClosestPointToSegment(point: Vector2, s1: Vector2, s2: Vector2): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = point.ptr
         _args(1) = s1.ptr
@@ -66,8 +70,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.getClosestPointToSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getClosestPointToSegmentUncapped(point: Vector2, s1: Vector2, s2: Vector2): Vector2 =
+    def getClosestPointToSegmentUncapped(point: Vector2, s1: Vector2, s2: Vector2): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = point.ptr
         _args(1) = s1.ptr
@@ -75,8 +80,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.getClosestPointToSegmentUncapped, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def pointIsInsideTriangle(point: Vector2, a: Vector2, b: Vector2, c: Vector2): Boolean =
+    def pointIsInsideTriangle(point: Vector2, a: Vector2, b: Vector2, c: Vector2): Boolean = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = point.ptr
         _args(1) = a.ptr
@@ -85,99 +91,112 @@ class Geometry2D extends Object
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Geometry2D.Binds.pointIsInsideTriangle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPolygonClockwise(polygon: PackedVector2Array): Boolean =
+    def isPolygonClockwise(polygon: PackedVector2Array): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = polygon.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Geometry2D.Binds.isPolygonClockwise, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPointInPolygon(point: Vector2, polygon: PackedVector2Array): Boolean =
+    def isPointInPolygon(point: Vector2, polygon: PackedVector2Array): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = point.ptr
         _args(1) = polygon.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Geometry2D.Binds.isPointInPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def triangulatePolygon(polygon: PackedVector2Array): PackedInt32Array =
+    def triangulatePolygon(polygon: PackedVector2Array): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = polygon.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.triangulatePolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def triangulateDelaunay(points: PackedVector2Array): PackedInt32Array =
+    def triangulateDelaunay(points: PackedVector2Array): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = points.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.triangulateDelaunay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def convexHull(points: PackedVector2Array): PackedVector2Array =
+    def convexHull(points: PackedVector2Array): PackedVector2Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = points.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.convexHull, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector2Array(!_ret)
+}
 
-    def decomposePolygonInConvex(polygon: PackedVector2Array): Ptr[Byte] =
+    def decomposePolygonInConvex(polygon: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = polygon.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.decomposePolygonInConvex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def mergePolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] =
+    def mergePolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polygonA.ptr
         _args(1) = polygonB.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.mergePolygons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clipPolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] =
+    def clipPolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polygonA.ptr
         _args(1) = polygonB.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.clipPolygons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def intersectPolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] =
+    def intersectPolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polygonA.ptr
         _args(1) = polygonB.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.intersectPolygons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def excludePolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] =
+    def excludePolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polygonA.ptr
         _args(1) = polygonB.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.excludePolygons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clipPolylineWithPolygon(polyline: PackedVector2Array, polygon: PackedVector2Array): Ptr[Byte] =
+    def clipPolylineWithPolygon(polyline: PackedVector2Array, polygon: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polyline.ptr
         _args(1) = polygon.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.clipPolylineWithPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def intersectPolylineWithPolygon(polyline: PackedVector2Array, polygon: PackedVector2Array): Ptr[Byte] =
+    def intersectPolylineWithPolygon(polyline: PackedVector2Array, polygon: PackedVector2Array): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polyline.ptr
         _args(1) = polygon.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.intersectPolylineWithPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def offsetPolygon(polygon: PackedVector2Array, delta: Float): Ptr[Byte] =
+    def offsetPolygon(polygon: PackedVector2Array, delta: Float): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polygon.ptr
         val _a1 = stackalloc[Double](); !_a1 = delta.toDouble
@@ -185,8 +204,9 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.offsetPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def offsetPolyline(polyline: PackedVector2Array, delta: Float): Ptr[Byte] =
+    def offsetPolyline(polyline: PackedVector2Array, delta: Float): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = polyline.ptr
         val _a1 = stackalloc[Double](); !_a1 = delta.toDouble
@@ -194,26 +214,29 @@ class Geometry2D extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.offsetPolyline, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def makeAtlas(sizes: PackedVector2Array): Dictionary =
+    def makeAtlas(sizes: PackedVector2Array): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = sizes.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.makeAtlas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def bresenhamLine(from: Vector2i, to: Vector2i): Ptr[Byte] =
+    def bresenhamLine(from: Vector2i, to: Vector2i): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = from.ptr
         _args(1) = to.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Geometry2D.Binds.bresenhamLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object Geometry2D:
-    object Binds:
-        var isPointInCircle: Ptr[Byte] = null
+object Binds {
+          var isPointInCircle: Ptr[Byte] = null
         var segmentIntersectsCircle: Ptr[Byte] = null
         var segmentIntersectsSegment: Ptr[Byte] = null
         var lineIntersectsLine: Ptr[Byte] = null
@@ -238,8 +261,8 @@ object Geometry2D:
         var makeAtlas: Ptr[Byte] = null
         var bresenhamLine: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isPointInCircle = GdxApi.getMethodBind(c"Geometry2D", c"is_point_in_circle", 2929491703L)
+  def loadBinds(): Unit = {
+                Binds.isPointInCircle = GdxApi.getMethodBind(c"Geometry2D", c"is_point_in_circle", 2929491703L)
             Binds.segmentIntersectsCircle = GdxApi.getMethodBind(c"Geometry2D", c"segment_intersects_circle", 1356928167L)
             Binds.segmentIntersectsSegment = GdxApi.getMethodBind(c"Geometry2D", c"segment_intersects_segment", 2058025344L)
             Binds.lineIntersectsLine = GdxApi.getMethodBind(c"Geometry2D", c"line_intersects_line", 2058025344L)
@@ -263,8 +286,11 @@ object Geometry2D:
             Binds.offsetPolyline = GdxApi.getMethodBind(c"Geometry2D", c"offset_polyline", 2328231778L)
             Binds.makeAtlas = GdxApi.getMethodBind(c"Geometry2D", c"make_atlas", 1337682371L)
             Binds.bresenhamLine = GdxApi.getMethodBind(c"Geometry2D", c"bresenham_line", 1989391000L)
+  }
+}
 
-    def apply(): Geometry2D =
-        val obj = new Geometry2D()
-        obj.ptr = GdxApi.constructObject(c"Geometry2D")
-        obj
+def apply(): Geometry2D = {
+  val obj = new Geometry2D()
+  obj.ptr = GdxApi.constructObject(c"Geometry2D")
+  obj
+}

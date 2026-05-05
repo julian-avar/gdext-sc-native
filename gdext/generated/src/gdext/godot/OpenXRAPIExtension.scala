@@ -5,297 +5,340 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRAPIExtension extends RefCounted
-
-    def getInstance(): Long =
+class OpenXRAPIExtension extends RefCounted {
+    def getInstance(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getInstance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSystemId(): Long =
+    def getSystemId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getSystemId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSession(): Long =
+    def getSession(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getSession, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def transformFromPose(pose: Ptr[Byte]): Transform3D =
+    def transformFromPose(pose: Ptr[Byte]): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = pose.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.transformFromPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def xrResult(result: Long, format: CString, args: Array): Boolean =
+    def xrResult(result: Long, format: CString, args: Ptr[Byte]): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = result
+        val _a0 = stackalloc[Long](); !_a0 = result
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = format.ptr
-        _args(2) = args.ptr
+        _args(1) = format
+        _args(2) = args
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.xrResult, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getInstanceProcAddr(name: CString): Long =
+    def getInstanceProcAddr(name: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getInstanceProcAddr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getErrorString(result: Long): CString =
+    def getErrorString(result: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = result
+        val _a0 = stackalloc[Long](); !_a0 = result
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getErrorString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSwapchainFormatName(swapchainFormat: Long): CString =
+    def getSwapchainFormatName(swapchainFormat: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = swapchainFormat
+        val _a0 = stackalloc[Long](); !_a0 = swapchainFormat
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getSwapchainFormatName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setObjectName(objectType: Long, objectHandle: Long, objectName: CString): Unit =
+    def setObjectName(objectType: Long, objectHandle: Long, objectName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = objectType
+        val _a0 = stackalloc[Long](); !_a0 = objectType
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = objectHandle
+        val _a1 = stackalloc[Long](); !_a1 = objectHandle
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = objectName.ptr
+        _args(2) = objectName
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setObjectName, ptr, _args, null)
+}
 
-    def beginDebugLabelRegion(labelName: CString): Unit =
+    def beginDebugLabelRegion(labelName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = labelName.ptr
+        _args(0) = labelName
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.beginDebugLabelRegion, ptr, _args, null)
+}
 
-    def endDebugLabelRegion(): Unit =
+    def endDebugLabelRegion(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.endDebugLabelRegion, ptr, _args, null)
+}
 
-    def insertDebugLabel(labelName: CString): Unit =
+    def insertDebugLabel(labelName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = labelName.ptr
+        _args(0) = labelName
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.insertDebugLabel, ptr, _args, null)
+}
 
-    def isInitialized(): Boolean =
+    def isInitialized(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.isInitialized, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isRunning(): Boolean =
+    def isRunning(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.isRunning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCustomPlaySpace(space: Ptr[Byte]): Unit =
+    def setCustomPlaySpace(space: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = space.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setCustomPlaySpace, ptr, _args, null)
+}
 
-    def getPlaySpace(): Long =
+    def getPlaySpace(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getPlaySpace, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPredictedDisplayTime(): Long =
+    def getPredictedDisplayTime(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getPredictedDisplayTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNextFrameTime(): Long =
+    def getNextFrameTime(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getNextFrameTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def canRender(): Boolean =
+    def canRender(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.canRender, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def findAction(name: CString, actionSet: RID): RID =
+    def findAction(name: CString, actionSet: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = actionSet.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.findAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def actionGetHandle(action: RID): Long =
+    def actionGetHandle(action: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = action.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.actionGetHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getHandTracker(handIndex: Int): Long =
+    def getHandTracker(handIndex: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = handIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = handIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getHandTracker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def registerCompositionLayerProvider(extension: OpenXRExtensionWrapper): Unit =
+    def registerCompositionLayerProvider(extension: OpenXRExtensionWrapper): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extension.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.registerCompositionLayerProvider, ptr, _args, null)
+}
 
-    def unregisterCompositionLayerProvider(extension: OpenXRExtensionWrapper): Unit =
+    def unregisterCompositionLayerProvider(extension: OpenXRExtensionWrapper): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extension.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.unregisterCompositionLayerProvider, ptr, _args, null)
+}
 
-    def registerProjectionViewsExtension(extension: OpenXRExtensionWrapper): Unit =
+    def registerProjectionViewsExtension(extension: OpenXRExtensionWrapper): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extension.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.registerProjectionViewsExtension, ptr, _args, null)
+}
 
-    def unregisterProjectionViewsExtension(extension: OpenXRExtensionWrapper): Unit =
+    def unregisterProjectionViewsExtension(extension: OpenXRExtensionWrapper): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extension.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.unregisterProjectionViewsExtension, ptr, _args, null)
+}
 
-    def registerFrameInfoExtension(extension: OpenXRExtensionWrapper): Unit =
+    def registerFrameInfoExtension(extension: OpenXRExtensionWrapper): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extension.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.registerFrameInfoExtension, ptr, _args, null)
+}
 
-    def unregisterFrameInfoExtension(extension: OpenXRExtensionWrapper): Unit =
+    def unregisterFrameInfoExtension(extension: OpenXRExtensionWrapper): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = extension.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.unregisterFrameInfoExtension, ptr, _args, null)
+}
 
-    def getRenderStateZNear(): Double =
+    def getRenderStateZNear(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getRenderStateZNear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getRenderStateZFar(): Double =
+    def getRenderStateZFar(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getRenderStateZFar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setVelocityTexture(renderTarget: RID): Unit =
+    def setVelocityTexture(renderTarget: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = renderTarget.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setVelocityTexture, ptr, _args, null)
+}
 
-    def setVelocityDepthTexture(renderTarget: RID): Unit =
+    def setVelocityDepthTexture(renderTarget: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = renderTarget.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setVelocityDepthTexture, ptr, _args, null)
+}
 
-    def setVelocityTargetSize(targetSize: Vector2i): Unit =
+    def setVelocityTargetSize(targetSize: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = targetSize.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setVelocityTargetSize, ptr, _args, null)
+}
 
-    def getSupportedSwapchainFormats(): PackedInt64Array =
+    def getSupportedSwapchainFormats(): PackedInt64Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getSupportedSwapchainFormats, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def openxrSwapchainCreate(createFlags: Long, usageFlags: Long, swapchainFormat: Long, width: Int, height: Int, sampleCount: Int, arraySize: Int): Long =
+    def openxrSwapchainCreate(createFlags: Long, usageFlags: Long, swapchainFormat: Long, width: Int, height: Int, sampleCount: Int, arraySize: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](7)
-        val _a0 = stackalloc[CLong](); !_a0 = createFlags
+        val _a0 = stackalloc[Long](); !_a0 = createFlags
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = usageFlags
+        val _a1 = stackalloc[Long](); !_a1 = usageFlags
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = swapchainFormat
+        val _a2 = stackalloc[Long](); !_a2 = swapchainFormat
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = width.toLong
+        val _a3 = stackalloc[Long](); !_a3 = width.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = height.toLong
+        val _a4 = stackalloc[Long](); !_a4 = height.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = sampleCount.toLong
+        val _a5 = stackalloc[Long](); !_a5 = sampleCount.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
-        val _a6 = stackalloc[CLong](); !_a6 = arraySize.toLong
+        val _a6 = stackalloc[Long](); !_a6 = arraySize.toLong
         _args(6) = _a6.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.openxrSwapchainCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def openxrSwapchainFree(swapchain: Long): Unit =
+    def openxrSwapchainFree(swapchain: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = swapchain
+        val _a0 = stackalloc[Long](); !_a0 = swapchain
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.openxrSwapchainFree, ptr, _args, null)
+}
 
-    def openxrSwapchainGetSwapchain(swapchain: Long): Long =
+    def openxrSwapchainGetSwapchain(swapchain: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = swapchain
+        val _a0 = stackalloc[Long](); !_a0 = swapchain
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.openxrSwapchainGetSwapchain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def openxrSwapchainAcquire(swapchain: Long): Unit =
+    def openxrSwapchainAcquire(swapchain: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = swapchain
+        val _a0 = stackalloc[Long](); !_a0 = swapchain
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.openxrSwapchainAcquire, ptr, _args, null)
+}
 
-    def openxrSwapchainGetImage(swapchain: Long): RID =
+    def openxrSwapchainGetImage(swapchain: Long): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = swapchain
+        val _a0 = stackalloc[Long](); !_a0 = swapchain
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.openxrSwapchainGetImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def openxrSwapchainRelease(swapchain: Long): Unit =
+    def openxrSwapchainRelease(swapchain: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = swapchain
+        val _a0 = stackalloc[Long](); !_a0 = swapchain
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.openxrSwapchainRelease, ptr, _args, null)
+}
 
-    def getProjectionLayer(): Long =
+    def getProjectionLayer(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.getProjectionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setRenderRegion(renderRegion: Rect2i): Unit =
+    def setRenderRegion(renderRegion: Rect2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = renderRegion.ptr
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setRenderRegion, ptr, _args, null)
+}
 
-    def setEmulateEnvironmentBlendModeAlphaBlend(enabled: Boolean): Unit =
+    def setEmulateEnvironmentBlendModeAlphaBlend(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.setEmulateEnvironmentBlendModeAlphaBlend, ptr, _args, null)
+}
 
-    def isEnvironmentBlendModeAlphaSupported(): Int =
+    def isEnvironmentBlendModeAlphaSupported(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRAPIExtension.Binds.isEnvironmentBlendModeAlphaSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object OpenXRAPIExtension:
-    object Binds:
-        var getInstance: Ptr[Byte] = null
+object Binds {
+          var getInstance: Ptr[Byte] = null
         var getSystemId: Ptr[Byte] = null
         var getSession: Ptr[Byte] = null
         var transformFromPose: Ptr[Byte] = null
@@ -340,8 +383,8 @@ object OpenXRAPIExtension:
         var setEmulateEnvironmentBlendModeAlphaBlend: Ptr[Byte] = null
         var isEnvironmentBlendModeAlphaSupported: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getInstance = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"get_instance", 2455072627L)
+  def loadBinds(): Unit = {
+                Binds.getInstance = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"get_instance", 2455072627L)
             Binds.getSystemId = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"get_system_id", 2455072627L)
             Binds.getSession = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"get_session", 2455072627L)
             Binds.transformFromPose = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"transform_from_pose", 2963875352L)
@@ -385,8 +428,11 @@ object OpenXRAPIExtension:
             Binds.setRenderRegion = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"set_render_region", 1763793166L)
             Binds.setEmulateEnvironmentBlendModeAlphaBlend = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"set_emulate_environment_blend_mode_alpha_blend", 2586408642L)
             Binds.isEnvironmentBlendModeAlphaSupported = GdxApi.getMethodBind(c"OpenXRAPIExtension", c"is_environment_blend_mode_alpha_supported", 1579290861L)
+  }
+}
 
-    def apply(): OpenXRAPIExtension =
-        val obj = new OpenXRAPIExtension()
-        obj.ptr = GdxApi.constructObject(c"OpenXRAPIExtension")
-        obj
+def apply(): OpenXRAPIExtension = {
+  val obj = new OpenXRAPIExtension()
+  obj.ptr = GdxApi.constructObject(c"OpenXRAPIExtension")
+  obj
+}

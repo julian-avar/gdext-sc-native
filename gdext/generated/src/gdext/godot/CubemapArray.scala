@@ -5,23 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CubemapArray extends ImageTextureLayered
-
-    def createPlaceholder(): Resource =
+class CubemapArray extends ImageTextureLayered {
+    def createPlaceholder(): Resource = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CubemapArray.Binds.createPlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Resource(!_ret)
-
+}
+}
 
 object CubemapArray:
-    object Binds:
-        var createPlaceholder: Ptr[Byte] = null
+object Binds {
+          var createPlaceholder: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createPlaceholder = GdxApi.getMethodBind(c"CubemapArray", c"create_placeholder", 121922552L)
+  def loadBinds(): Unit = {
+                Binds.createPlaceholder = GdxApi.getMethodBind(c"CubemapArray", c"create_placeholder", 121922552L)
+  }
+}
 
-    def apply(): CubemapArray =
-        val obj = new CubemapArray()
-        obj.ptr = GdxApi.constructObject(c"CubemapArray")
-        obj
+def apply(): CubemapArray = {
+  val obj = new CubemapArray()
+  obj.ptr = GdxApi.constructObject(c"CubemapArray")
+  obj
+}

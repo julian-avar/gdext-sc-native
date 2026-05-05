@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PointMesh extends PrimitiveMesh
-
-
-
+class PointMesh extends PrimitiveMesh {}
 
 object PointMesh:
-    def apply(): PointMesh =
-        val obj = new PointMesh()
-        obj.ptr = GdxApi.constructObject(c"PointMesh")
-        obj
+def apply(): PointMesh = {
+  val obj = new PointMesh()
+  obj.ptr = GdxApi.constructObject(c"PointMesh")
+  obj
+}

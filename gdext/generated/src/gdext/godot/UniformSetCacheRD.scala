@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class UniformSetCacheRD extends Object
-
-
-
+class UniformSetCacheRD extends Object {}
 
 object UniformSetCacheRD:
-    def apply(): UniformSetCacheRD =
-        val obj = new UniformSetCacheRD()
-        obj.ptr = GdxApi.constructObject(c"UniformSetCacheRD")
-        obj
+def apply(): UniformSetCacheRD = {
+  val obj = new UniformSetCacheRD()
+  obj.ptr = GdxApi.constructObject(c"UniformSetCacheRD")
+  obj
+}

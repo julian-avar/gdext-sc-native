@@ -5,177 +5,205 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Tween extends RefCounted
-
-    def tweenProperty(`object`: Object, property: NodePath, finalVal: Ptr[Byte], duration: Double): PropertyTweener =
+class Tween extends RefCounted {
+    def tweenProperty(`object`: Object, property: NodePath, finalVal: Ptr[Byte], duration: Double): PropertyTweener = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = `object`.ptr
         _args(1) = property.ptr
-        _args(2) = finalVal.ptr
+        _args(2) = finalVal
         val _a3 = stackalloc[Double](); !_a3 = duration
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.tweenProperty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PropertyTweener(!_ret)
+}
 
-    def tweenInterval(time: Double): IntervalTweener =
+    def tweenInterval(time: Double): IntervalTweener = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = time
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.tweenInterval, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new IntervalTweener(!_ret)
+}
 
-    def tweenCallback(callback: Callable): CallbackTweener =
+    def tweenCallback(callback: Callable): CallbackTweener = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.tweenCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CallbackTweener(!_ret)
+}
 
-    def tweenMethod(method: Callable, from: Ptr[Byte], to: Ptr[Byte], duration: Double): MethodTweener =
+    def tweenMethod(method: Callable, from: Ptr[Byte], to: Ptr[Byte], duration: Double): MethodTweener = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = method.ptr
-        _args(1) = from.ptr
-        _args(2) = to.ptr
+        _args(1) = from
+        _args(2) = to
         val _a3 = stackalloc[Double](); !_a3 = duration
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.tweenMethod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new MethodTweener(!_ret)
+}
 
-    def tweenSubtween(subtween: Tween): SubtweenTweener =
+    def tweenSubtween(subtween: Tween): SubtweenTweener = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = subtween.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.tweenSubtween, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SubtweenTweener(!_ret)
+}
 
-    def customStep(delta: Double): Boolean =
+    def customStep(delta: Double): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = delta
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Tween.Binds.customStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Tween.Binds.stop, ptr, _args, null)
+}
 
-    def pause(): Unit =
+    def pause(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Tween.Binds.pause, ptr, _args, null)
+}
 
-    def play(): Unit =
+    def play(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Tween.Binds.play, ptr, _args, null)
+}
 
-    def kill(): Unit =
+    def kill(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Tween.Binds.kill, ptr, _args, null)
+}
 
-    def getTotalElapsedTime(): Double =
+    def getTotalElapsedTime(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Tween.Binds.getTotalElapsedTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isRunning(): Boolean =
+    def isRunning(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Tween.Binds.isRunning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isValid(): Boolean =
+    def isValid(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Tween.Binds.isValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def bindNode(node: Node): Tween =
+    def bindNode(node: Node): Tween = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.bindNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setProcessMode(mode: Int): Tween =
+    def setProcessMode(mode: Int): Tween = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setProcessMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setPauseMode(mode: Int): Tween =
+    def setPauseMode(mode: Int): Tween = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setPauseMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setIgnoreTimeScale(): Tween =
+    def setIgnoreTimeScale(): Tween = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setIgnoreTimeScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setParallel(): Tween =
+    def setParallel(): Tween = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setParallel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setLoops(): Tween =
+    def setLoops(): Tween = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setLoops, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def getLoopsLeft(): Int =
+    def getLoopsLeft(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Tween.Binds.getLoopsLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSpeedScale(speed: Float): Tween =
+    def setSpeedScale(speed: Float): Tween = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = speed.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setSpeedScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setTrans(trans: Int): Tween =
+    def setTrans(trans: Int): Tween = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = trans.ptr
+        val _a0 = stackalloc[Long](); !_a0 = trans.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setTrans, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def setEase(ease: Int): Tween =
+    def setEase(ease: Int): Tween = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = ease.ptr
+        val _a0 = stackalloc[Long](); !_a0 = ease.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.setEase, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def parallel(): Tween =
+    def parallel(): Tween = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.parallel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
+}
 
-    def chain(): Tween =
+    def chain(): Tween = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Tween.Binds.chain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tween(!_ret)
-
+}
+}
 
 object Tween:
-    object Binds:
-        var tweenProperty: Ptr[Byte] = null
+object Binds {
+          var tweenProperty: Ptr[Byte] = null
         var tweenInterval: Ptr[Byte] = null
         var tweenCallback: Ptr[Byte] = null
         var tweenMethod: Ptr[Byte] = null
@@ -201,8 +229,8 @@ object Tween:
         var parallel: Ptr[Byte] = null
         var chain: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.tweenProperty = GdxApi.getMethodBind(c"Tween", c"tween_property", 4049770449L)
+  def loadBinds(): Unit = {
+                Binds.tweenProperty = GdxApi.getMethodBind(c"Tween", c"tween_property", 4049770449L)
             Binds.tweenInterval = GdxApi.getMethodBind(c"Tween", c"tween_interval", 413360199L)
             Binds.tweenCallback = GdxApi.getMethodBind(c"Tween", c"tween_callback", 1540176488L)
             Binds.tweenMethod = GdxApi.getMethodBind(c"Tween", c"tween_method", 2337877153L)
@@ -227,8 +255,11 @@ object Tween:
             Binds.setEase = GdxApi.getMethodBind(c"Tween", c"set_ease", 1208117252L)
             Binds.parallel = GdxApi.getMethodBind(c"Tween", c"parallel", 3426978995L)
             Binds.chain = GdxApi.getMethodBind(c"Tween", c"chain", 3426978995L)
+  }
+}
 
-    def apply(): Tween =
-        val obj = new Tween()
-        obj.ptr = GdxApi.constructObject(c"Tween")
-        obj
+def apply(): Tween = {
+  val obj = new Tween()
+  obj.ptr = GdxApi.constructObject(c"Tween")
+  obj
+}

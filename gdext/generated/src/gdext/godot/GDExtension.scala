@@ -5,31 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GDExtension extends Resource
-
-    def isLibraryOpen(): Boolean =
+class GDExtension extends Resource {
+    def isLibraryOpen(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(GDExtension.Binds.isLibraryOpen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMinimumLibraryInitializationLevel(): Int =
+    def getMinimumLibraryInitializationLevel(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GDExtension.Binds.getMinimumLibraryInitializationLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object GDExtension:
-    object Binds:
-        var isLibraryOpen: Ptr[Byte] = null
+object Binds {
+          var isLibraryOpen: Ptr[Byte] = null
         var getMinimumLibraryInitializationLevel: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isLibraryOpen = GdxApi.getMethodBind(c"GDExtension", c"is_library_open", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.isLibraryOpen = GdxApi.getMethodBind(c"GDExtension", c"is_library_open", 36873697L)
             Binds.getMinimumLibraryInitializationLevel = GdxApi.getMethodBind(c"GDExtension", c"get_minimum_library_initialization_level", 964858755L)
+  }
+}
 
-    def apply(): GDExtension =
-        val obj = new GDExtension()
-        obj.ptr = GdxApi.constructObject(c"GDExtension")
-        obj
+def apply(): GDExtension = {
+  val obj = new GDExtension()
+  obj.ptr = GdxApi.constructObject(c"GDExtension")
+  obj
+}

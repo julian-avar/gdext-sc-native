@@ -5,31 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VideoStream extends Resource
+class VideoStream extends Resource {
     def _instantiatePlayback(): VideoStreamPlayback = null
-    def setFile(file: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = file.ptr
-        GdxApi.ptrcall(VideoStream.Binds.setFile, ptr, _args, null)
 
-    def getFile(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VideoStream.Binds.getFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def file: Ptr[Byte] = getFile()
-    def file_=(v: Ptr[Byte]): Unit = setFile(v)
+    def file: CString = getFile()
+    def file_=(v: CString): Unit = setFile(v)
+}
 
 object VideoStream:
-    object Binds:
-        var setFile: Ptr[Byte] = null
-        var getFile: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFile = GdxApi.getMethodBind(c"VideoStream", c"set_file", 83702148L)
-            Binds.getFile = GdxApi.getMethodBind(c"VideoStream", c"get_file", 2841200299L)
-
-    def apply(): VideoStream =
-        val obj = new VideoStream()
-        obj.ptr = GdxApi.constructObject(c"VideoStream")
-        obj
+def apply(): VideoStream = {
+  val obj = new VideoStream()
+  obj.ptr = GdxApi.constructObject(c"VideoStream")
+  obj
+}

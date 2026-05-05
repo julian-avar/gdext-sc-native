@@ -5,149 +5,172 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TileMapLayer extends Node2D
+class TileMapLayer extends Node2D {
     def _useTileDataRuntimeUpdate(coords: Vector2i): Boolean = false
     def _tileDataRuntimeUpdate(coords: Vector2i, tileData: TileData): Unit = ()
     def _updateCells(coords: Ptr[Byte], forcedCleanup: Boolean): Unit = ()
-    def setCell(coords: Vector2i): Unit =
+
+    def setCell(coords: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         GdxApi.ptrcall(TileMapLayer.Binds.setCell, ptr, _args, null)
+}
 
-    def eraseCell(coords: Vector2i): Unit =
+    def eraseCell(coords: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         GdxApi.ptrcall(TileMapLayer.Binds.eraseCell, ptr, _args, null)
+}
 
-    def fixInvalidTiles(): Unit =
+    def fixInvalidTiles(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileMapLayer.Binds.fixInvalidTiles, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileMapLayer.Binds.clear, ptr, _args, null)
+}
 
-    def getCellSourceId(coords: Vector2i): Int =
+    def getCellSourceId(coords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileMapLayer.Binds.getCellSourceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCellAtlasCoords(coords: Vector2i): Vector2i =
+    def getCellAtlasCoords(coords: Vector2i): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getCellAtlasCoords, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getCellAlternativeTile(coords: Vector2i): Int =
+    def getCellAlternativeTile(coords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileMapLayer.Binds.getCellAlternativeTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCellTileData(coords: Vector2i): TileData =
+    def getCellTileData(coords: Vector2i): TileData = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getCellTileData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TileData(!_ret)
+}
 
-    def isCellFlippedH(coords: Vector2i): Boolean =
+    def isCellFlippedH(coords: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileMapLayer.Binds.isCellFlippedH, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isCellFlippedV(coords: Vector2i): Boolean =
+    def isCellFlippedV(coords: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileMapLayer.Binds.isCellFlippedV, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isCellTransposed(coords: Vector2i): Boolean =
+    def isCellTransposed(coords: Vector2i): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileMapLayer.Binds.isCellTransposed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getUsedCells(): Ptr[Byte] =
+    def getUsedCells(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getUsedCells, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getUsedCellsById(): Ptr[Byte] =
+    def getUsedCellsById(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getUsedCellsById, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getUsedRect(): Rect2i =
+    def getUsedRect(): Rect2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getUsedRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def getPattern(coordsArray: Ptr[Byte]): TileMapPattern =
+    def getPattern(coordsArray: Ptr[Byte]): TileMapPattern = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = coordsArray.ptr
+        _args(0) = coordsArray
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getPattern, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TileMapPattern(!_ret)
+}
 
-    def setPattern(position: Vector2i, pattern: TileMapPattern): Unit =
+    def setPattern(position: Vector2i, pattern: TileMapPattern): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = position.ptr
         _args(1) = pattern.ptr
         GdxApi.ptrcall(TileMapLayer.Binds.setPattern, ptr, _args, null)
+}
 
-    def setCellsTerrainConnect(cells: Ptr[Byte], terrainSet: Int, terrain: Int): Unit =
+    def setCellsTerrainConnect(cells: Ptr[Byte], terrainSet: Int, terrain: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = cells.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = terrainSet.toLong
+        _args(0) = cells
+        val _a1 = stackalloc[Long](); !_a1 = terrainSet.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = terrain.toLong
+        val _a2 = stackalloc[Long](); !_a2 = terrain.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileMapLayer.Binds.setCellsTerrainConnect, ptr, _args, null)
+}
 
-    def setCellsTerrainPath(path: Ptr[Byte], terrainSet: Int, terrain: Int): Unit =
+    def setCellsTerrainPath(path: Ptr[Byte], terrainSet: Int, terrain: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = path.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = terrainSet.toLong
+        _args(0) = path
+        val _a1 = stackalloc[Long](); !_a1 = terrainSet.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = terrain.toLong
+        val _a2 = stackalloc[Long](); !_a2 = terrain.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileMapLayer.Binds.setCellsTerrainPath, ptr, _args, null)
+}
 
-    def hasBodyRid(body: RID): Boolean =
+    def hasBodyRid(body: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileMapLayer.Binds.hasBodyRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCoordsForBodyRid(body: RID): Vector2i =
+    def getCoordsForBodyRid(body: RID): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getCoordsForBodyRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def updateInternals(): Unit =
+    def updateInternals(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileMapLayer.Binds.updateInternals, ptr, _args, null)
+}
 
-    def notifyRuntimeTileDataUpdate(): Unit =
+    def notifyRuntimeTileDataUpdate(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileMapLayer.Binds.notifyRuntimeTileDataUpdate, ptr, _args, null)
+}
 
-    def mapPattern(positionInTilemap: Vector2i, coordsInPattern: Vector2i, pattern: TileMapPattern): Vector2i =
+    def mapPattern(positionInTilemap: Vector2i, coordsInPattern: Vector2i, pattern: TileMapPattern): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = positionInTilemap.ptr
         _args(1) = coordsInPattern.ptr
@@ -155,228 +178,86 @@ class TileMapLayer extends Node2D
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.mapPattern, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getSurroundingCells(coords: Vector2i): Ptr[Byte] =
+    def getSurroundingCells(coords: Vector2i): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = coords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getSurroundingCells, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNeighborCell(coords: Vector2i, neighbor: Int): Vector2i =
+    def getNeighborCell(coords: Vector2i, neighbor: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = coords.ptr
-        _args(1) = neighbor.ptr
+        val _a1 = stackalloc[Long](); !_a1 = neighbor.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getNeighborCell, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def mapToLocal(mapPosition: Vector2i): Vector2 =
+    def mapToLocal(mapPosition: Vector2i): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mapPosition.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.mapToLocal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def localToMap(localPosition: Vector2): Vector2i =
+    def localToMap(localPosition: Vector2): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = localPosition.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.localToMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def setTileMapDataFromArray(tileMapLayerData: PackedByteArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tileMapLayerData.ptr
-        GdxApi.ptrcall(TileMapLayer.Binds.setTileMapDataFromArray, ptr, _args, null)
-
-    def getTileMapDataAsArray(): PackedByteArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getTileMapDataAsArray, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedByteArray(!_ret)
-
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setEnabled, ptr, _args, null)
-
-    def isEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileMapLayer.Binds.isEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTileSet(tileSet: TileSet): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tileSet.ptr
-        GdxApi.ptrcall(TileMapLayer.Binds.setTileSet, ptr, _args, null)
-
-    def getTileSet(): TileSet =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getTileSet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new TileSet(!_ret)
-
-    def setYSortOrigin(ySortOrigin: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ySortOrigin.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setYSortOrigin, ptr, _args, null)
-
-    def getYSortOrigin(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getYSortOrigin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setXDrawOrderReversed(xDrawOrderReversed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if xDrawOrderReversed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setXDrawOrderReversed, ptr, _args, null)
-
-    def isXDrawOrderReversed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileMapLayer.Binds.isXDrawOrderReversed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setRenderingQuadrantSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setRenderingQuadrantSize, ptr, _args, null)
-
-    def getRenderingQuadrantSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getRenderingQuadrantSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setCollisionEnabled, ptr, _args, null)
-
-    def isCollisionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileMapLayer.Binds.isCollisionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseKinematicBodies(useKinematicBodies: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useKinematicBodies then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setUseKinematicBodies, ptr, _args, null)
-
-    def isUsingKinematicBodies(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileMapLayer.Binds.isUsingKinematicBodies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollisionVisibilityMode(visibilityMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = visibilityMode.ptr
-        GdxApi.ptrcall(TileMapLayer.Binds.setCollisionVisibilityMode, ptr, _args, null)
-
-    def getCollisionVisibilityMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getCollisionVisibilityMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPhysicsQuadrantSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setPhysicsQuadrantSize, ptr, _args, null)
-
-    def getPhysicsQuadrantSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getPhysicsQuadrantSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setOcclusionEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setOcclusionEnabled, ptr, _args, null)
-
-    def isOcclusionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileMapLayer.Binds.isOcclusionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileMapLayer.Binds.setNavigationEnabled, ptr, _args, null)
-
-    def isNavigationEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileMapLayer.Binds.isNavigationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationMap(map: RID): Unit =
+    def setNavigationMap(map: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = map.ptr
         GdxApi.ptrcall(TileMapLayer.Binds.setNavigationMap, ptr, _args, null)
+}
 
-    def getNavigationMap(): RID =
+    def getNavigationMap(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileMapLayer.Binds.getNavigationMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setNavigationVisibilityMode(showNavigation: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = showNavigation.ptr
-        GdxApi.ptrcall(TileMapLayer.Binds.setNavigationVisibilityMode, ptr, _args, null)
-
-    def getNavigationVisibilityMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TileMapLayer.Binds.getNavigationVisibilityMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def tileMapData: Ptr[Byte] = getTileMapDataAsArray()
-    def tileMapData_=(v: Ptr[Byte]): Unit = setTileMapDataFromArray(v)
-    def enabled: Ptr[Byte] = isEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def tileSet: Ptr[Byte] = getTileSet()
-    def tileSet_=(v: Ptr[Byte]): Unit = setTileSet(v)
-    def occlusionEnabled: Ptr[Byte] = isOcclusionEnabled()
-    def occlusionEnabled_=(v: Ptr[Byte]): Unit = setOcclusionEnabled(v)
-    def ySortOrigin: Ptr[Byte] = getYSortOrigin()
-    def ySortOrigin_=(v: Ptr[Byte]): Unit = setYSortOrigin(v)
-    def xDrawOrderReversed: Ptr[Byte] = isXDrawOrderReversed()
-    def xDrawOrderReversed_=(v: Ptr[Byte]): Unit = setXDrawOrderReversed(v)
-    def renderingQuadrantSize: Ptr[Byte] = getRenderingQuadrantSize()
-    def renderingQuadrantSize_=(v: Ptr[Byte]): Unit = setRenderingQuadrantSize(v)
-    def collisionEnabled: Ptr[Byte] = isCollisionEnabled()
-    def collisionEnabled_=(v: Ptr[Byte]): Unit = setCollisionEnabled(v)
-    def useKinematicBodies: Ptr[Byte] = isUsingKinematicBodies()
-    def useKinematicBodies_=(v: Ptr[Byte]): Unit = setUseKinematicBodies(v)
-    def collisionVisibilityMode: Ptr[Byte] = getCollisionVisibilityMode()
-    def collisionVisibilityMode_=(v: Ptr[Byte]): Unit = setCollisionVisibilityMode(v)
-    def physicsQuadrantSize: Ptr[Byte] = getPhysicsQuadrantSize()
-    def physicsQuadrantSize_=(v: Ptr[Byte]): Unit = setPhysicsQuadrantSize(v)
-    def navigationEnabled: Ptr[Byte] = isNavigationEnabled()
-    def navigationEnabled_=(v: Ptr[Byte]): Unit = setNavigationEnabled(v)
-    def navigationVisibilityMode: Ptr[Byte] = getNavigationVisibilityMode()
-    def navigationVisibilityMode_=(v: Ptr[Byte]): Unit = setNavigationVisibilityMode(v)
+    def tileMapData: PackedByteArray = getTileMapDataAsArray()
+    def tileMapData_=(v: PackedByteArray): Unit = setTileMapDataFromArray(v)
+    def enabled: Boolean = isEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def tileSet: TileSet = getTileSet()
+    def tileSet_=(v: TileSet): Unit = setTileSet(v)
+    def occlusionEnabled: Boolean = isOcclusionEnabled()
+    def occlusionEnabled_=(v: Boolean): Unit = setOcclusionEnabled(v)
+    def ySortOrigin: Int = getYSortOrigin()
+    def ySortOrigin_=(v: Int): Unit = setYSortOrigin(v)
+    def xDrawOrderReversed: Boolean = isXDrawOrderReversed()
+    def xDrawOrderReversed_=(v: Boolean): Unit = setXDrawOrderReversed(v)
+    def renderingQuadrantSize: Int = getRenderingQuadrantSize()
+    def renderingQuadrantSize_=(v: Int): Unit = setRenderingQuadrantSize(v)
+    def collisionEnabled: Boolean = isCollisionEnabled()
+    def collisionEnabled_=(v: Boolean): Unit = setCollisionEnabled(v)
+    def useKinematicBodies: Boolean = isUsingKinematicBodies()
+    def useKinematicBodies_=(v: Boolean): Unit = setUseKinematicBodies(v)
+    def collisionVisibilityMode: Int = getCollisionVisibilityMode()
+    def collisionVisibilityMode_=(v: Int): Unit = setCollisionVisibilityMode(v)
+    def physicsQuadrantSize: Int = getPhysicsQuadrantSize()
+    def physicsQuadrantSize_=(v: Int): Unit = setPhysicsQuadrantSize(v)
+    def navigationEnabled: Boolean = isNavigationEnabled()
+    def navigationEnabled_=(v: Boolean): Unit = setNavigationEnabled(v)
+    def navigationVisibilityMode: Int = getNavigationVisibilityMode()
+    def navigationVisibilityMode_=(v: Int): Unit = setNavigationVisibilityMode(v)
+}
 
 object TileMapLayer:
-    object Binds:
-        var setCell: Ptr[Byte] = null
+object Binds {
+          var setCell: Ptr[Byte] = null
         var eraseCell: Ptr[Byte] = null
         var fixInvalidTiles: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
@@ -403,37 +284,11 @@ object TileMapLayer:
         var getNeighborCell: Ptr[Byte] = null
         var mapToLocal: Ptr[Byte] = null
         var localToMap: Ptr[Byte] = null
-        var setTileMapDataFromArray: Ptr[Byte] = null
-        var getTileMapDataAsArray: Ptr[Byte] = null
-        var setEnabled: Ptr[Byte] = null
-        var isEnabled: Ptr[Byte] = null
-        var setTileSet: Ptr[Byte] = null
-        var getTileSet: Ptr[Byte] = null
-        var setYSortOrigin: Ptr[Byte] = null
-        var getYSortOrigin: Ptr[Byte] = null
-        var setXDrawOrderReversed: Ptr[Byte] = null
-        var isXDrawOrderReversed: Ptr[Byte] = null
-        var setRenderingQuadrantSize: Ptr[Byte] = null
-        var getRenderingQuadrantSize: Ptr[Byte] = null
-        var setCollisionEnabled: Ptr[Byte] = null
-        var isCollisionEnabled: Ptr[Byte] = null
-        var setUseKinematicBodies: Ptr[Byte] = null
-        var isUsingKinematicBodies: Ptr[Byte] = null
-        var setCollisionVisibilityMode: Ptr[Byte] = null
-        var getCollisionVisibilityMode: Ptr[Byte] = null
-        var setPhysicsQuadrantSize: Ptr[Byte] = null
-        var getPhysicsQuadrantSize: Ptr[Byte] = null
-        var setOcclusionEnabled: Ptr[Byte] = null
-        var isOcclusionEnabled: Ptr[Byte] = null
-        var setNavigationEnabled: Ptr[Byte] = null
-        var isNavigationEnabled: Ptr[Byte] = null
         var setNavigationMap: Ptr[Byte] = null
         var getNavigationMap: Ptr[Byte] = null
-        var setNavigationVisibilityMode: Ptr[Byte] = null
-        var getNavigationVisibilityMode: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setCell = GdxApi.getMethodBind(c"TileMapLayer", c"set_cell", 2428518503L)
+  def loadBinds(): Unit = {
+                Binds.setCell = GdxApi.getMethodBind(c"TileMapLayer", c"set_cell", 2428518503L)
             Binds.eraseCell = GdxApi.getMethodBind(c"TileMapLayer", c"erase_cell", 1130785943L)
             Binds.fixInvalidTiles = GdxApi.getMethodBind(c"TileMapLayer", c"fix_invalid_tiles", 3218959716L)
             Binds.clear = GdxApi.getMethodBind(c"TileMapLayer", c"clear", 3218959716L)
@@ -460,36 +315,13 @@ object TileMapLayer:
             Binds.getNeighborCell = GdxApi.getMethodBind(c"TileMapLayer", c"get_neighbor_cell", 986575103L)
             Binds.mapToLocal = GdxApi.getMethodBind(c"TileMapLayer", c"map_to_local", 108438297L)
             Binds.localToMap = GdxApi.getMethodBind(c"TileMapLayer", c"local_to_map", 837806996L)
-            Binds.setTileMapDataFromArray = GdxApi.getMethodBind(c"TileMapLayer", c"set_tile_map_data_from_array", 2971499966L)
-            Binds.getTileMapDataAsArray = GdxApi.getMethodBind(c"TileMapLayer", c"get_tile_map_data_as_array", 2362200018L)
-            Binds.setEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"set_enabled", 2586408642L)
-            Binds.isEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"is_enabled", 36873697L)
-            Binds.setTileSet = GdxApi.getMethodBind(c"TileMapLayer", c"set_tile_set", 774531446L)
-            Binds.getTileSet = GdxApi.getMethodBind(c"TileMapLayer", c"get_tile_set", 2678226422L)
-            Binds.setYSortOrigin = GdxApi.getMethodBind(c"TileMapLayer", c"set_y_sort_origin", 1286410249L)
-            Binds.getYSortOrigin = GdxApi.getMethodBind(c"TileMapLayer", c"get_y_sort_origin", 3905245786L)
-            Binds.setXDrawOrderReversed = GdxApi.getMethodBind(c"TileMapLayer", c"set_x_draw_order_reversed", 2586408642L)
-            Binds.isXDrawOrderReversed = GdxApi.getMethodBind(c"TileMapLayer", c"is_x_draw_order_reversed", 36873697L)
-            Binds.setRenderingQuadrantSize = GdxApi.getMethodBind(c"TileMapLayer", c"set_rendering_quadrant_size", 1286410249L)
-            Binds.getRenderingQuadrantSize = GdxApi.getMethodBind(c"TileMapLayer", c"get_rendering_quadrant_size", 3905245786L)
-            Binds.setCollisionEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"set_collision_enabled", 2586408642L)
-            Binds.isCollisionEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"is_collision_enabled", 36873697L)
-            Binds.setUseKinematicBodies = GdxApi.getMethodBind(c"TileMapLayer", c"set_use_kinematic_bodies", 2586408642L)
-            Binds.isUsingKinematicBodies = GdxApi.getMethodBind(c"TileMapLayer", c"is_using_kinematic_bodies", 36873697L)
-            Binds.setCollisionVisibilityMode = GdxApi.getMethodBind(c"TileMapLayer", c"set_collision_visibility_mode", 3508099847L)
-            Binds.getCollisionVisibilityMode = GdxApi.getMethodBind(c"TileMapLayer", c"get_collision_visibility_mode", 338220793L)
-            Binds.setPhysicsQuadrantSize = GdxApi.getMethodBind(c"TileMapLayer", c"set_physics_quadrant_size", 1286410249L)
-            Binds.getPhysicsQuadrantSize = GdxApi.getMethodBind(c"TileMapLayer", c"get_physics_quadrant_size", 3905245786L)
-            Binds.setOcclusionEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"set_occlusion_enabled", 2586408642L)
-            Binds.isOcclusionEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"is_occlusion_enabled", 36873697L)
-            Binds.setNavigationEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"set_navigation_enabled", 2586408642L)
-            Binds.isNavigationEnabled = GdxApi.getMethodBind(c"TileMapLayer", c"is_navigation_enabled", 36873697L)
             Binds.setNavigationMap = GdxApi.getMethodBind(c"TileMapLayer", c"set_navigation_map", 2722037293L)
             Binds.getNavigationMap = GdxApi.getMethodBind(c"TileMapLayer", c"get_navigation_map", 2944877500L)
-            Binds.setNavigationVisibilityMode = GdxApi.getMethodBind(c"TileMapLayer", c"set_navigation_visibility_mode", 3508099847L)
-            Binds.getNavigationVisibilityMode = GdxApi.getMethodBind(c"TileMapLayer", c"get_navigation_visibility_mode", 338220793L)
+  }
+}
 
-    def apply(): TileMapLayer =
-        val obj = new TileMapLayer()
-        obj.ptr = GdxApi.constructObject(c"TileMapLayer")
-        obj
+def apply(): TileMapLayer = {
+  val obj = new TileMapLayer()
+  obj.ptr = GdxApi.constructObject(c"TileMapLayer")
+  obj
+}

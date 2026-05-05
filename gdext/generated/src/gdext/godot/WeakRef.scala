@@ -5,23 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WeakRef extends RefCounted
-
-    def getRef(): Ptr[Byte] =
+class WeakRef extends RefCounted {
+    def getRef(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WeakRef.Binds.getRef, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object WeakRef:
-    object Binds:
-        var getRef: Ptr[Byte] = null
+object Binds {
+          var getRef: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getRef = GdxApi.getMethodBind(c"WeakRef", c"get_ref", 1214101251L)
+  def loadBinds(): Unit = {
+                Binds.getRef = GdxApi.getMethodBind(c"WeakRef", c"get_ref", 1214101251L)
+  }
+}
 
-    def apply(): WeakRef =
-        val obj = new WeakRef()
-        obj.ptr = GdxApi.constructObject(c"WeakRef")
-        obj
+def apply(): WeakRef = {
+  val obj = new WeakRef()
+  obj.ptr = GdxApi.constructObject(c"WeakRef")
+  obj
+}

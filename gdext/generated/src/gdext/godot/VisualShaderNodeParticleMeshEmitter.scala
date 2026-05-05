@@ -5,67 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParticleMeshEmitter extends VisualShaderNodeParticleEmitter
-
-    def setMesh(mesh: Mesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(VisualShaderNodeParticleMeshEmitter.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): Mesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeParticleMeshEmitter.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Mesh(!_ret)
-
-    def setUseAllSurfaces(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeParticleMeshEmitter.Binds.setUseAllSurfaces, ptr, _args, null)
-
-    def isUseAllSurfaces(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VisualShaderNodeParticleMeshEmitter.Binds.isUseAllSurfaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSurfaceIndex(surfaceIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = surfaceIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeParticleMeshEmitter.Binds.setSurfaceIndex, ptr, _args, null)
-
-    def getSurfaceIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeParticleMeshEmitter.Binds.getSurfaceIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def useAllSurfaces: Ptr[Byte] = isUseAllSurfaces()
-    def useAllSurfaces_=(v: Ptr[Byte]): Unit = setUseAllSurfaces(v)
-    def surfaceIndex: Ptr[Byte] = getSurfaceIndex()
-    def surfaceIndex_=(v: Ptr[Byte]): Unit = setSurfaceIndex(v)
+class VisualShaderNodeParticleMeshEmitter extends VisualShaderNodeParticleEmitter {
+    def mesh: Mesh = getMesh()
+    def mesh_=(v: Mesh): Unit = setMesh(v)
+    def useAllSurfaces: Boolean = isUseAllSurfaces()
+    def useAllSurfaces_=(v: Boolean): Unit = setUseAllSurfaces(v)
+    def surfaceIndex: Int = getSurfaceIndex()
+    def surfaceIndex_=(v: Int): Unit = setSurfaceIndex(v)
+}
 
 object VisualShaderNodeParticleMeshEmitter:
-    object Binds:
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setUseAllSurfaces: Ptr[Byte] = null
-        var isUseAllSurfaces: Ptr[Byte] = null
-        var setSurfaceIndex: Ptr[Byte] = null
-        var getSurfaceIndex: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMesh = GdxApi.getMethodBind(c"VisualShaderNodeParticleMeshEmitter", c"set_mesh", 194775623L)
-            Binds.getMesh = GdxApi.getMethodBind(c"VisualShaderNodeParticleMeshEmitter", c"get_mesh", 1808005922L)
-            Binds.setUseAllSurfaces = GdxApi.getMethodBind(c"VisualShaderNodeParticleMeshEmitter", c"set_use_all_surfaces", 2586408642L)
-            Binds.isUseAllSurfaces = GdxApi.getMethodBind(c"VisualShaderNodeParticleMeshEmitter", c"is_use_all_surfaces", 36873697L)
-            Binds.setSurfaceIndex = GdxApi.getMethodBind(c"VisualShaderNodeParticleMeshEmitter", c"set_surface_index", 1286410249L)
-            Binds.getSurfaceIndex = GdxApi.getMethodBind(c"VisualShaderNodeParticleMeshEmitter", c"get_surface_index", 3905245786L)
-
-    def apply(): VisualShaderNodeParticleMeshEmitter =
-        val obj = new VisualShaderNodeParticleMeshEmitter()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleMeshEmitter")
-        obj
+def apply(): VisualShaderNodeParticleMeshEmitter = {
+  val obj = new VisualShaderNodeParticleMeshEmitter()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleMeshEmitter")
+  obj
+}

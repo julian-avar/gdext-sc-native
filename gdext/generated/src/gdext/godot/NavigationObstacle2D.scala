@@ -5,181 +5,80 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationObstacle2D extends Node2D
-
-    def getRid(): RID =
+class NavigationObstacle2D extends Node2D {
+    def getRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationObstacle2D.Binds.getRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setAvoidanceEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setAvoidanceEnabled, ptr, _args, null)
-
-    def getAvoidanceEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getAvoidanceEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationMap(navigationMap: RID): Unit =
+    def setNavigationMap(navigationMap: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = navigationMap.ptr
         GdxApi.ptrcall(NavigationObstacle2D.Binds.setNavigationMap, ptr, _args, null)
+}
 
-    def getNavigationMap(): RID =
+    def getNavigationMap(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationObstacle2D.Binds.getNavigationMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setRadius, ptr, _args, null)
-
-    def getRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVelocity(velocity: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = velocity.ptr
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setVelocity, ptr, _args, null)
-
-    def getVelocity(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setVertices(vertices: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = vertices.ptr
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setVertices, ptr, _args, null)
-
-    def getVertices(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getVertices, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-
-    def setAvoidanceLayers(layers: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layers.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setAvoidanceLayers, ptr, _args, null)
-
-    def getAvoidanceLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getAvoidanceLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAvoidanceLayerValue(layerNumber: Int, value: Boolean): Unit =
+    def setAvoidanceLayerValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationObstacle2D.Binds.setAvoidanceLayerValue, ptr, _args, null)
+}
 
-    def getAvoidanceLayerValue(layerNumber: Int): Boolean =
+    def getAvoidanceLayerValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationObstacle2D.Binds.getAvoidanceLayerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAffectNavigationMesh(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setAffectNavigationMesh, ptr, _args, null)
-
-    def getAffectNavigationMesh(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getAffectNavigationMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCarveNavigationMesh(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.setCarveNavigationMesh, ptr, _args, null)
-
-    def getCarveNavigationMesh(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationObstacle2D.Binds.getCarveNavigationMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def radius: Ptr[Byte] = getRadius()
-    def radius_=(v: Ptr[Byte]): Unit = setRadius(v)
-    def vertices: Ptr[Byte] = getVertices()
-    def vertices_=(v: Ptr[Byte]): Unit = setVertices(v)
-    def affectNavigationMesh: Ptr[Byte] = getAffectNavigationMesh()
-    def affectNavigationMesh_=(v: Ptr[Byte]): Unit = setAffectNavigationMesh(v)
-    def carveNavigationMesh: Ptr[Byte] = getCarveNavigationMesh()
-    def carveNavigationMesh_=(v: Ptr[Byte]): Unit = setCarveNavigationMesh(v)
-    def avoidanceEnabled: Ptr[Byte] = getAvoidanceEnabled()
-    def avoidanceEnabled_=(v: Ptr[Byte]): Unit = setAvoidanceEnabled(v)
-    def velocity: Ptr[Byte] = getVelocity()
-    def velocity_=(v: Ptr[Byte]): Unit = setVelocity(v)
-    def avoidanceLayers: Ptr[Byte] = getAvoidanceLayers()
-    def avoidanceLayers_=(v: Ptr[Byte]): Unit = setAvoidanceLayers(v)
+    def radius: Float = getRadius()
+    def radius_=(v: Float): Unit = setRadius(v)
+    def vertices: PackedVector2Array = getVertices()
+    def vertices_=(v: PackedVector2Array): Unit = setVertices(v)
+    def affectNavigationMesh: Boolean = getAffectNavigationMesh()
+    def affectNavigationMesh_=(v: Boolean): Unit = setAffectNavigationMesh(v)
+    def carveNavigationMesh: Boolean = getCarveNavigationMesh()
+    def carveNavigationMesh_=(v: Boolean): Unit = setCarveNavigationMesh(v)
+    def avoidanceEnabled: Boolean = getAvoidanceEnabled()
+    def avoidanceEnabled_=(v: Boolean): Unit = setAvoidanceEnabled(v)
+    def velocity: Vector2 = getVelocity()
+    def velocity_=(v: Vector2): Unit = setVelocity(v)
+    def avoidanceLayers: Int = getAvoidanceLayers()
+    def avoidanceLayers_=(v: Int): Unit = setAvoidanceLayers(v)
+}
 
 object NavigationObstacle2D:
-    object Binds:
-        var getRid: Ptr[Byte] = null
-        var setAvoidanceEnabled: Ptr[Byte] = null
-        var getAvoidanceEnabled: Ptr[Byte] = null
+object Binds {
+          var getRid: Ptr[Byte] = null
         var setNavigationMap: Ptr[Byte] = null
         var getNavigationMap: Ptr[Byte] = null
-        var setRadius: Ptr[Byte] = null
-        var getRadius: Ptr[Byte] = null
-        var setVelocity: Ptr[Byte] = null
-        var getVelocity: Ptr[Byte] = null
-        var setVertices: Ptr[Byte] = null
-        var getVertices: Ptr[Byte] = null
-        var setAvoidanceLayers: Ptr[Byte] = null
-        var getAvoidanceLayers: Ptr[Byte] = null
         var setAvoidanceLayerValue: Ptr[Byte] = null
         var getAvoidanceLayerValue: Ptr[Byte] = null
-        var setAffectNavigationMesh: Ptr[Byte] = null
-        var getAffectNavigationMesh: Ptr[Byte] = null
-        var setCarveNavigationMesh: Ptr[Byte] = null
-        var getCarveNavigationMesh: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getRid = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_rid", 2944877500L)
-            Binds.setAvoidanceEnabled = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_avoidance_enabled", 2586408642L)
-            Binds.getAvoidanceEnabled = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_avoidance_enabled", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getRid = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_rid", 2944877500L)
             Binds.setNavigationMap = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_navigation_map", 2722037293L)
             Binds.getNavigationMap = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_navigation_map", 2944877500L)
-            Binds.setRadius = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_radius", 373806689L)
-            Binds.getRadius = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_radius", 1740695150L)
-            Binds.setVelocity = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_velocity", 743155724L)
-            Binds.getVelocity = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_velocity", 3341600327L)
-            Binds.setVertices = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_vertices", 1509147220L)
-            Binds.getVertices = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_vertices", 2961356807L)
-            Binds.setAvoidanceLayers = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_avoidance_layers", 1286410249L)
-            Binds.getAvoidanceLayers = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_avoidance_layers", 3905245786L)
             Binds.setAvoidanceLayerValue = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_avoidance_layer_value", 300928843L)
             Binds.getAvoidanceLayerValue = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_avoidance_layer_value", 1116898809L)
-            Binds.setAffectNavigationMesh = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_affect_navigation_mesh", 2586408642L)
-            Binds.getAffectNavigationMesh = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_affect_navigation_mesh", 36873697L)
-            Binds.setCarveNavigationMesh = GdxApi.getMethodBind(c"NavigationObstacle2D", c"set_carve_navigation_mesh", 2586408642L)
-            Binds.getCarveNavigationMesh = GdxApi.getMethodBind(c"NavigationObstacle2D", c"get_carve_navigation_mesh", 36873697L)
+  }
+}
 
-    def apply(): NavigationObstacle2D =
-        val obj = new NavigationObstacle2D()
-        obj.ptr = GdxApi.constructObject(c"NavigationObstacle2D")
-        obj
+def apply(): NavigationObstacle2D = {
+  val obj = new NavigationObstacle2D()
+  obj.ptr = GdxApi.constructObject(c"NavigationObstacle2D")
+  obj
+}

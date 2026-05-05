@@ -5,13 +5,13 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RichTextEffect extends Resource
+class RichTextEffect extends Resource {
     def _processCustomFx(charFx: CharFXTransform): Boolean = false
-
-
+}
 
 object RichTextEffect:
-    def apply(): RichTextEffect =
-        val obj = new RichTextEffect()
-        obj.ptr = GdxApi.constructObject(c"RichTextEffect")
-        obj
+def apply(): RichTextEffect = {
+  val obj = new RichTextEffect()
+  obj.ptr = GdxApi.constructObject(c"RichTextEffect")
+  obj
+}

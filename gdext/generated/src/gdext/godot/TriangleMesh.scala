@@ -5,52 +5,58 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TriangleMesh extends RefCounted
-
-    def createFromFaces(faces: PackedVector3Array): Boolean =
+class TriangleMesh extends RefCounted {
+    def createFromFaces(faces: PackedVector3Array): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = faces.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TriangleMesh.Binds.createFromFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFaces(): PackedVector3Array =
+    def getFaces(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TriangleMesh.Binds.getFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def intersectSegment(begin: Vector3, end: Vector3): Dictionary =
+    def intersectSegment(begin: Vector3, end: Vector3): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = begin.ptr
         _args(1) = end.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TriangleMesh.Binds.intersectSegment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def intersectRay(begin: Vector3, dir: Vector3): Dictionary =
+    def intersectRay(begin: Vector3, dir: Vector3): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = begin.ptr
         _args(1) = dir.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TriangleMesh.Binds.intersectRay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
-
+}
+}
 
 object TriangleMesh:
-    object Binds:
-        var createFromFaces: Ptr[Byte] = null
+object Binds {
+          var createFromFaces: Ptr[Byte] = null
         var getFaces: Ptr[Byte] = null
         var intersectSegment: Ptr[Byte] = null
         var intersectRay: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createFromFaces = GdxApi.getMethodBind(c"TriangleMesh", c"create_from_faces", 2637816732L)
+  def loadBinds(): Unit = {
+                Binds.createFromFaces = GdxApi.getMethodBind(c"TriangleMesh", c"create_from_faces", 2637816732L)
             Binds.getFaces = GdxApi.getMethodBind(c"TriangleMesh", c"get_faces", 497664490L)
             Binds.intersectSegment = GdxApi.getMethodBind(c"TriangleMesh", c"intersect_segment", 3648293151L)
             Binds.intersectRay = GdxApi.getMethodBind(c"TriangleMesh", c"intersect_ray", 3648293151L)
+  }
+}
 
-    def apply(): TriangleMesh =
-        val obj = new TriangleMesh()
-        obj.ptr = GdxApi.constructObject(c"TriangleMesh")
-        obj
+def apply(): TriangleMesh = {
+  val obj = new TriangleMesh()
+  obj.ptr = GdxApi.constructObject(c"TriangleMesh")
+  obj
+}

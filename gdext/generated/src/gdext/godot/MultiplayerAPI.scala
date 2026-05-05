@@ -5,88 +5,85 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MultiplayerAPI extends RefCounted
-
-    def hasMultiplayerPeer(): Boolean =
+class MultiplayerAPI extends RefCounted {
+    def hasMultiplayerPeer(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.hasMultiplayerPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getMultiplayerPeer(): MultiplayerPeer =
+    def getUniqueId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MultiplayerAPI.Binds.getMultiplayerPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new MultiplayerPeer(!_ret)
-
-    def setMultiplayerPeer(peer: MultiplayerPeer): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = peer.ptr
-        GdxApi.ptrcall(MultiplayerAPI.Binds.setMultiplayerPeer, ptr, _args, null)
-
-    def getUniqueId(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.getUniqueId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isServer(): Boolean =
+    def isServer(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.isServer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getRemoteSenderId(): Int =
+    def getRemoteSenderId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.getRemoteSenderId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def poll(): Int =
+    def poll(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.poll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def rpc(peer: Int, `object`: Object, method: CString): Int =
+    def rpc(peer: Int, `object`: Object, method: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = peer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = peer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = `object`.ptr
-        _args(2) = method.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = method
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.rpc, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def objectConfigurationAdd(`object`: Object, configuration: Ptr[Byte]): Int =
+    def objectConfigurationAdd(`object`: Object, configuration: Ptr[Byte]): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
-        _args(1) = configuration.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = configuration
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.objectConfigurationAdd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def objectConfigurationRemove(`object`: Object, configuration: Ptr[Byte]): Int =
+    def objectConfigurationRemove(`object`: Object, configuration: Ptr[Byte]): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
-        _args(1) = configuration.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = configuration
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.objectConfigurationRemove, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPeers(): PackedInt32Array =
+    def getPeers(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MultiplayerAPI.Binds.getPeers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
-    def multiplayerPeer: Ptr[Byte] = getMultiplayerPeer()
-    def multiplayerPeer_=(v: Ptr[Byte]): Unit = setMultiplayerPeer(v)
+}
+
+    def multiplayerPeer: MultiplayerPeer = getMultiplayerPeer()
+    def multiplayerPeer_=(v: MultiplayerPeer): Unit = setMultiplayerPeer(v)
+}
 
 object MultiplayerAPI:
-    object Binds:
-        var hasMultiplayerPeer: Ptr[Byte] = null
-        var getMultiplayerPeer: Ptr[Byte] = null
-        var setMultiplayerPeer: Ptr[Byte] = null
+object Binds {
+          var hasMultiplayerPeer: Ptr[Byte] = null
         var getUniqueId: Ptr[Byte] = null
         var isServer: Ptr[Byte] = null
         var getRemoteSenderId: Ptr[Byte] = null
@@ -96,10 +93,8 @@ object MultiplayerAPI:
         var objectConfigurationRemove: Ptr[Byte] = null
         var getPeers: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasMultiplayerPeer = GdxApi.getMethodBind(c"MultiplayerAPI", c"has_multiplayer_peer", 2240911060L)
-            Binds.getMultiplayerPeer = GdxApi.getMethodBind(c"MultiplayerAPI", c"get_multiplayer_peer", 3223692825L)
-            Binds.setMultiplayerPeer = GdxApi.getMethodBind(c"MultiplayerAPI", c"set_multiplayer_peer", 3694835298L)
+  def loadBinds(): Unit = {
+                Binds.hasMultiplayerPeer = GdxApi.getMethodBind(c"MultiplayerAPI", c"has_multiplayer_peer", 2240911060L)
             Binds.getUniqueId = GdxApi.getMethodBind(c"MultiplayerAPI", c"get_unique_id", 2455072627L)
             Binds.isServer = GdxApi.getMethodBind(c"MultiplayerAPI", c"is_server", 2240911060L)
             Binds.getRemoteSenderId = GdxApi.getMethodBind(c"MultiplayerAPI", c"get_remote_sender_id", 2455072627L)
@@ -108,3 +103,5 @@ object MultiplayerAPI:
             Binds.objectConfigurationAdd = GdxApi.getMethodBind(c"MultiplayerAPI", c"object_configuration_add", 1171879464L)
             Binds.objectConfigurationRemove = GdxApi.getMethodBind(c"MultiplayerAPI", c"object_configuration_remove", 1171879464L)
             Binds.getPeers = GdxApi.getMethodBind(c"MultiplayerAPI", c"get_peers", 969006518L)
+  }
+}

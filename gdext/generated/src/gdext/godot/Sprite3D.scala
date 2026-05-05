@@ -5,137 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Sprite3D extends SpriteBase3D
-
-    def setTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(Sprite3D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Sprite3D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setRegionEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Sprite3D.Binds.setRegionEnabled, ptr, _args, null)
-
-    def isRegionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Sprite3D.Binds.isRegionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setRegionRect(rect: Rect2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = rect.ptr
-        GdxApi.ptrcall(Sprite3D.Binds.setRegionRect, ptr, _args, null)
-
-    def getRegionRect(): Rect2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Sprite3D.Binds.getRegionRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2(!_ret)
-
-    def setFrame(frame: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frame.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Sprite3D.Binds.setFrame, ptr, _args, null)
-
-    def getFrame(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Sprite3D.Binds.getFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrameCoords(coords: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = coords.ptr
-        GdxApi.ptrcall(Sprite3D.Binds.setFrameCoords, ptr, _args, null)
-
-    def getFrameCoords(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Sprite3D.Binds.getFrameCoords, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setVframes(vframes: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = vframes.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Sprite3D.Binds.setVframes, ptr, _args, null)
-
-    def getVframes(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Sprite3D.Binds.getVframes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHframes(hframes: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = hframes.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Sprite3D.Binds.setHframes, ptr, _args, null)
-
-    def getHframes(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Sprite3D.Binds.getHframes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def hframes: Ptr[Byte] = getHframes()
-    def hframes_=(v: Ptr[Byte]): Unit = setHframes(v)
-    def vframes: Ptr[Byte] = getVframes()
-    def vframes_=(v: Ptr[Byte]): Unit = setVframes(v)
-    def frame: Ptr[Byte] = getFrame()
-    def frame_=(v: Ptr[Byte]): Unit = setFrame(v)
-    def frameCoords: Ptr[Byte] = getFrameCoords()
-    def frameCoords_=(v: Ptr[Byte]): Unit = setFrameCoords(v)
-    def regionEnabled: Ptr[Byte] = isRegionEnabled()
-    def regionEnabled_=(v: Ptr[Byte]): Unit = setRegionEnabled(v)
-    def regionRect: Ptr[Byte] = getRegionRect()
-    def regionRect_=(v: Ptr[Byte]): Unit = setRegionRect(v)
+class Sprite3D extends SpriteBase3D {
+    def texture: Texture2D = getTexture()
+    def texture_=(v: Texture2D): Unit = setTexture(v)
+    def hframes: Int = getHframes()
+    def hframes_=(v: Int): Unit = setHframes(v)
+    def vframes: Int = getVframes()
+    def vframes_=(v: Int): Unit = setVframes(v)
+    def frame: Int = getFrame()
+    def frame_=(v: Int): Unit = setFrame(v)
+    def frameCoords: Vector2i = getFrameCoords()
+    def frameCoords_=(v: Vector2i): Unit = setFrameCoords(v)
+    def regionEnabled: Boolean = isRegionEnabled()
+    def regionEnabled_=(v: Boolean): Unit = setRegionEnabled(v)
+    def regionRect: Rect2 = getRegionRect()
+    def regionRect_=(v: Rect2): Unit = setRegionRect(v)
+}
 
 object Sprite3D:
-    object Binds:
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-        var setRegionEnabled: Ptr[Byte] = null
-        var isRegionEnabled: Ptr[Byte] = null
-        var setRegionRect: Ptr[Byte] = null
-        var getRegionRect: Ptr[Byte] = null
-        var setFrame: Ptr[Byte] = null
-        var getFrame: Ptr[Byte] = null
-        var setFrameCoords: Ptr[Byte] = null
-        var getFrameCoords: Ptr[Byte] = null
-        var setVframes: Ptr[Byte] = null
-        var getVframes: Ptr[Byte] = null
-        var setHframes: Ptr[Byte] = null
-        var getHframes: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTexture = GdxApi.getMethodBind(c"Sprite3D", c"set_texture", 4051416890L)
-            Binds.getTexture = GdxApi.getMethodBind(c"Sprite3D", c"get_texture", 3635182373L)
-            Binds.setRegionEnabled = GdxApi.getMethodBind(c"Sprite3D", c"set_region_enabled", 2586408642L)
-            Binds.isRegionEnabled = GdxApi.getMethodBind(c"Sprite3D", c"is_region_enabled", 36873697L)
-            Binds.setRegionRect = GdxApi.getMethodBind(c"Sprite3D", c"set_region_rect", 2046264180L)
-            Binds.getRegionRect = GdxApi.getMethodBind(c"Sprite3D", c"get_region_rect", 1639390495L)
-            Binds.setFrame = GdxApi.getMethodBind(c"Sprite3D", c"set_frame", 1286410249L)
-            Binds.getFrame = GdxApi.getMethodBind(c"Sprite3D", c"get_frame", 3905245786L)
-            Binds.setFrameCoords = GdxApi.getMethodBind(c"Sprite3D", c"set_frame_coords", 1130785943L)
-            Binds.getFrameCoords = GdxApi.getMethodBind(c"Sprite3D", c"get_frame_coords", 3690982128L)
-            Binds.setVframes = GdxApi.getMethodBind(c"Sprite3D", c"set_vframes", 1286410249L)
-            Binds.getVframes = GdxApi.getMethodBind(c"Sprite3D", c"get_vframes", 3905245786L)
-            Binds.setHframes = GdxApi.getMethodBind(c"Sprite3D", c"set_hframes", 1286410249L)
-            Binds.getHframes = GdxApi.getMethodBind(c"Sprite3D", c"get_hframes", 3905245786L)
-
-    def apply(): Sprite3D =
-        val obj = new Sprite3D()
-        obj.ptr = GdxApi.constructObject(c"Sprite3D")
-        obj
+def apply(): Sprite3D = {
+  val obj = new Sprite3D()
+  obj.ptr = GdxApi.constructObject(c"Sprite3D")
+  obj
+}

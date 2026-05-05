@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeStep extends VisualShaderNode
-
-    def setOpType(opType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = opType.ptr
-        GdxApi.ptrcall(VisualShaderNodeStep.Binds.setOpType, ptr, _args, null)
-
-    def getOpType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeStep.Binds.getOpType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def opType: Ptr[Byte] = getOpType()
-    def opType_=(v: Ptr[Byte]): Unit = setOpType(v)
+class VisualShaderNodeStep extends VisualShaderNode {
+    def opType: Int = getOpType()
+    def opType_=(v: Int): Unit = setOpType(v)
+}
 
 object VisualShaderNodeStep:
-    object Binds:
-        var setOpType: Ptr[Byte] = null
-        var getOpType: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOpType = GdxApi.getMethodBind(c"VisualShaderNodeStep", c"set_op_type", 715172489L)
-            Binds.getOpType = GdxApi.getMethodBind(c"VisualShaderNodeStep", c"get_op_type", 3274022781L)
-
-    def apply(): VisualShaderNodeStep =
-        val obj = new VisualShaderNodeStep()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeStep")
-        obj
+def apply(): VisualShaderNodeStep = {
+  val obj = new VisualShaderNodeStep()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeStep")
+  obj
+}

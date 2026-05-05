@@ -5,51 +5,57 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PCKPacker extends RefCounted
-
-    def pckStart(pckPath: CString): Int =
+class PCKPacker extends RefCounted {
+    def pckStart(pckPath: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pckPath.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = pckPath
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PCKPacker.Binds.pckStart, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addFile(targetPath: CString, sourcePath: CString): Int =
+    def addFile(targetPath: CString, sourcePath: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = targetPath.ptr
-        _args(1) = sourcePath.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = targetPath
+        _args(1) = sourcePath
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PCKPacker.Binds.addFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addFileRemoval(targetPath: CString): Int =
+    def addFileRemoval(targetPath: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetPath.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = targetPath
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PCKPacker.Binds.addFileRemoval, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def flush(): Int =
+    def flush(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PCKPacker.Binds.flush, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object PCKPacker:
-    object Binds:
-        var pckStart: Ptr[Byte] = null
+object Binds {
+          var pckStart: Ptr[Byte] = null
         var addFile: Ptr[Byte] = null
         var addFileRemoval: Ptr[Byte] = null
         var flush: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.pckStart = GdxApi.getMethodBind(c"PCKPacker", c"pck_start", 508410629L)
+  def loadBinds(): Unit = {
+                Binds.pckStart = GdxApi.getMethodBind(c"PCKPacker", c"pck_start", 508410629L)
             Binds.addFile = GdxApi.getMethodBind(c"PCKPacker", c"add_file", 2215643711L)
             Binds.addFileRemoval = GdxApi.getMethodBind(c"PCKPacker", c"add_file_removal", 166001499L)
             Binds.flush = GdxApi.getMethodBind(c"PCKPacker", c"flush", 1633102583L)
+  }
+}
 
-    def apply(): PCKPacker =
-        val obj = new PCKPacker()
-        obj.ptr = GdxApi.constructObject(c"PCKPacker")
-        obj
+def apply(): PCKPacker = {
+  val obj = new PCKPacker()
+  obj.ptr = GdxApi.constructObject(c"PCKPacker")
+  obj
+}

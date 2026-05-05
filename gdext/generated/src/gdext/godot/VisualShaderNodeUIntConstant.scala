@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeUIntConstant extends VisualShaderNodeConstant
-
-    def setConstant(constant: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = constant.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeUIntConstant.Binds.setConstant, ptr, _args, null)
-
-    def getConstant(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeUIntConstant.Binds.getConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def constant: Ptr[Byte] = getConstant()
-    def constant_=(v: Ptr[Byte]): Unit = setConstant(v)
+class VisualShaderNodeUIntConstant extends VisualShaderNodeConstant {
+    def constant: Int = getConstant()
+    def constant_=(v: Int): Unit = setConstant(v)
+}
 
 object VisualShaderNodeUIntConstant:
-    object Binds:
-        var setConstant: Ptr[Byte] = null
-        var getConstant: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setConstant = GdxApi.getMethodBind(c"VisualShaderNodeUIntConstant", c"set_constant", 1286410249L)
-            Binds.getConstant = GdxApi.getMethodBind(c"VisualShaderNodeUIntConstant", c"get_constant", 3905245786L)
-
-    def apply(): VisualShaderNodeUIntConstant =
-        val obj = new VisualShaderNodeUIntConstant()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeUIntConstant")
-        obj
+def apply(): VisualShaderNodeUIntConstant = {
+  val obj = new VisualShaderNodeUIntConstant()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeUIntConstant")
+  obj
+}

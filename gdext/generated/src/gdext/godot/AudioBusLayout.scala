@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioBusLayout extends Resource
-
-
-
+class AudioBusLayout extends Resource {}
 
 object AudioBusLayout:
-    def apply(): AudioBusLayout =
-        val obj = new AudioBusLayout()
-        obj.ptr = GdxApi.constructObject(c"AudioBusLayout")
-        obj
+def apply(): AudioBusLayout = {
+  val obj = new AudioBusLayout()
+  obj.ptr = GdxApi.constructObject(c"AudioBusLayout")
+  obj
+}

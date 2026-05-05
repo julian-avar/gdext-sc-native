@@ -5,66 +5,75 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeStateMachinePlayback extends Resource
-
-    def travel(toNode: CString): Unit =
+class AnimationNodeStateMachinePlayback extends Resource {
+    def travel(toNode: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = toNode.ptr
+        _args(0) = toNode
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.travel, ptr, _args, null)
+}
 
-    def start(node: CString): Unit =
+    def start(node: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = node.ptr
+        _args(0) = node
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.start, ptr, _args, null)
+}
 
-    def next(): Unit =
+    def next(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.next, ptr, _args, null)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.stop, ptr, _args, null)
+}
 
-    def isPlaying(): Boolean =
+    def isPlaying(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.isPlaying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCurrentNode(): CString =
+    def getCurrentNode(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.getCurrentNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCurrentPlayPosition(): Float =
+    def getCurrentPlayPosition(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.getCurrentPlayPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getCurrentLength(): Float =
+    def getCurrentLength(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.getCurrentLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getFadingFromNode(): CString =
+    def getFadingFromNode(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.getFadingFromNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTravelPath(): Ptr[Byte] =
+    def getTravelPath(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachinePlayback.Binds.getTravelPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object AnimationNodeStateMachinePlayback:
-    object Binds:
-        var travel: Ptr[Byte] = null
+object Binds {
+          var travel: Ptr[Byte] = null
         var start: Ptr[Byte] = null
         var next: Ptr[Byte] = null
         var stop: Ptr[Byte] = null
@@ -75,8 +84,8 @@ object AnimationNodeStateMachinePlayback:
         var getFadingFromNode: Ptr[Byte] = null
         var getTravelPath: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.travel = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"travel", 3823612587L)
+  def loadBinds(): Unit = {
+                Binds.travel = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"travel", 3823612587L)
             Binds.start = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"start", 3823612587L)
             Binds.next = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"next", 3218959716L)
             Binds.stop = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"stop", 3218959716L)
@@ -86,8 +95,11 @@ object AnimationNodeStateMachinePlayback:
             Binds.getCurrentLength = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"get_current_length", 1740695150L)
             Binds.getFadingFromNode = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"get_fading_from_node", 2002593661L)
             Binds.getTravelPath = GdxApi.getMethodBind(c"AnimationNodeStateMachinePlayback", c"get_travel_path", 3995934104L)
+  }
+}
 
-    def apply(): AnimationNodeStateMachinePlayback =
-        val obj = new AnimationNodeStateMachinePlayback()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeStateMachinePlayback")
-        obj
+def apply(): AnimationNodeStateMachinePlayback = {
+  val obj = new AnimationNodeStateMachinePlayback()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeStateMachinePlayback")
+  obj
+}

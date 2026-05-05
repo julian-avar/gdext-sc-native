@@ -5,70 +5,46 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDUniform extends RefCounted
-
-    def setUniformType(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDUniform.Binds.setUniformType, ptr, _args, null)
-
-    def getUniformType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDUniform.Binds.getUniformType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBinding(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDUniform.Binds.setBinding, ptr, _args, null)
-
-    def getBinding(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDUniform.Binds.getBinding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def addId(id: RID): Unit =
+class RDUniform extends RefCounted {
+    def addId(id: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = id.ptr
         GdxApi.ptrcall(RDUniform.Binds.addId, ptr, _args, null)
+}
 
-    def clearIds(): Unit =
+    def clearIds(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RDUniform.Binds.clearIds, ptr, _args, null)
+}
 
-    def getIds(): Ptr[Byte] =
+    def getIds(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RDUniform.Binds.getIds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def uniformType: Ptr[Byte] = getUniformType()
-    def uniformType_=(v: Ptr[Byte]): Unit = setUniformType(v)
-    def binding: Ptr[Byte] = getBinding()
-    def binding_=(v: Ptr[Byte]): Unit = setBinding(v)
+}
+
+    def uniformType: Int = getUniformType()
+    def uniformType_=(v: Int): Unit = setUniformType(v)
+    def binding: Int = getBinding()
+    def binding_=(v: Int): Unit = setBinding(v)
+}
 
 object RDUniform:
-    object Binds:
-        var setUniformType: Ptr[Byte] = null
-        var getUniformType: Ptr[Byte] = null
-        var setBinding: Ptr[Byte] = null
-        var getBinding: Ptr[Byte] = null
-        var addId: Ptr[Byte] = null
+object Binds {
+          var addId: Ptr[Byte] = null
         var clearIds: Ptr[Byte] = null
         var getIds: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setUniformType = GdxApi.getMethodBind(c"RDUniform", c"set_uniform_type", 1664894931L)
-            Binds.getUniformType = GdxApi.getMethodBind(c"RDUniform", c"get_uniform_type", 475470040L)
-            Binds.setBinding = GdxApi.getMethodBind(c"RDUniform", c"set_binding", 1286410249L)
-            Binds.getBinding = GdxApi.getMethodBind(c"RDUniform", c"get_binding", 3905245786L)
-            Binds.addId = GdxApi.getMethodBind(c"RDUniform", c"add_id", 2722037293L)
+  def loadBinds(): Unit = {
+                Binds.addId = GdxApi.getMethodBind(c"RDUniform", c"add_id", 2722037293L)
             Binds.clearIds = GdxApi.getMethodBind(c"RDUniform", c"clear_ids", 3218959716L)
             Binds.getIds = GdxApi.getMethodBind(c"RDUniform", c"get_ids", 3995934104L)
+  }
+}
 
-    def apply(): RDUniform =
-        val obj = new RDUniform()
-        obj.ptr = GdxApi.constructObject(c"RDUniform")
-        obj
+def apply(): RDUniform = {
+  val obj = new RDUniform()
+  obj.ptr = GdxApi.constructObject(c"RDUniform")
+  obj
+}

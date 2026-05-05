@@ -5,50 +5,56 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class X509Certificate extends Resource
-
-    def save(path: CString): Int =
+class X509Certificate extends Resource {
+    def save(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(X509Certificate.Binds.save, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def load(path: CString): Int =
+    def load(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(X509Certificate.Binds.load, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveToString(): CString =
+    def saveToString(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(X509Certificate.Binds.saveToString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def loadFromString(string: CString): Int =
+    def loadFromString(string: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = string
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(X509Certificate.Binds.loadFromString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object X509Certificate:
-    object Binds:
-        var save: Ptr[Byte] = null
+object Binds {
+          var save: Ptr[Byte] = null
         var load: Ptr[Byte] = null
         var saveToString: Ptr[Byte] = null
         var loadFromString: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.save = GdxApi.getMethodBind(c"X509Certificate", c"save", 166001499L)
+  def loadBinds(): Unit = {
+                Binds.save = GdxApi.getMethodBind(c"X509Certificate", c"save", 166001499L)
             Binds.load = GdxApi.getMethodBind(c"X509Certificate", c"load", 166001499L)
             Binds.saveToString = GdxApi.getMethodBind(c"X509Certificate", c"save_to_string", 2841200299L)
             Binds.loadFromString = GdxApi.getMethodBind(c"X509Certificate", c"load_from_string", 166001499L)
+  }
+}
 
-    def apply(): X509Certificate =
-        val obj = new X509Certificate()
-        obj.ptr = GdxApi.constructObject(c"X509Certificate")
-        obj
+def apply(): X509Certificate = {
+  val obj = new X509Certificate()
+  obj.ptr = GdxApi.constructObject(c"X509Certificate")
+  obj
+}

@@ -5,45 +5,51 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PacketPeerDTLS extends PacketPeer
-
-    def poll(): Unit =
+class PacketPeerDTLS extends PacketPeer {
+    def poll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PacketPeerDTLS.Binds.poll, ptr, _args, null)
+}
 
-    def connectToPeer(packetPeer: PacketPeerUDP, hostname: CString): Int =
+    def connectToPeer(packetPeer: PacketPeerUDP, hostname: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = packetPeer.ptr
-        _args(1) = hostname.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = hostname
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerDTLS.Binds.connectToPeer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getStatus(): Int =
+    def getStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PacketPeerDTLS.Binds.getStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def disconnectFromPeer(): Unit =
+    def disconnectFromPeer(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PacketPeerDTLS.Binds.disconnectFromPeer, ptr, _args, null)
-
+}
+}
 
 object PacketPeerDTLS:
-    object Binds:
-        var poll: Ptr[Byte] = null
+object Binds {
+          var poll: Ptr[Byte] = null
         var connectToPeer: Ptr[Byte] = null
         var getStatus: Ptr[Byte] = null
         var disconnectFromPeer: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.poll = GdxApi.getMethodBind(c"PacketPeerDTLS", c"poll", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.poll = GdxApi.getMethodBind(c"PacketPeerDTLS", c"poll", 3218959716L)
             Binds.connectToPeer = GdxApi.getMethodBind(c"PacketPeerDTLS", c"connect_to_peer", 2880188099L)
             Binds.getStatus = GdxApi.getMethodBind(c"PacketPeerDTLS", c"get_status", 3248654679L)
             Binds.disconnectFromPeer = GdxApi.getMethodBind(c"PacketPeerDTLS", c"disconnect_from_peer", 3218959716L)
+  }
+}
 
-    def apply(): PacketPeerDTLS =
-        val obj = new PacketPeerDTLS()
-        obj.ptr = GdxApi.constructObject(c"PacketPeerDTLS")
-        obj
+def apply(): PacketPeerDTLS = {
+  val obj = new PacketPeerDTLS()
+  obj.ptr = GdxApi.constructObject(c"PacketPeerDTLS")
+  obj
+}

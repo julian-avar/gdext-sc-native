@@ -5,211 +5,114 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationLink3D extends Node3D
-
-    def getRid(): RID =
+class NavigationLink3D extends Node3D {
+    def getRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationLink3D.Binds.getRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationLink3D.Binds.setEnabled, ptr, _args, null)
-
-    def isEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.isEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationMap(navigationMap: RID): Unit =
+    def setNavigationMap(navigationMap: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = navigationMap.ptr
         GdxApi.ptrcall(NavigationLink3D.Binds.setNavigationMap, ptr, _args, null)
+}
 
-    def getNavigationMap(): RID =
+    def getNavigationMap(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationLink3D.Binds.getNavigationMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setBidirectional(bidirectional: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if bidirectional then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationLink3D.Binds.setBidirectional, ptr, _args, null)
-
-    def isBidirectional(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.isBidirectional, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNavigationLayers(navigationLayers: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = navigationLayers.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationLink3D.Binds.setNavigationLayers, ptr, _args, null)
-
-    def getNavigationLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.getNavigationLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setNavigationLayerValue(layerNumber: Int, value: Boolean): Unit =
+    def setNavigationLayerValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationLink3D.Binds.setNavigationLayerValue, ptr, _args, null)
+}
 
-    def getNavigationLayerValue(layerNumber: Int): Boolean =
+    def getNavigationLayerValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationLink3D.Binds.getNavigationLayerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setStartPosition(position: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(NavigationLink3D.Binds.setStartPosition, ptr, _args, null)
-
-    def getStartPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.getStartPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setEndPosition(position: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(NavigationLink3D.Binds.setEndPosition, ptr, _args, null)
-
-    def getEndPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.getEndPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setGlobalStartPosition(position: Vector3): Unit =
+    def setGlobalStartPosition(position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(NavigationLink3D.Binds.setGlobalStartPosition, ptr, _args, null)
+}
 
-    def getGlobalStartPosition(): Vector3 =
+    def getGlobalStartPosition(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationLink3D.Binds.getGlobalStartPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setGlobalEndPosition(position: Vector3): Unit =
+    def setGlobalEndPosition(position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(NavigationLink3D.Binds.setGlobalEndPosition, ptr, _args, null)
+}
 
-    def getGlobalEndPosition(): Vector3 =
+    def getGlobalEndPosition(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationLink3D.Binds.getGlobalEndPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setEnterCost(enterCost: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = enterCost.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationLink3D.Binds.setEnterCost, ptr, _args, null)
-
-    def getEnterCost(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.getEnterCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTravelCost(travelCost: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = travelCost.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationLink3D.Binds.setTravelCost, ptr, _args, null)
-
-    def getTravelCost(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationLink3D.Binds.getTravelCost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def enabled: Ptr[Byte] = isEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def bidirectional: Ptr[Byte] = isBidirectional()
-    def bidirectional_=(v: Ptr[Byte]): Unit = setBidirectional(v)
-    def navigationLayers: Ptr[Byte] = getNavigationLayers()
-    def navigationLayers_=(v: Ptr[Byte]): Unit = setNavigationLayers(v)
-    def startPosition: Ptr[Byte] = getStartPosition()
-    def startPosition_=(v: Ptr[Byte]): Unit = setStartPosition(v)
-    def endPosition: Ptr[Byte] = getEndPosition()
-    def endPosition_=(v: Ptr[Byte]): Unit = setEndPosition(v)
-    def enterCost: Ptr[Byte] = getEnterCost()
-    def enterCost_=(v: Ptr[Byte]): Unit = setEnterCost(v)
-    def travelCost: Ptr[Byte] = getTravelCost()
-    def travelCost_=(v: Ptr[Byte]): Unit = setTravelCost(v)
+    def enabled: Boolean = isEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def bidirectional: Boolean = isBidirectional()
+    def bidirectional_=(v: Boolean): Unit = setBidirectional(v)
+    def navigationLayers: Int = getNavigationLayers()
+    def navigationLayers_=(v: Int): Unit = setNavigationLayers(v)
+    def startPosition: Vector3 = getStartPosition()
+    def startPosition_=(v: Vector3): Unit = setStartPosition(v)
+    def endPosition: Vector3 = getEndPosition()
+    def endPosition_=(v: Vector3): Unit = setEndPosition(v)
+    def enterCost: Float = getEnterCost()
+    def enterCost_=(v: Float): Unit = setEnterCost(v)
+    def travelCost: Float = getTravelCost()
+    def travelCost_=(v: Float): Unit = setTravelCost(v)
+}
 
 object NavigationLink3D:
-    object Binds:
-        var getRid: Ptr[Byte] = null
-        var setEnabled: Ptr[Byte] = null
-        var isEnabled: Ptr[Byte] = null
+object Binds {
+          var getRid: Ptr[Byte] = null
         var setNavigationMap: Ptr[Byte] = null
         var getNavigationMap: Ptr[Byte] = null
-        var setBidirectional: Ptr[Byte] = null
-        var isBidirectional: Ptr[Byte] = null
-        var setNavigationLayers: Ptr[Byte] = null
-        var getNavigationLayers: Ptr[Byte] = null
         var setNavigationLayerValue: Ptr[Byte] = null
         var getNavigationLayerValue: Ptr[Byte] = null
-        var setStartPosition: Ptr[Byte] = null
-        var getStartPosition: Ptr[Byte] = null
-        var setEndPosition: Ptr[Byte] = null
-        var getEndPosition: Ptr[Byte] = null
         var setGlobalStartPosition: Ptr[Byte] = null
         var getGlobalStartPosition: Ptr[Byte] = null
         var setGlobalEndPosition: Ptr[Byte] = null
         var getGlobalEndPosition: Ptr[Byte] = null
-        var setEnterCost: Ptr[Byte] = null
-        var getEnterCost: Ptr[Byte] = null
-        var setTravelCost: Ptr[Byte] = null
-        var getTravelCost: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getRid = GdxApi.getMethodBind(c"NavigationLink3D", c"get_rid", 2944877500L)
-            Binds.setEnabled = GdxApi.getMethodBind(c"NavigationLink3D", c"set_enabled", 2586408642L)
-            Binds.isEnabled = GdxApi.getMethodBind(c"NavigationLink3D", c"is_enabled", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getRid = GdxApi.getMethodBind(c"NavigationLink3D", c"get_rid", 2944877500L)
             Binds.setNavigationMap = GdxApi.getMethodBind(c"NavigationLink3D", c"set_navigation_map", 2722037293L)
             Binds.getNavigationMap = GdxApi.getMethodBind(c"NavigationLink3D", c"get_navigation_map", 2944877500L)
-            Binds.setBidirectional = GdxApi.getMethodBind(c"NavigationLink3D", c"set_bidirectional", 2586408642L)
-            Binds.isBidirectional = GdxApi.getMethodBind(c"NavigationLink3D", c"is_bidirectional", 36873697L)
-            Binds.setNavigationLayers = GdxApi.getMethodBind(c"NavigationLink3D", c"set_navigation_layers", 1286410249L)
-            Binds.getNavigationLayers = GdxApi.getMethodBind(c"NavigationLink3D", c"get_navigation_layers", 3905245786L)
             Binds.setNavigationLayerValue = GdxApi.getMethodBind(c"NavigationLink3D", c"set_navigation_layer_value", 300928843L)
             Binds.getNavigationLayerValue = GdxApi.getMethodBind(c"NavigationLink3D", c"get_navigation_layer_value", 1116898809L)
-            Binds.setStartPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"set_start_position", 3460891852L)
-            Binds.getStartPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"get_start_position", 3360562783L)
-            Binds.setEndPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"set_end_position", 3460891852L)
-            Binds.getEndPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"get_end_position", 3360562783L)
             Binds.setGlobalStartPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"set_global_start_position", 3460891852L)
             Binds.getGlobalStartPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"get_global_start_position", 3360562783L)
             Binds.setGlobalEndPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"set_global_end_position", 3460891852L)
             Binds.getGlobalEndPosition = GdxApi.getMethodBind(c"NavigationLink3D", c"get_global_end_position", 3360562783L)
-            Binds.setEnterCost = GdxApi.getMethodBind(c"NavigationLink3D", c"set_enter_cost", 373806689L)
-            Binds.getEnterCost = GdxApi.getMethodBind(c"NavigationLink3D", c"get_enter_cost", 1740695150L)
-            Binds.setTravelCost = GdxApi.getMethodBind(c"NavigationLink3D", c"set_travel_cost", 373806689L)
-            Binds.getTravelCost = GdxApi.getMethodBind(c"NavigationLink3D", c"get_travel_cost", 1740695150L)
+  }
+}
 
-    def apply(): NavigationLink3D =
-        val obj = new NavigationLink3D()
-        obj.ptr = GdxApi.constructObject(c"NavigationLink3D")
-        obj
+def apply(): NavigationLink3D = {
+  val obj = new NavigationLink3D()
+  obj.ptr = GdxApi.constructObject(c"NavigationLink3D")
+  obj
+}

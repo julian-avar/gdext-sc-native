@@ -5,23 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorScenePostImport extends RefCounted
+class EditorScenePostImport extends RefCounted {
     def _postImport(scene: Node): Object = null
-    def getSourceFile(): CString =
+
+    def getSourceFile(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorScenePostImport.Binds.getSourceFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object EditorScenePostImport:
-    object Binds:
-        var getSourceFile: Ptr[Byte] = null
+object Binds {
+          var getSourceFile: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSourceFile = GdxApi.getMethodBind(c"EditorScenePostImport", c"get_source_file", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getSourceFile = GdxApi.getMethodBind(c"EditorScenePostImport", c"get_source_file", 201670096L)
+  }
+}
 
-    def apply(): EditorScenePostImport =
-        val obj = new EditorScenePostImport()
-        obj.ptr = GdxApi.constructObject(c"EditorScenePostImport")
-        obj
+def apply(): EditorScenePostImport = {
+  val obj = new EditorScenePostImport()
+  obj.ptr = GdxApi.constructObject(c"EditorScenePostImport")
+  obj
+}

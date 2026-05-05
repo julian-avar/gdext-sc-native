@@ -5,150 +5,172 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EngineDebugger extends Object
-
-    def isActive(): Boolean =
+class EngineDebugger extends Object {
+    def isActive(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EngineDebugger.Binds.isActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def registerProfiler(name: CString, profiler: EngineProfiler): Unit =
+    def registerProfiler(name: CString, profiler: EngineProfiler): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = profiler.ptr
         GdxApi.ptrcall(EngineDebugger.Binds.registerProfiler, ptr, _args, null)
+}
 
-    def unregisterProfiler(name: CString): Unit =
+    def unregisterProfiler(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EngineDebugger.Binds.unregisterProfiler, ptr, _args, null)
+}
 
-    def isProfiling(name: CString): Boolean =
+    def isProfiling(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EngineDebugger.Binds.isProfiling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasProfiler(name: CString): Boolean =
+    def hasProfiler(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EngineDebugger.Binds.hasProfiler, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def profilerAddFrameData(name: CString, data: Array): Unit =
+    def profilerAddFrameData(name: CString, data: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = data.ptr
+        _args(0) = name
+        _args(1) = data
         GdxApi.ptrcall(EngineDebugger.Binds.profilerAddFrameData, ptr, _args, null)
+}
 
-    def profilerEnable(name: CString, enable: Boolean): Unit =
+    def profilerEnable(name: CString, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EngineDebugger.Binds.profilerEnable, ptr, _args, null)
+}
 
-    def registerMessageCapture(name: CString, callable: Callable): Unit =
+    def registerMessageCapture(name: CString, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = callable.ptr
         GdxApi.ptrcall(EngineDebugger.Binds.registerMessageCapture, ptr, _args, null)
+}
 
-    def unregisterMessageCapture(name: CString): Unit =
+    def unregisterMessageCapture(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(EngineDebugger.Binds.unregisterMessageCapture, ptr, _args, null)
+}
 
-    def hasCapture(name: CString): Boolean =
+    def hasCapture(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EngineDebugger.Binds.hasCapture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def linePoll(): Unit =
+    def linePoll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EngineDebugger.Binds.linePoll, ptr, _args, null)
+}
 
-    def sendMessage(message: CString, data: Array): Unit =
+    def sendMessage(message: CString, data: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = message.ptr
-        _args(1) = data.ptr
+        _args(0) = message
+        _args(1) = data
         GdxApi.ptrcall(EngineDebugger.Binds.sendMessage, ptr, _args, null)
+}
 
-    def debug(): Unit =
+    def debug(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EngineDebugger.Binds.debug, ptr, _args, null)
+}
 
-    def scriptDebug(language: ScriptLanguage): Unit =
+    def scriptDebug(language: ScriptLanguage): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = language.ptr
         GdxApi.ptrcall(EngineDebugger.Binds.scriptDebug, ptr, _args, null)
+}
 
-    def setLinesLeft(lines: Int): Unit =
+    def setLinesLeft(lines: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = lines.toLong
+        val _a0 = stackalloc[Long](); !_a0 = lines.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EngineDebugger.Binds.setLinesLeft, ptr, _args, null)
+}
 
-    def getLinesLeft(): Int =
+    def getLinesLeft(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EngineDebugger.Binds.getLinesLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setDepth(depth: Int): Unit =
+    def setDepth(depth: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = depth.toLong
+        val _a0 = stackalloc[Long](); !_a0 = depth.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EngineDebugger.Binds.setDepth, ptr, _args, null)
+}
 
-    def getDepth(): Int =
+    def getDepth(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EngineDebugger.Binds.getDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isBreakpoint(line: Int, source: CString): Boolean =
+    def isBreakpoint(line: Int, source: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = source.ptr
+        _args(1) = source
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EngineDebugger.Binds.isBreakpoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isSkippingBreakpoints(): Boolean =
+    def isSkippingBreakpoints(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EngineDebugger.Binds.isSkippingBreakpoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def insertBreakpoint(line: Int, source: CString): Unit =
+    def insertBreakpoint(line: Int, source: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = source.ptr
+        _args(1) = source
         GdxApi.ptrcall(EngineDebugger.Binds.insertBreakpoint, ptr, _args, null)
+}
 
-    def removeBreakpoint(line: Int, source: CString): Unit =
+    def removeBreakpoint(line: Int, source: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = source.ptr
+        _args(1) = source
         GdxApi.ptrcall(EngineDebugger.Binds.removeBreakpoint, ptr, _args, null)
+}
 
-    def clearBreakpoints(): Unit =
+    def clearBreakpoints(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EngineDebugger.Binds.clearBreakpoints, ptr, _args, null)
-
+}
+}
 
 object EngineDebugger:
-    object Binds:
-        var isActive: Ptr[Byte] = null
+object Binds {
+          var isActive: Ptr[Byte] = null
         var registerProfiler: Ptr[Byte] = null
         var unregisterProfiler: Ptr[Byte] = null
         var isProfiling: Ptr[Byte] = null
@@ -172,8 +194,8 @@ object EngineDebugger:
         var removeBreakpoint: Ptr[Byte] = null
         var clearBreakpoints: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isActive = GdxApi.getMethodBind(c"EngineDebugger", c"is_active", 2240911060L)
+  def loadBinds(): Unit = {
+                Binds.isActive = GdxApi.getMethodBind(c"EngineDebugger", c"is_active", 2240911060L)
             Binds.registerProfiler = GdxApi.getMethodBind(c"EngineDebugger", c"register_profiler", 3651669560L)
             Binds.unregisterProfiler = GdxApi.getMethodBind(c"EngineDebugger", c"unregister_profiler", 3304788590L)
             Binds.isProfiling = GdxApi.getMethodBind(c"EngineDebugger", c"is_profiling", 2041966384L)
@@ -196,8 +218,11 @@ object EngineDebugger:
             Binds.insertBreakpoint = GdxApi.getMethodBind(c"EngineDebugger", c"insert_breakpoint", 3780747571L)
             Binds.removeBreakpoint = GdxApi.getMethodBind(c"EngineDebugger", c"remove_breakpoint", 3780747571L)
             Binds.clearBreakpoints = GdxApi.getMethodBind(c"EngineDebugger", c"clear_breakpoints", 3218959716L)
+  }
+}
 
-    def apply(): EngineDebugger =
-        val obj = new EngineDebugger()
-        obj.ptr = GdxApi.constructObject(c"EngineDebugger")
-        obj
+def apply(): EngineDebugger = {
+  val obj = new EngineDebugger()
+  obj.ptr = GdxApi.constructObject(c"EngineDebugger")
+  obj
+}

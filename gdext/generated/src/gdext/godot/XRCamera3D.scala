@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRCamera3D extends Camera3D
-
-
-
+class XRCamera3D extends Camera3D {}
 
 object XRCamera3D:
-    def apply(): XRCamera3D =
-        val obj = new XRCamera3D()
-        obj.ptr = GdxApi.constructObject(c"XRCamera3D")
-        obj
+def apply(): XRCamera3D = {
+  val obj = new XRCamera3D()
+  obj.ptr = GdxApi.constructObject(c"XRCamera3D")
+  obj
+}

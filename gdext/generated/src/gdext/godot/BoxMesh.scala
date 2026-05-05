@@ -5,85 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class BoxMesh extends PrimitiveMesh
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(BoxMesh.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BoxMesh.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setSubdivideWidth(subdivide: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = subdivide.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BoxMesh.Binds.setSubdivideWidth, ptr, _args, null)
-
-    def getSubdivideWidth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BoxMesh.Binds.getSubdivideWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSubdivideHeight(divisions: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = divisions.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BoxMesh.Binds.setSubdivideHeight, ptr, _args, null)
-
-    def getSubdivideHeight(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BoxMesh.Binds.getSubdivideHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSubdivideDepth(divisions: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = divisions.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BoxMesh.Binds.setSubdivideDepth, ptr, _args, null)
-
-    def getSubdivideDepth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BoxMesh.Binds.getSubdivideDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def subdivideWidth: Ptr[Byte] = getSubdivideWidth()
-    def subdivideWidth_=(v: Ptr[Byte]): Unit = setSubdivideWidth(v)
-    def subdivideHeight: Ptr[Byte] = getSubdivideHeight()
-    def subdivideHeight_=(v: Ptr[Byte]): Unit = setSubdivideHeight(v)
-    def subdivideDepth: Ptr[Byte] = getSubdivideDepth()
-    def subdivideDepth_=(v: Ptr[Byte]): Unit = setSubdivideDepth(v)
+class BoxMesh extends PrimitiveMesh {
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def subdivideWidth: Int = getSubdivideWidth()
+    def subdivideWidth_=(v: Int): Unit = setSubdivideWidth(v)
+    def subdivideHeight: Int = getSubdivideHeight()
+    def subdivideHeight_=(v: Int): Unit = setSubdivideHeight(v)
+    def subdivideDepth: Int = getSubdivideDepth()
+    def subdivideDepth_=(v: Int): Unit = setSubdivideDepth(v)
+}
 
 object BoxMesh:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setSubdivideWidth: Ptr[Byte] = null
-        var getSubdivideWidth: Ptr[Byte] = null
-        var setSubdivideHeight: Ptr[Byte] = null
-        var getSubdivideHeight: Ptr[Byte] = null
-        var setSubdivideDepth: Ptr[Byte] = null
-        var getSubdivideDepth: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"BoxMesh", c"set_size", 3460891852L)
-            Binds.getSize = GdxApi.getMethodBind(c"BoxMesh", c"get_size", 3360562783L)
-            Binds.setSubdivideWidth = GdxApi.getMethodBind(c"BoxMesh", c"set_subdivide_width", 1286410249L)
-            Binds.getSubdivideWidth = GdxApi.getMethodBind(c"BoxMesh", c"get_subdivide_width", 3905245786L)
-            Binds.setSubdivideHeight = GdxApi.getMethodBind(c"BoxMesh", c"set_subdivide_height", 1286410249L)
-            Binds.getSubdivideHeight = GdxApi.getMethodBind(c"BoxMesh", c"get_subdivide_height", 3905245786L)
-            Binds.setSubdivideDepth = GdxApi.getMethodBind(c"BoxMesh", c"set_subdivide_depth", 1286410249L)
-            Binds.getSubdivideDepth = GdxApi.getMethodBind(c"BoxMesh", c"get_subdivide_depth", 3905245786L)
-
-    def apply(): BoxMesh =
-        val obj = new BoxMesh()
-        obj.ptr = GdxApi.constructObject(c"BoxMesh")
-        obj
+def apply(): BoxMesh = {
+  val obj = new BoxMesh()
+  obj.ptr = GdxApi.constructObject(c"BoxMesh")
+  obj
+}

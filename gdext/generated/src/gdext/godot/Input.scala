@@ -5,382 +5,390 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Input extends Object
-
-    def isAnythingPressed(): Boolean =
+class Input extends Object {
+    def isAnythingPressed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isAnythingPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isKeyPressed(keycode: Int): Boolean =
+    def isKeyPressed(keycode: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keycode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = keycode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isKeyPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPhysicalKeyPressed(keycode: Int): Boolean =
+    def isPhysicalKeyPressed(keycode: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keycode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = keycode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isPhysicalKeyPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isKeyLabelPressed(keycode: Int): Boolean =
+    def isKeyLabelPressed(keycode: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keycode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = keycode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isKeyLabelPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isMouseButtonPressed(button: Int): Boolean =
+    def isMouseButtonPressed(button: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = button.ptr
+        val _a0 = stackalloc[Long](); !_a0 = button.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isMouseButtonPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isJoyButtonPressed(device: Int, button: Int): Boolean =
+    def isJoyButtonPressed(device: Int, button: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = button.ptr
+        val _a1 = stackalloc[Long](); !_a1 = button.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isJoyButtonPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionPressed(action: CString): Boolean =
+    def isActionPressed(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isActionPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionJustPressed(action: CString): Boolean =
+    def isActionJustPressed(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isActionJustPressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionJustReleased(action: CString): Boolean =
+    def isActionJustReleased(action: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isActionJustReleased, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionJustPressedByEvent(action: CString, event: InputEvent): Boolean =
+    def isActionJustPressedByEvent(action: CString, event: InputEvent): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = action.ptr
+        _args(0) = action
         _args(1) = event.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isActionJustPressedByEvent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isActionJustReleasedByEvent(action: CString, event: InputEvent): Boolean =
+    def isActionJustReleasedByEvent(action: CString, event: InputEvent): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = action.ptr
+        _args(0) = action
         _args(1) = event.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isActionJustReleasedByEvent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getActionStrength(action: CString): Float =
+    def getActionStrength(action: CString): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Input.Binds.getActionStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getActionRawStrength(action: CString): Float =
+    def getActionRawStrength(action: CString): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Input.Binds.getActionRawStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getAxis(negativeAction: CString, positiveAction: CString): Float =
+    def getAxis(negativeAction: CString, positiveAction: CString): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = negativeAction.ptr
-        _args(1) = positiveAction.ptr
+        _args(0) = negativeAction
+        _args(1) = positiveAction
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Input.Binds.getAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getVector(negativeX: CString, positiveX: CString, negativeY: CString, positiveY: CString): Vector2 =
+    def getVector(negativeX: CString, positiveX: CString, negativeY: CString, positiveY: CString): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = negativeX.ptr
-        _args(1) = positiveX.ptr
-        _args(2) = negativeY.ptr
-        _args(3) = positiveY.ptr
+        _args(0) = negativeX
+        _args(1) = positiveX
+        _args(2) = negativeY
+        _args(3) = positiveY
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getVector, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def addJoyMapping(mapping: CString): Unit =
+    def addJoyMapping(mapping: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mapping.ptr
+        _args(0) = mapping
         GdxApi.ptrcall(Input.Binds.addJoyMapping, ptr, _args, null)
+}
 
-    def removeJoyMapping(guid: CString): Unit =
+    def removeJoyMapping(guid: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = guid.ptr
+        _args(0) = guid
         GdxApi.ptrcall(Input.Binds.removeJoyMapping, ptr, _args, null)
+}
 
-    def isJoyKnown(device: Int): Boolean =
+    def isJoyKnown(device: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.isJoyKnown, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getJoyAxis(device: Int, axis: Int): Float =
+    def getJoyAxis(device: Int, axis: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axis.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axis.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Input.Binds.getJoyAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getJoyName(device: Int): CString =
+    def getJoyName(device: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getJoyName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getJoyGuid(device: Int): CString =
+    def getJoyGuid(device: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getJoyGuid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getJoyInfo(device: Int): Dictionary =
+    def getJoyInfo(device: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getJoyInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def shouldIgnoreDevice(vendorId: Int, productId: Int): Boolean =
+    def shouldIgnoreDevice(vendorId: Int, productId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = vendorId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = vendorId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = productId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = productId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Input.Binds.shouldIgnoreDevice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getConnectedJoypads(): Ptr[Byte] =
+    def getConnectedJoypads(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getConnectedJoypads, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getJoyVibrationStrength(device: Int): Vector2 =
+    def getJoyVibrationStrength(device: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getJoyVibrationStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getJoyVibrationDuration(device: Int): Float =
+    def getJoyVibrationDuration(device: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Input.Binds.getJoyVibrationDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def startJoyVibration(device: Int, weakMagnitude: Float, strongMagnitude: Float): Unit =
+    def startJoyVibration(device: Int, weakMagnitude: Float, strongMagnitude: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = weakMagnitude.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = strongMagnitude.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Input.Binds.startJoyVibration, ptr, _args, null)
+}
 
-    def stopJoyVibration(device: Int): Unit =
+    def stopJoyVibration(device: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = device.toLong
+        val _a0 = stackalloc[Long](); !_a0 = device.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Input.Binds.stopJoyVibration, ptr, _args, null)
+}
 
-    def vibrateHandheld(): Unit =
+    def vibrateHandheld(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Input.Binds.vibrateHandheld, ptr, _args, null)
+}
 
-    def getGravity(): Vector3 =
+    def getGravity(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getAccelerometer(): Vector3 =
+    def getAccelerometer(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getAccelerometer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getMagnetometer(): Vector3 =
+    def getMagnetometer(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getMagnetometer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getGyroscope(): Vector3 =
+    def getGyroscope(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getGyroscope, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setGravity(value: Vector3): Unit =
+    def setGravity(value: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = value.ptr
         GdxApi.ptrcall(Input.Binds.setGravity, ptr, _args, null)
+}
 
-    def setAccelerometer(value: Vector3): Unit =
+    def setAccelerometer(value: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = value.ptr
         GdxApi.ptrcall(Input.Binds.setAccelerometer, ptr, _args, null)
+}
 
-    def setMagnetometer(value: Vector3): Unit =
+    def setMagnetometer(value: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = value.ptr
         GdxApi.ptrcall(Input.Binds.setMagnetometer, ptr, _args, null)
+}
 
-    def setGyroscope(value: Vector3): Unit =
+    def setGyroscope(value: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = value.ptr
         GdxApi.ptrcall(Input.Binds.setGyroscope, ptr, _args, null)
+}
 
-    def getLastMouseVelocity(): Vector2 =
+    def getLastMouseVelocity(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getLastMouseVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getLastMouseScreenVelocity(): Vector2 =
+    def getLastMouseScreenVelocity(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Input.Binds.getLastMouseScreenVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getMouseButtonMask(): Int =
+    def getMouseButtonMask(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Input.Binds.getMouseButtonMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setMouseMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Input.Binds.setMouseMode, ptr, _args, null)
-
-    def getMouseMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Input.Binds.getMouseMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def warpMouse(position: Vector2): Unit =
+    def warpMouse(position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(Input.Binds.warpMouse, ptr, _args, null)
+}
 
-    def actionPress(action: CString): Unit =
+    def actionPress(action: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         GdxApi.ptrcall(Input.Binds.actionPress, ptr, _args, null)
+}
 
-    def actionRelease(action: CString): Unit =
+    def actionRelease(action: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = action.ptr
+        _args(0) = action
         GdxApi.ptrcall(Input.Binds.actionRelease, ptr, _args, null)
+}
 
-    def setDefaultCursorShape(): Unit =
+    def setDefaultCursorShape(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Input.Binds.setDefaultCursorShape, ptr, _args, null)
+}
 
-    def getCurrentCursorShape(): Int =
+    def getCurrentCursorShape(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Input.Binds.getCurrentCursorShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCustomMouseCursor(image: Resource): Unit =
+    def setCustomMouseCursor(image: Resource): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = image.ptr
         GdxApi.ptrcall(Input.Binds.setCustomMouseCursor, ptr, _args, null)
+}
 
-    def parseInputEvent(event: InputEvent): Unit =
+    def parseInputEvent(event: InputEvent): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = event.ptr
         GdxApi.ptrcall(Input.Binds.parseInputEvent, ptr, _args, null)
+}
 
-    def setUseAccumulatedInput(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Input.Binds.setUseAccumulatedInput, ptr, _args, null)
-
-    def isUsingAccumulatedInput(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Input.Binds.isUsingAccumulatedInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def flushBufferedEvents(): Unit =
+    def flushBufferedEvents(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Input.Binds.flushBufferedEvents, ptr, _args, null)
+}
 
-    def setEmulateMouseFromTouch(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Input.Binds.setEmulateMouseFromTouch, ptr, _args, null)
-
-    def isEmulatingMouseFromTouch(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Input.Binds.isEmulatingMouseFromTouch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEmulateTouchFromMouse(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Input.Binds.setEmulateTouchFromMouse, ptr, _args, null)
-
-    def isEmulatingTouchFromMouse(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Input.Binds.isEmulatingTouchFromMouse, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def mouseMode: Ptr[Byte] = getMouseMode()
-    def mouseMode_=(v: Ptr[Byte]): Unit = setMouseMode(v)
-    def useAccumulatedInput: Ptr[Byte] = isUsingAccumulatedInput()
-    def useAccumulatedInput_=(v: Ptr[Byte]): Unit = setUseAccumulatedInput(v)
-    def emulateMouseFromTouch: Ptr[Byte] = isEmulatingMouseFromTouch()
-    def emulateMouseFromTouch_=(v: Ptr[Byte]): Unit = setEmulateMouseFromTouch(v)
-    def emulateTouchFromMouse: Ptr[Byte] = isEmulatingTouchFromMouse()
-    def emulateTouchFromMouse_=(v: Ptr[Byte]): Unit = setEmulateTouchFromMouse(v)
+    def mouseMode: Int = getMouseMode()
+    def mouseMode_=(v: Int): Unit = setMouseMode(v)
+    def useAccumulatedInput: Boolean = isUsingAccumulatedInput()
+    def useAccumulatedInput_=(v: Boolean): Unit = setUseAccumulatedInput(v)
+    def emulateMouseFromTouch: Boolean = isEmulatingMouseFromTouch()
+    def emulateMouseFromTouch_=(v: Boolean): Unit = setEmulateMouseFromTouch(v)
+    def emulateTouchFromMouse: Boolean = isEmulatingTouchFromMouse()
+    def emulateTouchFromMouse_=(v: Boolean): Unit = setEmulateTouchFromMouse(v)
+}
 
 object Input:
-    object Binds:
-        var isAnythingPressed: Ptr[Byte] = null
+object Binds {
+          var isAnythingPressed: Ptr[Byte] = null
         var isKeyPressed: Ptr[Byte] = null
         var isPhysicalKeyPressed: Ptr[Byte] = null
         var isKeyLabelPressed: Ptr[Byte] = null
@@ -420,8 +428,6 @@ object Input:
         var getLastMouseVelocity: Ptr[Byte] = null
         var getLastMouseScreenVelocity: Ptr[Byte] = null
         var getMouseButtonMask: Ptr[Byte] = null
-        var setMouseMode: Ptr[Byte] = null
-        var getMouseMode: Ptr[Byte] = null
         var warpMouse: Ptr[Byte] = null
         var actionPress: Ptr[Byte] = null
         var actionRelease: Ptr[Byte] = null
@@ -429,16 +435,10 @@ object Input:
         var getCurrentCursorShape: Ptr[Byte] = null
         var setCustomMouseCursor: Ptr[Byte] = null
         var parseInputEvent: Ptr[Byte] = null
-        var setUseAccumulatedInput: Ptr[Byte] = null
-        var isUsingAccumulatedInput: Ptr[Byte] = null
         var flushBufferedEvents: Ptr[Byte] = null
-        var setEmulateMouseFromTouch: Ptr[Byte] = null
-        var isEmulatingMouseFromTouch: Ptr[Byte] = null
-        var setEmulateTouchFromMouse: Ptr[Byte] = null
-        var isEmulatingTouchFromMouse: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isAnythingPressed = GdxApi.getMethodBind(c"Input", c"is_anything_pressed", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.isAnythingPressed = GdxApi.getMethodBind(c"Input", c"is_anything_pressed", 36873697L)
             Binds.isKeyPressed = GdxApi.getMethodBind(c"Input", c"is_key_pressed", 1938909964L)
             Binds.isPhysicalKeyPressed = GdxApi.getMethodBind(c"Input", c"is_physical_key_pressed", 1938909964L)
             Binds.isKeyLabelPressed = GdxApi.getMethodBind(c"Input", c"is_key_label_pressed", 1938909964L)
@@ -478,8 +478,6 @@ object Input:
             Binds.getLastMouseVelocity = GdxApi.getMethodBind(c"Input", c"get_last_mouse_velocity", 1497962370L)
             Binds.getLastMouseScreenVelocity = GdxApi.getMethodBind(c"Input", c"get_last_mouse_screen_velocity", 1497962370L)
             Binds.getMouseButtonMask = GdxApi.getMethodBind(c"Input", c"get_mouse_button_mask", 2512161324L)
-            Binds.setMouseMode = GdxApi.getMethodBind(c"Input", c"set_mouse_mode", 2228490894L)
-            Binds.getMouseMode = GdxApi.getMethodBind(c"Input", c"get_mouse_mode", 965286182L)
             Binds.warpMouse = GdxApi.getMethodBind(c"Input", c"warp_mouse", 743155724L)
             Binds.actionPress = GdxApi.getMethodBind(c"Input", c"action_press", 1713091165L)
             Binds.actionRelease = GdxApi.getMethodBind(c"Input", c"action_release", 3304788590L)
@@ -487,10 +485,6 @@ object Input:
             Binds.getCurrentCursorShape = GdxApi.getMethodBind(c"Input", c"get_current_cursor_shape", 3455658929L)
             Binds.setCustomMouseCursor = GdxApi.getMethodBind(c"Input", c"set_custom_mouse_cursor", 703945977L)
             Binds.parseInputEvent = GdxApi.getMethodBind(c"Input", c"parse_input_event", 3754044979L)
-            Binds.setUseAccumulatedInput = GdxApi.getMethodBind(c"Input", c"set_use_accumulated_input", 2586408642L)
-            Binds.isUsingAccumulatedInput = GdxApi.getMethodBind(c"Input", c"is_using_accumulated_input", 2240911060L)
             Binds.flushBufferedEvents = GdxApi.getMethodBind(c"Input", c"flush_buffered_events", 3218959716L)
-            Binds.setEmulateMouseFromTouch = GdxApi.getMethodBind(c"Input", c"set_emulate_mouse_from_touch", 2586408642L)
-            Binds.isEmulatingMouseFromTouch = GdxApi.getMethodBind(c"Input", c"is_emulating_mouse_from_touch", 36873697L)
-            Binds.setEmulateTouchFromMouse = GdxApi.getMethodBind(c"Input", c"set_emulate_touch_from_mouse", 2586408642L)
-            Binds.isEmulatingTouchFromMouse = GdxApi.getMethodBind(c"Input", c"is_emulating_touch_from_mouse", 36873697L)
+  }
+}

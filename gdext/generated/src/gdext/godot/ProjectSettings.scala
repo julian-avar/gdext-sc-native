@@ -5,138 +5,156 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ProjectSettings extends Object
-
-    def hasSetting(name: CString): Boolean =
+class ProjectSettings extends Object {
+    def hasSetting(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ProjectSettings.Binds.hasSetting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSetting(name: CString, value: Ptr[Byte]): Unit =
+    def setSetting(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(ProjectSettings.Binds.setSetting, ptr, _args, null)
+}
 
-    def getSetting(name: CString): Ptr[Byte] =
+    def getSetting(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ProjectSettings.Binds.getSetting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSettingWithOverride(name: CString): Ptr[Byte] =
+    def getSettingWithOverride(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ProjectSettings.Binds.getSettingWithOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getGlobalClassList(): Ptr[Byte] =
+    def getGlobalClassList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ProjectSettings.Binds.getGlobalClassList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSettingWithOverrideAndCustomFeatures(name: CString, features: PackedStringArray): Ptr[Byte] =
+    def getSettingWithOverrideAndCustomFeatures(name: CString, features: PackedStringArray): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = features.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ProjectSettings.Binds.getSettingWithOverrideAndCustomFeatures, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setOrder(name: CString, position: Int): Unit =
+    def setOrder(name: CString, position: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = position.toLong
+        _args(0) = name
+        val _a1 = stackalloc[Long](); !_a1 = position.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ProjectSettings.Binds.setOrder, ptr, _args, null)
+}
 
-    def getOrder(name: CString): Int =
+    def getOrder(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ProjectSettings.Binds.getOrder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setInitialValue(name: CString, value: Ptr[Byte]): Unit =
+    def setInitialValue(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(ProjectSettings.Binds.setInitialValue, ptr, _args, null)
+}
 
-    def setAsBasic(name: CString, basic: Boolean): Unit =
+    def setAsBasic(name: CString, basic: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Byte](); !_a1 = if basic then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ProjectSettings.Binds.setAsBasic, ptr, _args, null)
+}
 
-    def setAsInternal(name: CString, internal: Boolean): Unit =
+    def setAsInternal(name: CString, internal: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Byte](); !_a1 = if internal then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ProjectSettings.Binds.setAsInternal, ptr, _args, null)
+}
 
-    def addPropertyInfo(hint: Dictionary): Unit =
+    def addPropertyInfo(hint: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = hint.ptr
         GdxApi.ptrcall(ProjectSettings.Binds.addPropertyInfo, ptr, _args, null)
+}
 
-    def setRestartIfChanged(name: CString, restart: Boolean): Unit =
+    def setRestartIfChanged(name: CString, restart: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Byte](); !_a1 = if restart then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ProjectSettings.Binds.setRestartIfChanged, ptr, _args, null)
+}
 
-    def clear(name: CString): Unit =
+    def clear(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(ProjectSettings.Binds.clear, ptr, _args, null)
+}
 
-    def localizePath(path: CString): CString =
+    def localizePath(path: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ProjectSettings.Binds.localizePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalizePath(path: CString): CString =
+    def globalizePath(path: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ProjectSettings.Binds.globalizePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def save(): Int =
+    def save(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ProjectSettings.Binds.save, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadResourcePack(pack: CString): Boolean =
+    def loadResourcePack(pack: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pack.ptr
+        _args(0) = pack
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ProjectSettings.Binds.loadResourcePack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def saveCustom(file: CString): Int =
+    def saveCustom(file: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = file.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = file
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ProjectSettings.Binds.saveCustom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object ProjectSettings:
-    object Binds:
-        var hasSetting: Ptr[Byte] = null
+object Binds {
+          var hasSetting: Ptr[Byte] = null
         var setSetting: Ptr[Byte] = null
         var getSetting: Ptr[Byte] = null
         var getSettingWithOverride: Ptr[Byte] = null
@@ -156,8 +174,8 @@ object ProjectSettings:
         var loadResourcePack: Ptr[Byte] = null
         var saveCustom: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasSetting = GdxApi.getMethodBind(c"ProjectSettings", c"has_setting", 3927539163L)
+  def loadBinds(): Unit = {
+                Binds.hasSetting = GdxApi.getMethodBind(c"ProjectSettings", c"has_setting", 3927539163L)
             Binds.setSetting = GdxApi.getMethodBind(c"ProjectSettings", c"set_setting", 402577236L)
             Binds.getSetting = GdxApi.getMethodBind(c"ProjectSettings", c"get_setting", 223050753L)
             Binds.getSettingWithOverride = GdxApi.getMethodBind(c"ProjectSettings", c"get_setting_with_override", 2760726917L)
@@ -176,8 +194,11 @@ object ProjectSettings:
             Binds.save = GdxApi.getMethodBind(c"ProjectSettings", c"save", 166280745L)
             Binds.loadResourcePack = GdxApi.getMethodBind(c"ProjectSettings", c"load_resource_pack", 708980503L)
             Binds.saveCustom = GdxApi.getMethodBind(c"ProjectSettings", c"save_custom", 166001499L)
+  }
+}
 
-    def apply(): ProjectSettings =
-        val obj = new ProjectSettings()
-        obj.ptr = GdxApi.constructObject(c"ProjectSettings")
-        obj
+def apply(): ProjectSettings = {
+  val obj = new ProjectSettings()
+  obj.ptr = GdxApi.constructObject(c"ProjectSettings")
+  obj
+}

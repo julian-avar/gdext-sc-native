@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CSGCombiner3D extends CSGShape3D
-
-
-
+class CSGCombiner3D extends CSGShape3D {}
 
 object CSGCombiner3D:
-    def apply(): CSGCombiner3D =
-        val obj = new CSGCombiner3D()
-        obj.ptr = GdxApi.constructObject(c"CSGCombiner3D")
-        obj
+def apply(): CSGCombiner3D = {
+  val obj = new CSGCombiner3D()
+  obj.ptr = GdxApi.constructObject(c"CSGCombiner3D")
+  obj
+}

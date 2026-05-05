@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VBoxContainer extends BoxContainer
-
-
-
+class VBoxContainer extends BoxContainer {}
 
 object VBoxContainer:
-    def apply(): VBoxContainer =
-        val obj = new VBoxContainer()
-        obj.ptr = GdxApi.constructObject(c"VBoxContainer")
-        obj
+def apply(): VBoxContainer = {
+  val obj = new VBoxContainer()
+  obj.ptr = GdxApi.constructObject(c"VBoxContainer")
+  obj
+}

@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRCompositionLayerQuad extends OpenXRCompositionLayer
-
-    def setQuadSize(size: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(OpenXRCompositionLayerQuad.Binds.setQuadSize, ptr, _args, null)
-
-    def getQuadSize(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRCompositionLayerQuad.Binds.getQuadSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def quadSize: Ptr[Byte] = getQuadSize()
-    def quadSize_=(v: Ptr[Byte]): Unit = setQuadSize(v)
+class OpenXRCompositionLayerQuad extends OpenXRCompositionLayer {
+    def quadSize: Vector2 = getQuadSize()
+    def quadSize_=(v: Vector2): Unit = setQuadSize(v)
+}
 
 object OpenXRCompositionLayerQuad:
-    object Binds:
-        var setQuadSize: Ptr[Byte] = null
-        var getQuadSize: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setQuadSize = GdxApi.getMethodBind(c"OpenXRCompositionLayerQuad", c"set_quad_size", 743155724L)
-            Binds.getQuadSize = GdxApi.getMethodBind(c"OpenXRCompositionLayerQuad", c"get_quad_size", 3341600327L)
-
-    def apply(): OpenXRCompositionLayerQuad =
-        val obj = new OpenXRCompositionLayerQuad()
-        obj.ptr = GdxApi.constructObject(c"OpenXRCompositionLayerQuad")
-        obj
+def apply(): OpenXRCompositionLayerQuad = {
+  val obj = new OpenXRCompositionLayerQuad()
+  obj.ptr = GdxApi.constructObject(c"OpenXRCompositionLayerQuad")
+  obj
+}

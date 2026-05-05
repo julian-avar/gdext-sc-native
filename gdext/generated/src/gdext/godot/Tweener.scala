@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Tweener extends RefCounted
-
-
-
+class Tweener extends RefCounted {}

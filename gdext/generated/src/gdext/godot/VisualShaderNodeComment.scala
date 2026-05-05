@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeComment extends VisualShaderNodeFrame
-
-    def setDescription(description: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = description.ptr
-        GdxApi.ptrcall(VisualShaderNodeComment.Binds.setDescription, ptr, _args, null)
-
-    def getDescription(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeComment.Binds.getDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def description: Ptr[Byte] = getDescription()
-    def description_=(v: Ptr[Byte]): Unit = setDescription(v)
+class VisualShaderNodeComment extends VisualShaderNodeFrame {
+    def description: CString = getDescription()
+    def description_=(v: CString): Unit = setDescription(v)
+}
 
 object VisualShaderNodeComment:
-    object Binds:
-        var setDescription: Ptr[Byte] = null
-        var getDescription: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setDescription = GdxApi.getMethodBind(c"VisualShaderNodeComment", c"set_description", 83702148L)
-            Binds.getDescription = GdxApi.getMethodBind(c"VisualShaderNodeComment", c"get_description", 201670096L)
-
-    def apply(): VisualShaderNodeComment =
-        val obj = new VisualShaderNodeComment()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeComment")
-        obj
+def apply(): VisualShaderNodeComment = {
+  val obj = new VisualShaderNodeComment()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeComment")
+  obj
+}

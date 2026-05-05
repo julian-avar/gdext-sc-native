@@ -5,42 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConeTwistJoint3D extends Joint3D
-
-    def setParam(param: Int, value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
-        val _a1 = stackalloc[Double](); !_a1 = value.toDouble
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ConeTwistJoint3D.Binds.setParam, ptr, _args, null)
-
-    def getParam(param: Int): Float =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ConeTwistJoint3D.Binds.getParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def swingSpan: Ptr[Byte] = getParam()
-    def swingSpan_=(v: Ptr[Byte]): Unit = setParam(v)
-    def twistSpan: Ptr[Byte] = getParam()
-    def twistSpan_=(v: Ptr[Byte]): Unit = setParam(v)
-    def bias: Ptr[Byte] = getParam()
-    def bias_=(v: Ptr[Byte]): Unit = setParam(v)
-    def softness: Ptr[Byte] = getParam()
-    def softness_=(v: Ptr[Byte]): Unit = setParam(v)
-    def relaxation: Ptr[Byte] = getParam()
-    def relaxation_=(v: Ptr[Byte]): Unit = setParam(v)
+class ConeTwistJoint3D extends Joint3D {
+    def swingSpan: Float = getParam()
+    def swingSpan_=(v: Int): Unit = setParam(v)
+    def twistSpan: Float = getParam()
+    def twistSpan_=(v: Int): Unit = setParam(v)
+    def bias: Float = getParam()
+    def bias_=(v: Int): Unit = setParam(v)
+    def softness: Float = getParam()
+    def softness_=(v: Int): Unit = setParam(v)
+    def relaxation: Float = getParam()
+    def relaxation_=(v: Int): Unit = setParam(v)
+}
 
 object ConeTwistJoint3D:
-    object Binds:
-        var setParam: Ptr[Byte] = null
-        var getParam: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setParam = GdxApi.getMethodBind(c"ConeTwistJoint3D", c"set_param", 1062470226L)
-            Binds.getParam = GdxApi.getMethodBind(c"ConeTwistJoint3D", c"get_param", 2928790850L)
-
-    def apply(): ConeTwistJoint3D =
-        val obj = new ConeTwistJoint3D()
-        obj.ptr = GdxApi.constructObject(c"ConeTwistJoint3D")
-        obj
+def apply(): ConeTwistJoint3D = {
+  val obj = new ConeTwistJoint3D()
+  obj.ptr = GdxApi.constructObject(c"ConeTwistJoint3D")
+  obj
+}

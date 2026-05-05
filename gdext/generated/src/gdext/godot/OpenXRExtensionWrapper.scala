@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRExtensionWrapper extends Object
+class OpenXRExtensionWrapper extends Object {
     def _getRequestedExtensions(): Dictionary = null
     def _setSystemPropertiesAndGetNextPointer(nextPointer: Ptr[Byte]): Long = 0
     def _setInstanceCreateInfoAndGetNextPointer(nextPointer: Ptr[Byte]): Long = 0
@@ -47,27 +47,33 @@ class OpenXRExtensionWrapper extends Object
     def _getViewportCompositionLayerExtensionPropertyDefaults(): Dictionary = null
     def _onViewportCompositionLayerDestroyed(layer: Ptr[Byte]): Unit = ()
     def _setAndroidSurfaceSwapchainCreateInfoAndGetNextPointer(propertyValues: Dictionary, nextPointer: Ptr[Byte]): Long = 0
-    def getOpenxrApi(): OpenXRAPIExtension =
+
+    def getOpenxrApi(): OpenXRAPIExtension = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRExtensionWrapper.Binds.getOpenxrApi, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new OpenXRAPIExtension(!_ret)
+}
 
-    def registerExtensionWrapper(): Unit =
+    def registerExtensionWrapper(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(OpenXRExtensionWrapper.Binds.registerExtensionWrapper, ptr, _args, null)
-
+}
+}
 
 object OpenXRExtensionWrapper:
-    object Binds:
-        var getOpenxrApi: Ptr[Byte] = null
+object Binds {
+          var getOpenxrApi: Ptr[Byte] = null
         var registerExtensionWrapper: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getOpenxrApi = GdxApi.getMethodBind(c"OpenXRExtensionWrapper", c"get_openxr_api", 1637791613L)
+  def loadBinds(): Unit = {
+                Binds.getOpenxrApi = GdxApi.getMethodBind(c"OpenXRExtensionWrapper", c"get_openxr_api", 1637791613L)
             Binds.registerExtensionWrapper = GdxApi.getMethodBind(c"OpenXRExtensionWrapper", c"register_extension_wrapper", 3218959716L)
+  }
+}
 
-    def apply(): OpenXRExtensionWrapper =
-        val obj = new OpenXRExtensionWrapper()
-        obj.ptr = GdxApi.constructObject(c"OpenXRExtensionWrapper")
-        obj
+def apply(): OpenXRExtensionWrapper = {
+  val obj = new OpenXRExtensionWrapper()
+  obj.ptr = GdxApi.constructObject(c"OpenXRExtensionWrapper")
+  obj
+}

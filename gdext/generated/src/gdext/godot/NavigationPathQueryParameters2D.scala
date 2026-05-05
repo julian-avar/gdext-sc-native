@@ -5,276 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationPathQueryParameters2D extends RefCounted
-
-    def setPathfindingAlgorithm(pathfindingAlgorithm: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pathfindingAlgorithm.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setPathfindingAlgorithm, ptr, _args, null)
-
-    def getPathfindingAlgorithm(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getPathfindingAlgorithm, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPathPostprocessing(pathPostprocessing: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pathPostprocessing.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setPathPostprocessing, ptr, _args, null)
-
-    def getPathPostprocessing(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getPathPostprocessing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMap(map: RID): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = map.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setMap, ptr, _args, null)
-
-    def getMap(): RID =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new RID(!_ret)
-
-    def setStartPosition(startPosition: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = startPosition.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setStartPosition, ptr, _args, null)
-
-    def getStartPosition(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getStartPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setTargetPosition(targetPosition: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = targetPosition.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setTargetPosition, ptr, _args, null)
-
-    def getTargetPosition(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getTargetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setNavigationLayers(navigationLayers: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = navigationLayers.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setNavigationLayers, ptr, _args, null)
-
-    def getNavigationLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getNavigationLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMetadataFlags(flags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setMetadataFlags, ptr, _args, null)
-
-    def getMetadataFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getMetadataFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSimplifyPath(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setSimplifyPath, ptr, _args, null)
-
-    def getSimplifyPath(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getSimplifyPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSimplifyEpsilon(epsilon: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = epsilon.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setSimplifyEpsilon, ptr, _args, null)
-
-    def getSimplifyEpsilon(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getSimplifyEpsilon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setIncludedRegions(regions: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = regions.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setIncludedRegions, ptr, _args, null)
-
-    def getIncludedRegions(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getIncludedRegions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setExcludedRegions(regions: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = regions.ptr
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setExcludedRegions, ptr, _args, null)
-
-    def getExcludedRegions(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getExcludedRegions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPathReturnMaxLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setPathReturnMaxLength, ptr, _args, null)
-
-    def getPathReturnMaxLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getPathReturnMaxLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPathReturnMaxRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setPathReturnMaxRadius, ptr, _args, null)
-
-    def getPathReturnMaxRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getPathReturnMaxRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPathSearchMaxPolygons(maxPolygons: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxPolygons.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setPathSearchMaxPolygons, ptr, _args, null)
-
-    def getPathSearchMaxPolygons(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getPathSearchMaxPolygons, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPathSearchMaxDistance(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.setPathSearchMaxDistance, ptr, _args, null)
-
-    def getPathSearchMaxDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationPathQueryParameters2D.Binds.getPathSearchMaxDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def map: Ptr[Byte] = getMap()
-    def map_=(v: Ptr[Byte]): Unit = setMap(v)
-    def startPosition: Ptr[Byte] = getStartPosition()
-    def startPosition_=(v: Ptr[Byte]): Unit = setStartPosition(v)
-    def targetPosition: Ptr[Byte] = getTargetPosition()
-    def targetPosition_=(v: Ptr[Byte]): Unit = setTargetPosition(v)
-    def navigationLayers: Ptr[Byte] = getNavigationLayers()
-    def navigationLayers_=(v: Ptr[Byte]): Unit = setNavigationLayers(v)
-    def pathfindingAlgorithm: Ptr[Byte] = getPathfindingAlgorithm()
-    def pathfindingAlgorithm_=(v: Ptr[Byte]): Unit = setPathfindingAlgorithm(v)
-    def pathPostprocessing: Ptr[Byte] = getPathPostprocessing()
-    def pathPostprocessing_=(v: Ptr[Byte]): Unit = setPathPostprocessing(v)
-    def metadataFlags: Ptr[Byte] = getMetadataFlags()
-    def metadataFlags_=(v: Ptr[Byte]): Unit = setMetadataFlags(v)
-    def simplifyPath: Ptr[Byte] = getSimplifyPath()
-    def simplifyPath_=(v: Ptr[Byte]): Unit = setSimplifyPath(v)
-    def simplifyEpsilon: Ptr[Byte] = getSimplifyEpsilon()
-    def simplifyEpsilon_=(v: Ptr[Byte]): Unit = setSimplifyEpsilon(v)
+class NavigationPathQueryParameters2D extends RefCounted {
+    def map: RID = getMap()
+    def map_=(v: RID): Unit = setMap(v)
+    def startPosition: Vector2 = getStartPosition()
+    def startPosition_=(v: Vector2): Unit = setStartPosition(v)
+    def targetPosition: Vector2 = getTargetPosition()
+    def targetPosition_=(v: Vector2): Unit = setTargetPosition(v)
+    def navigationLayers: Int = getNavigationLayers()
+    def navigationLayers_=(v: Int): Unit = setNavigationLayers(v)
+    def pathfindingAlgorithm: Int = getPathfindingAlgorithm()
+    def pathfindingAlgorithm_=(v: Int): Unit = setPathfindingAlgorithm(v)
+    def pathPostprocessing: Int = getPathPostprocessing()
+    def pathPostprocessing_=(v: Int): Unit = setPathPostprocessing(v)
+    def metadataFlags: Int = getMetadataFlags()
+    def metadataFlags_=(v: Int): Unit = setMetadataFlags(v)
+    def simplifyPath: Boolean = getSimplifyPath()
+    def simplifyPath_=(v: Boolean): Unit = setSimplifyPath(v)
+    def simplifyEpsilon: Float = getSimplifyEpsilon()
+    def simplifyEpsilon_=(v: Float): Unit = setSimplifyEpsilon(v)
     def excludedRegions: Ptr[Byte] = getExcludedRegions()
     def excludedRegions_=(v: Ptr[Byte]): Unit = setExcludedRegions(v)
     def includedRegions: Ptr[Byte] = getIncludedRegions()
     def includedRegions_=(v: Ptr[Byte]): Unit = setIncludedRegions(v)
-    def pathReturnMaxLength: Ptr[Byte] = getPathReturnMaxLength()
-    def pathReturnMaxLength_=(v: Ptr[Byte]): Unit = setPathReturnMaxLength(v)
-    def pathReturnMaxRadius: Ptr[Byte] = getPathReturnMaxRadius()
-    def pathReturnMaxRadius_=(v: Ptr[Byte]): Unit = setPathReturnMaxRadius(v)
-    def pathSearchMaxPolygons: Ptr[Byte] = getPathSearchMaxPolygons()
-    def pathSearchMaxPolygons_=(v: Ptr[Byte]): Unit = setPathSearchMaxPolygons(v)
-    def pathSearchMaxDistance: Ptr[Byte] = getPathSearchMaxDistance()
-    def pathSearchMaxDistance_=(v: Ptr[Byte]): Unit = setPathSearchMaxDistance(v)
+    def pathReturnMaxLength: Float = getPathReturnMaxLength()
+    def pathReturnMaxLength_=(v: Float): Unit = setPathReturnMaxLength(v)
+    def pathReturnMaxRadius: Float = getPathReturnMaxRadius()
+    def pathReturnMaxRadius_=(v: Float): Unit = setPathReturnMaxRadius(v)
+    def pathSearchMaxPolygons: Int = getPathSearchMaxPolygons()
+    def pathSearchMaxPolygons_=(v: Int): Unit = setPathSearchMaxPolygons(v)
+    def pathSearchMaxDistance: Float = getPathSearchMaxDistance()
+    def pathSearchMaxDistance_=(v: Float): Unit = setPathSearchMaxDistance(v)
+}
 
 object NavigationPathQueryParameters2D:
-    object Binds:
-        var setPathfindingAlgorithm: Ptr[Byte] = null
-        var getPathfindingAlgorithm: Ptr[Byte] = null
-        var setPathPostprocessing: Ptr[Byte] = null
-        var getPathPostprocessing: Ptr[Byte] = null
-        var setMap: Ptr[Byte] = null
-        var getMap: Ptr[Byte] = null
-        var setStartPosition: Ptr[Byte] = null
-        var getStartPosition: Ptr[Byte] = null
-        var setTargetPosition: Ptr[Byte] = null
-        var getTargetPosition: Ptr[Byte] = null
-        var setNavigationLayers: Ptr[Byte] = null
-        var getNavigationLayers: Ptr[Byte] = null
-        var setMetadataFlags: Ptr[Byte] = null
-        var getMetadataFlags: Ptr[Byte] = null
-        var setSimplifyPath: Ptr[Byte] = null
-        var getSimplifyPath: Ptr[Byte] = null
-        var setSimplifyEpsilon: Ptr[Byte] = null
-        var getSimplifyEpsilon: Ptr[Byte] = null
-        var setIncludedRegions: Ptr[Byte] = null
-        var getIncludedRegions: Ptr[Byte] = null
-        var setExcludedRegions: Ptr[Byte] = null
-        var getExcludedRegions: Ptr[Byte] = null
-        var setPathReturnMaxLength: Ptr[Byte] = null
-        var getPathReturnMaxLength: Ptr[Byte] = null
-        var setPathReturnMaxRadius: Ptr[Byte] = null
-        var getPathReturnMaxRadius: Ptr[Byte] = null
-        var setPathSearchMaxPolygons: Ptr[Byte] = null
-        var getPathSearchMaxPolygons: Ptr[Byte] = null
-        var setPathSearchMaxDistance: Ptr[Byte] = null
-        var getPathSearchMaxDistance: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPathfindingAlgorithm = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_pathfinding_algorithm", 2783519915L)
-            Binds.getPathfindingAlgorithm = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_pathfinding_algorithm", 3000421146L)
-            Binds.setPathPostprocessing = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_path_postprocessing", 2864409082L)
-            Binds.getPathPostprocessing = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_path_postprocessing", 3798118993L)
-            Binds.setMap = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_map", 2722037293L)
-            Binds.getMap = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_map", 2944877500L)
-            Binds.setStartPosition = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_start_position", 743155724L)
-            Binds.getStartPosition = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_start_position", 3341600327L)
-            Binds.setTargetPosition = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_target_position", 743155724L)
-            Binds.getTargetPosition = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_target_position", 3341600327L)
-            Binds.setNavigationLayers = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_navigation_layers", 1286410249L)
-            Binds.getNavigationLayers = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_navigation_layers", 3905245786L)
-            Binds.setMetadataFlags = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_metadata_flags", 24274129L)
-            Binds.getMetadataFlags = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_metadata_flags", 488152976L)
-            Binds.setSimplifyPath = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_simplify_path", 2586408642L)
-            Binds.getSimplifyPath = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_simplify_path", 36873697L)
-            Binds.setSimplifyEpsilon = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_simplify_epsilon", 373806689L)
-            Binds.getSimplifyEpsilon = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_simplify_epsilon", 1740695150L)
-            Binds.setIncludedRegions = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_included_regions", 381264803L)
-            Binds.getIncludedRegions = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_included_regions", 3995934104L)
-            Binds.setExcludedRegions = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_excluded_regions", 381264803L)
-            Binds.getExcludedRegions = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_excluded_regions", 3995934104L)
-            Binds.setPathReturnMaxLength = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_path_return_max_length", 373806689L)
-            Binds.getPathReturnMaxLength = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_path_return_max_length", 1740695150L)
-            Binds.setPathReturnMaxRadius = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_path_return_max_radius", 373806689L)
-            Binds.getPathReturnMaxRadius = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_path_return_max_radius", 1740695150L)
-            Binds.setPathSearchMaxPolygons = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_path_search_max_polygons", 1286410249L)
-            Binds.getPathSearchMaxPolygons = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_path_search_max_polygons", 3905245786L)
-            Binds.setPathSearchMaxDistance = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"set_path_search_max_distance", 373806689L)
-            Binds.getPathSearchMaxDistance = GdxApi.getMethodBind(c"NavigationPathQueryParameters2D", c"get_path_search_max_distance", 1740695150L)
-
-    def apply(): NavigationPathQueryParameters2D =
-        val obj = new NavigationPathQueryParameters2D()
-        obj.ptr = GdxApi.constructObject(c"NavigationPathQueryParameters2D")
-        obj
+def apply(): NavigationPathQueryParameters2D = {
+  val obj = new NavigationPathQueryParameters2D()
+  obj.ptr = GdxApi.constructObject(c"NavigationPathQueryParameters2D")
+  obj
+}

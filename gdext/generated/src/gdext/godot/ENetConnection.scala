@@ -5,127 +5,146 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ENetConnection extends RefCounted
-
-    def createHostBound(bindAddress: CString, bindPort: Int): Int =
+class ENetConnection extends RefCounted {
+    def createHostBound(bindAddress: CString, bindPort: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = bindAddress.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = bindPort.toLong
+        _args(0) = bindAddress
+        val _a1 = stackalloc[Long](); !_a1 = bindPort.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetConnection.Binds.createHostBound, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createHost(): Int =
+    def createHost(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetConnection.Binds.createHost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def destroy(): Unit =
+    def destroy(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetConnection.Binds.destroy, ptr, _args, null)
+}
 
-    def connectToHost(address: CString, port: Int): ENetPacketPeer =
+    def connectToHost(address: CString, port: Int): ENetPacketPeer = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = address.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = address
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ENetConnection.Binds.connectToHost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ENetPacketPeer(!_ret)
+}
 
-    def service(): Array =
+    def service(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ENetConnection.Binds.service, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def flush(): Unit =
+    def flush(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetConnection.Binds.flush, ptr, _args, null)
+}
 
-    def bandwidthLimit(): Unit =
+    def bandwidthLimit(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ENetConnection.Binds.bandwidthLimit, ptr, _args, null)
+}
 
-    def channelLimit(limit: Int): Unit =
+    def channelLimit(limit: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = limit.toLong
+        val _a0 = stackalloc[Long](); !_a0 = limit.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetConnection.Binds.channelLimit, ptr, _args, null)
+}
 
-    def broadcast(channel: Int, packet: PackedByteArray, flags: Int): Unit =
+    def broadcast(channel: Int, packet: PackedByteArray, flags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = channel.toLong
+        val _a0 = stackalloc[Long](); !_a0 = channel.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = packet.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = flags.toLong
+        val _a2 = stackalloc[Long](); !_a2 = flags.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetConnection.Binds.broadcast, ptr, _args, null)
+}
 
-    def compress(mode: Int): Unit =
+    def compress(mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetConnection.Binds.compress, ptr, _args, null)
+}
 
-    def dtlsServerSetup(serverOptions: TLSOptions): Int =
+    def dtlsServerSetup(serverOptions: TLSOptions): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = serverOptions.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetConnection.Binds.dtlsServerSetup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def dtlsClientSetup(hostname: CString): Int =
+    def dtlsClientSetup(hostname: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hostname.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = hostname
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetConnection.Binds.dtlsClientSetup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def refuseNewConnections(refuse: Boolean): Unit =
+    def refuseNewConnections(refuse: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if refuse then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ENetConnection.Binds.refuseNewConnections, ptr, _args, null)
+}
 
-    def popStatistic(statistic: Int): Double =
+    def popStatistic(statistic: Int): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = statistic.ptr
+        val _a0 = stackalloc[Long](); !_a0 = statistic.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ENetConnection.Binds.popStatistic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMaxChannels(): Int =
+    def getMaxChannels(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetConnection.Binds.getMaxChannels, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLocalPort(): Int =
+    def getLocalPort(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ENetConnection.Binds.getLocalPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPeers(): Ptr[Byte] =
+    def getPeers(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ENetConnection.Binds.getPeers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def socketSend(destinationAddress: CString, destinationPort: Int, packet: PackedByteArray): Unit =
+    def socketSend(destinationAddress: CString, destinationPort: Int, packet: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = destinationAddress.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = destinationPort.toLong
+        _args(0) = destinationAddress
+        val _a1 = stackalloc[Long](); !_a1 = destinationPort.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = packet.ptr
         GdxApi.ptrcall(ENetConnection.Binds.socketSend, ptr, _args, null)
-
+}
+}
 
 object ENetConnection:
-    object Binds:
-        var createHostBound: Ptr[Byte] = null
+object Binds {
+          var createHostBound: Ptr[Byte] = null
         var createHost: Ptr[Byte] = null
         var destroy: Ptr[Byte] = null
         var connectToHost: Ptr[Byte] = null
@@ -144,8 +163,8 @@ object ENetConnection:
         var getPeers: Ptr[Byte] = null
         var socketSend: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createHostBound = GdxApi.getMethodBind(c"ENetConnection", c"create_host_bound", 1515002313L)
+  def loadBinds(): Unit = {
+                Binds.createHostBound = GdxApi.getMethodBind(c"ENetConnection", c"create_host_bound", 1515002313L)
             Binds.createHost = GdxApi.getMethodBind(c"ENetConnection", c"create_host", 117198950L)
             Binds.destroy = GdxApi.getMethodBind(c"ENetConnection", c"destroy", 3218959716L)
             Binds.connectToHost = GdxApi.getMethodBind(c"ENetConnection", c"connect_to_host", 2171300490L)
@@ -163,8 +182,11 @@ object ENetConnection:
             Binds.getLocalPort = GdxApi.getMethodBind(c"ENetConnection", c"get_local_port", 3905245786L)
             Binds.getPeers = GdxApi.getMethodBind(c"ENetConnection", c"get_peers", 2915620761L)
             Binds.socketSend = GdxApi.getMethodBind(c"ENetConnection", c"socket_send", 1100646812L)
+  }
+}
 
-    def apply(): ENetConnection =
-        val obj = new ENetConnection()
-        obj.ptr = GdxApi.constructObject(c"ENetConnection")
-        obj
+def apply(): ENetConnection = {
+  val obj = new ENetConnection()
+  obj.ptr = GdxApi.constructObject(c"ENetConnection")
+  obj
+}

@@ -5,43 +5,9 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParameter extends VisualShaderNode
-
-    def setParameterName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(VisualShaderNodeParameter.Binds.setParameterName, ptr, _args, null)
-
-    def getParameterName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeParameter.Binds.getParameterName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setQualifier(qualifier: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = qualifier.ptr
-        GdxApi.ptrcall(VisualShaderNodeParameter.Binds.setQualifier, ptr, _args, null)
-
-    def getQualifier(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeParameter.Binds.getQualifier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def parameterName: Ptr[Byte] = getParameterName()
-    def parameterName_=(v: Ptr[Byte]): Unit = setParameterName(v)
-    def qualifier: Ptr[Byte] = getQualifier()
-    def qualifier_=(v: Ptr[Byte]): Unit = setQualifier(v)
-
-object VisualShaderNodeParameter:
-    object Binds:
-        var setParameterName: Ptr[Byte] = null
-        var getParameterName: Ptr[Byte] = null
-        var setQualifier: Ptr[Byte] = null
-        var getQualifier: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setParameterName = GdxApi.getMethodBind(c"VisualShaderNodeParameter", c"set_parameter_name", 83702148L)
-            Binds.getParameterName = GdxApi.getMethodBind(c"VisualShaderNodeParameter", c"get_parameter_name", 201670096L)
-            Binds.setQualifier = GdxApi.getMethodBind(c"VisualShaderNodeParameter", c"set_qualifier", 1276489447L)
-            Binds.getQualifier = GdxApi.getMethodBind(c"VisualShaderNodeParameter", c"get_qualifier", 3558406205L)
+class VisualShaderNodeParameter extends VisualShaderNode {
+    def parameterName: CString = getParameterName()
+    def parameterName_=(v: CString): Unit = setParameterName(v)
+    def qualifier: Int = getQualifier()
+    def qualifier_=(v: Int): Unit = setQualifier(v)
+}

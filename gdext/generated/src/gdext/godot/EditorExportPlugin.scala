@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPlugin extends RefCounted
+class EditorExportPlugin extends RefCounted {
     def _exportFile(path: CString, `type`: CString, features: PackedStringArray): Unit = ()
     def _exportBegin(features: PackedStringArray, isDebug: Boolean, path: CString, flags: Int): Unit = ()
     def _exportEnd(): Unit = ()
@@ -31,123 +31,145 @@ class EditorExportPlugin extends RefCounted
     def _getAndroidManifestApplicationElementContents(platform: EditorExportPlatform, debug: Boolean): CString = null
     def _getAndroidManifestElementContents(platform: EditorExportPlatform, debug: Boolean): CString = null
     def _updateAndroidPrebuiltManifest(platform: EditorExportPlatform, manifestData: PackedByteArray): PackedByteArray = null
-    def addSharedObject(path: CString, tags: PackedStringArray, target: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = path.ptr
-        _args(1) = tags.ptr
-        _args(2) = target.ptr
-        GdxApi.ptrcall(EditorExportPlugin.Binds.addSharedObject, ptr, _args, null)
 
-    def addFile(path: CString, file: PackedByteArray, remap: Boolean): Unit =
+    def addSharedObject(path: CString, tags: PackedStringArray, target: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = path.ptr
+        _args(0) = path
+        _args(1) = tags.ptr
+        _args(2) = target
+        GdxApi.ptrcall(EditorExportPlugin.Binds.addSharedObject, ptr, _args, null)
+}
+
+    def addFile(path: CString, file: PackedByteArray, remap: Boolean): Unit = {
+        val _args = stackalloc[Ptr[Byte]](3)
+        _args(0) = path
         _args(1) = file.ptr
         val _a2 = stackalloc[Byte](); !_a2 = if remap then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorExportPlugin.Binds.addFile, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformProjectStaticLib(path: CString): Unit =
+    def addAppleEmbeddedPlatformProjectStaticLib(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformProjectStaticLib, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformFramework(path: CString): Unit =
+    def addAppleEmbeddedPlatformFramework(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformFramework, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformEmbeddedFramework(path: CString): Unit =
+    def addAppleEmbeddedPlatformEmbeddedFramework(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformEmbeddedFramework, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformPlistContent(plistContent: CString): Unit =
+    def addAppleEmbeddedPlatformPlistContent(plistContent: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = plistContent.ptr
+        _args(0) = plistContent
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformPlistContent, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformLinkerFlags(flags: CString): Unit =
+    def addAppleEmbeddedPlatformLinkerFlags(flags: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
+        _args(0) = flags
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformLinkerFlags, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformBundleFile(path: CString): Unit =
+    def addAppleEmbeddedPlatformBundleFile(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformBundleFile, ptr, _args, null)
+}
 
-    def addAppleEmbeddedPlatformCppCode(code: CString): Unit =
+    def addAppleEmbeddedPlatformCppCode(code: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = code.ptr
+        _args(0) = code
         GdxApi.ptrcall(EditorExportPlugin.Binds.addAppleEmbeddedPlatformCppCode, ptr, _args, null)
+}
 
-    def addIosProjectStaticLib(path: CString): Unit =
+    def addIosProjectStaticLib(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosProjectStaticLib, ptr, _args, null)
+}
 
-    def addIosFramework(path: CString): Unit =
+    def addIosFramework(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosFramework, ptr, _args, null)
+}
 
-    def addIosEmbeddedFramework(path: CString): Unit =
+    def addIosEmbeddedFramework(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosEmbeddedFramework, ptr, _args, null)
+}
 
-    def addIosPlistContent(plistContent: CString): Unit =
+    def addIosPlistContent(plistContent: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = plistContent.ptr
+        _args(0) = plistContent
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosPlistContent, ptr, _args, null)
+}
 
-    def addIosLinkerFlags(flags: CString): Unit =
+    def addIosLinkerFlags(flags: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flags.ptr
+        _args(0) = flags
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosLinkerFlags, ptr, _args, null)
+}
 
-    def addIosBundleFile(path: CString): Unit =
+    def addIosBundleFile(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosBundleFile, ptr, _args, null)
+}
 
-    def addIosCppCode(code: CString): Unit =
+    def addIosCppCode(code: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = code.ptr
+        _args(0) = code
         GdxApi.ptrcall(EditorExportPlugin.Binds.addIosCppCode, ptr, _args, null)
+}
 
-    def addMacosPluginFile(path: CString): Unit =
+    def addMacosPluginFile(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorExportPlugin.Binds.addMacosPluginFile, ptr, _args, null)
+}
 
-    def skip(): Unit =
+    def skip(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorExportPlugin.Binds.skip, ptr, _args, null)
+}
 
-    def getOption(name: CString): Ptr[Byte] =
+    def getOption(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlugin.Binds.getOption, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getExportPreset(): EditorExportPreset =
+    def getExportPreset(): EditorExportPreset = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlugin.Binds.getExportPreset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorExportPreset(!_ret)
+}
 
-    def getExportPlatform(): EditorExportPlatform =
+    def getExportPlatform(): EditorExportPlatform = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlugin.Binds.getExportPlatform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorExportPlatform(!_ret)
-
+}
+}
 
 object EditorExportPlugin:
-    object Binds:
-        var addSharedObject: Ptr[Byte] = null
+object Binds {
+          var addSharedObject: Ptr[Byte] = null
         var addFile: Ptr[Byte] = null
         var addAppleEmbeddedPlatformProjectStaticLib: Ptr[Byte] = null
         var addAppleEmbeddedPlatformFramework: Ptr[Byte] = null
@@ -169,8 +191,8 @@ object EditorExportPlugin:
         var getExportPreset: Ptr[Byte] = null
         var getExportPlatform: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addSharedObject = GdxApi.getMethodBind(c"EditorExportPlugin", c"add_shared_object", 3098291045L)
+  def loadBinds(): Unit = {
+                Binds.addSharedObject = GdxApi.getMethodBind(c"EditorExportPlugin", c"add_shared_object", 3098291045L)
             Binds.addFile = GdxApi.getMethodBind(c"EditorExportPlugin", c"add_file", 527928637L)
             Binds.addAppleEmbeddedPlatformProjectStaticLib = GdxApi.getMethodBind(c"EditorExportPlugin", c"add_apple_embedded_platform_project_static_lib", 83702148L)
             Binds.addAppleEmbeddedPlatformFramework = GdxApi.getMethodBind(c"EditorExportPlugin", c"add_apple_embedded_platform_framework", 83702148L)
@@ -191,8 +213,11 @@ object EditorExportPlugin:
             Binds.getOption = GdxApi.getMethodBind(c"EditorExportPlugin", c"get_option", 2760726917L)
             Binds.getExportPreset = GdxApi.getMethodBind(c"EditorExportPlugin", c"get_export_preset", 1610607222L)
             Binds.getExportPlatform = GdxApi.getMethodBind(c"EditorExportPlugin", c"get_export_platform", 282254641L)
+  }
+}
 
-    def apply(): EditorExportPlugin =
-        val obj = new EditorExportPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorExportPlugin")
-        obj
+def apply(): EditorExportPlugin = {
+  val obj = new EditorExportPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorExportPlugin")
+  obj
+}

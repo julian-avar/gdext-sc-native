@@ -5,205 +5,97 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TranslationDomain extends RefCounted
-
-    def getTranslationObject(locale: CString): Translation =
+class TranslationDomain extends RefCounted {
+    def getTranslationObject(locale: CString): Translation = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationDomain.Binds.getTranslationObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Translation(!_ret)
+}
 
-    def addTranslation(translation: Translation): Unit =
+    def addTranslation(translation: Translation): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = translation.ptr
         GdxApi.ptrcall(TranslationDomain.Binds.addTranslation, ptr, _args, null)
+}
 
-    def removeTranslation(translation: Translation): Unit =
+    def removeTranslation(translation: Translation): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = translation.ptr
         GdxApi.ptrcall(TranslationDomain.Binds.removeTranslation, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TranslationDomain.Binds.clear, ptr, _args, null)
+}
 
-    def translate(message: CString): CString =
+    def translate(message: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationDomain.Binds.translate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def translatePlural(message: CString, messagePlural: CString, n: Int): CString =
+    def translatePlural(message: CString, messagePlural: CString, n: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = message.ptr
-        _args(1) = messagePlural.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = n.toLong
+        _args(0) = message
+        _args(1) = messagePlural
+        val _a2 = stackalloc[Long](); !_a2 = n.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationDomain.Binds.translatePlural, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLocaleOverride(): CString =
+    def getLocaleOverride(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationDomain.Binds.getLocaleOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setLocaleOverride(locale: CString): Unit =
+    def setLocaleOverride(locale: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         GdxApi.ptrcall(TranslationDomain.Binds.setLocaleOverride, ptr, _args, null)
+}
 
-    def isEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEnabled(enabled: Boolean): Unit =
+    def pseudolocalize(message: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setEnabled, ptr, _args, null)
-
-    def isPseudolocalizationEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isPseudolocalizationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationEnabled, ptr, _args, null)
-
-    def isPseudolocalizationAccentsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isPseudolocalizationAccentsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationAccentsEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationAccentsEnabled, ptr, _args, null)
-
-    def isPseudolocalizationDoubleVowelsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isPseudolocalizationDoubleVowelsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationDoubleVowelsEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationDoubleVowelsEnabled, ptr, _args, null)
-
-    def isPseudolocalizationFakeBidiEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isPseudolocalizationFakeBidiEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationFakeBidiEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationFakeBidiEnabled, ptr, _args, null)
-
-    def isPseudolocalizationOverrideEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isPseudolocalizationOverrideEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationOverrideEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationOverrideEnabled, ptr, _args, null)
-
-    def isPseudolocalizationSkipPlaceholdersEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationDomain.Binds.isPseudolocalizationSkipPlaceholdersEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationSkipPlaceholdersEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationSkipPlaceholdersEnabled, ptr, _args, null)
-
-    def getPseudolocalizationExpansionRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(TranslationDomain.Binds.getPseudolocalizationExpansionRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPseudolocalizationExpansionRatio(ratio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ratio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationExpansionRatio, ptr, _args, null)
-
-    def getPseudolocalizationPrefix(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TranslationDomain.Binds.getPseudolocalizationPrefix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPseudolocalizationPrefix(prefix: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = prefix.ptr
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationPrefix, ptr, _args, null)
-
-    def getPseudolocalizationSuffix(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TranslationDomain.Binds.getPseudolocalizationSuffix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPseudolocalizationSuffix(suffix: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = suffix.ptr
-        GdxApi.ptrcall(TranslationDomain.Binds.setPseudolocalizationSuffix, ptr, _args, null)
-
-    def pseudolocalize(message: CString): CString =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationDomain.Binds.pseudolocalize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def enabled: Ptr[Byte] = isEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def pseudolocalizationEnabled: Ptr[Byte] = isPseudolocalizationEnabled()
-    def pseudolocalizationEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationEnabled(v)
-    def pseudolocalizationAccentsEnabled: Ptr[Byte] = isPseudolocalizationAccentsEnabled()
-    def pseudolocalizationAccentsEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationAccentsEnabled(v)
-    def pseudolocalizationDoubleVowelsEnabled: Ptr[Byte] = isPseudolocalizationDoubleVowelsEnabled()
-    def pseudolocalizationDoubleVowelsEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationDoubleVowelsEnabled(v)
-    def pseudolocalizationFakeBidiEnabled: Ptr[Byte] = isPseudolocalizationFakeBidiEnabled()
-    def pseudolocalizationFakeBidiEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationFakeBidiEnabled(v)
-    def pseudolocalizationOverrideEnabled: Ptr[Byte] = isPseudolocalizationOverrideEnabled()
-    def pseudolocalizationOverrideEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationOverrideEnabled(v)
-    def pseudolocalizationSkipPlaceholdersEnabled: Ptr[Byte] = isPseudolocalizationSkipPlaceholdersEnabled()
-    def pseudolocalizationSkipPlaceholdersEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationSkipPlaceholdersEnabled(v)
-    def pseudolocalizationExpansionRatio: Ptr[Byte] = getPseudolocalizationExpansionRatio()
-    def pseudolocalizationExpansionRatio_=(v: Ptr[Byte]): Unit = setPseudolocalizationExpansionRatio(v)
-    def pseudolocalizationPrefix: Ptr[Byte] = getPseudolocalizationPrefix()
-    def pseudolocalizationPrefix_=(v: Ptr[Byte]): Unit = setPseudolocalizationPrefix(v)
-    def pseudolocalizationSuffix: Ptr[Byte] = getPseudolocalizationSuffix()
-    def pseudolocalizationSuffix_=(v: Ptr[Byte]): Unit = setPseudolocalizationSuffix(v)
+}
+
+    def enabled: Boolean = isEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def pseudolocalizationEnabled: Boolean = isPseudolocalizationEnabled()
+    def pseudolocalizationEnabled_=(v: Boolean): Unit = setPseudolocalizationEnabled(v)
+    def pseudolocalizationAccentsEnabled: Boolean = isPseudolocalizationAccentsEnabled()
+    def pseudolocalizationAccentsEnabled_=(v: Boolean): Unit = setPseudolocalizationAccentsEnabled(v)
+    def pseudolocalizationDoubleVowelsEnabled: Boolean = isPseudolocalizationDoubleVowelsEnabled()
+    def pseudolocalizationDoubleVowelsEnabled_=(v: Boolean): Unit = setPseudolocalizationDoubleVowelsEnabled(v)
+    def pseudolocalizationFakeBidiEnabled: Boolean = isPseudolocalizationFakeBidiEnabled()
+    def pseudolocalizationFakeBidiEnabled_=(v: Boolean): Unit = setPseudolocalizationFakeBidiEnabled(v)
+    def pseudolocalizationOverrideEnabled: Boolean = isPseudolocalizationOverrideEnabled()
+    def pseudolocalizationOverrideEnabled_=(v: Boolean): Unit = setPseudolocalizationOverrideEnabled(v)
+    def pseudolocalizationSkipPlaceholdersEnabled: Boolean = isPseudolocalizationSkipPlaceholdersEnabled()
+    def pseudolocalizationSkipPlaceholdersEnabled_=(v: Boolean): Unit = setPseudolocalizationSkipPlaceholdersEnabled(v)
+    def pseudolocalizationExpansionRatio: Float = getPseudolocalizationExpansionRatio()
+    def pseudolocalizationExpansionRatio_=(v: Float): Unit = setPseudolocalizationExpansionRatio(v)
+    def pseudolocalizationPrefix: CString = getPseudolocalizationPrefix()
+    def pseudolocalizationPrefix_=(v: CString): Unit = setPseudolocalizationPrefix(v)
+    def pseudolocalizationSuffix: CString = getPseudolocalizationSuffix()
+    def pseudolocalizationSuffix_=(v: CString): Unit = setPseudolocalizationSuffix(v)
+}
 
 object TranslationDomain:
-    object Binds:
-        var getTranslationObject: Ptr[Byte] = null
+object Binds {
+          var getTranslationObject: Ptr[Byte] = null
         var addTranslation: Ptr[Byte] = null
         var removeTranslation: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
@@ -211,30 +103,10 @@ object TranslationDomain:
         var translatePlural: Ptr[Byte] = null
         var getLocaleOverride: Ptr[Byte] = null
         var setLocaleOverride: Ptr[Byte] = null
-        var isEnabled: Ptr[Byte] = null
-        var setEnabled: Ptr[Byte] = null
-        var isPseudolocalizationEnabled: Ptr[Byte] = null
-        var setPseudolocalizationEnabled: Ptr[Byte] = null
-        var isPseudolocalizationAccentsEnabled: Ptr[Byte] = null
-        var setPseudolocalizationAccentsEnabled: Ptr[Byte] = null
-        var isPseudolocalizationDoubleVowelsEnabled: Ptr[Byte] = null
-        var setPseudolocalizationDoubleVowelsEnabled: Ptr[Byte] = null
-        var isPseudolocalizationFakeBidiEnabled: Ptr[Byte] = null
-        var setPseudolocalizationFakeBidiEnabled: Ptr[Byte] = null
-        var isPseudolocalizationOverrideEnabled: Ptr[Byte] = null
-        var setPseudolocalizationOverrideEnabled: Ptr[Byte] = null
-        var isPseudolocalizationSkipPlaceholdersEnabled: Ptr[Byte] = null
-        var setPseudolocalizationSkipPlaceholdersEnabled: Ptr[Byte] = null
-        var getPseudolocalizationExpansionRatio: Ptr[Byte] = null
-        var setPseudolocalizationExpansionRatio: Ptr[Byte] = null
-        var getPseudolocalizationPrefix: Ptr[Byte] = null
-        var setPseudolocalizationPrefix: Ptr[Byte] = null
-        var getPseudolocalizationSuffix: Ptr[Byte] = null
-        var setPseudolocalizationSuffix: Ptr[Byte] = null
         var pseudolocalize: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTranslationObject = GdxApi.getMethodBind(c"TranslationDomain", c"get_translation_object", 606768082L)
+  def loadBinds(): Unit = {
+                Binds.getTranslationObject = GdxApi.getMethodBind(c"TranslationDomain", c"get_translation_object", 606768082L)
             Binds.addTranslation = GdxApi.getMethodBind(c"TranslationDomain", c"add_translation", 1466479800L)
             Binds.removeTranslation = GdxApi.getMethodBind(c"TranslationDomain", c"remove_translation", 1466479800L)
             Binds.clear = GdxApi.getMethodBind(c"TranslationDomain", c"clear", 3218959716L)
@@ -242,29 +114,12 @@ object TranslationDomain:
             Binds.translatePlural = GdxApi.getMethodBind(c"TranslationDomain", c"translate_plural", 229954002L)
             Binds.getLocaleOverride = GdxApi.getMethodBind(c"TranslationDomain", c"get_locale_override", 201670096L)
             Binds.setLocaleOverride = GdxApi.getMethodBind(c"TranslationDomain", c"set_locale_override", 83702148L)
-            Binds.isEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_enabled", 36873697L)
-            Binds.setEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_enabled", 2586408642L)
-            Binds.isPseudolocalizationEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_pseudolocalization_enabled", 36873697L)
-            Binds.setPseudolocalizationEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_enabled", 2586408642L)
-            Binds.isPseudolocalizationAccentsEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_pseudolocalization_accents_enabled", 36873697L)
-            Binds.setPseudolocalizationAccentsEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_accents_enabled", 2586408642L)
-            Binds.isPseudolocalizationDoubleVowelsEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_pseudolocalization_double_vowels_enabled", 36873697L)
-            Binds.setPseudolocalizationDoubleVowelsEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_double_vowels_enabled", 2586408642L)
-            Binds.isPseudolocalizationFakeBidiEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_pseudolocalization_fake_bidi_enabled", 36873697L)
-            Binds.setPseudolocalizationFakeBidiEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_fake_bidi_enabled", 2586408642L)
-            Binds.isPseudolocalizationOverrideEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_pseudolocalization_override_enabled", 36873697L)
-            Binds.setPseudolocalizationOverrideEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_override_enabled", 2586408642L)
-            Binds.isPseudolocalizationSkipPlaceholdersEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"is_pseudolocalization_skip_placeholders_enabled", 36873697L)
-            Binds.setPseudolocalizationSkipPlaceholdersEnabled = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_skip_placeholders_enabled", 2586408642L)
-            Binds.getPseudolocalizationExpansionRatio = GdxApi.getMethodBind(c"TranslationDomain", c"get_pseudolocalization_expansion_ratio", 1740695150L)
-            Binds.setPseudolocalizationExpansionRatio = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_expansion_ratio", 373806689L)
-            Binds.getPseudolocalizationPrefix = GdxApi.getMethodBind(c"TranslationDomain", c"get_pseudolocalization_prefix", 201670096L)
-            Binds.setPseudolocalizationPrefix = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_prefix", 83702148L)
-            Binds.getPseudolocalizationSuffix = GdxApi.getMethodBind(c"TranslationDomain", c"get_pseudolocalization_suffix", 201670096L)
-            Binds.setPseudolocalizationSuffix = GdxApi.getMethodBind(c"TranslationDomain", c"set_pseudolocalization_suffix", 83702148L)
             Binds.pseudolocalize = GdxApi.getMethodBind(c"TranslationDomain", c"pseudolocalize", 1965194235L)
+  }
+}
 
-    def apply(): TranslationDomain =
-        val obj = new TranslationDomain()
-        obj.ptr = GdxApi.constructObject(c"TranslationDomain")
-        obj
+def apply(): TranslationDomain = {
+  val obj = new TranslationDomain()
+  obj.ptr = GdxApi.constructObject(c"TranslationDomain")
+  obj
+}

@@ -5,283 +5,241 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CollisionObject2D extends Node2D
+class CollisionObject2D extends Node2D {
     def _inputEvent(viewport: Viewport, event: InputEvent, shapeIdx: Int): Unit = ()
     def _mouseEnter(): Unit = ()
     def _mouseExit(): Unit = ()
     def _mouseShapeEnter(shapeIdx: Int): Unit = ()
     def _mouseShapeExit(shapeIdx: Int): Unit = ()
-    def getRid(): RID =
+
+    def getRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CollisionObject2D.Binds.getRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setCollisionLayer(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionObject2D.Binds.setCollisionLayer, ptr, _args, null)
-
-    def getCollisionLayer(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CollisionObject2D.Binds.getCollisionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionObject2D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CollisionObject2D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionLayerValue(layerNumber: Int, value: Boolean): Unit =
+    def setCollisionLayerValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.setCollisionLayerValue, ptr, _args, null)
+}
 
-    def getCollisionLayerValue(layerNumber: Int): Boolean =
+    def getCollisionLayerValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CollisionObject2D.Binds.getCollisionLayerValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit =
+    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.setCollisionMaskValue, ptr, _args, null)
+}
 
-    def getCollisionMaskValue(layerNumber: Int): Boolean =
+    def getCollisionMaskValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CollisionObject2D.Binds.getCollisionMaskValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCollisionPriority(priority: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = priority.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionObject2D.Binds.setCollisionPriority, ptr, _args, null)
-
-    def getCollisionPriority(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CollisionObject2D.Binds.getCollisionPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDisableMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(CollisionObject2D.Binds.setDisableMode, ptr, _args, null)
-
-    def getDisableMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CollisionObject2D.Binds.getDisableMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPickable(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CollisionObject2D.Binds.setPickable, ptr, _args, null)
-
-    def isPickable(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CollisionObject2D.Binds.isPickable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def createShapeOwner(owner: Object): Int =
+    def createShapeOwner(owner: Object): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = owner.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CollisionObject2D.Binds.createShapeOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeShapeOwner(ownerId: Int): Unit =
+    def removeShapeOwner(ownerId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.removeShapeOwner, ptr, _args, null)
+}
 
-    def getShapeOwners(): PackedInt32Array =
+    def getShapeOwners(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CollisionObject2D.Binds.getShapeOwners, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def shapeOwnerSetTransform(ownerId: Int, transform: Transform2D): Unit =
+    def shapeOwnerSetTransform(ownerId: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = transform.ptr
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerSetTransform, ptr, _args, null)
+}
 
-    def shapeOwnerGetTransform(ownerId: Int): Transform2D =
+    def shapeOwnerGetTransform(ownerId: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerGetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def shapeOwnerGetOwner(ownerId: Int): Object =
+    def shapeOwnerGetOwner(ownerId: Int): Object = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerGetOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def shapeOwnerSetDisabled(ownerId: Int, disabled: Boolean): Unit =
+    def shapeOwnerSetDisabled(ownerId: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if disabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerSetDisabled, ptr, _args, null)
+}
 
-    def isShapeOwnerDisabled(ownerId: Int): Boolean =
+    def isShapeOwnerDisabled(ownerId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CollisionObject2D.Binds.isShapeOwnerDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapeOwnerSetOneWayCollision(ownerId: Int, enable: Boolean): Unit =
+    def shapeOwnerSetOneWayCollision(ownerId: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerSetOneWayCollision, ptr, _args, null)
+}
 
-    def isShapeOwnerOneWayCollisionEnabled(ownerId: Int): Boolean =
+    def isShapeOwnerOneWayCollisionEnabled(ownerId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CollisionObject2D.Binds.isShapeOwnerOneWayCollisionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapeOwnerSetOneWayCollisionMargin(ownerId: Int, margin: Float): Unit =
+    def shapeOwnerSetOneWayCollisionMargin(ownerId: Int, margin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = margin.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerSetOneWayCollisionMargin, ptr, _args, null)
+}
 
-    def getShapeOwnerOneWayCollisionMargin(ownerId: Int): Float =
+    def getShapeOwnerOneWayCollisionMargin(ownerId: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(CollisionObject2D.Binds.getShapeOwnerOneWayCollisionMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def shapeOwnerAddShape(ownerId: Int, shape: Shape2D): Unit =
+    def shapeOwnerAddShape(ownerId: Int, shape: Shape2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = shape.ptr
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerAddShape, ptr, _args, null)
+}
 
-    def shapeOwnerGetShapeCount(ownerId: Int): Int =
+    def shapeOwnerGetShapeCount(ownerId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerGetShapeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapeOwnerGetShape(ownerId: Int, shapeId: Int): Shape2D =
+    def shapeOwnerGetShape(ownerId: Int, shapeId: Int): Shape2D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = shapeId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerGetShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Shape2D(!_ret)
+}
 
-    def shapeOwnerGetShapeIndex(ownerId: Int, shapeId: Int): Int =
+    def shapeOwnerGetShapeIndex(ownerId: Int, shapeId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = shapeId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerGetShapeIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapeOwnerRemoveShape(ownerId: Int, shapeId: Int): Unit =
+    def shapeOwnerRemoveShape(ownerId: Int, shapeId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = shapeId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shapeId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerRemoveShape, ptr, _args, null)
+}
 
-    def shapeOwnerClearShapes(ownerId: Int): Unit =
+    def shapeOwnerClearShapes(ownerId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = ownerId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = ownerId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeOwnerClearShapes, ptr, _args, null)
+}
 
-    def shapeFindOwner(shapeIndex: Int): Int =
+    def shapeFindOwner(shapeIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = shapeIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = shapeIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CollisionObject2D.Binds.shapeFindOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def disableMode: Ptr[Byte] = getDisableMode()
-    def disableMode_=(v: Ptr[Byte]): Unit = setDisableMode(v)
-    def collisionLayer: Ptr[Byte] = getCollisionLayer()
-    def collisionLayer_=(v: Ptr[Byte]): Unit = setCollisionLayer(v)
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
-    def collisionPriority: Ptr[Byte] = getCollisionPriority()
-    def collisionPriority_=(v: Ptr[Byte]): Unit = setCollisionPriority(v)
-    def inputPickable: Ptr[Byte] = isPickable()
-    def inputPickable_=(v: Ptr[Byte]): Unit = setPickable(v)
+}
+
+    def disableMode: Int = getDisableMode()
+    def disableMode_=(v: Int): Unit = setDisableMode(v)
+    def collisionLayer: Int = getCollisionLayer()
+    def collisionLayer_=(v: Int): Unit = setCollisionLayer(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
+    def collisionPriority: Float = getCollisionPriority()
+    def collisionPriority_=(v: Float): Unit = setCollisionPriority(v)
+    def inputPickable: Boolean = isPickable()
+    def inputPickable_=(v: Boolean): Unit = setPickable(v)
+}
 
 object CollisionObject2D:
-    object Binds:
-        var getRid: Ptr[Byte] = null
-        var setCollisionLayer: Ptr[Byte] = null
-        var getCollisionLayer: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
+object Binds {
+          var getRid: Ptr[Byte] = null
         var setCollisionLayerValue: Ptr[Byte] = null
         var getCollisionLayerValue: Ptr[Byte] = null
         var setCollisionMaskValue: Ptr[Byte] = null
         var getCollisionMaskValue: Ptr[Byte] = null
-        var setCollisionPriority: Ptr[Byte] = null
-        var getCollisionPriority: Ptr[Byte] = null
-        var setDisableMode: Ptr[Byte] = null
-        var getDisableMode: Ptr[Byte] = null
-        var setPickable: Ptr[Byte] = null
-        var isPickable: Ptr[Byte] = null
         var createShapeOwner: Ptr[Byte] = null
         var removeShapeOwner: Ptr[Byte] = null
         var getShapeOwners: Ptr[Byte] = null
@@ -302,22 +260,12 @@ object CollisionObject2D:
         var shapeOwnerClearShapes: Ptr[Byte] = null
         var shapeFindOwner: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getRid = GdxApi.getMethodBind(c"CollisionObject2D", c"get_rid", 2944877500L)
-            Binds.setCollisionLayer = GdxApi.getMethodBind(c"CollisionObject2D", c"set_collision_layer", 1286410249L)
-            Binds.getCollisionLayer = GdxApi.getMethodBind(c"CollisionObject2D", c"get_collision_layer", 3905245786L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"CollisionObject2D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"CollisionObject2D", c"get_collision_mask", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getRid = GdxApi.getMethodBind(c"CollisionObject2D", c"get_rid", 2944877500L)
             Binds.setCollisionLayerValue = GdxApi.getMethodBind(c"CollisionObject2D", c"set_collision_layer_value", 300928843L)
             Binds.getCollisionLayerValue = GdxApi.getMethodBind(c"CollisionObject2D", c"get_collision_layer_value", 1116898809L)
             Binds.setCollisionMaskValue = GdxApi.getMethodBind(c"CollisionObject2D", c"set_collision_mask_value", 300928843L)
             Binds.getCollisionMaskValue = GdxApi.getMethodBind(c"CollisionObject2D", c"get_collision_mask_value", 1116898809L)
-            Binds.setCollisionPriority = GdxApi.getMethodBind(c"CollisionObject2D", c"set_collision_priority", 373806689L)
-            Binds.getCollisionPriority = GdxApi.getMethodBind(c"CollisionObject2D", c"get_collision_priority", 1740695150L)
-            Binds.setDisableMode = GdxApi.getMethodBind(c"CollisionObject2D", c"set_disable_mode", 1919204045L)
-            Binds.getDisableMode = GdxApi.getMethodBind(c"CollisionObject2D", c"get_disable_mode", 3172846349L)
-            Binds.setPickable = GdxApi.getMethodBind(c"CollisionObject2D", c"set_pickable", 2586408642L)
-            Binds.isPickable = GdxApi.getMethodBind(c"CollisionObject2D", c"is_pickable", 36873697L)
             Binds.createShapeOwner = GdxApi.getMethodBind(c"CollisionObject2D", c"create_shape_owner", 3429307534L)
             Binds.removeShapeOwner = GdxApi.getMethodBind(c"CollisionObject2D", c"remove_shape_owner", 1286410249L)
             Binds.getShapeOwners = GdxApi.getMethodBind(c"CollisionObject2D", c"get_shape_owners", 969006518L)
@@ -337,3 +285,5 @@ object CollisionObject2D:
             Binds.shapeOwnerRemoveShape = GdxApi.getMethodBind(c"CollisionObject2D", c"shape_owner_remove_shape", 3937882851L)
             Binds.shapeOwnerClearShapes = GdxApi.getMethodBind(c"CollisionObject2D", c"shape_owner_clear_shapes", 1286410249L)
             Binds.shapeFindOwner = GdxApi.getMethodBind(c"CollisionObject2D", c"shape_find_owner", 923996154L)
+  }
+}

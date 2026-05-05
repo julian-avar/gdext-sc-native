@@ -5,59 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GradientTexture1D extends Texture2D
-
-    def setGradient(gradient: Gradient): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = gradient.ptr
-        GdxApi.ptrcall(GradientTexture1D.Binds.setGradient, ptr, _args, null)
-
-    def getGradient(): Gradient =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GradientTexture1D.Binds.getGradient, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Gradient(!_ret)
-
-    def setWidth(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GradientTexture1D.Binds.setWidth, ptr, _args, null)
-
-    def setUseHdr(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GradientTexture1D.Binds.setUseHdr, ptr, _args, null)
-
-    def isUsingHdr(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(GradientTexture1D.Binds.isUsingHdr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def gradient: Ptr[Byte] = getGradient()
-    def gradient_=(v: Ptr[Byte]): Unit = setGradient(v)
+class GradientTexture1D extends Texture2D {
+    def gradient: Gradient = getGradient()
+    def gradient_=(v: Gradient): Unit = setGradient(v)
     def width: Ptr[Byte] = getWidth()
-    def width_=(v: Ptr[Byte]): Unit = setWidth(v)
-    def useHdr: Ptr[Byte] = isUsingHdr()
-    def useHdr_=(v: Ptr[Byte]): Unit = setUseHdr(v)
+    def width_=(v: Int): Unit = setWidth(v)
+    def useHdr: Boolean = isUsingHdr()
+    def useHdr_=(v: Boolean): Unit = setUseHdr(v)
+}
 
 object GradientTexture1D:
-    object Binds:
-        var setGradient: Ptr[Byte] = null
-        var getGradient: Ptr[Byte] = null
-        var setWidth: Ptr[Byte] = null
-        var setUseHdr: Ptr[Byte] = null
-        var isUsingHdr: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setGradient = GdxApi.getMethodBind(c"GradientTexture1D", c"set_gradient", 2756054477L)
-            Binds.getGradient = GdxApi.getMethodBind(c"GradientTexture1D", c"get_gradient", 132272999L)
-            Binds.setWidth = GdxApi.getMethodBind(c"GradientTexture1D", c"set_width", 1286410249L)
-            Binds.setUseHdr = GdxApi.getMethodBind(c"GradientTexture1D", c"set_use_hdr", 2586408642L)
-            Binds.isUsingHdr = GdxApi.getMethodBind(c"GradientTexture1D", c"is_using_hdr", 36873697L)
-
-    def apply(): GradientTexture1D =
-        val obj = new GradientTexture1D()
-        obj.ptr = GdxApi.constructObject(c"GradientTexture1D")
-        obj
+def apply(): GradientTexture1D = {
+  val obj = new GradientTexture1D()
+  obj.ptr = GdxApi.constructObject(c"GradientTexture1D")
+  obj
+}

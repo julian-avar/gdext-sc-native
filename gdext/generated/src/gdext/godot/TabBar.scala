@@ -5,421 +5,297 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TabBar extends Control
-
-    def setTabCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setTabCount, ptr, _args, null)
-
-    def getTabCount(): Int =
+class TabBar extends Control {
+    def getPreviousTab(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TabBar.Binds.getTabCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCurrentTab(tabIdx: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setCurrentTab, ptr, _args, null)
-
-    def getCurrentTab(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TabBar.Binds.getCurrentTab, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getPreviousTab(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TabBar.Binds.getPreviousTab, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def selectPreviousAvailable(): Boolean =
+    def selectPreviousAvailable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TabBar.Binds.selectPreviousAvailable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def selectNextAvailable(): Boolean =
+    def selectNextAvailable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TabBar.Binds.selectNextAvailable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setTabTitle(tabIdx: Int, title: CString): Unit =
+    def setTabTitle(tabIdx: Int, title: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = title.ptr
+        _args(1) = title
         GdxApi.ptrcall(TabBar.Binds.setTabTitle, ptr, _args, null)
+}
 
-    def getTabTitle(tabIdx: Int): CString =
+    def getTabTitle(tabIdx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTabTooltip(tabIdx: Int, tooltip: CString): Unit =
+    def setTabTooltip(tabIdx: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(TabBar.Binds.setTabTooltip, ptr, _args, null)
+}
 
-    def getTabTooltip(tabIdx: Int): CString =
+    def getTabTooltip(tabIdx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabTooltip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTabTextDirection(tabIdx: Int, direction: Int): Unit =
+    def setTabTextDirection(tabIdx: Int, direction: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = direction.ptr
+        val _a1 = stackalloc[Long](); !_a1 = direction.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.setTabTextDirection, ptr, _args, null)
+}
 
-    def getTabTextDirection(tabIdx: Int): Int =
+    def getTabTextDirection(tabIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TabBar.Binds.getTabTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTabLanguage(tabIdx: Int, language: CString): Unit =
+    def setTabLanguage(tabIdx: Int, language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = language.ptr
+        _args(1) = language
         GdxApi.ptrcall(TabBar.Binds.setTabLanguage, ptr, _args, null)
+}
 
-    def getTabLanguage(tabIdx: Int): CString =
+    def getTabLanguage(tabIdx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTabIcon(tabIdx: Int, icon: Texture2D): Unit =
+    def setTabIcon(tabIdx: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = icon.ptr
         GdxApi.ptrcall(TabBar.Binds.setTabIcon, ptr, _args, null)
+}
 
-    def getTabIcon(tabIdx: Int): Texture2D =
+    def getTabIcon(tabIdx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setTabIconMaxWidth(tabIdx: Int, width: Int): Unit =
+    def setTabIconMaxWidth(tabIdx: Int, width: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
+        val _a1 = stackalloc[Long](); !_a1 = width.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.setTabIconMaxWidth, ptr, _args, null)
+}
 
-    def getTabIconMaxWidth(tabIdx: Int): Int =
+    def getTabIconMaxWidth(tabIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TabBar.Binds.getTabIconMaxWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTabButtonIcon(tabIdx: Int, icon: Texture2D): Unit =
+    def setTabButtonIcon(tabIdx: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = icon.ptr
         GdxApi.ptrcall(TabBar.Binds.setTabButtonIcon, ptr, _args, null)
+}
 
-    def getTabButtonIcon(tabIdx: Int): Texture2D =
+    def getTabButtonIcon(tabIdx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabButtonIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setTabDisabled(tabIdx: Int, disabled: Boolean): Unit =
+    def setTabDisabled(tabIdx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if disabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.setTabDisabled, ptr, _args, null)
+}
 
-    def isTabDisabled(tabIdx: Int): Boolean =
+    def isTabDisabled(tabIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TabBar.Binds.isTabDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setTabHidden(tabIdx: Int, hidden: Boolean): Unit =
+    def setTabHidden(tabIdx: Int, hidden: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if hidden then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.setTabHidden, ptr, _args, null)
+}
 
-    def isTabHidden(tabIdx: Int): Boolean =
+    def isTabHidden(tabIdx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TabBar.Binds.isTabHidden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setTabMetadata(tabIdx: Int, metadata: Ptr[Byte]): Unit =
+    def setTabMetadata(tabIdx: Int, metadata: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = metadata.ptr
+        _args(1) = metadata
         GdxApi.ptrcall(TabBar.Binds.setTabMetadata, ptr, _args, null)
+}
 
-    def getTabMetadata(tabIdx: Int): Ptr[Byte] =
+    def getTabMetadata(tabIdx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def removeTab(tabIdx: Int): Unit =
+    def removeTab(tabIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.removeTab, ptr, _args, null)
+}
 
-    def addTab(): Unit =
+    def addTab(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TabBar.Binds.addTab, ptr, _args, null)
+}
 
-    def getTabIdxAtPoint(point: Vector2): Int =
+    def getTabIdxAtPoint(point: Vector2): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = point.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TabBar.Binds.getTabIdxAtPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTabAlignment(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(TabBar.Binds.setTabAlignment, ptr, _args, null)
-
-    def getTabAlignment(): Int =
+    def getTabOffset(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TabBar.Binds.getTabAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setClipTabs(clipTabs: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if clipTabs then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setClipTabs, ptr, _args, null)
-
-    def getClipTabs(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getClipTabs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getTabOffset(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TabBar.Binds.getTabOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getOffsetButtonsVisible(): Boolean =
+    def getOffsetButtonsVisible(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TabBar.Binds.getOffsetButtonsVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def ensureTabVisible(idx: Int): Unit =
+    def ensureTabVisible(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.ensureTabVisible, ptr, _args, null)
+}
 
-    def getTabRect(tabIdx: Int): Rect2 =
+    def getTabRect(tabIdx: Int): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tabIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = tabIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TabBar.Binds.getTabRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def moveTab(from: Int, to: Int): Unit =
+    def moveTab(from: Int, to: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = from.toLong
+        val _a0 = stackalloc[Long](); !_a0 = from.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = to.toLong
+        val _a1 = stackalloc[Long](); !_a1 = to.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TabBar.Binds.moveTab, ptr, _args, null)
+}
 
-    def setCloseWithMiddleMouse(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setCloseWithMiddleMouse, ptr, _args, null)
-
-    def getCloseWithMiddleMouse(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getCloseWithMiddleMouse, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTabCloseDisplayPolicy(policy: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = policy.ptr
-        GdxApi.ptrcall(TabBar.Binds.setTabCloseDisplayPolicy, ptr, _args, null)
-
-    def getTabCloseDisplayPolicy(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TabBar.Binds.getTabCloseDisplayPolicy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxTabWidth(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setMaxTabWidth, ptr, _args, null)
-
-    def getMaxTabWidth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TabBar.Binds.getMaxTabWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setScrollingEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setScrollingEnabled, ptr, _args, null)
-
-    def getScrollingEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getScrollingEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDragToRearrangeEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setDragToRearrangeEnabled, ptr, _args, null)
-
-    def getDragToRearrangeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getDragToRearrangeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTabsRearrangeGroup(groupId: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = groupId.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setTabsRearrangeGroup, ptr, _args, null)
-
-    def getTabsRearrangeGroup(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TabBar.Binds.getTabsRearrangeGroup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setScrollToSelected(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setScrollToSelected, ptr, _args, null)
-
-    def getScrollToSelected(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getScrollToSelected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSelectWithRmb(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setSelectWithRmb, ptr, _args, null)
-
-    def getSelectWithRmb(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getSelectWithRmb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDeselectEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TabBar.Binds.setDeselectEnabled, ptr, _args, null)
-
-    def getDeselectEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TabBar.Binds.getDeselectEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def clearTabs(): Unit =
+    def clearTabs(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TabBar.Binds.clearTabs, ptr, _args, null)
-    def currentTab: Ptr[Byte] = getCurrentTab()
-    def currentTab_=(v: Ptr[Byte]): Unit = setCurrentTab(v)
-    def tabAlignment: Ptr[Byte] = getTabAlignment()
-    def tabAlignment_=(v: Ptr[Byte]): Unit = setTabAlignment(v)
-    def clipTabs: Ptr[Byte] = getClipTabs()
-    def clipTabs_=(v: Ptr[Byte]): Unit = setClipTabs(v)
-    def closeWithMiddleMouse: Ptr[Byte] = getCloseWithMiddleMouse()
-    def closeWithMiddleMouse_=(v: Ptr[Byte]): Unit = setCloseWithMiddleMouse(v)
-    def tabCloseDisplayPolicy: Ptr[Byte] = getTabCloseDisplayPolicy()
-    def tabCloseDisplayPolicy_=(v: Ptr[Byte]): Unit = setTabCloseDisplayPolicy(v)
-    def maxTabWidth: Ptr[Byte] = getMaxTabWidth()
-    def maxTabWidth_=(v: Ptr[Byte]): Unit = setMaxTabWidth(v)
-    def scrollingEnabled: Ptr[Byte] = getScrollingEnabled()
-    def scrollingEnabled_=(v: Ptr[Byte]): Unit = setScrollingEnabled(v)
-    def dragToRearrangeEnabled: Ptr[Byte] = getDragToRearrangeEnabled()
-    def dragToRearrangeEnabled_=(v: Ptr[Byte]): Unit = setDragToRearrangeEnabled(v)
-    def tabsRearrangeGroup: Ptr[Byte] = getTabsRearrangeGroup()
-    def tabsRearrangeGroup_=(v: Ptr[Byte]): Unit = setTabsRearrangeGroup(v)
-    def scrollToSelected: Ptr[Byte] = getScrollToSelected()
-    def scrollToSelected_=(v: Ptr[Byte]): Unit = setScrollToSelected(v)
-    def selectWithRmb: Ptr[Byte] = getSelectWithRmb()
-    def selectWithRmb_=(v: Ptr[Byte]): Unit = setSelectWithRmb(v)
-    def deselectEnabled: Ptr[Byte] = getDeselectEnabled()
-    def deselectEnabled_=(v: Ptr[Byte]): Unit = setDeselectEnabled(v)
-    def tabCount: Ptr[Byte] = getTabCount()
-    def tabCount_=(v: Ptr[Byte]): Unit = setTabCount(v)
+}
+
+    def currentTab: Int = getCurrentTab()
+    def currentTab_=(v: Int): Unit = setCurrentTab(v)
+    def tabAlignment: Int = getTabAlignment()
+    def tabAlignment_=(v: Int): Unit = setTabAlignment(v)
+    def clipTabs: Boolean = getClipTabs()
+    def clipTabs_=(v: Boolean): Unit = setClipTabs(v)
+    def closeWithMiddleMouse: Boolean = getCloseWithMiddleMouse()
+    def closeWithMiddleMouse_=(v: Boolean): Unit = setCloseWithMiddleMouse(v)
+    def tabCloseDisplayPolicy: Int = getTabCloseDisplayPolicy()
+    def tabCloseDisplayPolicy_=(v: Int): Unit = setTabCloseDisplayPolicy(v)
+    def maxTabWidth: Int = getMaxTabWidth()
+    def maxTabWidth_=(v: Int): Unit = setMaxTabWidth(v)
+    def scrollingEnabled: Boolean = getScrollingEnabled()
+    def scrollingEnabled_=(v: Boolean): Unit = setScrollingEnabled(v)
+    def dragToRearrangeEnabled: Boolean = getDragToRearrangeEnabled()
+    def dragToRearrangeEnabled_=(v: Boolean): Unit = setDragToRearrangeEnabled(v)
+    def tabsRearrangeGroup: Int = getTabsRearrangeGroup()
+    def tabsRearrangeGroup_=(v: Int): Unit = setTabsRearrangeGroup(v)
+    def scrollToSelected: Boolean = getScrollToSelected()
+    def scrollToSelected_=(v: Boolean): Unit = setScrollToSelected(v)
+    def selectWithRmb: Boolean = getSelectWithRmb()
+    def selectWithRmb_=(v: Boolean): Unit = setSelectWithRmb(v)
+    def deselectEnabled: Boolean = getDeselectEnabled()
+    def deselectEnabled_=(v: Boolean): Unit = setDeselectEnabled(v)
+    def tabCount: Int = getTabCount()
+    def tabCount_=(v: Int): Unit = setTabCount(v)
+}
 
 object TabBar:
-    object Binds:
-        var setTabCount: Ptr[Byte] = null
-        var getTabCount: Ptr[Byte] = null
-        var setCurrentTab: Ptr[Byte] = null
-        var getCurrentTab: Ptr[Byte] = null
-        var getPreviousTab: Ptr[Byte] = null
+object Binds {
+          var getPreviousTab: Ptr[Byte] = null
         var selectPreviousAvailable: Ptr[Byte] = null
         var selectNextAvailable: Ptr[Byte] = null
         var setTabTitle: Ptr[Byte] = null
@@ -445,41 +321,15 @@ object TabBar:
         var removeTab: Ptr[Byte] = null
         var addTab: Ptr[Byte] = null
         var getTabIdxAtPoint: Ptr[Byte] = null
-        var setTabAlignment: Ptr[Byte] = null
-        var getTabAlignment: Ptr[Byte] = null
-        var setClipTabs: Ptr[Byte] = null
-        var getClipTabs: Ptr[Byte] = null
         var getTabOffset: Ptr[Byte] = null
         var getOffsetButtonsVisible: Ptr[Byte] = null
         var ensureTabVisible: Ptr[Byte] = null
         var getTabRect: Ptr[Byte] = null
         var moveTab: Ptr[Byte] = null
-        var setCloseWithMiddleMouse: Ptr[Byte] = null
-        var getCloseWithMiddleMouse: Ptr[Byte] = null
-        var setTabCloseDisplayPolicy: Ptr[Byte] = null
-        var getTabCloseDisplayPolicy: Ptr[Byte] = null
-        var setMaxTabWidth: Ptr[Byte] = null
-        var getMaxTabWidth: Ptr[Byte] = null
-        var setScrollingEnabled: Ptr[Byte] = null
-        var getScrollingEnabled: Ptr[Byte] = null
-        var setDragToRearrangeEnabled: Ptr[Byte] = null
-        var getDragToRearrangeEnabled: Ptr[Byte] = null
-        var setTabsRearrangeGroup: Ptr[Byte] = null
-        var getTabsRearrangeGroup: Ptr[Byte] = null
-        var setScrollToSelected: Ptr[Byte] = null
-        var getScrollToSelected: Ptr[Byte] = null
-        var setSelectWithRmb: Ptr[Byte] = null
-        var getSelectWithRmb: Ptr[Byte] = null
-        var setDeselectEnabled: Ptr[Byte] = null
-        var getDeselectEnabled: Ptr[Byte] = null
         var clearTabs: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTabCount = GdxApi.getMethodBind(c"TabBar", c"set_tab_count", 1286410249L)
-            Binds.getTabCount = GdxApi.getMethodBind(c"TabBar", c"get_tab_count", 3905245786L)
-            Binds.setCurrentTab = GdxApi.getMethodBind(c"TabBar", c"set_current_tab", 1286410249L)
-            Binds.getCurrentTab = GdxApi.getMethodBind(c"TabBar", c"get_current_tab", 3905245786L)
-            Binds.getPreviousTab = GdxApi.getMethodBind(c"TabBar", c"get_previous_tab", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getPreviousTab = GdxApi.getMethodBind(c"TabBar", c"get_previous_tab", 3905245786L)
             Binds.selectPreviousAvailable = GdxApi.getMethodBind(c"TabBar", c"select_previous_available", 2240911060L)
             Binds.selectNextAvailable = GdxApi.getMethodBind(c"TabBar", c"select_next_available", 2240911060L)
             Binds.setTabTitle = GdxApi.getMethodBind(c"TabBar", c"set_tab_title", 501894301L)
@@ -505,36 +355,17 @@ object TabBar:
             Binds.removeTab = GdxApi.getMethodBind(c"TabBar", c"remove_tab", 1286410249L)
             Binds.addTab = GdxApi.getMethodBind(c"TabBar", c"add_tab", 1465444425L)
             Binds.getTabIdxAtPoint = GdxApi.getMethodBind(c"TabBar", c"get_tab_idx_at_point", 3820158470L)
-            Binds.setTabAlignment = GdxApi.getMethodBind(c"TabBar", c"set_tab_alignment", 2413632353L)
-            Binds.getTabAlignment = GdxApi.getMethodBind(c"TabBar", c"get_tab_alignment", 2178122193L)
-            Binds.setClipTabs = GdxApi.getMethodBind(c"TabBar", c"set_clip_tabs", 2586408642L)
-            Binds.getClipTabs = GdxApi.getMethodBind(c"TabBar", c"get_clip_tabs", 36873697L)
             Binds.getTabOffset = GdxApi.getMethodBind(c"TabBar", c"get_tab_offset", 3905245786L)
             Binds.getOffsetButtonsVisible = GdxApi.getMethodBind(c"TabBar", c"get_offset_buttons_visible", 36873697L)
             Binds.ensureTabVisible = GdxApi.getMethodBind(c"TabBar", c"ensure_tab_visible", 1286410249L)
             Binds.getTabRect = GdxApi.getMethodBind(c"TabBar", c"get_tab_rect", 3327874267L)
             Binds.moveTab = GdxApi.getMethodBind(c"TabBar", c"move_tab", 3937882851L)
-            Binds.setCloseWithMiddleMouse = GdxApi.getMethodBind(c"TabBar", c"set_close_with_middle_mouse", 2586408642L)
-            Binds.getCloseWithMiddleMouse = GdxApi.getMethodBind(c"TabBar", c"get_close_with_middle_mouse", 36873697L)
-            Binds.setTabCloseDisplayPolicy = GdxApi.getMethodBind(c"TabBar", c"set_tab_close_display_policy", 2212906737L)
-            Binds.getTabCloseDisplayPolicy = GdxApi.getMethodBind(c"TabBar", c"get_tab_close_display_policy", 2956568028L)
-            Binds.setMaxTabWidth = GdxApi.getMethodBind(c"TabBar", c"set_max_tab_width", 1286410249L)
-            Binds.getMaxTabWidth = GdxApi.getMethodBind(c"TabBar", c"get_max_tab_width", 3905245786L)
-            Binds.setScrollingEnabled = GdxApi.getMethodBind(c"TabBar", c"set_scrolling_enabled", 2586408642L)
-            Binds.getScrollingEnabled = GdxApi.getMethodBind(c"TabBar", c"get_scrolling_enabled", 36873697L)
-            Binds.setDragToRearrangeEnabled = GdxApi.getMethodBind(c"TabBar", c"set_drag_to_rearrange_enabled", 2586408642L)
-            Binds.getDragToRearrangeEnabled = GdxApi.getMethodBind(c"TabBar", c"get_drag_to_rearrange_enabled", 36873697L)
-            Binds.setTabsRearrangeGroup = GdxApi.getMethodBind(c"TabBar", c"set_tabs_rearrange_group", 1286410249L)
-            Binds.getTabsRearrangeGroup = GdxApi.getMethodBind(c"TabBar", c"get_tabs_rearrange_group", 3905245786L)
-            Binds.setScrollToSelected = GdxApi.getMethodBind(c"TabBar", c"set_scroll_to_selected", 2586408642L)
-            Binds.getScrollToSelected = GdxApi.getMethodBind(c"TabBar", c"get_scroll_to_selected", 36873697L)
-            Binds.setSelectWithRmb = GdxApi.getMethodBind(c"TabBar", c"set_select_with_rmb", 2586408642L)
-            Binds.getSelectWithRmb = GdxApi.getMethodBind(c"TabBar", c"get_select_with_rmb", 36873697L)
-            Binds.setDeselectEnabled = GdxApi.getMethodBind(c"TabBar", c"set_deselect_enabled", 2586408642L)
-            Binds.getDeselectEnabled = GdxApi.getMethodBind(c"TabBar", c"get_deselect_enabled", 36873697L)
             Binds.clearTabs = GdxApi.getMethodBind(c"TabBar", c"clear_tabs", 3218959716L)
+  }
+}
 
-    def apply(): TabBar =
-        val obj = new TabBar()
-        obj.ptr = GdxApi.constructObject(c"TabBar")
-        obj
+def apply(): TabBar = {
+  val obj = new TabBar()
+  obj.ptr = GdxApi.constructObject(c"TabBar")
+  obj
+}

@@ -5,455 +5,121 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationMesh extends Resource
-
-    def setSamplePartitionType(samplePartitionType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = samplePartitionType.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setSamplePartitionType, ptr, _args, null)
-
-    def getSamplePartitionType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getSamplePartitionType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setParsedGeometryType(geometryType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = geometryType.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setParsedGeometryType, ptr, _args, null)
-
-    def getParsedGeometryType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getParsedGeometryType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit =
+class NavigationMesh extends Resource {
+    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NavigationMesh.Binds.setCollisionMaskValue, ptr, _args, null)
+}
 
-    def getCollisionMaskValue(layerNumber: Int): Boolean =
+    def getCollisionMaskValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NavigationMesh.Binds.getCollisionMaskValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setSourceGeometryMode(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mask.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setSourceGeometryMode, ptr, _args, null)
-
-    def getSourceGeometryMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getSourceGeometryMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSourceGroupName(mask: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mask.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setSourceGroupName, ptr, _args, null)
-
-    def getSourceGroupName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getSourceGroupName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setCellSize(cellSize: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = cellSize.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setCellSize, ptr, _args, null)
-
-    def getCellSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getCellSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCellHeight(cellHeight: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = cellHeight.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setCellHeight, ptr, _args, null)
-
-    def getCellHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getCellHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBorderSize(borderSize: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = borderSize.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setBorderSize, ptr, _args, null)
-
-    def getBorderSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getBorderSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAgentHeight(agentHeight: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = agentHeight.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setAgentHeight, ptr, _args, null)
-
-    def getAgentHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getAgentHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAgentRadius(agentRadius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = agentRadius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setAgentRadius, ptr, _args, null)
-
-    def getAgentRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getAgentRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAgentMaxClimb(agentMaxClimb: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = agentMaxClimb.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setAgentMaxClimb, ptr, _args, null)
-
-    def getAgentMaxClimb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getAgentMaxClimb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAgentMaxSlope(agentMaxSlope: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = agentMaxSlope.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setAgentMaxSlope, ptr, _args, null)
-
-    def getAgentMaxSlope(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getAgentMaxSlope, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRegionMinSize(regionMinSize: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = regionMinSize.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setRegionMinSize, ptr, _args, null)
-
-    def getRegionMinSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getRegionMinSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRegionMergeSize(regionMergeSize: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = regionMergeSize.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setRegionMergeSize, ptr, _args, null)
-
-    def getRegionMergeSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getRegionMergeSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEdgeMaxLength(edgeMaxLength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = edgeMaxLength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setEdgeMaxLength, ptr, _args, null)
-
-    def getEdgeMaxLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getEdgeMaxLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEdgeMaxError(edgeMaxError: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = edgeMaxError.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setEdgeMaxError, ptr, _args, null)
-
-    def getEdgeMaxError(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getEdgeMaxError, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVerticesPerPolygon(verticesPerPolygon: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = verticesPerPolygon.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setVerticesPerPolygon, ptr, _args, null)
-
-    def getVerticesPerPolygon(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getVerticesPerPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDetailSampleDistance(detailSampleDist: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = detailSampleDist.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setDetailSampleDistance, ptr, _args, null)
-
-    def getDetailSampleDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getDetailSampleDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDetailSampleMaxError(detailSampleMaxError: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = detailSampleMaxError.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setDetailSampleMaxError, ptr, _args, null)
-
-    def getDetailSampleMaxError(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getDetailSampleMaxError, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFilterLowHangingObstacles(filterLowHangingObstacles: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if filterLowHangingObstacles then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setFilterLowHangingObstacles, ptr, _args, null)
-
-    def getFilterLowHangingObstacles(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getFilterLowHangingObstacles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFilterLedgeSpans(filterLedgeSpans: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if filterLedgeSpans then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setFilterLedgeSpans, ptr, _args, null)
-
-    def getFilterLedgeSpans(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getFilterLedgeSpans, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFilterWalkableLowHeightSpans(filterWalkableLowHeightSpans: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if filterWalkableLowHeightSpans then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationMesh.Binds.setFilterWalkableLowHeightSpans, ptr, _args, null)
-
-    def getFilterWalkableLowHeightSpans(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getFilterWalkableLowHeightSpans, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFilterBakingAabb(bakingAabb: AABB): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bakingAabb.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setFilterBakingAabb, ptr, _args, null)
-
-    def getFilterBakingAabb(): AABB =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getFilterBakingAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new AABB(!_ret)
-
-    def setFilterBakingAabbOffset(bakingAabbOffset: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bakingAabbOffset.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setFilterBakingAabbOffset, ptr, _args, null)
-
-    def getFilterBakingAabbOffset(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getFilterBakingAabbOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setVertices(vertices: PackedVector3Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = vertices.ptr
-        GdxApi.ptrcall(NavigationMesh.Binds.setVertices, ptr, _args, null)
-
-    def getVertices(): PackedVector3Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationMesh.Binds.getVertices, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector3Array(!_ret)
-
-    def addPolygon(polygon: PackedInt32Array): Unit =
+    def addPolygon(polygon: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = polygon.ptr
         GdxApi.ptrcall(NavigationMesh.Binds.addPolygon, ptr, _args, null)
+}
 
-    def getPolygonCount(): Int =
+    def getPolygonCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NavigationMesh.Binds.getPolygonCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPolygon(idx: Int): PackedInt32Array =
+    def getPolygon(idx: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NavigationMesh.Binds.getPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def clearPolygons(): Unit =
+    def clearPolygons(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(NavigationMesh.Binds.clearPolygons, ptr, _args, null)
+}
 
-    def createFromMesh(mesh: Mesh): Unit =
+    def createFromMesh(mesh: Mesh): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
         GdxApi.ptrcall(NavigationMesh.Binds.createFromMesh, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(NavigationMesh.Binds.clear, ptr, _args, null)
-    def vertices: Ptr[Byte] = getVertices()
-    def vertices_=(v: Ptr[Byte]): Unit = setVertices(v)
+}
+
+    def vertices: PackedVector3Array = getVertices()
+    def vertices_=(v: PackedVector3Array): Unit = setVertices(v)
     def polygons: Ptr[Byte] = _getPolygons()
     def polygons_=(v: Ptr[Byte]): Unit = _setPolygons(v)
-    def samplePartitionType: Ptr[Byte] = getSamplePartitionType()
-    def samplePartitionType_=(v: Ptr[Byte]): Unit = setSamplePartitionType(v)
-    def geometryParsedGeometryType: Ptr[Byte] = getParsedGeometryType()
-    def geometryParsedGeometryType_=(v: Ptr[Byte]): Unit = setParsedGeometryType(v)
-    def geometryCollisionMask: Ptr[Byte] = getCollisionMask()
-    def geometryCollisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
-    def geometrySourceGeometryMode: Ptr[Byte] = getSourceGeometryMode()
-    def geometrySourceGeometryMode_=(v: Ptr[Byte]): Unit = setSourceGeometryMode(v)
-    def geometrySourceGroupName: Ptr[Byte] = getSourceGroupName()
-    def geometrySourceGroupName_=(v: Ptr[Byte]): Unit = setSourceGroupName(v)
-    def cellSize: Ptr[Byte] = getCellSize()
-    def cellSize_=(v: Ptr[Byte]): Unit = setCellSize(v)
-    def cellHeight: Ptr[Byte] = getCellHeight()
-    def cellHeight_=(v: Ptr[Byte]): Unit = setCellHeight(v)
-    def borderSize: Ptr[Byte] = getBorderSize()
-    def borderSize_=(v: Ptr[Byte]): Unit = setBorderSize(v)
-    def agentHeight: Ptr[Byte] = getAgentHeight()
-    def agentHeight_=(v: Ptr[Byte]): Unit = setAgentHeight(v)
-    def agentRadius: Ptr[Byte] = getAgentRadius()
-    def agentRadius_=(v: Ptr[Byte]): Unit = setAgentRadius(v)
-    def agentMaxClimb: Ptr[Byte] = getAgentMaxClimb()
-    def agentMaxClimb_=(v: Ptr[Byte]): Unit = setAgentMaxClimb(v)
-    def agentMaxSlope: Ptr[Byte] = getAgentMaxSlope()
-    def agentMaxSlope_=(v: Ptr[Byte]): Unit = setAgentMaxSlope(v)
-    def regionMinSize: Ptr[Byte] = getRegionMinSize()
-    def regionMinSize_=(v: Ptr[Byte]): Unit = setRegionMinSize(v)
-    def regionMergeSize: Ptr[Byte] = getRegionMergeSize()
-    def regionMergeSize_=(v: Ptr[Byte]): Unit = setRegionMergeSize(v)
-    def edgeMaxLength: Ptr[Byte] = getEdgeMaxLength()
-    def edgeMaxLength_=(v: Ptr[Byte]): Unit = setEdgeMaxLength(v)
-    def edgeMaxError: Ptr[Byte] = getEdgeMaxError()
-    def edgeMaxError_=(v: Ptr[Byte]): Unit = setEdgeMaxError(v)
-    def verticesPerPolygon: Ptr[Byte] = getVerticesPerPolygon()
-    def verticesPerPolygon_=(v: Ptr[Byte]): Unit = setVerticesPerPolygon(v)
-    def detailSampleDistance: Ptr[Byte] = getDetailSampleDistance()
-    def detailSampleDistance_=(v: Ptr[Byte]): Unit = setDetailSampleDistance(v)
-    def detailSampleMaxError: Ptr[Byte] = getDetailSampleMaxError()
-    def detailSampleMaxError_=(v: Ptr[Byte]): Unit = setDetailSampleMaxError(v)
-    def filterLowHangingObstacles: Ptr[Byte] = getFilterLowHangingObstacles()
-    def filterLowHangingObstacles_=(v: Ptr[Byte]): Unit = setFilterLowHangingObstacles(v)
-    def filterLedgeSpans: Ptr[Byte] = getFilterLedgeSpans()
-    def filterLedgeSpans_=(v: Ptr[Byte]): Unit = setFilterLedgeSpans(v)
-    def filterWalkableLowHeightSpans: Ptr[Byte] = getFilterWalkableLowHeightSpans()
-    def filterWalkableLowHeightSpans_=(v: Ptr[Byte]): Unit = setFilterWalkableLowHeightSpans(v)
-    def filterBakingAabb: Ptr[Byte] = getFilterBakingAabb()
-    def filterBakingAabb_=(v: Ptr[Byte]): Unit = setFilterBakingAabb(v)
-    def filterBakingAabbOffset: Ptr[Byte] = getFilterBakingAabbOffset()
-    def filterBakingAabbOffset_=(v: Ptr[Byte]): Unit = setFilterBakingAabbOffset(v)
+    def samplePartitionType: Int = getSamplePartitionType()
+    def samplePartitionType_=(v: Int): Unit = setSamplePartitionType(v)
+    def geometryParsedGeometryType: Int = getParsedGeometryType()
+    def geometryParsedGeometryType_=(v: Int): Unit = setParsedGeometryType(v)
+    def geometryCollisionMask: Int = getCollisionMask()
+    def geometryCollisionMask_=(v: Int): Unit = setCollisionMask(v)
+    def geometrySourceGeometryMode: Int = getSourceGeometryMode()
+    def geometrySourceGeometryMode_=(v: Int): Unit = setSourceGeometryMode(v)
+    def geometrySourceGroupName: CString = getSourceGroupName()
+    def geometrySourceGroupName_=(v: CString): Unit = setSourceGroupName(v)
+    def cellSize: Float = getCellSize()
+    def cellSize_=(v: Float): Unit = setCellSize(v)
+    def cellHeight: Float = getCellHeight()
+    def cellHeight_=(v: Float): Unit = setCellHeight(v)
+    def borderSize: Float = getBorderSize()
+    def borderSize_=(v: Float): Unit = setBorderSize(v)
+    def agentHeight: Float = getAgentHeight()
+    def agentHeight_=(v: Float): Unit = setAgentHeight(v)
+    def agentRadius: Float = getAgentRadius()
+    def agentRadius_=(v: Float): Unit = setAgentRadius(v)
+    def agentMaxClimb: Float = getAgentMaxClimb()
+    def agentMaxClimb_=(v: Float): Unit = setAgentMaxClimb(v)
+    def agentMaxSlope: Float = getAgentMaxSlope()
+    def agentMaxSlope_=(v: Float): Unit = setAgentMaxSlope(v)
+    def regionMinSize: Float = getRegionMinSize()
+    def regionMinSize_=(v: Float): Unit = setRegionMinSize(v)
+    def regionMergeSize: Float = getRegionMergeSize()
+    def regionMergeSize_=(v: Float): Unit = setRegionMergeSize(v)
+    def edgeMaxLength: Float = getEdgeMaxLength()
+    def edgeMaxLength_=(v: Float): Unit = setEdgeMaxLength(v)
+    def edgeMaxError: Float = getEdgeMaxError()
+    def edgeMaxError_=(v: Float): Unit = setEdgeMaxError(v)
+    def verticesPerPolygon: Float = getVerticesPerPolygon()
+    def verticesPerPolygon_=(v: Float): Unit = setVerticesPerPolygon(v)
+    def detailSampleDistance: Float = getDetailSampleDistance()
+    def detailSampleDistance_=(v: Float): Unit = setDetailSampleDistance(v)
+    def detailSampleMaxError: Float = getDetailSampleMaxError()
+    def detailSampleMaxError_=(v: Float): Unit = setDetailSampleMaxError(v)
+    def filterLowHangingObstacles: Boolean = getFilterLowHangingObstacles()
+    def filterLowHangingObstacles_=(v: Boolean): Unit = setFilterLowHangingObstacles(v)
+    def filterLedgeSpans: Boolean = getFilterLedgeSpans()
+    def filterLedgeSpans_=(v: Boolean): Unit = setFilterLedgeSpans(v)
+    def filterWalkableLowHeightSpans: Boolean = getFilterWalkableLowHeightSpans()
+    def filterWalkableLowHeightSpans_=(v: Boolean): Unit = setFilterWalkableLowHeightSpans(v)
+    def filterBakingAabb: AABB = getFilterBakingAabb()
+    def filterBakingAabb_=(v: AABB): Unit = setFilterBakingAabb(v)
+    def filterBakingAabbOffset: Vector3 = getFilterBakingAabbOffset()
+    def filterBakingAabbOffset_=(v: Vector3): Unit = setFilterBakingAabbOffset(v)
+}
 
 object NavigationMesh:
-    object Binds:
-        var setSamplePartitionType: Ptr[Byte] = null
-        var getSamplePartitionType: Ptr[Byte] = null
-        var setParsedGeometryType: Ptr[Byte] = null
-        var getParsedGeometryType: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
-        var setCollisionMaskValue: Ptr[Byte] = null
+object Binds {
+          var setCollisionMaskValue: Ptr[Byte] = null
         var getCollisionMaskValue: Ptr[Byte] = null
-        var setSourceGeometryMode: Ptr[Byte] = null
-        var getSourceGeometryMode: Ptr[Byte] = null
-        var setSourceGroupName: Ptr[Byte] = null
-        var getSourceGroupName: Ptr[Byte] = null
-        var setCellSize: Ptr[Byte] = null
-        var getCellSize: Ptr[Byte] = null
-        var setCellHeight: Ptr[Byte] = null
-        var getCellHeight: Ptr[Byte] = null
-        var setBorderSize: Ptr[Byte] = null
-        var getBorderSize: Ptr[Byte] = null
-        var setAgentHeight: Ptr[Byte] = null
-        var getAgentHeight: Ptr[Byte] = null
-        var setAgentRadius: Ptr[Byte] = null
-        var getAgentRadius: Ptr[Byte] = null
-        var setAgentMaxClimb: Ptr[Byte] = null
-        var getAgentMaxClimb: Ptr[Byte] = null
-        var setAgentMaxSlope: Ptr[Byte] = null
-        var getAgentMaxSlope: Ptr[Byte] = null
-        var setRegionMinSize: Ptr[Byte] = null
-        var getRegionMinSize: Ptr[Byte] = null
-        var setRegionMergeSize: Ptr[Byte] = null
-        var getRegionMergeSize: Ptr[Byte] = null
-        var setEdgeMaxLength: Ptr[Byte] = null
-        var getEdgeMaxLength: Ptr[Byte] = null
-        var setEdgeMaxError: Ptr[Byte] = null
-        var getEdgeMaxError: Ptr[Byte] = null
-        var setVerticesPerPolygon: Ptr[Byte] = null
-        var getVerticesPerPolygon: Ptr[Byte] = null
-        var setDetailSampleDistance: Ptr[Byte] = null
-        var getDetailSampleDistance: Ptr[Byte] = null
-        var setDetailSampleMaxError: Ptr[Byte] = null
-        var getDetailSampleMaxError: Ptr[Byte] = null
-        var setFilterLowHangingObstacles: Ptr[Byte] = null
-        var getFilterLowHangingObstacles: Ptr[Byte] = null
-        var setFilterLedgeSpans: Ptr[Byte] = null
-        var getFilterLedgeSpans: Ptr[Byte] = null
-        var setFilterWalkableLowHeightSpans: Ptr[Byte] = null
-        var getFilterWalkableLowHeightSpans: Ptr[Byte] = null
-        var setFilterBakingAabb: Ptr[Byte] = null
-        var getFilterBakingAabb: Ptr[Byte] = null
-        var setFilterBakingAabbOffset: Ptr[Byte] = null
-        var getFilterBakingAabbOffset: Ptr[Byte] = null
-        var setVertices: Ptr[Byte] = null
-        var getVertices: Ptr[Byte] = null
         var addPolygon: Ptr[Byte] = null
         var getPolygonCount: Ptr[Byte] = null
         var getPolygon: Ptr[Byte] = null
@@ -461,67 +127,20 @@ object NavigationMesh:
         var createFromMesh: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSamplePartitionType = GdxApi.getMethodBind(c"NavigationMesh", c"set_sample_partition_type", 2472437533L)
-            Binds.getSamplePartitionType = GdxApi.getMethodBind(c"NavigationMesh", c"get_sample_partition_type", 833513918L)
-            Binds.setParsedGeometryType = GdxApi.getMethodBind(c"NavigationMesh", c"set_parsed_geometry_type", 3064713163L)
-            Binds.getParsedGeometryType = GdxApi.getMethodBind(c"NavigationMesh", c"get_parsed_geometry_type", 3928011953L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"NavigationMesh", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"NavigationMesh", c"get_collision_mask", 3905245786L)
-            Binds.setCollisionMaskValue = GdxApi.getMethodBind(c"NavigationMesh", c"set_collision_mask_value", 300928843L)
+  def loadBinds(): Unit = {
+                Binds.setCollisionMaskValue = GdxApi.getMethodBind(c"NavigationMesh", c"set_collision_mask_value", 300928843L)
             Binds.getCollisionMaskValue = GdxApi.getMethodBind(c"NavigationMesh", c"get_collision_mask_value", 1116898809L)
-            Binds.setSourceGeometryMode = GdxApi.getMethodBind(c"NavigationMesh", c"set_source_geometry_mode", 2700825194L)
-            Binds.getSourceGeometryMode = GdxApi.getMethodBind(c"NavigationMesh", c"get_source_geometry_mode", 2770484141L)
-            Binds.setSourceGroupName = GdxApi.getMethodBind(c"NavigationMesh", c"set_source_group_name", 3304788590L)
-            Binds.getSourceGroupName = GdxApi.getMethodBind(c"NavigationMesh", c"get_source_group_name", 2002593661L)
-            Binds.setCellSize = GdxApi.getMethodBind(c"NavigationMesh", c"set_cell_size", 373806689L)
-            Binds.getCellSize = GdxApi.getMethodBind(c"NavigationMesh", c"get_cell_size", 1740695150L)
-            Binds.setCellHeight = GdxApi.getMethodBind(c"NavigationMesh", c"set_cell_height", 373806689L)
-            Binds.getCellHeight = GdxApi.getMethodBind(c"NavigationMesh", c"get_cell_height", 1740695150L)
-            Binds.setBorderSize = GdxApi.getMethodBind(c"NavigationMesh", c"set_border_size", 373806689L)
-            Binds.getBorderSize = GdxApi.getMethodBind(c"NavigationMesh", c"get_border_size", 1740695150L)
-            Binds.setAgentHeight = GdxApi.getMethodBind(c"NavigationMesh", c"set_agent_height", 373806689L)
-            Binds.getAgentHeight = GdxApi.getMethodBind(c"NavigationMesh", c"get_agent_height", 1740695150L)
-            Binds.setAgentRadius = GdxApi.getMethodBind(c"NavigationMesh", c"set_agent_radius", 373806689L)
-            Binds.getAgentRadius = GdxApi.getMethodBind(c"NavigationMesh", c"get_agent_radius", 191475506L)
-            Binds.setAgentMaxClimb = GdxApi.getMethodBind(c"NavigationMesh", c"set_agent_max_climb", 373806689L)
-            Binds.getAgentMaxClimb = GdxApi.getMethodBind(c"NavigationMesh", c"get_agent_max_climb", 1740695150L)
-            Binds.setAgentMaxSlope = GdxApi.getMethodBind(c"NavigationMesh", c"set_agent_max_slope", 373806689L)
-            Binds.getAgentMaxSlope = GdxApi.getMethodBind(c"NavigationMesh", c"get_agent_max_slope", 1740695150L)
-            Binds.setRegionMinSize = GdxApi.getMethodBind(c"NavigationMesh", c"set_region_min_size", 373806689L)
-            Binds.getRegionMinSize = GdxApi.getMethodBind(c"NavigationMesh", c"get_region_min_size", 1740695150L)
-            Binds.setRegionMergeSize = GdxApi.getMethodBind(c"NavigationMesh", c"set_region_merge_size", 373806689L)
-            Binds.getRegionMergeSize = GdxApi.getMethodBind(c"NavigationMesh", c"get_region_merge_size", 1740695150L)
-            Binds.setEdgeMaxLength = GdxApi.getMethodBind(c"NavigationMesh", c"set_edge_max_length", 373806689L)
-            Binds.getEdgeMaxLength = GdxApi.getMethodBind(c"NavigationMesh", c"get_edge_max_length", 1740695150L)
-            Binds.setEdgeMaxError = GdxApi.getMethodBind(c"NavigationMesh", c"set_edge_max_error", 373806689L)
-            Binds.getEdgeMaxError = GdxApi.getMethodBind(c"NavigationMesh", c"get_edge_max_error", 1740695150L)
-            Binds.setVerticesPerPolygon = GdxApi.getMethodBind(c"NavigationMesh", c"set_vertices_per_polygon", 373806689L)
-            Binds.getVerticesPerPolygon = GdxApi.getMethodBind(c"NavigationMesh", c"get_vertices_per_polygon", 1740695150L)
-            Binds.setDetailSampleDistance = GdxApi.getMethodBind(c"NavigationMesh", c"set_detail_sample_distance", 373806689L)
-            Binds.getDetailSampleDistance = GdxApi.getMethodBind(c"NavigationMesh", c"get_detail_sample_distance", 1740695150L)
-            Binds.setDetailSampleMaxError = GdxApi.getMethodBind(c"NavigationMesh", c"set_detail_sample_max_error", 373806689L)
-            Binds.getDetailSampleMaxError = GdxApi.getMethodBind(c"NavigationMesh", c"get_detail_sample_max_error", 1740695150L)
-            Binds.setFilterLowHangingObstacles = GdxApi.getMethodBind(c"NavigationMesh", c"set_filter_low_hanging_obstacles", 2586408642L)
-            Binds.getFilterLowHangingObstacles = GdxApi.getMethodBind(c"NavigationMesh", c"get_filter_low_hanging_obstacles", 36873697L)
-            Binds.setFilterLedgeSpans = GdxApi.getMethodBind(c"NavigationMesh", c"set_filter_ledge_spans", 2586408642L)
-            Binds.getFilterLedgeSpans = GdxApi.getMethodBind(c"NavigationMesh", c"get_filter_ledge_spans", 36873697L)
-            Binds.setFilterWalkableLowHeightSpans = GdxApi.getMethodBind(c"NavigationMesh", c"set_filter_walkable_low_height_spans", 2586408642L)
-            Binds.getFilterWalkableLowHeightSpans = GdxApi.getMethodBind(c"NavigationMesh", c"get_filter_walkable_low_height_spans", 36873697L)
-            Binds.setFilterBakingAabb = GdxApi.getMethodBind(c"NavigationMesh", c"set_filter_baking_aabb", 259215842L)
-            Binds.getFilterBakingAabb = GdxApi.getMethodBind(c"NavigationMesh", c"get_filter_baking_aabb", 1068685055L)
-            Binds.setFilterBakingAabbOffset = GdxApi.getMethodBind(c"NavigationMesh", c"set_filter_baking_aabb_offset", 3460891852L)
-            Binds.getFilterBakingAabbOffset = GdxApi.getMethodBind(c"NavigationMesh", c"get_filter_baking_aabb_offset", 3360562783L)
-            Binds.setVertices = GdxApi.getMethodBind(c"NavigationMesh", c"set_vertices", 334873810L)
-            Binds.getVertices = GdxApi.getMethodBind(c"NavigationMesh", c"get_vertices", 497664490L)
             Binds.addPolygon = GdxApi.getMethodBind(c"NavigationMesh", c"add_polygon", 3614634198L)
             Binds.getPolygonCount = GdxApi.getMethodBind(c"NavigationMesh", c"get_polygon_count", 3905245786L)
             Binds.getPolygon = GdxApi.getMethodBind(c"NavigationMesh", c"get_polygon", 3668444399L)
             Binds.clearPolygons = GdxApi.getMethodBind(c"NavigationMesh", c"clear_polygons", 3218959716L)
             Binds.createFromMesh = GdxApi.getMethodBind(c"NavigationMesh", c"create_from_mesh", 194775623L)
             Binds.clear = GdxApi.getMethodBind(c"NavigationMesh", c"clear", 3218959716L)
+  }
+}
 
-    def apply(): NavigationMesh =
-        val obj = new NavigationMesh()
-        obj.ptr = GdxApi.constructObject(c"NavigationMesh")
-        obj
+def apply(): NavigationMesh = {
+  val obj = new NavigationMesh()
+  obj.ptr = GdxApi.constructObject(c"NavigationMesh")
+  obj
+}

@@ -5,893 +5,360 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Viewport extends Node
-
-    def setWorld2d(world2d: World2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = world2d.ptr
-        GdxApi.ptrcall(Viewport.Binds.setWorld2d, ptr, _args, null)
-
-    def getWorld2d(): World2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Viewport.Binds.getWorld2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new World2D(!_ret)
-
-    def findWorld2d(): World2D =
+class Viewport extends Node {
+    def findWorld2d(): World2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.findWorld2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new World2D(!_ret)
+}
 
-    def setCanvasTransform(xform: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = xform.ptr
-        GdxApi.ptrcall(Viewport.Binds.setCanvasTransform, ptr, _args, null)
-
-    def getCanvasTransform(): Transform2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Viewport.Binds.getCanvasTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform2D(!_ret)
-
-    def setGlobalCanvasTransform(xform: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = xform.ptr
-        GdxApi.ptrcall(Viewport.Binds.setGlobalCanvasTransform, ptr, _args, null)
-
-    def getGlobalCanvasTransform(): Transform2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Viewport.Binds.getGlobalCanvasTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform2D(!_ret)
-
-    def getStretchTransform(): Transform2D =
+    def getStretchTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getStretchTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getFinalTransform(): Transform2D =
+    def getFinalTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getFinalTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getScreenTransform(): Transform2D =
+    def getScreenTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getScreenTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getVisibleRect(): Rect2 =
+    def getVisibleRect(): Rect2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getVisibleRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def setTransparentBackground(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setTransparentBackground, ptr, _args, null)
-
-    def hasTransparentBackground(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.hasTransparentBackground, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseHdr2d(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseHdr2d, ptr, _args, null)
-
-    def isUsingHdr2d(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingHdr2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMsaa2d(msaa: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = msaa.ptr
-        GdxApi.ptrcall(Viewport.Binds.setMsaa2d, ptr, _args, null)
-
-    def getMsaa2d(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getMsaa2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMsaa3d(msaa: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = msaa.ptr
-        GdxApi.ptrcall(Viewport.Binds.setMsaa3d, ptr, _args, null)
-
-    def getMsaa3d(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getMsaa3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setScreenSpaceAa(screenSpaceAa: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = screenSpaceAa.ptr
-        GdxApi.ptrcall(Viewport.Binds.setScreenSpaceAa, ptr, _args, null)
-
-    def getScreenSpaceAa(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getScreenSpaceAa, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUseTaa(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseTaa, ptr, _args, null)
-
-    def isUsingTaa(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingTaa, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseDebanding(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseDebanding, ptr, _args, null)
-
-    def isUsingDebanding(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingDebanding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseOcclusionCulling(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseOcclusionCulling, ptr, _args, null)
-
-    def isUsingOcclusionCulling(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingOcclusionCulling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDebugDraw(debugDraw: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = debugDraw.ptr
-        GdxApi.ptrcall(Viewport.Binds.setDebugDraw, ptr, _args, null)
-
-    def getDebugDraw(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getDebugDraw, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUseOversampling(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseOversampling, ptr, _args, null)
-
-    def isUsingOversampling(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOversamplingOverride(oversampling: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = oversampling.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setOversamplingOverride, ptr, _args, null)
-
-    def getOversamplingOverride(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Viewport.Binds.getOversamplingOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getOversampling(): Float =
+    def getOversampling(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Viewport.Binds.getOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getRenderInfo(`type`: Int, info: Int): Int =
+    def getRenderInfo(`type`: Int, info: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        _args(1) = info.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = info.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Viewport.Binds.getRenderInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTexture(): ViewportTexture =
+    def getTexture(): ViewportTexture = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ViewportTexture(!_ret)
+}
 
-    def setPhysicsObjectPicking(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setPhysicsObjectPicking, ptr, _args, null)
-
-    def getPhysicsObjectPicking(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.getPhysicsObjectPicking, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPhysicsObjectPickingSort(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setPhysicsObjectPickingSort, ptr, _args, null)
-
-    def getPhysicsObjectPickingSort(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.getPhysicsObjectPickingSort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPhysicsObjectPickingFirstOnly(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setPhysicsObjectPickingFirstOnly, ptr, _args, null)
-
-    def getPhysicsObjectPickingFirstOnly(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.getPhysicsObjectPickingFirstOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getViewportRid(): RID =
+    def getViewportRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getViewportRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def pushTextInput(text: CString): Unit =
+    def pushTextInput(text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
+        _args(0) = text
         GdxApi.ptrcall(Viewport.Binds.pushTextInput, ptr, _args, null)
+}
 
-    def pushInput(event: InputEvent): Unit =
+    def pushInput(event: InputEvent): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = event.ptr
         GdxApi.ptrcall(Viewport.Binds.pushInput, ptr, _args, null)
+}
 
-    def pushUnhandledInput(event: InputEvent): Unit =
+    def pushUnhandledInput(event: InputEvent): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = event.ptr
         GdxApi.ptrcall(Viewport.Binds.pushUnhandledInput, ptr, _args, null)
+}
 
-    def notifyMouseEntered(): Unit =
+    def notifyMouseEntered(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Viewport.Binds.notifyMouseEntered, ptr, _args, null)
+}
 
-    def notifyMouseExited(): Unit =
+    def notifyMouseExited(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Viewport.Binds.notifyMouseExited, ptr, _args, null)
+}
 
-    def getMousePosition(): Vector2 =
+    def getMousePosition(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getMousePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def warpMouse(position: Vector2): Unit =
+    def warpMouse(position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(Viewport.Binds.warpMouse, ptr, _args, null)
+}
 
-    def updateMouseCursorState(): Unit =
+    def updateMouseCursorState(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Viewport.Binds.updateMouseCursorState, ptr, _args, null)
+}
 
-    def guiCancelDrag(): Unit =
+    def guiCancelDrag(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Viewport.Binds.guiCancelDrag, ptr, _args, null)
+}
 
-    def guiGetDragData(): Ptr[Byte] =
+    def guiGetDragData(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.guiGetDragData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def guiGetDragDescription(): CString =
+    def guiGetDragDescription(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.guiGetDragDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def guiSetDragDescription(description: CString): Unit =
+    def guiSetDragDescription(description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = description.ptr
+        _args(0) = description
         GdxApi.ptrcall(Viewport.Binds.guiSetDragDescription, ptr, _args, null)
+}
 
-    def guiIsDragging(): Boolean =
+    def guiIsDragging(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Viewport.Binds.guiIsDragging, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def guiIsDragSuccessful(): Boolean =
+    def guiIsDragSuccessful(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Viewport.Binds.guiIsDragSuccessful, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def guiReleaseFocus(): Unit =
+    def guiReleaseFocus(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Viewport.Binds.guiReleaseFocus, ptr, _args, null)
+}
 
-    def guiGetFocusOwner(): Control =
+    def guiGetFocusOwner(): Control = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.guiGetFocusOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Control(!_ret)
+}
 
-    def guiGetHoveredControl(): Control =
+    def guiGetHoveredControl(): Control = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.guiGetHoveredControl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Control(!_ret)
+}
 
-    def setDisableInput(disable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setDisableInput, ptr, _args, null)
-
-    def isInputDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isInputDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPositionalShadowAtlasSize(size: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setPositionalShadowAtlasSize, ptr, _args, null)
-
-    def getPositionalShadowAtlasSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getPositionalShadowAtlasSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPositionalShadowAtlas16Bits(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setPositionalShadowAtlas16Bits, ptr, _args, null)
-
-    def getPositionalShadowAtlas16Bits(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.getPositionalShadowAtlas16Bits, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSnapControlsToPixels(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setSnapControlsToPixels, ptr, _args, null)
-
-    def isSnapControlsToPixelsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isSnapControlsToPixelsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSnap2dTransformsToPixel(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setSnap2dTransformsToPixel, ptr, _args, null)
-
-    def isSnap2dTransformsToPixelEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isSnap2dTransformsToPixelEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSnap2dVerticesToPixel(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setSnap2dVerticesToPixel, ptr, _args, null)
-
-    def isSnap2dVerticesToPixelEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isSnap2dVerticesToPixelEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPositionalShadowAtlasQuadrantSubdiv(quadrant: Int, subdiv: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = quadrant.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = subdiv.ptr
-        GdxApi.ptrcall(Viewport.Binds.setPositionalShadowAtlasQuadrantSubdiv, ptr, _args, null)
-
-    def getPositionalShadowAtlasQuadrantSubdiv(quadrant: Int): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = quadrant.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getPositionalShadowAtlasQuadrantSubdiv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInputAsHandled(): Unit =
+    def setInputAsHandled(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Viewport.Binds.setInputAsHandled, ptr, _args, null)
+}
 
-    def isInputHandled(): Boolean =
+    def isInputHandled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Viewport.Binds.isInputHandled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setHandleInputLocally(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setHandleInputLocally, ptr, _args, null)
-
-    def isHandlingInputLocally(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isHandlingInputLocally, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDefaultCanvasItemTextureFilter(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Viewport.Binds.setDefaultCanvasItemTextureFilter, ptr, _args, null)
-
-    def getDefaultCanvasItemTextureFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getDefaultCanvasItemTextureFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEmbeddingSubwindows(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setEmbeddingSubwindows, ptr, _args, null)
-
-    def isEmbeddingSubwindows(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isEmbeddingSubwindows, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getEmbeddedSubwindows(): Ptr[Byte] =
+    def getEmbeddedSubwindows(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getEmbeddedSubwindows, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCanvasCullMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setCanvasCullMask, ptr, _args, null)
-
-    def getCanvasCullMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getCanvasCullMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCanvasCullMaskBit(layer: Int, enable: Boolean): Unit =
+    def setCanvasCullMaskBit(layer: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Viewport.Binds.setCanvasCullMaskBit, ptr, _args, null)
+}
 
-    def getCanvasCullMaskBit(layer: Int): Boolean =
+    def getCanvasCullMaskBit(layer: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Viewport.Binds.getCanvasCullMaskBit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDefaultCanvasItemTextureRepeat(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Viewport.Binds.setDefaultCanvasItemTextureRepeat, ptr, _args, null)
-
-    def getDefaultCanvasItemTextureRepeat(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getDefaultCanvasItemTextureRepeat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSdfOversize(oversize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = oversize.ptr
-        GdxApi.ptrcall(Viewport.Binds.setSdfOversize, ptr, _args, null)
-
-    def getSdfOversize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getSdfOversize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSdfScale(scale: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(Viewport.Binds.setSdfScale, ptr, _args, null)
-
-    def getSdfScale(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getSdfScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMeshLodThreshold(pixels: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pixels.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setMeshLodThreshold, ptr, _args, null)
-
-    def getMeshLodThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Viewport.Binds.getMeshLodThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAsAudioListener2d(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setAsAudioListener2d, ptr, _args, null)
-
-    def isAudioListener2d(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isAudioListener2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getAudioListener2d(): AudioListener2D =
+    def getAudioListener2d(): AudioListener2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getAudioListener2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioListener2D(!_ret)
+}
 
-    def getCamera2d(): Camera2D =
+    def getCamera2d(): Camera2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getCamera2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Camera2D(!_ret)
+}
 
-    def setWorld3d(world3d: World3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = world3d.ptr
-        GdxApi.ptrcall(Viewport.Binds.setWorld3d, ptr, _args, null)
-
-    def getWorld3d(): World3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Viewport.Binds.getWorld3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new World3D(!_ret)
-
-    def findWorld3d(): World3D =
+    def findWorld3d(): World3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.findWorld3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new World3D(!_ret)
+}
 
-    def setUseOwnWorld3d(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseOwnWorld3d, ptr, _args, null)
-
-    def isUsingOwnWorld3d(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingOwnWorld3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getAudioListener3d(): AudioListener3D =
+    def getAudioListener3d(): AudioListener3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getAudioListener3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioListener3D(!_ret)
+}
 
-    def getCamera3d(): Camera3D =
+    def getCamera3d(): Camera3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Viewport.Binds.getCamera3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Camera3D(!_ret)
+}
 
-    def setAsAudioListener3d(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setAsAudioListener3d, ptr, _args, null)
-
-    def isAudioListener3d(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isAudioListener3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDisable3d(disable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setDisable3d, ptr, _args, null)
-
-    def is3dDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.is3dDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseXr(use: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if use then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setUseXr, ptr, _args, null)
-
-    def isUsingXr(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Viewport.Binds.isUsingXr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setScaling3dMode(scaling3dMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scaling3dMode.ptr
-        GdxApi.ptrcall(Viewport.Binds.setScaling3dMode, ptr, _args, null)
-
-    def getScaling3dMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getScaling3dMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setScaling3dScale(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setScaling3dScale, ptr, _args, null)
-
-    def getScaling3dScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Viewport.Binds.getScaling3dScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFsrSharpness(fsrSharpness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = fsrSharpness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setFsrSharpness, ptr, _args, null)
-
-    def getFsrSharpness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Viewport.Binds.getFsrSharpness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTextureMipmapBias(textureMipmapBias: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = textureMipmapBias.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Viewport.Binds.setTextureMipmapBias, ptr, _args, null)
-
-    def getTextureMipmapBias(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Viewport.Binds.getTextureMipmapBias, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAnisotropicFilteringLevel(anisotropicFilteringLevel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = anisotropicFilteringLevel.ptr
-        GdxApi.ptrcall(Viewport.Binds.setAnisotropicFilteringLevel, ptr, _args, null)
-
-    def getAnisotropicFilteringLevel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getAnisotropicFilteringLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVrsMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Viewport.Binds.setVrsMode, ptr, _args, null)
-
-    def getVrsMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getVrsMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVrsUpdateMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Viewport.Binds.setVrsUpdateMode, ptr, _args, null)
-
-    def getVrsUpdateMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Viewport.Binds.getVrsUpdateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVrsTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(Viewport.Binds.setVrsTexture, ptr, _args, null)
-
-    def getVrsTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Viewport.Binds.getVrsTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-    def disable3d: Ptr[Byte] = is3dDisabled()
-    def disable3d_=(v: Ptr[Byte]): Unit = setDisable3d(v)
-    def useXr: Ptr[Byte] = isUsingXr()
-    def useXr_=(v: Ptr[Byte]): Unit = setUseXr(v)
-    def ownWorld3d: Ptr[Byte] = isUsingOwnWorld3d()
-    def ownWorld3d_=(v: Ptr[Byte]): Unit = setUseOwnWorld3d(v)
-    def world3d: Ptr[Byte] = getWorld3d()
-    def world3d_=(v: Ptr[Byte]): Unit = setWorld3d(v)
-    def world2d: Ptr[Byte] = getWorld2d()
-    def world2d_=(v: Ptr[Byte]): Unit = setWorld2d(v)
-    def transparentBg: Ptr[Byte] = hasTransparentBackground()
-    def transparentBg_=(v: Ptr[Byte]): Unit = setTransparentBackground(v)
-    def handleInputLocally: Ptr[Byte] = isHandlingInputLocally()
-    def handleInputLocally_=(v: Ptr[Byte]): Unit = setHandleInputLocally(v)
-    def snap2dTransformsToPixel: Ptr[Byte] = isSnap2dTransformsToPixelEnabled()
-    def snap2dTransformsToPixel_=(v: Ptr[Byte]): Unit = setSnap2dTransformsToPixel(v)
-    def snap2dVerticesToPixel: Ptr[Byte] = isSnap2dVerticesToPixelEnabled()
-    def snap2dVerticesToPixel_=(v: Ptr[Byte]): Unit = setSnap2dVerticesToPixel(v)
-    def msaa2d: Ptr[Byte] = getMsaa2d()
-    def msaa2d_=(v: Ptr[Byte]): Unit = setMsaa2d(v)
-    def msaa3d: Ptr[Byte] = getMsaa3d()
-    def msaa3d_=(v: Ptr[Byte]): Unit = setMsaa3d(v)
-    def screenSpaceAa: Ptr[Byte] = getScreenSpaceAa()
-    def screenSpaceAa_=(v: Ptr[Byte]): Unit = setScreenSpaceAa(v)
-    def useTaa: Ptr[Byte] = isUsingTaa()
-    def useTaa_=(v: Ptr[Byte]): Unit = setUseTaa(v)
-    def useDebanding: Ptr[Byte] = isUsingDebanding()
-    def useDebanding_=(v: Ptr[Byte]): Unit = setUseDebanding(v)
-    def useOcclusionCulling: Ptr[Byte] = isUsingOcclusionCulling()
-    def useOcclusionCulling_=(v: Ptr[Byte]): Unit = setUseOcclusionCulling(v)
-    def meshLodThreshold: Ptr[Byte] = getMeshLodThreshold()
-    def meshLodThreshold_=(v: Ptr[Byte]): Unit = setMeshLodThreshold(v)
-    def debugDraw: Ptr[Byte] = getDebugDraw()
-    def debugDraw_=(v: Ptr[Byte]): Unit = setDebugDraw(v)
-    def useHdr2d: Ptr[Byte] = isUsingHdr2d()
-    def useHdr2d_=(v: Ptr[Byte]): Unit = setUseHdr2d(v)
-    def scaling3dMode: Ptr[Byte] = getScaling3dMode()
-    def scaling3dMode_=(v: Ptr[Byte]): Unit = setScaling3dMode(v)
-    def scaling3dScale: Ptr[Byte] = getScaling3dScale()
-    def scaling3dScale_=(v: Ptr[Byte]): Unit = setScaling3dScale(v)
-    def textureMipmapBias: Ptr[Byte] = getTextureMipmapBias()
-    def textureMipmapBias_=(v: Ptr[Byte]): Unit = setTextureMipmapBias(v)
-    def anisotropicFilteringLevel: Ptr[Byte] = getAnisotropicFilteringLevel()
-    def anisotropicFilteringLevel_=(v: Ptr[Byte]): Unit = setAnisotropicFilteringLevel(v)
-    def fsrSharpness: Ptr[Byte] = getFsrSharpness()
-    def fsrSharpness_=(v: Ptr[Byte]): Unit = setFsrSharpness(v)
-    def vrsMode: Ptr[Byte] = getVrsMode()
-    def vrsMode_=(v: Ptr[Byte]): Unit = setVrsMode(v)
-    def vrsUpdateMode: Ptr[Byte] = getVrsUpdateMode()
-    def vrsUpdateMode_=(v: Ptr[Byte]): Unit = setVrsUpdateMode(v)
-    def vrsTexture: Ptr[Byte] = getVrsTexture()
-    def vrsTexture_=(v: Ptr[Byte]): Unit = setVrsTexture(v)
-    def canvasItemDefaultTextureFilter: Ptr[Byte] = getDefaultCanvasItemTextureFilter()
-    def canvasItemDefaultTextureFilter_=(v: Ptr[Byte]): Unit = setDefaultCanvasItemTextureFilter(v)
-    def canvasItemDefaultTextureRepeat: Ptr[Byte] = getDefaultCanvasItemTextureRepeat()
-    def canvasItemDefaultTextureRepeat_=(v: Ptr[Byte]): Unit = setDefaultCanvasItemTextureRepeat(v)
-    def audioListenerEnable2d: Ptr[Byte] = isAudioListener2d()
-    def audioListenerEnable2d_=(v: Ptr[Byte]): Unit = setAsAudioListener2d(v)
-    def audioListenerEnable3d: Ptr[Byte] = isAudioListener3d()
-    def audioListenerEnable3d_=(v: Ptr[Byte]): Unit = setAsAudioListener3d(v)
-    def physicsObjectPicking: Ptr[Byte] = getPhysicsObjectPicking()
-    def physicsObjectPicking_=(v: Ptr[Byte]): Unit = setPhysicsObjectPicking(v)
-    def physicsObjectPickingSort: Ptr[Byte] = getPhysicsObjectPickingSort()
-    def physicsObjectPickingSort_=(v: Ptr[Byte]): Unit = setPhysicsObjectPickingSort(v)
-    def physicsObjectPickingFirstOnly: Ptr[Byte] = getPhysicsObjectPickingFirstOnly()
-    def physicsObjectPickingFirstOnly_=(v: Ptr[Byte]): Unit = setPhysicsObjectPickingFirstOnly(v)
-    def guiDisableInput: Ptr[Byte] = isInputDisabled()
-    def guiDisableInput_=(v: Ptr[Byte]): Unit = setDisableInput(v)
-    def guiSnapControlsToPixels: Ptr[Byte] = isSnapControlsToPixelsEnabled()
-    def guiSnapControlsToPixels_=(v: Ptr[Byte]): Unit = setSnapControlsToPixels(v)
-    def guiEmbedSubwindows: Ptr[Byte] = isEmbeddingSubwindows()
-    def guiEmbedSubwindows_=(v: Ptr[Byte]): Unit = setEmbeddingSubwindows(v)
-    def sdfOversize: Ptr[Byte] = getSdfOversize()
-    def sdfOversize_=(v: Ptr[Byte]): Unit = setSdfOversize(v)
-    def sdfScale: Ptr[Byte] = getSdfScale()
-    def sdfScale_=(v: Ptr[Byte]): Unit = setSdfScale(v)
-    def positionalShadowAtlasSize: Ptr[Byte] = getPositionalShadowAtlasSize()
-    def positionalShadowAtlasSize_=(v: Ptr[Byte]): Unit = setPositionalShadowAtlasSize(v)
-    def positionalShadowAtlas16Bits: Ptr[Byte] = getPositionalShadowAtlas16Bits()
-    def positionalShadowAtlas16Bits_=(v: Ptr[Byte]): Unit = setPositionalShadowAtlas16Bits(v)
-    def positionalShadowAtlasQuad0: Ptr[Byte] = getPositionalShadowAtlasQuadrantSubdiv()
-    def positionalShadowAtlasQuad0_=(v: Ptr[Byte]): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
-    def positionalShadowAtlasQuad1: Ptr[Byte] = getPositionalShadowAtlasQuadrantSubdiv()
-    def positionalShadowAtlasQuad1_=(v: Ptr[Byte]): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
-    def positionalShadowAtlasQuad2: Ptr[Byte] = getPositionalShadowAtlasQuadrantSubdiv()
-    def positionalShadowAtlasQuad2_=(v: Ptr[Byte]): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
-    def positionalShadowAtlasQuad3: Ptr[Byte] = getPositionalShadowAtlasQuadrantSubdiv()
-    def positionalShadowAtlasQuad3_=(v: Ptr[Byte]): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
-    def canvasTransform: Ptr[Byte] = getCanvasTransform()
-    def canvasTransform_=(v: Ptr[Byte]): Unit = setCanvasTransform(v)
-    def globalCanvasTransform: Ptr[Byte] = getGlobalCanvasTransform()
-    def globalCanvasTransform_=(v: Ptr[Byte]): Unit = setGlobalCanvasTransform(v)
-    def canvasCullMask: Ptr[Byte] = getCanvasCullMask()
-    def canvasCullMask_=(v: Ptr[Byte]): Unit = setCanvasCullMask(v)
-    def oversampling: Ptr[Byte] = isUsingOversampling()
-    def oversampling_=(v: Ptr[Byte]): Unit = setUseOversampling(v)
-    def oversamplingOverride: Ptr[Byte] = getOversamplingOverride()
-    def oversamplingOverride_=(v: Ptr[Byte]): Unit = setOversamplingOverride(v)
+    def disable3d: Boolean = is3dDisabled()
+    def disable3d_=(v: Boolean): Unit = setDisable3d(v)
+    def useXr: Boolean = isUsingXr()
+    def useXr_=(v: Boolean): Unit = setUseXr(v)
+    def ownWorld3d: Boolean = isUsingOwnWorld3d()
+    def ownWorld3d_=(v: Boolean): Unit = setUseOwnWorld3d(v)
+    def world3d: World3D = getWorld3d()
+    def world3d_=(v: World3D): Unit = setWorld3d(v)
+    def world2d: World2D = getWorld2d()
+    def world2d_=(v: World2D): Unit = setWorld2d(v)
+    def transparentBg: Boolean = hasTransparentBackground()
+    def transparentBg_=(v: Boolean): Unit = setTransparentBackground(v)
+    def handleInputLocally: Boolean = isHandlingInputLocally()
+    def handleInputLocally_=(v: Boolean): Unit = setHandleInputLocally(v)
+    def snap2dTransformsToPixel: Boolean = isSnap2dTransformsToPixelEnabled()
+    def snap2dTransformsToPixel_=(v: Boolean): Unit = setSnap2dTransformsToPixel(v)
+    def snap2dVerticesToPixel: Boolean = isSnap2dVerticesToPixelEnabled()
+    def snap2dVerticesToPixel_=(v: Boolean): Unit = setSnap2dVerticesToPixel(v)
+    def msaa2d: Int = getMsaa2d()
+    def msaa2d_=(v: Int): Unit = setMsaa2d(v)
+    def msaa3d: Int = getMsaa3d()
+    def msaa3d_=(v: Int): Unit = setMsaa3d(v)
+    def screenSpaceAa: Int = getScreenSpaceAa()
+    def screenSpaceAa_=(v: Int): Unit = setScreenSpaceAa(v)
+    def useTaa: Boolean = isUsingTaa()
+    def useTaa_=(v: Boolean): Unit = setUseTaa(v)
+    def useDebanding: Boolean = isUsingDebanding()
+    def useDebanding_=(v: Boolean): Unit = setUseDebanding(v)
+    def useOcclusionCulling: Boolean = isUsingOcclusionCulling()
+    def useOcclusionCulling_=(v: Boolean): Unit = setUseOcclusionCulling(v)
+    def meshLodThreshold: Float = getMeshLodThreshold()
+    def meshLodThreshold_=(v: Float): Unit = setMeshLodThreshold(v)
+    def debugDraw: Int = getDebugDraw()
+    def debugDraw_=(v: Int): Unit = setDebugDraw(v)
+    def useHdr2d: Boolean = isUsingHdr2d()
+    def useHdr2d_=(v: Boolean): Unit = setUseHdr2d(v)
+    def scaling3dMode: Int = getScaling3dMode()
+    def scaling3dMode_=(v: Int): Unit = setScaling3dMode(v)
+    def scaling3dScale: Float = getScaling3dScale()
+    def scaling3dScale_=(v: Float): Unit = setScaling3dScale(v)
+    def textureMipmapBias: Float = getTextureMipmapBias()
+    def textureMipmapBias_=(v: Float): Unit = setTextureMipmapBias(v)
+    def anisotropicFilteringLevel: Int = getAnisotropicFilteringLevel()
+    def anisotropicFilteringLevel_=(v: Int): Unit = setAnisotropicFilteringLevel(v)
+    def fsrSharpness: Float = getFsrSharpness()
+    def fsrSharpness_=(v: Float): Unit = setFsrSharpness(v)
+    def vrsMode: Int = getVrsMode()
+    def vrsMode_=(v: Int): Unit = setVrsMode(v)
+    def vrsUpdateMode: Int = getVrsUpdateMode()
+    def vrsUpdateMode_=(v: Int): Unit = setVrsUpdateMode(v)
+    def vrsTexture: Texture2D = getVrsTexture()
+    def vrsTexture_=(v: Texture2D): Unit = setVrsTexture(v)
+    def canvasItemDefaultTextureFilter: Int = getDefaultCanvasItemTextureFilter()
+    def canvasItemDefaultTextureFilter_=(v: Int): Unit = setDefaultCanvasItemTextureFilter(v)
+    def canvasItemDefaultTextureRepeat: Int = getDefaultCanvasItemTextureRepeat()
+    def canvasItemDefaultTextureRepeat_=(v: Int): Unit = setDefaultCanvasItemTextureRepeat(v)
+    def audioListenerEnable2d: Boolean = isAudioListener2d()
+    def audioListenerEnable2d_=(v: Boolean): Unit = setAsAudioListener2d(v)
+    def audioListenerEnable3d: Boolean = isAudioListener3d()
+    def audioListenerEnable3d_=(v: Boolean): Unit = setAsAudioListener3d(v)
+    def physicsObjectPicking: Boolean = getPhysicsObjectPicking()
+    def physicsObjectPicking_=(v: Boolean): Unit = setPhysicsObjectPicking(v)
+    def physicsObjectPickingSort: Boolean = getPhysicsObjectPickingSort()
+    def physicsObjectPickingSort_=(v: Boolean): Unit = setPhysicsObjectPickingSort(v)
+    def physicsObjectPickingFirstOnly: Boolean = getPhysicsObjectPickingFirstOnly()
+    def physicsObjectPickingFirstOnly_=(v: Boolean): Unit = setPhysicsObjectPickingFirstOnly(v)
+    def guiDisableInput: Boolean = isInputDisabled()
+    def guiDisableInput_=(v: Boolean): Unit = setDisableInput(v)
+    def guiSnapControlsToPixels: Boolean = isSnapControlsToPixelsEnabled()
+    def guiSnapControlsToPixels_=(v: Boolean): Unit = setSnapControlsToPixels(v)
+    def guiEmbedSubwindows: Boolean = isEmbeddingSubwindows()
+    def guiEmbedSubwindows_=(v: Boolean): Unit = setEmbeddingSubwindows(v)
+    def sdfOversize: Int = getSdfOversize()
+    def sdfOversize_=(v: Int): Unit = setSdfOversize(v)
+    def sdfScale: Int = getSdfScale()
+    def sdfScale_=(v: Int): Unit = setSdfScale(v)
+    def positionalShadowAtlasSize: Int = getPositionalShadowAtlasSize()
+    def positionalShadowAtlasSize_=(v: Int): Unit = setPositionalShadowAtlasSize(v)
+    def positionalShadowAtlas16Bits: Boolean = getPositionalShadowAtlas16Bits()
+    def positionalShadowAtlas16Bits_=(v: Boolean): Unit = setPositionalShadowAtlas16Bits(v)
+    def positionalShadowAtlasQuad0: Int = getPositionalShadowAtlasQuadrantSubdiv()
+    def positionalShadowAtlasQuad0_=(v: Int): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
+    def positionalShadowAtlasQuad1: Int = getPositionalShadowAtlasQuadrantSubdiv()
+    def positionalShadowAtlasQuad1_=(v: Int): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
+    def positionalShadowAtlasQuad2: Int = getPositionalShadowAtlasQuadrantSubdiv()
+    def positionalShadowAtlasQuad2_=(v: Int): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
+    def positionalShadowAtlasQuad3: Int = getPositionalShadowAtlasQuadrantSubdiv()
+    def positionalShadowAtlasQuad3_=(v: Int): Unit = setPositionalShadowAtlasQuadrantSubdiv(v)
+    def canvasTransform: Transform2D = getCanvasTransform()
+    def canvasTransform_=(v: Transform2D): Unit = setCanvasTransform(v)
+    def globalCanvasTransform: Transform2D = getGlobalCanvasTransform()
+    def globalCanvasTransform_=(v: Transform2D): Unit = setGlobalCanvasTransform(v)
+    def canvasCullMask: Int = getCanvasCullMask()
+    def canvasCullMask_=(v: Int): Unit = setCanvasCullMask(v)
+    def oversampling: Boolean = isUsingOversampling()
+    def oversampling_=(v: Boolean): Unit = setUseOversampling(v)
+    def oversamplingOverride: Float = getOversamplingOverride()
+    def oversamplingOverride_=(v: Float): Unit = setOversamplingOverride(v)
+}
 
 object Viewport:
-    object Binds:
-        var setWorld2d: Ptr[Byte] = null
-        var getWorld2d: Ptr[Byte] = null
-        var findWorld2d: Ptr[Byte] = null
-        var setCanvasTransform: Ptr[Byte] = null
-        var getCanvasTransform: Ptr[Byte] = null
-        var setGlobalCanvasTransform: Ptr[Byte] = null
-        var getGlobalCanvasTransform: Ptr[Byte] = null
+object Binds {
+          var findWorld2d: Ptr[Byte] = null
         var getStretchTransform: Ptr[Byte] = null
         var getFinalTransform: Ptr[Byte] = null
         var getScreenTransform: Ptr[Byte] = null
         var getVisibleRect: Ptr[Byte] = null
-        var setTransparentBackground: Ptr[Byte] = null
-        var hasTransparentBackground: Ptr[Byte] = null
-        var setUseHdr2d: Ptr[Byte] = null
-        var isUsingHdr2d: Ptr[Byte] = null
-        var setMsaa2d: Ptr[Byte] = null
-        var getMsaa2d: Ptr[Byte] = null
-        var setMsaa3d: Ptr[Byte] = null
-        var getMsaa3d: Ptr[Byte] = null
-        var setScreenSpaceAa: Ptr[Byte] = null
-        var getScreenSpaceAa: Ptr[Byte] = null
-        var setUseTaa: Ptr[Byte] = null
-        var isUsingTaa: Ptr[Byte] = null
-        var setUseDebanding: Ptr[Byte] = null
-        var isUsingDebanding: Ptr[Byte] = null
-        var setUseOcclusionCulling: Ptr[Byte] = null
-        var isUsingOcclusionCulling: Ptr[Byte] = null
-        var setDebugDraw: Ptr[Byte] = null
-        var getDebugDraw: Ptr[Byte] = null
-        var setUseOversampling: Ptr[Byte] = null
-        var isUsingOversampling: Ptr[Byte] = null
-        var setOversamplingOverride: Ptr[Byte] = null
-        var getOversamplingOverride: Ptr[Byte] = null
         var getOversampling: Ptr[Byte] = null
         var getRenderInfo: Ptr[Byte] = null
         var getTexture: Ptr[Byte] = null
-        var setPhysicsObjectPicking: Ptr[Byte] = null
-        var getPhysicsObjectPicking: Ptr[Byte] = null
-        var setPhysicsObjectPickingSort: Ptr[Byte] = null
-        var getPhysicsObjectPickingSort: Ptr[Byte] = null
-        var setPhysicsObjectPickingFirstOnly: Ptr[Byte] = null
-        var getPhysicsObjectPickingFirstOnly: Ptr[Byte] = null
         var getViewportRid: Ptr[Byte] = null
         var pushTextInput: Ptr[Byte] = null
         var pushInput: Ptr[Byte] = null
@@ -910,118 +377,26 @@ object Viewport:
         var guiReleaseFocus: Ptr[Byte] = null
         var guiGetFocusOwner: Ptr[Byte] = null
         var guiGetHoveredControl: Ptr[Byte] = null
-        var setDisableInput: Ptr[Byte] = null
-        var isInputDisabled: Ptr[Byte] = null
-        var setPositionalShadowAtlasSize: Ptr[Byte] = null
-        var getPositionalShadowAtlasSize: Ptr[Byte] = null
-        var setPositionalShadowAtlas16Bits: Ptr[Byte] = null
-        var getPositionalShadowAtlas16Bits: Ptr[Byte] = null
-        var setSnapControlsToPixels: Ptr[Byte] = null
-        var isSnapControlsToPixelsEnabled: Ptr[Byte] = null
-        var setSnap2dTransformsToPixel: Ptr[Byte] = null
-        var isSnap2dTransformsToPixelEnabled: Ptr[Byte] = null
-        var setSnap2dVerticesToPixel: Ptr[Byte] = null
-        var isSnap2dVerticesToPixelEnabled: Ptr[Byte] = null
-        var setPositionalShadowAtlasQuadrantSubdiv: Ptr[Byte] = null
-        var getPositionalShadowAtlasQuadrantSubdiv: Ptr[Byte] = null
         var setInputAsHandled: Ptr[Byte] = null
         var isInputHandled: Ptr[Byte] = null
-        var setHandleInputLocally: Ptr[Byte] = null
-        var isHandlingInputLocally: Ptr[Byte] = null
-        var setDefaultCanvasItemTextureFilter: Ptr[Byte] = null
-        var getDefaultCanvasItemTextureFilter: Ptr[Byte] = null
-        var setEmbeddingSubwindows: Ptr[Byte] = null
-        var isEmbeddingSubwindows: Ptr[Byte] = null
         var getEmbeddedSubwindows: Ptr[Byte] = null
-        var setCanvasCullMask: Ptr[Byte] = null
-        var getCanvasCullMask: Ptr[Byte] = null
         var setCanvasCullMaskBit: Ptr[Byte] = null
         var getCanvasCullMaskBit: Ptr[Byte] = null
-        var setDefaultCanvasItemTextureRepeat: Ptr[Byte] = null
-        var getDefaultCanvasItemTextureRepeat: Ptr[Byte] = null
-        var setSdfOversize: Ptr[Byte] = null
-        var getSdfOversize: Ptr[Byte] = null
-        var setSdfScale: Ptr[Byte] = null
-        var getSdfScale: Ptr[Byte] = null
-        var setMeshLodThreshold: Ptr[Byte] = null
-        var getMeshLodThreshold: Ptr[Byte] = null
-        var setAsAudioListener2d: Ptr[Byte] = null
-        var isAudioListener2d: Ptr[Byte] = null
         var getAudioListener2d: Ptr[Byte] = null
         var getCamera2d: Ptr[Byte] = null
-        var setWorld3d: Ptr[Byte] = null
-        var getWorld3d: Ptr[Byte] = null
         var findWorld3d: Ptr[Byte] = null
-        var setUseOwnWorld3d: Ptr[Byte] = null
-        var isUsingOwnWorld3d: Ptr[Byte] = null
         var getAudioListener3d: Ptr[Byte] = null
         var getCamera3d: Ptr[Byte] = null
-        var setAsAudioListener3d: Ptr[Byte] = null
-        var isAudioListener3d: Ptr[Byte] = null
-        var setDisable3d: Ptr[Byte] = null
-        var is3dDisabled: Ptr[Byte] = null
-        var setUseXr: Ptr[Byte] = null
-        var isUsingXr: Ptr[Byte] = null
-        var setScaling3dMode: Ptr[Byte] = null
-        var getScaling3dMode: Ptr[Byte] = null
-        var setScaling3dScale: Ptr[Byte] = null
-        var getScaling3dScale: Ptr[Byte] = null
-        var setFsrSharpness: Ptr[Byte] = null
-        var getFsrSharpness: Ptr[Byte] = null
-        var setTextureMipmapBias: Ptr[Byte] = null
-        var getTextureMipmapBias: Ptr[Byte] = null
-        var setAnisotropicFilteringLevel: Ptr[Byte] = null
-        var getAnisotropicFilteringLevel: Ptr[Byte] = null
-        var setVrsMode: Ptr[Byte] = null
-        var getVrsMode: Ptr[Byte] = null
-        var setVrsUpdateMode: Ptr[Byte] = null
-        var getVrsUpdateMode: Ptr[Byte] = null
-        var setVrsTexture: Ptr[Byte] = null
-        var getVrsTexture: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setWorld2d = GdxApi.getMethodBind(c"Viewport", c"set_world_2d", 2736080068L)
-            Binds.getWorld2d = GdxApi.getMethodBind(c"Viewport", c"get_world_2d", 2339128592L)
-            Binds.findWorld2d = GdxApi.getMethodBind(c"Viewport", c"find_world_2d", 2339128592L)
-            Binds.setCanvasTransform = GdxApi.getMethodBind(c"Viewport", c"set_canvas_transform", 2761652528L)
-            Binds.getCanvasTransform = GdxApi.getMethodBind(c"Viewport", c"get_canvas_transform", 3814499831L)
-            Binds.setGlobalCanvasTransform = GdxApi.getMethodBind(c"Viewport", c"set_global_canvas_transform", 2761652528L)
-            Binds.getGlobalCanvasTransform = GdxApi.getMethodBind(c"Viewport", c"get_global_canvas_transform", 3814499831L)
+  def loadBinds(): Unit = {
+                Binds.findWorld2d = GdxApi.getMethodBind(c"Viewport", c"find_world_2d", 2339128592L)
             Binds.getStretchTransform = GdxApi.getMethodBind(c"Viewport", c"get_stretch_transform", 3814499831L)
             Binds.getFinalTransform = GdxApi.getMethodBind(c"Viewport", c"get_final_transform", 3814499831L)
             Binds.getScreenTransform = GdxApi.getMethodBind(c"Viewport", c"get_screen_transform", 3814499831L)
             Binds.getVisibleRect = GdxApi.getMethodBind(c"Viewport", c"get_visible_rect", 1639390495L)
-            Binds.setTransparentBackground = GdxApi.getMethodBind(c"Viewport", c"set_transparent_background", 2586408642L)
-            Binds.hasTransparentBackground = GdxApi.getMethodBind(c"Viewport", c"has_transparent_background", 36873697L)
-            Binds.setUseHdr2d = GdxApi.getMethodBind(c"Viewport", c"set_use_hdr_2d", 2586408642L)
-            Binds.isUsingHdr2d = GdxApi.getMethodBind(c"Viewport", c"is_using_hdr_2d", 36873697L)
-            Binds.setMsaa2d = GdxApi.getMethodBind(c"Viewport", c"set_msaa_2d", 3330258708L)
-            Binds.getMsaa2d = GdxApi.getMethodBind(c"Viewport", c"get_msaa_2d", 2542055527L)
-            Binds.setMsaa3d = GdxApi.getMethodBind(c"Viewport", c"set_msaa_3d", 3330258708L)
-            Binds.getMsaa3d = GdxApi.getMethodBind(c"Viewport", c"get_msaa_3d", 2542055527L)
-            Binds.setScreenSpaceAa = GdxApi.getMethodBind(c"Viewport", c"set_screen_space_aa", 3544169389L)
-            Binds.getScreenSpaceAa = GdxApi.getMethodBind(c"Viewport", c"get_screen_space_aa", 1390814124L)
-            Binds.setUseTaa = GdxApi.getMethodBind(c"Viewport", c"set_use_taa", 2586408642L)
-            Binds.isUsingTaa = GdxApi.getMethodBind(c"Viewport", c"is_using_taa", 36873697L)
-            Binds.setUseDebanding = GdxApi.getMethodBind(c"Viewport", c"set_use_debanding", 2586408642L)
-            Binds.isUsingDebanding = GdxApi.getMethodBind(c"Viewport", c"is_using_debanding", 36873697L)
-            Binds.setUseOcclusionCulling = GdxApi.getMethodBind(c"Viewport", c"set_use_occlusion_culling", 2586408642L)
-            Binds.isUsingOcclusionCulling = GdxApi.getMethodBind(c"Viewport", c"is_using_occlusion_culling", 36873697L)
-            Binds.setDebugDraw = GdxApi.getMethodBind(c"Viewport", c"set_debug_draw", 1970246205L)
-            Binds.getDebugDraw = GdxApi.getMethodBind(c"Viewport", c"get_debug_draw", 579191299L)
-            Binds.setUseOversampling = GdxApi.getMethodBind(c"Viewport", c"set_use_oversampling", 2586408642L)
-            Binds.isUsingOversampling = GdxApi.getMethodBind(c"Viewport", c"is_using_oversampling", 36873697L)
-            Binds.setOversamplingOverride = GdxApi.getMethodBind(c"Viewport", c"set_oversampling_override", 373806689L)
-            Binds.getOversamplingOverride = GdxApi.getMethodBind(c"Viewport", c"get_oversampling_override", 1740695150L)
             Binds.getOversampling = GdxApi.getMethodBind(c"Viewport", c"get_oversampling", 1740695150L)
             Binds.getRenderInfo = GdxApi.getMethodBind(c"Viewport", c"get_render_info", 481977019L)
             Binds.getTexture = GdxApi.getMethodBind(c"Viewport", c"get_texture", 1746695840L)
-            Binds.setPhysicsObjectPicking = GdxApi.getMethodBind(c"Viewport", c"set_physics_object_picking", 2586408642L)
-            Binds.getPhysicsObjectPicking = GdxApi.getMethodBind(c"Viewport", c"get_physics_object_picking", 2240911060L)
-            Binds.setPhysicsObjectPickingSort = GdxApi.getMethodBind(c"Viewport", c"set_physics_object_picking_sort", 2586408642L)
-            Binds.getPhysicsObjectPickingSort = GdxApi.getMethodBind(c"Viewport", c"get_physics_object_picking_sort", 2240911060L)
-            Binds.setPhysicsObjectPickingFirstOnly = GdxApi.getMethodBind(c"Viewport", c"set_physics_object_picking_first_only", 2586408642L)
-            Binds.getPhysicsObjectPickingFirstOnly = GdxApi.getMethodBind(c"Viewport", c"get_physics_object_picking_first_only", 2240911060L)
             Binds.getViewportRid = GdxApi.getMethodBind(c"Viewport", c"get_viewport_rid", 2944877500L)
             Binds.pushTextInput = GdxApi.getMethodBind(c"Viewport", c"push_text_input", 83702148L)
             Binds.pushInput = GdxApi.getMethodBind(c"Viewport", c"push_input", 3644664830L)
@@ -1040,71 +415,15 @@ object Viewport:
             Binds.guiReleaseFocus = GdxApi.getMethodBind(c"Viewport", c"gui_release_focus", 3218959716L)
             Binds.guiGetFocusOwner = GdxApi.getMethodBind(c"Viewport", c"gui_get_focus_owner", 2783021301L)
             Binds.guiGetHoveredControl = GdxApi.getMethodBind(c"Viewport", c"gui_get_hovered_control", 2783021301L)
-            Binds.setDisableInput = GdxApi.getMethodBind(c"Viewport", c"set_disable_input", 2586408642L)
-            Binds.isInputDisabled = GdxApi.getMethodBind(c"Viewport", c"is_input_disabled", 36873697L)
-            Binds.setPositionalShadowAtlasSize = GdxApi.getMethodBind(c"Viewport", c"set_positional_shadow_atlas_size", 1286410249L)
-            Binds.getPositionalShadowAtlasSize = GdxApi.getMethodBind(c"Viewport", c"get_positional_shadow_atlas_size", 3905245786L)
-            Binds.setPositionalShadowAtlas16Bits = GdxApi.getMethodBind(c"Viewport", c"set_positional_shadow_atlas_16_bits", 2586408642L)
-            Binds.getPositionalShadowAtlas16Bits = GdxApi.getMethodBind(c"Viewport", c"get_positional_shadow_atlas_16_bits", 36873697L)
-            Binds.setSnapControlsToPixels = GdxApi.getMethodBind(c"Viewport", c"set_snap_controls_to_pixels", 2586408642L)
-            Binds.isSnapControlsToPixelsEnabled = GdxApi.getMethodBind(c"Viewport", c"is_snap_controls_to_pixels_enabled", 36873697L)
-            Binds.setSnap2dTransformsToPixel = GdxApi.getMethodBind(c"Viewport", c"set_snap_2d_transforms_to_pixel", 2586408642L)
-            Binds.isSnap2dTransformsToPixelEnabled = GdxApi.getMethodBind(c"Viewport", c"is_snap_2d_transforms_to_pixel_enabled", 36873697L)
-            Binds.setSnap2dVerticesToPixel = GdxApi.getMethodBind(c"Viewport", c"set_snap_2d_vertices_to_pixel", 2586408642L)
-            Binds.isSnap2dVerticesToPixelEnabled = GdxApi.getMethodBind(c"Viewport", c"is_snap_2d_vertices_to_pixel_enabled", 36873697L)
-            Binds.setPositionalShadowAtlasQuadrantSubdiv = GdxApi.getMethodBind(c"Viewport", c"set_positional_shadow_atlas_quadrant_subdiv", 2596956071L)
-            Binds.getPositionalShadowAtlasQuadrantSubdiv = GdxApi.getMethodBind(c"Viewport", c"get_positional_shadow_atlas_quadrant_subdiv", 2676778355L)
             Binds.setInputAsHandled = GdxApi.getMethodBind(c"Viewport", c"set_input_as_handled", 3218959716L)
             Binds.isInputHandled = GdxApi.getMethodBind(c"Viewport", c"is_input_handled", 36873697L)
-            Binds.setHandleInputLocally = GdxApi.getMethodBind(c"Viewport", c"set_handle_input_locally", 2586408642L)
-            Binds.isHandlingInputLocally = GdxApi.getMethodBind(c"Viewport", c"is_handling_input_locally", 36873697L)
-            Binds.setDefaultCanvasItemTextureFilter = GdxApi.getMethodBind(c"Viewport", c"set_default_canvas_item_texture_filter", 2815160100L)
-            Binds.getDefaultCanvasItemTextureFilter = GdxApi.getMethodBind(c"Viewport", c"get_default_canvas_item_texture_filter", 896601198L)
-            Binds.setEmbeddingSubwindows = GdxApi.getMethodBind(c"Viewport", c"set_embedding_subwindows", 2586408642L)
-            Binds.isEmbeddingSubwindows = GdxApi.getMethodBind(c"Viewport", c"is_embedding_subwindows", 36873697L)
             Binds.getEmbeddedSubwindows = GdxApi.getMethodBind(c"Viewport", c"get_embedded_subwindows", 3995934104L)
-            Binds.setCanvasCullMask = GdxApi.getMethodBind(c"Viewport", c"set_canvas_cull_mask", 1286410249L)
-            Binds.getCanvasCullMask = GdxApi.getMethodBind(c"Viewport", c"get_canvas_cull_mask", 3905245786L)
             Binds.setCanvasCullMaskBit = GdxApi.getMethodBind(c"Viewport", c"set_canvas_cull_mask_bit", 300928843L)
             Binds.getCanvasCullMaskBit = GdxApi.getMethodBind(c"Viewport", c"get_canvas_cull_mask_bit", 1116898809L)
-            Binds.setDefaultCanvasItemTextureRepeat = GdxApi.getMethodBind(c"Viewport", c"set_default_canvas_item_texture_repeat", 1658513413L)
-            Binds.getDefaultCanvasItemTextureRepeat = GdxApi.getMethodBind(c"Viewport", c"get_default_canvas_item_texture_repeat", 4049774160L)
-            Binds.setSdfOversize = GdxApi.getMethodBind(c"Viewport", c"set_sdf_oversize", 2574159017L)
-            Binds.getSdfOversize = GdxApi.getMethodBind(c"Viewport", c"get_sdf_oversize", 2631427510L)
-            Binds.setSdfScale = GdxApi.getMethodBind(c"Viewport", c"set_sdf_scale", 1402773951L)
-            Binds.getSdfScale = GdxApi.getMethodBind(c"Viewport", c"get_sdf_scale", 3162688184L)
-            Binds.setMeshLodThreshold = GdxApi.getMethodBind(c"Viewport", c"set_mesh_lod_threshold", 373806689L)
-            Binds.getMeshLodThreshold = GdxApi.getMethodBind(c"Viewport", c"get_mesh_lod_threshold", 1740695150L)
-            Binds.setAsAudioListener2d = GdxApi.getMethodBind(c"Viewport", c"set_as_audio_listener_2d", 2586408642L)
-            Binds.isAudioListener2d = GdxApi.getMethodBind(c"Viewport", c"is_audio_listener_2d", 36873697L)
             Binds.getAudioListener2d = GdxApi.getMethodBind(c"Viewport", c"get_audio_listener_2d", 1840977180L)
             Binds.getCamera2d = GdxApi.getMethodBind(c"Viewport", c"get_camera_2d", 3551466917L)
-            Binds.setWorld3d = GdxApi.getMethodBind(c"Viewport", c"set_world_3d", 1400875337L)
-            Binds.getWorld3d = GdxApi.getMethodBind(c"Viewport", c"get_world_3d", 317588385L)
             Binds.findWorld3d = GdxApi.getMethodBind(c"Viewport", c"find_world_3d", 317588385L)
-            Binds.setUseOwnWorld3d = GdxApi.getMethodBind(c"Viewport", c"set_use_own_world_3d", 2586408642L)
-            Binds.isUsingOwnWorld3d = GdxApi.getMethodBind(c"Viewport", c"is_using_own_world_3d", 36873697L)
             Binds.getAudioListener3d = GdxApi.getMethodBind(c"Viewport", c"get_audio_listener_3d", 3472246991L)
             Binds.getCamera3d = GdxApi.getMethodBind(c"Viewport", c"get_camera_3d", 2285090890L)
-            Binds.setAsAudioListener3d = GdxApi.getMethodBind(c"Viewport", c"set_as_audio_listener_3d", 2586408642L)
-            Binds.isAudioListener3d = GdxApi.getMethodBind(c"Viewport", c"is_audio_listener_3d", 36873697L)
-            Binds.setDisable3d = GdxApi.getMethodBind(c"Viewport", c"set_disable_3d", 2586408642L)
-            Binds.is3dDisabled = GdxApi.getMethodBind(c"Viewport", c"is_3d_disabled", 36873697L)
-            Binds.setUseXr = GdxApi.getMethodBind(c"Viewport", c"set_use_xr", 2586408642L)
-            Binds.isUsingXr = GdxApi.getMethodBind(c"Viewport", c"is_using_xr", 2240911060L)
-            Binds.setScaling3dMode = GdxApi.getMethodBind(c"Viewport", c"set_scaling_3d_mode", 1531597597L)
-            Binds.getScaling3dMode = GdxApi.getMethodBind(c"Viewport", c"get_scaling_3d_mode", 2597660574L)
-            Binds.setScaling3dScale = GdxApi.getMethodBind(c"Viewport", c"set_scaling_3d_scale", 373806689L)
-            Binds.getScaling3dScale = GdxApi.getMethodBind(c"Viewport", c"get_scaling_3d_scale", 1740695150L)
-            Binds.setFsrSharpness = GdxApi.getMethodBind(c"Viewport", c"set_fsr_sharpness", 373806689L)
-            Binds.getFsrSharpness = GdxApi.getMethodBind(c"Viewport", c"get_fsr_sharpness", 1740695150L)
-            Binds.setTextureMipmapBias = GdxApi.getMethodBind(c"Viewport", c"set_texture_mipmap_bias", 373806689L)
-            Binds.getTextureMipmapBias = GdxApi.getMethodBind(c"Viewport", c"get_texture_mipmap_bias", 1740695150L)
-            Binds.setAnisotropicFilteringLevel = GdxApi.getMethodBind(c"Viewport", c"set_anisotropic_filtering_level", 3445583046L)
-            Binds.getAnisotropicFilteringLevel = GdxApi.getMethodBind(c"Viewport", c"get_anisotropic_filtering_level", 3991528932L)
-            Binds.setVrsMode = GdxApi.getMethodBind(c"Viewport", c"set_vrs_mode", 2749867817L)
-            Binds.getVrsMode = GdxApi.getMethodBind(c"Viewport", c"get_vrs_mode", 349660525L)
-            Binds.setVrsUpdateMode = GdxApi.getMethodBind(c"Viewport", c"set_vrs_update_mode", 3182412319L)
-            Binds.getVrsUpdateMode = GdxApi.getMethodBind(c"Viewport", c"get_vrs_update_mode", 2255951583L)
-            Binds.setVrsTexture = GdxApi.getMethodBind(c"Viewport", c"set_vrs_texture", 4051416890L)
-            Binds.getVrsTexture = GdxApi.getMethodBind(c"Viewport", c"get_vrs_texture", 3635182373L)
+  }
+}

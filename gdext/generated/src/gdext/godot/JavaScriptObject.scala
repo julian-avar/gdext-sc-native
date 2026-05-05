@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class JavaScriptObject extends RefCounted
-
-
-
+class JavaScriptObject extends RefCounted {}

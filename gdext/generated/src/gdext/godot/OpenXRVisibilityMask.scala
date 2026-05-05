@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRVisibilityMask extends VisualInstance3D
-
-
-
+class OpenXRVisibilityMask extends VisualInstance3D {}
 
 object OpenXRVisibilityMask:
-    def apply(): OpenXRVisibilityMask =
-        val obj = new OpenXRVisibilityMask()
-        obj.ptr = GdxApi.constructObject(c"OpenXRVisibilityMask")
-        obj
+def apply(): OpenXRVisibilityMask = {
+  val obj = new OpenXRVisibilityMask()
+  obj.ptr = GdxApi.constructObject(c"OpenXRVisibilityMask")
+  obj
+}

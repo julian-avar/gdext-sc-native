@@ -5,106 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NavigationPathQueryResult3D extends RefCounted
-
-    def setPath(path: PackedVector3Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.setPath, ptr, _args, null)
-
-    def getPath(): PackedVector3Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.getPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector3Array(!_ret)
-
-    def setPathTypes(pathTypes: PackedInt32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pathTypes.ptr
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.setPathTypes, ptr, _args, null)
-
-    def getPathTypes(): PackedInt32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.getPathTypes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedInt32Array(!_ret)
-
-    def setPathRids(pathRids: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pathRids.ptr
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.setPathRids, ptr, _args, null)
-
-    def getPathRids(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.getPathRids, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setPathOwnerIds(pathOwnerIds: PackedInt64Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pathOwnerIds.ptr
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.setPathOwnerIds, ptr, _args, null)
-
-    def getPathOwnerIds(): PackedInt64Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.getPathOwnerIds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedInt64Array(!_ret)
-
-    def setPathLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.setPathLength, ptr, _args, null)
-
-    def getPathLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.getPathLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def reset(): Unit =
+class NavigationPathQueryResult3D extends RefCounted {
+    def reset(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(NavigationPathQueryResult3D.Binds.reset, ptr, _args, null)
-    def path: Ptr[Byte] = getPath()
-    def path_=(v: Ptr[Byte]): Unit = setPath(v)
-    def pathTypes: Ptr[Byte] = getPathTypes()
-    def pathTypes_=(v: Ptr[Byte]): Unit = setPathTypes(v)
+}
+
+    def path: PackedVector3Array = getPath()
+    def path_=(v: PackedVector3Array): Unit = setPath(v)
+    def pathTypes: PackedInt32Array = getPathTypes()
+    def pathTypes_=(v: PackedInt32Array): Unit = setPathTypes(v)
     def pathRids: Ptr[Byte] = getPathRids()
     def pathRids_=(v: Ptr[Byte]): Unit = setPathRids(v)
-    def pathOwnerIds: Ptr[Byte] = getPathOwnerIds()
-    def pathOwnerIds_=(v: Ptr[Byte]): Unit = setPathOwnerIds(v)
-    def pathLength: Ptr[Byte] = getPathLength()
-    def pathLength_=(v: Ptr[Byte]): Unit = setPathLength(v)
+    def pathOwnerIds: PackedInt64Array = getPathOwnerIds()
+    def pathOwnerIds_=(v: PackedInt64Array): Unit = setPathOwnerIds(v)
+    def pathLength: Float = getPathLength()
+    def pathLength_=(v: Float): Unit = setPathLength(v)
+}
 
 object NavigationPathQueryResult3D:
-    object Binds:
-        var setPath: Ptr[Byte] = null
-        var getPath: Ptr[Byte] = null
-        var setPathTypes: Ptr[Byte] = null
-        var getPathTypes: Ptr[Byte] = null
-        var setPathRids: Ptr[Byte] = null
-        var getPathRids: Ptr[Byte] = null
-        var setPathOwnerIds: Ptr[Byte] = null
-        var getPathOwnerIds: Ptr[Byte] = null
-        var setPathLength: Ptr[Byte] = null
-        var getPathLength: Ptr[Byte] = null
-        var reset: Ptr[Byte] = null
+object Binds {
+          var reset: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPath = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"set_path", 334873810L)
-            Binds.getPath = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"get_path", 497664490L)
-            Binds.setPathTypes = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"set_path_types", 3614634198L)
-            Binds.getPathTypes = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"get_path_types", 1930428628L)
-            Binds.setPathRids = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"set_path_rids", 381264803L)
-            Binds.getPathRids = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"get_path_rids", 3995934104L)
-            Binds.setPathOwnerIds = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"set_path_owner_ids", 3709968205L)
-            Binds.getPathOwnerIds = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"get_path_owner_ids", 235988956L)
-            Binds.setPathLength = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"set_path_length", 373806689L)
-            Binds.getPathLength = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"get_path_length", 1740695150L)
-            Binds.reset = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"reset", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.reset = GdxApi.getMethodBind(c"NavigationPathQueryResult3D", c"reset", 3218959716L)
+  }
+}
 
-    def apply(): NavigationPathQueryResult3D =
-        val obj = new NavigationPathQueryResult3D()
-        obj.ptr = GdxApi.constructObject(c"NavigationPathQueryResult3D")
-        obj
+def apply(): NavigationPathQueryResult3D = {
+  val obj = new NavigationPathQueryResult3D()
+  obj.ptr = GdxApi.constructObject(c"NavigationPathQueryResult3D")
+  obj
+}

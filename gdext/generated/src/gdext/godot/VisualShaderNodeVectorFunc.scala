@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeVectorFunc extends VisualShaderNodeVectorBase
-
-    def setFunction(func: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = func.ptr
-        GdxApi.ptrcall(VisualShaderNodeVectorFunc.Binds.setFunction, ptr, _args, null)
-
-    def getFunction(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeVectorFunc.Binds.getFunction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def function: Ptr[Byte] = getFunction()
-    def function_=(v: Ptr[Byte]): Unit = setFunction(v)
+class VisualShaderNodeVectorFunc extends VisualShaderNodeVectorBase {
+    def function: Int = getFunction()
+    def function_=(v: Int): Unit = setFunction(v)
+}
 
 object VisualShaderNodeVectorFunc:
-    object Binds:
-        var setFunction: Ptr[Byte] = null
-        var getFunction: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFunction = GdxApi.getMethodBind(c"VisualShaderNodeVectorFunc", c"set_function", 629964457L)
-            Binds.getFunction = GdxApi.getMethodBind(c"VisualShaderNodeVectorFunc", c"get_function", 4047776843L)
-
-    def apply(): VisualShaderNodeVectorFunc =
-        val obj = new VisualShaderNodeVectorFunc()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVectorFunc")
-        obj
+def apply(): VisualShaderNodeVectorFunc = {
+  val obj = new VisualShaderNodeVectorFunc()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVectorFunc")
+  obj
+}

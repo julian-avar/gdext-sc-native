@@ -5,14 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorTranslationParserPlugin extends RefCounted
+class EditorTranslationParserPlugin extends RefCounted {
     def _parseFile(path: CString): Ptr[Byte] = null
     def _getRecognizedExtensions(): PackedStringArray = null
-
-
+}
 
 object EditorTranslationParserPlugin:
-    def apply(): EditorTranslationParserPlugin =
-        val obj = new EditorTranslationParserPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorTranslationParserPlugin")
-        obj
+def apply(): EditorTranslationParserPlugin = {
+  val obj = new EditorTranslationParserPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorTranslationParserPlugin")
+  obj
+}

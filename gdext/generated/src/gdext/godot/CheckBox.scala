@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CheckBox extends Button
-
-
-
+class CheckBox extends Button {}
 
 object CheckBox:
-    def apply(): CheckBox =
-        val obj = new CheckBox()
-        obj.ptr = GdxApi.constructObject(c"CheckBox")
-        obj
+def apply(): CheckBox = {
+  val obj = new CheckBox()
+  obj.ptr = GdxApi.constructObject(c"CheckBox")
+  obj
+}

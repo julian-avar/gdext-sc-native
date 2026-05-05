@@ -5,875 +5,205 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CPUParticles3D extends GeometryInstance3D
-
-    def setEmitting(emitting: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if emitting then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmitting, ptr, _args, null)
-
-    def setAmount(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setAmount, ptr, _args, null)
-
-    def setLifetime(secs: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = secs
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setLifetime, ptr, _args, null)
-
-    def setOneShot(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setOneShot, ptr, _args, null)
-
-    def setPreProcessTime(secs: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = secs
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setPreProcessTime, ptr, _args, null)
-
-    def setExplosivenessRatio(ratio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ratio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setExplosivenessRatio, ptr, _args, null)
-
-    def setRandomnessRatio(ratio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ratio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setRandomnessRatio, ptr, _args, null)
-
-    def setVisibilityAabb(aabb: AABB): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = aabb.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setVisibilityAabb, ptr, _args, null)
-
-    def setLifetimeRandomness(random: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = random
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setLifetimeRandomness, ptr, _args, null)
-
-    def setUseLocalCoordinates(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setUseLocalCoordinates, ptr, _args, null)
-
-    def setFixedFps(fps: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = fps.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setFixedFps, ptr, _args, null)
-
-    def setFractionalDelta(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setFractionalDelta, ptr, _args, null)
-
-    def setSpeedScale(scale: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setSpeedScale, ptr, _args, null)
-
-    def isEmitting(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.isEmitting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getAmount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getAmount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getLifetime(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getLifetime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getOneShot(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getOneShot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getPreProcessTime(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getPreProcessTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getExplosivenessRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getExplosivenessRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getRandomnessRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getRandomnessRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getVisibilityAabb(): AABB =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getVisibilityAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new AABB(!_ret)
-
-    def getLifetimeRandomness(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getLifetimeRandomness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getUseLocalCoordinates(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getUseLocalCoordinates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getFixedFps(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getFixedFps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getFractionalDelta(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getFractionalDelta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getSpeedScale(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getSpeedScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDrawOrder(order: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = order.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setDrawOrder, ptr, _args, null)
-
-    def getDrawOrder(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getDrawOrder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMesh(mesh: Mesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): Mesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Mesh(!_ret)
-
-    def setUseFixedSeed(useFixedSeed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useFixedSeed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setUseFixedSeed, ptr, _args, null)
-
-    def getUseFixedSeed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getUseFixedSeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSeed(seed: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = seed.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setSeed, ptr, _args, null)
-
-    def getSeed(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getSeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def restart(): Unit =
+class CPUParticles3D extends GeometryInstance3D {
+    def restart(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CPUParticles3D.Binds.restart, ptr, _args, null)
+}
 
-    def requestParticlesProcess(processTime: Float): Unit =
+    def requestParticlesProcess(processTime: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = processTime.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CPUParticles3D.Binds.requestParticlesProcess, ptr, _args, null)
+}
 
-    def captureAabb(): AABB =
+    def captureAabb(): AABB = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CPUParticles3D.Binds.captureAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def setDirection(direction: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setDirection, ptr, _args, null)
-
-    def getDirection(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setSpread(degrees: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = degrees.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setSpread, ptr, _args, null)
-
-    def getSpread(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getSpread, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFlatness(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setFlatness, ptr, _args, null)
-
-    def getFlatness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getFlatness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setParamMin(param: Int, value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
-        val _a1 = stackalloc[Double](); !_a1 = value.toDouble
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setParamMin, ptr, _args, null)
-
-    def getParamMin(param: Int): Float =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getParamMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setParamMax(param: Int, value: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
-        val _a1 = stackalloc[Double](); !_a1 = value.toDouble
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setParamMax, ptr, _args, null)
-
-    def getParamMax(param: Int): Float =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getParamMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setParamCurve(param: Int, curve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
-        _args(1) = curve.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setParamCurve, ptr, _args, null)
-
-    def getParamCurve(param: Int): Curve =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getParamCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setColor, ptr, _args, null)
-
-    def getColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setColorRamp(ramp: Gradient): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = ramp.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setColorRamp, ptr, _args, null)
-
-    def getColorRamp(): Gradient =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getColorRamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Gradient(!_ret)
-
-    def setColorInitialRamp(ramp: Gradient): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = ramp.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setColorInitialRamp, ptr, _args, null)
-
-    def getColorInitialRamp(): Gradient =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getColorInitialRamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Gradient(!_ret)
-
-    def setParticleFlag(particleFlag: Int, enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = particleFlag.ptr
-        val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setParticleFlag, ptr, _args, null)
-
-    def getParticleFlag(particleFlag: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = particleFlag.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getParticleFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEmissionShape(shape: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionShape, ptr, _args, null)
-
-    def getEmissionShape(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEmissionSphereRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionSphereRadius, ptr, _args, null)
-
-    def getEmissionSphereRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionSphereRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmissionBoxExtents(extents: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = extents.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionBoxExtents, ptr, _args, null)
-
-    def getEmissionBoxExtents(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionBoxExtents, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setEmissionPoints(array: PackedVector3Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = array.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionPoints, ptr, _args, null)
-
-    def getEmissionPoints(): PackedVector3Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector3Array(!_ret)
-
-    def setEmissionNormals(array: PackedVector3Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = array.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionNormals, ptr, _args, null)
-
-    def getEmissionNormals(): PackedVector3Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionNormals, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector3Array(!_ret)
-
-    def setEmissionColors(array: PackedColorArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = array.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionColors, ptr, _args, null)
-
-    def getEmissionColors(): PackedColorArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionColors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedColorArray(!_ret)
-
-    def setEmissionRingAxis(axis: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = axis.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionRingAxis, ptr, _args, null)
-
-    def getEmissionRingAxis(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionRingAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setEmissionRingHeight(height: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = height.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionRingHeight, ptr, _args, null)
-
-    def getEmissionRingHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionRingHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmissionRingRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionRingRadius, ptr, _args, null)
-
-    def getEmissionRingRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionRingRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmissionRingInnerRadius(innerRadius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = innerRadius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionRingInnerRadius, ptr, _args, null)
-
-    def getEmissionRingInnerRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionRingInnerRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmissionRingConeAngle(coneAngle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = coneAngle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setEmissionRingConeAngle, ptr, _args, null)
-
-    def getEmissionRingConeAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getEmissionRingConeAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getGravity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setGravity(accelVec: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = accelVec.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setGravity, ptr, _args, null)
-
-    def getSplitScale(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getSplitScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSplitScale(splitScale: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if splitScale then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CPUParticles3D.Binds.setSplitScale, ptr, _args, null)
-
-    def getScaleCurveX(): Curve =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getScaleCurveX, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setScaleCurveX(scaleCurve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scaleCurve.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setScaleCurveX, ptr, _args, null)
-
-    def getScaleCurveY(): Curve =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getScaleCurveY, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setScaleCurveY(scaleCurve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scaleCurve.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setScaleCurveY, ptr, _args, null)
-
-    def getScaleCurveZ(): Curve =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CPUParticles3D.Binds.getScaleCurveZ, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setScaleCurveZ(scaleCurve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scaleCurve.ptr
-        GdxApi.ptrcall(CPUParticles3D.Binds.setScaleCurveZ, ptr, _args, null)
-
-    def convertFromParticles(particles: Node): Unit =
+    def convertFromParticles(particles: Node): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particles.ptr
         GdxApi.ptrcall(CPUParticles3D.Binds.convertFromParticles, ptr, _args, null)
-    def emitting: Ptr[Byte] = isEmitting()
-    def emitting_=(v: Ptr[Byte]): Unit = setEmitting(v)
-    def amount: Ptr[Byte] = getAmount()
-    def amount_=(v: Ptr[Byte]): Unit = setAmount(v)
-    def lifetime: Ptr[Byte] = getLifetime()
-    def lifetime_=(v: Ptr[Byte]): Unit = setLifetime(v)
-    def oneShot: Ptr[Byte] = getOneShot()
-    def oneShot_=(v: Ptr[Byte]): Unit = setOneShot(v)
-    def preprocess: Ptr[Byte] = getPreProcessTime()
-    def preprocess_=(v: Ptr[Byte]): Unit = setPreProcessTime(v)
-    def speedScale: Ptr[Byte] = getSpeedScale()
-    def speedScale_=(v: Ptr[Byte]): Unit = setSpeedScale(v)
-    def explosiveness: Ptr[Byte] = getExplosivenessRatio()
-    def explosiveness_=(v: Ptr[Byte]): Unit = setExplosivenessRatio(v)
-    def randomness: Ptr[Byte] = getRandomnessRatio()
-    def randomness_=(v: Ptr[Byte]): Unit = setRandomnessRatio(v)
-    def useFixedSeed: Ptr[Byte] = getUseFixedSeed()
-    def useFixedSeed_=(v: Ptr[Byte]): Unit = setUseFixedSeed(v)
-    def seed: Ptr[Byte] = getSeed()
-    def seed_=(v: Ptr[Byte]): Unit = setSeed(v)
-    def lifetimeRandomness: Ptr[Byte] = getLifetimeRandomness()
-    def lifetimeRandomness_=(v: Ptr[Byte]): Unit = setLifetimeRandomness(v)
-    def fixedFps: Ptr[Byte] = getFixedFps()
-    def fixedFps_=(v: Ptr[Byte]): Unit = setFixedFps(v)
-    def fractDelta: Ptr[Byte] = getFractionalDelta()
-    def fractDelta_=(v: Ptr[Byte]): Unit = setFractionalDelta(v)
-    def visibilityAabb: Ptr[Byte] = getVisibilityAabb()
-    def visibilityAabb_=(v: Ptr[Byte]): Unit = setVisibilityAabb(v)
-    def localCoords: Ptr[Byte] = getUseLocalCoordinates()
-    def localCoords_=(v: Ptr[Byte]): Unit = setUseLocalCoordinates(v)
-    def drawOrder: Ptr[Byte] = getDrawOrder()
-    def drawOrder_=(v: Ptr[Byte]): Unit = setDrawOrder(v)
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def emissionShape: Ptr[Byte] = getEmissionShape()
-    def emissionShape_=(v: Ptr[Byte]): Unit = setEmissionShape(v)
-    def emissionSphereRadius: Ptr[Byte] = getEmissionSphereRadius()
-    def emissionSphereRadius_=(v: Ptr[Byte]): Unit = setEmissionSphereRadius(v)
-    def emissionBoxExtents: Ptr[Byte] = getEmissionBoxExtents()
-    def emissionBoxExtents_=(v: Ptr[Byte]): Unit = setEmissionBoxExtents(v)
-    def emissionPoints: Ptr[Byte] = getEmissionPoints()
-    def emissionPoints_=(v: Ptr[Byte]): Unit = setEmissionPoints(v)
-    def emissionNormals: Ptr[Byte] = getEmissionNormals()
-    def emissionNormals_=(v: Ptr[Byte]): Unit = setEmissionNormals(v)
-    def emissionColors: Ptr[Byte] = getEmissionColors()
-    def emissionColors_=(v: Ptr[Byte]): Unit = setEmissionColors(v)
-    def emissionRingAxis: Ptr[Byte] = getEmissionRingAxis()
-    def emissionRingAxis_=(v: Ptr[Byte]): Unit = setEmissionRingAxis(v)
-    def emissionRingHeight: Ptr[Byte] = getEmissionRingHeight()
-    def emissionRingHeight_=(v: Ptr[Byte]): Unit = setEmissionRingHeight(v)
-    def emissionRingRadius: Ptr[Byte] = getEmissionRingRadius()
-    def emissionRingRadius_=(v: Ptr[Byte]): Unit = setEmissionRingRadius(v)
-    def emissionRingInnerRadius: Ptr[Byte] = getEmissionRingInnerRadius()
-    def emissionRingInnerRadius_=(v: Ptr[Byte]): Unit = setEmissionRingInnerRadius(v)
-    def emissionRingConeAngle: Ptr[Byte] = getEmissionRingConeAngle()
-    def emissionRingConeAngle_=(v: Ptr[Byte]): Unit = setEmissionRingConeAngle(v)
-    def particleFlagAlignY: Ptr[Byte] = getParticleFlag()
-    def particleFlagAlignY_=(v: Ptr[Byte]): Unit = setParticleFlag(v)
-    def particleFlagRotateY: Ptr[Byte] = getParticleFlag()
-    def particleFlagRotateY_=(v: Ptr[Byte]): Unit = setParticleFlag(v)
-    def particleFlagDisableZ: Ptr[Byte] = getParticleFlag()
-    def particleFlagDisableZ_=(v: Ptr[Byte]): Unit = setParticleFlag(v)
-    def direction: Ptr[Byte] = getDirection()
-    def direction_=(v: Ptr[Byte]): Unit = setDirection(v)
-    def spread: Ptr[Byte] = getSpread()
-    def spread_=(v: Ptr[Byte]): Unit = setSpread(v)
-    def flatness: Ptr[Byte] = getFlatness()
-    def flatness_=(v: Ptr[Byte]): Unit = setFlatness(v)
-    def gravity: Ptr[Byte] = getGravity()
-    def gravity_=(v: Ptr[Byte]): Unit = setGravity(v)
-    def initialVelocityMin: Ptr[Byte] = getParamMin()
-    def initialVelocityMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def initialVelocityMax: Ptr[Byte] = getParamMax()
-    def initialVelocityMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def angularVelocityMin: Ptr[Byte] = getParamMin()
-    def angularVelocityMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def angularVelocityMax: Ptr[Byte] = getParamMax()
-    def angularVelocityMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def angularVelocityCurve: Ptr[Byte] = getParamCurve()
-    def angularVelocityCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def orbitVelocityMin: Ptr[Byte] = getParamMin()
-    def orbitVelocityMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def orbitVelocityMax: Ptr[Byte] = getParamMax()
-    def orbitVelocityMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def orbitVelocityCurve: Ptr[Byte] = getParamCurve()
-    def orbitVelocityCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def linearAccelMin: Ptr[Byte] = getParamMin()
-    def linearAccelMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def linearAccelMax: Ptr[Byte] = getParamMax()
-    def linearAccelMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def linearAccelCurve: Ptr[Byte] = getParamCurve()
-    def linearAccelCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def radialAccelMin: Ptr[Byte] = getParamMin()
-    def radialAccelMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def radialAccelMax: Ptr[Byte] = getParamMax()
-    def radialAccelMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def radialAccelCurve: Ptr[Byte] = getParamCurve()
-    def radialAccelCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def tangentialAccelMin: Ptr[Byte] = getParamMin()
-    def tangentialAccelMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def tangentialAccelMax: Ptr[Byte] = getParamMax()
-    def tangentialAccelMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def tangentialAccelCurve: Ptr[Byte] = getParamCurve()
-    def tangentialAccelCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def dampingMin: Ptr[Byte] = getParamMin()
-    def dampingMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def dampingMax: Ptr[Byte] = getParamMax()
-    def dampingMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def dampingCurve: Ptr[Byte] = getParamCurve()
-    def dampingCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def angleMin: Ptr[Byte] = getParamMin()
-    def angleMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def angleMax: Ptr[Byte] = getParamMax()
-    def angleMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def angleCurve: Ptr[Byte] = getParamCurve()
-    def angleCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def scaleAmountMin: Ptr[Byte] = getParamMin()
-    def scaleAmountMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def scaleAmountMax: Ptr[Byte] = getParamMax()
-    def scaleAmountMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def scaleAmountCurve: Ptr[Byte] = getParamCurve()
-    def scaleAmountCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def splitScale: Ptr[Byte] = getSplitScale()
-    def splitScale_=(v: Ptr[Byte]): Unit = setSplitScale(v)
-    def scaleCurveX: Ptr[Byte] = getScaleCurveX()
-    def scaleCurveX_=(v: Ptr[Byte]): Unit = setScaleCurveX(v)
-    def scaleCurveY: Ptr[Byte] = getScaleCurveY()
-    def scaleCurveY_=(v: Ptr[Byte]): Unit = setScaleCurveY(v)
-    def scaleCurveZ: Ptr[Byte] = getScaleCurveZ()
-    def scaleCurveZ_=(v: Ptr[Byte]): Unit = setScaleCurveZ(v)
-    def color: Ptr[Byte] = getColor()
-    def color_=(v: Ptr[Byte]): Unit = setColor(v)
-    def colorRamp: Ptr[Byte] = getColorRamp()
-    def colorRamp_=(v: Ptr[Byte]): Unit = setColorRamp(v)
-    def colorInitialRamp: Ptr[Byte] = getColorInitialRamp()
-    def colorInitialRamp_=(v: Ptr[Byte]): Unit = setColorInitialRamp(v)
-    def hueVariationMin: Ptr[Byte] = getParamMin()
-    def hueVariationMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def hueVariationMax: Ptr[Byte] = getParamMax()
-    def hueVariationMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def hueVariationCurve: Ptr[Byte] = getParamCurve()
-    def hueVariationCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def animSpeedMin: Ptr[Byte] = getParamMin()
-    def animSpeedMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def animSpeedMax: Ptr[Byte] = getParamMax()
-    def animSpeedMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def animSpeedCurve: Ptr[Byte] = getParamCurve()
-    def animSpeedCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
-    def animOffsetMin: Ptr[Byte] = getParamMin()
-    def animOffsetMin_=(v: Ptr[Byte]): Unit = setParamMin(v)
-    def animOffsetMax: Ptr[Byte] = getParamMax()
-    def animOffsetMax_=(v: Ptr[Byte]): Unit = setParamMax(v)
-    def animOffsetCurve: Ptr[Byte] = getParamCurve()
-    def animOffsetCurve_=(v: Ptr[Byte]): Unit = setParamCurve(v)
+}
+
+    def emitting: Boolean = isEmitting()
+    def emitting_=(v: Boolean): Unit = setEmitting(v)
+    def amount: Int = getAmount()
+    def amount_=(v: Int): Unit = setAmount(v)
+    def lifetime: Double = getLifetime()
+    def lifetime_=(v: Double): Unit = setLifetime(v)
+    def oneShot: Boolean = getOneShot()
+    def oneShot_=(v: Boolean): Unit = setOneShot(v)
+    def preprocess: Double = getPreProcessTime()
+    def preprocess_=(v: Double): Unit = setPreProcessTime(v)
+    def speedScale: Double = getSpeedScale()
+    def speedScale_=(v: Double): Unit = setSpeedScale(v)
+    def explosiveness: Float = getExplosivenessRatio()
+    def explosiveness_=(v: Float): Unit = setExplosivenessRatio(v)
+    def randomness: Float = getRandomnessRatio()
+    def randomness_=(v: Float): Unit = setRandomnessRatio(v)
+    def useFixedSeed: Boolean = getUseFixedSeed()
+    def useFixedSeed_=(v: Boolean): Unit = setUseFixedSeed(v)
+    def seed: Int = getSeed()
+    def seed_=(v: Int): Unit = setSeed(v)
+    def lifetimeRandomness: Double = getLifetimeRandomness()
+    def lifetimeRandomness_=(v: Double): Unit = setLifetimeRandomness(v)
+    def fixedFps: Int = getFixedFps()
+    def fixedFps_=(v: Int): Unit = setFixedFps(v)
+    def fractDelta: Boolean = getFractionalDelta()
+    def fractDelta_=(v: Boolean): Unit = setFractionalDelta(v)
+    def visibilityAabb: AABB = getVisibilityAabb()
+    def visibilityAabb_=(v: AABB): Unit = setVisibilityAabb(v)
+    def localCoords: Boolean = getUseLocalCoordinates()
+    def localCoords_=(v: Boolean): Unit = setUseLocalCoordinates(v)
+    def drawOrder: Int = getDrawOrder()
+    def drawOrder_=(v: Int): Unit = setDrawOrder(v)
+    def mesh: Mesh = getMesh()
+    def mesh_=(v: Mesh): Unit = setMesh(v)
+    def emissionShape: Int = getEmissionShape()
+    def emissionShape_=(v: Int): Unit = setEmissionShape(v)
+    def emissionSphereRadius: Float = getEmissionSphereRadius()
+    def emissionSphereRadius_=(v: Float): Unit = setEmissionSphereRadius(v)
+    def emissionBoxExtents: Vector3 = getEmissionBoxExtents()
+    def emissionBoxExtents_=(v: Vector3): Unit = setEmissionBoxExtents(v)
+    def emissionPoints: PackedVector3Array = getEmissionPoints()
+    def emissionPoints_=(v: PackedVector3Array): Unit = setEmissionPoints(v)
+    def emissionNormals: PackedVector3Array = getEmissionNormals()
+    def emissionNormals_=(v: PackedVector3Array): Unit = setEmissionNormals(v)
+    def emissionColors: PackedColorArray = getEmissionColors()
+    def emissionColors_=(v: PackedColorArray): Unit = setEmissionColors(v)
+    def emissionRingAxis: Vector3 = getEmissionRingAxis()
+    def emissionRingAxis_=(v: Vector3): Unit = setEmissionRingAxis(v)
+    def emissionRingHeight: Float = getEmissionRingHeight()
+    def emissionRingHeight_=(v: Float): Unit = setEmissionRingHeight(v)
+    def emissionRingRadius: Float = getEmissionRingRadius()
+    def emissionRingRadius_=(v: Float): Unit = setEmissionRingRadius(v)
+    def emissionRingInnerRadius: Float = getEmissionRingInnerRadius()
+    def emissionRingInnerRadius_=(v: Float): Unit = setEmissionRingInnerRadius(v)
+    def emissionRingConeAngle: Float = getEmissionRingConeAngle()
+    def emissionRingConeAngle_=(v: Float): Unit = setEmissionRingConeAngle(v)
+    def particleFlagAlignY: Boolean = getParticleFlag()
+    def particleFlagAlignY_=(v: Int): Unit = setParticleFlag(v)
+    def particleFlagRotateY: Boolean = getParticleFlag()
+    def particleFlagRotateY_=(v: Int): Unit = setParticleFlag(v)
+    def particleFlagDisableZ: Boolean = getParticleFlag()
+    def particleFlagDisableZ_=(v: Int): Unit = setParticleFlag(v)
+    def direction: Vector3 = getDirection()
+    def direction_=(v: Vector3): Unit = setDirection(v)
+    def spread: Float = getSpread()
+    def spread_=(v: Float): Unit = setSpread(v)
+    def flatness: Float = getFlatness()
+    def flatness_=(v: Float): Unit = setFlatness(v)
+    def gravity: Vector3 = getGravity()
+    def gravity_=(v: Vector3): Unit = setGravity(v)
+    def initialVelocityMin: Float = getParamMin()
+    def initialVelocityMin_=(v: Int): Unit = setParamMin(v)
+    def initialVelocityMax: Float = getParamMax()
+    def initialVelocityMax_=(v: Int): Unit = setParamMax(v)
+    def angularVelocityMin: Float = getParamMin()
+    def angularVelocityMin_=(v: Int): Unit = setParamMin(v)
+    def angularVelocityMax: Float = getParamMax()
+    def angularVelocityMax_=(v: Int): Unit = setParamMax(v)
+    def angularVelocityCurve: Curve = getParamCurve()
+    def angularVelocityCurve_=(v: Int): Unit = setParamCurve(v)
+    def orbitVelocityMin: Float = getParamMin()
+    def orbitVelocityMin_=(v: Int): Unit = setParamMin(v)
+    def orbitVelocityMax: Float = getParamMax()
+    def orbitVelocityMax_=(v: Int): Unit = setParamMax(v)
+    def orbitVelocityCurve: Curve = getParamCurve()
+    def orbitVelocityCurve_=(v: Int): Unit = setParamCurve(v)
+    def linearAccelMin: Float = getParamMin()
+    def linearAccelMin_=(v: Int): Unit = setParamMin(v)
+    def linearAccelMax: Float = getParamMax()
+    def linearAccelMax_=(v: Int): Unit = setParamMax(v)
+    def linearAccelCurve: Curve = getParamCurve()
+    def linearAccelCurve_=(v: Int): Unit = setParamCurve(v)
+    def radialAccelMin: Float = getParamMin()
+    def radialAccelMin_=(v: Int): Unit = setParamMin(v)
+    def radialAccelMax: Float = getParamMax()
+    def radialAccelMax_=(v: Int): Unit = setParamMax(v)
+    def radialAccelCurve: Curve = getParamCurve()
+    def radialAccelCurve_=(v: Int): Unit = setParamCurve(v)
+    def tangentialAccelMin: Float = getParamMin()
+    def tangentialAccelMin_=(v: Int): Unit = setParamMin(v)
+    def tangentialAccelMax: Float = getParamMax()
+    def tangentialAccelMax_=(v: Int): Unit = setParamMax(v)
+    def tangentialAccelCurve: Curve = getParamCurve()
+    def tangentialAccelCurve_=(v: Int): Unit = setParamCurve(v)
+    def dampingMin: Float = getParamMin()
+    def dampingMin_=(v: Int): Unit = setParamMin(v)
+    def dampingMax: Float = getParamMax()
+    def dampingMax_=(v: Int): Unit = setParamMax(v)
+    def dampingCurve: Curve = getParamCurve()
+    def dampingCurve_=(v: Int): Unit = setParamCurve(v)
+    def angleMin: Float = getParamMin()
+    def angleMin_=(v: Int): Unit = setParamMin(v)
+    def angleMax: Float = getParamMax()
+    def angleMax_=(v: Int): Unit = setParamMax(v)
+    def angleCurve: Curve = getParamCurve()
+    def angleCurve_=(v: Int): Unit = setParamCurve(v)
+    def scaleAmountMin: Float = getParamMin()
+    def scaleAmountMin_=(v: Int): Unit = setParamMin(v)
+    def scaleAmountMax: Float = getParamMax()
+    def scaleAmountMax_=(v: Int): Unit = setParamMax(v)
+    def scaleAmountCurve: Curve = getParamCurve()
+    def scaleAmountCurve_=(v: Int): Unit = setParamCurve(v)
+    def splitScale: Boolean = getSplitScale()
+    def splitScale_=(v: Boolean): Unit = setSplitScale(v)
+    def scaleCurveX: Curve = getScaleCurveX()
+    def scaleCurveX_=(v: Curve): Unit = setScaleCurveX(v)
+    def scaleCurveY: Curve = getScaleCurveY()
+    def scaleCurveY_=(v: Curve): Unit = setScaleCurveY(v)
+    def scaleCurveZ: Curve = getScaleCurveZ()
+    def scaleCurveZ_=(v: Curve): Unit = setScaleCurveZ(v)
+    def color: Color = getColor()
+    def color_=(v: Color): Unit = setColor(v)
+    def colorRamp: Gradient = getColorRamp()
+    def colorRamp_=(v: Gradient): Unit = setColorRamp(v)
+    def colorInitialRamp: Gradient = getColorInitialRamp()
+    def colorInitialRamp_=(v: Gradient): Unit = setColorInitialRamp(v)
+    def hueVariationMin: Float = getParamMin()
+    def hueVariationMin_=(v: Int): Unit = setParamMin(v)
+    def hueVariationMax: Float = getParamMax()
+    def hueVariationMax_=(v: Int): Unit = setParamMax(v)
+    def hueVariationCurve: Curve = getParamCurve()
+    def hueVariationCurve_=(v: Int): Unit = setParamCurve(v)
+    def animSpeedMin: Float = getParamMin()
+    def animSpeedMin_=(v: Int): Unit = setParamMin(v)
+    def animSpeedMax: Float = getParamMax()
+    def animSpeedMax_=(v: Int): Unit = setParamMax(v)
+    def animSpeedCurve: Curve = getParamCurve()
+    def animSpeedCurve_=(v: Int): Unit = setParamCurve(v)
+    def animOffsetMin: Float = getParamMin()
+    def animOffsetMin_=(v: Int): Unit = setParamMin(v)
+    def animOffsetMax: Float = getParamMax()
+    def animOffsetMax_=(v: Int): Unit = setParamMax(v)
+    def animOffsetCurve: Curve = getParamCurve()
+    def animOffsetCurve_=(v: Int): Unit = setParamCurve(v)
+}
 
 object CPUParticles3D:
-    object Binds:
-        var setEmitting: Ptr[Byte] = null
-        var setAmount: Ptr[Byte] = null
-        var setLifetime: Ptr[Byte] = null
-        var setOneShot: Ptr[Byte] = null
-        var setPreProcessTime: Ptr[Byte] = null
-        var setExplosivenessRatio: Ptr[Byte] = null
-        var setRandomnessRatio: Ptr[Byte] = null
-        var setVisibilityAabb: Ptr[Byte] = null
-        var setLifetimeRandomness: Ptr[Byte] = null
-        var setUseLocalCoordinates: Ptr[Byte] = null
-        var setFixedFps: Ptr[Byte] = null
-        var setFractionalDelta: Ptr[Byte] = null
-        var setSpeedScale: Ptr[Byte] = null
-        var isEmitting: Ptr[Byte] = null
-        var getAmount: Ptr[Byte] = null
-        var getLifetime: Ptr[Byte] = null
-        var getOneShot: Ptr[Byte] = null
-        var getPreProcessTime: Ptr[Byte] = null
-        var getExplosivenessRatio: Ptr[Byte] = null
-        var getRandomnessRatio: Ptr[Byte] = null
-        var getVisibilityAabb: Ptr[Byte] = null
-        var getLifetimeRandomness: Ptr[Byte] = null
-        var getUseLocalCoordinates: Ptr[Byte] = null
-        var getFixedFps: Ptr[Byte] = null
-        var getFractionalDelta: Ptr[Byte] = null
-        var getSpeedScale: Ptr[Byte] = null
-        var setDrawOrder: Ptr[Byte] = null
-        var getDrawOrder: Ptr[Byte] = null
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setUseFixedSeed: Ptr[Byte] = null
-        var getUseFixedSeed: Ptr[Byte] = null
-        var setSeed: Ptr[Byte] = null
-        var getSeed: Ptr[Byte] = null
-        var restart: Ptr[Byte] = null
+object Binds {
+          var restart: Ptr[Byte] = null
         var requestParticlesProcess: Ptr[Byte] = null
         var captureAabb: Ptr[Byte] = null
-        var setDirection: Ptr[Byte] = null
-        var getDirection: Ptr[Byte] = null
-        var setSpread: Ptr[Byte] = null
-        var getSpread: Ptr[Byte] = null
-        var setFlatness: Ptr[Byte] = null
-        var getFlatness: Ptr[Byte] = null
-        var setParamMin: Ptr[Byte] = null
-        var getParamMin: Ptr[Byte] = null
-        var setParamMax: Ptr[Byte] = null
-        var getParamMax: Ptr[Byte] = null
-        var setParamCurve: Ptr[Byte] = null
-        var getParamCurve: Ptr[Byte] = null
-        var setColor: Ptr[Byte] = null
-        var getColor: Ptr[Byte] = null
-        var setColorRamp: Ptr[Byte] = null
-        var getColorRamp: Ptr[Byte] = null
-        var setColorInitialRamp: Ptr[Byte] = null
-        var getColorInitialRamp: Ptr[Byte] = null
-        var setParticleFlag: Ptr[Byte] = null
-        var getParticleFlag: Ptr[Byte] = null
-        var setEmissionShape: Ptr[Byte] = null
-        var getEmissionShape: Ptr[Byte] = null
-        var setEmissionSphereRadius: Ptr[Byte] = null
-        var getEmissionSphereRadius: Ptr[Byte] = null
-        var setEmissionBoxExtents: Ptr[Byte] = null
-        var getEmissionBoxExtents: Ptr[Byte] = null
-        var setEmissionPoints: Ptr[Byte] = null
-        var getEmissionPoints: Ptr[Byte] = null
-        var setEmissionNormals: Ptr[Byte] = null
-        var getEmissionNormals: Ptr[Byte] = null
-        var setEmissionColors: Ptr[Byte] = null
-        var getEmissionColors: Ptr[Byte] = null
-        var setEmissionRingAxis: Ptr[Byte] = null
-        var getEmissionRingAxis: Ptr[Byte] = null
-        var setEmissionRingHeight: Ptr[Byte] = null
-        var getEmissionRingHeight: Ptr[Byte] = null
-        var setEmissionRingRadius: Ptr[Byte] = null
-        var getEmissionRingRadius: Ptr[Byte] = null
-        var setEmissionRingInnerRadius: Ptr[Byte] = null
-        var getEmissionRingInnerRadius: Ptr[Byte] = null
-        var setEmissionRingConeAngle: Ptr[Byte] = null
-        var getEmissionRingConeAngle: Ptr[Byte] = null
-        var getGravity: Ptr[Byte] = null
-        var setGravity: Ptr[Byte] = null
-        var getSplitScale: Ptr[Byte] = null
-        var setSplitScale: Ptr[Byte] = null
-        var getScaleCurveX: Ptr[Byte] = null
-        var setScaleCurveX: Ptr[Byte] = null
-        var getScaleCurveY: Ptr[Byte] = null
-        var setScaleCurveY: Ptr[Byte] = null
-        var getScaleCurveZ: Ptr[Byte] = null
-        var setScaleCurveZ: Ptr[Byte] = null
         var convertFromParticles: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setEmitting = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emitting", 2586408642L)
-            Binds.setAmount = GdxApi.getMethodBind(c"CPUParticles3D", c"set_amount", 1286410249L)
-            Binds.setLifetime = GdxApi.getMethodBind(c"CPUParticles3D", c"set_lifetime", 373806689L)
-            Binds.setOneShot = GdxApi.getMethodBind(c"CPUParticles3D", c"set_one_shot", 2586408642L)
-            Binds.setPreProcessTime = GdxApi.getMethodBind(c"CPUParticles3D", c"set_pre_process_time", 373806689L)
-            Binds.setExplosivenessRatio = GdxApi.getMethodBind(c"CPUParticles3D", c"set_explosiveness_ratio", 373806689L)
-            Binds.setRandomnessRatio = GdxApi.getMethodBind(c"CPUParticles3D", c"set_randomness_ratio", 373806689L)
-            Binds.setVisibilityAabb = GdxApi.getMethodBind(c"CPUParticles3D", c"set_visibility_aabb", 259215842L)
-            Binds.setLifetimeRandomness = GdxApi.getMethodBind(c"CPUParticles3D", c"set_lifetime_randomness", 373806689L)
-            Binds.setUseLocalCoordinates = GdxApi.getMethodBind(c"CPUParticles3D", c"set_use_local_coordinates", 2586408642L)
-            Binds.setFixedFps = GdxApi.getMethodBind(c"CPUParticles3D", c"set_fixed_fps", 1286410249L)
-            Binds.setFractionalDelta = GdxApi.getMethodBind(c"CPUParticles3D", c"set_fractional_delta", 2586408642L)
-            Binds.setSpeedScale = GdxApi.getMethodBind(c"CPUParticles3D", c"set_speed_scale", 373806689L)
-            Binds.isEmitting = GdxApi.getMethodBind(c"CPUParticles3D", c"is_emitting", 36873697L)
-            Binds.getAmount = GdxApi.getMethodBind(c"CPUParticles3D", c"get_amount", 3905245786L)
-            Binds.getLifetime = GdxApi.getMethodBind(c"CPUParticles3D", c"get_lifetime", 1740695150L)
-            Binds.getOneShot = GdxApi.getMethodBind(c"CPUParticles3D", c"get_one_shot", 36873697L)
-            Binds.getPreProcessTime = GdxApi.getMethodBind(c"CPUParticles3D", c"get_pre_process_time", 1740695150L)
-            Binds.getExplosivenessRatio = GdxApi.getMethodBind(c"CPUParticles3D", c"get_explosiveness_ratio", 1740695150L)
-            Binds.getRandomnessRatio = GdxApi.getMethodBind(c"CPUParticles3D", c"get_randomness_ratio", 1740695150L)
-            Binds.getVisibilityAabb = GdxApi.getMethodBind(c"CPUParticles3D", c"get_visibility_aabb", 1068685055L)
-            Binds.getLifetimeRandomness = GdxApi.getMethodBind(c"CPUParticles3D", c"get_lifetime_randomness", 1740695150L)
-            Binds.getUseLocalCoordinates = GdxApi.getMethodBind(c"CPUParticles3D", c"get_use_local_coordinates", 36873697L)
-            Binds.getFixedFps = GdxApi.getMethodBind(c"CPUParticles3D", c"get_fixed_fps", 3905245786L)
-            Binds.getFractionalDelta = GdxApi.getMethodBind(c"CPUParticles3D", c"get_fractional_delta", 36873697L)
-            Binds.getSpeedScale = GdxApi.getMethodBind(c"CPUParticles3D", c"get_speed_scale", 1740695150L)
-            Binds.setDrawOrder = GdxApi.getMethodBind(c"CPUParticles3D", c"set_draw_order", 1427401774L)
-            Binds.getDrawOrder = GdxApi.getMethodBind(c"CPUParticles3D", c"get_draw_order", 1321900776L)
-            Binds.setMesh = GdxApi.getMethodBind(c"CPUParticles3D", c"set_mesh", 194775623L)
-            Binds.getMesh = GdxApi.getMethodBind(c"CPUParticles3D", c"get_mesh", 1808005922L)
-            Binds.setUseFixedSeed = GdxApi.getMethodBind(c"CPUParticles3D", c"set_use_fixed_seed", 2586408642L)
-            Binds.getUseFixedSeed = GdxApi.getMethodBind(c"CPUParticles3D", c"get_use_fixed_seed", 36873697L)
-            Binds.setSeed = GdxApi.getMethodBind(c"CPUParticles3D", c"set_seed", 1286410249L)
-            Binds.getSeed = GdxApi.getMethodBind(c"CPUParticles3D", c"get_seed", 3905245786L)
-            Binds.restart = GdxApi.getMethodBind(c"CPUParticles3D", c"restart", 107499316L)
+  def loadBinds(): Unit = {
+                Binds.restart = GdxApi.getMethodBind(c"CPUParticles3D", c"restart", 107499316L)
             Binds.requestParticlesProcess = GdxApi.getMethodBind(c"CPUParticles3D", c"request_particles_process", 373806689L)
             Binds.captureAabb = GdxApi.getMethodBind(c"CPUParticles3D", c"capture_aabb", 1068685055L)
-            Binds.setDirection = GdxApi.getMethodBind(c"CPUParticles3D", c"set_direction", 3460891852L)
-            Binds.getDirection = GdxApi.getMethodBind(c"CPUParticles3D", c"get_direction", 3360562783L)
-            Binds.setSpread = GdxApi.getMethodBind(c"CPUParticles3D", c"set_spread", 373806689L)
-            Binds.getSpread = GdxApi.getMethodBind(c"CPUParticles3D", c"get_spread", 1740695150L)
-            Binds.setFlatness = GdxApi.getMethodBind(c"CPUParticles3D", c"set_flatness", 373806689L)
-            Binds.getFlatness = GdxApi.getMethodBind(c"CPUParticles3D", c"get_flatness", 1740695150L)
-            Binds.setParamMin = GdxApi.getMethodBind(c"CPUParticles3D", c"set_param_min", 557936109L)
-            Binds.getParamMin = GdxApi.getMethodBind(c"CPUParticles3D", c"get_param_min", 597646162L)
-            Binds.setParamMax = GdxApi.getMethodBind(c"CPUParticles3D", c"set_param_max", 557936109L)
-            Binds.getParamMax = GdxApi.getMethodBind(c"CPUParticles3D", c"get_param_max", 597646162L)
-            Binds.setParamCurve = GdxApi.getMethodBind(c"CPUParticles3D", c"set_param_curve", 4044142537L)
-            Binds.getParamCurve = GdxApi.getMethodBind(c"CPUParticles3D", c"get_param_curve", 4132790277L)
-            Binds.setColor = GdxApi.getMethodBind(c"CPUParticles3D", c"set_color", 2920490490L)
-            Binds.getColor = GdxApi.getMethodBind(c"CPUParticles3D", c"get_color", 3444240500L)
-            Binds.setColorRamp = GdxApi.getMethodBind(c"CPUParticles3D", c"set_color_ramp", 2756054477L)
-            Binds.getColorRamp = GdxApi.getMethodBind(c"CPUParticles3D", c"get_color_ramp", 132272999L)
-            Binds.setColorInitialRamp = GdxApi.getMethodBind(c"CPUParticles3D", c"set_color_initial_ramp", 2756054477L)
-            Binds.getColorInitialRamp = GdxApi.getMethodBind(c"CPUParticles3D", c"get_color_initial_ramp", 132272999L)
-            Binds.setParticleFlag = GdxApi.getMethodBind(c"CPUParticles3D", c"set_particle_flag", 3515406498L)
-            Binds.getParticleFlag = GdxApi.getMethodBind(c"CPUParticles3D", c"get_particle_flag", 2845201987L)
-            Binds.setEmissionShape = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_shape", 491823814L)
-            Binds.getEmissionShape = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_shape", 2961454842L)
-            Binds.setEmissionSphereRadius = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_sphere_radius", 373806689L)
-            Binds.getEmissionSphereRadius = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_sphere_radius", 1740695150L)
-            Binds.setEmissionBoxExtents = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_box_extents", 3460891852L)
-            Binds.getEmissionBoxExtents = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_box_extents", 3360562783L)
-            Binds.setEmissionPoints = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_points", 334873810L)
-            Binds.getEmissionPoints = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_points", 497664490L)
-            Binds.setEmissionNormals = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_normals", 334873810L)
-            Binds.getEmissionNormals = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_normals", 497664490L)
-            Binds.setEmissionColors = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_colors", 3546319833L)
-            Binds.getEmissionColors = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_colors", 1392750486L)
-            Binds.setEmissionRingAxis = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_ring_axis", 3460891852L)
-            Binds.getEmissionRingAxis = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_ring_axis", 3360562783L)
-            Binds.setEmissionRingHeight = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_ring_height", 373806689L)
-            Binds.getEmissionRingHeight = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_ring_height", 1740695150L)
-            Binds.setEmissionRingRadius = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_ring_radius", 373806689L)
-            Binds.getEmissionRingRadius = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_ring_radius", 1740695150L)
-            Binds.setEmissionRingInnerRadius = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_ring_inner_radius", 373806689L)
-            Binds.getEmissionRingInnerRadius = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_ring_inner_radius", 1740695150L)
-            Binds.setEmissionRingConeAngle = GdxApi.getMethodBind(c"CPUParticles3D", c"set_emission_ring_cone_angle", 373806689L)
-            Binds.getEmissionRingConeAngle = GdxApi.getMethodBind(c"CPUParticles3D", c"get_emission_ring_cone_angle", 1740695150L)
-            Binds.getGravity = GdxApi.getMethodBind(c"CPUParticles3D", c"get_gravity", 3360562783L)
-            Binds.setGravity = GdxApi.getMethodBind(c"CPUParticles3D", c"set_gravity", 3460891852L)
-            Binds.getSplitScale = GdxApi.getMethodBind(c"CPUParticles3D", c"get_split_scale", 2240911060L)
-            Binds.setSplitScale = GdxApi.getMethodBind(c"CPUParticles3D", c"set_split_scale", 2586408642L)
-            Binds.getScaleCurveX = GdxApi.getMethodBind(c"CPUParticles3D", c"get_scale_curve_x", 2460114913L)
-            Binds.setScaleCurveX = GdxApi.getMethodBind(c"CPUParticles3D", c"set_scale_curve_x", 270443179L)
-            Binds.getScaleCurveY = GdxApi.getMethodBind(c"CPUParticles3D", c"get_scale_curve_y", 2460114913L)
-            Binds.setScaleCurveY = GdxApi.getMethodBind(c"CPUParticles3D", c"set_scale_curve_y", 270443179L)
-            Binds.getScaleCurveZ = GdxApi.getMethodBind(c"CPUParticles3D", c"get_scale_curve_z", 2460114913L)
-            Binds.setScaleCurveZ = GdxApi.getMethodBind(c"CPUParticles3D", c"set_scale_curve_z", 270443179L)
             Binds.convertFromParticles = GdxApi.getMethodBind(c"CPUParticles3D", c"convert_from_particles", 1078189570L)
+  }
+}
 
-    def apply(): CPUParticles3D =
-        val obj = new CPUParticles3D()
-        obj.ptr = GdxApi.constructObject(c"CPUParticles3D")
-        obj
+def apply(): CPUParticles3D = {
+  val obj = new CPUParticles3D()
+  obj.ptr = GdxApi.constructObject(c"CPUParticles3D")
+  obj
+}

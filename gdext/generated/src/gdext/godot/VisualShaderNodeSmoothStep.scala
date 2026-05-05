@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeSmoothStep extends VisualShaderNode
-
-    def setOpType(opType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = opType.ptr
-        GdxApi.ptrcall(VisualShaderNodeSmoothStep.Binds.setOpType, ptr, _args, null)
-
-    def getOpType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeSmoothStep.Binds.getOpType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def opType: Ptr[Byte] = getOpType()
-    def opType_=(v: Ptr[Byte]): Unit = setOpType(v)
+class VisualShaderNodeSmoothStep extends VisualShaderNode {
+    def opType: Int = getOpType()
+    def opType_=(v: Int): Unit = setOpType(v)
+}
 
 object VisualShaderNodeSmoothStep:
-    object Binds:
-        var setOpType: Ptr[Byte] = null
-        var getOpType: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOpType = GdxApi.getMethodBind(c"VisualShaderNodeSmoothStep", c"set_op_type", 2427426148L)
-            Binds.getOpType = GdxApi.getMethodBind(c"VisualShaderNodeSmoothStep", c"get_op_type", 359640855L)
-
-    def apply(): VisualShaderNodeSmoothStep =
-        val obj = new VisualShaderNodeSmoothStep()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeSmoothStep")
-        obj
+def apply(): VisualShaderNodeSmoothStep = {
+  val obj = new VisualShaderNodeSmoothStep()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeSmoothStep")
+  obj
+}

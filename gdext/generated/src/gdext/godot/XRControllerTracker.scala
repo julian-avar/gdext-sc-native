@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRControllerTracker extends XRPositionalTracker
-
-
-
+class XRControllerTracker extends XRPositionalTracker {}
 
 object XRControllerTracker:
-    def apply(): XRControllerTracker =
-        val obj = new XRControllerTracker()
-        obj.ptr = GdxApi.constructObject(c"XRControllerTracker")
-        obj
+def apply(): XRControllerTracker = {
+  val obj = new XRControllerTracker()
+  obj.ptr = GdxApi.constructObject(c"XRControllerTracker")
+  obj
+}

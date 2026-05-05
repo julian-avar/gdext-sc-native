@@ -5,210 +5,34 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDPipelineRasterizationState extends RefCounted
-
-    def setEnableDepthClamp(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setEnableDepthClamp, ptr, _args, null)
-
-    def getEnableDepthClamp(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getEnableDepthClamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDiscardPrimitives(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setDiscardPrimitives, ptr, _args, null)
-
-    def getDiscardPrimitives(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getDiscardPrimitives, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setWireframe(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setWireframe, ptr, _args, null)
-
-    def getWireframe(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getWireframe, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCullMode(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setCullMode, ptr, _args, null)
-
-    def getCullMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getCullMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontFace(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setFrontFace, ptr, _args, null)
-
-    def getFrontFace(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getFrontFace, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDepthBiasEnabled(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setDepthBiasEnabled, ptr, _args, null)
-
-    def getDepthBiasEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getDepthBiasEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDepthBiasConstantFactor(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setDepthBiasConstantFactor, ptr, _args, null)
-
-    def getDepthBiasConstantFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getDepthBiasConstantFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDepthBiasClamp(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setDepthBiasClamp, ptr, _args, null)
-
-    def getDepthBiasClamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getDepthBiasClamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDepthBiasSlopeFactor(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setDepthBiasSlopeFactor, ptr, _args, null)
-
-    def getDepthBiasSlopeFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getDepthBiasSlopeFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLineWidth(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setLineWidth, ptr, _args, null)
-
-    def getLineWidth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getLineWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPatchControlPoints(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.setPatchControlPoints, ptr, _args, null)
-
-    def getPatchControlPoints(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineRasterizationState.Binds.getPatchControlPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def enableDepthClamp: Ptr[Byte] = getEnableDepthClamp()
-    def enableDepthClamp_=(v: Ptr[Byte]): Unit = setEnableDepthClamp(v)
-    def discardPrimitives: Ptr[Byte] = getDiscardPrimitives()
-    def discardPrimitives_=(v: Ptr[Byte]): Unit = setDiscardPrimitives(v)
-    def wireframe: Ptr[Byte] = getWireframe()
-    def wireframe_=(v: Ptr[Byte]): Unit = setWireframe(v)
-    def cullMode: Ptr[Byte] = getCullMode()
-    def cullMode_=(v: Ptr[Byte]): Unit = setCullMode(v)
-    def frontFace: Ptr[Byte] = getFrontFace()
-    def frontFace_=(v: Ptr[Byte]): Unit = setFrontFace(v)
-    def depthBiasEnabled: Ptr[Byte] = getDepthBiasEnabled()
-    def depthBiasEnabled_=(v: Ptr[Byte]): Unit = setDepthBiasEnabled(v)
-    def depthBiasConstantFactor: Ptr[Byte] = getDepthBiasConstantFactor()
-    def depthBiasConstantFactor_=(v: Ptr[Byte]): Unit = setDepthBiasConstantFactor(v)
-    def depthBiasClamp: Ptr[Byte] = getDepthBiasClamp()
-    def depthBiasClamp_=(v: Ptr[Byte]): Unit = setDepthBiasClamp(v)
-    def depthBiasSlopeFactor: Ptr[Byte] = getDepthBiasSlopeFactor()
-    def depthBiasSlopeFactor_=(v: Ptr[Byte]): Unit = setDepthBiasSlopeFactor(v)
-    def lineWidth: Ptr[Byte] = getLineWidth()
-    def lineWidth_=(v: Ptr[Byte]): Unit = setLineWidth(v)
-    def patchControlPoints: Ptr[Byte] = getPatchControlPoints()
-    def patchControlPoints_=(v: Ptr[Byte]): Unit = setPatchControlPoints(v)
+class RDPipelineRasterizationState extends RefCounted {
+    def enableDepthClamp: Boolean = getEnableDepthClamp()
+    def enableDepthClamp_=(v: Boolean): Unit = setEnableDepthClamp(v)
+    def discardPrimitives: Boolean = getDiscardPrimitives()
+    def discardPrimitives_=(v: Boolean): Unit = setDiscardPrimitives(v)
+    def wireframe: Boolean = getWireframe()
+    def wireframe_=(v: Boolean): Unit = setWireframe(v)
+    def cullMode: Int = getCullMode()
+    def cullMode_=(v: Int): Unit = setCullMode(v)
+    def frontFace: Int = getFrontFace()
+    def frontFace_=(v: Int): Unit = setFrontFace(v)
+    def depthBiasEnabled: Boolean = getDepthBiasEnabled()
+    def depthBiasEnabled_=(v: Boolean): Unit = setDepthBiasEnabled(v)
+    def depthBiasConstantFactor: Float = getDepthBiasConstantFactor()
+    def depthBiasConstantFactor_=(v: Float): Unit = setDepthBiasConstantFactor(v)
+    def depthBiasClamp: Float = getDepthBiasClamp()
+    def depthBiasClamp_=(v: Float): Unit = setDepthBiasClamp(v)
+    def depthBiasSlopeFactor: Float = getDepthBiasSlopeFactor()
+    def depthBiasSlopeFactor_=(v: Float): Unit = setDepthBiasSlopeFactor(v)
+    def lineWidth: Float = getLineWidth()
+    def lineWidth_=(v: Float): Unit = setLineWidth(v)
+    def patchControlPoints: Int = getPatchControlPoints()
+    def patchControlPoints_=(v: Int): Unit = setPatchControlPoints(v)
+}
 
 object RDPipelineRasterizationState:
-    object Binds:
-        var setEnableDepthClamp: Ptr[Byte] = null
-        var getEnableDepthClamp: Ptr[Byte] = null
-        var setDiscardPrimitives: Ptr[Byte] = null
-        var getDiscardPrimitives: Ptr[Byte] = null
-        var setWireframe: Ptr[Byte] = null
-        var getWireframe: Ptr[Byte] = null
-        var setCullMode: Ptr[Byte] = null
-        var getCullMode: Ptr[Byte] = null
-        var setFrontFace: Ptr[Byte] = null
-        var getFrontFace: Ptr[Byte] = null
-        var setDepthBiasEnabled: Ptr[Byte] = null
-        var getDepthBiasEnabled: Ptr[Byte] = null
-        var setDepthBiasConstantFactor: Ptr[Byte] = null
-        var getDepthBiasConstantFactor: Ptr[Byte] = null
-        var setDepthBiasClamp: Ptr[Byte] = null
-        var getDepthBiasClamp: Ptr[Byte] = null
-        var setDepthBiasSlopeFactor: Ptr[Byte] = null
-        var getDepthBiasSlopeFactor: Ptr[Byte] = null
-        var setLineWidth: Ptr[Byte] = null
-        var getLineWidth: Ptr[Byte] = null
-        var setPatchControlPoints: Ptr[Byte] = null
-        var getPatchControlPoints: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setEnableDepthClamp = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_enable_depth_clamp", 2586408642L)
-            Binds.getEnableDepthClamp = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_enable_depth_clamp", 36873697L)
-            Binds.setDiscardPrimitives = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_discard_primitives", 2586408642L)
-            Binds.getDiscardPrimitives = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_discard_primitives", 36873697L)
-            Binds.setWireframe = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_wireframe", 2586408642L)
-            Binds.getWireframe = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_wireframe", 36873697L)
-            Binds.setCullMode = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_cull_mode", 2662586502L)
-            Binds.getCullMode = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_cull_mode", 2192484313L)
-            Binds.setFrontFace = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_front_face", 2637251213L)
-            Binds.getFrontFace = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_front_face", 708793786L)
-            Binds.setDepthBiasEnabled = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_depth_bias_enabled", 2586408642L)
-            Binds.getDepthBiasEnabled = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_depth_bias_enabled", 36873697L)
-            Binds.setDepthBiasConstantFactor = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_depth_bias_constant_factor", 373806689L)
-            Binds.getDepthBiasConstantFactor = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_depth_bias_constant_factor", 1740695150L)
-            Binds.setDepthBiasClamp = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_depth_bias_clamp", 373806689L)
-            Binds.getDepthBiasClamp = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_depth_bias_clamp", 1740695150L)
-            Binds.setDepthBiasSlopeFactor = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_depth_bias_slope_factor", 373806689L)
-            Binds.getDepthBiasSlopeFactor = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_depth_bias_slope_factor", 1740695150L)
-            Binds.setLineWidth = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_line_width", 373806689L)
-            Binds.getLineWidth = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_line_width", 1740695150L)
-            Binds.setPatchControlPoints = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"set_patch_control_points", 1286410249L)
-            Binds.getPatchControlPoints = GdxApi.getMethodBind(c"RDPipelineRasterizationState", c"get_patch_control_points", 3905245786L)
-
-    def apply(): RDPipelineRasterizationState =
-        val obj = new RDPipelineRasterizationState()
-        obj.ptr = GdxApi.constructObject(c"RDPipelineRasterizationState")
-        obj
+def apply(): RDPipelineRasterizationState = {
+  val obj = new RDPipelineRasterizationState()
+  obj.ptr = GdxApi.constructObject(c"RDPipelineRasterizationState")
+  obj
+}

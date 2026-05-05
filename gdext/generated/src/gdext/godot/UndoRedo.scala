@@ -5,142 +5,152 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class UndoRedo extends Object
-
-    def createAction(name: CString): Unit =
+class UndoRedo extends Object {
+    def createAction(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(UndoRedo.Binds.createAction, ptr, _args, null)
+}
 
-    def commitAction(): Unit =
+    def commitAction(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(UndoRedo.Binds.commitAction, ptr, _args, null)
+}
 
-    def isCommittingAction(): Boolean =
+    def isCommittingAction(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UndoRedo.Binds.isCommittingAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addDoMethod(callable: Callable): Unit =
+    def addDoMethod(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(UndoRedo.Binds.addDoMethod, ptr, _args, null)
+}
 
-    def addUndoMethod(callable: Callable): Unit =
+    def addUndoMethod(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(UndoRedo.Binds.addUndoMethod, ptr, _args, null)
+}
 
-    def addDoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit =
+    def addDoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = `object`.ptr
-        _args(1) = property.ptr
-        _args(2) = value.ptr
+        _args(1) = property
+        _args(2) = value
         GdxApi.ptrcall(UndoRedo.Binds.addDoProperty, ptr, _args, null)
+}
 
-    def addUndoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit =
+    def addUndoProperty(`object`: Object, property: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = `object`.ptr
-        _args(1) = property.ptr
-        _args(2) = value.ptr
+        _args(1) = property
+        _args(2) = value
         GdxApi.ptrcall(UndoRedo.Binds.addUndoProperty, ptr, _args, null)
+}
 
-    def addDoReference(`object`: Object): Unit =
+    def addDoReference(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(UndoRedo.Binds.addDoReference, ptr, _args, null)
+}
 
-    def addUndoReference(`object`: Object): Unit =
+    def addUndoReference(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(UndoRedo.Binds.addUndoReference, ptr, _args, null)
+}
 
-    def startForceKeepInMergeEnds(): Unit =
+    def startForceKeepInMergeEnds(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(UndoRedo.Binds.startForceKeepInMergeEnds, ptr, _args, null)
+}
 
-    def endForceKeepInMergeEnds(): Unit =
+    def endForceKeepInMergeEnds(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(UndoRedo.Binds.endForceKeepInMergeEnds, ptr, _args, null)
+}
 
-    def getHistoryCount(): Int =
+    def getHistoryCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UndoRedo.Binds.getHistoryCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCurrentAction(): Int =
+    def getCurrentAction(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UndoRedo.Binds.getCurrentAction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getActionName(id: Int): CString =
+    def getActionName(id: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UndoRedo.Binds.getActionName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clearHistory(): Unit =
+    def clearHistory(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(UndoRedo.Binds.clearHistory, ptr, _args, null)
+}
 
-    def getCurrentActionName(): CString =
+    def getCurrentActionName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UndoRedo.Binds.getCurrentActionName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasUndo(): Boolean =
+    def hasUndo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UndoRedo.Binds.hasUndo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasRedo(): Boolean =
+    def hasRedo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UndoRedo.Binds.hasRedo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getVersion(): Long =
+    def getVersion(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UndoRedo.Binds.getVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMaxSteps(maxSteps: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxSteps.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(UndoRedo.Binds.setMaxSteps, ptr, _args, null)
-
-    def getMaxSteps(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(UndoRedo.Binds.getMaxSteps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def redo(): Boolean =
+    def redo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UndoRedo.Binds.redo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def undo(): Boolean =
+    def undo(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UndoRedo.Binds.undo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def maxSteps: Ptr[Byte] = getMaxSteps()
-    def maxSteps_=(v: Ptr[Byte]): Unit = setMaxSteps(v)
+}
+
+    def maxSteps: Int = getMaxSteps()
+    def maxSteps_=(v: Int): Unit = setMaxSteps(v)
+}
 
 object UndoRedo:
-    object Binds:
-        var createAction: Ptr[Byte] = null
+object Binds {
+          var createAction: Ptr[Byte] = null
         var commitAction: Ptr[Byte] = null
         var isCommittingAction: Ptr[Byte] = null
         var addDoMethod: Ptr[Byte] = null
@@ -159,13 +169,11 @@ object UndoRedo:
         var hasUndo: Ptr[Byte] = null
         var hasRedo: Ptr[Byte] = null
         var getVersion: Ptr[Byte] = null
-        var setMaxSteps: Ptr[Byte] = null
-        var getMaxSteps: Ptr[Byte] = null
         var redo: Ptr[Byte] = null
         var undo: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createAction = GdxApi.getMethodBind(c"UndoRedo", c"create_action", 3171901514L)
+  def loadBinds(): Unit = {
+                Binds.createAction = GdxApi.getMethodBind(c"UndoRedo", c"create_action", 3171901514L)
             Binds.commitAction = GdxApi.getMethodBind(c"UndoRedo", c"commit_action", 3216645846L)
             Binds.isCommittingAction = GdxApi.getMethodBind(c"UndoRedo", c"is_committing_action", 36873697L)
             Binds.addDoMethod = GdxApi.getMethodBind(c"UndoRedo", c"add_do_method", 1611583062L)
@@ -184,12 +192,13 @@ object UndoRedo:
             Binds.hasUndo = GdxApi.getMethodBind(c"UndoRedo", c"has_undo", 36873697L)
             Binds.hasRedo = GdxApi.getMethodBind(c"UndoRedo", c"has_redo", 36873697L)
             Binds.getVersion = GdxApi.getMethodBind(c"UndoRedo", c"get_version", 3905245786L)
-            Binds.setMaxSteps = GdxApi.getMethodBind(c"UndoRedo", c"set_max_steps", 1286410249L)
-            Binds.getMaxSteps = GdxApi.getMethodBind(c"UndoRedo", c"get_max_steps", 3905245786L)
             Binds.redo = GdxApi.getMethodBind(c"UndoRedo", c"redo", 2240911060L)
             Binds.undo = GdxApi.getMethodBind(c"UndoRedo", c"undo", 2240911060L)
+  }
+}
 
-    def apply(): UndoRedo =
-        val obj = new UndoRedo()
-        obj.ptr = GdxApi.constructObject(c"UndoRedo")
-        obj
+def apply(): UndoRedo = {
+  val obj = new UndoRedo()
+  obj.ptr = GdxApi.constructObject(c"UndoRedo")
+  obj
+}

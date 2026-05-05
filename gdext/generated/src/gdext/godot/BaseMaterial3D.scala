@@ -5,1478 +5,267 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class BaseMaterial3D extends Material
-
-    def setAlbedo(albedo: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = albedo.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAlbedo, ptr, _args, null)
-
-    def getAlbedo(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAlbedo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setTransparency(transparency: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = transparency.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setTransparency, ptr, _args, null)
-
-    def getTransparency(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getTransparency, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaAntialiasing(alphaAa: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alphaAa.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAlphaAntialiasing, ptr, _args, null)
-
-    def getAlphaAntialiasing(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAlphaAntialiasing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaAntialiasingEdge(edge: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = edge.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAlphaAntialiasingEdge, ptr, _args, null)
-
-    def getAlphaAntialiasingEdge(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAlphaAntialiasingEdge, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setShadingMode(shadingMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shadingMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setShadingMode, ptr, _args, null)
-
-    def getShadingMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getShadingMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSpecular(specular: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = specular.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setSpecular, ptr, _args, null)
-
-    def getSpecular(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getSpecular, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMetallic(metallic: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = metallic.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setMetallic, ptr, _args, null)
-
-    def getMetallic(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getMetallic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRoughness(roughness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = roughness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setRoughness, ptr, _args, null)
-
-    def getRoughness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getRoughness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmission(emission: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = emission.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setEmission, ptr, _args, null)
-
-    def getEmission(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getEmission, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setEmissionEnergyMultiplier(emissionEnergyMultiplier: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = emissionEnergyMultiplier.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setEmissionEnergyMultiplier, ptr, _args, null)
-
-    def getEmissionEnergyMultiplier(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getEmissionEnergyMultiplier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmissionIntensity(emissionEnergyMultiplier: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = emissionEnergyMultiplier.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setEmissionIntensity, ptr, _args, null)
-
-    def getEmissionIntensity(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getEmissionIntensity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setNormalScale(normalScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = normalScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setNormalScale, ptr, _args, null)
-
-    def getNormalScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getNormalScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRim(rim: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = rim.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setRim, ptr, _args, null)
-
-    def getRim(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getRim, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRimTint(rimTint: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = rimTint.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setRimTint, ptr, _args, null)
-
-    def getRimTint(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getRimTint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setClearcoat(clearcoat: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = clearcoat.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setClearcoat, ptr, _args, null)
-
-    def getClearcoat(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getClearcoat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setClearcoatRoughness(clearcoatRoughness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = clearcoatRoughness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setClearcoatRoughness, ptr, _args, null)
-
-    def getClearcoatRoughness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getClearcoatRoughness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAnisotropy(anisotropy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = anisotropy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAnisotropy, ptr, _args, null)
-
-    def getAnisotropy(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAnisotropy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHeightmapScale(heightmapScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = heightmapScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setHeightmapScale, ptr, _args, null)
-
-    def getHeightmapScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getHeightmapScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSubsurfaceScatteringStrength(strength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = strength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setSubsurfaceScatteringStrength, ptr, _args, null)
-
-    def getSubsurfaceScatteringStrength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getSubsurfaceScatteringStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTransmittanceColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setTransmittanceColor, ptr, _args, null)
-
-    def getTransmittanceColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getTransmittanceColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setTransmittanceDepth(depth: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = depth.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setTransmittanceDepth, ptr, _args, null)
-
-    def getTransmittanceDepth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getTransmittanceDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setTransmittanceBoost(boost: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = boost.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setTransmittanceBoost, ptr, _args, null)
-
-    def getTransmittanceBoost(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getTransmittanceBoost, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBacklight(backlight: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = backlight.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setBacklight, ptr, _args, null)
-
-    def getBacklight(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getBacklight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setRefraction(refraction: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = refraction.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setRefraction, ptr, _args, null)
-
-    def getRefraction(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getRefraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPointSize(pointSize: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pointSize.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setPointSize, ptr, _args, null)
-
-    def getPointSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getPointSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDetailUv(detailUv: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = detailUv.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDetailUv, ptr, _args, null)
-
-    def getDetailUv(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDetailUv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBlendMode(blendMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = blendMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setBlendMode, ptr, _args, null)
-
-    def getBlendMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getBlendMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDepthDrawMode(depthDrawMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = depthDrawMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDepthDrawMode, ptr, _args, null)
-
-    def getDepthDrawMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDepthDrawMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDepthTest(depthTest: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = depthTest.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDepthTest, ptr, _args, null)
-
-    def getDepthTest(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDepthTest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCullMode(cullMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = cullMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setCullMode, ptr, _args, null)
-
-    def getCullMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getCullMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDiffuseMode(diffuseMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = diffuseMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDiffuseMode, ptr, _args, null)
-
-    def getDiffuseMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDiffuseMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSpecularMode(specularMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = specularMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setSpecularMode, ptr, _args, null)
-
-    def getSpecularMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getSpecularMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFlag(flag: Int, enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = flag.ptr
-        val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setFlag, ptr, _args, null)
-
-    def getFlag(flag: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flag.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTextureFilter(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setTextureFilter, ptr, _args, null)
-
-    def getTextureFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getTextureFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFeature(feature: Int, enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = feature.ptr
-        val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setFeature, ptr, _args, null)
-
-    def getFeature(feature: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTexture(param: Int, texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
-        _args(1) = texture.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(param: Int): Texture2D =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setDetailBlendMode(detailBlendMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = detailBlendMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDetailBlendMode, ptr, _args, null)
-
-    def getDetailBlendMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDetailBlendMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUv1Scale(scale: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setUv1Scale, ptr, _args, null)
-
-    def getUv1Scale(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getUv1Scale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setUv1Offset(offset: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setUv1Offset, ptr, _args, null)
-
-    def getUv1Offset(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getUv1Offset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setUv1TriplanarBlendSharpness(sharpness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = sharpness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setUv1TriplanarBlendSharpness, ptr, _args, null)
-
-    def getUv1TriplanarBlendSharpness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getUv1TriplanarBlendSharpness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUv2Scale(scale: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setUv2Scale, ptr, _args, null)
-
-    def getUv2Scale(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getUv2Scale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setUv2Offset(offset: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setUv2Offset, ptr, _args, null)
-
-    def getUv2Offset(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getUv2Offset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setUv2TriplanarBlendSharpness(sharpness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = sharpness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setUv2TriplanarBlendSharpness, ptr, _args, null)
-
-    def getUv2TriplanarBlendSharpness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getUv2TriplanarBlendSharpness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBillboardMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setBillboardMode, ptr, _args, null)
-
-    def getBillboardMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getBillboardMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setParticlesAnimHFrames(frames: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frames.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setParticlesAnimHFrames, ptr, _args, null)
-
-    def getParticlesAnimHFrames(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getParticlesAnimHFrames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setParticlesAnimVFrames(frames: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frames.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setParticlesAnimVFrames, ptr, _args, null)
-
-    def getParticlesAnimVFrames(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getParticlesAnimVFrames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setParticlesAnimLoop(loop: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if loop then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setParticlesAnimLoop, ptr, _args, null)
-
-    def getParticlesAnimLoop(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getParticlesAnimLoop, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHeightmapDeepParallax(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setHeightmapDeepParallax, ptr, _args, null)
-
-    def isHeightmapDeepParallaxEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.isHeightmapDeepParallaxEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHeightmapDeepParallaxMinLayers(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setHeightmapDeepParallaxMinLayers, ptr, _args, null)
-
-    def getHeightmapDeepParallaxMinLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getHeightmapDeepParallaxMinLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHeightmapDeepParallaxMaxLayers(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setHeightmapDeepParallaxMaxLayers, ptr, _args, null)
-
-    def getHeightmapDeepParallaxMaxLayers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getHeightmapDeepParallaxMaxLayers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHeightmapDeepParallaxFlipTangent(flip: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flip then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setHeightmapDeepParallaxFlipTangent, ptr, _args, null)
-
-    def getHeightmapDeepParallaxFlipTangent(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getHeightmapDeepParallaxFlipTangent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHeightmapDeepParallaxFlipBinormal(flip: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flip then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setHeightmapDeepParallaxFlipBinormal, ptr, _args, null)
-
-    def getHeightmapDeepParallaxFlipBinormal(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getHeightmapDeepParallaxFlipBinormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setGrow(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setGrow, ptr, _args, null)
-
-    def getGrow(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getGrow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEmissionOperator(operator: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = operator.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setEmissionOperator, ptr, _args, null)
-
-    def getEmissionOperator(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getEmissionOperator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAoLightAffect(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAoLightAffect, ptr, _args, null)
-
-    def getAoLightAffect(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAoLightAffect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAlphaScissorThreshold(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAlphaScissorThreshold, ptr, _args, null)
-
-    def getAlphaScissorThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAlphaScissorThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAlphaHashScale(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAlphaHashScale, ptr, _args, null)
-
-    def getAlphaHashScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAlphaHashScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGrowEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setGrowEnabled, ptr, _args, null)
-
-    def isGrowEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.isGrowEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMetallicTextureChannel(channel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = channel.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setMetallicTextureChannel, ptr, _args, null)
-
-    def getMetallicTextureChannel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getMetallicTextureChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRoughnessTextureChannel(channel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = channel.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setRoughnessTextureChannel, ptr, _args, null)
-
-    def getRoughnessTextureChannel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getRoughnessTextureChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAoTextureChannel(channel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = channel.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setAoTextureChannel, ptr, _args, null)
-
-    def getAoTextureChannel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getAoTextureChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRefractionTextureChannel(channel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = channel.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setRefractionTextureChannel, ptr, _args, null)
-
-    def getRefractionTextureChannel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getRefractionTextureChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setProximityFadeEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setProximityFadeEnabled, ptr, _args, null)
-
-    def isProximityFadeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.isProximityFadeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setProximityFadeDistance(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setProximityFadeDistance, ptr, _args, null)
-
-    def getProximityFadeDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getProximityFadeDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMsdfPixelRange(range: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = range.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setMsdfPixelRange, ptr, _args, null)
-
-    def getMsdfPixelRange(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getMsdfPixelRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMsdfOutlineSize(size: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = size.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setMsdfOutlineSize, ptr, _args, null)
-
-    def getMsdfOutlineSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getMsdfOutlineSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDistanceFade(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDistanceFade, ptr, _args, null)
-
-    def getDistanceFade(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDistanceFade, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDistanceFadeMaxDistance(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDistanceFadeMaxDistance, ptr, _args, null)
-
-    def getDistanceFadeMaxDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDistanceFadeMaxDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDistanceFadeMinDistance(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setDistanceFadeMinDistance, ptr, _args, null)
-
-    def getDistanceFadeMinDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getDistanceFadeMinDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setZClipScale(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setZClipScale, ptr, _args, null)
-
-    def getZClipScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getZClipScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFovOverride(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setFovOverride, ptr, _args, null)
-
-    def getFovOverride(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getFovOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setStencilMode(stencilMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stencilMode.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setStencilMode, ptr, _args, null)
-
-    def getStencilMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getStencilMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStencilFlags(stencilFlags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = stencilFlags.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setStencilFlags, ptr, _args, null)
-
-    def getStencilFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getStencilFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStencilCompare(stencilCompare: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stencilCompare.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setStencilCompare, ptr, _args, null)
-
-    def getStencilCompare(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getStencilCompare, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStencilReference(stencilReference: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = stencilReference.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setStencilReference, ptr, _args, null)
-
-    def getStencilReference(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getStencilReference, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStencilEffectColor(stencilColor: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stencilColor.ptr
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setStencilEffectColor, ptr, _args, null)
-
-    def getStencilEffectColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getStencilEffectColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setStencilEffectOutlineThickness(stencilOutlineThickness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = stencilOutlineThickness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(BaseMaterial3D.Binds.setStencilEffectOutlineThickness, ptr, _args, null)
-
-    def getStencilEffectOutlineThickness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(BaseMaterial3D.Binds.getStencilEffectOutlineThickness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def transparency: Ptr[Byte] = getTransparency()
-    def transparency_=(v: Ptr[Byte]): Unit = setTransparency(v)
-    def alphaScissorThreshold: Ptr[Byte] = getAlphaScissorThreshold()
-    def alphaScissorThreshold_=(v: Ptr[Byte]): Unit = setAlphaScissorThreshold(v)
-    def alphaHashScale: Ptr[Byte] = getAlphaHashScale()
-    def alphaHashScale_=(v: Ptr[Byte]): Unit = setAlphaHashScale(v)
-    def alphaAntialiasingMode: Ptr[Byte] = getAlphaAntialiasing()
-    def alphaAntialiasingMode_=(v: Ptr[Byte]): Unit = setAlphaAntialiasing(v)
-    def alphaAntialiasingEdge: Ptr[Byte] = getAlphaAntialiasingEdge()
-    def alphaAntialiasingEdge_=(v: Ptr[Byte]): Unit = setAlphaAntialiasingEdge(v)
-    def blendMode: Ptr[Byte] = getBlendMode()
-    def blendMode_=(v: Ptr[Byte]): Unit = setBlendMode(v)
-    def cullMode: Ptr[Byte] = getCullMode()
-    def cullMode_=(v: Ptr[Byte]): Unit = setCullMode(v)
-    def depthDrawMode: Ptr[Byte] = getDepthDrawMode()
-    def depthDrawMode_=(v: Ptr[Byte]): Unit = setDepthDrawMode(v)
-    def noDepthTest: Ptr[Byte] = getFlag()
-    def noDepthTest_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def depthTest: Ptr[Byte] = getDepthTest()
-    def depthTest_=(v: Ptr[Byte]): Unit = setDepthTest(v)
-    def shadingMode: Ptr[Byte] = getShadingMode()
-    def shadingMode_=(v: Ptr[Byte]): Unit = setShadingMode(v)
-    def diffuseMode: Ptr[Byte] = getDiffuseMode()
-    def diffuseMode_=(v: Ptr[Byte]): Unit = setDiffuseMode(v)
-    def specularMode: Ptr[Byte] = getSpecularMode()
-    def specularMode_=(v: Ptr[Byte]): Unit = setSpecularMode(v)
-    def disableAmbientLight: Ptr[Byte] = getFlag()
-    def disableAmbientLight_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def disableFog: Ptr[Byte] = getFlag()
-    def disableFog_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def disableSpecularOcclusion: Ptr[Byte] = getFlag()
-    def disableSpecularOcclusion_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def vertexColorUseAsAlbedo: Ptr[Byte] = getFlag()
-    def vertexColorUseAsAlbedo_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def vertexColorIsSrgb: Ptr[Byte] = getFlag()
-    def vertexColorIsSrgb_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def albedoColor: Ptr[Byte] = getAlbedo()
-    def albedoColor_=(v: Ptr[Byte]): Unit = setAlbedo(v)
-    def albedoTexture: Ptr[Byte] = getTexture()
-    def albedoTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def albedoTextureForceSrgb: Ptr[Byte] = getFlag()
-    def albedoTextureForceSrgb_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def albedoTextureMsdf: Ptr[Byte] = getFlag()
-    def albedoTextureMsdf_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def ormTexture: Ptr[Byte] = getTexture()
-    def ormTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def metallic: Ptr[Byte] = getMetallic()
-    def metallic_=(v: Ptr[Byte]): Unit = setMetallic(v)
-    def metallicSpecular: Ptr[Byte] = getSpecular()
-    def metallicSpecular_=(v: Ptr[Byte]): Unit = setSpecular(v)
-    def metallicTexture: Ptr[Byte] = getTexture()
-    def metallicTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def metallicTextureChannel: Ptr[Byte] = getMetallicTextureChannel()
-    def metallicTextureChannel_=(v: Ptr[Byte]): Unit = setMetallicTextureChannel(v)
-    def roughness: Ptr[Byte] = getRoughness()
-    def roughness_=(v: Ptr[Byte]): Unit = setRoughness(v)
-    def roughnessTexture: Ptr[Byte] = getTexture()
-    def roughnessTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def roughnessTextureChannel: Ptr[Byte] = getRoughnessTextureChannel()
-    def roughnessTextureChannel_=(v: Ptr[Byte]): Unit = setRoughnessTextureChannel(v)
-    def emissionEnabled: Ptr[Byte] = getFeature()
-    def emissionEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def emission: Ptr[Byte] = getEmission()
-    def emission_=(v: Ptr[Byte]): Unit = setEmission(v)
-    def emissionEnergyMultiplier: Ptr[Byte] = getEmissionEnergyMultiplier()
-    def emissionEnergyMultiplier_=(v: Ptr[Byte]): Unit = setEmissionEnergyMultiplier(v)
-    def emissionIntensity: Ptr[Byte] = getEmissionIntensity()
-    def emissionIntensity_=(v: Ptr[Byte]): Unit = setEmissionIntensity(v)
-    def emissionOperator: Ptr[Byte] = getEmissionOperator()
-    def emissionOperator_=(v: Ptr[Byte]): Unit = setEmissionOperator(v)
-    def emissionOnUv2: Ptr[Byte] = getFlag()
-    def emissionOnUv2_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def emissionTexture: Ptr[Byte] = getTexture()
-    def emissionTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def normalEnabled: Ptr[Byte] = getFeature()
-    def normalEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def normalScale: Ptr[Byte] = getNormalScale()
-    def normalScale_=(v: Ptr[Byte]): Unit = setNormalScale(v)
-    def normalTexture: Ptr[Byte] = getTexture()
-    def normalTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def bentNormalEnabled: Ptr[Byte] = getFeature()
-    def bentNormalEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def bentNormalTexture: Ptr[Byte] = getTexture()
-    def bentNormalTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def rimEnabled: Ptr[Byte] = getFeature()
-    def rimEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def rim: Ptr[Byte] = getRim()
-    def rim_=(v: Ptr[Byte]): Unit = setRim(v)
-    def rimTint: Ptr[Byte] = getRimTint()
-    def rimTint_=(v: Ptr[Byte]): Unit = setRimTint(v)
-    def rimTexture: Ptr[Byte] = getTexture()
-    def rimTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def clearcoatEnabled: Ptr[Byte] = getFeature()
-    def clearcoatEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def clearcoat: Ptr[Byte] = getClearcoat()
-    def clearcoat_=(v: Ptr[Byte]): Unit = setClearcoat(v)
-    def clearcoatRoughness: Ptr[Byte] = getClearcoatRoughness()
-    def clearcoatRoughness_=(v: Ptr[Byte]): Unit = setClearcoatRoughness(v)
-    def clearcoatTexture: Ptr[Byte] = getTexture()
-    def clearcoatTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def anisotropyEnabled: Ptr[Byte] = getFeature()
-    def anisotropyEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def anisotropy: Ptr[Byte] = getAnisotropy()
-    def anisotropy_=(v: Ptr[Byte]): Unit = setAnisotropy(v)
-    def anisotropyFlowmap: Ptr[Byte] = getTexture()
-    def anisotropyFlowmap_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def aoEnabled: Ptr[Byte] = getFeature()
-    def aoEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def aoLightAffect: Ptr[Byte] = getAoLightAffect()
-    def aoLightAffect_=(v: Ptr[Byte]): Unit = setAoLightAffect(v)
-    def aoTexture: Ptr[Byte] = getTexture()
-    def aoTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def aoOnUv2: Ptr[Byte] = getFlag()
-    def aoOnUv2_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def aoTextureChannel: Ptr[Byte] = getAoTextureChannel()
-    def aoTextureChannel_=(v: Ptr[Byte]): Unit = setAoTextureChannel(v)
-    def heightmapEnabled: Ptr[Byte] = getFeature()
-    def heightmapEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def heightmapScale: Ptr[Byte] = getHeightmapScale()
-    def heightmapScale_=(v: Ptr[Byte]): Unit = setHeightmapScale(v)
-    def heightmapDeepParallax: Ptr[Byte] = isHeightmapDeepParallaxEnabled()
-    def heightmapDeepParallax_=(v: Ptr[Byte]): Unit = setHeightmapDeepParallax(v)
-    def heightmapMinLayers: Ptr[Byte] = getHeightmapDeepParallaxMinLayers()
-    def heightmapMinLayers_=(v: Ptr[Byte]): Unit = setHeightmapDeepParallaxMinLayers(v)
-    def heightmapMaxLayers: Ptr[Byte] = getHeightmapDeepParallaxMaxLayers()
-    def heightmapMaxLayers_=(v: Ptr[Byte]): Unit = setHeightmapDeepParallaxMaxLayers(v)
-    def heightmapFlipTangent: Ptr[Byte] = getHeightmapDeepParallaxFlipTangent()
-    def heightmapFlipTangent_=(v: Ptr[Byte]): Unit = setHeightmapDeepParallaxFlipTangent(v)
-    def heightmapFlipBinormal: Ptr[Byte] = getHeightmapDeepParallaxFlipBinormal()
-    def heightmapFlipBinormal_=(v: Ptr[Byte]): Unit = setHeightmapDeepParallaxFlipBinormal(v)
-    def heightmapTexture: Ptr[Byte] = getTexture()
-    def heightmapTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def heightmapFlipTexture: Ptr[Byte] = getFlag()
-    def heightmapFlipTexture_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def subsurfScatterEnabled: Ptr[Byte] = getFeature()
-    def subsurfScatterEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def subsurfScatterStrength: Ptr[Byte] = getSubsurfaceScatteringStrength()
-    def subsurfScatterStrength_=(v: Ptr[Byte]): Unit = setSubsurfaceScatteringStrength(v)
-    def subsurfScatterSkinMode: Ptr[Byte] = getFlag()
-    def subsurfScatterSkinMode_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def subsurfScatterTexture: Ptr[Byte] = getTexture()
-    def subsurfScatterTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def subsurfScatterTransmittanceEnabled: Ptr[Byte] = getFeature()
-    def subsurfScatterTransmittanceEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def subsurfScatterTransmittanceColor: Ptr[Byte] = getTransmittanceColor()
-    def subsurfScatterTransmittanceColor_=(v: Ptr[Byte]): Unit = setTransmittanceColor(v)
-    def subsurfScatterTransmittanceTexture: Ptr[Byte] = getTexture()
-    def subsurfScatterTransmittanceTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def subsurfScatterTransmittanceDepth: Ptr[Byte] = getTransmittanceDepth()
-    def subsurfScatterTransmittanceDepth_=(v: Ptr[Byte]): Unit = setTransmittanceDepth(v)
-    def subsurfScatterTransmittanceBoost: Ptr[Byte] = getTransmittanceBoost()
-    def subsurfScatterTransmittanceBoost_=(v: Ptr[Byte]): Unit = setTransmittanceBoost(v)
-    def backlightEnabled: Ptr[Byte] = getFeature()
-    def backlightEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def backlight: Ptr[Byte] = getBacklight()
-    def backlight_=(v: Ptr[Byte]): Unit = setBacklight(v)
-    def backlightTexture: Ptr[Byte] = getTexture()
-    def backlightTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def refractionEnabled: Ptr[Byte] = getFeature()
-    def refractionEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def refractionScale: Ptr[Byte] = getRefraction()
-    def refractionScale_=(v: Ptr[Byte]): Unit = setRefraction(v)
-    def refractionTexture: Ptr[Byte] = getTexture()
-    def refractionTexture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def refractionTextureChannel: Ptr[Byte] = getRefractionTextureChannel()
-    def refractionTextureChannel_=(v: Ptr[Byte]): Unit = setRefractionTextureChannel(v)
-    def detailEnabled: Ptr[Byte] = getFeature()
-    def detailEnabled_=(v: Ptr[Byte]): Unit = setFeature(v)
-    def detailMask: Ptr[Byte] = getTexture()
-    def detailMask_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def detailBlendMode: Ptr[Byte] = getDetailBlendMode()
-    def detailBlendMode_=(v: Ptr[Byte]): Unit = setDetailBlendMode(v)
-    def detailUvLayer: Ptr[Byte] = getDetailUv()
-    def detailUvLayer_=(v: Ptr[Byte]): Unit = setDetailUv(v)
-    def detailAlbedo: Ptr[Byte] = getTexture()
-    def detailAlbedo_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def detailNormal: Ptr[Byte] = getTexture()
-    def detailNormal_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def uv1Scale: Ptr[Byte] = getUv1Scale()
-    def uv1Scale_=(v: Ptr[Byte]): Unit = setUv1Scale(v)
-    def uv1Offset: Ptr[Byte] = getUv1Offset()
-    def uv1Offset_=(v: Ptr[Byte]): Unit = setUv1Offset(v)
-    def uv1Triplanar: Ptr[Byte] = getFlag()
-    def uv1Triplanar_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def uv1TriplanarSharpness: Ptr[Byte] = getUv1TriplanarBlendSharpness()
-    def uv1TriplanarSharpness_=(v: Ptr[Byte]): Unit = setUv1TriplanarBlendSharpness(v)
-    def uv1WorldTriplanar: Ptr[Byte] = getFlag()
-    def uv1WorldTriplanar_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def uv2Scale: Ptr[Byte] = getUv2Scale()
-    def uv2Scale_=(v: Ptr[Byte]): Unit = setUv2Scale(v)
-    def uv2Offset: Ptr[Byte] = getUv2Offset()
-    def uv2Offset_=(v: Ptr[Byte]): Unit = setUv2Offset(v)
-    def uv2Triplanar: Ptr[Byte] = getFlag()
-    def uv2Triplanar_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def uv2TriplanarSharpness: Ptr[Byte] = getUv2TriplanarBlendSharpness()
-    def uv2TriplanarSharpness_=(v: Ptr[Byte]): Unit = setUv2TriplanarBlendSharpness(v)
-    def uv2WorldTriplanar: Ptr[Byte] = getFlag()
-    def uv2WorldTriplanar_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def textureFilter: Ptr[Byte] = getTextureFilter()
-    def textureFilter_=(v: Ptr[Byte]): Unit = setTextureFilter(v)
-    def textureRepeat: Ptr[Byte] = getFlag()
-    def textureRepeat_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def disableReceiveShadows: Ptr[Byte] = getFlag()
-    def disableReceiveShadows_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def shadowToOpacity: Ptr[Byte] = getFlag()
-    def shadowToOpacity_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def billboardMode: Ptr[Byte] = getBillboardMode()
-    def billboardMode_=(v: Ptr[Byte]): Unit = setBillboardMode(v)
-    def billboardKeepScale: Ptr[Byte] = getFlag()
-    def billboardKeepScale_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def particlesAnimHFrames: Ptr[Byte] = getParticlesAnimHFrames()
-    def particlesAnimHFrames_=(v: Ptr[Byte]): Unit = setParticlesAnimHFrames(v)
-    def particlesAnimVFrames: Ptr[Byte] = getParticlesAnimVFrames()
-    def particlesAnimVFrames_=(v: Ptr[Byte]): Unit = setParticlesAnimVFrames(v)
-    def particlesAnimLoop: Ptr[Byte] = getParticlesAnimLoop()
-    def particlesAnimLoop_=(v: Ptr[Byte]): Unit = setParticlesAnimLoop(v)
-    def grow: Ptr[Byte] = isGrowEnabled()
-    def grow_=(v: Ptr[Byte]): Unit = setGrowEnabled(v)
-    def growAmount: Ptr[Byte] = getGrow()
-    def growAmount_=(v: Ptr[Byte]): Unit = setGrow(v)
-    def fixedSize: Ptr[Byte] = getFlag()
-    def fixedSize_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def usePointSize: Ptr[Byte] = getFlag()
-    def usePointSize_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def pointSize: Ptr[Byte] = getPointSize()
-    def pointSize_=(v: Ptr[Byte]): Unit = setPointSize(v)
-    def useParticleTrails: Ptr[Byte] = getFlag()
-    def useParticleTrails_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def useZClipScale: Ptr[Byte] = getFlag()
-    def useZClipScale_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def zClipScale: Ptr[Byte] = getZClipScale()
-    def zClipScale_=(v: Ptr[Byte]): Unit = setZClipScale(v)
-    def useFovOverride: Ptr[Byte] = getFlag()
-    def useFovOverride_=(v: Ptr[Byte]): Unit = setFlag(v)
-    def fovOverride: Ptr[Byte] = getFovOverride()
-    def fovOverride_=(v: Ptr[Byte]): Unit = setFovOverride(v)
-    def proximityFadeEnabled: Ptr[Byte] = isProximityFadeEnabled()
-    def proximityFadeEnabled_=(v: Ptr[Byte]): Unit = setProximityFadeEnabled(v)
-    def proximityFadeDistance: Ptr[Byte] = getProximityFadeDistance()
-    def proximityFadeDistance_=(v: Ptr[Byte]): Unit = setProximityFadeDistance(v)
-    def msdfPixelRange: Ptr[Byte] = getMsdfPixelRange()
-    def msdfPixelRange_=(v: Ptr[Byte]): Unit = setMsdfPixelRange(v)
-    def msdfOutlineSize: Ptr[Byte] = getMsdfOutlineSize()
-    def msdfOutlineSize_=(v: Ptr[Byte]): Unit = setMsdfOutlineSize(v)
-    def distanceFadeMode: Ptr[Byte] = getDistanceFade()
-    def distanceFadeMode_=(v: Ptr[Byte]): Unit = setDistanceFade(v)
-    def distanceFadeMinDistance: Ptr[Byte] = getDistanceFadeMinDistance()
-    def distanceFadeMinDistance_=(v: Ptr[Byte]): Unit = setDistanceFadeMinDistance(v)
-    def distanceFadeMaxDistance: Ptr[Byte] = getDistanceFadeMaxDistance()
-    def distanceFadeMaxDistance_=(v: Ptr[Byte]): Unit = setDistanceFadeMaxDistance(v)
-    def stencilMode: Ptr[Byte] = getStencilMode()
-    def stencilMode_=(v: Ptr[Byte]): Unit = setStencilMode(v)
-    def stencilFlags: Ptr[Byte] = getStencilFlags()
-    def stencilFlags_=(v: Ptr[Byte]): Unit = setStencilFlags(v)
-    def stencilCompare: Ptr[Byte] = getStencilCompare()
-    def stencilCompare_=(v: Ptr[Byte]): Unit = setStencilCompare(v)
-    def stencilReference: Ptr[Byte] = getStencilReference()
-    def stencilReference_=(v: Ptr[Byte]): Unit = setStencilReference(v)
-    def stencilColor: Ptr[Byte] = getStencilEffectColor()
-    def stencilColor_=(v: Ptr[Byte]): Unit = setStencilEffectColor(v)
-    def stencilOutlineThickness: Ptr[Byte] = getStencilEffectOutlineThickness()
-    def stencilOutlineThickness_=(v: Ptr[Byte]): Unit = setStencilEffectOutlineThickness(v)
-
-object BaseMaterial3D:
-    object Binds:
-        var setAlbedo: Ptr[Byte] = null
-        var getAlbedo: Ptr[Byte] = null
-        var setTransparency: Ptr[Byte] = null
-        var getTransparency: Ptr[Byte] = null
-        var setAlphaAntialiasing: Ptr[Byte] = null
-        var getAlphaAntialiasing: Ptr[Byte] = null
-        var setAlphaAntialiasingEdge: Ptr[Byte] = null
-        var getAlphaAntialiasingEdge: Ptr[Byte] = null
-        var setShadingMode: Ptr[Byte] = null
-        var getShadingMode: Ptr[Byte] = null
-        var setSpecular: Ptr[Byte] = null
-        var getSpecular: Ptr[Byte] = null
-        var setMetallic: Ptr[Byte] = null
-        var getMetallic: Ptr[Byte] = null
-        var setRoughness: Ptr[Byte] = null
-        var getRoughness: Ptr[Byte] = null
-        var setEmission: Ptr[Byte] = null
-        var getEmission: Ptr[Byte] = null
-        var setEmissionEnergyMultiplier: Ptr[Byte] = null
-        var getEmissionEnergyMultiplier: Ptr[Byte] = null
-        var setEmissionIntensity: Ptr[Byte] = null
-        var getEmissionIntensity: Ptr[Byte] = null
-        var setNormalScale: Ptr[Byte] = null
-        var getNormalScale: Ptr[Byte] = null
-        var setRim: Ptr[Byte] = null
-        var getRim: Ptr[Byte] = null
-        var setRimTint: Ptr[Byte] = null
-        var getRimTint: Ptr[Byte] = null
-        var setClearcoat: Ptr[Byte] = null
-        var getClearcoat: Ptr[Byte] = null
-        var setClearcoatRoughness: Ptr[Byte] = null
-        var getClearcoatRoughness: Ptr[Byte] = null
-        var setAnisotropy: Ptr[Byte] = null
-        var getAnisotropy: Ptr[Byte] = null
-        var setHeightmapScale: Ptr[Byte] = null
-        var getHeightmapScale: Ptr[Byte] = null
-        var setSubsurfaceScatteringStrength: Ptr[Byte] = null
-        var getSubsurfaceScatteringStrength: Ptr[Byte] = null
-        var setTransmittanceColor: Ptr[Byte] = null
-        var getTransmittanceColor: Ptr[Byte] = null
-        var setTransmittanceDepth: Ptr[Byte] = null
-        var getTransmittanceDepth: Ptr[Byte] = null
-        var setTransmittanceBoost: Ptr[Byte] = null
-        var getTransmittanceBoost: Ptr[Byte] = null
-        var setBacklight: Ptr[Byte] = null
-        var getBacklight: Ptr[Byte] = null
-        var setRefraction: Ptr[Byte] = null
-        var getRefraction: Ptr[Byte] = null
-        var setPointSize: Ptr[Byte] = null
-        var getPointSize: Ptr[Byte] = null
-        var setDetailUv: Ptr[Byte] = null
-        var getDetailUv: Ptr[Byte] = null
-        var setBlendMode: Ptr[Byte] = null
-        var getBlendMode: Ptr[Byte] = null
-        var setDepthDrawMode: Ptr[Byte] = null
-        var getDepthDrawMode: Ptr[Byte] = null
-        var setDepthTest: Ptr[Byte] = null
-        var getDepthTest: Ptr[Byte] = null
-        var setCullMode: Ptr[Byte] = null
-        var getCullMode: Ptr[Byte] = null
-        var setDiffuseMode: Ptr[Byte] = null
-        var getDiffuseMode: Ptr[Byte] = null
-        var setSpecularMode: Ptr[Byte] = null
-        var getSpecularMode: Ptr[Byte] = null
-        var setFlag: Ptr[Byte] = null
-        var getFlag: Ptr[Byte] = null
-        var setTextureFilter: Ptr[Byte] = null
-        var getTextureFilter: Ptr[Byte] = null
-        var setFeature: Ptr[Byte] = null
-        var getFeature: Ptr[Byte] = null
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-        var setDetailBlendMode: Ptr[Byte] = null
-        var getDetailBlendMode: Ptr[Byte] = null
-        var setUv1Scale: Ptr[Byte] = null
-        var getUv1Scale: Ptr[Byte] = null
-        var setUv1Offset: Ptr[Byte] = null
-        var getUv1Offset: Ptr[Byte] = null
-        var setUv1TriplanarBlendSharpness: Ptr[Byte] = null
-        var getUv1TriplanarBlendSharpness: Ptr[Byte] = null
-        var setUv2Scale: Ptr[Byte] = null
-        var getUv2Scale: Ptr[Byte] = null
-        var setUv2Offset: Ptr[Byte] = null
-        var getUv2Offset: Ptr[Byte] = null
-        var setUv2TriplanarBlendSharpness: Ptr[Byte] = null
-        var getUv2TriplanarBlendSharpness: Ptr[Byte] = null
-        var setBillboardMode: Ptr[Byte] = null
-        var getBillboardMode: Ptr[Byte] = null
-        var setParticlesAnimHFrames: Ptr[Byte] = null
-        var getParticlesAnimHFrames: Ptr[Byte] = null
-        var setParticlesAnimVFrames: Ptr[Byte] = null
-        var getParticlesAnimVFrames: Ptr[Byte] = null
-        var setParticlesAnimLoop: Ptr[Byte] = null
-        var getParticlesAnimLoop: Ptr[Byte] = null
-        var setHeightmapDeepParallax: Ptr[Byte] = null
-        var isHeightmapDeepParallaxEnabled: Ptr[Byte] = null
-        var setHeightmapDeepParallaxMinLayers: Ptr[Byte] = null
-        var getHeightmapDeepParallaxMinLayers: Ptr[Byte] = null
-        var setHeightmapDeepParallaxMaxLayers: Ptr[Byte] = null
-        var getHeightmapDeepParallaxMaxLayers: Ptr[Byte] = null
-        var setHeightmapDeepParallaxFlipTangent: Ptr[Byte] = null
-        var getHeightmapDeepParallaxFlipTangent: Ptr[Byte] = null
-        var setHeightmapDeepParallaxFlipBinormal: Ptr[Byte] = null
-        var getHeightmapDeepParallaxFlipBinormal: Ptr[Byte] = null
-        var setGrow: Ptr[Byte] = null
-        var getGrow: Ptr[Byte] = null
-        var setEmissionOperator: Ptr[Byte] = null
-        var getEmissionOperator: Ptr[Byte] = null
-        var setAoLightAffect: Ptr[Byte] = null
-        var getAoLightAffect: Ptr[Byte] = null
-        var setAlphaScissorThreshold: Ptr[Byte] = null
-        var getAlphaScissorThreshold: Ptr[Byte] = null
-        var setAlphaHashScale: Ptr[Byte] = null
-        var getAlphaHashScale: Ptr[Byte] = null
-        var setGrowEnabled: Ptr[Byte] = null
-        var isGrowEnabled: Ptr[Byte] = null
-        var setMetallicTextureChannel: Ptr[Byte] = null
-        var getMetallicTextureChannel: Ptr[Byte] = null
-        var setRoughnessTextureChannel: Ptr[Byte] = null
-        var getRoughnessTextureChannel: Ptr[Byte] = null
-        var setAoTextureChannel: Ptr[Byte] = null
-        var getAoTextureChannel: Ptr[Byte] = null
-        var setRefractionTextureChannel: Ptr[Byte] = null
-        var getRefractionTextureChannel: Ptr[Byte] = null
-        var setProximityFadeEnabled: Ptr[Byte] = null
-        var isProximityFadeEnabled: Ptr[Byte] = null
-        var setProximityFadeDistance: Ptr[Byte] = null
-        var getProximityFadeDistance: Ptr[Byte] = null
-        var setMsdfPixelRange: Ptr[Byte] = null
-        var getMsdfPixelRange: Ptr[Byte] = null
-        var setMsdfOutlineSize: Ptr[Byte] = null
-        var getMsdfOutlineSize: Ptr[Byte] = null
-        var setDistanceFade: Ptr[Byte] = null
-        var getDistanceFade: Ptr[Byte] = null
-        var setDistanceFadeMaxDistance: Ptr[Byte] = null
-        var getDistanceFadeMaxDistance: Ptr[Byte] = null
-        var setDistanceFadeMinDistance: Ptr[Byte] = null
-        var getDistanceFadeMinDistance: Ptr[Byte] = null
-        var setZClipScale: Ptr[Byte] = null
-        var getZClipScale: Ptr[Byte] = null
-        var setFovOverride: Ptr[Byte] = null
-        var getFovOverride: Ptr[Byte] = null
-        var setStencilMode: Ptr[Byte] = null
-        var getStencilMode: Ptr[Byte] = null
-        var setStencilFlags: Ptr[Byte] = null
-        var getStencilFlags: Ptr[Byte] = null
-        var setStencilCompare: Ptr[Byte] = null
-        var getStencilCompare: Ptr[Byte] = null
-        var setStencilReference: Ptr[Byte] = null
-        var getStencilReference: Ptr[Byte] = null
-        var setStencilEffectColor: Ptr[Byte] = null
-        var getStencilEffectColor: Ptr[Byte] = null
-        var setStencilEffectOutlineThickness: Ptr[Byte] = null
-        var getStencilEffectOutlineThickness: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setAlbedo = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_albedo", 2920490490L)
-            Binds.getAlbedo = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_albedo", 3444240500L)
-            Binds.setTransparency = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_transparency", 3435651667L)
-            Binds.getTransparency = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_transparency", 990903061L)
-            Binds.setAlphaAntialiasing = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_alpha_antialiasing", 3212649852L)
-            Binds.getAlphaAntialiasing = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_alpha_antialiasing", 2889939400L)
-            Binds.setAlphaAntialiasingEdge = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_alpha_antialiasing_edge", 373806689L)
-            Binds.getAlphaAntialiasingEdge = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_alpha_antialiasing_edge", 1740695150L)
-            Binds.setShadingMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_shading_mode", 3368750322L)
-            Binds.getShadingMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_shading_mode", 2132070559L)
-            Binds.setSpecular = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_specular", 373806689L)
-            Binds.getSpecular = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_specular", 1740695150L)
-            Binds.setMetallic = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_metallic", 373806689L)
-            Binds.getMetallic = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_metallic", 1740695150L)
-            Binds.setRoughness = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_roughness", 373806689L)
-            Binds.getRoughness = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_roughness", 1740695150L)
-            Binds.setEmission = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_emission", 2920490490L)
-            Binds.getEmission = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_emission", 3444240500L)
-            Binds.setEmissionEnergyMultiplier = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_emission_energy_multiplier", 373806689L)
-            Binds.getEmissionEnergyMultiplier = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_emission_energy_multiplier", 1740695150L)
-            Binds.setEmissionIntensity = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_emission_intensity", 373806689L)
-            Binds.getEmissionIntensity = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_emission_intensity", 1740695150L)
-            Binds.setNormalScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_normal_scale", 373806689L)
-            Binds.getNormalScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_normal_scale", 1740695150L)
-            Binds.setRim = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_rim", 373806689L)
-            Binds.getRim = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_rim", 1740695150L)
-            Binds.setRimTint = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_rim_tint", 373806689L)
-            Binds.getRimTint = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_rim_tint", 1740695150L)
-            Binds.setClearcoat = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_clearcoat", 373806689L)
-            Binds.getClearcoat = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_clearcoat", 1740695150L)
-            Binds.setClearcoatRoughness = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_clearcoat_roughness", 373806689L)
-            Binds.getClearcoatRoughness = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_clearcoat_roughness", 1740695150L)
-            Binds.setAnisotropy = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_anisotropy", 373806689L)
-            Binds.getAnisotropy = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_anisotropy", 1740695150L)
-            Binds.setHeightmapScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_heightmap_scale", 373806689L)
-            Binds.getHeightmapScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_heightmap_scale", 1740695150L)
-            Binds.setSubsurfaceScatteringStrength = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_subsurface_scattering_strength", 373806689L)
-            Binds.getSubsurfaceScatteringStrength = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_subsurface_scattering_strength", 1740695150L)
-            Binds.setTransmittanceColor = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_transmittance_color", 2920490490L)
-            Binds.getTransmittanceColor = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_transmittance_color", 3444240500L)
-            Binds.setTransmittanceDepth = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_transmittance_depth", 373806689L)
-            Binds.getTransmittanceDepth = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_transmittance_depth", 1740695150L)
-            Binds.setTransmittanceBoost = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_transmittance_boost", 373806689L)
-            Binds.getTransmittanceBoost = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_transmittance_boost", 1740695150L)
-            Binds.setBacklight = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_backlight", 2920490490L)
-            Binds.getBacklight = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_backlight", 3444240500L)
-            Binds.setRefraction = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_refraction", 373806689L)
-            Binds.getRefraction = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_refraction", 1740695150L)
-            Binds.setPointSize = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_point_size", 373806689L)
-            Binds.getPointSize = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_point_size", 1740695150L)
-            Binds.setDetailUv = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_detail_uv", 456801921L)
-            Binds.getDetailUv = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_detail_uv", 2306920512L)
-            Binds.setBlendMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_blend_mode", 2830186259L)
-            Binds.getBlendMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_blend_mode", 4022690962L)
-            Binds.setDepthDrawMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_depth_draw_mode", 1456584748L)
-            Binds.getDepthDrawMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_depth_draw_mode", 2578197639L)
-            Binds.setDepthTest = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_depth_test", 3918692338L)
-            Binds.getDepthTest = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_depth_test", 3434785811L)
-            Binds.setCullMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_cull_mode", 2338909218L)
-            Binds.getCullMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_cull_mode", 1941499586L)
-            Binds.setDiffuseMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_diffuse_mode", 1045299638L)
-            Binds.getDiffuseMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_diffuse_mode", 3973617136L)
-            Binds.setSpecularMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_specular_mode", 584737147L)
-            Binds.getSpecularMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_specular_mode", 2569953298L)
-            Binds.setFlag = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_flag", 3070159527L)
-            Binds.getFlag = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_flag", 1286410065L)
-            Binds.setTextureFilter = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_texture_filter", 22904437L)
-            Binds.getTextureFilter = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_texture_filter", 3289213076L)
-            Binds.setFeature = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_feature", 2819288693L)
-            Binds.getFeature = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_feature", 1965241794L)
-            Binds.setTexture = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_texture", 464208135L)
-            Binds.getTexture = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_texture", 329605813L)
-            Binds.setDetailBlendMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_detail_blend_mode", 2830186259L)
-            Binds.getDetailBlendMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_detail_blend_mode", 4022690962L)
-            Binds.setUv1Scale = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_uv1_scale", 3460891852L)
-            Binds.getUv1Scale = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_uv1_scale", 3360562783L)
-            Binds.setUv1Offset = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_uv1_offset", 3460891852L)
-            Binds.getUv1Offset = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_uv1_offset", 3360562783L)
-            Binds.setUv1TriplanarBlendSharpness = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_uv1_triplanar_blend_sharpness", 373806689L)
-            Binds.getUv1TriplanarBlendSharpness = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_uv1_triplanar_blend_sharpness", 1740695150L)
-            Binds.setUv2Scale = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_uv2_scale", 3460891852L)
-            Binds.getUv2Scale = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_uv2_scale", 3360562783L)
-            Binds.setUv2Offset = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_uv2_offset", 3460891852L)
-            Binds.getUv2Offset = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_uv2_offset", 3360562783L)
-            Binds.setUv2TriplanarBlendSharpness = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_uv2_triplanar_blend_sharpness", 373806689L)
-            Binds.getUv2TriplanarBlendSharpness = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_uv2_triplanar_blend_sharpness", 1740695150L)
-            Binds.setBillboardMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_billboard_mode", 4202036497L)
-            Binds.getBillboardMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_billboard_mode", 1283840139L)
-            Binds.setParticlesAnimHFrames = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_particles_anim_h_frames", 1286410249L)
-            Binds.getParticlesAnimHFrames = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_particles_anim_h_frames", 3905245786L)
-            Binds.setParticlesAnimVFrames = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_particles_anim_v_frames", 1286410249L)
-            Binds.getParticlesAnimVFrames = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_particles_anim_v_frames", 3905245786L)
-            Binds.setParticlesAnimLoop = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_particles_anim_loop", 2586408642L)
-            Binds.getParticlesAnimLoop = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_particles_anim_loop", 36873697L)
-            Binds.setHeightmapDeepParallax = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_heightmap_deep_parallax", 2586408642L)
-            Binds.isHeightmapDeepParallaxEnabled = GdxApi.getMethodBind(c"BaseMaterial3D", c"is_heightmap_deep_parallax_enabled", 36873697L)
-            Binds.setHeightmapDeepParallaxMinLayers = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_heightmap_deep_parallax_min_layers", 1286410249L)
-            Binds.getHeightmapDeepParallaxMinLayers = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_heightmap_deep_parallax_min_layers", 3905245786L)
-            Binds.setHeightmapDeepParallaxMaxLayers = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_heightmap_deep_parallax_max_layers", 1286410249L)
-            Binds.getHeightmapDeepParallaxMaxLayers = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_heightmap_deep_parallax_max_layers", 3905245786L)
-            Binds.setHeightmapDeepParallaxFlipTangent = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_heightmap_deep_parallax_flip_tangent", 2586408642L)
-            Binds.getHeightmapDeepParallaxFlipTangent = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_heightmap_deep_parallax_flip_tangent", 36873697L)
-            Binds.setHeightmapDeepParallaxFlipBinormal = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_heightmap_deep_parallax_flip_binormal", 2586408642L)
-            Binds.getHeightmapDeepParallaxFlipBinormal = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_heightmap_deep_parallax_flip_binormal", 36873697L)
-            Binds.setGrow = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_grow", 373806689L)
-            Binds.getGrow = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_grow", 1740695150L)
-            Binds.setEmissionOperator = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_emission_operator", 3825128922L)
-            Binds.getEmissionOperator = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_emission_operator", 974205018L)
-            Binds.setAoLightAffect = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_ao_light_affect", 373806689L)
-            Binds.getAoLightAffect = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_ao_light_affect", 1740695150L)
-            Binds.setAlphaScissorThreshold = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_alpha_scissor_threshold", 373806689L)
-            Binds.getAlphaScissorThreshold = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_alpha_scissor_threshold", 1740695150L)
-            Binds.setAlphaHashScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_alpha_hash_scale", 373806689L)
-            Binds.getAlphaHashScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_alpha_hash_scale", 1740695150L)
-            Binds.setGrowEnabled = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_grow_enabled", 2586408642L)
-            Binds.isGrowEnabled = GdxApi.getMethodBind(c"BaseMaterial3D", c"is_grow_enabled", 36873697L)
-            Binds.setMetallicTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_metallic_texture_channel", 744167988L)
-            Binds.getMetallicTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_metallic_texture_channel", 568133867L)
-            Binds.setRoughnessTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_roughness_texture_channel", 744167988L)
-            Binds.getRoughnessTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_roughness_texture_channel", 568133867L)
-            Binds.setAoTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_ao_texture_channel", 744167988L)
-            Binds.getAoTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_ao_texture_channel", 568133867L)
-            Binds.setRefractionTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_refraction_texture_channel", 744167988L)
-            Binds.getRefractionTextureChannel = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_refraction_texture_channel", 568133867L)
-            Binds.setProximityFadeEnabled = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_proximity_fade_enabled", 2586408642L)
-            Binds.isProximityFadeEnabled = GdxApi.getMethodBind(c"BaseMaterial3D", c"is_proximity_fade_enabled", 36873697L)
-            Binds.setProximityFadeDistance = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_proximity_fade_distance", 373806689L)
-            Binds.getProximityFadeDistance = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_proximity_fade_distance", 1740695150L)
-            Binds.setMsdfPixelRange = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_msdf_pixel_range", 373806689L)
-            Binds.getMsdfPixelRange = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_msdf_pixel_range", 1740695150L)
-            Binds.setMsdfOutlineSize = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_msdf_outline_size", 373806689L)
-            Binds.getMsdfOutlineSize = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_msdf_outline_size", 1740695150L)
-            Binds.setDistanceFade = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_distance_fade", 1379478617L)
-            Binds.getDistanceFade = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_distance_fade", 2694575734L)
-            Binds.setDistanceFadeMaxDistance = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_distance_fade_max_distance", 373806689L)
-            Binds.getDistanceFadeMaxDistance = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_distance_fade_max_distance", 1740695150L)
-            Binds.setDistanceFadeMinDistance = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_distance_fade_min_distance", 373806689L)
-            Binds.getDistanceFadeMinDistance = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_distance_fade_min_distance", 1740695150L)
-            Binds.setZClipScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_z_clip_scale", 373806689L)
-            Binds.getZClipScale = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_z_clip_scale", 1740695150L)
-            Binds.setFovOverride = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_fov_override", 373806689L)
-            Binds.getFovOverride = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_fov_override", 1740695150L)
-            Binds.setStencilMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_stencil_mode", 2272367200L)
-            Binds.getStencilMode = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_stencil_mode", 2908443456L)
-            Binds.setStencilFlags = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_stencil_flags", 1286410249L)
-            Binds.getStencilFlags = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_stencil_flags", 3905245786L)
-            Binds.setStencilCompare = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_stencil_compare", 3741726481L)
-            Binds.getStencilCompare = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_stencil_compare", 2824600492L)
-            Binds.setStencilReference = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_stencil_reference", 1286410249L)
-            Binds.getStencilReference = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_stencil_reference", 3905245786L)
-            Binds.setStencilEffectColor = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_stencil_effect_color", 2920490490L)
-            Binds.getStencilEffectColor = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_stencil_effect_color", 3444240500L)
-            Binds.setStencilEffectOutlineThickness = GdxApi.getMethodBind(c"BaseMaterial3D", c"set_stencil_effect_outline_thickness", 373806689L)
-            Binds.getStencilEffectOutlineThickness = GdxApi.getMethodBind(c"BaseMaterial3D", c"get_stencil_effect_outline_thickness", 1740695150L)
+class BaseMaterial3D extends Material {
+    def transparency: Int = getTransparency()
+    def transparency_=(v: Int): Unit = setTransparency(v)
+    def alphaScissorThreshold: Float = getAlphaScissorThreshold()
+    def alphaScissorThreshold_=(v: Float): Unit = setAlphaScissorThreshold(v)
+    def alphaHashScale: Float = getAlphaHashScale()
+    def alphaHashScale_=(v: Float): Unit = setAlphaHashScale(v)
+    def alphaAntialiasingMode: Int = getAlphaAntialiasing()
+    def alphaAntialiasingMode_=(v: Int): Unit = setAlphaAntialiasing(v)
+    def alphaAntialiasingEdge: Float = getAlphaAntialiasingEdge()
+    def alphaAntialiasingEdge_=(v: Float): Unit = setAlphaAntialiasingEdge(v)
+    def blendMode: Int = getBlendMode()
+    def blendMode_=(v: Int): Unit = setBlendMode(v)
+    def cullMode: Int = getCullMode()
+    def cullMode_=(v: Int): Unit = setCullMode(v)
+    def depthDrawMode: Int = getDepthDrawMode()
+    def depthDrawMode_=(v: Int): Unit = setDepthDrawMode(v)
+    def noDepthTest: Boolean = getFlag()
+    def noDepthTest_=(v: Int): Unit = setFlag(v)
+    def depthTest: Int = getDepthTest()
+    def depthTest_=(v: Int): Unit = setDepthTest(v)
+    def shadingMode: Int = getShadingMode()
+    def shadingMode_=(v: Int): Unit = setShadingMode(v)
+    def diffuseMode: Int = getDiffuseMode()
+    def diffuseMode_=(v: Int): Unit = setDiffuseMode(v)
+    def specularMode: Int = getSpecularMode()
+    def specularMode_=(v: Int): Unit = setSpecularMode(v)
+    def disableAmbientLight: Boolean = getFlag()
+    def disableAmbientLight_=(v: Int): Unit = setFlag(v)
+    def disableFog: Boolean = getFlag()
+    def disableFog_=(v: Int): Unit = setFlag(v)
+    def disableSpecularOcclusion: Boolean = getFlag()
+    def disableSpecularOcclusion_=(v: Int): Unit = setFlag(v)
+    def vertexColorUseAsAlbedo: Boolean = getFlag()
+    def vertexColorUseAsAlbedo_=(v: Int): Unit = setFlag(v)
+    def vertexColorIsSrgb: Boolean = getFlag()
+    def vertexColorIsSrgb_=(v: Int): Unit = setFlag(v)
+    def albedoColor: Color = getAlbedo()
+    def albedoColor_=(v: Color): Unit = setAlbedo(v)
+    def albedoTexture: Texture2D = getTexture()
+    def albedoTexture_=(v: Int): Unit = setTexture(v)
+    def albedoTextureForceSrgb: Boolean = getFlag()
+    def albedoTextureForceSrgb_=(v: Int): Unit = setFlag(v)
+    def albedoTextureMsdf: Boolean = getFlag()
+    def albedoTextureMsdf_=(v: Int): Unit = setFlag(v)
+    def ormTexture: Texture2D = getTexture()
+    def ormTexture_=(v: Int): Unit = setTexture(v)
+    def metallic: Float = getMetallic()
+    def metallic_=(v: Float): Unit = setMetallic(v)
+    def metallicSpecular: Float = getSpecular()
+    def metallicSpecular_=(v: Float): Unit = setSpecular(v)
+    def metallicTexture: Texture2D = getTexture()
+    def metallicTexture_=(v: Int): Unit = setTexture(v)
+    def metallicTextureChannel: Int = getMetallicTextureChannel()
+    def metallicTextureChannel_=(v: Int): Unit = setMetallicTextureChannel(v)
+    def roughness: Float = getRoughness()
+    def roughness_=(v: Float): Unit = setRoughness(v)
+    def roughnessTexture: Texture2D = getTexture()
+    def roughnessTexture_=(v: Int): Unit = setTexture(v)
+    def roughnessTextureChannel: Int = getRoughnessTextureChannel()
+    def roughnessTextureChannel_=(v: Int): Unit = setRoughnessTextureChannel(v)
+    def emissionEnabled: Boolean = getFeature()
+    def emissionEnabled_=(v: Int): Unit = setFeature(v)
+    def emission: Color = getEmission()
+    def emission_=(v: Color): Unit = setEmission(v)
+    def emissionEnergyMultiplier: Float = getEmissionEnergyMultiplier()
+    def emissionEnergyMultiplier_=(v: Float): Unit = setEmissionEnergyMultiplier(v)
+    def emissionIntensity: Float = getEmissionIntensity()
+    def emissionIntensity_=(v: Float): Unit = setEmissionIntensity(v)
+    def emissionOperator: Int = getEmissionOperator()
+    def emissionOperator_=(v: Int): Unit = setEmissionOperator(v)
+    def emissionOnUv2: Boolean = getFlag()
+    def emissionOnUv2_=(v: Int): Unit = setFlag(v)
+    def emissionTexture: Texture2D = getTexture()
+    def emissionTexture_=(v: Int): Unit = setTexture(v)
+    def normalEnabled: Boolean = getFeature()
+    def normalEnabled_=(v: Int): Unit = setFeature(v)
+    def normalScale: Float = getNormalScale()
+    def normalScale_=(v: Float): Unit = setNormalScale(v)
+    def normalTexture: Texture2D = getTexture()
+    def normalTexture_=(v: Int): Unit = setTexture(v)
+    def bentNormalEnabled: Boolean = getFeature()
+    def bentNormalEnabled_=(v: Int): Unit = setFeature(v)
+    def bentNormalTexture: Texture2D = getTexture()
+    def bentNormalTexture_=(v: Int): Unit = setTexture(v)
+    def rimEnabled: Boolean = getFeature()
+    def rimEnabled_=(v: Int): Unit = setFeature(v)
+    def rim: Float = getRim()
+    def rim_=(v: Float): Unit = setRim(v)
+    def rimTint: Float = getRimTint()
+    def rimTint_=(v: Float): Unit = setRimTint(v)
+    def rimTexture: Texture2D = getTexture()
+    def rimTexture_=(v: Int): Unit = setTexture(v)
+    def clearcoatEnabled: Boolean = getFeature()
+    def clearcoatEnabled_=(v: Int): Unit = setFeature(v)
+    def clearcoat: Float = getClearcoat()
+    def clearcoat_=(v: Float): Unit = setClearcoat(v)
+    def clearcoatRoughness: Float = getClearcoatRoughness()
+    def clearcoatRoughness_=(v: Float): Unit = setClearcoatRoughness(v)
+    def clearcoatTexture: Texture2D = getTexture()
+    def clearcoatTexture_=(v: Int): Unit = setTexture(v)
+    def anisotropyEnabled: Boolean = getFeature()
+    def anisotropyEnabled_=(v: Int): Unit = setFeature(v)
+    def anisotropy: Float = getAnisotropy()
+    def anisotropy_=(v: Float): Unit = setAnisotropy(v)
+    def anisotropyFlowmap: Texture2D = getTexture()
+    def anisotropyFlowmap_=(v: Int): Unit = setTexture(v)
+    def aoEnabled: Boolean = getFeature()
+    def aoEnabled_=(v: Int): Unit = setFeature(v)
+    def aoLightAffect: Float = getAoLightAffect()
+    def aoLightAffect_=(v: Float): Unit = setAoLightAffect(v)
+    def aoTexture: Texture2D = getTexture()
+    def aoTexture_=(v: Int): Unit = setTexture(v)
+    def aoOnUv2: Boolean = getFlag()
+    def aoOnUv2_=(v: Int): Unit = setFlag(v)
+    def aoTextureChannel: Int = getAoTextureChannel()
+    def aoTextureChannel_=(v: Int): Unit = setAoTextureChannel(v)
+    def heightmapEnabled: Boolean = getFeature()
+    def heightmapEnabled_=(v: Int): Unit = setFeature(v)
+    def heightmapScale: Float = getHeightmapScale()
+    def heightmapScale_=(v: Float): Unit = setHeightmapScale(v)
+    def heightmapDeepParallax: Boolean = isHeightmapDeepParallaxEnabled()
+    def heightmapDeepParallax_=(v: Boolean): Unit = setHeightmapDeepParallax(v)
+    def heightmapMinLayers: Int = getHeightmapDeepParallaxMinLayers()
+    def heightmapMinLayers_=(v: Int): Unit = setHeightmapDeepParallaxMinLayers(v)
+    def heightmapMaxLayers: Int = getHeightmapDeepParallaxMaxLayers()
+    def heightmapMaxLayers_=(v: Int): Unit = setHeightmapDeepParallaxMaxLayers(v)
+    def heightmapFlipTangent: Boolean = getHeightmapDeepParallaxFlipTangent()
+    def heightmapFlipTangent_=(v: Boolean): Unit = setHeightmapDeepParallaxFlipTangent(v)
+    def heightmapFlipBinormal: Boolean = getHeightmapDeepParallaxFlipBinormal()
+    def heightmapFlipBinormal_=(v: Boolean): Unit = setHeightmapDeepParallaxFlipBinormal(v)
+    def heightmapTexture: Texture2D = getTexture()
+    def heightmapTexture_=(v: Int): Unit = setTexture(v)
+    def heightmapFlipTexture: Boolean = getFlag()
+    def heightmapFlipTexture_=(v: Int): Unit = setFlag(v)
+    def subsurfScatterEnabled: Boolean = getFeature()
+    def subsurfScatterEnabled_=(v: Int): Unit = setFeature(v)
+    def subsurfScatterStrength: Float = getSubsurfaceScatteringStrength()
+    def subsurfScatterStrength_=(v: Float): Unit = setSubsurfaceScatteringStrength(v)
+    def subsurfScatterSkinMode: Boolean = getFlag()
+    def subsurfScatterSkinMode_=(v: Int): Unit = setFlag(v)
+    def subsurfScatterTexture: Texture2D = getTexture()
+    def subsurfScatterTexture_=(v: Int): Unit = setTexture(v)
+    def subsurfScatterTransmittanceEnabled: Boolean = getFeature()
+    def subsurfScatterTransmittanceEnabled_=(v: Int): Unit = setFeature(v)
+    def subsurfScatterTransmittanceColor: Color = getTransmittanceColor()
+    def subsurfScatterTransmittanceColor_=(v: Color): Unit = setTransmittanceColor(v)
+    def subsurfScatterTransmittanceTexture: Texture2D = getTexture()
+    def subsurfScatterTransmittanceTexture_=(v: Int): Unit = setTexture(v)
+    def subsurfScatterTransmittanceDepth: Float = getTransmittanceDepth()
+    def subsurfScatterTransmittanceDepth_=(v: Float): Unit = setTransmittanceDepth(v)
+    def subsurfScatterTransmittanceBoost: Float = getTransmittanceBoost()
+    def subsurfScatterTransmittanceBoost_=(v: Float): Unit = setTransmittanceBoost(v)
+    def backlightEnabled: Boolean = getFeature()
+    def backlightEnabled_=(v: Int): Unit = setFeature(v)
+    def backlight: Color = getBacklight()
+    def backlight_=(v: Color): Unit = setBacklight(v)
+    def backlightTexture: Texture2D = getTexture()
+    def backlightTexture_=(v: Int): Unit = setTexture(v)
+    def refractionEnabled: Boolean = getFeature()
+    def refractionEnabled_=(v: Int): Unit = setFeature(v)
+    def refractionScale: Float = getRefraction()
+    def refractionScale_=(v: Float): Unit = setRefraction(v)
+    def refractionTexture: Texture2D = getTexture()
+    def refractionTexture_=(v: Int): Unit = setTexture(v)
+    def refractionTextureChannel: Int = getRefractionTextureChannel()
+    def refractionTextureChannel_=(v: Int): Unit = setRefractionTextureChannel(v)
+    def detailEnabled: Boolean = getFeature()
+    def detailEnabled_=(v: Int): Unit = setFeature(v)
+    def detailMask: Texture2D = getTexture()
+    def detailMask_=(v: Int): Unit = setTexture(v)
+    def detailBlendMode: Int = getDetailBlendMode()
+    def detailBlendMode_=(v: Int): Unit = setDetailBlendMode(v)
+    def detailUvLayer: Int = getDetailUv()
+    def detailUvLayer_=(v: Int): Unit = setDetailUv(v)
+    def detailAlbedo: Texture2D = getTexture()
+    def detailAlbedo_=(v: Int): Unit = setTexture(v)
+    def detailNormal: Texture2D = getTexture()
+    def detailNormal_=(v: Int): Unit = setTexture(v)
+    def uv1Scale: Vector3 = getUv1Scale()
+    def uv1Scale_=(v: Vector3): Unit = setUv1Scale(v)
+    def uv1Offset: Vector3 = getUv1Offset()
+    def uv1Offset_=(v: Vector3): Unit = setUv1Offset(v)
+    def uv1Triplanar: Boolean = getFlag()
+    def uv1Triplanar_=(v: Int): Unit = setFlag(v)
+    def uv1TriplanarSharpness: Float = getUv1TriplanarBlendSharpness()
+    def uv1TriplanarSharpness_=(v: Float): Unit = setUv1TriplanarBlendSharpness(v)
+    def uv1WorldTriplanar: Boolean = getFlag()
+    def uv1WorldTriplanar_=(v: Int): Unit = setFlag(v)
+    def uv2Scale: Vector3 = getUv2Scale()
+    def uv2Scale_=(v: Vector3): Unit = setUv2Scale(v)
+    def uv2Offset: Vector3 = getUv2Offset()
+    def uv2Offset_=(v: Vector3): Unit = setUv2Offset(v)
+    def uv2Triplanar: Boolean = getFlag()
+    def uv2Triplanar_=(v: Int): Unit = setFlag(v)
+    def uv2TriplanarSharpness: Float = getUv2TriplanarBlendSharpness()
+    def uv2TriplanarSharpness_=(v: Float): Unit = setUv2TriplanarBlendSharpness(v)
+    def uv2WorldTriplanar: Boolean = getFlag()
+    def uv2WorldTriplanar_=(v: Int): Unit = setFlag(v)
+    def textureFilter: Int = getTextureFilter()
+    def textureFilter_=(v: Int): Unit = setTextureFilter(v)
+    def textureRepeat: Boolean = getFlag()
+    def textureRepeat_=(v: Int): Unit = setFlag(v)
+    def disableReceiveShadows: Boolean = getFlag()
+    def disableReceiveShadows_=(v: Int): Unit = setFlag(v)
+    def shadowToOpacity: Boolean = getFlag()
+    def shadowToOpacity_=(v: Int): Unit = setFlag(v)
+    def billboardMode: Int = getBillboardMode()
+    def billboardMode_=(v: Int): Unit = setBillboardMode(v)
+    def billboardKeepScale: Boolean = getFlag()
+    def billboardKeepScale_=(v: Int): Unit = setFlag(v)
+    def particlesAnimHFrames: Int = getParticlesAnimHFrames()
+    def particlesAnimHFrames_=(v: Int): Unit = setParticlesAnimHFrames(v)
+    def particlesAnimVFrames: Int = getParticlesAnimVFrames()
+    def particlesAnimVFrames_=(v: Int): Unit = setParticlesAnimVFrames(v)
+    def particlesAnimLoop: Boolean = getParticlesAnimLoop()
+    def particlesAnimLoop_=(v: Boolean): Unit = setParticlesAnimLoop(v)
+    def grow: Boolean = isGrowEnabled()
+    def grow_=(v: Boolean): Unit = setGrowEnabled(v)
+    def growAmount: Float = getGrow()
+    def growAmount_=(v: Float): Unit = setGrow(v)
+    def fixedSize: Boolean = getFlag()
+    def fixedSize_=(v: Int): Unit = setFlag(v)
+    def usePointSize: Boolean = getFlag()
+    def usePointSize_=(v: Int): Unit = setFlag(v)
+    def pointSize: Float = getPointSize()
+    def pointSize_=(v: Float): Unit = setPointSize(v)
+    def useParticleTrails: Boolean = getFlag()
+    def useParticleTrails_=(v: Int): Unit = setFlag(v)
+    def useZClipScale: Boolean = getFlag()
+    def useZClipScale_=(v: Int): Unit = setFlag(v)
+    def zClipScale: Float = getZClipScale()
+    def zClipScale_=(v: Float): Unit = setZClipScale(v)
+    def useFovOverride: Boolean = getFlag()
+    def useFovOverride_=(v: Int): Unit = setFlag(v)
+    def fovOverride: Float = getFovOverride()
+    def fovOverride_=(v: Float): Unit = setFovOverride(v)
+    def proximityFadeEnabled: Boolean = isProximityFadeEnabled()
+    def proximityFadeEnabled_=(v: Boolean): Unit = setProximityFadeEnabled(v)
+    def proximityFadeDistance: Float = getProximityFadeDistance()
+    def proximityFadeDistance_=(v: Float): Unit = setProximityFadeDistance(v)
+    def msdfPixelRange: Float = getMsdfPixelRange()
+    def msdfPixelRange_=(v: Float): Unit = setMsdfPixelRange(v)
+    def msdfOutlineSize: Float = getMsdfOutlineSize()
+    def msdfOutlineSize_=(v: Float): Unit = setMsdfOutlineSize(v)
+    def distanceFadeMode: Int = getDistanceFade()
+    def distanceFadeMode_=(v: Int): Unit = setDistanceFade(v)
+    def distanceFadeMinDistance: Float = getDistanceFadeMinDistance()
+    def distanceFadeMinDistance_=(v: Float): Unit = setDistanceFadeMinDistance(v)
+    def distanceFadeMaxDistance: Float = getDistanceFadeMaxDistance()
+    def distanceFadeMaxDistance_=(v: Float): Unit = setDistanceFadeMaxDistance(v)
+    def stencilMode: Int = getStencilMode()
+    def stencilMode_=(v: Int): Unit = setStencilMode(v)
+    def stencilFlags: Int = getStencilFlags()
+    def stencilFlags_=(v: Int): Unit = setStencilFlags(v)
+    def stencilCompare: Int = getStencilCompare()
+    def stencilCompare_=(v: Int): Unit = setStencilCompare(v)
+    def stencilReference: Int = getStencilReference()
+    def stencilReference_=(v: Int): Unit = setStencilReference(v)
+    def stencilColor: Color = getStencilEffectColor()
+    def stencilColor_=(v: Color): Unit = setStencilEffectColor(v)
+    def stencilOutlineThickness: Float = getStencilEffectOutlineThickness()
+    def stencilOutlineThickness_=(v: Float): Unit = setStencilEffectOutlineThickness(v)
+}

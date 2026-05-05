@@ -5,816 +5,939 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderingServer extends Object
-
-    def texture2dCreate(image: Image): RID =
+class RenderingServer extends Object {
+    def texture2dCreate(image: Image): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = image.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture2dCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def texture2dLayeredCreate(layers: Ptr[Byte], layeredType: Int): RID =
+    def texture2dLayeredCreate(layers: Ptr[Byte], layeredType: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = layers.ptr
-        _args(1) = layeredType.ptr
+        _args(0) = layers
+        val _a1 = stackalloc[Long](); !_a1 = layeredType.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture2dLayeredCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def texture3dCreate(format: Int, width: Int, height: Int, depth: Int, mipmaps: Boolean, data: Ptr[Byte]): RID =
+    def texture3dCreate(format: Int, width: Int, height: Int, depth: Int, mipmaps: Boolean, data: Ptr[Byte]): RID = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = width.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = height.toLong
+        val _a2 = stackalloc[Long](); !_a2 = height.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = depth.toLong
+        val _a3 = stackalloc[Long](); !_a3 = depth.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _a4 = stackalloc[Byte](); !_a4 = if mipmaps then 1.toByte else 0.toByte
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        _args(5) = data.ptr
+        _args(5) = data
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture3dCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureProxyCreate(base: RID): RID =
+    def textureProxyCreate(base: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = base.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.textureProxyCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureCreateFromNativeHandle(`type`: Int, format: Int, nativeHandle: Long, width: Int, height: Int, depth: Int): RID =
+    def textureCreateFromNativeHandle(`type`: Int, format: Int, nativeHandle: Long, width: Int, height: Int, depth: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = `type`.ptr
-        _args(1) = format.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = nativeHandle
+        val _a0 = stackalloc[Long](); !_a0 = `type`.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = format.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = nativeHandle
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = width.toLong
+        val _a3 = stackalloc[Long](); !_a3 = width.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = height.toLong
+        val _a4 = stackalloc[Long](); !_a4 = height.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        val _a5 = stackalloc[CLong](); !_a5 = depth.toLong
+        val _a5 = stackalloc[Long](); !_a5 = depth.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.textureCreateFromNativeHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def texture2dUpdate(texture: RID, image: Image, layer: Int): Unit =
+    def texture2dUpdate(texture: RID, image: Image, layer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
         _args(1) = image.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = layer.toLong
+        val _a2 = stackalloc[Long](); !_a2 = layer.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.texture2dUpdate, ptr, _args, null)
+}
 
-    def texture3dUpdate(texture: RID, data: Ptr[Byte]): Unit =
+    def texture3dUpdate(texture: RID, data: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
-        _args(1) = data.ptr
+        _args(1) = data
         GdxApi.ptrcall(RenderingServer.Binds.texture3dUpdate, ptr, _args, null)
+}
 
-    def textureProxyUpdate(texture: RID, proxyTo: RID): Unit =
+    def textureProxyUpdate(texture: RID, proxyTo: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
         _args(1) = proxyTo.ptr
         GdxApi.ptrcall(RenderingServer.Binds.textureProxyUpdate, ptr, _args, null)
+}
 
-    def texture2dPlaceholderCreate(): RID =
+    def texture2dPlaceholderCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture2dPlaceholderCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def texture2dLayeredPlaceholderCreate(layeredType: Int): RID =
+    def texture2dLayeredPlaceholderCreate(layeredType: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = layeredType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = layeredType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture2dLayeredPlaceholderCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def texture3dPlaceholderCreate(): RID =
+    def texture3dPlaceholderCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture3dPlaceholderCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def texture2dGet(texture: RID): Image =
+    def texture2dGet(texture: RID): Image = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture2dGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def texture2dLayerGet(texture: RID, layer: Int): Image =
+    def texture2dLayerGet(texture: RID, layer: Int): Image = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture2dLayerGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def texture3dGet(texture: RID): Ptr[Byte] =
+    def texture3dGet(texture: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.texture3dGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def textureReplace(texture: RID, byTexture: RID): Unit =
+    def textureReplace(texture: RID, byTexture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
         _args(1) = byTexture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.textureReplace, ptr, _args, null)
+}
 
-    def textureSetSizeOverride(texture: RID, width: Int, height: Int): Unit =
+    def textureSetSizeOverride(texture: RID, width: Int, height: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
+        val _a1 = stackalloc[Long](); !_a1 = width.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = height.toLong
+        val _a2 = stackalloc[Long](); !_a2 = height.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.textureSetSizeOverride, ptr, _args, null)
+}
 
-    def textureSetPath(texture: RID, path: CString): Unit =
+    def textureSetPath(texture: RID, path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
-        _args(1) = path.ptr
+        _args(1) = path
         GdxApi.ptrcall(RenderingServer.Binds.textureSetPath, ptr, _args, null)
+}
 
-    def textureGetPath(texture: RID): CString =
+    def textureGetPath(texture: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.textureGetPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def textureGetFormat(texture: RID): Int =
+    def textureGetFormat(texture: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.textureGetFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def textureSetForceRedrawIfVisible(texture: RID, enable: Boolean): Unit =
+    def textureSetForceRedrawIfVisible(texture: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.textureSetForceRedrawIfVisible, ptr, _args, null)
+}
 
-    def textureRdCreate(rdTexture: RID): RID =
+    def textureRdCreate(rdTexture: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rdTexture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.textureRdCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureGetRdTexture(texture: RID): RID =
+    def textureGetRdTexture(texture: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.textureGetRdTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def textureGetNativeHandle(texture: RID): Long =
+    def textureGetNativeHandle(texture: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = texture.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.textureGetNativeHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shaderCreate(): RID =
+    def shaderCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.shaderCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shaderSetCode(shader: RID, code: CString): Unit =
+    def shaderSetCode(shader: RID, code: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shader.ptr
-        _args(1) = code.ptr
+        _args(1) = code
         GdxApi.ptrcall(RenderingServer.Binds.shaderSetCode, ptr, _args, null)
+}
 
-    def shaderSetPathHint(shader: RID, path: CString): Unit =
+    def shaderSetPathHint(shader: RID, path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shader.ptr
-        _args(1) = path.ptr
+        _args(1) = path
         GdxApi.ptrcall(RenderingServer.Binds.shaderSetPathHint, ptr, _args, null)
+}
 
-    def shaderGetCode(shader: RID): CString =
+    def shaderGetCode(shader: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shader.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.shaderGetCode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getShaderParameterList(shader: RID): Ptr[Byte] =
+    def getShaderParameterList(shader: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shader.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getShaderParameterList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shaderGetParameterDefault(shader: RID, name: CString): Ptr[Byte] =
+    def shaderGetParameterDefault(shader: RID, name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shader.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.shaderGetParameterDefault, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shaderSetDefaultTextureParameter(shader: RID, name: CString, texture: RID): Unit =
+    def shaderSetDefaultTextureParameter(shader: RID, name: CString, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shader.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         _args(2) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.shaderSetDefaultTextureParameter, ptr, _args, null)
+}
 
-    def shaderGetDefaultTextureParameter(shader: RID, name: CString): RID =
+    def shaderGetDefaultTextureParameter(shader: RID, name: CString): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shader.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.shaderGetDefaultTextureParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def materialCreate(): RID =
+    def materialCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.materialCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def materialSetShader(shaderMaterial: RID, shader: RID): Unit =
+    def materialSetShader(shaderMaterial: RID, shader: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaderMaterial.ptr
         _args(1) = shader.ptr
         GdxApi.ptrcall(RenderingServer.Binds.materialSetShader, ptr, _args, null)
+}
 
-    def materialSetParam(material: RID, parameter: CString, value: Ptr[Byte]): Unit =
+    def materialSetParam(material: RID, parameter: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = material.ptr
-        _args(1) = parameter.ptr
-        _args(2) = value.ptr
+        _args(1) = parameter
+        _args(2) = value
         GdxApi.ptrcall(RenderingServer.Binds.materialSetParam, ptr, _args, null)
+}
 
-    def materialGetParam(material: RID, parameter: CString): Ptr[Byte] =
+    def materialGetParam(material: RID, parameter: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = material.ptr
-        _args(1) = parameter.ptr
+        _args(1) = parameter
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.materialGetParam, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def materialSetRenderPriority(material: RID, priority: Int): Unit =
+    def materialSetRenderPriority(material: RID, priority: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = material.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = priority.toLong
+        val _a1 = stackalloc[Long](); !_a1 = priority.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.materialSetRenderPriority, ptr, _args, null)
+}
 
-    def materialSetNextPass(material: RID, nextMaterial: RID): Unit =
+    def materialSetNextPass(material: RID, nextMaterial: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = material.ptr
         _args(1) = nextMaterial.ptr
         GdxApi.ptrcall(RenderingServer.Binds.materialSetNextPass, ptr, _args, null)
+}
 
-    def meshCreateFromSurfaces(surfaces: Ptr[Byte]): RID =
+    def meshCreateFromSurfaces(surfaces: Ptr[Byte]): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = surfaces.ptr
+        _args(0) = surfaces
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshCreateFromSurfaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def meshCreate(): RID =
+    def meshCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def meshSurfaceGetFormatOffset(format: Int, vertexCount: Int, arrayIndex: Int): Int =
+    def meshSurfaceGetFormatOffset(format: Int, vertexCount: Int, arrayIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = vertexCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = arrayIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = arrayIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetFormatOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSurfaceGetFormatVertexStride(format: Int, vertexCount: Int): Int =
+    def meshSurfaceGetFormatVertexStride(format: Int, vertexCount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = vertexCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetFormatVertexStride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSurfaceGetFormatNormalTangentStride(format: Int, vertexCount: Int): Int =
+    def meshSurfaceGetFormatNormalTangentStride(format: Int, vertexCount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = vertexCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetFormatNormalTangentStride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSurfaceGetFormatAttributeStride(format: Int, vertexCount: Int): Int =
+    def meshSurfaceGetFormatAttributeStride(format: Int, vertexCount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = vertexCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetFormatAttributeStride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSurfaceGetFormatSkinStride(format: Int, vertexCount: Int): Int =
+    def meshSurfaceGetFormatSkinStride(format: Int, vertexCount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = vertexCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetFormatSkinStride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSurfaceGetFormatIndexStride(format: Int, vertexCount: Int): Int =
+    def meshSurfaceGetFormatIndexStride(format: Int, vertexCount: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = format.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = vertexCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = vertexCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetFormatIndexStride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshAddSurface(mesh: RID, surface: Dictionary): Unit =
+    def meshAddSurface(mesh: RID, surface: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
         _args(1) = surface.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshAddSurface, ptr, _args, null)
+}
 
-    def meshAddSurfaceFromArrays(mesh: RID, primitive: Int, arrays: Array): Unit =
+    def meshAddSurfaceFromArrays(mesh: RID, primitive: Int, arrays: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = mesh.ptr
-        _args(1) = primitive.ptr
-        _args(2) = arrays.ptr
+        val _a1 = stackalloc[Long](); !_a1 = primitive.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        _args(2) = arrays
         GdxApi.ptrcall(RenderingServer.Binds.meshAddSurfaceFromArrays, ptr, _args, null)
+}
 
-    def meshGetBlendShapeCount(mesh: RID): Int =
+    def meshGetBlendShapeCount(mesh: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshGetBlendShapeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSetBlendShapeMode(mesh: RID, mode: Int): Unit =
+    def meshSetBlendShapeMode(mesh: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.meshSetBlendShapeMode, ptr, _args, null)
+}
 
-    def meshGetBlendShapeMode(mesh: RID): Int =
+    def meshGetBlendShapeMode(mesh: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshGetBlendShapeMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSurfaceSetMaterial(mesh: RID, surface: Int, material: RID): Unit =
+    def meshSurfaceSetMaterial(mesh: RID, surface: Int, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceSetMaterial, ptr, _args, null)
+}
 
-    def meshSurfaceGetMaterial(mesh: RID, surface: Int): RID =
+    def meshSurfaceGetMaterial(mesh: RID, surface: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def meshGetSurface(mesh: RID, surface: Int): Dictionary =
+    def meshGetSurface(mesh: RID, surface: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshGetSurface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def meshSurfaceGetArrays(mesh: RID, surface: Int): Array =
+    def meshSurfaceGetArrays(mesh: RID, surface: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetArrays, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def meshSurfaceGetBlendShapeArrays(mesh: RID, surface: Int): Ptr[Byte] =
+    def meshSurfaceGetBlendShapeArrays(mesh: RID, surface: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceGetBlendShapeArrays, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def meshGetSurfaceCount(mesh: RID): Int =
+    def meshGetSurfaceCount(mesh: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.meshGetSurfaceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def meshSetCustomAabb(mesh: RID, aabb: AABB): Unit =
+    def meshSetCustomAabb(mesh: RID, aabb: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
         _args(1) = aabb.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSetCustomAabb, ptr, _args, null)
+}
 
-    def meshGetCustomAabb(mesh: RID): AABB =
+    def meshGetCustomAabb(mesh: RID): AABB = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.meshGetCustomAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def meshSurfaceRemove(mesh: RID, surface: Int): Unit =
+    def meshSurfaceRemove(mesh: RID, surface: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceRemove, ptr, _args, null)
+}
 
-    def meshClear(mesh: RID): Unit =
+    def meshClear(mesh: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshClear, ptr, _args, null)
+}
 
-    def meshSurfaceUpdateVertexRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit =
+    def meshSurfaceUpdateVertexRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = offset.toLong
+        val _a2 = stackalloc[Long](); !_a2 = offset.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = data.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceUpdateVertexRegion, ptr, _args, null)
+}
 
-    def meshSurfaceUpdateAttributeRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit =
+    def meshSurfaceUpdateAttributeRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = offset.toLong
+        val _a2 = stackalloc[Long](); !_a2 = offset.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = data.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceUpdateAttributeRegion, ptr, _args, null)
+}
 
-    def meshSurfaceUpdateSkinRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit =
+    def meshSurfaceUpdateSkinRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = offset.toLong
+        val _a2 = stackalloc[Long](); !_a2 = offset.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = data.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceUpdateSkinRegion, ptr, _args, null)
+}
 
-    def meshSurfaceUpdateIndexRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit =
+    def meshSurfaceUpdateIndexRegion(mesh: RID, surface: Int, offset: Int, data: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = offset.toLong
+        val _a2 = stackalloc[Long](); !_a2 = offset.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = data.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSurfaceUpdateIndexRegion, ptr, _args, null)
+}
 
-    def meshSetShadowMesh(mesh: RID, shadowMesh: RID): Unit =
+    def meshSetShadowMesh(mesh: RID, shadowMesh: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
         _args(1) = shadowMesh.ptr
         GdxApi.ptrcall(RenderingServer.Binds.meshSetShadowMesh, ptr, _args, null)
+}
 
-    def multimeshCreate(): RID =
+    def multimeshCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def multimeshAllocateData(multimesh: RID, instances: Int, transformFormat: Int): Unit =
+    def multimeshAllocateData(multimesh: RID, instances: Int, transformFormat: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = instances.toLong
+        val _a1 = stackalloc[Long](); !_a1 = instances.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = transformFormat.ptr
+        val _a2 = stackalloc[Long](); !_a2 = transformFormat.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.multimeshAllocateData, ptr, _args, null)
+}
 
-    def multimeshGetInstanceCount(multimesh: RID): Int =
+    def multimeshGetInstanceCount(multimesh: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetInstanceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def multimeshSetMesh(multimesh: RID, mesh: RID): Unit =
+    def multimeshSetMesh(multimesh: RID, mesh: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
         _args(1) = mesh.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetMesh, ptr, _args, null)
+}
 
-    def multimeshInstanceSetTransform(multimesh: RID, index: Int, transform: Transform3D): Unit =
+    def multimeshInstanceSetTransform(multimesh: RID, index: Int, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceSetTransform, ptr, _args, null)
+}
 
-    def multimeshInstanceSetTransform2d(multimesh: RID, index: Int, transform: Transform2D): Unit =
+    def multimeshInstanceSetTransform2d(multimesh: RID, index: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceSetTransform2d, ptr, _args, null)
+}
 
-    def multimeshInstanceSetColor(multimesh: RID, index: Int, color: Color): Unit =
+    def multimeshInstanceSetColor(multimesh: RID, index: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceSetColor, ptr, _args, null)
+}
 
-    def multimeshInstanceSetCustomData(multimesh: RID, index: Int, customData: Color): Unit =
+    def multimeshInstanceSetCustomData(multimesh: RID, index: Int, customData: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = customData.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceSetCustomData, ptr, _args, null)
+}
 
-    def multimeshGetMesh(multimesh: RID): RID =
+    def multimeshGetMesh(multimesh: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def multimeshGetAabb(multimesh: RID): AABB =
+    def multimeshGetAabb(multimesh: RID): AABB = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def multimeshSetCustomAabb(multimesh: RID, aabb: AABB): Unit =
+    def multimeshSetCustomAabb(multimesh: RID, aabb: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
         _args(1) = aabb.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetCustomAabb, ptr, _args, null)
+}
 
-    def multimeshGetCustomAabb(multimesh: RID): AABB =
+    def multimeshGetCustomAabb(multimesh: RID): AABB = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetCustomAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def multimeshInstanceGetTransform(multimesh: RID, index: Int): Transform3D =
+    def multimeshInstanceGetTransform(multimesh: RID, index: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceGetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def multimeshInstanceGetTransform2d(multimesh: RID, index: Int): Transform2D =
+    def multimeshInstanceGetTransform2d(multimesh: RID, index: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceGetTransform2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def multimeshInstanceGetColor(multimesh: RID, index: Int): Color =
+    def multimeshInstanceGetColor(multimesh: RID, index: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceGetColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def multimeshInstanceGetCustomData(multimesh: RID, index: Int): Color =
+    def multimeshInstanceGetCustomData(multimesh: RID, index: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceGetCustomData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def multimeshSetVisibleInstances(multimesh: RID, visible: Int): Unit =
+    def multimeshSetVisibleInstances(multimesh: RID, visible: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = visible.toLong
+        val _a1 = stackalloc[Long](); !_a1 = visible.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetVisibleInstances, ptr, _args, null)
+}
 
-    def multimeshGetVisibleInstances(multimesh: RID): Int =
+    def multimeshGetVisibleInstances(multimesh: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetVisibleInstances, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def multimeshSetBuffer(multimesh: RID, buffer: PackedFloat32Array): Unit =
+    def multimeshSetBuffer(multimesh: RID, buffer: PackedFloat32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
         _args(1) = buffer.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetBuffer, ptr, _args, null)
+}
 
-    def multimeshGetCommandBufferRdRid(multimesh: RID): RID =
+    def multimeshGetCommandBufferRdRid(multimesh: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetCommandBufferRdRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def multimeshGetBufferRdRid(multimesh: RID): RID =
+    def multimeshGetBufferRdRid(multimesh: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetBufferRdRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def multimeshGetBuffer(multimesh: RID): PackedFloat32Array =
+    def multimeshGetBuffer(multimesh: RID): PackedFloat32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = multimesh.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.multimeshGetBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedFloat32Array(!_ret)
+}
 
-    def multimeshSetBufferInterpolated(multimesh: RID, buffer: PackedFloat32Array, bufferPrevious: PackedFloat32Array): Unit =
+    def multimeshSetBufferInterpolated(multimesh: RID, buffer: PackedFloat32Array, bufferPrevious: PackedFloat32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = multimesh.ptr
         _args(1) = buffer.ptr
         _args(2) = bufferPrevious.ptr
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetBufferInterpolated, ptr, _args, null)
+}
 
-    def multimeshSetPhysicsInterpolated(multimesh: RID, interpolated: Boolean): Unit =
+    def multimeshSetPhysicsInterpolated(multimesh: RID, interpolated: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if interpolated then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetPhysicsInterpolated, ptr, _args, null)
+}
 
-    def multimeshSetPhysicsInterpolationQuality(multimesh: RID, quality: Int): Unit =
+    def multimeshSetPhysicsInterpolationQuality(multimesh: RID, quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        _args(1) = quality.ptr
+        val _a1 = stackalloc[Long](); !_a1 = quality.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.multimeshSetPhysicsInterpolationQuality, ptr, _args, null)
+}
 
-    def multimeshInstanceResetPhysicsInterpolation(multimesh: RID, index: Int): Unit =
+    def multimeshInstanceResetPhysicsInterpolation(multimesh: RID, index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.multimeshInstanceResetPhysicsInterpolation, ptr, _args, null)
+}
 
-    def skeletonCreate(): RID =
+    def skeletonCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.skeletonCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def skeletonAllocateData(skeleton: RID, bones: Int): Unit =
+    def skeletonAllocateData(skeleton: RID, bones: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = skeleton.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = bones.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bones.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.skeletonAllocateData, ptr, _args, null)
+}
 
-    def skeletonGetBoneCount(skeleton: RID): Int =
+    def skeletonGetBoneCount(skeleton: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = skeleton.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.skeletonGetBoneCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def skeletonBoneSetTransform(skeleton: RID, bone: Int, transform: Transform3D): Unit =
+    def skeletonBoneSetTransform(skeleton: RID, bone: Int, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = skeleton.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.skeletonBoneSetTransform, ptr, _args, null)
+}
 
-    def skeletonBoneGetTransform(skeleton: RID, bone: Int): Transform3D =
+    def skeletonBoneGetTransform(skeleton: RID, bone: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = skeleton.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.skeletonBoneGetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def skeletonBoneSetTransform2d(skeleton: RID, bone: Int, transform: Transform2D): Unit =
+    def skeletonBoneSetTransform2d(skeleton: RID, bone: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = skeleton.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.skeletonBoneSetTransform2d, ptr, _args, null)
+}
 
-    def skeletonBoneGetTransform2d(skeleton: RID, bone: Int): Transform2D =
+    def skeletonBoneGetTransform2d(skeleton: RID, bone: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = skeleton.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.skeletonBoneGetTransform2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def skeletonSetBaseTransform2d(skeleton: RID, baseTransform: Transform2D): Unit =
+    def skeletonSetBaseTransform2d(skeleton: RID, baseTransform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = skeleton.ptr
         _args(1) = baseTransform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.skeletonSetBaseTransform2d, ptr, _args, null)
+}
 
-    def directionalLightCreate(): RID =
+    def directionalLightCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.directionalLightCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def omniLightCreate(): RID =
+    def omniLightCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.omniLightCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def spotLightCreate(): RID =
+    def spotLightCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.spotLightCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def lightSetColor(light: RID, color: Color): Unit =
+    def lightSetColor(light: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.lightSetColor, ptr, _args, null)
+}
 
-    def lightSetParam(light: RID, param: Int, value: Float): Unit =
+    def lightSetParam(light: RID, param: Int, value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = light.ptr
-        _args(1) = param.ptr
+        val _a1 = stackalloc[Long](); !_a1 = param.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = value.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetParam, ptr, _args, null)
+}
 
-    def lightSetShadow(light: RID, enabled: Boolean): Unit =
+    def lightSetShadow(light: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetShadow, ptr, _args, null)
+}
 
-    def lightSetProjector(light: RID, texture: RID): Unit =
+    def lightSetProjector(light: RID, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.lightSetProjector, ptr, _args, null)
+}
 
-    def lightSetNegative(light: RID, enable: Boolean): Unit =
+    def lightSetNegative(light: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetNegative, ptr, _args, null)
+}
 
-    def lightSetCullMask(light: RID, mask: Int): Unit =
+    def lightSetCullMask(light: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetCullMask, ptr, _args, null)
+}
 
-    def lightSetDistanceFade(decal: RID, enabled: Boolean, begin: Float, shadow: Float, length: Float): Unit =
+    def lightSetDistanceFade(decal: RID, enabled: Boolean, begin: Float, shadow: Float, length: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = decal.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
@@ -826,248 +949,296 @@ class RenderingServer extends Object
         val _a4 = stackalloc[Double](); !_a4 = length.toDouble
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetDistanceFade, ptr, _args, null)
+}
 
-    def lightSetReverseCullFaceMode(light: RID, enabled: Boolean): Unit =
+    def lightSetReverseCullFaceMode(light: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetReverseCullFaceMode, ptr, _args, null)
+}
 
-    def lightSetShadowCasterMask(light: RID, mask: Int): Unit =
+    def lightSetShadowCasterMask(light: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetShadowCasterMask, ptr, _args, null)
+}
 
-    def lightSetBakeMode(light: RID, bakeMode: Int): Unit =
+    def lightSetBakeMode(light: RID, bakeMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = bakeMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = bakeMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetBakeMode, ptr, _args, null)
+}
 
-    def lightSetMaxSdfgiCascade(light: RID, cascade: Int): Unit =
+    def lightSetMaxSdfgiCascade(light: RID, cascade: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = cascade.toLong
+        val _a1 = stackalloc[Long](); !_a1 = cascade.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightSetMaxSdfgiCascade, ptr, _args, null)
+}
 
-    def lightOmniSetShadowMode(light: RID, mode: Int): Unit =
+    def lightOmniSetShadowMode(light: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightOmniSetShadowMode, ptr, _args, null)
+}
 
-    def lightDirectionalSetShadowMode(light: RID, mode: Int): Unit =
+    def lightDirectionalSetShadowMode(light: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightDirectionalSetShadowMode, ptr, _args, null)
+}
 
-    def lightDirectionalSetBlendSplits(light: RID, enable: Boolean): Unit =
+    def lightDirectionalSetBlendSplits(light: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightDirectionalSetBlendSplits, ptr, _args, null)
+}
 
-    def lightDirectionalSetSkyMode(light: RID, mode: Int): Unit =
+    def lightDirectionalSetSkyMode(light: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightDirectionalSetSkyMode, ptr, _args, null)
+}
 
-    def lightProjectorsSetFilter(filter: Int): Unit =
+    def lightProjectorsSetFilter(filter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
+        val _a0 = stackalloc[Long](); !_a0 = filter.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightProjectorsSetFilter, ptr, _args, null)
+}
 
-    def lightmapsSetBicubicFilter(enable: Boolean): Unit =
+    def lightmapsSetBicubicFilter(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightmapsSetBicubicFilter, ptr, _args, null)
+}
 
-    def positionalSoftShadowFilterSetQuality(quality: Int): Unit =
+    def positionalSoftShadowFilterSetQuality(quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.positionalSoftShadowFilterSetQuality, ptr, _args, null)
+}
 
-    def directionalSoftShadowFilterSetQuality(quality: Int): Unit =
+    def directionalSoftShadowFilterSetQuality(quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.directionalSoftShadowFilterSetQuality, ptr, _args, null)
+}
 
-    def directionalShadowAtlasSetSize(size: Int, is16bits: Boolean): Unit =
+    def directionalShadowAtlasSetSize(size: Int, is16bits: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if is16bits then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.directionalShadowAtlasSetSize, ptr, _args, null)
+}
 
-    def reflectionProbeCreate(): RID =
+    def reflectionProbeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def reflectionProbeSetUpdateMode(probe: RID, mode: Int): Unit =
+    def reflectionProbeSetUpdateMode(probe: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetUpdateMode, ptr, _args, null)
+}
 
-    def reflectionProbeSetIntensity(probe: RID, intensity: Float): Unit =
+    def reflectionProbeSetIntensity(probe: RID, intensity: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Double](); !_a1 = intensity.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetIntensity, ptr, _args, null)
+}
 
-    def reflectionProbeSetBlendDistance(probe: RID, blendDistance: Float): Unit =
+    def reflectionProbeSetBlendDistance(probe: RID, blendDistance: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Double](); !_a1 = blendDistance.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetBlendDistance, ptr, _args, null)
+}
 
-    def reflectionProbeSetAmbientMode(probe: RID, mode: Int): Unit =
+    def reflectionProbeSetAmbientMode(probe: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetAmbientMode, ptr, _args, null)
+}
 
-    def reflectionProbeSetAmbientColor(probe: RID, color: Color): Unit =
+    def reflectionProbeSetAmbientColor(probe: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetAmbientColor, ptr, _args, null)
+}
 
-    def reflectionProbeSetAmbientEnergy(probe: RID, energy: Float): Unit =
+    def reflectionProbeSetAmbientEnergy(probe: RID, energy: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Double](); !_a1 = energy.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetAmbientEnergy, ptr, _args, null)
+}
 
-    def reflectionProbeSetMaxDistance(probe: RID, distance: Float): Unit =
+    def reflectionProbeSetMaxDistance(probe: RID, distance: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Double](); !_a1 = distance.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetMaxDistance, ptr, _args, null)
+}
 
-    def reflectionProbeSetSize(probe: RID, size: Vector3): Unit =
+    def reflectionProbeSetSize(probe: RID, size: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         _args(1) = size.ptr
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetSize, ptr, _args, null)
+}
 
-    def reflectionProbeSetOriginOffset(probe: RID, offset: Vector3): Unit =
+    def reflectionProbeSetOriginOffset(probe: RID, offset: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         _args(1) = offset.ptr
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetOriginOffset, ptr, _args, null)
+}
 
-    def reflectionProbeSetAsInterior(probe: RID, enable: Boolean): Unit =
+    def reflectionProbeSetAsInterior(probe: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetAsInterior, ptr, _args, null)
+}
 
-    def reflectionProbeSetEnableBoxProjection(probe: RID, enable: Boolean): Unit =
+    def reflectionProbeSetEnableBoxProjection(probe: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetEnableBoxProjection, ptr, _args, null)
+}
 
-    def reflectionProbeSetEnableShadows(probe: RID, enable: Boolean): Unit =
+    def reflectionProbeSetEnableShadows(probe: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetEnableShadows, ptr, _args, null)
+}
 
-    def reflectionProbeSetCullMask(probe: RID, layers: Int): Unit =
+    def reflectionProbeSetCullMask(probe: RID, layers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetCullMask, ptr, _args, null)
+}
 
-    def reflectionProbeSetReflectionMask(probe: RID, layers: Int): Unit =
+    def reflectionProbeSetReflectionMask(probe: RID, layers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetReflectionMask, ptr, _args, null)
+}
 
-    def reflectionProbeSetResolution(probe: RID, resolution: Int): Unit =
+    def reflectionProbeSetResolution(probe: RID, resolution: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = resolution.toLong
+        val _a1 = stackalloc[Long](); !_a1 = resolution.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetResolution, ptr, _args, null)
+}
 
-    def reflectionProbeSetMeshLodThreshold(probe: RID, pixels: Float): Unit =
+    def reflectionProbeSetMeshLodThreshold(probe: RID, pixels: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = probe.ptr
         val _a1 = stackalloc[Double](); !_a1 = pixels.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.reflectionProbeSetMeshLodThreshold, ptr, _args, null)
+}
 
-    def decalCreate(): RID =
+    def decalCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.decalCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def decalSetSize(decal: RID, size: Vector3): Unit =
+    def decalSetSize(decal: RID, size: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = decal.ptr
         _args(1) = size.ptr
         GdxApi.ptrcall(RenderingServer.Binds.decalSetSize, ptr, _args, null)
+}
 
-    def decalSetTexture(decal: RID, `type`: Int, texture: RID): Unit =
+    def decalSetTexture(decal: RID, `type`: Int, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = decal.ptr
-        _args(1) = `type`.ptr
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.decalSetTexture, ptr, _args, null)
+}
 
-    def decalSetEmissionEnergy(decal: RID, energy: Float): Unit =
+    def decalSetEmissionEnergy(decal: RID, energy: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = decal.ptr
         val _a1 = stackalloc[Double](); !_a1 = energy.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalSetEmissionEnergy, ptr, _args, null)
+}
 
-    def decalSetAlbedoMix(decal: RID, albedoMix: Float): Unit =
+    def decalSetAlbedoMix(decal: RID, albedoMix: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = decal.ptr
         val _a1 = stackalloc[Double](); !_a1 = albedoMix.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalSetAlbedoMix, ptr, _args, null)
+}
 
-    def decalSetModulate(decal: RID, color: Color): Unit =
+    def decalSetModulate(decal: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = decal.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.decalSetModulate, ptr, _args, null)
+}
 
-    def decalSetCullMask(decal: RID, mask: Int): Unit =
+    def decalSetCullMask(decal: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = decal.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalSetCullMask, ptr, _args, null)
+}
 
-    def decalSetDistanceFade(decal: RID, enabled: Boolean, begin: Float, length: Float): Unit =
+    def decalSetDistanceFade(decal: RID, enabled: Boolean, begin: Float, length: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = decal.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
@@ -1077,8 +1248,9 @@ class RenderingServer extends Object
         val _a3 = stackalloc[Double](); !_a3 = length.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalSetDistanceFade, ptr, _args, null)
+}
 
-    def decalSetFade(decal: RID, above: Float, below: Float): Unit =
+    def decalSetFade(decal: RID, above: Float, below: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = decal.ptr
         val _a1 = stackalloc[Double](); !_a1 = above.toDouble
@@ -1086,32 +1258,38 @@ class RenderingServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = below.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalSetFade, ptr, _args, null)
+}
 
-    def decalSetNormalFade(decal: RID, fade: Float): Unit =
+    def decalSetNormalFade(decal: RID, fade: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = decal.ptr
         val _a1 = stackalloc[Double](); !_a1 = fade.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalSetNormalFade, ptr, _args, null)
+}
 
-    def decalsSetFilter(filter: Int): Unit =
+    def decalsSetFilter(filter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
+        val _a0 = stackalloc[Long](); !_a0 = filter.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.decalsSetFilter, ptr, _args, null)
+}
 
-    def giSetUseHalfResolution(halfResolution: Boolean): Unit =
+    def giSetUseHalfResolution(halfResolution: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if halfResolution then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.giSetUseHalfResolution, ptr, _args, null)
+}
 
-    def voxelGiCreate(): RID =
+    def voxelGiCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def voxelGiAllocateData(voxelGi: RID, toCellXform: Transform3D, aabb: AABB, octreeSize: Vector3i, octreeCells: PackedByteArray, dataCells: PackedByteArray, distanceField: PackedByteArray, levelCounts: PackedInt32Array): Unit =
+    def voxelGiAllocateData(voxelGi: RID, toCellXform: Transform3D, aabb: AABB, octreeSize: Vector3i, octreeCells: PackedByteArray, dataCells: PackedByteArray, distanceField: PackedByteArray, levelCounts: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](8)
         _args(0) = voxelGi.ptr
         _args(1) = toCellXform.ptr
@@ -1122,138 +1300,159 @@ class RenderingServer extends Object
         _args(6) = distanceField.ptr
         _args(7) = levelCounts.ptr
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiAllocateData, ptr, _args, null)
+}
 
-    def voxelGiGetOctreeSize(voxelGi: RID): Vector3i =
+    def voxelGiGetOctreeSize(voxelGi: RID): Vector3i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = voxelGi.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiGetOctreeSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3i(!_ret)
+}
 
-    def voxelGiGetOctreeCells(voxelGi: RID): PackedByteArray =
+    def voxelGiGetOctreeCells(voxelGi: RID): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = voxelGi.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiGetOctreeCells, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def voxelGiGetDataCells(voxelGi: RID): PackedByteArray =
+    def voxelGiGetDataCells(voxelGi: RID): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = voxelGi.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiGetDataCells, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def voxelGiGetDistanceField(voxelGi: RID): PackedByteArray =
+    def voxelGiGetDistanceField(voxelGi: RID): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = voxelGi.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiGetDistanceField, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def voxelGiGetLevelCounts(voxelGi: RID): PackedInt32Array =
+    def voxelGiGetLevelCounts(voxelGi: RID): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = voxelGi.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiGetLevelCounts, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def voxelGiGetToCellXform(voxelGi: RID): Transform3D =
+    def voxelGiGetToCellXform(voxelGi: RID): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = voxelGi.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiGetToCellXform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def voxelGiSetDynamicRange(voxelGi: RID, range: Float): Unit =
+    def voxelGiSetDynamicRange(voxelGi: RID, range: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Double](); !_a1 = range.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetDynamicRange, ptr, _args, null)
+}
 
-    def voxelGiSetPropagation(voxelGi: RID, amount: Float): Unit =
+    def voxelGiSetPropagation(voxelGi: RID, amount: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Double](); !_a1 = amount.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetPropagation, ptr, _args, null)
+}
 
-    def voxelGiSetEnergy(voxelGi: RID, energy: Float): Unit =
+    def voxelGiSetEnergy(voxelGi: RID, energy: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Double](); !_a1 = energy.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetEnergy, ptr, _args, null)
+}
 
-    def voxelGiSetBakedExposureNormalization(voxelGi: RID, bakedExposure: Float): Unit =
+    def voxelGiSetBakedExposureNormalization(voxelGi: RID, bakedExposure: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Double](); !_a1 = bakedExposure.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetBakedExposureNormalization, ptr, _args, null)
+}
 
-    def voxelGiSetBias(voxelGi: RID, bias: Float): Unit =
+    def voxelGiSetBias(voxelGi: RID, bias: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Double](); !_a1 = bias.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetBias, ptr, _args, null)
+}
 
-    def voxelGiSetNormalBias(voxelGi: RID, bias: Float): Unit =
+    def voxelGiSetNormalBias(voxelGi: RID, bias: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Double](); !_a1 = bias.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetNormalBias, ptr, _args, null)
+}
 
-    def voxelGiSetInterior(voxelGi: RID, enable: Boolean): Unit =
+    def voxelGiSetInterior(voxelGi: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetInterior, ptr, _args, null)
+}
 
-    def voxelGiSetUseTwoBounces(voxelGi: RID, enable: Boolean): Unit =
+    def voxelGiSetUseTwoBounces(voxelGi: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = voxelGi.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetUseTwoBounces, ptr, _args, null)
+}
 
-    def voxelGiSetQuality(quality: Int): Unit =
+    def voxelGiSetQuality(quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.voxelGiSetQuality, ptr, _args, null)
+}
 
-    def lightmapCreate(): RID =
+    def lightmapCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.lightmapCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def lightmapSetTextures(lightmap: RID, light: RID, usesSh: Boolean): Unit =
+    def lightmapSetTextures(lightmap: RID, light: RID, usesSh: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = lightmap.ptr
         _args(1) = light.ptr
         val _a2 = stackalloc[Byte](); !_a2 = if usesSh then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightmapSetTextures, ptr, _args, null)
+}
 
-    def lightmapSetProbeBounds(lightmap: RID, bounds: AABB): Unit =
+    def lightmapSetProbeBounds(lightmap: RID, bounds: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = lightmap.ptr
         _args(1) = bounds.ptr
         GdxApi.ptrcall(RenderingServer.Binds.lightmapSetProbeBounds, ptr, _args, null)
+}
 
-    def lightmapSetProbeInterior(lightmap: RID, interior: Boolean): Unit =
+    def lightmapSetProbeInterior(lightmap: RID, interior: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = lightmap.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if interior then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightmapSetProbeInterior, ptr, _args, null)
+}
 
-    def lightmapSetProbeCaptureData(lightmap: RID, points: PackedVector3Array, pointSh: PackedColorArray, tetrahedra: PackedInt32Array, bspTree: PackedInt32Array): Unit =
+    def lightmapSetProbeCaptureData(lightmap: RID, points: PackedVector3Array, pointSh: PackedColorArray, tetrahedra: PackedInt32Array, bspTree: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = lightmap.ptr
         _args(1) = points.ptr
@@ -1261,204 +1460,236 @@ class RenderingServer extends Object
         _args(3) = tetrahedra.ptr
         _args(4) = bspTree.ptr
         GdxApi.ptrcall(RenderingServer.Binds.lightmapSetProbeCaptureData, ptr, _args, null)
+}
 
-    def lightmapGetProbeCapturePoints(lightmap: RID): PackedVector3Array =
+    def lightmapGetProbeCapturePoints(lightmap: RID): PackedVector3Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = lightmap.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.lightmapGetProbeCapturePoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def lightmapGetProbeCaptureSh(lightmap: RID): PackedColorArray =
+    def lightmapGetProbeCaptureSh(lightmap: RID): PackedColorArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = lightmap.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.lightmapGetProbeCaptureSh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedColorArray(!_ret)
+}
 
-    def lightmapGetProbeCaptureTetrahedra(lightmap: RID): PackedInt32Array =
+    def lightmapGetProbeCaptureTetrahedra(lightmap: RID): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = lightmap.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.lightmapGetProbeCaptureTetrahedra, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def lightmapGetProbeCaptureBspTree(lightmap: RID): PackedInt32Array =
+    def lightmapGetProbeCaptureBspTree(lightmap: RID): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = lightmap.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.lightmapGetProbeCaptureBspTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def lightmapSetBakedExposureNormalization(lightmap: RID, bakedExposure: Float): Unit =
+    def lightmapSetBakedExposureNormalization(lightmap: RID, bakedExposure: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = lightmap.ptr
         val _a1 = stackalloc[Double](); !_a1 = bakedExposure.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightmapSetBakedExposureNormalization, ptr, _args, null)
+}
 
-    def lightmapSetProbeCaptureUpdateSpeed(speed: Float): Unit =
+    def lightmapSetProbeCaptureUpdateSpeed(speed: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = speed.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.lightmapSetProbeCaptureUpdateSpeed, ptr, _args, null)
+}
 
-    def particlesCreate(): RID =
+    def particlesCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.particlesCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def particlesSetMode(particles: RID, mode: Int): Unit =
+    def particlesSetMode(particles: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetMode, ptr, _args, null)
+}
 
-    def particlesSetEmitting(particles: RID, emitting: Boolean): Unit =
+    def particlesSetEmitting(particles: RID, emitting: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if emitting then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetEmitting, ptr, _args, null)
+}
 
-    def particlesGetEmitting(particles: RID): Boolean =
+    def particlesGetEmitting(particles: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particles.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingServer.Binds.particlesGetEmitting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def particlesSetAmount(particles: RID, amount: Int): Unit =
+    def particlesSetAmount(particles: RID, amount: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = amount.toLong
+        val _a1 = stackalloc[Long](); !_a1 = amount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetAmount, ptr, _args, null)
+}
 
-    def particlesSetAmountRatio(particles: RID, ratio: Float): Unit =
+    def particlesSetAmountRatio(particles: RID, ratio: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = ratio.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetAmountRatio, ptr, _args, null)
+}
 
-    def particlesSetLifetime(particles: RID, lifetime: Double): Unit =
+    def particlesSetLifetime(particles: RID, lifetime: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = lifetime
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetLifetime, ptr, _args, null)
+}
 
-    def particlesSetOneShot(particles: RID, oneShot: Boolean): Unit =
+    def particlesSetOneShot(particles: RID, oneShot: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if oneShot then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetOneShot, ptr, _args, null)
+}
 
-    def particlesSetPreProcessTime(particles: RID, time: Double): Unit =
+    def particlesSetPreProcessTime(particles: RID, time: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = time
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetPreProcessTime, ptr, _args, null)
+}
 
-    def particlesRequestProcessTime(particles: RID, time: Float): Unit =
+    def particlesRequestProcessTime(particles: RID, time: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = time.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesRequestProcessTime, ptr, _args, null)
+}
 
-    def particlesSetExplosivenessRatio(particles: RID, ratio: Float): Unit =
+    def particlesSetExplosivenessRatio(particles: RID, ratio: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = ratio.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetExplosivenessRatio, ptr, _args, null)
+}
 
-    def particlesSetRandomnessRatio(particles: RID, ratio: Float): Unit =
+    def particlesSetRandomnessRatio(particles: RID, ratio: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = ratio.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetRandomnessRatio, ptr, _args, null)
+}
 
-    def particlesSetInterpToEnd(particles: RID, factor: Float): Unit =
+    def particlesSetInterpToEnd(particles: RID, factor: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = factor.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetInterpToEnd, ptr, _args, null)
+}
 
-    def particlesSetEmitterVelocity(particles: RID, velocity: Vector3): Unit =
+    def particlesSetEmitterVelocity(particles: RID, velocity: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         _args(1) = velocity.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetEmitterVelocity, ptr, _args, null)
+}
 
-    def particlesSetCustomAabb(particles: RID, aabb: AABB): Unit =
+    def particlesSetCustomAabb(particles: RID, aabb: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         _args(1) = aabb.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetCustomAabb, ptr, _args, null)
+}
 
-    def particlesSetSpeedScale(particles: RID, scale: Double): Unit =
+    def particlesSetSpeedScale(particles: RID, scale: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = scale
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetSpeedScale, ptr, _args, null)
+}
 
-    def particlesSetUseLocalCoordinates(particles: RID, enable: Boolean): Unit =
+    def particlesSetUseLocalCoordinates(particles: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetUseLocalCoordinates, ptr, _args, null)
+}
 
-    def particlesSetProcessMaterial(particles: RID, material: RID): Unit =
+    def particlesSetProcessMaterial(particles: RID, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetProcessMaterial, ptr, _args, null)
+}
 
-    def particlesSetFixedFps(particles: RID, fps: Int): Unit =
+    def particlesSetFixedFps(particles: RID, fps: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fps.toLong
+        val _a1 = stackalloc[Long](); !_a1 = fps.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetFixedFps, ptr, _args, null)
+}
 
-    def particlesSetInterpolate(particles: RID, enable: Boolean): Unit =
+    def particlesSetInterpolate(particles: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetInterpolate, ptr, _args, null)
+}
 
-    def particlesSetFractionalDelta(particles: RID, enable: Boolean): Unit =
+    def particlesSetFractionalDelta(particles: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetFractionalDelta, ptr, _args, null)
+}
 
-    def particlesSetCollisionBaseSize(particles: RID, size: Float): Unit =
+    def particlesSetCollisionBaseSize(particles: RID, size: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Double](); !_a1 = size.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetCollisionBaseSize, ptr, _args, null)
+}
 
-    def particlesSetTransformAlign(particles: RID, align: Int): Unit =
+    def particlesSetTransformAlign(particles: RID, align: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        _args(1) = align.ptr
+        val _a1 = stackalloc[Long](); !_a1 = align.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetTransformAlign, ptr, _args, null)
+}
 
-    def particlesSetTrails(particles: RID, enable: Boolean, lengthSec: Float): Unit =
+    def particlesSetTrails(particles: RID, enable: Boolean, lengthSec: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = particles.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -1466,221 +1697,259 @@ class RenderingServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = lengthSec.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetTrails, ptr, _args, null)
+}
 
-    def particlesSetTrailBindPoses(particles: RID, bindPoses: Ptr[Byte]): Unit =
+    def particlesSetTrailBindPoses(particles: RID, bindPoses: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        _args(1) = bindPoses.ptr
+        _args(1) = bindPoses
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetTrailBindPoses, ptr, _args, null)
+}
 
-    def particlesIsInactive(particles: RID): Boolean =
+    def particlesIsInactive(particles: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particles.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingServer.Binds.particlesIsInactive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def particlesRequestProcess(particles: RID): Unit =
+    def particlesRequestProcess(particles: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particles.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesRequestProcess, ptr, _args, null)
+}
 
-    def particlesRestart(particles: RID): Unit =
+    def particlesRestart(particles: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particles.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesRestart, ptr, _args, null)
+}
 
-    def particlesSetSubemitter(particles: RID, subemitterParticles: RID): Unit =
+    def particlesSetSubemitter(particles: RID, subemitterParticles: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         _args(1) = subemitterParticles.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetSubemitter, ptr, _args, null)
+}
 
-    def particlesEmit(particles: RID, transform: Transform3D, velocity: Vector3, color: Color, custom: Color, emitFlags: Int): Unit =
+    def particlesEmit(particles: RID, transform: Transform3D, velocity: Vector3, color: Color, custom: Color, emitFlags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = particles.ptr
         _args(1) = transform.ptr
         _args(2) = velocity.ptr
         _args(3) = color.ptr
         _args(4) = custom.ptr
-        val _a5 = stackalloc[CLong](); !_a5 = emitFlags.toLong
+        val _a5 = stackalloc[Long](); !_a5 = emitFlags.toLong
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesEmit, ptr, _args, null)
+}
 
-    def particlesSetDrawOrder(particles: RID, order: Int): Unit =
+    def particlesSetDrawOrder(particles: RID, order: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        _args(1) = order.ptr
+        val _a1 = stackalloc[Long](); !_a1 = order.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetDrawOrder, ptr, _args, null)
+}
 
-    def particlesSetDrawPasses(particles: RID, count: Int): Unit =
+    def particlesSetDrawPasses(particles: RID, count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = count.toLong
+        val _a1 = stackalloc[Long](); !_a1 = count.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetDrawPasses, ptr, _args, null)
+}
 
-    def particlesSetDrawPassMesh(particles: RID, pass: Int, mesh: RID): Unit =
+    def particlesSetDrawPassMesh(particles: RID, pass: Int, mesh: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = particles.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pass.toLong
+        val _a1 = stackalloc[Long](); !_a1 = pass.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = mesh.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetDrawPassMesh, ptr, _args, null)
+}
 
-    def particlesGetCurrentAabb(particles: RID): AABB =
+    def particlesGetCurrentAabb(particles: RID): AABB = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particles.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.particlesGetCurrentAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AABB(!_ret)
+}
 
-    def particlesSetEmissionTransform(particles: RID, transform: Transform3D): Unit =
+    def particlesSetEmissionTransform(particles: RID, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particles.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesSetEmissionTransform, ptr, _args, null)
+}
 
-    def particlesCollisionCreate(): RID =
+    def particlesCollisionCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def particlesCollisionSetCollisionType(particlesCollision: RID, `type`: Int): Unit =
+    def particlesCollisionSetCollisionType(particlesCollision: RID, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
-        _args(1) = `type`.ptr
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetCollisionType, ptr, _args, null)
+}
 
-    def particlesCollisionSetCullMask(particlesCollision: RID, mask: Int): Unit =
+    def particlesCollisionSetCullMask(particlesCollision: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetCullMask, ptr, _args, null)
+}
 
-    def particlesCollisionSetSphereRadius(particlesCollision: RID, radius: Float): Unit =
+    def particlesCollisionSetSphereRadius(particlesCollision: RID, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetSphereRadius, ptr, _args, null)
+}
 
-    def particlesCollisionSetBoxExtents(particlesCollision: RID, extents: Vector3): Unit =
+    def particlesCollisionSetBoxExtents(particlesCollision: RID, extents: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
         _args(1) = extents.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetBoxExtents, ptr, _args, null)
+}
 
-    def particlesCollisionSetAttractorStrength(particlesCollision: RID, strength: Float): Unit =
+    def particlesCollisionSetAttractorStrength(particlesCollision: RID, strength: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
         val _a1 = stackalloc[Double](); !_a1 = strength.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetAttractorStrength, ptr, _args, null)
+}
 
-    def particlesCollisionSetAttractorDirectionality(particlesCollision: RID, amount: Float): Unit =
+    def particlesCollisionSetAttractorDirectionality(particlesCollision: RID, amount: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
         val _a1 = stackalloc[Double](); !_a1 = amount.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetAttractorDirectionality, ptr, _args, null)
+}
 
-    def particlesCollisionSetAttractorAttenuation(particlesCollision: RID, curve: Float): Unit =
+    def particlesCollisionSetAttractorAttenuation(particlesCollision: RID, curve: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
         val _a1 = stackalloc[Double](); !_a1 = curve.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetAttractorAttenuation, ptr, _args, null)
+}
 
-    def particlesCollisionSetFieldTexture(particlesCollision: RID, texture: RID): Unit =
+    def particlesCollisionSetFieldTexture(particlesCollision: RID, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
         _args(1) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetFieldTexture, ptr, _args, null)
+}
 
-    def particlesCollisionHeightFieldUpdate(particlesCollision: RID): Unit =
+    def particlesCollisionHeightFieldUpdate(particlesCollision: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = particlesCollision.ptr
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionHeightFieldUpdate, ptr, _args, null)
+}
 
-    def particlesCollisionSetHeightFieldResolution(particlesCollision: RID, resolution: Int): Unit =
+    def particlesCollisionSetHeightFieldResolution(particlesCollision: RID, resolution: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
-        _args(1) = resolution.ptr
+        val _a1 = stackalloc[Long](); !_a1 = resolution.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetHeightFieldResolution, ptr, _args, null)
+}
 
-    def particlesCollisionSetHeightFieldMask(particlesCollision: RID, mask: Int): Unit =
+    def particlesCollisionSetHeightFieldMask(particlesCollision: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = particlesCollision.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.particlesCollisionSetHeightFieldMask, ptr, _args, null)
+}
 
-    def fogVolumeCreate(): RID =
+    def fogVolumeCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.fogVolumeCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def fogVolumeSetShape(fogVolume: RID, shape: Int): Unit =
+    def fogVolumeSetShape(fogVolume: RID, shape: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fogVolume.ptr
-        _args(1) = shape.ptr
+        val _a1 = stackalloc[Long](); !_a1 = shape.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.fogVolumeSetShape, ptr, _args, null)
+}
 
-    def fogVolumeSetSize(fogVolume: RID, size: Vector3): Unit =
+    def fogVolumeSetSize(fogVolume: RID, size: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fogVolume.ptr
         _args(1) = size.ptr
         GdxApi.ptrcall(RenderingServer.Binds.fogVolumeSetSize, ptr, _args, null)
+}
 
-    def fogVolumeSetMaterial(fogVolume: RID, material: RID): Unit =
+    def fogVolumeSetMaterial(fogVolume: RID, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fogVolume.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.fogVolumeSetMaterial, ptr, _args, null)
+}
 
-    def visibilityNotifierCreate(): RID =
+    def visibilityNotifierCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.visibilityNotifierCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def visibilityNotifierSetAabb(notifier: RID, aabb: AABB): Unit =
+    def visibilityNotifierSetAabb(notifier: RID, aabb: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = notifier.ptr
         _args(1) = aabb.ptr
         GdxApi.ptrcall(RenderingServer.Binds.visibilityNotifierSetAabb, ptr, _args, null)
+}
 
-    def visibilityNotifierSetCallbacks(notifier: RID, enterCallable: Callable, exitCallable: Callable): Unit =
+    def visibilityNotifierSetCallbacks(notifier: RID, enterCallable: Callable, exitCallable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = notifier.ptr
         _args(1) = enterCallable.ptr
         _args(2) = exitCallable.ptr
         GdxApi.ptrcall(RenderingServer.Binds.visibilityNotifierSetCallbacks, ptr, _args, null)
+}
 
-    def occluderCreate(): RID =
+    def occluderCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.occluderCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def occluderSetMesh(occluder: RID, vertices: PackedVector3Array, indices: PackedInt32Array): Unit =
+    def occluderSetMesh(occluder: RID, vertices: PackedVector3Array, indices: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = occluder.ptr
         _args(1) = vertices.ptr
         _args(2) = indices.ptr
         GdxApi.ptrcall(RenderingServer.Binds.occluderSetMesh, ptr, _args, null)
+}
 
-    def cameraCreate(): RID =
+    def cameraCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.cameraCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def cameraSetPerspective(camera: RID, fovyDegrees: Float, zNear: Float, zFar: Float): Unit =
+    def cameraSetPerspective(camera: RID, fovyDegrees: Float, zNear: Float, zFar: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = camera.ptr
         val _a1 = stackalloc[Double](); !_a1 = fovyDegrees.toDouble
@@ -1690,8 +1959,9 @@ class RenderingServer extends Object
         val _a3 = stackalloc[Double](); !_a3 = zFar.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetPerspective, ptr, _args, null)
+}
 
-    def cameraSetOrthogonal(camera: RID, size: Float, zNear: Float, zFar: Float): Unit =
+    def cameraSetOrthogonal(camera: RID, size: Float, zNear: Float, zFar: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = camera.ptr
         val _a1 = stackalloc[Double](); !_a1 = size.toDouble
@@ -1701,8 +1971,9 @@ class RenderingServer extends Object
         val _a3 = stackalloc[Double](); !_a3 = zFar.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetOrthogonal, ptr, _args, null)
+}
 
-    def cameraSetFrustum(camera: RID, size: Float, offset: Vector2, zNear: Float, zFar: Float): Unit =
+    def cameraSetFrustum(camera: RID, size: Float, offset: Vector2, zNear: Float, zFar: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = camera.ptr
         val _a1 = stackalloc[Double](); !_a1 = size.toDouble
@@ -1713,425 +1984,508 @@ class RenderingServer extends Object
         val _a4 = stackalloc[Double](); !_a4 = zFar.toDouble
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetFrustum, ptr, _args, null)
+}
 
-    def cameraSetTransform(camera: RID, transform: Transform3D): Unit =
+    def cameraSetTransform(camera: RID, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = camera.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetTransform, ptr, _args, null)
+}
 
-    def cameraSetCullMask(camera: RID, layers: Int): Unit =
+    def cameraSetCullMask(camera: RID, layers: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = camera.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = layers.toLong
+        val _a1 = stackalloc[Long](); !_a1 = layers.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetCullMask, ptr, _args, null)
+}
 
-    def cameraSetEnvironment(camera: RID, env: RID): Unit =
+    def cameraSetEnvironment(camera: RID, env: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = camera.ptr
         _args(1) = env.ptr
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetEnvironment, ptr, _args, null)
+}
 
-    def cameraSetCameraAttributes(camera: RID, effects: RID): Unit =
+    def cameraSetCameraAttributes(camera: RID, effects: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = camera.ptr
         _args(1) = effects.ptr
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetCameraAttributes, ptr, _args, null)
+}
 
-    def cameraSetCompositor(camera: RID, compositor: RID): Unit =
+    def cameraSetCompositor(camera: RID, compositor: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = camera.ptr
         _args(1) = compositor.ptr
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetCompositor, ptr, _args, null)
+}
 
-    def cameraSetUseVerticalAspect(camera: RID, enable: Boolean): Unit =
+    def cameraSetUseVerticalAspect(camera: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = camera.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraSetUseVerticalAspect, ptr, _args, null)
+}
 
-    def viewportCreate(): RID =
+    def viewportCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def viewportSetUseXr(viewport: RID, useXr: Boolean): Unit =
+    def viewportSetUseXr(viewport: RID, useXr: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if useXr then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetUseXr, ptr, _args, null)
+}
 
-    def viewportSetSize(viewport: RID, width: Int, height: Int): Unit =
+    def viewportSetSize(viewport: RID, width: Int, height: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = viewport.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
+        val _a1 = stackalloc[Long](); !_a1 = width.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = height.toLong
+        val _a2 = stackalloc[Long](); !_a2 = height.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetSize, ptr, _args, null)
+}
 
-    def viewportSetActive(viewport: RID, active: Boolean): Unit =
+    def viewportSetActive(viewport: RID, active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if active then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetActive, ptr, _args, null)
+}
 
-    def viewportSetParentViewport(viewport: RID, parentViewport: RID): Unit =
+    def viewportSetParentViewport(viewport: RID, parentViewport: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = parentViewport.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetParentViewport, ptr, _args, null)
+}
 
-    def viewportAttachToScreen(viewport: RID): Unit =
+    def viewportAttachToScreen(viewport: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewport.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportAttachToScreen, ptr, _args, null)
+}
 
-    def viewportSetRenderDirectToScreen(viewport: RID, enabled: Boolean): Unit =
+    def viewportSetRenderDirectToScreen(viewport: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetRenderDirectToScreen, ptr, _args, null)
+}
 
-    def viewportSetCanvasCullMask(viewport: RID, canvasCullMask: Int): Unit =
+    def viewportSetCanvasCullMask(viewport: RID, canvasCullMask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = canvasCullMask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = canvasCullMask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetCanvasCullMask, ptr, _args, null)
+}
 
-    def viewportSetScaling3dMode(viewport: RID, scaling3dMode: Int): Unit =
+    def viewportSetScaling3dMode(viewport: RID, scaling3dMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = scaling3dMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = scaling3dMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetScaling3dMode, ptr, _args, null)
+}
 
-    def viewportSetScaling3dScale(viewport: RID, scale: Float): Unit =
+    def viewportSetScaling3dScale(viewport: RID, scale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Double](); !_a1 = scale.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetScaling3dScale, ptr, _args, null)
+}
 
-    def viewportSetFsrSharpness(viewport: RID, sharpness: Float): Unit =
+    def viewportSetFsrSharpness(viewport: RID, sharpness: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Double](); !_a1 = sharpness.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetFsrSharpness, ptr, _args, null)
+}
 
-    def viewportSetTextureMipmapBias(viewport: RID, mipmapBias: Float): Unit =
+    def viewportSetTextureMipmapBias(viewport: RID, mipmapBias: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Double](); !_a1 = mipmapBias.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetTextureMipmapBias, ptr, _args, null)
+}
 
-    def viewportSetAnisotropicFilteringLevel(viewport: RID, anisotropicFilteringLevel: Int): Unit =
+    def viewportSetAnisotropicFilteringLevel(viewport: RID, anisotropicFilteringLevel: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = anisotropicFilteringLevel.ptr
+        val _a1 = stackalloc[Long](); !_a1 = anisotropicFilteringLevel.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetAnisotropicFilteringLevel, ptr, _args, null)
+}
 
-    def viewportSetUpdateMode(viewport: RID, updateMode: Int): Unit =
+    def viewportSetUpdateMode(viewport: RID, updateMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = updateMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = updateMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetUpdateMode, ptr, _args, null)
+}
 
-    def viewportGetUpdateMode(viewport: RID): Int =
+    def viewportGetUpdateMode(viewport: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewport.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportGetUpdateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def viewportSetClearMode(viewport: RID, clearMode: Int): Unit =
+    def viewportSetClearMode(viewport: RID, clearMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = clearMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = clearMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetClearMode, ptr, _args, null)
+}
 
-    def viewportGetRenderTarget(viewport: RID): RID =
+    def viewportGetRenderTarget(viewport: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewport.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportGetRenderTarget, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def viewportGetTexture(viewport: RID): RID =
+    def viewportGetTexture(viewport: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewport.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportGetTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def viewportSetDisable3d(viewport: RID, disable: Boolean): Unit =
+    def viewportSetDisable3d(viewport: RID, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if disable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetDisable3d, ptr, _args, null)
+}
 
-    def viewportSetDisable2d(viewport: RID, disable: Boolean): Unit =
+    def viewportSetDisable2d(viewport: RID, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if disable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetDisable2d, ptr, _args, null)
+}
 
-    def viewportSetEnvironmentMode(viewport: RID, mode: Int): Unit =
+    def viewportSetEnvironmentMode(viewport: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetEnvironmentMode, ptr, _args, null)
+}
 
-    def viewportAttachCamera(viewport: RID, camera: RID): Unit =
+    def viewportAttachCamera(viewport: RID, camera: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = camera.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportAttachCamera, ptr, _args, null)
+}
 
-    def viewportSetScenario(viewport: RID, scenario: RID): Unit =
+    def viewportSetScenario(viewport: RID, scenario: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = scenario.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetScenario, ptr, _args, null)
+}
 
-    def viewportAttachCanvas(viewport: RID, canvas: RID): Unit =
+    def viewportAttachCanvas(viewport: RID, canvas: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = canvas.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportAttachCanvas, ptr, _args, null)
+}
 
-    def viewportRemoveCanvas(viewport: RID, canvas: RID): Unit =
+    def viewportRemoveCanvas(viewport: RID, canvas: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = canvas.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportRemoveCanvas, ptr, _args, null)
+}
 
-    def viewportSetSnap2dTransformsToPixel(viewport: RID, enabled: Boolean): Unit =
+    def viewportSetSnap2dTransformsToPixel(viewport: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetSnap2dTransformsToPixel, ptr, _args, null)
+}
 
-    def viewportSetSnap2dVerticesToPixel(viewport: RID, enabled: Boolean): Unit =
+    def viewportSetSnap2dVerticesToPixel(viewport: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetSnap2dVerticesToPixel, ptr, _args, null)
+}
 
-    def viewportSetDefaultCanvasItemTextureFilter(viewport: RID, filter: Int): Unit =
+    def viewportSetDefaultCanvasItemTextureFilter(viewport: RID, filter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = filter.ptr
+        val _a1 = stackalloc[Long](); !_a1 = filter.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetDefaultCanvasItemTextureFilter, ptr, _args, null)
+}
 
-    def viewportSetDefaultCanvasItemTextureRepeat(viewport: RID, repeat: Int): Unit =
+    def viewportSetDefaultCanvasItemTextureRepeat(viewport: RID, repeat: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = repeat.ptr
+        val _a1 = stackalloc[Long](); !_a1 = repeat.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetDefaultCanvasItemTextureRepeat, ptr, _args, null)
+}
 
-    def viewportSetCanvasTransform(viewport: RID, canvas: RID, offset: Transform2D): Unit =
+    def viewportSetCanvasTransform(viewport: RID, canvas: RID, offset: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = viewport.ptr
         _args(1) = canvas.ptr
         _args(2) = offset.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetCanvasTransform, ptr, _args, null)
+}
 
-    def viewportSetCanvasStacking(viewport: RID, canvas: RID, layer: Int, sublayer: Int): Unit =
+    def viewportSetCanvasStacking(viewport: RID, canvas: RID, layer: Int, sublayer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = viewport.ptr
         _args(1) = canvas.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = layer.toLong
+        val _a2 = stackalloc[Long](); !_a2 = layer.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = sublayer.toLong
+        val _a3 = stackalloc[Long](); !_a3 = sublayer.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetCanvasStacking, ptr, _args, null)
+}
 
-    def viewportSetTransparentBackground(viewport: RID, enabled: Boolean): Unit =
+    def viewportSetTransparentBackground(viewport: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetTransparentBackground, ptr, _args, null)
+}
 
-    def viewportSetGlobalCanvasTransform(viewport: RID, transform: Transform2D): Unit =
+    def viewportSetGlobalCanvasTransform(viewport: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetGlobalCanvasTransform, ptr, _args, null)
+}
 
-    def viewportSetSdfOversizeAndScale(viewport: RID, oversize: Int, scale: Int): Unit =
+    def viewportSetSdfOversizeAndScale(viewport: RID, oversize: Int, scale: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = viewport.ptr
-        _args(1) = oversize.ptr
-        _args(2) = scale.ptr
+        val _a1 = stackalloc[Long](); !_a1 = oversize.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = scale.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetSdfOversizeAndScale, ptr, _args, null)
+}
 
-    def viewportSetPositionalShadowAtlasSize(viewport: RID, size: Int): Unit =
+    def viewportSetPositionalShadowAtlasSize(viewport: RID, size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetPositionalShadowAtlasSize, ptr, _args, null)
+}
 
-    def viewportSetPositionalShadowAtlasQuadrantSubdivision(viewport: RID, quadrant: Int, subdivision: Int): Unit =
+    def viewportSetPositionalShadowAtlasQuadrantSubdivision(viewport: RID, quadrant: Int, subdivision: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = viewport.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = quadrant.toLong
+        val _a1 = stackalloc[Long](); !_a1 = quadrant.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = subdivision.toLong
+        val _a2 = stackalloc[Long](); !_a2 = subdivision.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetPositionalShadowAtlasQuadrantSubdivision, ptr, _args, null)
+}
 
-    def viewportSetMsaa3d(viewport: RID, msaa: Int): Unit =
+    def viewportSetMsaa3d(viewport: RID, msaa: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = msaa.ptr
+        val _a1 = stackalloc[Long](); !_a1 = msaa.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetMsaa3d, ptr, _args, null)
+}
 
-    def viewportSetMsaa2d(viewport: RID, msaa: Int): Unit =
+    def viewportSetMsaa2d(viewport: RID, msaa: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = msaa.ptr
+        val _a1 = stackalloc[Long](); !_a1 = msaa.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetMsaa2d, ptr, _args, null)
+}
 
-    def viewportSetUseHdr2d(viewport: RID, enabled: Boolean): Unit =
+    def viewportSetUseHdr2d(viewport: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetUseHdr2d, ptr, _args, null)
+}
 
-    def viewportSetScreenSpaceAa(viewport: RID, mode: Int): Unit =
+    def viewportSetScreenSpaceAa(viewport: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetScreenSpaceAa, ptr, _args, null)
+}
 
-    def viewportSetUseTaa(viewport: RID, enable: Boolean): Unit =
+    def viewportSetUseTaa(viewport: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetUseTaa, ptr, _args, null)
+}
 
-    def viewportSetUseDebanding(viewport: RID, enable: Boolean): Unit =
+    def viewportSetUseDebanding(viewport: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetUseDebanding, ptr, _args, null)
+}
 
-    def viewportSetUseOcclusionCulling(viewport: RID, enable: Boolean): Unit =
+    def viewportSetUseOcclusionCulling(viewport: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetUseOcclusionCulling, ptr, _args, null)
+}
 
-    def viewportSetOcclusionRaysPerThread(raysPerThread: Int): Unit =
+    def viewportSetOcclusionRaysPerThread(raysPerThread: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = raysPerThread.toLong
+        val _a0 = stackalloc[Long](); !_a0 = raysPerThread.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetOcclusionRaysPerThread, ptr, _args, null)
+}
 
-    def viewportSetOcclusionCullingBuildQuality(quality: Int): Unit =
+    def viewportSetOcclusionCullingBuildQuality(quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetOcclusionCullingBuildQuality, ptr, _args, null)
+}
 
-    def viewportGetRenderInfo(viewport: RID, `type`: Int, info: Int): Int =
+    def viewportGetRenderInfo(viewport: RID, `type`: Int, info: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = viewport.ptr
-        _args(1) = `type`.ptr
-        _args(2) = info.ptr
-        val _ret = stackalloc[CLong]()
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = info.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportGetRenderInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def viewportSetDebugDraw(viewport: RID, draw: Int): Unit =
+    def viewportSetDebugDraw(viewport: RID, draw: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = draw.ptr
+        val _a1 = stackalloc[Long](); !_a1 = draw.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetDebugDraw, ptr, _args, null)
+}
 
-    def viewportSetMeasureRenderTime(viewport: RID, enable: Boolean): Unit =
+    def viewportSetMeasureRenderTime(viewport: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetMeasureRenderTime, ptr, _args, null)
+}
 
-    def viewportGetMeasuredRenderTimeCpu(viewport: RID): Double =
+    def viewportGetMeasuredRenderTimeCpu(viewport: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewport.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportGetMeasuredRenderTimeCpu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def viewportGetMeasuredRenderTimeGpu(viewport: RID): Double =
+    def viewportGetMeasuredRenderTimeGpu(viewport: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewport.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RenderingServer.Binds.viewportGetMeasuredRenderTimeGpu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def viewportSetVrsMode(viewport: RID, mode: Int): Unit =
+    def viewportSetVrsMode(viewport: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetVrsMode, ptr, _args, null)
+}
 
-    def viewportSetVrsUpdateMode(viewport: RID, mode: Int): Unit =
+    def viewportSetVrsUpdateMode(viewport: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetVrsUpdateMode, ptr, _args, null)
+}
 
-    def viewportSetVrsTexture(viewport: RID, texture: RID): Unit =
+    def viewportSetVrsTexture(viewport: RID, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = viewport.ptr
         _args(1) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.viewportSetVrsTexture, ptr, _args, null)
+}
 
-    def skyCreate(): RID =
+    def skyCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.skyCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def skySetRadianceSize(sky: RID, radianceSize: Int): Unit =
+    def skySetRadianceSize(sky: RID, radianceSize: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = sky.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = radianceSize.toLong
+        val _a1 = stackalloc[Long](); !_a1 = radianceSize.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.skySetRadianceSize, ptr, _args, null)
+}
 
-    def skySetMode(sky: RID, mode: Int): Unit =
+    def skySetMode(sky: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = sky.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.skySetMode, ptr, _args, null)
+}
 
-    def skySetMaterial(sky: RID, material: RID): Unit =
+    def skySetMaterial(sky: RID, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = sky.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.skySetMaterial, ptr, _args, null)
+}
 
-    def skyBakePanorama(sky: RID, energy: Float, bakeIrradiance: Boolean, size: Vector2i): Image =
+    def skyBakePanorama(sky: RID, energy: Float, bakeIrradiance: Boolean, size: Vector2i): Image = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = sky.ptr
         val _a1 = stackalloc[Double](); !_a1 = energy.toDouble
@@ -2142,92 +2496,109 @@ class RenderingServer extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.skyBakePanorama, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def compositorEffectCreate(): RID =
+    def compositorEffectCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.compositorEffectCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def compositorEffectSetEnabled(effect: RID, enabled: Boolean): Unit =
+    def compositorEffectSetEnabled(effect: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = effect.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.compositorEffectSetEnabled, ptr, _args, null)
+}
 
-    def compositorEffectSetCallback(effect: RID, callbackType: Int, callback: Callable): Unit =
+    def compositorEffectSetCallback(effect: RID, callbackType: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = effect.ptr
-        _args(1) = callbackType.ptr
+        val _a1 = stackalloc[Long](); !_a1 = callbackType.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callback.ptr
         GdxApi.ptrcall(RenderingServer.Binds.compositorEffectSetCallback, ptr, _args, null)
+}
 
-    def compositorEffectSetFlag(effect: RID, flag: Int, set: Boolean): Unit =
+    def compositorEffectSetFlag(effect: RID, flag: Int, set: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = effect.ptr
-        _args(1) = flag.ptr
+        val _a1 = stackalloc[Long](); !_a1 = flag.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if set then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.compositorEffectSetFlag, ptr, _args, null)
+}
 
-    def compositorCreate(): RID =
+    def compositorCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.compositorCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def compositorSetCompositorEffects(compositor: RID, effects: Ptr[Byte]): Unit =
+    def compositorSetCompositorEffects(compositor: RID, effects: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = compositor.ptr
-        _args(1) = effects.ptr
+        _args(1) = effects
         GdxApi.ptrcall(RenderingServer.Binds.compositorSetCompositorEffects, ptr, _args, null)
+}
 
-    def environmentCreate(): RID =
+    def environmentCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.environmentCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def environmentSetBackground(env: RID, bg: Int): Unit =
+    def environmentSetBackground(env: RID, bg: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
-        _args(1) = bg.ptr
+        val _a1 = stackalloc[Long](); !_a1 = bg.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetBackground, ptr, _args, null)
+}
 
-    def environmentSetCameraId(env: RID, id: Int): Unit =
+    def environmentSetCameraId(env: RID, id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetCameraId, ptr, _args, null)
+}
 
-    def environmentSetSky(env: RID, sky: RID): Unit =
+    def environmentSetSky(env: RID, sky: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
         _args(1) = sky.ptr
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSky, ptr, _args, null)
+}
 
-    def environmentSetSkyCustomFov(env: RID, scale: Float): Unit =
+    def environmentSetSkyCustomFov(env: RID, scale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
         val _a1 = stackalloc[Double](); !_a1 = scale.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSkyCustomFov, ptr, _args, null)
+}
 
-    def environmentSetSkyOrientation(env: RID, orientation: Basis): Unit =
+    def environmentSetSkyOrientation(env: RID, orientation: Basis): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
         _args(1) = orientation.ptr
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSkyOrientation, ptr, _args, null)
+}
 
-    def environmentSetBgColor(env: RID, color: Color): Unit =
+    def environmentSetBgColor(env: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetBgColor, ptr, _args, null)
+}
 
-    def environmentSetBgEnergy(env: RID, multiplier: Float, exposureValue: Float): Unit =
+    def environmentSetBgEnergy(env: RID, multiplier: Float, exposureValue: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = env.ptr
         val _a1 = stackalloc[Double](); !_a1 = multiplier.toDouble
@@ -2235,21 +2606,24 @@ class RenderingServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = exposureValue.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetBgEnergy, ptr, _args, null)
+}
 
-    def environmentSetCanvasMaxLayer(env: RID, maxLayer: Int): Unit =
+    def environmentSetCanvasMaxLayer(env: RID, maxLayer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = maxLayer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = maxLayer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetCanvasMaxLayer, ptr, _args, null)
+}
 
-    def environmentSetAmbientLight(env: RID, color: Color): Unit =
+    def environmentSetAmbientLight(env: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = env.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetAmbientLight, ptr, _args, null)
+}
 
-    def environmentSetGlow(env: RID, enable: Boolean, levels: PackedFloat32Array, intensity: Float, strength: Float, mix: Float, bloomThreshold: Float, blendMode: Int, hdrBleedThreshold: Float, hdrBleedScale: Float, hdrLuminanceCap: Float, glowMapStrength: Float, glowMap: RID): Unit =
+    def environmentSetGlow(env: RID, enable: Boolean, levels: PackedFloat32Array, intensity: Float, strength: Float, mix: Float, bloomThreshold: Float, blendMode: Int, hdrBleedThreshold: Float, hdrBleedScale: Float, hdrLuminanceCap: Float, glowMapStrength: Float, glowMap: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](13)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -2263,7 +2637,8 @@ class RenderingServer extends Object
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         val _a6 = stackalloc[Double](); !_a6 = bloomThreshold.toDouble
         _args(6) = _a6.asInstanceOf[Ptr[Byte]]
-        _args(7) = blendMode.ptr
+        val _a7 = stackalloc[Long](); !_a7 = blendMode.toLong
+        _args(7) = _a7.asInstanceOf[Ptr[Byte]]
         val _a8 = stackalloc[Double](); !_a8 = hdrBleedThreshold.toDouble
         _args(8) = _a8.asInstanceOf[Ptr[Byte]]
         val _a9 = stackalloc[Double](); !_a9 = hdrBleedScale.toDouble
@@ -2274,18 +2649,21 @@ class RenderingServer extends Object
         _args(11) = _a11.asInstanceOf[Ptr[Byte]]
         _args(12) = glowMap.ptr
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetGlow, ptr, _args, null)
+}
 
-    def environmentSetTonemap(env: RID, toneMapper: Int, exposure: Float, white: Float): Unit =
+    def environmentSetTonemap(env: RID, toneMapper: Int, exposure: Float, white: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = env.ptr
-        _args(1) = toneMapper.ptr
+        val _a1 = stackalloc[Long](); !_a1 = toneMapper.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = exposure.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _a3 = stackalloc[Double](); !_a3 = white.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetTonemap, ptr, _args, null)
+}
 
-    def environmentSetAdjustment(env: RID, enable: Boolean, brightness: Float, contrast: Float, saturation: Float, use1dColorCorrection: Boolean, colorCorrection: RID): Unit =
+    def environmentSetAdjustment(env: RID, enable: Boolean, brightness: Float, contrast: Float, saturation: Float, use1dColorCorrection: Boolean, colorCorrection: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](7)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -2300,13 +2678,14 @@ class RenderingServer extends Object
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         _args(6) = colorCorrection.ptr
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetAdjustment, ptr, _args, null)
+}
 
-    def environmentSetSsr(env: RID, enable: Boolean, maxSteps: Int, fadeIn: Float, fadeOut: Float, depthTolerance: Float): Unit =
+    def environmentSetSsr(env: RID, enable: Boolean, maxSteps: Int, fadeIn: Float, fadeOut: Float, depthTolerance: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = maxSteps.toLong
+        val _a2 = stackalloc[Long](); !_a2 = maxSteps.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _a3 = stackalloc[Double](); !_a3 = fadeIn.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
@@ -2315,8 +2694,9 @@ class RenderingServer extends Object
         val _a5 = stackalloc[Double](); !_a5 = depthTolerance.toDouble
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSsr, ptr, _args, null)
+}
 
-    def environmentSetSsao(env: RID, enable: Boolean, radius: Float, intensity: Float, power: Float, detail: Float, horizon: Float, sharpness: Float, lightAffect: Float, aoChannelAffect: Float): Unit =
+    def environmentSetSsao(env: RID, enable: Boolean, radius: Float, intensity: Float, power: Float, detail: Float, horizon: Float, sharpness: Float, lightAffect: Float, aoChannelAffect: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](10)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -2338,8 +2718,9 @@ class RenderingServer extends Object
         val _a9 = stackalloc[Double](); !_a9 = aoChannelAffect.toDouble
         _args(9) = _a9.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSsao, ptr, _args, null)
+}
 
-    def environmentSetFog(env: RID, enable: Boolean, lightColor: Color, lightEnergy: Float, sunScatter: Float, density: Float, height: Float, heightDensity: Float, aerialPerspective: Float, skyAffect: Float): Unit =
+    def environmentSetFog(env: RID, enable: Boolean, lightColor: Color, lightEnergy: Float, sunScatter: Float, density: Float, height: Float, heightDensity: Float, aerialPerspective: Float, skyAffect: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](10)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -2360,8 +2741,9 @@ class RenderingServer extends Object
         val _a9 = stackalloc[Double](); !_a9 = skyAffect.toDouble
         _args(9) = _a9.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetFog, ptr, _args, null)
+}
 
-    def environmentSetFogDepth(env: RID, curve: Float, begin: Float, end: Float): Unit =
+    def environmentSetFogDepth(env: RID, curve: Float, begin: Float, end: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = env.ptr
         val _a1 = stackalloc[Double](); !_a1 = curve.toDouble
@@ -2371,17 +2753,19 @@ class RenderingServer extends Object
         val _a3 = stackalloc[Double](); !_a3 = end.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetFogDepth, ptr, _args, null)
+}
 
-    def environmentSetSdfgi(env: RID, enable: Boolean, cascades: Int, minCellSize: Float, yScale: Int, useOcclusion: Boolean, bounceFeedback: Float, readSky: Boolean, energy: Float, normalBias: Float, probeBias: Float): Unit =
+    def environmentSetSdfgi(env: RID, enable: Boolean, cascades: Int, minCellSize: Float, yScale: Int, useOcclusion: Boolean, bounceFeedback: Float, readSky: Boolean, energy: Float, normalBias: Float, probeBias: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](11)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = cascades.toLong
+        val _a2 = stackalloc[Long](); !_a2 = cascades.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _a3 = stackalloc[Double](); !_a3 = minCellSize.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        _args(4) = yScale.ptr
+        val _a4 = stackalloc[Long](); !_a4 = yScale.toLong
+        _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _a5 = stackalloc[Byte](); !_a5 = if useOcclusion then 1.toByte else 0.toByte
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         val _a6 = stackalloc[Double](); !_a6 = bounceFeedback.toDouble
@@ -2395,8 +2779,9 @@ class RenderingServer extends Object
         val _a10 = stackalloc[Double](); !_a10 = probeBias.toDouble
         _args(10) = _a10.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgi, ptr, _args, null)
+}
 
-    def environmentSetVolumetricFog(env: RID, enable: Boolean, density: Float, albedo: Color, emission: Color, emissionEnergy: Float, anisotropy: Float, length: Float, pDetailSpread: Float, giInject: Float, temporalReprojection: Boolean, temporalReprojectionAmount: Float, ambientInject: Float, skyAffect: Float): Unit =
+    def environmentSetVolumetricFog(env: RID, enable: Boolean, density: Float, albedo: Color, emission: Color, emissionEnergy: Float, anisotropy: Float, length: Float, pDetailSpread: Float, giInject: Float, temporalReprojection: Boolean, temporalReprojectionAmount: Float, ambientInject: Float, skyAffect: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](14)
         _args(0) = env.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -2424,78 +2809,94 @@ class RenderingServer extends Object
         val _a13 = stackalloc[Double](); !_a13 = skyAffect.toDouble
         _args(13) = _a13.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetVolumetricFog, ptr, _args, null)
+}
 
-    def environmentGlowSetUseBicubicUpscale(enable: Boolean): Unit =
+    def environmentGlowSetUseBicubicUpscale(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentGlowSetUseBicubicUpscale, ptr, _args, null)
+}
 
-    def environmentSetSsrRoughnessQuality(quality: Int): Unit =
+    def environmentSetSsrRoughnessQuality(quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSsrRoughnessQuality, ptr, _args, null)
+}
 
-    def environmentSetSsaoQuality(quality: Int, halfSize: Boolean, adaptiveTarget: Float, blurPasses: Int, fadeoutFrom: Float, fadeoutTo: Float): Unit =
+    def environmentSetSsaoQuality(quality: Int, halfSize: Boolean, adaptiveTarget: Float, blurPasses: Int, fadeoutFrom: Float, fadeoutTo: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if halfSize then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = adaptiveTarget.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = blurPasses.toLong
+        val _a3 = stackalloc[Long](); !_a3 = blurPasses.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _a4 = stackalloc[Double](); !_a4 = fadeoutFrom.toDouble
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _a5 = stackalloc[Double](); !_a5 = fadeoutTo.toDouble
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSsaoQuality, ptr, _args, null)
+}
 
-    def environmentSetSsilQuality(quality: Int, halfSize: Boolean, adaptiveTarget: Float, blurPasses: Int, fadeoutFrom: Float, fadeoutTo: Float): Unit =
+    def environmentSetSsilQuality(quality: Int, halfSize: Boolean, adaptiveTarget: Float, blurPasses: Int, fadeoutFrom: Float, fadeoutTo: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if halfSize then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = adaptiveTarget.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = blurPasses.toLong
+        val _a3 = stackalloc[Long](); !_a3 = blurPasses.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _a4 = stackalloc[Double](); !_a4 = fadeoutFrom.toDouble
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _a5 = stackalloc[Double](); !_a5 = fadeoutTo.toDouble
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetSsilQuality, ptr, _args, null)
+}
 
-    def environmentSetSdfgiRayCount(rayCount: Int): Unit =
+    def environmentSetSdfgiRayCount(rayCount: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = rayCount.ptr
-        GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgiRayCount, ptr, _args, null)
-
-    def environmentSetSdfgiFramesToConverge(frames: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = frames.ptr
-        GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgiFramesToConverge, ptr, _args, null)
-
-    def environmentSetSdfgiFramesToUpdateLight(frames: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = frames.ptr
-        GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgiFramesToUpdateLight, ptr, _args, null)
-
-    def environmentSetVolumetricFogVolumeSize(size: Int, depth: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = rayCount.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = depth.toLong
+        GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgiRayCount, ptr, _args, null)
+}
+
+    def environmentSetSdfgiFramesToConverge(frames: Int): Unit = {
+        val _args = stackalloc[Ptr[Byte]](1)
+        val _a0 = stackalloc[Long](); !_a0 = frames.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgiFramesToConverge, ptr, _args, null)
+}
+
+    def environmentSetSdfgiFramesToUpdateLight(frames: Int): Unit = {
+        val _args = stackalloc[Ptr[Byte]](1)
+        val _a0 = stackalloc[Long](); !_a0 = frames.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        GdxApi.ptrcall(RenderingServer.Binds.environmentSetSdfgiFramesToUpdateLight, ptr, _args, null)
+}
+
+    def environmentSetVolumetricFogVolumeSize(size: Int, depth: Int): Unit = {
+        val _args = stackalloc[Ptr[Byte]](2)
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = depth.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetVolumetricFogVolumeSize, ptr, _args, null)
+}
 
-    def environmentSetVolumetricFogFilterActive(active: Boolean): Unit =
+    def environmentSetVolumetricFogFilterActive(active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.environmentSetVolumetricFogFilterActive, ptr, _args, null)
+}
 
-    def environmentBakePanorama(environment: RID, bakeIrradiance: Boolean, size: Vector2i): Image =
+    def environmentBakePanorama(environment: RID, bakeIrradiance: Boolean, size: Vector2i): Image = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = environment.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if bakeIrradiance then 1.toByte else 0.toByte
@@ -2504,8 +2905,9 @@ class RenderingServer extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.environmentBakePanorama, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def screenSpaceRoughnessLimiterSetActive(enable: Boolean, amount: Float, limit: Float): Unit =
+    def screenSpaceRoughnessLimiterSetActive(enable: Boolean, amount: Float, limit: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -2514,39 +2916,48 @@ class RenderingServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = limit.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.screenSpaceRoughnessLimiterSetActive, ptr, _args, null)
+}
 
-    def subSurfaceScatteringSetQuality(quality: Int): Unit =
+    def subSurfaceScatteringSetQuality(quality: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.subSurfaceScatteringSetQuality, ptr, _args, null)
+}
 
-    def subSurfaceScatteringSetScale(scale: Float, depthScale: Float): Unit =
+    def subSurfaceScatteringSetScale(scale: Float, depthScale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = depthScale.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.subSurfaceScatteringSetScale, ptr, _args, null)
+}
 
-    def cameraAttributesCreate(): RID =
+    def cameraAttributesCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.cameraAttributesCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def cameraAttributesSetDofBlurQuality(quality: Int, useJitter: Boolean): Unit =
+    def cameraAttributesSetDofBlurQuality(quality: Int, useJitter: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = quality.ptr
+        val _a0 = stackalloc[Long](); !_a0 = quality.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if useJitter then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraAttributesSetDofBlurQuality, ptr, _args, null)
+}
 
-    def cameraAttributesSetDofBlurBokehShape(shape: Int): Unit =
+    def cameraAttributesSetDofBlurBokehShape(shape: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
+        val _a0 = stackalloc[Long](); !_a0 = shape.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraAttributesSetDofBlurBokehShape, ptr, _args, null)
+}
 
-    def cameraAttributesSetDofBlur(cameraAttributes: RID, farEnable: Boolean, farDistance: Float, farTransition: Float, nearEnable: Boolean, nearDistance: Float, nearTransition: Float, amount: Float): Unit =
+    def cameraAttributesSetDofBlur(cameraAttributes: RID, farEnable: Boolean, farDistance: Float, farTransition: Float, nearEnable: Boolean, nearDistance: Float, nearTransition: Float, amount: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](8)
         _args(0) = cameraAttributes.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if farEnable then 1.toByte else 0.toByte
@@ -2564,8 +2975,9 @@ class RenderingServer extends Object
         val _a7 = stackalloc[Double](); !_a7 = amount.toDouble
         _args(7) = _a7.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraAttributesSetDofBlur, ptr, _args, null)
+}
 
-    def cameraAttributesSetExposure(cameraAttributes: RID, multiplier: Float, normalization: Float): Unit =
+    def cameraAttributesSetExposure(cameraAttributes: RID, multiplier: Float, normalization: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = cameraAttributes.ptr
         val _a1 = stackalloc[Double](); !_a1 = multiplier.toDouble
@@ -2573,8 +2985,9 @@ class RenderingServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = normalization.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraAttributesSetExposure, ptr, _args, null)
+}
 
-    def cameraAttributesSetAutoExposure(cameraAttributes: RID, enable: Boolean, minSensitivity: Float, maxSensitivity: Float, speed: Float, scale: Float): Unit =
+    def cameraAttributesSetAutoExposure(cameraAttributes: RID, enable: Boolean, minSensitivity: Float, maxSensitivity: Float, speed: Float, scale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = cameraAttributes.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -2588,71 +3001,82 @@ class RenderingServer extends Object
         val _a5 = stackalloc[Double](); !_a5 = scale.toDouble
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.cameraAttributesSetAutoExposure, ptr, _args, null)
+}
 
-    def scenarioCreate(): RID =
+    def scenarioCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.scenarioCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def scenarioSetEnvironment(scenario: RID, environment: RID): Unit =
+    def scenarioSetEnvironment(scenario: RID, environment: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = scenario.ptr
         _args(1) = environment.ptr
         GdxApi.ptrcall(RenderingServer.Binds.scenarioSetEnvironment, ptr, _args, null)
+}
 
-    def scenarioSetFallbackEnvironment(scenario: RID, environment: RID): Unit =
+    def scenarioSetFallbackEnvironment(scenario: RID, environment: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = scenario.ptr
         _args(1) = environment.ptr
         GdxApi.ptrcall(RenderingServer.Binds.scenarioSetFallbackEnvironment, ptr, _args, null)
+}
 
-    def scenarioSetCameraAttributes(scenario: RID, effects: RID): Unit =
+    def scenarioSetCameraAttributes(scenario: RID, effects: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = scenario.ptr
         _args(1) = effects.ptr
         GdxApi.ptrcall(RenderingServer.Binds.scenarioSetCameraAttributes, ptr, _args, null)
+}
 
-    def scenarioSetCompositor(scenario: RID, compositor: RID): Unit =
+    def scenarioSetCompositor(scenario: RID, compositor: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = scenario.ptr
         _args(1) = compositor.ptr
         GdxApi.ptrcall(RenderingServer.Binds.scenarioSetCompositor, ptr, _args, null)
+}
 
-    def instanceCreate2(base: RID, scenario: RID): RID =
+    def instanceCreate2(base: RID, scenario: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = base.ptr
         _args(1) = scenario.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instanceCreate2, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def instanceCreate(): RID =
+    def instanceCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instanceCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def instanceSetBase(instance: RID, base: RID): Unit =
+    def instanceSetBase(instance: RID, base: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = base.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetBase, ptr, _args, null)
+}
 
-    def instanceSetScenario(instance: RID, scenario: RID): Unit =
+    def instanceSetScenario(instance: RID, scenario: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = scenario.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetScenario, ptr, _args, null)
+}
 
-    def instanceSetLayerMask(instance: RID, mask: Int): Unit =
+    def instanceSetLayerMask(instance: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetLayerMask, ptr, _args, null)
+}
 
-    def instanceSetPivotData(instance: RID, sortingOffset: Float, useAabbCenter: Boolean): Unit =
+    def instanceSetPivotData(instance: RID, sortingOffset: Float, useAabbCenter: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Double](); !_a1 = sortingOffset.toDouble
@@ -2660,115 +3084,134 @@ class RenderingServer extends Object
         val _a2 = stackalloc[Byte](); !_a2 = if useAabbCenter then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetPivotData, ptr, _args, null)
+}
 
-    def instanceSetTransform(instance: RID, transform: Transform3D): Unit =
+    def instanceSetTransform(instance: RID, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetTransform, ptr, _args, null)
+}
 
-    def instanceAttachObjectInstanceId(instance: RID, id: Long): Unit =
+    def instanceAttachObjectInstanceId(instance: RID, id: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id
+        val _a1 = stackalloc[Long](); !_a1 = id
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceAttachObjectInstanceId, ptr, _args, null)
+}
 
-    def instanceSetBlendShapeWeight(instance: RID, shape: Int, weight: Float): Unit =
+    def instanceSetBlendShapeWeight(instance: RID, shape: Int, weight: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = instance.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = shape.toLong
+        val _a1 = stackalloc[Long](); !_a1 = shape.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = weight.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetBlendShapeWeight, ptr, _args, null)
+}
 
-    def instanceSetSurfaceOverrideMaterial(instance: RID, surface: Int, material: RID): Unit =
+    def instanceSetSurfaceOverrideMaterial(instance: RID, surface: Int, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = instance.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetSurfaceOverrideMaterial, ptr, _args, null)
+}
 
-    def instanceSetVisible(instance: RID, visible: Boolean): Unit =
+    def instanceSetVisible(instance: RID, visible: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if visible then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetVisible, ptr, _args, null)
+}
 
-    def instanceGeometrySetTransparency(instance: RID, transparency: Float): Unit =
+    def instanceGeometrySetTransparency(instance: RID, transparency: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Double](); !_a1 = transparency.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetTransparency, ptr, _args, null)
+}
 
-    def instanceTeleport(instance: RID): Unit =
+    def instanceTeleport(instance: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = instance.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceTeleport, ptr, _args, null)
+}
 
-    def instanceSetCustomAabb(instance: RID, aabb: AABB): Unit =
+    def instanceSetCustomAabb(instance: RID, aabb: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = aabb.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetCustomAabb, ptr, _args, null)
+}
 
-    def instanceAttachSkeleton(instance: RID, skeleton: RID): Unit =
+    def instanceAttachSkeleton(instance: RID, skeleton: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = skeleton.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceAttachSkeleton, ptr, _args, null)
+}
 
-    def instanceSetExtraVisibilityMargin(instance: RID, margin: Float): Unit =
+    def instanceSetExtraVisibilityMargin(instance: RID, margin: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Double](); !_a1 = margin.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetExtraVisibilityMargin, ptr, _args, null)
+}
 
-    def instanceSetVisibilityParent(instance: RID, parent: RID): Unit =
+    def instanceSetVisibilityParent(instance: RID, parent: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = parent.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetVisibilityParent, ptr, _args, null)
+}
 
-    def instanceSetIgnoreCulling(instance: RID, enabled: Boolean): Unit =
+    def instanceSetIgnoreCulling(instance: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceSetIgnoreCulling, ptr, _args, null)
+}
 
-    def instanceGeometrySetFlag(instance: RID, flag: Int, enabled: Boolean): Unit =
+    def instanceGeometrySetFlag(instance: RID, flag: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = instance.ptr
-        _args(1) = flag.ptr
+        val _a1 = stackalloc[Long](); !_a1 = flag.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if enabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetFlag, ptr, _args, null)
+}
 
-    def instanceGeometrySetCastShadowsSetting(instance: RID, shadowCastingSetting: Int): Unit =
+    def instanceGeometrySetCastShadowsSetting(instance: RID, shadowCastingSetting: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        _args(1) = shadowCastingSetting.ptr
+        val _a1 = stackalloc[Long](); !_a1 = shadowCastingSetting.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetCastShadowsSetting, ptr, _args, null)
+}
 
-    def instanceGeometrySetMaterialOverride(instance: RID, material: RID): Unit =
+    def instanceGeometrySetMaterialOverride(instance: RID, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetMaterialOverride, ptr, _args, null)
+}
 
-    def instanceGeometrySetMaterialOverlay(instance: RID, material: RID): Unit =
+    def instanceGeometrySetMaterialOverlay(instance: RID, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetMaterialOverlay, ptr, _args, null)
+}
 
-    def instanceGeometrySetVisibilityRange(instance: RID, min: Float, max: Float, minMargin: Float, maxMargin: Float, fadeMode: Int): Unit =
+    def instanceGeometrySetVisibilityRange(instance: RID, min: Float, max: Float, minMargin: Float, maxMargin: Float, fadeMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Double](); !_a1 = min.toDouble
@@ -2779,291 +3222,339 @@ class RenderingServer extends Object
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _a4 = stackalloc[Double](); !_a4 = maxMargin.toDouble
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        _args(5) = fadeMode.ptr
+        val _a5 = stackalloc[Long](); !_a5 = fadeMode.toLong
+        _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetVisibilityRange, ptr, _args, null)
+}
 
-    def instanceGeometrySetLightmap(instance: RID, lightmap: RID, lightmapUvScale: Rect2, lightmapSlice: Int): Unit =
+    def instanceGeometrySetLightmap(instance: RID, lightmap: RID, lightmapUvScale: Rect2, lightmapSlice: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = instance.ptr
         _args(1) = lightmap.ptr
         _args(2) = lightmapUvScale.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = lightmapSlice.toLong
+        val _a3 = stackalloc[Long](); !_a3 = lightmapSlice.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetLightmap, ptr, _args, null)
+}
 
-    def instanceGeometrySetLodBias(instance: RID, lodBias: Float): Unit =
+    def instanceGeometrySetLodBias(instance: RID, lodBias: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
         val _a1 = stackalloc[Double](); !_a1 = lodBias.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetLodBias, ptr, _args, null)
+}
 
-    def instanceGeometrySetShaderParameter(instance: RID, parameter: CString, value: Ptr[Byte]): Unit =
+    def instanceGeometrySetShaderParameter(instance: RID, parameter: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = instance.ptr
-        _args(1) = parameter.ptr
-        _args(2) = value.ptr
+        _args(1) = parameter
+        _args(2) = value
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometrySetShaderParameter, ptr, _args, null)
+}
 
-    def instanceGeometryGetShaderParameter(instance: RID, parameter: CString): Ptr[Byte] =
+    def instanceGeometryGetShaderParameter(instance: RID, parameter: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        _args(1) = parameter.ptr
+        _args(1) = parameter
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometryGetShaderParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def instanceGeometryGetShaderParameterDefaultValue(instance: RID, parameter: CString): Ptr[Byte] =
+    def instanceGeometryGetShaderParameterDefaultValue(instance: RID, parameter: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        _args(1) = parameter.ptr
+        _args(1) = parameter
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometryGetShaderParameterDefaultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def instanceGeometryGetShaderParameterList(instance: RID): Ptr[Byte] =
+    def instanceGeometryGetShaderParameterList(instance: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = instance.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instanceGeometryGetShaderParameterList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def instancesCullAabb(aabb: AABB): PackedInt64Array =
+    def instancesCullAabb(aabb: AABB): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = aabb.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instancesCullAabb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def instancesCullRay(from: Vector3, to: Vector3): PackedInt64Array =
+    def instancesCullRay(from: Vector3, to: Vector3): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = from.ptr
         _args(1) = to.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instancesCullRay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def instancesCullConvex(convex: Ptr[Byte]): PackedInt64Array =
+    def instancesCullConvex(convex: Ptr[Byte]): PackedInt64Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = convex.ptr
+        _args(0) = convex
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.instancesCullConvex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt64Array(!_ret)
+}
 
-    def bakeRenderUv2(base: RID, materialOverrides: Ptr[Byte], imageSize: Vector2i): Ptr[Byte] =
+    def bakeRenderUv2(base: RID, materialOverrides: Ptr[Byte], imageSize: Vector2i): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = base.ptr
-        _args(1) = materialOverrides.ptr
+        _args(1) = materialOverrides
         _args(2) = imageSize.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.bakeRenderUv2, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def canvasCreate(): RID =
+    def canvasCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def canvasSetItemMirroring(canvas: RID, item: RID, mirroring: Vector2): Unit =
+    def canvasSetItemMirroring(canvas: RID, item: RID, mirroring: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = canvas.ptr
         _args(1) = item.ptr
         _args(2) = mirroring.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasSetItemMirroring, ptr, _args, null)
+}
 
-    def canvasSetItemRepeat(item: RID, repeatSize: Vector2, repeatTimes: Int): Unit =
+    def canvasSetItemRepeat(item: RID, repeatSize: Vector2, repeatTimes: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = repeatSize.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = repeatTimes.toLong
+        val _a2 = stackalloc[Long](); !_a2 = repeatTimes.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasSetItemRepeat, ptr, _args, null)
+}
 
-    def canvasSetModulate(canvas: RID, color: Color): Unit =
+    def canvasSetModulate(canvas: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = canvas.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasSetModulate, ptr, _args, null)
+}
 
-    def canvasSetDisableScale(disable: Boolean): Unit =
+    def canvasSetDisableScale(disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if disable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasSetDisableScale, ptr, _args, null)
+}
 
-    def canvasTextureCreate(): RID =
+    def canvasTextureCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasTextureCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def canvasTextureSetChannel(canvasTexture: RID, channel: Int, texture: RID): Unit =
+    def canvasTextureSetChannel(canvasTexture: RID, channel: Int, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = canvasTexture.ptr
-        _args(1) = channel.ptr
+        val _a1 = stackalloc[Long](); !_a1 = channel.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasTextureSetChannel, ptr, _args, null)
+}
 
-    def canvasTextureSetShadingParameters(canvasTexture: RID, baseColor: Color, shininess: Float): Unit =
+    def canvasTextureSetShadingParameters(canvasTexture: RID, baseColor: Color, shininess: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = canvasTexture.ptr
         _args(1) = baseColor.ptr
         val _a2 = stackalloc[Double](); !_a2 = shininess.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasTextureSetShadingParameters, ptr, _args, null)
+}
 
-    def canvasTextureSetTextureFilter(canvasTexture: RID, filter: Int): Unit =
+    def canvasTextureSetTextureFilter(canvasTexture: RID, filter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = canvasTexture.ptr
-        _args(1) = filter.ptr
+        val _a1 = stackalloc[Long](); !_a1 = filter.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasTextureSetTextureFilter, ptr, _args, null)
+}
 
-    def canvasTextureSetTextureRepeat(canvasTexture: RID, repeat: Int): Unit =
+    def canvasTextureSetTextureRepeat(canvasTexture: RID, repeat: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = canvasTexture.ptr
-        _args(1) = repeat.ptr
+        val _a1 = stackalloc[Long](); !_a1 = repeat.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasTextureSetTextureRepeat, ptr, _args, null)
+}
 
-    def canvasItemCreate(): RID =
+    def canvasItemCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def canvasItemSetParent(item: RID, parent: RID): Unit =
+    def canvasItemSetParent(item: RID, parent: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = parent.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetParent, ptr, _args, null)
+}
 
-    def canvasItemSetDefaultTextureFilter(item: RID, filter: Int): Unit =
+    def canvasItemSetDefaultTextureFilter(item: RID, filter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        _args(1) = filter.ptr
+        val _a1 = stackalloc[Long](); !_a1 = filter.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetDefaultTextureFilter, ptr, _args, null)
+}
 
-    def canvasItemSetDefaultTextureRepeat(item: RID, repeat: Int): Unit =
+    def canvasItemSetDefaultTextureRepeat(item: RID, repeat: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        _args(1) = repeat.ptr
+        val _a1 = stackalloc[Long](); !_a1 = repeat.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetDefaultTextureRepeat, ptr, _args, null)
+}
 
-    def canvasItemSetVisible(item: RID, visible: Boolean): Unit =
+    def canvasItemSetVisible(item: RID, visible: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if visible then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetVisible, ptr, _args, null)
+}
 
-    def canvasItemSetLightMask(item: RID, mask: Int): Unit =
+    def canvasItemSetLightMask(item: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetLightMask, ptr, _args, null)
+}
 
-    def canvasItemSetVisibilityLayer(item: RID, visibilityLayer: Int): Unit =
+    def canvasItemSetVisibilityLayer(item: RID, visibilityLayer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = visibilityLayer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = visibilityLayer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetVisibilityLayer, ptr, _args, null)
+}
 
-    def canvasItemSetTransform(item: RID, transform: Transform2D): Unit =
+    def canvasItemSetTransform(item: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetTransform, ptr, _args, null)
+}
 
-    def canvasItemSetClip(item: RID, clip: Boolean): Unit =
+    def canvasItemSetClip(item: RID, clip: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if clip then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetClip, ptr, _args, null)
+}
 
-    def canvasItemSetDistanceFieldMode(item: RID, enabled: Boolean): Unit =
+    def canvasItemSetDistanceFieldMode(item: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetDistanceFieldMode, ptr, _args, null)
+}
 
-    def canvasItemSetCustomRect(item: RID, useCustomRect: Boolean): Unit =
+    def canvasItemSetCustomRect(item: RID, useCustomRect: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if useCustomRect then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetCustomRect, ptr, _args, null)
+}
 
-    def canvasItemSetModulate(item: RID, color: Color): Unit =
+    def canvasItemSetModulate(item: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetModulate, ptr, _args, null)
+}
 
-    def canvasItemSetSelfModulate(item: RID, color: Color): Unit =
+    def canvasItemSetSelfModulate(item: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetSelfModulate, ptr, _args, null)
+}
 
-    def canvasItemSetDrawBehindParent(item: RID, enabled: Boolean): Unit =
+    def canvasItemSetDrawBehindParent(item: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetDrawBehindParent, ptr, _args, null)
+}
 
-    def canvasItemSetInterpolated(item: RID, interpolated: Boolean): Unit =
+    def canvasItemSetInterpolated(item: RID, interpolated: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if interpolated then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetInterpolated, ptr, _args, null)
+}
 
-    def canvasItemResetPhysicsInterpolation(item: RID): Unit =
+    def canvasItemResetPhysicsInterpolation(item: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = item.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemResetPhysicsInterpolation, ptr, _args, null)
+}
 
-    def canvasItemTransformPhysicsInterpolation(item: RID, transform: Transform2D): Unit =
+    def canvasItemTransformPhysicsInterpolation(item: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemTransformPhysicsInterpolation, ptr, _args, null)
+}
 
-    def canvasItemAddLine(item: RID, from: Vector2, to: Vector2, color: Color): Unit =
+    def canvasItemAddLine(item: RID, from: Vector2, to: Vector2, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = item.ptr
         _args(1) = from.ptr
         _args(2) = to.ptr
         _args(3) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddLine, ptr, _args, null)
+}
 
-    def canvasItemAddPolyline(item: RID, points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def canvasItemAddPolyline(item: RID, points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = points.ptr
         _args(2) = colors.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddPolyline, ptr, _args, null)
+}
 
-    def canvasItemAddMultiline(item: RID, points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def canvasItemAddMultiline(item: RID, points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = points.ptr
         _args(2) = colors.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddMultiline, ptr, _args, null)
+}
 
-    def canvasItemAddRect(item: RID, rect: Rect2, color: Color): Unit =
+    def canvasItemAddRect(item: RID, rect: Rect2, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = rect.ptr
         _args(2) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddRect, ptr, _args, null)
+}
 
-    def canvasItemAddCircle(item: RID, pos: Vector2, radius: Float, color: Color): Unit =
+    def canvasItemAddCircle(item: RID, pos: Vector2, radius: Float, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = item.ptr
         _args(1) = pos.ptr
@@ -3071,23 +3562,26 @@ class RenderingServer extends Object
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddCircle, ptr, _args, null)
+}
 
-    def canvasItemAddTextureRect(item: RID, rect: Rect2, texture: RID): Unit =
+    def canvasItemAddTextureRect(item: RID, rect: Rect2, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = rect.ptr
         _args(2) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddTextureRect, ptr, _args, null)
+}
 
-    def canvasItemAddMsdfTextureRectRegion(item: RID, rect: Rect2, texture: RID, srcRect: Rect2): Unit =
+    def canvasItemAddMsdfTextureRectRegion(item: RID, rect: Rect2, texture: RID, srcRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = item.ptr
         _args(1) = rect.ptr
         _args(2) = texture.ptr
         _args(3) = srcRect.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddMsdfTextureRectRegion, ptr, _args, null)
+}
 
-    def canvasItemAddLcdTextureRectRegion(item: RID, rect: Rect2, texture: RID, srcRect: Rect2, modulate: Color): Unit =
+    def canvasItemAddLcdTextureRectRegion(item: RID, rect: Rect2, texture: RID, srcRect: Rect2, modulate: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = item.ptr
         _args(1) = rect.ptr
@@ -3095,16 +3589,18 @@ class RenderingServer extends Object
         _args(3) = srcRect.ptr
         _args(4) = modulate.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddLcdTextureRectRegion, ptr, _args, null)
+}
 
-    def canvasItemAddTextureRectRegion(item: RID, rect: Rect2, texture: RID, srcRect: Rect2): Unit =
+    def canvasItemAddTextureRectRegion(item: RID, rect: Rect2, texture: RID, srcRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = item.ptr
         _args(1) = rect.ptr
         _args(2) = texture.ptr
         _args(3) = srcRect.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddTextureRectRegion, ptr, _args, null)
+}
 
-    def canvasItemAddNinePatch(item: RID, rect: Rect2, source: Rect2, texture: RID, topleft: Vector2, bottomright: Vector2): Unit =
+    def canvasItemAddNinePatch(item: RID, rect: Rect2, source: Rect2, texture: RID, topleft: Vector2, bottomright: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = item.ptr
         _args(1) = rect.ptr
@@ -3113,8 +3609,9 @@ class RenderingServer extends Object
         _args(4) = topleft.ptr
         _args(5) = bottomright.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddNinePatch, ptr, _args, null)
+}
 
-    def canvasItemAddPrimitive(item: RID, points: PackedVector2Array, colors: PackedColorArray, uvs: PackedVector2Array, texture: RID): Unit =
+    def canvasItemAddPrimitive(item: RID, points: PackedVector2Array, colors: PackedColorArray, uvs: PackedVector2Array, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = item.ptr
         _args(1) = points.ptr
@@ -3122,55 +3619,63 @@ class RenderingServer extends Object
         _args(3) = uvs.ptr
         _args(4) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddPrimitive, ptr, _args, null)
+}
 
-    def canvasItemAddPolygon(item: RID, points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def canvasItemAddPolygon(item: RID, points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = points.ptr
         _args(2) = colors.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddPolygon, ptr, _args, null)
+}
 
-    def canvasItemAddTriangleArray(item: RID, indices: PackedInt32Array, points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def canvasItemAddTriangleArray(item: RID, indices: PackedInt32Array, points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = item.ptr
         _args(1) = indices.ptr
         _args(2) = points.ptr
         _args(3) = colors.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddTriangleArray, ptr, _args, null)
+}
 
-    def canvasItemAddMesh(item: RID, mesh: RID): Unit =
+    def canvasItemAddMesh(item: RID, mesh: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = mesh.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddMesh, ptr, _args, null)
+}
 
-    def canvasItemAddMultimesh(item: RID, mesh: RID): Unit =
+    def canvasItemAddMultimesh(item: RID, mesh: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = mesh.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddMultimesh, ptr, _args, null)
+}
 
-    def canvasItemAddParticles(item: RID, particles: RID, texture: RID): Unit =
+    def canvasItemAddParticles(item: RID, particles: RID, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         _args(1) = particles.ptr
         _args(2) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddParticles, ptr, _args, null)
+}
 
-    def canvasItemAddSetTransform(item: RID, transform: Transform2D): Unit =
+    def canvasItemAddSetTransform(item: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddSetTransform, ptr, _args, null)
+}
 
-    def canvasItemAddClipIgnore(item: RID, ignore: Boolean): Unit =
+    def canvasItemAddClipIgnore(item: RID, ignore: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if ignore then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddClipIgnore, ptr, _args, null)
+}
 
-    def canvasItemAddAnimationSlice(item: RID, animationLength: Double, sliceBegin: Double, sliceEnd: Double): Unit =
+    def canvasItemAddAnimationSlice(item: RID, animationLength: Double, sliceBegin: Double, sliceEnd: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = item.ptr
         val _a1 = stackalloc[Double](); !_a1 = animationLength
@@ -3180,98 +3685,112 @@ class RenderingServer extends Object
         val _a3 = stackalloc[Double](); !_a3 = sliceEnd
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAddAnimationSlice, ptr, _args, null)
+}
 
-    def canvasItemSetSortChildrenByY(item: RID, enabled: Boolean): Unit =
+    def canvasItemSetSortChildrenByY(item: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetSortChildrenByY, ptr, _args, null)
+}
 
-    def canvasItemSetZIndex(item: RID, zIndex: Int): Unit =
+    def canvasItemSetZIndex(item: RID, zIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = zIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = zIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetZIndex, ptr, _args, null)
+}
 
-    def canvasItemSetZAsRelativeToParent(item: RID, enabled: Boolean): Unit =
+    def canvasItemSetZAsRelativeToParent(item: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetZAsRelativeToParent, ptr, _args, null)
+}
 
-    def canvasItemSetCopyToBackbuffer(item: RID, enabled: Boolean, rect: Rect2): Unit =
+    def canvasItemSetCopyToBackbuffer(item: RID, enabled: Boolean, rect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = rect.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetCopyToBackbuffer, ptr, _args, null)
+}
 
-    def canvasItemAttachSkeleton(item: RID, skeleton: RID): Unit =
+    def canvasItemAttachSkeleton(item: RID, skeleton: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = skeleton.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemAttachSkeleton, ptr, _args, null)
+}
 
-    def canvasItemClear(item: RID): Unit =
+    def canvasItemClear(item: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = item.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemClear, ptr, _args, null)
+}
 
-    def canvasItemSetDrawIndex(item: RID, index: Int): Unit =
+    def canvasItemSetDrawIndex(item: RID, index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetDrawIndex, ptr, _args, null)
+}
 
-    def canvasItemSetMaterial(item: RID, material: RID): Unit =
+    def canvasItemSetMaterial(item: RID, material: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         _args(1) = material.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetMaterial, ptr, _args, null)
+}
 
-    def canvasItemSetUseParentMaterial(item: RID, enabled: Boolean): Unit =
+    def canvasItemSetUseParentMaterial(item: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetUseParentMaterial, ptr, _args, null)
+}
 
-    def canvasItemSetInstanceShaderParameter(instance: RID, parameter: CString, value: Ptr[Byte]): Unit =
+    def canvasItemSetInstanceShaderParameter(instance: RID, parameter: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = instance.ptr
-        _args(1) = parameter.ptr
-        _args(2) = value.ptr
+        _args(1) = parameter
+        _args(2) = value
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetInstanceShaderParameter, ptr, _args, null)
+}
 
-    def canvasItemGetInstanceShaderParameter(instance: RID, parameter: CString): Ptr[Byte] =
+    def canvasItemGetInstanceShaderParameter(instance: RID, parameter: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        _args(1) = parameter.ptr
+        _args(1) = parameter
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemGetInstanceShaderParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def canvasItemGetInstanceShaderParameterDefaultValue(instance: RID, parameter: CString): Ptr[Byte] =
+    def canvasItemGetInstanceShaderParameterDefaultValue(instance: RID, parameter: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = instance.ptr
-        _args(1) = parameter.ptr
+        _args(1) = parameter
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemGetInstanceShaderParameterDefaultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def canvasItemGetInstanceShaderParameterList(instance: RID): Ptr[Byte] =
+    def canvasItemGetInstanceShaderParameterList(instance: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = instance.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemGetInstanceShaderParameterList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def canvasItemSetVisibilityNotifier(item: RID, enable: Boolean, area: Rect2, enterCallable: Callable, exitCallable: Callable): Unit =
+    def canvasItemSetVisibilityNotifier(item: RID, enable: Boolean, area: Rect2, enterCallable: Callable, exitCallable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = item.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
@@ -3280,487 +3799,559 @@ class RenderingServer extends Object
         _args(3) = enterCallable.ptr
         _args(4) = exitCallable.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetVisibilityNotifier, ptr, _args, null)
+}
 
-    def canvasItemSetCanvasGroupMode(item: RID, mode: Int): Unit =
+    def canvasItemSetCanvasGroupMode(item: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = item.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasItemSetCanvasGroupMode, ptr, _args, null)
+}
 
-    def debugCanvasItemGetRect(item: RID): Rect2 =
+    def debugCanvasItemGetRect(item: RID): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = item.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.debugCanvasItemGetRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def canvasLightCreate(): RID =
+    def canvasLightCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def canvasLightAttachToCanvas(light: RID, canvas: RID): Unit =
+    def canvasLightAttachToCanvas(light: RID, canvas: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = canvas.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightAttachToCanvas, ptr, _args, null)
+}
 
-    def canvasLightSetEnabled(light: RID, enabled: Boolean): Unit =
+    def canvasLightSetEnabled(light: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetEnabled, ptr, _args, null)
+}
 
-    def canvasLightSetTextureScale(light: RID, scale: Float): Unit =
+    def canvasLightSetTextureScale(light: RID, scale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Double](); !_a1 = scale.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetTextureScale, ptr, _args, null)
+}
 
-    def canvasLightSetTransform(light: RID, transform: Transform2D): Unit =
+    def canvasLightSetTransform(light: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetTransform, ptr, _args, null)
+}
 
-    def canvasLightSetTexture(light: RID, texture: RID): Unit =
+    def canvasLightSetTexture(light: RID, texture: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = texture.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetTexture, ptr, _args, null)
+}
 
-    def canvasLightSetTextureOffset(light: RID, offset: Vector2): Unit =
+    def canvasLightSetTextureOffset(light: RID, offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = offset.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetTextureOffset, ptr, _args, null)
+}
 
-    def canvasLightSetColor(light: RID, color: Color): Unit =
+    def canvasLightSetColor(light: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetColor, ptr, _args, null)
+}
 
-    def canvasLightSetHeight(light: RID, height: Float): Unit =
+    def canvasLightSetHeight(light: RID, height: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Double](); !_a1 = height.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetHeight, ptr, _args, null)
+}
 
-    def canvasLightSetEnergy(light: RID, energy: Float): Unit =
+    def canvasLightSetEnergy(light: RID, energy: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Double](); !_a1 = energy.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetEnergy, ptr, _args, null)
+}
 
-    def canvasLightSetZRange(light: RID, minZ: Int, maxZ: Int): Unit =
+    def canvasLightSetZRange(light: RID, minZ: Int, maxZ: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = minZ.toLong
+        val _a1 = stackalloc[Long](); !_a1 = minZ.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = maxZ.toLong
+        val _a2 = stackalloc[Long](); !_a2 = maxZ.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetZRange, ptr, _args, null)
+}
 
-    def canvasLightSetLayerRange(light: RID, minLayer: Int, maxLayer: Int): Unit =
+    def canvasLightSetLayerRange(light: RID, minLayer: Int, maxLayer: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = minLayer.toLong
+        val _a1 = stackalloc[Long](); !_a1 = minLayer.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = maxLayer.toLong
+        val _a2 = stackalloc[Long](); !_a2 = maxLayer.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetLayerRange, ptr, _args, null)
+}
 
-    def canvasLightSetItemCullMask(light: RID, mask: Int): Unit =
+    def canvasLightSetItemCullMask(light: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetItemCullMask, ptr, _args, null)
+}
 
-    def canvasLightSetItemShadowCullMask(light: RID, mask: Int): Unit =
+    def canvasLightSetItemShadowCullMask(light: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetItemShadowCullMask, ptr, _args, null)
+}
 
-    def canvasLightSetMode(light: RID, mode: Int): Unit =
+    def canvasLightSetMode(light: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetMode, ptr, _args, null)
+}
 
-    def canvasLightSetShadowEnabled(light: RID, enabled: Boolean): Unit =
+    def canvasLightSetShadowEnabled(light: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetShadowEnabled, ptr, _args, null)
+}
 
-    def canvasLightSetShadowFilter(light: RID, filter: Int): Unit =
+    def canvasLightSetShadowFilter(light: RID, filter: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = filter.ptr
+        val _a1 = stackalloc[Long](); !_a1 = filter.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetShadowFilter, ptr, _args, null)
+}
 
-    def canvasLightSetShadowColor(light: RID, color: Color): Unit =
+    def canvasLightSetShadowColor(light: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetShadowColor, ptr, _args, null)
+}
 
-    def canvasLightSetShadowSmooth(light: RID, smooth: Float): Unit =
+    def canvasLightSetShadowSmooth(light: RID, smooth: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Double](); !_a1 = smooth.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetShadowSmooth, ptr, _args, null)
+}
 
-    def canvasLightSetBlendMode(light: RID, mode: Int): Unit =
+    def canvasLightSetBlendMode(light: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetBlendMode, ptr, _args, null)
+}
 
-    def canvasLightSetInterpolated(light: RID, interpolated: Boolean): Unit =
+    def canvasLightSetInterpolated(light: RID, interpolated: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if interpolated then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightSetInterpolated, ptr, _args, null)
+}
 
-    def canvasLightResetPhysicsInterpolation(light: RID): Unit =
+    def canvasLightResetPhysicsInterpolation(light: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = light.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightResetPhysicsInterpolation, ptr, _args, null)
+}
 
-    def canvasLightTransformPhysicsInterpolation(light: RID, transform: Transform2D): Unit =
+    def canvasLightTransformPhysicsInterpolation(light: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = light.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightTransformPhysicsInterpolation, ptr, _args, null)
+}
 
-    def canvasLightOccluderCreate(): RID =
+    def canvasLightOccluderCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def canvasLightOccluderAttachToCanvas(occluder: RID, canvas: RID): Unit =
+    def canvasLightOccluderAttachToCanvas(occluder: RID, canvas: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         _args(1) = canvas.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderAttachToCanvas, ptr, _args, null)
+}
 
-    def canvasLightOccluderSetEnabled(occluder: RID, enabled: Boolean): Unit =
+    def canvasLightOccluderSetEnabled(occluder: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderSetEnabled, ptr, _args, null)
+}
 
-    def canvasLightOccluderSetPolygon(occluder: RID, polygon: RID): Unit =
+    def canvasLightOccluderSetPolygon(occluder: RID, polygon: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         _args(1) = polygon.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderSetPolygon, ptr, _args, null)
+}
 
-    def canvasLightOccluderSetAsSdfCollision(occluder: RID, enable: Boolean): Unit =
+    def canvasLightOccluderSetAsSdfCollision(occluder: RID, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderSetAsSdfCollision, ptr, _args, null)
+}
 
-    def canvasLightOccluderSetTransform(occluder: RID, transform: Transform2D): Unit =
+    def canvasLightOccluderSetTransform(occluder: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderSetTransform, ptr, _args, null)
+}
 
-    def canvasLightOccluderSetLightMask(occluder: RID, mask: Int): Unit =
+    def canvasLightOccluderSetLightMask(occluder: RID, mask: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = mask.toLong
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderSetLightMask, ptr, _args, null)
+}
 
-    def canvasLightOccluderSetInterpolated(occluder: RID, interpolated: Boolean): Unit =
+    def canvasLightOccluderSetInterpolated(occluder: RID, interpolated: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if interpolated then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderSetInterpolated, ptr, _args, null)
+}
 
-    def canvasLightOccluderResetPhysicsInterpolation(occluder: RID): Unit =
+    def canvasLightOccluderResetPhysicsInterpolation(occluder: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = occluder.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderResetPhysicsInterpolation, ptr, _args, null)
+}
 
-    def canvasLightOccluderTransformPhysicsInterpolation(occluder: RID, transform: Transform2D): Unit =
+    def canvasLightOccluderTransformPhysicsInterpolation(occluder: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluder.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(RenderingServer.Binds.canvasLightOccluderTransformPhysicsInterpolation, ptr, _args, null)
+}
 
-    def canvasOccluderPolygonCreate(): RID =
+    def canvasOccluderPolygonCreate(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.canvasOccluderPolygonCreate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def canvasOccluderPolygonSetShape(occluderPolygon: RID, shape: PackedVector2Array, closed: Boolean): Unit =
+    def canvasOccluderPolygonSetShape(occluderPolygon: RID, shape: PackedVector2Array, closed: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = occluderPolygon.ptr
         _args(1) = shape.ptr
         val _a2 = stackalloc[Byte](); !_a2 = if closed then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasOccluderPolygonSetShape, ptr, _args, null)
+}
 
-    def canvasOccluderPolygonSetCullMode(occluderPolygon: RID, mode: Int): Unit =
+    def canvasOccluderPolygonSetCullMode(occluderPolygon: RID, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = occluderPolygon.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasOccluderPolygonSetCullMode, ptr, _args, null)
+}
 
-    def canvasSetShadowTextureSize(size: Int): Unit =
+    def canvasSetShadowTextureSize(size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.canvasSetShadowTextureSize, ptr, _args, null)
+}
 
-    def globalShaderParameterAdd(name: CString, `type`: Int, defaultValue: Ptr[Byte]): Unit =
+    def globalShaderParameterAdd(name: CString, `type`: Int, defaultValue: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = `type`.ptr
-        _args(2) = defaultValue.ptr
+        _args(0) = name
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        _args(2) = defaultValue
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterAdd, ptr, _args, null)
+}
 
-    def globalShaderParameterRemove(name: CString): Unit =
+    def globalShaderParameterRemove(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterRemove, ptr, _args, null)
+}
 
-    def globalShaderParameterGetList(): Ptr[Byte] =
+    def globalShaderParameterGetList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterGetList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalShaderParameterSet(name: CString, value: Ptr[Byte]): Unit =
+    def globalShaderParameterSet(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterSet, ptr, _args, null)
+}
 
-    def globalShaderParameterSetOverride(name: CString, value: Ptr[Byte]): Unit =
+    def globalShaderParameterSetOverride(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterSetOverride, ptr, _args, null)
+}
 
-    def globalShaderParameterGet(name: CString): Ptr[Byte] =
+    def globalShaderParameterGet(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalShaderParameterGetType(name: CString): Int =
+    def globalShaderParameterGetType(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.globalShaderParameterGetType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def freeRid(rid: RID): Unit =
+    def freeRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(RenderingServer.Binds.freeRid, ptr, _args, null)
+}
 
-    def requestFrameDrawnCallback(callable: Callable): Unit =
+    def requestFrameDrawnCallback(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(RenderingServer.Binds.requestFrameDrawnCallback, ptr, _args, null)
+}
 
-    def hasChanged(): Boolean =
+    def hasChanged(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingServer.Binds.hasChanged, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getRenderingInfo(info: Int): Long =
+    def getRenderingInfo(info: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = info.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = info.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.getRenderingInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVideoAdapterName(): CString =
+    def getVideoAdapterName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getVideoAdapterName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVideoAdapterVendor(): CString =
+    def getVideoAdapterVendor(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getVideoAdapterVendor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVideoAdapterType(): Int =
+    def getVideoAdapterType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderingServer.Binds.getVideoAdapterType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVideoAdapterApiVersion(): CString =
+    def getVideoAdapterApiVersion(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getVideoAdapterApiVersion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCurrentRenderingDriverName(): CString =
+    def getCurrentRenderingDriverName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getCurrentRenderingDriverName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCurrentRenderingMethod(): CString =
+    def getCurrentRenderingMethod(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getCurrentRenderingMethod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def makeSphereMesh(latitudes: Int, longitudes: Int, radius: Float): RID =
+    def makeSphereMesh(latitudes: Int, longitudes: Int, radius: Float): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = latitudes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = latitudes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = longitudes.toLong
+        val _a1 = stackalloc[Long](); !_a1 = longitudes.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = radius.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.makeSphereMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getTestCube(): RID =
+    def getTestCube(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getTestCube, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getTestTexture(): RID =
+    def getTestTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getTestTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getWhiteTexture(): RID =
+    def getWhiteTexture(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getWhiteTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setBootImage(image: Image, color: Color, scale: Boolean): Unit =
+    def setBootImage(image: Image, color: Color, scale: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = image.ptr
         _args(1) = color.ptr
         val _a2 = stackalloc[Byte](); !_a2 = if scale then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.setBootImage, ptr, _args, null)
+}
 
-    def getDefaultClearColor(): Color =
+    def getDefaultClearColor(): Color = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getDefaultClearColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setDefaultClearColor(color: Color): Unit =
+    def setDefaultClearColor(color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = color.ptr
         GdxApi.ptrcall(RenderingServer.Binds.setDefaultClearColor, ptr, _args, null)
+}
 
-    def hasOsFeature(feature: CString): Boolean =
+    def hasOsFeature(feature: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        _args(0) = feature
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingServer.Binds.hasOsFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDebugGenerateWireframes(generate: Boolean): Unit =
+    def setDebugGenerateWireframes(generate: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if generate then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RenderingServer.Binds.setDebugGenerateWireframes, ptr, _args, null)
+}
 
-    def isRenderLoopEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RenderingServer.Binds.isRenderLoopEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setRenderLoopEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RenderingServer.Binds.setRenderLoopEnabled, ptr, _args, null)
-
-    def getFrameSetupTimeCpu(): Double =
+    def getFrameSetupTimeCpu(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RenderingServer.Binds.getFrameSetupTimeCpu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def forceSync(): Unit =
+    def forceSync(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingServer.Binds.forceSync, ptr, _args, null)
+}
 
-    def forceDraw(): Unit =
+    def forceDraw(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RenderingServer.Binds.forceDraw, ptr, _args, null)
+}
 
-    def getRenderingDevice(): RenderingDevice =
+    def getRenderingDevice(): RenderingDevice = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.getRenderingDevice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RenderingDevice(!_ret)
+}
 
-    def createLocalRenderingDevice(): RenderingDevice =
+    def createLocalRenderingDevice(): RenderingDevice = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderingServer.Binds.createLocalRenderingDevice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RenderingDevice(!_ret)
+}
 
-    def isOnRenderThread(): Boolean =
+    def isOnRenderThread(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingServer.Binds.isOnRenderThread, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def callOnRenderThread(callable: Callable): Unit =
+    def callOnRenderThread(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(RenderingServer.Binds.callOnRenderThread, ptr, _args, null)
+}
 
-    def hasFeature(feature: Int): Boolean =
+    def hasFeature(feature: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RenderingServer.Binds.hasFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def renderLoopEnabled: Ptr[Byte] = isRenderLoopEnabled()
-    def renderLoopEnabled_=(v: Ptr[Byte]): Unit = setRenderLoopEnabled(v)
+}
+
+    def renderLoopEnabled: Boolean = isRenderLoopEnabled()
+    def renderLoopEnabled_=(v: Boolean): Unit = setRenderLoopEnabled(v)
+}
 
 object RenderingServer:
-    object Binds:
-        var texture2dCreate: Ptr[Byte] = null
+object Binds {
+          var texture2dCreate: Ptr[Byte] = null
         var texture2dLayeredCreate: Ptr[Byte] = null
         var texture3dCreate: Ptr[Byte] = null
         var textureProxyCreate: Ptr[Byte] = null
@@ -4270,8 +4861,6 @@ object RenderingServer:
         var setDefaultClearColor: Ptr[Byte] = null
         var hasOsFeature: Ptr[Byte] = null
         var setDebugGenerateWireframes: Ptr[Byte] = null
-        var isRenderLoopEnabled: Ptr[Byte] = null
-        var setRenderLoopEnabled: Ptr[Byte] = null
         var getFrameSetupTimeCpu: Ptr[Byte] = null
         var forceSync: Ptr[Byte] = null
         var forceDraw: Ptr[Byte] = null
@@ -4281,8 +4870,8 @@ object RenderingServer:
         var callOnRenderThread: Ptr[Byte] = null
         var hasFeature: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.texture2dCreate = GdxApi.getMethodBind(c"RenderingServer", c"texture_2d_create", 2010018390L)
+  def loadBinds(): Unit = {
+                Binds.texture2dCreate = GdxApi.getMethodBind(c"RenderingServer", c"texture_2d_create", 2010018390L)
             Binds.texture2dLayeredCreate = GdxApi.getMethodBind(c"RenderingServer", c"texture_2d_layered_create", 913689023L)
             Binds.texture3dCreate = GdxApi.getMethodBind(c"RenderingServer", c"texture_3d_create", 4036838706L)
             Binds.textureProxyCreate = GdxApi.getMethodBind(c"RenderingServer", c"texture_proxy_create", 41030802L)
@@ -4792,8 +5381,6 @@ object RenderingServer:
             Binds.setDefaultClearColor = GdxApi.getMethodBind(c"RenderingServer", c"set_default_clear_color", 2920490490L)
             Binds.hasOsFeature = GdxApi.getMethodBind(c"RenderingServer", c"has_os_feature", 3927539163L)
             Binds.setDebugGenerateWireframes = GdxApi.getMethodBind(c"RenderingServer", c"set_debug_generate_wireframes", 2586408642L)
-            Binds.isRenderLoopEnabled = GdxApi.getMethodBind(c"RenderingServer", c"is_render_loop_enabled", 36873697L)
-            Binds.setRenderLoopEnabled = GdxApi.getMethodBind(c"RenderingServer", c"set_render_loop_enabled", 2586408642L)
             Binds.getFrameSetupTimeCpu = GdxApi.getMethodBind(c"RenderingServer", c"get_frame_setup_time_cpu", 1740695150L)
             Binds.forceSync = GdxApi.getMethodBind(c"RenderingServer", c"force_sync", 3218959716L)
             Binds.forceDraw = GdxApi.getMethodBind(c"RenderingServer", c"force_draw", 1076185472L)
@@ -4802,3 +5389,5 @@ object RenderingServer:
             Binds.isOnRenderThread = GdxApi.getMethodBind(c"RenderingServer", c"is_on_render_thread", 2240911060L)
             Binds.callOnRenderThread = GdxApi.getMethodBind(c"RenderingServer", c"call_on_render_thread", 1611583062L)
             Binds.hasFeature = GdxApi.getMethodBind(c"RenderingServer", c"has_feature", 598462696L)
+  }
+}

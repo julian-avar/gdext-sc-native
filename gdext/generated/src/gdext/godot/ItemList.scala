@@ -5,567 +5,430 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ItemList extends Control
-
-    def addItem(text: CString): Int =
+class ItemList extends Control {
+    def addItem(text: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = text
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ItemList.Binds.addItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addIconItem(icon: Texture2D): Int =
+    def addIconItem(icon: Texture2D): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = icon.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ItemList.Binds.addIconItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setItemText(idx: Int, text: CString): Unit =
+    def setItemText(idx: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = text.ptr
+        _args(1) = text
         GdxApi.ptrcall(ItemList.Binds.setItemText, ptr, _args, null)
+}
 
-    def getItemText(idx: Int): CString =
+    def getItemText(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setItemIcon(idx: Int, icon: Texture2D): Unit =
+    def setItemIcon(idx: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = icon.ptr
         GdxApi.ptrcall(ItemList.Binds.setItemIcon, ptr, _args, null)
+}
 
-    def getItemIcon(idx: Int): Texture2D =
+    def getItemIcon(idx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setItemTextDirection(idx: Int, direction: Int): Unit =
+    def setItemTextDirection(idx: Int, direction: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = direction.ptr
+        val _a1 = stackalloc[Long](); !_a1 = direction.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.setItemTextDirection, ptr, _args, null)
+}
 
-    def getItemTextDirection(idx: Int): Int =
+    def getItemTextDirection(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ItemList.Binds.getItemTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setItemLanguage(idx: Int, language: CString): Unit =
+    def setItemLanguage(idx: Int, language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = language.ptr
+        _args(1) = language
         GdxApi.ptrcall(ItemList.Binds.setItemLanguage, ptr, _args, null)
+}
 
-    def getItemLanguage(idx: Int): CString =
+    def getItemLanguage(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setItemAutoTranslateMode(idx: Int, mode: Int): Unit =
+    def setItemAutoTranslateMode(idx: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.setItemAutoTranslateMode, ptr, _args, null)
+}
 
-    def getItemAutoTranslateMode(idx: Int): Int =
+    def getItemAutoTranslateMode(idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ItemList.Binds.getItemAutoTranslateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setItemIconTransposed(idx: Int, transposed: Boolean): Unit =
+    def setItemIconTransposed(idx: Int, transposed: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if transposed then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.setItemIconTransposed, ptr, _args, null)
+}
 
-    def isItemIconTransposed(idx: Int): Boolean =
+    def isItemIconTransposed(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ItemList.Binds.isItemIconTransposed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setItemIconRegion(idx: Int, rect: Rect2): Unit =
+    def setItemIconRegion(idx: Int, rect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = rect.ptr
         GdxApi.ptrcall(ItemList.Binds.setItemIconRegion, ptr, _args, null)
+}
 
-    def getItemIconRegion(idx: Int): Rect2 =
+    def getItemIconRegion(idx: Int): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemIconRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def setItemIconModulate(idx: Int, modulate: Color): Unit =
+    def setItemIconModulate(idx: Int, modulate: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = modulate.ptr
         GdxApi.ptrcall(ItemList.Binds.setItemIconModulate, ptr, _args, null)
+}
 
-    def getItemIconModulate(idx: Int): Color =
+    def getItemIconModulate(idx: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemIconModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setItemSelectable(idx: Int, selectable: Boolean): Unit =
+    def setItemSelectable(idx: Int, selectable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if selectable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.setItemSelectable, ptr, _args, null)
+}
 
-    def isItemSelectable(idx: Int): Boolean =
+    def isItemSelectable(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ItemList.Binds.isItemSelectable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setItemDisabled(idx: Int, disabled: Boolean): Unit =
+    def setItemDisabled(idx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if disabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.setItemDisabled, ptr, _args, null)
+}
 
-    def isItemDisabled(idx: Int): Boolean =
+    def isItemDisabled(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ItemList.Binds.isItemDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setItemMetadata(idx: Int, metadata: Ptr[Byte]): Unit =
+    def setItemMetadata(idx: Int, metadata: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = metadata.ptr
+        _args(1) = metadata
         GdxApi.ptrcall(ItemList.Binds.setItemMetadata, ptr, _args, null)
+}
 
-    def getItemMetadata(idx: Int): Ptr[Byte] =
+    def getItemMetadata(idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setItemCustomBgColor(idx: Int, customBgColor: Color): Unit =
+    def setItemCustomBgColor(idx: Int, customBgColor: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = customBgColor.ptr
         GdxApi.ptrcall(ItemList.Binds.setItemCustomBgColor, ptr, _args, null)
+}
 
-    def getItemCustomBgColor(idx: Int): Color =
+    def getItemCustomBgColor(idx: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemCustomBgColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setItemCustomFgColor(idx: Int, customFgColor: Color): Unit =
+    def setItemCustomFgColor(idx: Int, customFgColor: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = customFgColor.ptr
         GdxApi.ptrcall(ItemList.Binds.setItemCustomFgColor, ptr, _args, null)
+}
 
-    def getItemCustomFgColor(idx: Int): Color =
+    def getItemCustomFgColor(idx: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemCustomFgColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getItemRect(idx: Int): Rect2 =
+    def getItemRect(idx: Int): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def setItemTooltipEnabled(idx: Int, enable: Boolean): Unit =
+    def setItemTooltipEnabled(idx: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.setItemTooltipEnabled, ptr, _args, null)
+}
 
-    def isItemTooltipEnabled(idx: Int): Boolean =
+    def isItemTooltipEnabled(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ItemList.Binds.isItemTooltipEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setItemTooltip(idx: Int, tooltip: CString): Unit =
+    def setItemTooltip(idx: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(ItemList.Binds.setItemTooltip, ptr, _args, null)
+}
 
-    def getItemTooltip(idx: Int): CString =
+    def getItemTooltip(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getItemTooltip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def select(idx: Int): Unit =
+    def select(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.select, ptr, _args, null)
+}
 
-    def deselect(idx: Int): Unit =
+    def deselect(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.deselect, ptr, _args, null)
+}
 
-    def deselectAll(): Unit =
+    def deselectAll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ItemList.Binds.deselectAll, ptr, _args, null)
+}
 
-    def isSelected(idx: Int): Boolean =
+    def isSelected(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ItemList.Binds.isSelected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSelectedItems(): PackedInt32Array =
+    def getSelectedItems(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getSelectedItems, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def moveItem(fromIdx: Int, toIdx: Int): Unit =
+    def moveItem(fromIdx: Int, toIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toIdx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toIdx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.moveItem, ptr, _args, null)
+}
 
-    def setItemCount(count: Int): Unit =
+    def removeItem(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setItemCount, ptr, _args, null)
-
-    def getItemCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getItemCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def removeItem(idx: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ItemList.Binds.removeItem, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ItemList.Binds.clear, ptr, _args, null)
+}
 
-    def sortItemsByText(): Unit =
+    def sortItemsByText(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ItemList.Binds.sortItemsByText, ptr, _args, null)
+}
 
-    def setFixedColumnWidth(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setFixedColumnWidth, ptr, _args, null)
-
-    def getFixedColumnWidth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getFixedColumnWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSameColumnWidth(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setSameColumnWidth, ptr, _args, null)
-
-    def isSameColumnWidth(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.isSameColumnWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMaxTextLines(lines: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = lines.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setMaxTextLines, ptr, _args, null)
-
-    def getMaxTextLines(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getMaxTextLines, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxColumns(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setMaxColumns, ptr, _args, null)
-
-    def getMaxColumns(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getMaxColumns, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSelectMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(ItemList.Binds.setSelectMode, ptr, _args, null)
-
-    def getSelectMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getSelectMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setIconMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(ItemList.Binds.setIconMode, ptr, _args, null)
-
-    def getIconMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getIconMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFixedIconSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(ItemList.Binds.setFixedIconSize, ptr, _args, null)
-
-    def getFixedIconSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ItemList.Binds.getFixedIconSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setIconScale(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setIconScale, ptr, _args, null)
-
-    def getIconScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ItemList.Binds.getIconScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAllowRmbSelect(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setAllowRmbSelect, ptr, _args, null)
-
-    def getAllowRmbSelect(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.getAllowRmbSelect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAllowReselect(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setAllowReselect, ptr, _args, null)
-
-    def getAllowReselect(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.getAllowReselect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAllowSearch(allow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setAllowSearch, ptr, _args, null)
-
-    def getAllowSearch(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.getAllowSearch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoWidth(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setAutoWidth, ptr, _args, null)
-
-    def hasAutoWidth(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.hasAutoWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoHeight(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setAutoHeight, ptr, _args, null)
-
-    def hasAutoHeight(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.hasAutoHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isAnythingSelected(): Boolean =
+    def isAnythingSelected(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ItemList.Binds.isAnythingSelected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getItemAtPosition(position: Vector2): Int =
+    def getItemAtPosition(position: Vector2): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ItemList.Binds.getItemAtPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def ensureCurrentIsVisible(): Unit =
+    def ensureCurrentIsVisible(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ItemList.Binds.ensureCurrentIsVisible, ptr, _args, null)
+}
 
-    def getVScrollBar(): VScrollBar =
+    def getVScrollBar(): VScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getVScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VScrollBar(!_ret)
+}
 
-    def getHScrollBar(): HScrollBar =
+    def getHScrollBar(): HScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ItemList.Binds.getHScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new HScrollBar(!_ret)
+}
 
-    def setTextOverrunBehavior(overrunBehavior: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = overrunBehavior.ptr
-        GdxApi.ptrcall(ItemList.Binds.setTextOverrunBehavior, ptr, _args, null)
-
-    def getTextOverrunBehavior(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ItemList.Binds.getTextOverrunBehavior, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setWraparoundItems(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ItemList.Binds.setWraparoundItems, ptr, _args, null)
-
-    def hasWraparoundItems(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ItemList.Binds.hasWraparoundItems, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def forceUpdateListSize(): Unit =
+    def forceUpdateListSize(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ItemList.Binds.forceUpdateListSize, ptr, _args, null)
-    def selectMode: Ptr[Byte] = getSelectMode()
-    def selectMode_=(v: Ptr[Byte]): Unit = setSelectMode(v)
-    def allowReselect: Ptr[Byte] = getAllowReselect()
-    def allowReselect_=(v: Ptr[Byte]): Unit = setAllowReselect(v)
-    def allowRmbSelect: Ptr[Byte] = getAllowRmbSelect()
-    def allowRmbSelect_=(v: Ptr[Byte]): Unit = setAllowRmbSelect(v)
-    def allowSearch: Ptr[Byte] = getAllowSearch()
-    def allowSearch_=(v: Ptr[Byte]): Unit = setAllowSearch(v)
-    def maxTextLines: Ptr[Byte] = getMaxTextLines()
-    def maxTextLines_=(v: Ptr[Byte]): Unit = setMaxTextLines(v)
-    def autoWidth: Ptr[Byte] = hasAutoWidth()
-    def autoWidth_=(v: Ptr[Byte]): Unit = setAutoWidth(v)
-    def autoHeight: Ptr[Byte] = hasAutoHeight()
-    def autoHeight_=(v: Ptr[Byte]): Unit = setAutoHeight(v)
-    def textOverrunBehavior: Ptr[Byte] = getTextOverrunBehavior()
-    def textOverrunBehavior_=(v: Ptr[Byte]): Unit = setTextOverrunBehavior(v)
-    def wraparoundItems: Ptr[Byte] = hasWraparoundItems()
-    def wraparoundItems_=(v: Ptr[Byte]): Unit = setWraparoundItems(v)
-    def itemCount: Ptr[Byte] = getItemCount()
-    def itemCount_=(v: Ptr[Byte]): Unit = setItemCount(v)
-    def maxColumns: Ptr[Byte] = getMaxColumns()
-    def maxColumns_=(v: Ptr[Byte]): Unit = setMaxColumns(v)
-    def sameColumnWidth: Ptr[Byte] = isSameColumnWidth()
-    def sameColumnWidth_=(v: Ptr[Byte]): Unit = setSameColumnWidth(v)
-    def fixedColumnWidth: Ptr[Byte] = getFixedColumnWidth()
-    def fixedColumnWidth_=(v: Ptr[Byte]): Unit = setFixedColumnWidth(v)
-    def iconMode: Ptr[Byte] = getIconMode()
-    def iconMode_=(v: Ptr[Byte]): Unit = setIconMode(v)
-    def iconScale: Ptr[Byte] = getIconScale()
-    def iconScale_=(v: Ptr[Byte]): Unit = setIconScale(v)
-    def fixedIconSize: Ptr[Byte] = getFixedIconSize()
-    def fixedIconSize_=(v: Ptr[Byte]): Unit = setFixedIconSize(v)
+}
+
+    def selectMode: Int = getSelectMode()
+    def selectMode_=(v: Int): Unit = setSelectMode(v)
+    def allowReselect: Boolean = getAllowReselect()
+    def allowReselect_=(v: Boolean): Unit = setAllowReselect(v)
+    def allowRmbSelect: Boolean = getAllowRmbSelect()
+    def allowRmbSelect_=(v: Boolean): Unit = setAllowRmbSelect(v)
+    def allowSearch: Boolean = getAllowSearch()
+    def allowSearch_=(v: Boolean): Unit = setAllowSearch(v)
+    def maxTextLines: Int = getMaxTextLines()
+    def maxTextLines_=(v: Int): Unit = setMaxTextLines(v)
+    def autoWidth: Boolean = hasAutoWidth()
+    def autoWidth_=(v: Boolean): Unit = setAutoWidth(v)
+    def autoHeight: Boolean = hasAutoHeight()
+    def autoHeight_=(v: Boolean): Unit = setAutoHeight(v)
+    def textOverrunBehavior: Int = getTextOverrunBehavior()
+    def textOverrunBehavior_=(v: Int): Unit = setTextOverrunBehavior(v)
+    def wraparoundItems: Boolean = hasWraparoundItems()
+    def wraparoundItems_=(v: Boolean): Unit = setWraparoundItems(v)
+    def itemCount: Int = getItemCount()
+    def itemCount_=(v: Int): Unit = setItemCount(v)
+    def maxColumns: Int = getMaxColumns()
+    def maxColumns_=(v: Int): Unit = setMaxColumns(v)
+    def sameColumnWidth: Boolean = isSameColumnWidth()
+    def sameColumnWidth_=(v: Boolean): Unit = setSameColumnWidth(v)
+    def fixedColumnWidth: Int = getFixedColumnWidth()
+    def fixedColumnWidth_=(v: Int): Unit = setFixedColumnWidth(v)
+    def iconMode: Int = getIconMode()
+    def iconMode_=(v: Int): Unit = setIconMode(v)
+    def iconScale: Float = getIconScale()
+    def iconScale_=(v: Float): Unit = setIconScale(v)
+    def fixedIconSize: Vector2i = getFixedIconSize()
+    def fixedIconSize_=(v: Vector2i): Unit = setFixedIconSize(v)
+}
 
 object ItemList:
-    object Binds:
-        var addItem: Ptr[Byte] = null
+object Binds {
+          var addItem: Ptr[Byte] = null
         var addIconItem: Ptr[Byte] = null
         var setItemText: Ptr[Byte] = null
         var getItemText: Ptr[Byte] = null
@@ -604,50 +467,18 @@ object ItemList:
         var isSelected: Ptr[Byte] = null
         var getSelectedItems: Ptr[Byte] = null
         var moveItem: Ptr[Byte] = null
-        var setItemCount: Ptr[Byte] = null
-        var getItemCount: Ptr[Byte] = null
         var removeItem: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
         var sortItemsByText: Ptr[Byte] = null
-        var setFixedColumnWidth: Ptr[Byte] = null
-        var getFixedColumnWidth: Ptr[Byte] = null
-        var setSameColumnWidth: Ptr[Byte] = null
-        var isSameColumnWidth: Ptr[Byte] = null
-        var setMaxTextLines: Ptr[Byte] = null
-        var getMaxTextLines: Ptr[Byte] = null
-        var setMaxColumns: Ptr[Byte] = null
-        var getMaxColumns: Ptr[Byte] = null
-        var setSelectMode: Ptr[Byte] = null
-        var getSelectMode: Ptr[Byte] = null
-        var setIconMode: Ptr[Byte] = null
-        var getIconMode: Ptr[Byte] = null
-        var setFixedIconSize: Ptr[Byte] = null
-        var getFixedIconSize: Ptr[Byte] = null
-        var setIconScale: Ptr[Byte] = null
-        var getIconScale: Ptr[Byte] = null
-        var setAllowRmbSelect: Ptr[Byte] = null
-        var getAllowRmbSelect: Ptr[Byte] = null
-        var setAllowReselect: Ptr[Byte] = null
-        var getAllowReselect: Ptr[Byte] = null
-        var setAllowSearch: Ptr[Byte] = null
-        var getAllowSearch: Ptr[Byte] = null
-        var setAutoWidth: Ptr[Byte] = null
-        var hasAutoWidth: Ptr[Byte] = null
-        var setAutoHeight: Ptr[Byte] = null
-        var hasAutoHeight: Ptr[Byte] = null
         var isAnythingSelected: Ptr[Byte] = null
         var getItemAtPosition: Ptr[Byte] = null
         var ensureCurrentIsVisible: Ptr[Byte] = null
         var getVScrollBar: Ptr[Byte] = null
         var getHScrollBar: Ptr[Byte] = null
-        var setTextOverrunBehavior: Ptr[Byte] = null
-        var getTextOverrunBehavior: Ptr[Byte] = null
-        var setWraparoundItems: Ptr[Byte] = null
-        var hasWraparoundItems: Ptr[Byte] = null
         var forceUpdateListSize: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addItem = GdxApi.getMethodBind(c"ItemList", c"add_item", 359861678L)
+  def loadBinds(): Unit = {
+                Binds.addItem = GdxApi.getMethodBind(c"ItemList", c"add_item", 359861678L)
             Binds.addIconItem = GdxApi.getMethodBind(c"ItemList", c"add_icon_item", 4256579627L)
             Binds.setItemText = GdxApi.getMethodBind(c"ItemList", c"set_item_text", 501894301L)
             Binds.getItemText = GdxApi.getMethodBind(c"ItemList", c"get_item_text", 844755477L)
@@ -686,49 +517,20 @@ object ItemList:
             Binds.isSelected = GdxApi.getMethodBind(c"ItemList", c"is_selected", 1116898809L)
             Binds.getSelectedItems = GdxApi.getMethodBind(c"ItemList", c"get_selected_items", 969006518L)
             Binds.moveItem = GdxApi.getMethodBind(c"ItemList", c"move_item", 3937882851L)
-            Binds.setItemCount = GdxApi.getMethodBind(c"ItemList", c"set_item_count", 1286410249L)
-            Binds.getItemCount = GdxApi.getMethodBind(c"ItemList", c"get_item_count", 3905245786L)
             Binds.removeItem = GdxApi.getMethodBind(c"ItemList", c"remove_item", 1286410249L)
             Binds.clear = GdxApi.getMethodBind(c"ItemList", c"clear", 3218959716L)
             Binds.sortItemsByText = GdxApi.getMethodBind(c"ItemList", c"sort_items_by_text", 3218959716L)
-            Binds.setFixedColumnWidth = GdxApi.getMethodBind(c"ItemList", c"set_fixed_column_width", 1286410249L)
-            Binds.getFixedColumnWidth = GdxApi.getMethodBind(c"ItemList", c"get_fixed_column_width", 3905245786L)
-            Binds.setSameColumnWidth = GdxApi.getMethodBind(c"ItemList", c"set_same_column_width", 2586408642L)
-            Binds.isSameColumnWidth = GdxApi.getMethodBind(c"ItemList", c"is_same_column_width", 36873697L)
-            Binds.setMaxTextLines = GdxApi.getMethodBind(c"ItemList", c"set_max_text_lines", 1286410249L)
-            Binds.getMaxTextLines = GdxApi.getMethodBind(c"ItemList", c"get_max_text_lines", 3905245786L)
-            Binds.setMaxColumns = GdxApi.getMethodBind(c"ItemList", c"set_max_columns", 1286410249L)
-            Binds.getMaxColumns = GdxApi.getMethodBind(c"ItemList", c"get_max_columns", 3905245786L)
-            Binds.setSelectMode = GdxApi.getMethodBind(c"ItemList", c"set_select_mode", 928267388L)
-            Binds.getSelectMode = GdxApi.getMethodBind(c"ItemList", c"get_select_mode", 1191945842L)
-            Binds.setIconMode = GdxApi.getMethodBind(c"ItemList", c"set_icon_mode", 2025053633L)
-            Binds.getIconMode = GdxApi.getMethodBind(c"ItemList", c"get_icon_mode", 3353929232L)
-            Binds.setFixedIconSize = GdxApi.getMethodBind(c"ItemList", c"set_fixed_icon_size", 1130785943L)
-            Binds.getFixedIconSize = GdxApi.getMethodBind(c"ItemList", c"get_fixed_icon_size", 3690982128L)
-            Binds.setIconScale = GdxApi.getMethodBind(c"ItemList", c"set_icon_scale", 373806689L)
-            Binds.getIconScale = GdxApi.getMethodBind(c"ItemList", c"get_icon_scale", 1740695150L)
-            Binds.setAllowRmbSelect = GdxApi.getMethodBind(c"ItemList", c"set_allow_rmb_select", 2586408642L)
-            Binds.getAllowRmbSelect = GdxApi.getMethodBind(c"ItemList", c"get_allow_rmb_select", 36873697L)
-            Binds.setAllowReselect = GdxApi.getMethodBind(c"ItemList", c"set_allow_reselect", 2586408642L)
-            Binds.getAllowReselect = GdxApi.getMethodBind(c"ItemList", c"get_allow_reselect", 36873697L)
-            Binds.setAllowSearch = GdxApi.getMethodBind(c"ItemList", c"set_allow_search", 2586408642L)
-            Binds.getAllowSearch = GdxApi.getMethodBind(c"ItemList", c"get_allow_search", 36873697L)
-            Binds.setAutoWidth = GdxApi.getMethodBind(c"ItemList", c"set_auto_width", 2586408642L)
-            Binds.hasAutoWidth = GdxApi.getMethodBind(c"ItemList", c"has_auto_width", 36873697L)
-            Binds.setAutoHeight = GdxApi.getMethodBind(c"ItemList", c"set_auto_height", 2586408642L)
-            Binds.hasAutoHeight = GdxApi.getMethodBind(c"ItemList", c"has_auto_height", 36873697L)
             Binds.isAnythingSelected = GdxApi.getMethodBind(c"ItemList", c"is_anything_selected", 2240911060L)
             Binds.getItemAtPosition = GdxApi.getMethodBind(c"ItemList", c"get_item_at_position", 2300324924L)
             Binds.ensureCurrentIsVisible = GdxApi.getMethodBind(c"ItemList", c"ensure_current_is_visible", 3218959716L)
             Binds.getVScrollBar = GdxApi.getMethodBind(c"ItemList", c"get_v_scroll_bar", 2630340773L)
             Binds.getHScrollBar = GdxApi.getMethodBind(c"ItemList", c"get_h_scroll_bar", 4004517983L)
-            Binds.setTextOverrunBehavior = GdxApi.getMethodBind(c"ItemList", c"set_text_overrun_behavior", 1008890932L)
-            Binds.getTextOverrunBehavior = GdxApi.getMethodBind(c"ItemList", c"get_text_overrun_behavior", 3779142101L)
-            Binds.setWraparoundItems = GdxApi.getMethodBind(c"ItemList", c"set_wraparound_items", 2586408642L)
-            Binds.hasWraparoundItems = GdxApi.getMethodBind(c"ItemList", c"has_wraparound_items", 36873697L)
             Binds.forceUpdateListSize = GdxApi.getMethodBind(c"ItemList", c"force_update_list_size", 3218959716L)
+  }
+}
 
-    def apply(): ItemList =
-        val obj = new ItemList()
-        obj.ptr = GdxApi.constructObject(c"ItemList")
-        obj
+def apply(): ItemList = {
+  val obj = new ItemList()
+  obj.ptr = GdxApi.constructObject(c"ItemList")
+  obj
+}

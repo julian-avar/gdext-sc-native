@@ -5,68 +5,32 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDShaderSPIRV extends Resource
-
-    def setStageBytecode(stage: Int, bytecode: PackedByteArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = stage.ptr
-        _args(1) = bytecode.ptr
-        GdxApi.ptrcall(RDShaderSPIRV.Binds.setStageBytecode, ptr, _args, null)
-
-    def getStageBytecode(stage: Int): PackedByteArray =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stage.ptr
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDShaderSPIRV.Binds.getStageBytecode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedByteArray(!_ret)
-
-    def setStageCompileError(stage: Int, compileError: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = stage.ptr
-        _args(1) = compileError.ptr
-        GdxApi.ptrcall(RDShaderSPIRV.Binds.setStageCompileError, ptr, _args, null)
-
-    def getStageCompileError(stage: Int): CString =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stage.ptr
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RDShaderSPIRV.Binds.getStageCompileError, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def bytecodeVertex: Ptr[Byte] = getStageBytecode()
-    def bytecodeVertex_=(v: Ptr[Byte]): Unit = setStageBytecode(v)
-    def bytecodeFragment: Ptr[Byte] = getStageBytecode()
-    def bytecodeFragment_=(v: Ptr[Byte]): Unit = setStageBytecode(v)
-    def bytecodeTesselationControl: Ptr[Byte] = getStageBytecode()
-    def bytecodeTesselationControl_=(v: Ptr[Byte]): Unit = setStageBytecode(v)
-    def bytecodeTesselationEvaluation: Ptr[Byte] = getStageBytecode()
-    def bytecodeTesselationEvaluation_=(v: Ptr[Byte]): Unit = setStageBytecode(v)
-    def bytecodeCompute: Ptr[Byte] = getStageBytecode()
-    def bytecodeCompute_=(v: Ptr[Byte]): Unit = setStageBytecode(v)
-    def compileErrorVertex: Ptr[Byte] = getStageCompileError()
-    def compileErrorVertex_=(v: Ptr[Byte]): Unit = setStageCompileError(v)
-    def compileErrorFragment: Ptr[Byte] = getStageCompileError()
-    def compileErrorFragment_=(v: Ptr[Byte]): Unit = setStageCompileError(v)
-    def compileErrorTesselationControl: Ptr[Byte] = getStageCompileError()
-    def compileErrorTesselationControl_=(v: Ptr[Byte]): Unit = setStageCompileError(v)
-    def compileErrorTesselationEvaluation: Ptr[Byte] = getStageCompileError()
-    def compileErrorTesselationEvaluation_=(v: Ptr[Byte]): Unit = setStageCompileError(v)
-    def compileErrorCompute: Ptr[Byte] = getStageCompileError()
-    def compileErrorCompute_=(v: Ptr[Byte]): Unit = setStageCompileError(v)
+class RDShaderSPIRV extends Resource {
+    def bytecodeVertex: PackedByteArray = getStageBytecode()
+    def bytecodeVertex_=(v: Int): Unit = setStageBytecode(v)
+    def bytecodeFragment: PackedByteArray = getStageBytecode()
+    def bytecodeFragment_=(v: Int): Unit = setStageBytecode(v)
+    def bytecodeTesselationControl: PackedByteArray = getStageBytecode()
+    def bytecodeTesselationControl_=(v: Int): Unit = setStageBytecode(v)
+    def bytecodeTesselationEvaluation: PackedByteArray = getStageBytecode()
+    def bytecodeTesselationEvaluation_=(v: Int): Unit = setStageBytecode(v)
+    def bytecodeCompute: PackedByteArray = getStageBytecode()
+    def bytecodeCompute_=(v: Int): Unit = setStageBytecode(v)
+    def compileErrorVertex: CString = getStageCompileError()
+    def compileErrorVertex_=(v: Int): Unit = setStageCompileError(v)
+    def compileErrorFragment: CString = getStageCompileError()
+    def compileErrorFragment_=(v: Int): Unit = setStageCompileError(v)
+    def compileErrorTesselationControl: CString = getStageCompileError()
+    def compileErrorTesselationControl_=(v: Int): Unit = setStageCompileError(v)
+    def compileErrorTesselationEvaluation: CString = getStageCompileError()
+    def compileErrorTesselationEvaluation_=(v: Int): Unit = setStageCompileError(v)
+    def compileErrorCompute: CString = getStageCompileError()
+    def compileErrorCompute_=(v: Int): Unit = setStageCompileError(v)
+}
 
 object RDShaderSPIRV:
-    object Binds:
-        var setStageBytecode: Ptr[Byte] = null
-        var getStageBytecode: Ptr[Byte] = null
-        var setStageCompileError: Ptr[Byte] = null
-        var getStageCompileError: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setStageBytecode = GdxApi.getMethodBind(c"RDShaderSPIRV", c"set_stage_bytecode", 3514097977L)
-            Binds.getStageBytecode = GdxApi.getMethodBind(c"RDShaderSPIRV", c"get_stage_bytecode", 3816765404L)
-            Binds.setStageCompileError = GdxApi.getMethodBind(c"RDShaderSPIRV", c"set_stage_compile_error", 620821314L)
-            Binds.getStageCompileError = GdxApi.getMethodBind(c"RDShaderSPIRV", c"get_stage_compile_error", 3354920045L)
-
-    def apply(): RDShaderSPIRV =
-        val obj = new RDShaderSPIRV()
-        obj.ptr = GdxApi.constructObject(c"RDShaderSPIRV")
-        obj
+def apply(): RDShaderSPIRV = {
+  val obj = new RDShaderSPIRV()
+  obj.ptr = GdxApi.constructObject(c"RDShaderSPIRV")
+  obj
+}

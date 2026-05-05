@@ -5,139 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CompositorEffect extends Resource
+class CompositorEffect extends Resource {
     def _renderCallback(effectCallbackType: Int, renderData: RenderData): Unit = ()
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CompositorEffect.Binds.setEnabled, ptr, _args, null)
 
-    def getEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEffectCallbackType(effectCallbackType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = effectCallbackType.ptr
-        GdxApi.ptrcall(CompositorEffect.Binds.setEffectCallbackType, ptr, _args, null)
-
-    def getEffectCallbackType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getEffectCallbackType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAccessResolvedColor(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CompositorEffect.Binds.setAccessResolvedColor, ptr, _args, null)
-
-    def getAccessResolvedColor(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getAccessResolvedColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAccessResolvedDepth(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CompositorEffect.Binds.setAccessResolvedDepth, ptr, _args, null)
-
-    def getAccessResolvedDepth(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getAccessResolvedDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNeedsMotionVectors(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CompositorEffect.Binds.setNeedsMotionVectors, ptr, _args, null)
-
-    def getNeedsMotionVectors(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getNeedsMotionVectors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNeedsNormalRoughness(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CompositorEffect.Binds.setNeedsNormalRoughness, ptr, _args, null)
-
-    def getNeedsNormalRoughness(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getNeedsNormalRoughness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNeedsSeparateSpecular(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CompositorEffect.Binds.setNeedsSeparateSpecular, ptr, _args, null)
-
-    def getNeedsSeparateSpecular(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CompositorEffect.Binds.getNeedsSeparateSpecular, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def enabled: Ptr[Byte] = getEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def effectCallbackType: Ptr[Byte] = getEffectCallbackType()
-    def effectCallbackType_=(v: Ptr[Byte]): Unit = setEffectCallbackType(v)
-    def accessResolvedColor: Ptr[Byte] = getAccessResolvedColor()
-    def accessResolvedColor_=(v: Ptr[Byte]): Unit = setAccessResolvedColor(v)
-    def accessResolvedDepth: Ptr[Byte] = getAccessResolvedDepth()
-    def accessResolvedDepth_=(v: Ptr[Byte]): Unit = setAccessResolvedDepth(v)
-    def needsMotionVectors: Ptr[Byte] = getNeedsMotionVectors()
-    def needsMotionVectors_=(v: Ptr[Byte]): Unit = setNeedsMotionVectors(v)
-    def needsNormalRoughness: Ptr[Byte] = getNeedsNormalRoughness()
-    def needsNormalRoughness_=(v: Ptr[Byte]): Unit = setNeedsNormalRoughness(v)
-    def needsSeparateSpecular: Ptr[Byte] = getNeedsSeparateSpecular()
-    def needsSeparateSpecular_=(v: Ptr[Byte]): Unit = setNeedsSeparateSpecular(v)
+    def enabled: Boolean = getEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def effectCallbackType: Int = getEffectCallbackType()
+    def effectCallbackType_=(v: Int): Unit = setEffectCallbackType(v)
+    def accessResolvedColor: Boolean = getAccessResolvedColor()
+    def accessResolvedColor_=(v: Boolean): Unit = setAccessResolvedColor(v)
+    def accessResolvedDepth: Boolean = getAccessResolvedDepth()
+    def accessResolvedDepth_=(v: Boolean): Unit = setAccessResolvedDepth(v)
+    def needsMotionVectors: Boolean = getNeedsMotionVectors()
+    def needsMotionVectors_=(v: Boolean): Unit = setNeedsMotionVectors(v)
+    def needsNormalRoughness: Boolean = getNeedsNormalRoughness()
+    def needsNormalRoughness_=(v: Boolean): Unit = setNeedsNormalRoughness(v)
+    def needsSeparateSpecular: Boolean = getNeedsSeparateSpecular()
+    def needsSeparateSpecular_=(v: Boolean): Unit = setNeedsSeparateSpecular(v)
+}
 
 object CompositorEffect:
-    object Binds:
-        var setEnabled: Ptr[Byte] = null
-        var getEnabled: Ptr[Byte] = null
-        var setEffectCallbackType: Ptr[Byte] = null
-        var getEffectCallbackType: Ptr[Byte] = null
-        var setAccessResolvedColor: Ptr[Byte] = null
-        var getAccessResolvedColor: Ptr[Byte] = null
-        var setAccessResolvedDepth: Ptr[Byte] = null
-        var getAccessResolvedDepth: Ptr[Byte] = null
-        var setNeedsMotionVectors: Ptr[Byte] = null
-        var getNeedsMotionVectors: Ptr[Byte] = null
-        var setNeedsNormalRoughness: Ptr[Byte] = null
-        var getNeedsNormalRoughness: Ptr[Byte] = null
-        var setNeedsSeparateSpecular: Ptr[Byte] = null
-        var getNeedsSeparateSpecular: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setEnabled = GdxApi.getMethodBind(c"CompositorEffect", c"set_enabled", 2586408642L)
-            Binds.getEnabled = GdxApi.getMethodBind(c"CompositorEffect", c"get_enabled", 36873697L)
-            Binds.setEffectCallbackType = GdxApi.getMethodBind(c"CompositorEffect", c"set_effect_callback_type", 1390728419L)
-            Binds.getEffectCallbackType = GdxApi.getMethodBind(c"CompositorEffect", c"get_effect_callback_type", 1221912590L)
-            Binds.setAccessResolvedColor = GdxApi.getMethodBind(c"CompositorEffect", c"set_access_resolved_color", 2586408642L)
-            Binds.getAccessResolvedColor = GdxApi.getMethodBind(c"CompositorEffect", c"get_access_resolved_color", 36873697L)
-            Binds.setAccessResolvedDepth = GdxApi.getMethodBind(c"CompositorEffect", c"set_access_resolved_depth", 2586408642L)
-            Binds.getAccessResolvedDepth = GdxApi.getMethodBind(c"CompositorEffect", c"get_access_resolved_depth", 36873697L)
-            Binds.setNeedsMotionVectors = GdxApi.getMethodBind(c"CompositorEffect", c"set_needs_motion_vectors", 2586408642L)
-            Binds.getNeedsMotionVectors = GdxApi.getMethodBind(c"CompositorEffect", c"get_needs_motion_vectors", 36873697L)
-            Binds.setNeedsNormalRoughness = GdxApi.getMethodBind(c"CompositorEffect", c"set_needs_normal_roughness", 2586408642L)
-            Binds.getNeedsNormalRoughness = GdxApi.getMethodBind(c"CompositorEffect", c"get_needs_normal_roughness", 36873697L)
-            Binds.setNeedsSeparateSpecular = GdxApi.getMethodBind(c"CompositorEffect", c"set_needs_separate_specular", 2586408642L)
-            Binds.getNeedsSeparateSpecular = GdxApi.getMethodBind(c"CompositorEffect", c"get_needs_separate_specular", 36873697L)
-
-    def apply(): CompositorEffect =
-        val obj = new CompositorEffect()
-        obj.ptr = GdxApi.constructObject(c"CompositorEffect")
-        obj
+def apply(): CompositorEffect = {
+  val obj = new CompositorEffect()
+  obj.ptr = GdxApi.constructObject(c"CompositorEffect")
+  obj
+}

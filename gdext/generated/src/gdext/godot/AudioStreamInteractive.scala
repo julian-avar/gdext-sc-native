@@ -5,211 +5,207 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamInteractive extends AudioStream
-
-    def setClipCount(clipCount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipCount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamInteractive.Binds.setClipCount, ptr, _args, null)
-
-    def getClipCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamInteractive.Binds.getClipCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setInitialClip(clipIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamInteractive.Binds.setInitialClip, ptr, _args, null)
-
-    def getInitialClip(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamInteractive.Binds.getInitialClip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setClipName(clipIndex: Int, name: CString): Unit =
+class AudioStreamInteractive extends AudioStream {
+    def setClipName(clipIndex: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(AudioStreamInteractive.Binds.setClipName, ptr, _args, null)
+}
 
-    def getClipName(clipIndex: Int): CString =
+    def getClipName(clipIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getClipName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setClipStream(clipIndex: Int, stream: AudioStream): Unit =
+    def setClipStream(clipIndex: Int, stream: AudioStream): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = stream.ptr
         GdxApi.ptrcall(AudioStreamInteractive.Binds.setClipStream, ptr, _args, null)
+}
 
-    def getClipStream(clipIndex: Int): AudioStream =
+    def getClipStream(clipIndex: Int): AudioStream = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getClipStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioStream(!_ret)
+}
 
-    def setClipAutoAdvance(clipIndex: Int, mode: Int): Unit =
+    def setClipAutoAdvance(clipIndex: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamInteractive.Binds.setClipAutoAdvance, ptr, _args, null)
+}
 
-    def getClipAutoAdvance(clipIndex: Int): Int =
+    def getClipAutoAdvance(clipIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getClipAutoAdvance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setClipAutoAdvanceNextClip(clipIndex: Int, autoAdvanceNextClip: Int): Unit =
+    def setClipAutoAdvanceNextClip(clipIndex: Int, autoAdvanceNextClip: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = autoAdvanceNextClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = autoAdvanceNextClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamInteractive.Binds.setClipAutoAdvanceNextClip, ptr, _args, null)
+}
 
-    def getClipAutoAdvanceNextClip(clipIndex: Int): Int =
+    def getClipAutoAdvanceNextClip(clipIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = clipIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = clipIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getClipAutoAdvanceNextClip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addTransition(fromClip: Int, toClip: Int, fromTime: Int, toTime: Int, fadeMode: Int, fadeBeats: Float): Unit =
+    def addTransition(fromClip: Int, toClip: Int, fromTime: Int, toTime: Int, fadeMode: Int, fadeBeats: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = fromTime.ptr
-        _args(3) = toTime.ptr
-        _args(4) = fadeMode.ptr
+        val _a2 = stackalloc[Long](); !_a2 = fromTime.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
+        val _a3 = stackalloc[Long](); !_a3 = toTime.toLong
+        _args(3) = _a3.asInstanceOf[Ptr[Byte]]
+        val _a4 = stackalloc[Long](); !_a4 = fadeMode.toLong
+        _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _a5 = stackalloc[Double](); !_a5 = fadeBeats.toDouble
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamInteractive.Binds.addTransition, ptr, _args, null)
+}
 
-    def hasTransition(fromClip: Int, toClip: Int): Boolean =
+    def hasTransition(fromClip: Int, toClip: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.hasTransition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def eraseTransition(fromClip: Int, toClip: Int): Unit =
+    def eraseTransition(fromClip: Int, toClip: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamInteractive.Binds.eraseTransition, ptr, _args, null)
+}
 
-    def getTransitionList(): PackedInt32Array =
+    def getTransitionList(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getTransitionList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getTransitionFromTime(fromClip: Int, toClip: Int): Int =
+    def getTransitionFromTime(fromClip: Int, toClip: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getTransitionFromTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTransitionToTime(fromClip: Int, toClip: Int): Int =
+    def getTransitionToTime(fromClip: Int, toClip: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getTransitionToTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTransitionFadeMode(fromClip: Int, toClip: Int): Int =
+    def getTransitionFadeMode(fromClip: Int, toClip: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getTransitionFadeMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTransitionFadeBeats(fromClip: Int, toClip: Int): Float =
+    def getTransitionFadeBeats(fromClip: Int, toClip: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getTransitionFadeBeats, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def isTransitionUsingFillerClip(fromClip: Int, toClip: Int): Boolean =
+    def isTransitionUsingFillerClip(fromClip: Int, toClip: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.isTransitionUsingFillerClip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getTransitionFillerClip(fromClip: Int, toClip: Int): Int =
+    def getTransitionFillerClip(fromClip: Int, toClip: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.getTransitionFillerClip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isTransitionHoldingPrevious(fromClip: Int, toClip: Int): Boolean =
+    def isTransitionHoldingPrevious(fromClip: Int, toClip: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = fromClip.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fromClip.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = toClip.toLong
+        val _a1 = stackalloc[Long](); !_a1 = toClip.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamInteractive.Binds.isTransitionHoldingPrevious, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def clipCount: Ptr[Byte] = getClipCount()
-    def clipCount_=(v: Ptr[Byte]): Unit = setClipCount(v)
-    def initialClip: Ptr[Byte] = getInitialClip()
-    def initialClip_=(v: Ptr[Byte]): Unit = setInitialClip(v)
+}
+
+    def clipCount: Int = getClipCount()
+    def clipCount_=(v: Int): Unit = setClipCount(v)
+    def initialClip: Int = getInitialClip()
+    def initialClip_=(v: Int): Unit = setInitialClip(v)
+}
 
 object AudioStreamInteractive:
-    object Binds:
-        var setClipCount: Ptr[Byte] = null
-        var getClipCount: Ptr[Byte] = null
-        var setInitialClip: Ptr[Byte] = null
-        var getInitialClip: Ptr[Byte] = null
-        var setClipName: Ptr[Byte] = null
+object Binds {
+          var setClipName: Ptr[Byte] = null
         var getClipName: Ptr[Byte] = null
         var setClipStream: Ptr[Byte] = null
         var getClipStream: Ptr[Byte] = null
@@ -229,12 +225,8 @@ object AudioStreamInteractive:
         var getTransitionFillerClip: Ptr[Byte] = null
         var isTransitionHoldingPrevious: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setClipCount = GdxApi.getMethodBind(c"AudioStreamInteractive", c"set_clip_count", 1286410249L)
-            Binds.getClipCount = GdxApi.getMethodBind(c"AudioStreamInteractive", c"get_clip_count", 3905245786L)
-            Binds.setInitialClip = GdxApi.getMethodBind(c"AudioStreamInteractive", c"set_initial_clip", 1286410249L)
-            Binds.getInitialClip = GdxApi.getMethodBind(c"AudioStreamInteractive", c"get_initial_clip", 3905245786L)
-            Binds.setClipName = GdxApi.getMethodBind(c"AudioStreamInteractive", c"set_clip_name", 3780747571L)
+  def loadBinds(): Unit = {
+                Binds.setClipName = GdxApi.getMethodBind(c"AudioStreamInteractive", c"set_clip_name", 3780747571L)
             Binds.getClipName = GdxApi.getMethodBind(c"AudioStreamInteractive", c"get_clip_name", 659327637L)
             Binds.setClipStream = GdxApi.getMethodBind(c"AudioStreamInteractive", c"set_clip_stream", 111075094L)
             Binds.getClipStream = GdxApi.getMethodBind(c"AudioStreamInteractive", c"get_clip_stream", 2739380747L)
@@ -253,8 +245,11 @@ object AudioStreamInteractive:
             Binds.isTransitionUsingFillerClip = GdxApi.getMethodBind(c"AudioStreamInteractive", c"is_transition_using_filler_clip", 2522259332L)
             Binds.getTransitionFillerClip = GdxApi.getMethodBind(c"AudioStreamInteractive", c"get_transition_filler_clip", 3175239445L)
             Binds.isTransitionHoldingPrevious = GdxApi.getMethodBind(c"AudioStreamInteractive", c"is_transition_holding_previous", 2522259332L)
+  }
+}
 
-    def apply(): AudioStreamInteractive =
-        val obj = new AudioStreamInteractive()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamInteractive")
-        obj
+def apply(): AudioStreamInteractive = {
+  val obj = new AudioStreamInteractive()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamInteractive")
+  obj
+}

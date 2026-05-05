@@ -5,22 +5,27 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPlaybackResampled extends AudioStreamPlayback
+class AudioStreamPlaybackResampled extends AudioStreamPlayback {
     def _mixResampled(dstBuffer: Ptr[Byte], frameCount: Int): Int = 0
     def _getStreamSamplingRate(): Float = 0
-    def beginResample(): Unit =
+
+    def beginResample(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamPlaybackResampled.Binds.beginResample, ptr, _args, null)
-
+}
+}
 
 object AudioStreamPlaybackResampled:
-    object Binds:
-        var beginResample: Ptr[Byte] = null
+object Binds {
+          var beginResample: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.beginResample = GdxApi.getMethodBind(c"AudioStreamPlaybackResampled", c"begin_resample", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.beginResample = GdxApi.getMethodBind(c"AudioStreamPlaybackResampled", c"begin_resample", 3218959716L)
+  }
+}
 
-    def apply(): AudioStreamPlaybackResampled =
-        val obj = new AudioStreamPlaybackResampled()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamPlaybackResampled")
-        obj
+def apply(): AudioStreamPlaybackResampled = {
+  val obj = new AudioStreamPlaybackResampled()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamPlaybackResampled")
+  obj
+}

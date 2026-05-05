@@ -5,285 +5,314 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FileAccess extends RefCounted
-
-    def resize(length: Long): Int =
+class FileAccess extends RefCounted {
+    def resize(length: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = length
+        val _a0 = stackalloc[Long](); !_a0 = length
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.resize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def flush(): Unit =
+    def flush(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileAccess.Binds.flush, ptr, _args, null)
+}
 
-    def getPath(): CString =
+    def getPath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPathAbsolute(): CString =
+    def getPathAbsolute(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getPathAbsolute, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isOpen(): Boolean =
+    def isOpen(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.isOpen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def seek(position: Long): Unit =
+    def seek(position: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = position
+        val _a0 = stackalloc[Long](); !_a0 = position
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FileAccess.Binds.seek, ptr, _args, null)
+}
 
-    def seekEnd(): Unit =
+    def seekEnd(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileAccess.Binds.seekEnd, ptr, _args, null)
+}
 
-    def getPosition(): Long =
+    def getPosition(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.getPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLength(): Long =
+    def getLength(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def eofReached(): Boolean =
+    def eofReached(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.eofReached, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def get8(): Long =
+    def get8(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.get8, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def get16(): Long =
+    def get16(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.get16, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def get32(): Int =
+    def get32(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.get32, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def get64(): Long =
+    def get64(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.get64, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getHalf(): Float =
+    def getHalf(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FileAccess.Binds.getHalf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getFloat(): Float =
+    def getFloat(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FileAccess.Binds.getFloat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getDouble(): Double =
+    def getDouble(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FileAccess.Binds.getDouble, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getReal(): Float =
+    def getReal(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FileAccess.Binds.getReal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getBuffer(length: Long): PackedByteArray =
+    def getBuffer(length: Long): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = length
+        val _a0 = stackalloc[Long](); !_a0 = length
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def getLine(): CString =
+    def getLine(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCsvLine(): PackedStringArray =
+    def getCsvLine(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getCsvLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getAsText(): CString =
+    def getAsText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getAsText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isBigEndian(): Boolean =
+    def getError(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FileAccess.Binds.isBigEndian, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setBigEndian(bigEndian: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if bigEndian then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FileAccess.Binds.setBigEndian, ptr, _args, null)
-
-    def getError(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileAccess.Binds.getError, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVar(): Ptr[Byte] =
+    def getVar(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getVar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def store8(value: Long): Boolean =
+    def store8(value: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.store8, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def store16(value: Long): Boolean =
+    def store16(value: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.store16, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def store32(value: Int): Boolean =
+    def store32(value: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
+        val _a0 = stackalloc[Long](); !_a0 = value.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.store32, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def store64(value: Long): Boolean =
+    def store64(value: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.store64, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeHalf(value: Float): Boolean =
+    def storeHalf(value: Float): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeHalf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeFloat(value: Float): Boolean =
+    def storeFloat(value: Float): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeFloat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeDouble(value: Double): Boolean =
+    def storeDouble(value: Double): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeDouble, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeReal(value: Float): Boolean =
+    def storeReal(value: Float): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeReal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeBuffer(buffer: PackedByteArray): Boolean =
+    def storeBuffer(buffer: PackedByteArray): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeLine(line: CString): Boolean =
+    def storeLine(line: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = line.ptr
+        _args(0) = line
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeCsvLine(values: PackedStringArray): Boolean =
+    def storeCsvLine(values: PackedStringArray): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = values.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeCsvLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeString(string: CString): Boolean =
+    def storeString(string: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storeVar(value: Ptr[Byte]): Boolean =
+    def storeVar(value: Ptr[Byte]): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
+        _args(0) = value
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storeVar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def storePascalString(string: CString): Boolean =
+    def storePascalString(string: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FileAccess.Binds.storePascalString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPascalString(): CString =
+    def getPascalString(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileAccess.Binds.getPascalString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def close(): Unit =
+    def close(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileAccess.Binds.close, ptr, _args, null)
-    def bigEndian: Ptr[Byte] = isBigEndian()
-    def bigEndian_=(v: Ptr[Byte]): Unit = setBigEndian(v)
+}
+
+    def bigEndian: Boolean = isBigEndian()
+    def bigEndian_=(v: Boolean): Unit = setBigEndian(v)
+}
 
 object FileAccess:
-    object Binds:
-        var resize: Ptr[Byte] = null
+object Binds {
+          var resize: Ptr[Byte] = null
         var flush: Ptr[Byte] = null
         var getPath: Ptr[Byte] = null
         var getPathAbsolute: Ptr[Byte] = null
@@ -305,8 +334,6 @@ object FileAccess:
         var getLine: Ptr[Byte] = null
         var getCsvLine: Ptr[Byte] = null
         var getAsText: Ptr[Byte] = null
-        var isBigEndian: Ptr[Byte] = null
-        var setBigEndian: Ptr[Byte] = null
         var getError: Ptr[Byte] = null
         var getVar: Ptr[Byte] = null
         var store8: Ptr[Byte] = null
@@ -326,8 +353,8 @@ object FileAccess:
         var getPascalString: Ptr[Byte] = null
         var close: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.resize = GdxApi.getMethodBind(c"FileAccess", c"resize", 844576869L)
+  def loadBinds(): Unit = {
+                Binds.resize = GdxApi.getMethodBind(c"FileAccess", c"resize", 844576869L)
             Binds.flush = GdxApi.getMethodBind(c"FileAccess", c"flush", 3218959716L)
             Binds.getPath = GdxApi.getMethodBind(c"FileAccess", c"get_path", 201670096L)
             Binds.getPathAbsolute = GdxApi.getMethodBind(c"FileAccess", c"get_path_absolute", 201670096L)
@@ -349,8 +376,6 @@ object FileAccess:
             Binds.getLine = GdxApi.getMethodBind(c"FileAccess", c"get_line", 201670096L)
             Binds.getCsvLine = GdxApi.getMethodBind(c"FileAccess", c"get_csv_line", 2358116058L)
             Binds.getAsText = GdxApi.getMethodBind(c"FileAccess", c"get_as_text", 1162154673L)
-            Binds.isBigEndian = GdxApi.getMethodBind(c"FileAccess", c"is_big_endian", 36873697L)
-            Binds.setBigEndian = GdxApi.getMethodBind(c"FileAccess", c"set_big_endian", 2586408642L)
             Binds.getError = GdxApi.getMethodBind(c"FileAccess", c"get_error", 3185525595L)
             Binds.getVar = GdxApi.getMethodBind(c"FileAccess", c"get_var", 189129690L)
             Binds.store8 = GdxApi.getMethodBind(c"FileAccess", c"store_8", 3067735520L)
@@ -369,3 +394,5 @@ object FileAccess:
             Binds.storePascalString = GdxApi.getMethodBind(c"FileAccess", c"store_pascal_string", 2323990056L)
             Binds.getPascalString = GdxApi.getMethodBind(c"FileAccess", c"get_pascal_string", 2841200299L)
             Binds.close = GdxApi.getMethodBind(c"FileAccess", c"close", 3218959716L)
+  }
+}

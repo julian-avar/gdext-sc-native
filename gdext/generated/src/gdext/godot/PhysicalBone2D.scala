@@ -5,119 +5,46 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicalBone2D extends RigidBody2D
-
-    def getJoint(): Joint2D =
+class PhysicalBone2D extends RigidBody2D {
+    def getJoint(): Joint2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicalBone2D.Binds.getJoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Joint2D(!_ret)
+}
 
-    def getAutoConfigureJoint(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicalBone2D.Binds.getAutoConfigureJoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutoConfigureJoint(autoConfigureJoint: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if autoConfigureJoint then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicalBone2D.Binds.setAutoConfigureJoint, ptr, _args, null)
-
-    def setSimulatePhysics(simulatePhysics: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if simulatePhysics then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicalBone2D.Binds.setSimulatePhysics, ptr, _args, null)
-
-    def getSimulatePhysics(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicalBone2D.Binds.getSimulatePhysics, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isSimulatingPhysics(): Boolean =
+    def isSimulatingPhysics(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PhysicalBone2D.Binds.isSimulatingPhysics, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setBone2dNodepath(nodepath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = nodepath.ptr
-        GdxApi.ptrcall(PhysicalBone2D.Binds.setBone2dNodepath, ptr, _args, null)
-
-    def getBone2dNodepath(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicalBone2D.Binds.getBone2dNodepath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setBone2dIndex(boneIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = boneIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicalBone2D.Binds.setBone2dIndex, ptr, _args, null)
-
-    def getBone2dIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(PhysicalBone2D.Binds.getBone2dIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFollowBoneWhenSimulating(followBone: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if followBone then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicalBone2D.Binds.setFollowBoneWhenSimulating, ptr, _args, null)
-
-    def getFollowBoneWhenSimulating(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicalBone2D.Binds.getFollowBoneWhenSimulating, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def bone2dNodepath: Ptr[Byte] = getBone2dNodepath()
-    def bone2dNodepath_=(v: Ptr[Byte]): Unit = setBone2dNodepath(v)
-    def bone2dIndex: Ptr[Byte] = getBone2dIndex()
-    def bone2dIndex_=(v: Ptr[Byte]): Unit = setBone2dIndex(v)
-    def autoConfigureJoint: Ptr[Byte] = getAutoConfigureJoint()
-    def autoConfigureJoint_=(v: Ptr[Byte]): Unit = setAutoConfigureJoint(v)
-    def simulatePhysics: Ptr[Byte] = getSimulatePhysics()
-    def simulatePhysics_=(v: Ptr[Byte]): Unit = setSimulatePhysics(v)
-    def followBoneWhenSimulating: Ptr[Byte] = getFollowBoneWhenSimulating()
-    def followBoneWhenSimulating_=(v: Ptr[Byte]): Unit = setFollowBoneWhenSimulating(v)
+    def bone2dNodepath: NodePath = getBone2dNodepath()
+    def bone2dNodepath_=(v: NodePath): Unit = setBone2dNodepath(v)
+    def bone2dIndex: Int = getBone2dIndex()
+    def bone2dIndex_=(v: Int): Unit = setBone2dIndex(v)
+    def autoConfigureJoint: Boolean = getAutoConfigureJoint()
+    def autoConfigureJoint_=(v: Boolean): Unit = setAutoConfigureJoint(v)
+    def simulatePhysics: Boolean = getSimulatePhysics()
+    def simulatePhysics_=(v: Boolean): Unit = setSimulatePhysics(v)
+    def followBoneWhenSimulating: Boolean = getFollowBoneWhenSimulating()
+    def followBoneWhenSimulating_=(v: Boolean): Unit = setFollowBoneWhenSimulating(v)
+}
 
 object PhysicalBone2D:
-    object Binds:
-        var getJoint: Ptr[Byte] = null
-        var getAutoConfigureJoint: Ptr[Byte] = null
-        var setAutoConfigureJoint: Ptr[Byte] = null
-        var setSimulatePhysics: Ptr[Byte] = null
-        var getSimulatePhysics: Ptr[Byte] = null
+object Binds {
+          var getJoint: Ptr[Byte] = null
         var isSimulatingPhysics: Ptr[Byte] = null
-        var setBone2dNodepath: Ptr[Byte] = null
-        var getBone2dNodepath: Ptr[Byte] = null
-        var setBone2dIndex: Ptr[Byte] = null
-        var getBone2dIndex: Ptr[Byte] = null
-        var setFollowBoneWhenSimulating: Ptr[Byte] = null
-        var getFollowBoneWhenSimulating: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getJoint = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_joint", 3582132112L)
-            Binds.getAutoConfigureJoint = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_auto_configure_joint", 36873697L)
-            Binds.setAutoConfigureJoint = GdxApi.getMethodBind(c"PhysicalBone2D", c"set_auto_configure_joint", 2586408642L)
-            Binds.setSimulatePhysics = GdxApi.getMethodBind(c"PhysicalBone2D", c"set_simulate_physics", 2586408642L)
-            Binds.getSimulatePhysics = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_simulate_physics", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getJoint = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_joint", 3582132112L)
             Binds.isSimulatingPhysics = GdxApi.getMethodBind(c"PhysicalBone2D", c"is_simulating_physics", 36873697L)
-            Binds.setBone2dNodepath = GdxApi.getMethodBind(c"PhysicalBone2D", c"set_bone2d_nodepath", 1348162250L)
-            Binds.getBone2dNodepath = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_bone2d_nodepath", 4075236667L)
-            Binds.setBone2dIndex = GdxApi.getMethodBind(c"PhysicalBone2D", c"set_bone2d_index", 1286410249L)
-            Binds.getBone2dIndex = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_bone2d_index", 3905245786L)
-            Binds.setFollowBoneWhenSimulating = GdxApi.getMethodBind(c"PhysicalBone2D", c"set_follow_bone_when_simulating", 2586408642L)
-            Binds.getFollowBoneWhenSimulating = GdxApi.getMethodBind(c"PhysicalBone2D", c"get_follow_bone_when_simulating", 36873697L)
+  }
+}
 
-    def apply(): PhysicalBone2D =
-        val obj = new PhysicalBone2D()
-        obj.ptr = GdxApi.constructObject(c"PhysicalBone2D")
-        obj
+def apply(): PhysicalBone2D = {
+  val obj = new PhysicalBone2D()
+  obj.ptr = GdxApi.constructObject(c"PhysicalBone2D")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeRandomRange extends VisualShaderNode
-
-
-
+class VisualShaderNodeRandomRange extends VisualShaderNode {}
 
 object VisualShaderNodeRandomRange:
-    def apply(): VisualShaderNodeRandomRange =
-        val obj = new VisualShaderNodeRandomRange()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeRandomRange")
-        obj
+def apply(): VisualShaderNodeRandomRange = {
+  val obj = new VisualShaderNodeRandomRange()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeRandomRange")
+  obj
+}

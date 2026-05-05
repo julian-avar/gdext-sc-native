@@ -5,68 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SubViewportContainer extends Container
+class SubViewportContainer extends Container {
     def _propagateInputEvent(event: InputEvent): Boolean = false
-    def setStretch(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SubViewportContainer.Binds.setStretch, ptr, _args, null)
 
-    def isStretchEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SubViewportContainer.Binds.isStretchEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setStretchShrink(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SubViewportContainer.Binds.setStretchShrink, ptr, _args, null)
-
-    def getStretchShrink(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SubViewportContainer.Binds.getStretchShrink, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMouseTarget(amount: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if amount then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SubViewportContainer.Binds.setMouseTarget, ptr, _args, null)
-
-    def isMouseTargetEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SubViewportContainer.Binds.isMouseTargetEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def stretch: Ptr[Byte] = isStretchEnabled()
-    def stretch_=(v: Ptr[Byte]): Unit = setStretch(v)
-    def stretchShrink: Ptr[Byte] = getStretchShrink()
-    def stretchShrink_=(v: Ptr[Byte]): Unit = setStretchShrink(v)
-    def mouseTarget: Ptr[Byte] = isMouseTargetEnabled()
-    def mouseTarget_=(v: Ptr[Byte]): Unit = setMouseTarget(v)
+    def stretch: Boolean = isStretchEnabled()
+    def stretch_=(v: Boolean): Unit = setStretch(v)
+    def stretchShrink: Int = getStretchShrink()
+    def stretchShrink_=(v: Int): Unit = setStretchShrink(v)
+    def mouseTarget: Boolean = isMouseTargetEnabled()
+    def mouseTarget_=(v: Boolean): Unit = setMouseTarget(v)
+}
 
 object SubViewportContainer:
-    object Binds:
-        var setStretch: Ptr[Byte] = null
-        var isStretchEnabled: Ptr[Byte] = null
-        var setStretchShrink: Ptr[Byte] = null
-        var getStretchShrink: Ptr[Byte] = null
-        var setMouseTarget: Ptr[Byte] = null
-        var isMouseTargetEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setStretch = GdxApi.getMethodBind(c"SubViewportContainer", c"set_stretch", 2586408642L)
-            Binds.isStretchEnabled = GdxApi.getMethodBind(c"SubViewportContainer", c"is_stretch_enabled", 36873697L)
-            Binds.setStretchShrink = GdxApi.getMethodBind(c"SubViewportContainer", c"set_stretch_shrink", 1286410249L)
-            Binds.getStretchShrink = GdxApi.getMethodBind(c"SubViewportContainer", c"get_stretch_shrink", 3905245786L)
-            Binds.setMouseTarget = GdxApi.getMethodBind(c"SubViewportContainer", c"set_mouse_target", 2586408642L)
-            Binds.isMouseTargetEnabled = GdxApi.getMethodBind(c"SubViewportContainer", c"is_mouse_target_enabled", 2240911060L)
-
-    def apply(): SubViewportContainer =
-        val obj = new SubViewportContainer()
-        obj.ptr = GdxApi.constructObject(c"SubViewportContainer")
-        obj
+def apply(): SubViewportContainer = {
+  val obj = new SubViewportContainer()
+  obj.ptr = GdxApi.constructObject(c"SubViewportContainer")
+  obj
+}

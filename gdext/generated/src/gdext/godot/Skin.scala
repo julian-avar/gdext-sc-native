@@ -5,87 +5,97 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Skin extends Resource
-
-    def setBindCount(bindCount: Int): Unit =
+class Skin extends Resource {
+    def setBindCount(bindCount: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bindCount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindCount.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Skin.Binds.setBindCount, ptr, _args, null)
+}
 
-    def getBindCount(): Int =
+    def getBindCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Skin.Binds.getBindCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addBind(bone: Int, pose: Transform3D): Unit =
+    def addBind(bone: Int, pose: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = bone.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bone.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = pose.ptr
         GdxApi.ptrcall(Skin.Binds.addBind, ptr, _args, null)
+}
 
-    def addNamedBind(name: CString, pose: Transform3D): Unit =
+    def addNamedBind(name: CString, pose: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = pose.ptr
         GdxApi.ptrcall(Skin.Binds.addNamedBind, ptr, _args, null)
+}
 
-    def setBindPose(bindIndex: Int, pose: Transform3D): Unit =
+    def setBindPose(bindIndex: Int, pose: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = bindIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = pose.ptr
         GdxApi.ptrcall(Skin.Binds.setBindPose, ptr, _args, null)
+}
 
-    def getBindPose(bindIndex: Int): Transform3D =
+    def getBindPose(bindIndex: Int): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bindIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Skin.Binds.getBindPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def setBindName(bindIndex: Int, name: CString): Unit =
+    def setBindName(bindIndex: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = bindIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(Skin.Binds.setBindName, ptr, _args, null)
+}
 
-    def getBindName(bindIndex: Int): CString =
+    def getBindName(bindIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bindIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Skin.Binds.getBindName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setBindBone(bindIndex: Int, bone: Int): Unit =
+    def setBindBone(bindIndex: Int, bone: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = bindIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Skin.Binds.setBindBone, ptr, _args, null)
+}
 
-    def getBindBone(bindIndex: Int): Int =
+    def getBindBone(bindIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bindIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bindIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Skin.Binds.getBindBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearBinds(): Unit =
+    def clearBinds(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Skin.Binds.clearBinds, ptr, _args, null)
-
+}
+}
 
 object Skin:
-    object Binds:
-        var setBindCount: Ptr[Byte] = null
+object Binds {
+          var setBindCount: Ptr[Byte] = null
         var getBindCount: Ptr[Byte] = null
         var addBind: Ptr[Byte] = null
         var addNamedBind: Ptr[Byte] = null
@@ -97,8 +107,8 @@ object Skin:
         var getBindBone: Ptr[Byte] = null
         var clearBinds: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setBindCount = GdxApi.getMethodBind(c"Skin", c"set_bind_count", 1286410249L)
+  def loadBinds(): Unit = {
+                Binds.setBindCount = GdxApi.getMethodBind(c"Skin", c"set_bind_count", 1286410249L)
             Binds.getBindCount = GdxApi.getMethodBind(c"Skin", c"get_bind_count", 3905245786L)
             Binds.addBind = GdxApi.getMethodBind(c"Skin", c"add_bind", 3616898986L)
             Binds.addNamedBind = GdxApi.getMethodBind(c"Skin", c"add_named_bind", 3154712474L)
@@ -109,8 +119,11 @@ object Skin:
             Binds.setBindBone = GdxApi.getMethodBind(c"Skin", c"set_bind_bone", 3937882851L)
             Binds.getBindBone = GdxApi.getMethodBind(c"Skin", c"get_bind_bone", 923996154L)
             Binds.clearBinds = GdxApi.getMethodBind(c"Skin", c"clear_binds", 3218959716L)
+  }
+}
 
-    def apply(): Skin =
-        val obj = new Skin()
-        obj.ptr = GdxApi.constructObject(c"Skin")
-        obj
+def apply(): Skin = {
+  val obj = new Skin()
+  obj.ptr = GdxApi.constructObject(c"Skin")
+  obj
+}

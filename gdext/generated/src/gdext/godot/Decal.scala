@@ -5,235 +5,42 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Decal extends VisualInstance3D
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(Decal.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Decal.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setTexture(`type`: Int, texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        _args(1) = texture.ptr
-        GdxApi.ptrcall(Decal.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(`type`: Int): Texture2D =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Decal.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setEmissionEnergy(energy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = energy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setEmissionEnergy, ptr, _args, null)
-
-    def getEmissionEnergy(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getEmissionEnergy, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAlbedoMix(energy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = energy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setAlbedoMix, ptr, _args, null)
-
-    def getAlbedoMix(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getAlbedoMix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setModulate(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(Decal.Binds.setModulate, ptr, _args, null)
-
-    def getModulate(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Decal.Binds.getModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setUpperFade(fade: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = fade.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setUpperFade, ptr, _args, null)
-
-    def getUpperFade(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getUpperFade, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLowerFade(fade: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = fade.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setLowerFade, ptr, _args, null)
-
-    def getLowerFade(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getLowerFade, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setNormalFade(fade: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = fade.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setNormalFade, ptr, _args, null)
-
-    def getNormalFade(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getNormalFade, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEnableDistanceFade(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setEnableDistanceFade, ptr, _args, null)
-
-    def isDistanceFadeEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Decal.Binds.isDistanceFadeEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDistanceFadeBegin(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setDistanceFadeBegin, ptr, _args, null)
-
-    def getDistanceFadeBegin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getDistanceFadeBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDistanceFadeLength(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setDistanceFadeLength, ptr, _args, null)
-
-    def getDistanceFadeLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Decal.Binds.getDistanceFadeLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCullMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Decal.Binds.setCullMask, ptr, _args, null)
-
-    def getCullMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Decal.Binds.getCullMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def textureAlbedo: Ptr[Byte] = getTexture()
-    def textureAlbedo_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def textureNormal: Ptr[Byte] = getTexture()
-    def textureNormal_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def textureOrm: Ptr[Byte] = getTexture()
-    def textureOrm_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def textureEmission: Ptr[Byte] = getTexture()
-    def textureEmission_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def emissionEnergy: Ptr[Byte] = getEmissionEnergy()
-    def emissionEnergy_=(v: Ptr[Byte]): Unit = setEmissionEnergy(v)
-    def modulate: Ptr[Byte] = getModulate()
-    def modulate_=(v: Ptr[Byte]): Unit = setModulate(v)
-    def albedoMix: Ptr[Byte] = getAlbedoMix()
-    def albedoMix_=(v: Ptr[Byte]): Unit = setAlbedoMix(v)
-    def normalFade: Ptr[Byte] = getNormalFade()
-    def normalFade_=(v: Ptr[Byte]): Unit = setNormalFade(v)
-    def upperFade: Ptr[Byte] = getUpperFade()
-    def upperFade_=(v: Ptr[Byte]): Unit = setUpperFade(v)
-    def lowerFade: Ptr[Byte] = getLowerFade()
-    def lowerFade_=(v: Ptr[Byte]): Unit = setLowerFade(v)
-    def distanceFadeEnabled: Ptr[Byte] = isDistanceFadeEnabled()
-    def distanceFadeEnabled_=(v: Ptr[Byte]): Unit = setEnableDistanceFade(v)
-    def distanceFadeBegin: Ptr[Byte] = getDistanceFadeBegin()
-    def distanceFadeBegin_=(v: Ptr[Byte]): Unit = setDistanceFadeBegin(v)
-    def distanceFadeLength: Ptr[Byte] = getDistanceFadeLength()
-    def distanceFadeLength_=(v: Ptr[Byte]): Unit = setDistanceFadeLength(v)
-    def cullMask: Ptr[Byte] = getCullMask()
-    def cullMask_=(v: Ptr[Byte]): Unit = setCullMask(v)
+class Decal extends VisualInstance3D {
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def textureAlbedo: Texture2D = getTexture()
+    def textureAlbedo_=(v: Int): Unit = setTexture(v)
+    def textureNormal: Texture2D = getTexture()
+    def textureNormal_=(v: Int): Unit = setTexture(v)
+    def textureOrm: Texture2D = getTexture()
+    def textureOrm_=(v: Int): Unit = setTexture(v)
+    def textureEmission: Texture2D = getTexture()
+    def textureEmission_=(v: Int): Unit = setTexture(v)
+    def emissionEnergy: Float = getEmissionEnergy()
+    def emissionEnergy_=(v: Float): Unit = setEmissionEnergy(v)
+    def modulate: Color = getModulate()
+    def modulate_=(v: Color): Unit = setModulate(v)
+    def albedoMix: Float = getAlbedoMix()
+    def albedoMix_=(v: Float): Unit = setAlbedoMix(v)
+    def normalFade: Float = getNormalFade()
+    def normalFade_=(v: Float): Unit = setNormalFade(v)
+    def upperFade: Float = getUpperFade()
+    def upperFade_=(v: Float): Unit = setUpperFade(v)
+    def lowerFade: Float = getLowerFade()
+    def lowerFade_=(v: Float): Unit = setLowerFade(v)
+    def distanceFadeEnabled: Boolean = isDistanceFadeEnabled()
+    def distanceFadeEnabled_=(v: Boolean): Unit = setEnableDistanceFade(v)
+    def distanceFadeBegin: Float = getDistanceFadeBegin()
+    def distanceFadeBegin_=(v: Float): Unit = setDistanceFadeBegin(v)
+    def distanceFadeLength: Float = getDistanceFadeLength()
+    def distanceFadeLength_=(v: Float): Unit = setDistanceFadeLength(v)
+    def cullMask: Int = getCullMask()
+    def cullMask_=(v: Int): Unit = setCullMask(v)
+}
 
 object Decal:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-        var setEmissionEnergy: Ptr[Byte] = null
-        var getEmissionEnergy: Ptr[Byte] = null
-        var setAlbedoMix: Ptr[Byte] = null
-        var getAlbedoMix: Ptr[Byte] = null
-        var setModulate: Ptr[Byte] = null
-        var getModulate: Ptr[Byte] = null
-        var setUpperFade: Ptr[Byte] = null
-        var getUpperFade: Ptr[Byte] = null
-        var setLowerFade: Ptr[Byte] = null
-        var getLowerFade: Ptr[Byte] = null
-        var setNormalFade: Ptr[Byte] = null
-        var getNormalFade: Ptr[Byte] = null
-        var setEnableDistanceFade: Ptr[Byte] = null
-        var isDistanceFadeEnabled: Ptr[Byte] = null
-        var setDistanceFadeBegin: Ptr[Byte] = null
-        var getDistanceFadeBegin: Ptr[Byte] = null
-        var setDistanceFadeLength: Ptr[Byte] = null
-        var getDistanceFadeLength: Ptr[Byte] = null
-        var setCullMask: Ptr[Byte] = null
-        var getCullMask: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"Decal", c"set_size", 3460891852L)
-            Binds.getSize = GdxApi.getMethodBind(c"Decal", c"get_size", 3360562783L)
-            Binds.setTexture = GdxApi.getMethodBind(c"Decal", c"set_texture", 2086764391L)
-            Binds.getTexture = GdxApi.getMethodBind(c"Decal", c"get_texture", 3244119503L)
-            Binds.setEmissionEnergy = GdxApi.getMethodBind(c"Decal", c"set_emission_energy", 373806689L)
-            Binds.getEmissionEnergy = GdxApi.getMethodBind(c"Decal", c"get_emission_energy", 1740695150L)
-            Binds.setAlbedoMix = GdxApi.getMethodBind(c"Decal", c"set_albedo_mix", 373806689L)
-            Binds.getAlbedoMix = GdxApi.getMethodBind(c"Decal", c"get_albedo_mix", 1740695150L)
-            Binds.setModulate = GdxApi.getMethodBind(c"Decal", c"set_modulate", 2920490490L)
-            Binds.getModulate = GdxApi.getMethodBind(c"Decal", c"get_modulate", 3444240500L)
-            Binds.setUpperFade = GdxApi.getMethodBind(c"Decal", c"set_upper_fade", 373806689L)
-            Binds.getUpperFade = GdxApi.getMethodBind(c"Decal", c"get_upper_fade", 1740695150L)
-            Binds.setLowerFade = GdxApi.getMethodBind(c"Decal", c"set_lower_fade", 373806689L)
-            Binds.getLowerFade = GdxApi.getMethodBind(c"Decal", c"get_lower_fade", 1740695150L)
-            Binds.setNormalFade = GdxApi.getMethodBind(c"Decal", c"set_normal_fade", 373806689L)
-            Binds.getNormalFade = GdxApi.getMethodBind(c"Decal", c"get_normal_fade", 1740695150L)
-            Binds.setEnableDistanceFade = GdxApi.getMethodBind(c"Decal", c"set_enable_distance_fade", 2586408642L)
-            Binds.isDistanceFadeEnabled = GdxApi.getMethodBind(c"Decal", c"is_distance_fade_enabled", 36873697L)
-            Binds.setDistanceFadeBegin = GdxApi.getMethodBind(c"Decal", c"set_distance_fade_begin", 373806689L)
-            Binds.getDistanceFadeBegin = GdxApi.getMethodBind(c"Decal", c"get_distance_fade_begin", 1740695150L)
-            Binds.setDistanceFadeLength = GdxApi.getMethodBind(c"Decal", c"set_distance_fade_length", 373806689L)
-            Binds.getDistanceFadeLength = GdxApi.getMethodBind(c"Decal", c"get_distance_fade_length", 1740695150L)
-            Binds.setCullMask = GdxApi.getMethodBind(c"Decal", c"set_cull_mask", 1286410249L)
-            Binds.getCullMask = GdxApi.getMethodBind(c"Decal", c"get_cull_mask", 3905245786L)
-
-    def apply(): Decal =
-        val obj = new Decal()
-        obj.ptr = GdxApi.constructObject(c"Decal")
-        obj
+def apply(): Decal = {
+  val obj = new Decal()
+  obj.ptr = GdxApi.constructObject(c"Decal")
+  obj
+}

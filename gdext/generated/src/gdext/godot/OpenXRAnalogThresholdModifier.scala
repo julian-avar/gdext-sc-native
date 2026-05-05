@@ -5,84 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRAnalogThresholdModifier extends OpenXRActionBindingModifier
-
-    def setOnThreshold(onThreshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = onThreshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.setOnThreshold, ptr, _args, null)
-
-    def getOnThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.getOnThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setOffThreshold(offThreshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = offThreshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.setOffThreshold, ptr, _args, null)
-
-    def getOffThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.getOffThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setOnHaptic(haptic: OpenXRHapticBase): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = haptic.ptr
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.setOnHaptic, ptr, _args, null)
-
-    def getOnHaptic(): OpenXRHapticBase =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.getOnHaptic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new OpenXRHapticBase(!_ret)
-
-    def setOffHaptic(haptic: OpenXRHapticBase): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = haptic.ptr
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.setOffHaptic, ptr, _args, null)
-
-    def getOffHaptic(): OpenXRHapticBase =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRAnalogThresholdModifier.Binds.getOffHaptic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new OpenXRHapticBase(!_ret)
-    def onThreshold: Ptr[Byte] = getOnThreshold()
-    def onThreshold_=(v: Ptr[Byte]): Unit = setOnThreshold(v)
-    def offThreshold: Ptr[Byte] = getOffThreshold()
-    def offThreshold_=(v: Ptr[Byte]): Unit = setOffThreshold(v)
-    def onHaptic: Ptr[Byte] = getOnHaptic()
-    def onHaptic_=(v: Ptr[Byte]): Unit = setOnHaptic(v)
-    def offHaptic: Ptr[Byte] = getOffHaptic()
-    def offHaptic_=(v: Ptr[Byte]): Unit = setOffHaptic(v)
+class OpenXRAnalogThresholdModifier extends OpenXRActionBindingModifier {
+    def onThreshold: Float = getOnThreshold()
+    def onThreshold_=(v: Float): Unit = setOnThreshold(v)
+    def offThreshold: Float = getOffThreshold()
+    def offThreshold_=(v: Float): Unit = setOffThreshold(v)
+    def onHaptic: OpenXRHapticBase = getOnHaptic()
+    def onHaptic_=(v: OpenXRHapticBase): Unit = setOnHaptic(v)
+    def offHaptic: OpenXRHapticBase = getOffHaptic()
+    def offHaptic_=(v: OpenXRHapticBase): Unit = setOffHaptic(v)
+}
 
 object OpenXRAnalogThresholdModifier:
-    object Binds:
-        var setOnThreshold: Ptr[Byte] = null
-        var getOnThreshold: Ptr[Byte] = null
-        var setOffThreshold: Ptr[Byte] = null
-        var getOffThreshold: Ptr[Byte] = null
-        var setOnHaptic: Ptr[Byte] = null
-        var getOnHaptic: Ptr[Byte] = null
-        var setOffHaptic: Ptr[Byte] = null
-        var getOffHaptic: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOnThreshold = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"set_on_threshold", 373806689L)
-            Binds.getOnThreshold = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"get_on_threshold", 1740695150L)
-            Binds.setOffThreshold = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"set_off_threshold", 373806689L)
-            Binds.getOffThreshold = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"get_off_threshold", 1740695150L)
-            Binds.setOnHaptic = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"set_on_haptic", 2998020150L)
-            Binds.getOnHaptic = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"get_on_haptic", 922310751L)
-            Binds.setOffHaptic = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"set_off_haptic", 2998020150L)
-            Binds.getOffHaptic = GdxApi.getMethodBind(c"OpenXRAnalogThresholdModifier", c"get_off_haptic", 922310751L)
-
-    def apply(): OpenXRAnalogThresholdModifier =
-        val obj = new OpenXRAnalogThresholdModifier()
-        obj.ptr = GdxApi.constructObject(c"OpenXRAnalogThresholdModifier")
-        obj
+def apply(): OpenXRAnalogThresholdModifier = {
+  val obj = new OpenXRAnalogThresholdModifier()
+  obj.ptr = GdxApi.constructObject(c"OpenXRAnalogThresholdModifier")
+  obj
+}

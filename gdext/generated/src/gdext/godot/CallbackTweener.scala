@@ -5,25 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CallbackTweener extends Tweener
-
-    def setDelay(delay: Double): CallbackTweener =
+class CallbackTweener extends Tweener {
+    def setDelay(delay: Double): CallbackTweener = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = delay
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CallbackTweener.Binds.setDelay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CallbackTweener(!_ret)
-
+}
+}
 
 object CallbackTweener:
-    object Binds:
-        var setDelay: Ptr[Byte] = null
+object Binds {
+          var setDelay: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setDelay = GdxApi.getMethodBind(c"CallbackTweener", c"set_delay", 3008182292L)
+  def loadBinds(): Unit = {
+                Binds.setDelay = GdxApi.getMethodBind(c"CallbackTweener", c"set_delay", 3008182292L)
+  }
+}
 
-    def apply(): CallbackTweener =
-        val obj = new CallbackTweener()
-        obj.ptr = GdxApi.constructObject(c"CallbackTweener")
-        obj
+def apply(): CallbackTweener = {
+  val obj = new CallbackTweener()
+  obj.ptr = GdxApi.constructObject(c"CallbackTweener")
+  obj
+}

@@ -5,314 +5,100 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VehicleWheel3D extends Node3D
-
-    def setRadius(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setRadius, ptr, _args, null)
-
-    def getRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSuspensionRestLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setSuspensionRestLength, ptr, _args, null)
-
-    def getSuspensionRestLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getSuspensionRestLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSuspensionTravel(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setSuspensionTravel, ptr, _args, null)
-
-    def getSuspensionTravel(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getSuspensionTravel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSuspensionStiffness(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setSuspensionStiffness, ptr, _args, null)
-
-    def getSuspensionStiffness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getSuspensionStiffness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSuspensionMaxForce(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setSuspensionMaxForce, ptr, _args, null)
-
-    def getSuspensionMaxForce(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getSuspensionMaxForce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDampingCompression(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setDampingCompression, ptr, _args, null)
-
-    def getDampingCompression(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getDampingCompression, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDampingRelaxation(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setDampingRelaxation, ptr, _args, null)
-
-    def getDampingRelaxation(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getDampingRelaxation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUseAsTraction(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setUseAsTraction, ptr, _args, null)
-
-    def isUsedAsTraction(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.isUsedAsTraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseAsSteering(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setUseAsSteering, ptr, _args, null)
-
-    def isUsedAsSteering(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.isUsedAsSteering, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFrictionSlip(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setFrictionSlip, ptr, _args, null)
-
-    def getFrictionSlip(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getFrictionSlip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def isInContact(): Boolean =
+class VehicleWheel3D extends Node3D {
+    def isInContact(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VehicleWheel3D.Binds.isInContact, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getContactBody(): Node3D =
+    def getContactBody(): Node3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VehicleWheel3D.Binds.getContactBody, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node3D(!_ret)
+}
 
-    def getContactPoint(): Vector3 =
+    def getContactPoint(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VehicleWheel3D.Binds.getContactPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getContactNormal(): Vector3 =
+    def getContactNormal(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VehicleWheel3D.Binds.getContactNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setRollInfluence(rollInfluence: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = rollInfluence.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setRollInfluence, ptr, _args, null)
-
-    def getRollInfluence(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getRollInfluence, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getSkidinfo(): Float =
+    def getSkidinfo(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(VehicleWheel3D.Binds.getSkidinfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getRpm(): Float =
+    def getRpm(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(VehicleWheel3D.Binds.getRpm, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setEngineForce(engineForce: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = engineForce.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setEngineForce, ptr, _args, null)
-
-    def getEngineForce(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getEngineForce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBrake(brake: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = brake.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setBrake, ptr, _args, null)
-
-    def getBrake(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getBrake, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSteering(steering: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = steering.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VehicleWheel3D.Binds.setSteering, ptr, _args, null)
-
-    def getSteering(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(VehicleWheel3D.Binds.getSteering, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def engineForce: Ptr[Byte] = getEngineForce()
-    def engineForce_=(v: Ptr[Byte]): Unit = setEngineForce(v)
-    def brake: Ptr[Byte] = getBrake()
-    def brake_=(v: Ptr[Byte]): Unit = setBrake(v)
-    def steering: Ptr[Byte] = getSteering()
-    def steering_=(v: Ptr[Byte]): Unit = setSteering(v)
-    def useAsTraction: Ptr[Byte] = isUsedAsTraction()
-    def useAsTraction_=(v: Ptr[Byte]): Unit = setUseAsTraction(v)
-    def useAsSteering: Ptr[Byte] = isUsedAsSteering()
-    def useAsSteering_=(v: Ptr[Byte]): Unit = setUseAsSteering(v)
-    def wheelRollInfluence: Ptr[Byte] = getRollInfluence()
-    def wheelRollInfluence_=(v: Ptr[Byte]): Unit = setRollInfluence(v)
-    def wheelRadius: Ptr[Byte] = getRadius()
-    def wheelRadius_=(v: Ptr[Byte]): Unit = setRadius(v)
-    def wheelRestLength: Ptr[Byte] = getSuspensionRestLength()
-    def wheelRestLength_=(v: Ptr[Byte]): Unit = setSuspensionRestLength(v)
-    def wheelFrictionSlip: Ptr[Byte] = getFrictionSlip()
-    def wheelFrictionSlip_=(v: Ptr[Byte]): Unit = setFrictionSlip(v)
-    def suspensionTravel: Ptr[Byte] = getSuspensionTravel()
-    def suspensionTravel_=(v: Ptr[Byte]): Unit = setSuspensionTravel(v)
-    def suspensionStiffness: Ptr[Byte] = getSuspensionStiffness()
-    def suspensionStiffness_=(v: Ptr[Byte]): Unit = setSuspensionStiffness(v)
-    def suspensionMaxForce: Ptr[Byte] = getSuspensionMaxForce()
-    def suspensionMaxForce_=(v: Ptr[Byte]): Unit = setSuspensionMaxForce(v)
-    def dampingCompression: Ptr[Byte] = getDampingCompression()
-    def dampingCompression_=(v: Ptr[Byte]): Unit = setDampingCompression(v)
-    def dampingRelaxation: Ptr[Byte] = getDampingRelaxation()
-    def dampingRelaxation_=(v: Ptr[Byte]): Unit = setDampingRelaxation(v)
+    def engineForce: Float = getEngineForce()
+    def engineForce_=(v: Float): Unit = setEngineForce(v)
+    def brake: Float = getBrake()
+    def brake_=(v: Float): Unit = setBrake(v)
+    def steering: Float = getSteering()
+    def steering_=(v: Float): Unit = setSteering(v)
+    def useAsTraction: Boolean = isUsedAsTraction()
+    def useAsTraction_=(v: Boolean): Unit = setUseAsTraction(v)
+    def useAsSteering: Boolean = isUsedAsSteering()
+    def useAsSteering_=(v: Boolean): Unit = setUseAsSteering(v)
+    def wheelRollInfluence: Float = getRollInfluence()
+    def wheelRollInfluence_=(v: Float): Unit = setRollInfluence(v)
+    def wheelRadius: Float = getRadius()
+    def wheelRadius_=(v: Float): Unit = setRadius(v)
+    def wheelRestLength: Float = getSuspensionRestLength()
+    def wheelRestLength_=(v: Float): Unit = setSuspensionRestLength(v)
+    def wheelFrictionSlip: Float = getFrictionSlip()
+    def wheelFrictionSlip_=(v: Float): Unit = setFrictionSlip(v)
+    def suspensionTravel: Float = getSuspensionTravel()
+    def suspensionTravel_=(v: Float): Unit = setSuspensionTravel(v)
+    def suspensionStiffness: Float = getSuspensionStiffness()
+    def suspensionStiffness_=(v: Float): Unit = setSuspensionStiffness(v)
+    def suspensionMaxForce: Float = getSuspensionMaxForce()
+    def suspensionMaxForce_=(v: Float): Unit = setSuspensionMaxForce(v)
+    def dampingCompression: Float = getDampingCompression()
+    def dampingCompression_=(v: Float): Unit = setDampingCompression(v)
+    def dampingRelaxation: Float = getDampingRelaxation()
+    def dampingRelaxation_=(v: Float): Unit = setDampingRelaxation(v)
+}
 
 object VehicleWheel3D:
-    object Binds:
-        var setRadius: Ptr[Byte] = null
-        var getRadius: Ptr[Byte] = null
-        var setSuspensionRestLength: Ptr[Byte] = null
-        var getSuspensionRestLength: Ptr[Byte] = null
-        var setSuspensionTravel: Ptr[Byte] = null
-        var getSuspensionTravel: Ptr[Byte] = null
-        var setSuspensionStiffness: Ptr[Byte] = null
-        var getSuspensionStiffness: Ptr[Byte] = null
-        var setSuspensionMaxForce: Ptr[Byte] = null
-        var getSuspensionMaxForce: Ptr[Byte] = null
-        var setDampingCompression: Ptr[Byte] = null
-        var getDampingCompression: Ptr[Byte] = null
-        var setDampingRelaxation: Ptr[Byte] = null
-        var getDampingRelaxation: Ptr[Byte] = null
-        var setUseAsTraction: Ptr[Byte] = null
-        var isUsedAsTraction: Ptr[Byte] = null
-        var setUseAsSteering: Ptr[Byte] = null
-        var isUsedAsSteering: Ptr[Byte] = null
-        var setFrictionSlip: Ptr[Byte] = null
-        var getFrictionSlip: Ptr[Byte] = null
-        var isInContact: Ptr[Byte] = null
+object Binds {
+          var isInContact: Ptr[Byte] = null
         var getContactBody: Ptr[Byte] = null
         var getContactPoint: Ptr[Byte] = null
         var getContactNormal: Ptr[Byte] = null
-        var setRollInfluence: Ptr[Byte] = null
-        var getRollInfluence: Ptr[Byte] = null
         var getSkidinfo: Ptr[Byte] = null
         var getRpm: Ptr[Byte] = null
-        var setEngineForce: Ptr[Byte] = null
-        var getEngineForce: Ptr[Byte] = null
-        var setBrake: Ptr[Byte] = null
-        var getBrake: Ptr[Byte] = null
-        var setSteering: Ptr[Byte] = null
-        var getSteering: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRadius = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_radius", 373806689L)
-            Binds.getRadius = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_radius", 1740695150L)
-            Binds.setSuspensionRestLength = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_suspension_rest_length", 373806689L)
-            Binds.getSuspensionRestLength = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_suspension_rest_length", 1740695150L)
-            Binds.setSuspensionTravel = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_suspension_travel", 373806689L)
-            Binds.getSuspensionTravel = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_suspension_travel", 1740695150L)
-            Binds.setSuspensionStiffness = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_suspension_stiffness", 373806689L)
-            Binds.getSuspensionStiffness = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_suspension_stiffness", 1740695150L)
-            Binds.setSuspensionMaxForce = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_suspension_max_force", 373806689L)
-            Binds.getSuspensionMaxForce = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_suspension_max_force", 1740695150L)
-            Binds.setDampingCompression = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_damping_compression", 373806689L)
-            Binds.getDampingCompression = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_damping_compression", 1740695150L)
-            Binds.setDampingRelaxation = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_damping_relaxation", 373806689L)
-            Binds.getDampingRelaxation = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_damping_relaxation", 1740695150L)
-            Binds.setUseAsTraction = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_use_as_traction", 2586408642L)
-            Binds.isUsedAsTraction = GdxApi.getMethodBind(c"VehicleWheel3D", c"is_used_as_traction", 36873697L)
-            Binds.setUseAsSteering = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_use_as_steering", 2586408642L)
-            Binds.isUsedAsSteering = GdxApi.getMethodBind(c"VehicleWheel3D", c"is_used_as_steering", 36873697L)
-            Binds.setFrictionSlip = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_friction_slip", 373806689L)
-            Binds.getFrictionSlip = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_friction_slip", 1740695150L)
-            Binds.isInContact = GdxApi.getMethodBind(c"VehicleWheel3D", c"is_in_contact", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.isInContact = GdxApi.getMethodBind(c"VehicleWheel3D", c"is_in_contact", 36873697L)
             Binds.getContactBody = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_contact_body", 151077316L)
             Binds.getContactPoint = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_contact_point", 3360562783L)
             Binds.getContactNormal = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_contact_normal", 3360562783L)
-            Binds.setRollInfluence = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_roll_influence", 373806689L)
-            Binds.getRollInfluence = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_roll_influence", 1740695150L)
             Binds.getSkidinfo = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_skidinfo", 1740695150L)
             Binds.getRpm = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_rpm", 1740695150L)
-            Binds.setEngineForce = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_engine_force", 373806689L)
-            Binds.getEngineForce = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_engine_force", 1740695150L)
-            Binds.setBrake = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_brake", 373806689L)
-            Binds.getBrake = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_brake", 1740695150L)
-            Binds.setSteering = GdxApi.getMethodBind(c"VehicleWheel3D", c"set_steering", 373806689L)
-            Binds.getSteering = GdxApi.getMethodBind(c"VehicleWheel3D", c"get_steering", 1740695150L)
+  }
+}
 
-    def apply(): VehicleWheel3D =
-        val obj = new VehicleWheel3D()
-        obj.ptr = GdxApi.constructObject(c"VehicleWheel3D")
-        obj
+def apply(): VehicleWheel3D = {
+  val obj = new VehicleWheel3D()
+  obj.ptr = GdxApi.constructObject(c"VehicleWheel3D")
+  obj
+}

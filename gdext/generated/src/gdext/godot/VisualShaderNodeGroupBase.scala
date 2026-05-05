@@ -5,149 +5,169 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeGroupBase extends VisualShaderNodeResizableBase
-
-    def setInputs(inputs: CString): Unit =
+class VisualShaderNodeGroupBase extends VisualShaderNodeResizableBase {
+    def setInputs(inputs: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = inputs.ptr
+        _args(0) = inputs
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.setInputs, ptr, _args, null)
+}
 
-    def getInputs(): CString =
+    def getInputs(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.getInputs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setOutputs(outputs: CString): Unit =
+    def setOutputs(outputs: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = outputs.ptr
+        _args(0) = outputs
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.setOutputs, ptr, _args, null)
+}
 
-    def getOutputs(): CString =
+    def getOutputs(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.getOutputs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isValidPortName(name: CString): Boolean =
+    def isValidPortName(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.isValidPortName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addInputPort(id: Int, `type`: Int, name: CString): Unit =
+    def addInputPort(id: Int, `type`: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = `type`.toLong
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = name.ptr
+        _args(2) = name
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.addInputPort, ptr, _args, null)
+}
 
-    def removeInputPort(id: Int): Unit =
+    def removeInputPort(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.removeInputPort, ptr, _args, null)
+}
 
-    def getInputPortCount(): Int =
+    def getInputPortCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.getInputPortCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasInputPort(id: Int): Boolean =
+    def hasInputPort(id: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.hasInputPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearInputPorts(): Unit =
+    def clearInputPorts(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.clearInputPorts, ptr, _args, null)
+}
 
-    def addOutputPort(id: Int, `type`: Int, name: CString): Unit =
+    def addOutputPort(id: Int, `type`: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = `type`.toLong
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = name.ptr
+        _args(2) = name
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.addOutputPort, ptr, _args, null)
+}
 
-    def removeOutputPort(id: Int): Unit =
+    def removeOutputPort(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.removeOutputPort, ptr, _args, null)
+}
 
-    def getOutputPortCount(): Int =
+    def getOutputPortCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.getOutputPortCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasOutputPort(id: Int): Boolean =
+    def hasOutputPort(id: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.hasOutputPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearOutputPorts(): Unit =
+    def clearOutputPorts(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.clearOutputPorts, ptr, _args, null)
+}
 
-    def setInputPortName(id: Int, name: CString): Unit =
+    def setInputPortName(id: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.setInputPortName, ptr, _args, null)
+}
 
-    def setInputPortType(id: Int, `type`: Int): Unit =
+    def setInputPortType(id: Int, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = `type`.toLong
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.setInputPortType, ptr, _args, null)
+}
 
-    def setOutputPortName(id: Int, name: CString): Unit =
+    def setOutputPortName(id: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.setOutputPortName, ptr, _args, null)
+}
 
-    def setOutputPortType(id: Int, `type`: Int): Unit =
+    def setOutputPortType(id: Int, `type`: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = `type`.toLong
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.setOutputPortType, ptr, _args, null)
+}
 
-    def getFreeInputPortId(): Int =
+    def getFreeInputPortId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.getFreeInputPortId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFreeOutputPortId(): Int =
+    def getFreeOutputPortId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VisualShaderNodeGroupBase.Binds.getFreeOutputPortId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object VisualShaderNodeGroupBase:
-    object Binds:
-        var setInputs: Ptr[Byte] = null
+object Binds {
+          var setInputs: Ptr[Byte] = null
         var getInputs: Ptr[Byte] = null
         var setOutputs: Ptr[Byte] = null
         var getOutputs: Ptr[Byte] = null
@@ -169,8 +189,8 @@ object VisualShaderNodeGroupBase:
         var getFreeInputPortId: Ptr[Byte] = null
         var getFreeOutputPortId: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setInputs = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"set_inputs", 83702148L)
+  def loadBinds(): Unit = {
+                Binds.setInputs = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"set_inputs", 83702148L)
             Binds.getInputs = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"get_inputs", 201670096L)
             Binds.setOutputs = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"set_outputs", 83702148L)
             Binds.getOutputs = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"get_outputs", 201670096L)
@@ -191,3 +211,5 @@ object VisualShaderNodeGroupBase:
             Binds.setOutputPortType = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"set_output_port_type", 3937882851L)
             Binds.getFreeInputPortId = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"get_free_input_port_id", 3905245786L)
             Binds.getFreeOutputPortId = GdxApi.getMethodBind(c"VisualShaderNodeGroupBase", c"get_free_output_port_id", 3905245786L)
+  }
+}

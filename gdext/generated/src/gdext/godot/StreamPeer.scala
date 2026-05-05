@@ -5,232 +5,252 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StreamPeer extends RefCounted
-
-    def putData(data: PackedByteArray): Int =
+class StreamPeer extends RefCounted {
+    def putData(data: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = data.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.putData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def putPartialData(data: PackedByteArray): Array =
+    def putPartialData(data: PackedByteArray): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = data.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeer.Binds.putPartialData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getData(bytes: Int): Array =
+    def getData(bytes: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bytes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bytes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeer.Binds.getData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPartialData(bytes: Int): Array =
+    def getPartialData(bytes: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bytes.toLong
+        val _a0 = stackalloc[Long](); !_a0 = bytes.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeer.Binds.getPartialData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAvailableBytes(): Int =
+    def getAvailableBytes(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.getAvailableBytes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setBigEndian(enable: Boolean): Unit =
+    def put8(value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StreamPeer.Binds.setBigEndian, ptr, _args, null)
-
-    def isBigEndianEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(StreamPeer.Binds.isBigEndianEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def put8(value: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.put8, ptr, _args, null)
+}
 
-    def putU8(value: Long): Unit =
+    def putU8(value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putU8, ptr, _args, null)
+}
 
-    def put16(value: Long): Unit =
+    def put16(value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.put16, ptr, _args, null)
+}
 
-    def putU16(value: Long): Unit =
+    def putU16(value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putU16, ptr, _args, null)
+}
 
-    def put32(value: Int): Unit =
+    def put32(value: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
+        val _a0 = stackalloc[Long](); !_a0 = value.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.put32, ptr, _args, null)
+}
 
-    def putU32(value: Int): Unit =
+    def putU32(value: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
+        val _a0 = stackalloc[Long](); !_a0 = value.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putU32, ptr, _args, null)
+}
 
-    def put64(value: Long): Unit =
+    def put64(value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.put64, ptr, _args, null)
+}
 
-    def putU64(value: Long): Unit =
+    def putU64(value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value
+        val _a0 = stackalloc[Long](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putU64, ptr, _args, null)
+}
 
-    def putHalf(value: Float): Unit =
+    def putHalf(value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putHalf, ptr, _args, null)
+}
 
-    def putFloat(value: Float): Unit =
+    def putFloat(value: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putFloat, ptr, _args, null)
+}
 
-    def putDouble(value: Double): Unit =
+    def putDouble(value: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = value
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(StreamPeer.Binds.putDouble, ptr, _args, null)
+}
 
-    def putString(value: CString): Unit =
+    def putString(value: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
+        _args(0) = value
         GdxApi.ptrcall(StreamPeer.Binds.putString, ptr, _args, null)
+}
 
-    def putUtf8String(value: CString): Unit =
+    def putUtf8String(value: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
+        _args(0) = value
         GdxApi.ptrcall(StreamPeer.Binds.putUtf8String, ptr, _args, null)
+}
 
-    def putVar(value: Ptr[Byte]): Unit =
+    def putVar(value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
+        _args(0) = value
         GdxApi.ptrcall(StreamPeer.Binds.putVar, ptr, _args, null)
+}
 
-    def get8(): Long =
+    def get8(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.get8, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getU8(): Long =
+    def getU8(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.getU8, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def get16(): Long =
+    def get16(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.get16, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getU16(): Long =
+    def getU16(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.getU16, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def get32(): Int =
+    def get32(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.get32, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getU32(): Int =
+    def getU32(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.getU32, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def get64(): Long =
+    def get64(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.get64, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getU64(): Long =
+    def getU64(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(StreamPeer.Binds.getU64, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getHalf(): Float =
+    def getHalf(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(StreamPeer.Binds.getHalf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getFloat(): Float =
+    def getFloat(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(StreamPeer.Binds.getFloat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getDouble(): Double =
+    def getDouble(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(StreamPeer.Binds.getDouble, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getString(): CString =
+    def getString(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeer.Binds.getString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getUtf8String(): CString =
+    def getUtf8String(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeer.Binds.getUtf8String, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVar(): Ptr[Byte] =
+    def getVar(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(StreamPeer.Binds.getVar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def bigEndian: Ptr[Byte] = isBigEndianEnabled()
-    def bigEndian_=(v: Ptr[Byte]): Unit = setBigEndian(v)
+}
+
+    def bigEndian: Boolean = isBigEndianEnabled()
+    def bigEndian_=(v: Boolean): Unit = setBigEndian(v)
+}
 
 object StreamPeer:
-    object Binds:
-        var putData: Ptr[Byte] = null
+object Binds {
+          var putData: Ptr[Byte] = null
         var putPartialData: Ptr[Byte] = null
         var getData: Ptr[Byte] = null
         var getPartialData: Ptr[Byte] = null
         var getAvailableBytes: Ptr[Byte] = null
-        var setBigEndian: Ptr[Byte] = null
-        var isBigEndianEnabled: Ptr[Byte] = null
         var put8: Ptr[Byte] = null
         var putU8: Ptr[Byte] = null
         var put16: Ptr[Byte] = null
@@ -260,14 +280,12 @@ object StreamPeer:
         var getUtf8String: Ptr[Byte] = null
         var getVar: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.putData = GdxApi.getMethodBind(c"StreamPeer", c"put_data", 680677267L)
+  def loadBinds(): Unit = {
+                Binds.putData = GdxApi.getMethodBind(c"StreamPeer", c"put_data", 680677267L)
             Binds.putPartialData = GdxApi.getMethodBind(c"StreamPeer", c"put_partial_data", 2934048347L)
             Binds.getData = GdxApi.getMethodBind(c"StreamPeer", c"get_data", 1171824711L)
             Binds.getPartialData = GdxApi.getMethodBind(c"StreamPeer", c"get_partial_data", 1171824711L)
             Binds.getAvailableBytes = GdxApi.getMethodBind(c"StreamPeer", c"get_available_bytes", 3905245786L)
-            Binds.setBigEndian = GdxApi.getMethodBind(c"StreamPeer", c"set_big_endian", 2586408642L)
-            Binds.isBigEndianEnabled = GdxApi.getMethodBind(c"StreamPeer", c"is_big_endian_enabled", 36873697L)
             Binds.put8 = GdxApi.getMethodBind(c"StreamPeer", c"put_8", 1286410249L)
             Binds.putU8 = GdxApi.getMethodBind(c"StreamPeer", c"put_u8", 1286410249L)
             Binds.put16 = GdxApi.getMethodBind(c"StreamPeer", c"put_16", 1286410249L)
@@ -296,3 +314,5 @@ object StreamPeer:
             Binds.getString = GdxApi.getMethodBind(c"StreamPeer", c"get_string", 2309358862L)
             Binds.getUtf8String = GdxApi.getMethodBind(c"StreamPeer", c"get_utf8_string", 2309358862L)
             Binds.getVar = GdxApi.getMethodBind(c"StreamPeer", c"get_var", 3442865206L)
+  }
+}

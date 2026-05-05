@@ -5,8 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRBindingModifier extends Resource
+class OpenXRBindingModifier extends Resource {
     def _getDescription(): CString = null
     def _getIpModification(): PackedByteArray = null
-
-
+}

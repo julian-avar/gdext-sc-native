@@ -5,193 +5,32 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MobileVRInterface extends XRInterface
-
-    def setEyeHeight(eyeHeight: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = eyeHeight
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setEyeHeight, ptr, _args, null)
-
-    def getEyeHeight(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getEyeHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setIod(iod: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = iod
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setIod, ptr, _args, null)
-
-    def getIod(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getIod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDisplayWidth(displayWidth: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = displayWidth
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setDisplayWidth, ptr, _args, null)
-
-    def getDisplayWidth(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getDisplayWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDisplayToLens(displayToLens: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = displayToLens
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setDisplayToLens, ptr, _args, null)
-
-    def getDisplayToLens(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getDisplayToLens, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setOffsetRect(offsetRect: Rect2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offsetRect.ptr
-        GdxApi.ptrcall(MobileVRInterface.Binds.setOffsetRect, ptr, _args, null)
-
-    def getOffsetRect(): Rect2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getOffsetRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2(!_ret)
-
-    def setOversample(oversample: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = oversample
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setOversample, ptr, _args, null)
-
-    def getOversample(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getOversample, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setK1(k: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = k
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setK1, ptr, _args, null)
-
-    def getK1(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getK1, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setK2(k: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = k
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setK2, ptr, _args, null)
-
-    def getK2(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getK2, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getVrsMinRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getVrsMinRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVrsMinRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setVrsMinRadius, ptr, _args, null)
-
-    def getVrsStrength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(MobileVRInterface.Binds.getVrsStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVrsStrength(strength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = strength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(MobileVRInterface.Binds.setVrsStrength, ptr, _args, null)
-    def eyeHeight: Ptr[Byte] = getEyeHeight()
-    def eyeHeight_=(v: Ptr[Byte]): Unit = setEyeHeight(v)
-    def iod: Ptr[Byte] = getIod()
-    def iod_=(v: Ptr[Byte]): Unit = setIod(v)
-    def displayWidth: Ptr[Byte] = getDisplayWidth()
-    def displayWidth_=(v: Ptr[Byte]): Unit = setDisplayWidth(v)
-    def displayToLens: Ptr[Byte] = getDisplayToLens()
-    def displayToLens_=(v: Ptr[Byte]): Unit = setDisplayToLens(v)
-    def offsetRect: Ptr[Byte] = getOffsetRect()
-    def offsetRect_=(v: Ptr[Byte]): Unit = setOffsetRect(v)
-    def oversample: Ptr[Byte] = getOversample()
-    def oversample_=(v: Ptr[Byte]): Unit = setOversample(v)
-    def k1: Ptr[Byte] = getK1()
-    def k1_=(v: Ptr[Byte]): Unit = setK1(v)
-    def k2: Ptr[Byte] = getK2()
-    def k2_=(v: Ptr[Byte]): Unit = setK2(v)
-    def vrsMinRadius: Ptr[Byte] = getVrsMinRadius()
-    def vrsMinRadius_=(v: Ptr[Byte]): Unit = setVrsMinRadius(v)
-    def vrsStrength: Ptr[Byte] = getVrsStrength()
-    def vrsStrength_=(v: Ptr[Byte]): Unit = setVrsStrength(v)
+class MobileVRInterface extends XRInterface {
+    def eyeHeight: Double = getEyeHeight()
+    def eyeHeight_=(v: Double): Unit = setEyeHeight(v)
+    def iod: Double = getIod()
+    def iod_=(v: Double): Unit = setIod(v)
+    def displayWidth: Double = getDisplayWidth()
+    def displayWidth_=(v: Double): Unit = setDisplayWidth(v)
+    def displayToLens: Double = getDisplayToLens()
+    def displayToLens_=(v: Double): Unit = setDisplayToLens(v)
+    def offsetRect: Rect2 = getOffsetRect()
+    def offsetRect_=(v: Rect2): Unit = setOffsetRect(v)
+    def oversample: Double = getOversample()
+    def oversample_=(v: Double): Unit = setOversample(v)
+    def k1: Double = getK1()
+    def k1_=(v: Double): Unit = setK1(v)
+    def k2: Double = getK2()
+    def k2_=(v: Double): Unit = setK2(v)
+    def vrsMinRadius: Float = getVrsMinRadius()
+    def vrsMinRadius_=(v: Float): Unit = setVrsMinRadius(v)
+    def vrsStrength: Float = getVrsStrength()
+    def vrsStrength_=(v: Float): Unit = setVrsStrength(v)
+}
 
 object MobileVRInterface:
-    object Binds:
-        var setEyeHeight: Ptr[Byte] = null
-        var getEyeHeight: Ptr[Byte] = null
-        var setIod: Ptr[Byte] = null
-        var getIod: Ptr[Byte] = null
-        var setDisplayWidth: Ptr[Byte] = null
-        var getDisplayWidth: Ptr[Byte] = null
-        var setDisplayToLens: Ptr[Byte] = null
-        var getDisplayToLens: Ptr[Byte] = null
-        var setOffsetRect: Ptr[Byte] = null
-        var getOffsetRect: Ptr[Byte] = null
-        var setOversample: Ptr[Byte] = null
-        var getOversample: Ptr[Byte] = null
-        var setK1: Ptr[Byte] = null
-        var getK1: Ptr[Byte] = null
-        var setK2: Ptr[Byte] = null
-        var getK2: Ptr[Byte] = null
-        var getVrsMinRadius: Ptr[Byte] = null
-        var setVrsMinRadius: Ptr[Byte] = null
-        var getVrsStrength: Ptr[Byte] = null
-        var setVrsStrength: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setEyeHeight = GdxApi.getMethodBind(c"MobileVRInterface", c"set_eye_height", 373806689L)
-            Binds.getEyeHeight = GdxApi.getMethodBind(c"MobileVRInterface", c"get_eye_height", 1740695150L)
-            Binds.setIod = GdxApi.getMethodBind(c"MobileVRInterface", c"set_iod", 373806689L)
-            Binds.getIod = GdxApi.getMethodBind(c"MobileVRInterface", c"get_iod", 1740695150L)
-            Binds.setDisplayWidth = GdxApi.getMethodBind(c"MobileVRInterface", c"set_display_width", 373806689L)
-            Binds.getDisplayWidth = GdxApi.getMethodBind(c"MobileVRInterface", c"get_display_width", 1740695150L)
-            Binds.setDisplayToLens = GdxApi.getMethodBind(c"MobileVRInterface", c"set_display_to_lens", 373806689L)
-            Binds.getDisplayToLens = GdxApi.getMethodBind(c"MobileVRInterface", c"get_display_to_lens", 1740695150L)
-            Binds.setOffsetRect = GdxApi.getMethodBind(c"MobileVRInterface", c"set_offset_rect", 2046264180L)
-            Binds.getOffsetRect = GdxApi.getMethodBind(c"MobileVRInterface", c"get_offset_rect", 1639390495L)
-            Binds.setOversample = GdxApi.getMethodBind(c"MobileVRInterface", c"set_oversample", 373806689L)
-            Binds.getOversample = GdxApi.getMethodBind(c"MobileVRInterface", c"get_oversample", 1740695150L)
-            Binds.setK1 = GdxApi.getMethodBind(c"MobileVRInterface", c"set_k1", 373806689L)
-            Binds.getK1 = GdxApi.getMethodBind(c"MobileVRInterface", c"get_k1", 1740695150L)
-            Binds.setK2 = GdxApi.getMethodBind(c"MobileVRInterface", c"set_k2", 373806689L)
-            Binds.getK2 = GdxApi.getMethodBind(c"MobileVRInterface", c"get_k2", 1740695150L)
-            Binds.getVrsMinRadius = GdxApi.getMethodBind(c"MobileVRInterface", c"get_vrs_min_radius", 1740695150L)
-            Binds.setVrsMinRadius = GdxApi.getMethodBind(c"MobileVRInterface", c"set_vrs_min_radius", 373806689L)
-            Binds.getVrsStrength = GdxApi.getMethodBind(c"MobileVRInterface", c"get_vrs_strength", 1740695150L)
-            Binds.setVrsStrength = GdxApi.getMethodBind(c"MobileVRInterface", c"set_vrs_strength", 373806689L)
-
-    def apply(): MobileVRInterface =
-        val obj = new MobileVRInterface()
-        obj.ptr = GdxApi.constructObject(c"MobileVRInterface")
-        obj
+def apply(): MobileVRInterface = {
+  val obj = new MobileVRInterface()
+  obj.ptr = GdxApi.constructObject(c"MobileVRInterface")
+  obj
+}

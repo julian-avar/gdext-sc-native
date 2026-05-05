@@ -5,101 +5,82 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRPositionalTracker extends XRTracker
-
-    def getTrackerProfile(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRPositionalTracker.Binds.getTrackerProfile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTrackerProfile(profile: CString): Unit =
+class XRPositionalTracker extends XRTracker {
+    def hasPose(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = profile.ptr
-        GdxApi.ptrcall(XRPositionalTracker.Binds.setTrackerProfile, ptr, _args, null)
-
-    def getTrackerHand(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(XRPositionalTracker.Binds.getTrackerHand, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTrackerHand(hand: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hand.ptr
-        GdxApi.ptrcall(XRPositionalTracker.Binds.setTrackerHand, ptr, _args, null)
-
-    def hasPose(name: CString): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRPositionalTracker.Binds.hasPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPose(name: CString): XRPose =
+    def getPose(name: CString): XRPose = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRPositionalTracker.Binds.getPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new XRPose(!_ret)
+}
 
-    def invalidatePose(name: CString): Unit =
+    def invalidatePose(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(XRPositionalTracker.Binds.invalidatePose, ptr, _args, null)
+}
 
-    def setPose(name: CString, transform: Transform3D, linearVelocity: Vector3, angularVelocity: Vector3, trackingConfidence: Int): Unit =
+    def setPose(name: CString, transform: Transform3D, linearVelocity: Vector3, angularVelocity: Vector3, trackingConfidence: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = transform.ptr
         _args(2) = linearVelocity.ptr
         _args(3) = angularVelocity.ptr
-        _args(4) = trackingConfidence.ptr
+        val _a4 = stackalloc[Long](); !_a4 = trackingConfidence.toLong
+        _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRPositionalTracker.Binds.setPose, ptr, _args, null)
+}
 
-    def getInput(name: CString): Ptr[Byte] =
+    def getInput(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRPositionalTracker.Binds.getInput, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setInput(name: CString, value: Ptr[Byte]): Unit =
+    def setInput(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(XRPositionalTracker.Binds.setInput, ptr, _args, null)
-    def profile: Ptr[Byte] = getTrackerProfile()
-    def profile_=(v: Ptr[Byte]): Unit = setTrackerProfile(v)
-    def hand: Ptr[Byte] = getTrackerHand()
-    def hand_=(v: Ptr[Byte]): Unit = setTrackerHand(v)
+}
+
+    def profile: CString = getTrackerProfile()
+    def profile_=(v: CString): Unit = setTrackerProfile(v)
+    def hand: Int = getTrackerHand()
+    def hand_=(v: Int): Unit = setTrackerHand(v)
+}
 
 object XRPositionalTracker:
-    object Binds:
-        var getTrackerProfile: Ptr[Byte] = null
-        var setTrackerProfile: Ptr[Byte] = null
-        var getTrackerHand: Ptr[Byte] = null
-        var setTrackerHand: Ptr[Byte] = null
-        var hasPose: Ptr[Byte] = null
+object Binds {
+          var hasPose: Ptr[Byte] = null
         var getPose: Ptr[Byte] = null
         var invalidatePose: Ptr[Byte] = null
         var setPose: Ptr[Byte] = null
         var getInput: Ptr[Byte] = null
         var setInput: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTrackerProfile = GdxApi.getMethodBind(c"XRPositionalTracker", c"get_tracker_profile", 201670096L)
-            Binds.setTrackerProfile = GdxApi.getMethodBind(c"XRPositionalTracker", c"set_tracker_profile", 83702148L)
-            Binds.getTrackerHand = GdxApi.getMethodBind(c"XRPositionalTracker", c"get_tracker_hand", 4181770860L)
-            Binds.setTrackerHand = GdxApi.getMethodBind(c"XRPositionalTracker", c"set_tracker_hand", 3904108980L)
-            Binds.hasPose = GdxApi.getMethodBind(c"XRPositionalTracker", c"has_pose", 2619796661L)
+  def loadBinds(): Unit = {
+                Binds.hasPose = GdxApi.getMethodBind(c"XRPositionalTracker", c"has_pose", 2619796661L)
             Binds.getPose = GdxApi.getMethodBind(c"XRPositionalTracker", c"get_pose", 4099720006L)
             Binds.invalidatePose = GdxApi.getMethodBind(c"XRPositionalTracker", c"invalidate_pose", 3304788590L)
             Binds.setPose = GdxApi.getMethodBind(c"XRPositionalTracker", c"set_pose", 3451230163L)
             Binds.getInput = GdxApi.getMethodBind(c"XRPositionalTracker", c"get_input", 2760726917L)
             Binds.setInput = GdxApi.getMethodBind(c"XRPositionalTracker", c"set_input", 3776071444L)
+  }
+}
 
-    def apply(): XRPositionalTracker =
-        val obj = new XRPositionalTracker()
-        obj.ptr = GdxApi.constructObject(c"XRPositionalTracker")
-        obj
+def apply(): XRPositionalTracker = {
+  val obj = new XRPositionalTracker()
+  obj.ptr = GdxApi.constructObject(c"XRPositionalTracker")
+  obj
+}

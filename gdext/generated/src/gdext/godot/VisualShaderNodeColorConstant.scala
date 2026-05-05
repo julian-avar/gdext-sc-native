@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeColorConstant extends VisualShaderNodeConstant
-
-    def setConstant(constant: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = constant.ptr
-        GdxApi.ptrcall(VisualShaderNodeColorConstant.Binds.setConstant, ptr, _args, null)
-
-    def getConstant(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeColorConstant.Binds.getConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-    def constant: Ptr[Byte] = getConstant()
-    def constant_=(v: Ptr[Byte]): Unit = setConstant(v)
+class VisualShaderNodeColorConstant extends VisualShaderNodeConstant {
+    def constant: Color = getConstant()
+    def constant_=(v: Color): Unit = setConstant(v)
+}
 
 object VisualShaderNodeColorConstant:
-    object Binds:
-        var setConstant: Ptr[Byte] = null
-        var getConstant: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setConstant = GdxApi.getMethodBind(c"VisualShaderNodeColorConstant", c"set_constant", 2920490490L)
-            Binds.getConstant = GdxApi.getMethodBind(c"VisualShaderNodeColorConstant", c"get_constant", 3444240500L)
-
-    def apply(): VisualShaderNodeColorConstant =
-        val obj = new VisualShaderNodeColorConstant()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeColorConstant")
-        obj
+def apply(): VisualShaderNodeColorConstant = {
+  val obj = new VisualShaderNodeColorConstant()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeColorConstant")
+  obj
+}

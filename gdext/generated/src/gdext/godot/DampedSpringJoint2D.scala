@@ -5,86 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class DampedSpringJoint2D extends Joint2D
-
-    def setLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.setLength, ptr, _args, null)
-
-    def getLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRestLength(restLength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = restLength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.setRestLength, ptr, _args, null)
-
-    def getRestLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.getRestLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setStiffness(stiffness: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = stiffness.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.setStiffness, ptr, _args, null)
-
-    def getStiffness(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.getStiffness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDamping(damping: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = damping.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.setDamping, ptr, _args, null)
-
-    def getDamping(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(DampedSpringJoint2D.Binds.getDamping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def length: Ptr[Byte] = getLength()
-    def length_=(v: Ptr[Byte]): Unit = setLength(v)
-    def restLength: Ptr[Byte] = getRestLength()
-    def restLength_=(v: Ptr[Byte]): Unit = setRestLength(v)
-    def stiffness: Ptr[Byte] = getStiffness()
-    def stiffness_=(v: Ptr[Byte]): Unit = setStiffness(v)
-    def damping: Ptr[Byte] = getDamping()
-    def damping_=(v: Ptr[Byte]): Unit = setDamping(v)
+class DampedSpringJoint2D extends Joint2D {
+    def length: Float = getLength()
+    def length_=(v: Float): Unit = setLength(v)
+    def restLength: Float = getRestLength()
+    def restLength_=(v: Float): Unit = setRestLength(v)
+    def stiffness: Float = getStiffness()
+    def stiffness_=(v: Float): Unit = setStiffness(v)
+    def damping: Float = getDamping()
+    def damping_=(v: Float): Unit = setDamping(v)
+}
 
 object DampedSpringJoint2D:
-    object Binds:
-        var setLength: Ptr[Byte] = null
-        var getLength: Ptr[Byte] = null
-        var setRestLength: Ptr[Byte] = null
-        var getRestLength: Ptr[Byte] = null
-        var setStiffness: Ptr[Byte] = null
-        var getStiffness: Ptr[Byte] = null
-        var setDamping: Ptr[Byte] = null
-        var getDamping: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setLength = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"set_length", 373806689L)
-            Binds.getLength = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"get_length", 1740695150L)
-            Binds.setRestLength = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"set_rest_length", 373806689L)
-            Binds.getRestLength = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"get_rest_length", 1740695150L)
-            Binds.setStiffness = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"set_stiffness", 373806689L)
-            Binds.getStiffness = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"get_stiffness", 1740695150L)
-            Binds.setDamping = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"set_damping", 373806689L)
-            Binds.getDamping = GdxApi.getMethodBind(c"DampedSpringJoint2D", c"get_damping", 1740695150L)
-
-    def apply(): DampedSpringJoint2D =
-        val obj = new DampedSpringJoint2D()
-        obj.ptr = GdxApi.constructObject(c"DampedSpringJoint2D")
-        obj
+def apply(): DampedSpringJoint2D = {
+  val obj = new DampedSpringJoint2D()
+  obj.ptr = GdxApi.constructObject(c"DampedSpringJoint2D")
+  obj
+}

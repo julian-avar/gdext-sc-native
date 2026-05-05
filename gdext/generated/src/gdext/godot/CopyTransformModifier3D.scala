@@ -5,234 +5,266 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CopyTransformModifier3D extends BoneConstraint3D
-
-    def setCopyFlags(index: Int, copyFlags: Int): Unit =
+class CopyTransformModifier3D extends BoneConstraint3D {
+    def setCopyFlags(index: Int, copyFlags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = copyFlags.ptr
+        val _a1 = stackalloc[Long](); !_a1 = copyFlags.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setCopyFlags, ptr, _args, null)
+}
 
-    def getCopyFlags(index: Int): Int =
+    def getCopyFlags(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.getCopyFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setAxisFlags(index: Int, axisFlags: Int): Unit =
+    def setAxisFlags(index: Int, axisFlags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axisFlags.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axisFlags.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisFlags, ptr, _args, null)
+}
 
-    def getAxisFlags(index: Int): Int =
+    def getAxisFlags(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.getAxisFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setInvertFlags(index: Int, axisFlags: Int): Unit =
+    def setInvertFlags(index: Int, axisFlags: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axisFlags.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axisFlags.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setInvertFlags, ptr, _args, null)
+}
 
-    def getInvertFlags(index: Int): Int =
+    def getInvertFlags(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.getInvertFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCopyPosition(index: Int, enabled: Boolean): Unit =
+    def setCopyPosition(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setCopyPosition, ptr, _args, null)
+}
 
-    def isPositionCopying(index: Int): Boolean =
+    def isPositionCopying(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isPositionCopying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCopyRotation(index: Int, enabled: Boolean): Unit =
+    def setCopyRotation(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setCopyRotation, ptr, _args, null)
+}
 
-    def isRotationCopying(index: Int): Boolean =
+    def isRotationCopying(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isRotationCopying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCopyScale(index: Int, enabled: Boolean): Unit =
+    def setCopyScale(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setCopyScale, ptr, _args, null)
+}
 
-    def isScaleCopying(index: Int): Boolean =
+    def isScaleCopying(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isScaleCopying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAxisXEnabled(index: Int, enabled: Boolean): Unit =
+    def setAxisXEnabled(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisXEnabled, ptr, _args, null)
+}
 
-    def isAxisXEnabled(index: Int): Boolean =
+    def isAxisXEnabled(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAxisXEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAxisYEnabled(index: Int, enabled: Boolean): Unit =
+    def setAxisYEnabled(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisYEnabled, ptr, _args, null)
+}
 
-    def isAxisYEnabled(index: Int): Boolean =
+    def isAxisYEnabled(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAxisYEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAxisZEnabled(index: Int, enabled: Boolean): Unit =
+    def setAxisZEnabled(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisZEnabled, ptr, _args, null)
+}
 
-    def isAxisZEnabled(index: Int): Boolean =
+    def isAxisZEnabled(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAxisZEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAxisXInverted(index: Int, enabled: Boolean): Unit =
+    def setAxisXInverted(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisXInverted, ptr, _args, null)
+}
 
-    def isAxisXInverted(index: Int): Boolean =
+    def isAxisXInverted(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAxisXInverted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAxisYInverted(index: Int, enabled: Boolean): Unit =
+    def setAxisYInverted(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisYInverted, ptr, _args, null)
+}
 
-    def isAxisYInverted(index: Int): Boolean =
+    def isAxisYInverted(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAxisYInverted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAxisZInverted(index: Int, enabled: Boolean): Unit =
+    def setAxisZInverted(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAxisZInverted, ptr, _args, null)
+}
 
-    def isAxisZInverted(index: Int): Boolean =
+    def isAxisZInverted(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAxisZInverted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setRelative(index: Int, enabled: Boolean): Unit =
+    def setRelative(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setRelative, ptr, _args, null)
+}
 
-    def isRelative(index: Int): Boolean =
+    def isRelative(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isRelative, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAdditive(index: Int, enabled: Boolean): Unit =
+    def setAdditive(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.setAdditive, ptr, _args, null)
+}
 
-    def isAdditive(index: Int): Boolean =
+    def isAdditive(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CopyTransformModifier3D.Binds.isAdditive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
+
     def settingCount: Ptr[Byte] = getSettingCount()
     def settingCount_=(v: Ptr[Byte]): Unit = setSettingCount(v)
+}
 
 object CopyTransformModifier3D:
-    object Binds:
-        var setCopyFlags: Ptr[Byte] = null
+object Binds {
+          var setCopyFlags: Ptr[Byte] = null
         var getCopyFlags: Ptr[Byte] = null
         var setAxisFlags: Ptr[Byte] = null
         var getAxisFlags: Ptr[Byte] = null
@@ -261,8 +293,8 @@ object CopyTransformModifier3D:
         var setAdditive: Ptr[Byte] = null
         var isAdditive: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setCopyFlags = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"set_copy_flags", 2252507859L)
+  def loadBinds(): Unit = {
+                Binds.setCopyFlags = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"set_copy_flags", 2252507859L)
             Binds.getCopyFlags = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"get_copy_flags", 1685185931L)
             Binds.setAxisFlags = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"set_axis_flags", 2044211897L)
             Binds.getAxisFlags = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"get_axis_flags", 992162046L)
@@ -290,8 +322,11 @@ object CopyTransformModifier3D:
             Binds.isRelative = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"is_relative", 1116898809L)
             Binds.setAdditive = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"set_additive", 300928843L)
             Binds.isAdditive = GdxApi.getMethodBind(c"CopyTransformModifier3D", c"is_additive", 1116898809L)
+  }
+}
 
-    def apply(): CopyTransformModifier3D =
-        val obj = new CopyTransformModifier3D()
-        obj.ptr = GdxApi.constructObject(c"CopyTransformModifier3D")
-        obj
+def apply(): CopyTransformModifier3D = {
+  val obj = new CopyTransformModifier3D()
+  obj.ptr = GdxApi.constructObject(c"CopyTransformModifier3D")
+  obj
+}

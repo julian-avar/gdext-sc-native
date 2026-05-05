@@ -5,241 +5,163 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPlaylist extends AudioStream
-
-    def setStreamCount(streamCount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = streamCount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.setStreamCount, ptr, _args, null)
-
-    def getStreamCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.getStreamCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getBpm(): Double =
+class AudioStreamPlaylist extends AudioStream {
+    def getBpm(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AudioStreamPlaylist.Binds.getBpm, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setListStream(streamIndex: Int, audioStream: AudioStream): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = streamIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = audioStream.ptr
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.setListStream, ptr, _args, null)
-
-    def getListStream(streamIndex: Int): AudioStream =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = streamIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.getListStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new AudioStream(!_ret)
-
-    def setShuffle(shuffle: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if shuffle then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.setShuffle, ptr, _args, null)
-
-    def getShuffle(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.getShuffle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFadeTime(dec: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = dec.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.setFadeTime, ptr, _args, null)
-
-    def getFadeTime(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.getFadeTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLoop(loop: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if loop then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.setLoop, ptr, _args, null)
-
-    def hasLoop(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AudioStreamPlaylist.Binds.hasLoop, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def shuffle: Ptr[Byte] = getShuffle()
-    def shuffle_=(v: Ptr[Byte]): Unit = setShuffle(v)
-    def loop: Ptr[Byte] = hasLoop()
-    def loop_=(v: Ptr[Byte]): Unit = setLoop(v)
-    def fadeTime: Ptr[Byte] = getFadeTime()
-    def fadeTime_=(v: Ptr[Byte]): Unit = setFadeTime(v)
-    def streamCount: Ptr[Byte] = getStreamCount()
-    def streamCount_=(v: Ptr[Byte]): Unit = setStreamCount(v)
-    def stream0: Ptr[Byte] = getListStream()
-    def stream0_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream1: Ptr[Byte] = getListStream()
-    def stream1_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream2: Ptr[Byte] = getListStream()
-    def stream2_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream3: Ptr[Byte] = getListStream()
-    def stream3_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream4: Ptr[Byte] = getListStream()
-    def stream4_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream5: Ptr[Byte] = getListStream()
-    def stream5_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream6: Ptr[Byte] = getListStream()
-    def stream6_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream7: Ptr[Byte] = getListStream()
-    def stream7_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream8: Ptr[Byte] = getListStream()
-    def stream8_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream9: Ptr[Byte] = getListStream()
-    def stream9_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream10: Ptr[Byte] = getListStream()
-    def stream10_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream11: Ptr[Byte] = getListStream()
-    def stream11_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream12: Ptr[Byte] = getListStream()
-    def stream12_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream13: Ptr[Byte] = getListStream()
-    def stream13_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream14: Ptr[Byte] = getListStream()
-    def stream14_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream15: Ptr[Byte] = getListStream()
-    def stream15_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream16: Ptr[Byte] = getListStream()
-    def stream16_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream17: Ptr[Byte] = getListStream()
-    def stream17_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream18: Ptr[Byte] = getListStream()
-    def stream18_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream19: Ptr[Byte] = getListStream()
-    def stream19_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream20: Ptr[Byte] = getListStream()
-    def stream20_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream21: Ptr[Byte] = getListStream()
-    def stream21_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream22: Ptr[Byte] = getListStream()
-    def stream22_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream23: Ptr[Byte] = getListStream()
-    def stream23_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream24: Ptr[Byte] = getListStream()
-    def stream24_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream25: Ptr[Byte] = getListStream()
-    def stream25_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream26: Ptr[Byte] = getListStream()
-    def stream26_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream27: Ptr[Byte] = getListStream()
-    def stream27_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream28: Ptr[Byte] = getListStream()
-    def stream28_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream29: Ptr[Byte] = getListStream()
-    def stream29_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream30: Ptr[Byte] = getListStream()
-    def stream30_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream31: Ptr[Byte] = getListStream()
-    def stream31_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream32: Ptr[Byte] = getListStream()
-    def stream32_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream33: Ptr[Byte] = getListStream()
-    def stream33_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream34: Ptr[Byte] = getListStream()
-    def stream34_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream35: Ptr[Byte] = getListStream()
-    def stream35_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream36: Ptr[Byte] = getListStream()
-    def stream36_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream37: Ptr[Byte] = getListStream()
-    def stream37_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream38: Ptr[Byte] = getListStream()
-    def stream38_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream39: Ptr[Byte] = getListStream()
-    def stream39_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream40: Ptr[Byte] = getListStream()
-    def stream40_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream41: Ptr[Byte] = getListStream()
-    def stream41_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream42: Ptr[Byte] = getListStream()
-    def stream42_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream43: Ptr[Byte] = getListStream()
-    def stream43_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream44: Ptr[Byte] = getListStream()
-    def stream44_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream45: Ptr[Byte] = getListStream()
-    def stream45_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream46: Ptr[Byte] = getListStream()
-    def stream46_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream47: Ptr[Byte] = getListStream()
-    def stream47_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream48: Ptr[Byte] = getListStream()
-    def stream48_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream49: Ptr[Byte] = getListStream()
-    def stream49_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream50: Ptr[Byte] = getListStream()
-    def stream50_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream51: Ptr[Byte] = getListStream()
-    def stream51_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream52: Ptr[Byte] = getListStream()
-    def stream52_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream53: Ptr[Byte] = getListStream()
-    def stream53_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream54: Ptr[Byte] = getListStream()
-    def stream54_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream55: Ptr[Byte] = getListStream()
-    def stream55_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream56: Ptr[Byte] = getListStream()
-    def stream56_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream57: Ptr[Byte] = getListStream()
-    def stream57_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream58: Ptr[Byte] = getListStream()
-    def stream58_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream59: Ptr[Byte] = getListStream()
-    def stream59_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream60: Ptr[Byte] = getListStream()
-    def stream60_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream61: Ptr[Byte] = getListStream()
-    def stream61_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream62: Ptr[Byte] = getListStream()
-    def stream62_=(v: Ptr[Byte]): Unit = setListStream(v)
-    def stream63: Ptr[Byte] = getListStream()
-    def stream63_=(v: Ptr[Byte]): Unit = setListStream(v)
+    def shuffle: Boolean = getShuffle()
+    def shuffle_=(v: Boolean): Unit = setShuffle(v)
+    def loop: Boolean = hasLoop()
+    def loop_=(v: Boolean): Unit = setLoop(v)
+    def fadeTime: Float = getFadeTime()
+    def fadeTime_=(v: Float): Unit = setFadeTime(v)
+    def streamCount: Int = getStreamCount()
+    def streamCount_=(v: Int): Unit = setStreamCount(v)
+    def stream0: AudioStream = getListStream()
+    def stream0_=(v: Int): Unit = setListStream(v)
+    def stream1: AudioStream = getListStream()
+    def stream1_=(v: Int): Unit = setListStream(v)
+    def stream2: AudioStream = getListStream()
+    def stream2_=(v: Int): Unit = setListStream(v)
+    def stream3: AudioStream = getListStream()
+    def stream3_=(v: Int): Unit = setListStream(v)
+    def stream4: AudioStream = getListStream()
+    def stream4_=(v: Int): Unit = setListStream(v)
+    def stream5: AudioStream = getListStream()
+    def stream5_=(v: Int): Unit = setListStream(v)
+    def stream6: AudioStream = getListStream()
+    def stream6_=(v: Int): Unit = setListStream(v)
+    def stream7: AudioStream = getListStream()
+    def stream7_=(v: Int): Unit = setListStream(v)
+    def stream8: AudioStream = getListStream()
+    def stream8_=(v: Int): Unit = setListStream(v)
+    def stream9: AudioStream = getListStream()
+    def stream9_=(v: Int): Unit = setListStream(v)
+    def stream10: AudioStream = getListStream()
+    def stream10_=(v: Int): Unit = setListStream(v)
+    def stream11: AudioStream = getListStream()
+    def stream11_=(v: Int): Unit = setListStream(v)
+    def stream12: AudioStream = getListStream()
+    def stream12_=(v: Int): Unit = setListStream(v)
+    def stream13: AudioStream = getListStream()
+    def stream13_=(v: Int): Unit = setListStream(v)
+    def stream14: AudioStream = getListStream()
+    def stream14_=(v: Int): Unit = setListStream(v)
+    def stream15: AudioStream = getListStream()
+    def stream15_=(v: Int): Unit = setListStream(v)
+    def stream16: AudioStream = getListStream()
+    def stream16_=(v: Int): Unit = setListStream(v)
+    def stream17: AudioStream = getListStream()
+    def stream17_=(v: Int): Unit = setListStream(v)
+    def stream18: AudioStream = getListStream()
+    def stream18_=(v: Int): Unit = setListStream(v)
+    def stream19: AudioStream = getListStream()
+    def stream19_=(v: Int): Unit = setListStream(v)
+    def stream20: AudioStream = getListStream()
+    def stream20_=(v: Int): Unit = setListStream(v)
+    def stream21: AudioStream = getListStream()
+    def stream21_=(v: Int): Unit = setListStream(v)
+    def stream22: AudioStream = getListStream()
+    def stream22_=(v: Int): Unit = setListStream(v)
+    def stream23: AudioStream = getListStream()
+    def stream23_=(v: Int): Unit = setListStream(v)
+    def stream24: AudioStream = getListStream()
+    def stream24_=(v: Int): Unit = setListStream(v)
+    def stream25: AudioStream = getListStream()
+    def stream25_=(v: Int): Unit = setListStream(v)
+    def stream26: AudioStream = getListStream()
+    def stream26_=(v: Int): Unit = setListStream(v)
+    def stream27: AudioStream = getListStream()
+    def stream27_=(v: Int): Unit = setListStream(v)
+    def stream28: AudioStream = getListStream()
+    def stream28_=(v: Int): Unit = setListStream(v)
+    def stream29: AudioStream = getListStream()
+    def stream29_=(v: Int): Unit = setListStream(v)
+    def stream30: AudioStream = getListStream()
+    def stream30_=(v: Int): Unit = setListStream(v)
+    def stream31: AudioStream = getListStream()
+    def stream31_=(v: Int): Unit = setListStream(v)
+    def stream32: AudioStream = getListStream()
+    def stream32_=(v: Int): Unit = setListStream(v)
+    def stream33: AudioStream = getListStream()
+    def stream33_=(v: Int): Unit = setListStream(v)
+    def stream34: AudioStream = getListStream()
+    def stream34_=(v: Int): Unit = setListStream(v)
+    def stream35: AudioStream = getListStream()
+    def stream35_=(v: Int): Unit = setListStream(v)
+    def stream36: AudioStream = getListStream()
+    def stream36_=(v: Int): Unit = setListStream(v)
+    def stream37: AudioStream = getListStream()
+    def stream37_=(v: Int): Unit = setListStream(v)
+    def stream38: AudioStream = getListStream()
+    def stream38_=(v: Int): Unit = setListStream(v)
+    def stream39: AudioStream = getListStream()
+    def stream39_=(v: Int): Unit = setListStream(v)
+    def stream40: AudioStream = getListStream()
+    def stream40_=(v: Int): Unit = setListStream(v)
+    def stream41: AudioStream = getListStream()
+    def stream41_=(v: Int): Unit = setListStream(v)
+    def stream42: AudioStream = getListStream()
+    def stream42_=(v: Int): Unit = setListStream(v)
+    def stream43: AudioStream = getListStream()
+    def stream43_=(v: Int): Unit = setListStream(v)
+    def stream44: AudioStream = getListStream()
+    def stream44_=(v: Int): Unit = setListStream(v)
+    def stream45: AudioStream = getListStream()
+    def stream45_=(v: Int): Unit = setListStream(v)
+    def stream46: AudioStream = getListStream()
+    def stream46_=(v: Int): Unit = setListStream(v)
+    def stream47: AudioStream = getListStream()
+    def stream47_=(v: Int): Unit = setListStream(v)
+    def stream48: AudioStream = getListStream()
+    def stream48_=(v: Int): Unit = setListStream(v)
+    def stream49: AudioStream = getListStream()
+    def stream49_=(v: Int): Unit = setListStream(v)
+    def stream50: AudioStream = getListStream()
+    def stream50_=(v: Int): Unit = setListStream(v)
+    def stream51: AudioStream = getListStream()
+    def stream51_=(v: Int): Unit = setListStream(v)
+    def stream52: AudioStream = getListStream()
+    def stream52_=(v: Int): Unit = setListStream(v)
+    def stream53: AudioStream = getListStream()
+    def stream53_=(v: Int): Unit = setListStream(v)
+    def stream54: AudioStream = getListStream()
+    def stream54_=(v: Int): Unit = setListStream(v)
+    def stream55: AudioStream = getListStream()
+    def stream55_=(v: Int): Unit = setListStream(v)
+    def stream56: AudioStream = getListStream()
+    def stream56_=(v: Int): Unit = setListStream(v)
+    def stream57: AudioStream = getListStream()
+    def stream57_=(v: Int): Unit = setListStream(v)
+    def stream58: AudioStream = getListStream()
+    def stream58_=(v: Int): Unit = setListStream(v)
+    def stream59: AudioStream = getListStream()
+    def stream59_=(v: Int): Unit = setListStream(v)
+    def stream60: AudioStream = getListStream()
+    def stream60_=(v: Int): Unit = setListStream(v)
+    def stream61: AudioStream = getListStream()
+    def stream61_=(v: Int): Unit = setListStream(v)
+    def stream62: AudioStream = getListStream()
+    def stream62_=(v: Int): Unit = setListStream(v)
+    def stream63: AudioStream = getListStream()
+    def stream63_=(v: Int): Unit = setListStream(v)
+}
 
 object AudioStreamPlaylist:
-    object Binds:
-        var setStreamCount: Ptr[Byte] = null
-        var getStreamCount: Ptr[Byte] = null
-        var getBpm: Ptr[Byte] = null
-        var setListStream: Ptr[Byte] = null
-        var getListStream: Ptr[Byte] = null
-        var setShuffle: Ptr[Byte] = null
-        var getShuffle: Ptr[Byte] = null
-        var setFadeTime: Ptr[Byte] = null
-        var getFadeTime: Ptr[Byte] = null
-        var setLoop: Ptr[Byte] = null
-        var hasLoop: Ptr[Byte] = null
+object Binds {
+          var getBpm: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setStreamCount = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"set_stream_count", 1286410249L)
-            Binds.getStreamCount = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"get_stream_count", 3905245786L)
-            Binds.getBpm = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"get_bpm", 1740695150L)
-            Binds.setListStream = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"set_list_stream", 111075094L)
-            Binds.getListStream = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"get_list_stream", 2739380747L)
-            Binds.setShuffle = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"set_shuffle", 2586408642L)
-            Binds.getShuffle = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"get_shuffle", 36873697L)
-            Binds.setFadeTime = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"set_fade_time", 373806689L)
-            Binds.getFadeTime = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"get_fade_time", 1740695150L)
-            Binds.setLoop = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"set_loop", 2586408642L)
-            Binds.hasLoop = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"has_loop", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getBpm = GdxApi.getMethodBind(c"AudioStreamPlaylist", c"get_bpm", 1740695150L)
+  }
+}
 
-    def apply(): AudioStreamPlaylist =
-        val obj = new AudioStreamPlaylist()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamPlaylist")
-        obj
+def apply(): AudioStreamPlaylist = {
+  val obj = new AudioStreamPlaylist()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamPlaylist")
+  obj
+}

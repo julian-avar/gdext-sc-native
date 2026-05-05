@@ -5,83 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AtlasTexture extends Texture2D
-
-    def setAtlas(atlas: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = atlas.ptr
-        GdxApi.ptrcall(AtlasTexture.Binds.setAtlas, ptr, _args, null)
-
-    def getAtlas(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AtlasTexture.Binds.getAtlas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setRegion(region: Rect2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = region.ptr
-        GdxApi.ptrcall(AtlasTexture.Binds.setRegion, ptr, _args, null)
-
-    def getRegion(): Rect2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AtlasTexture.Binds.getRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2(!_ret)
-
-    def setMargin(margin: Rect2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = margin.ptr
-        GdxApi.ptrcall(AtlasTexture.Binds.setMargin, ptr, _args, null)
-
-    def getMargin(): Rect2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AtlasTexture.Binds.getMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2(!_ret)
-
-    def setFilterClip(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AtlasTexture.Binds.setFilterClip, ptr, _args, null)
-
-    def hasFilterClip(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AtlasTexture.Binds.hasFilterClip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def atlas: Ptr[Byte] = getAtlas()
-    def atlas_=(v: Ptr[Byte]): Unit = setAtlas(v)
-    def region: Ptr[Byte] = getRegion()
-    def region_=(v: Ptr[Byte]): Unit = setRegion(v)
-    def margin: Ptr[Byte] = getMargin()
-    def margin_=(v: Ptr[Byte]): Unit = setMargin(v)
-    def filterClip: Ptr[Byte] = hasFilterClip()
-    def filterClip_=(v: Ptr[Byte]): Unit = setFilterClip(v)
+class AtlasTexture extends Texture2D {
+    def atlas: Texture2D = getAtlas()
+    def atlas_=(v: Texture2D): Unit = setAtlas(v)
+    def region: Rect2 = getRegion()
+    def region_=(v: Rect2): Unit = setRegion(v)
+    def margin: Rect2 = getMargin()
+    def margin_=(v: Rect2): Unit = setMargin(v)
+    def filterClip: Boolean = hasFilterClip()
+    def filterClip_=(v: Boolean): Unit = setFilterClip(v)
+}
 
 object AtlasTexture:
-    object Binds:
-        var setAtlas: Ptr[Byte] = null
-        var getAtlas: Ptr[Byte] = null
-        var setRegion: Ptr[Byte] = null
-        var getRegion: Ptr[Byte] = null
-        var setMargin: Ptr[Byte] = null
-        var getMargin: Ptr[Byte] = null
-        var setFilterClip: Ptr[Byte] = null
-        var hasFilterClip: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setAtlas = GdxApi.getMethodBind(c"AtlasTexture", c"set_atlas", 4051416890L)
-            Binds.getAtlas = GdxApi.getMethodBind(c"AtlasTexture", c"get_atlas", 3635182373L)
-            Binds.setRegion = GdxApi.getMethodBind(c"AtlasTexture", c"set_region", 2046264180L)
-            Binds.getRegion = GdxApi.getMethodBind(c"AtlasTexture", c"get_region", 1639390495L)
-            Binds.setMargin = GdxApi.getMethodBind(c"AtlasTexture", c"set_margin", 2046264180L)
-            Binds.getMargin = GdxApi.getMethodBind(c"AtlasTexture", c"get_margin", 1639390495L)
-            Binds.setFilterClip = GdxApi.getMethodBind(c"AtlasTexture", c"set_filter_clip", 2586408642L)
-            Binds.hasFilterClip = GdxApi.getMethodBind(c"AtlasTexture", c"has_filter_clip", 36873697L)
-
-    def apply(): AtlasTexture =
-        val obj = new AtlasTexture()
-        obj.ptr = GdxApi.constructObject(c"AtlasTexture")
-        obj
+def apply(): AtlasTexture = {
+  val obj = new AtlasTexture()
+  obj.ptr = GdxApi.constructObject(c"AtlasTexture")
+  obj
+}

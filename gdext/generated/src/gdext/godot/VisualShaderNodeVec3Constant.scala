@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeVec3Constant extends VisualShaderNodeConstant
-
-    def setConstant(constant: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = constant.ptr
-        GdxApi.ptrcall(VisualShaderNodeVec3Constant.Binds.setConstant, ptr, _args, null)
-
-    def getConstant(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeVec3Constant.Binds.getConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-    def constant: Ptr[Byte] = getConstant()
-    def constant_=(v: Ptr[Byte]): Unit = setConstant(v)
+class VisualShaderNodeVec3Constant extends VisualShaderNodeConstant {
+    def constant: Vector3 = getConstant()
+    def constant_=(v: Vector3): Unit = setConstant(v)
+}
 
 object VisualShaderNodeVec3Constant:
-    object Binds:
-        var setConstant: Ptr[Byte] = null
-        var getConstant: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setConstant = GdxApi.getMethodBind(c"VisualShaderNodeVec3Constant", c"set_constant", 3460891852L)
-            Binds.getConstant = GdxApi.getMethodBind(c"VisualShaderNodeVec3Constant", c"get_constant", 3360562783L)
-
-    def apply(): VisualShaderNodeVec3Constant =
-        val obj = new VisualShaderNodeVec3Constant()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVec3Constant")
-        obj
+def apply(): VisualShaderNodeVec3Constant = {
+  val obj = new VisualShaderNodeVec3Constant()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVec3Constant")
+  obj
+}

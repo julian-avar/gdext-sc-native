@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VScrollBar extends ScrollBar
-
-
-
+class VScrollBar extends ScrollBar {}
 
 object VScrollBar:
-    def apply(): VScrollBar =
-        val obj = new VScrollBar()
-        obj.ptr = GdxApi.constructObject(c"VScrollBar")
-        obj
+def apply(): VScrollBar = {
+  val obj = new VScrollBar()
+  obj.ptr = GdxApi.constructObject(c"VScrollBar")
+  obj
+}

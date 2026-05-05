@@ -5,383 +5,54 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RDPipelineDepthStencilState extends RefCounted
-
-    def setEnableDepthTest(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setEnableDepthTest, ptr, _args, null)
-
-    def getEnableDepthTest(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getEnableDepthTest, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEnableDepthWrite(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setEnableDepthWrite, ptr, _args, null)
-
-    def getEnableDepthWrite(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getEnableDepthWrite, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDepthCompareOperator(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setDepthCompareOperator, ptr, _args, null)
-
-    def getDepthCompareOperator(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getDepthCompareOperator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEnableDepthRange(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setEnableDepthRange, ptr, _args, null)
-
-    def getEnableDepthRange(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getEnableDepthRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDepthRangeMin(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setDepthRangeMin, ptr, _args, null)
-
-    def getDepthRangeMin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getDepthRangeMin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDepthRangeMax(pMember: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pMember.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setDepthRangeMax, ptr, _args, null)
-
-    def getDepthRangeMax(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getDepthRangeMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setEnableStencil(pMember: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pMember then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setEnableStencil, ptr, _args, null)
-
-    def getEnableStencil(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getEnableStencil, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFrontOpFail(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpFail, ptr, _args, null)
-
-    def getFrontOpFail(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpFail, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontOpPass(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpPass, ptr, _args, null)
-
-    def getFrontOpPass(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpPass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontOpDepthFail(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpDepthFail, ptr, _args, null)
-
-    def getFrontOpDepthFail(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpDepthFail, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontOpCompare(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpCompare, ptr, _args, null)
-
-    def getFrontOpCompare(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpCompare, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontOpCompareMask(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpCompareMask, ptr, _args, null)
-
-    def getFrontOpCompareMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpCompareMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontOpWriteMask(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpWriteMask, ptr, _args, null)
-
-    def getFrontOpWriteMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpWriteMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFrontOpReference(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setFrontOpReference, ptr, _args, null)
-
-    def getFrontOpReference(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getFrontOpReference, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpFail(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpFail, ptr, _args, null)
-
-    def getBackOpFail(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpFail, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpPass(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpPass, ptr, _args, null)
-
-    def getBackOpPass(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpPass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpDepthFail(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpDepthFail, ptr, _args, null)
-
-    def getBackOpDepthFail(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpDepthFail, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpCompare(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pMember.ptr
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpCompare, ptr, _args, null)
-
-    def getBackOpCompare(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpCompare, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpCompareMask(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpCompareMask, ptr, _args, null)
-
-    def getBackOpCompareMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpCompareMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpWriteMask(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpWriteMask, ptr, _args, null)
-
-    def getBackOpWriteMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpWriteMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBackOpReference(pMember: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = pMember.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.setBackOpReference, ptr, _args, null)
-
-    def getBackOpReference(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RDPipelineDepthStencilState.Binds.getBackOpReference, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def enableDepthTest: Ptr[Byte] = getEnableDepthTest()
-    def enableDepthTest_=(v: Ptr[Byte]): Unit = setEnableDepthTest(v)
-    def enableDepthWrite: Ptr[Byte] = getEnableDepthWrite()
-    def enableDepthWrite_=(v: Ptr[Byte]): Unit = setEnableDepthWrite(v)
-    def depthCompareOperator: Ptr[Byte] = getDepthCompareOperator()
-    def depthCompareOperator_=(v: Ptr[Byte]): Unit = setDepthCompareOperator(v)
-    def enableDepthRange: Ptr[Byte] = getEnableDepthRange()
-    def enableDepthRange_=(v: Ptr[Byte]): Unit = setEnableDepthRange(v)
-    def depthRangeMin: Ptr[Byte] = getDepthRangeMin()
-    def depthRangeMin_=(v: Ptr[Byte]): Unit = setDepthRangeMin(v)
-    def depthRangeMax: Ptr[Byte] = getDepthRangeMax()
-    def depthRangeMax_=(v: Ptr[Byte]): Unit = setDepthRangeMax(v)
-    def enableStencil: Ptr[Byte] = getEnableStencil()
-    def enableStencil_=(v: Ptr[Byte]): Unit = setEnableStencil(v)
-    def frontOpFail: Ptr[Byte] = getFrontOpFail()
-    def frontOpFail_=(v: Ptr[Byte]): Unit = setFrontOpFail(v)
-    def frontOpPass: Ptr[Byte] = getFrontOpPass()
-    def frontOpPass_=(v: Ptr[Byte]): Unit = setFrontOpPass(v)
-    def frontOpDepthFail: Ptr[Byte] = getFrontOpDepthFail()
-    def frontOpDepthFail_=(v: Ptr[Byte]): Unit = setFrontOpDepthFail(v)
-    def frontOpCompare: Ptr[Byte] = getFrontOpCompare()
-    def frontOpCompare_=(v: Ptr[Byte]): Unit = setFrontOpCompare(v)
-    def frontOpCompareMask: Ptr[Byte] = getFrontOpCompareMask()
-    def frontOpCompareMask_=(v: Ptr[Byte]): Unit = setFrontOpCompareMask(v)
-    def frontOpWriteMask: Ptr[Byte] = getFrontOpWriteMask()
-    def frontOpWriteMask_=(v: Ptr[Byte]): Unit = setFrontOpWriteMask(v)
-    def frontOpReference: Ptr[Byte] = getFrontOpReference()
-    def frontOpReference_=(v: Ptr[Byte]): Unit = setFrontOpReference(v)
-    def backOpFail: Ptr[Byte] = getBackOpFail()
-    def backOpFail_=(v: Ptr[Byte]): Unit = setBackOpFail(v)
-    def backOpPass: Ptr[Byte] = getBackOpPass()
-    def backOpPass_=(v: Ptr[Byte]): Unit = setBackOpPass(v)
-    def backOpDepthFail: Ptr[Byte] = getBackOpDepthFail()
-    def backOpDepthFail_=(v: Ptr[Byte]): Unit = setBackOpDepthFail(v)
-    def backOpCompare: Ptr[Byte] = getBackOpCompare()
-    def backOpCompare_=(v: Ptr[Byte]): Unit = setBackOpCompare(v)
-    def backOpCompareMask: Ptr[Byte] = getBackOpCompareMask()
-    def backOpCompareMask_=(v: Ptr[Byte]): Unit = setBackOpCompareMask(v)
-    def backOpWriteMask: Ptr[Byte] = getBackOpWriteMask()
-    def backOpWriteMask_=(v: Ptr[Byte]): Unit = setBackOpWriteMask(v)
-    def backOpReference: Ptr[Byte] = getBackOpReference()
-    def backOpReference_=(v: Ptr[Byte]): Unit = setBackOpReference(v)
+class RDPipelineDepthStencilState extends RefCounted {
+    def enableDepthTest: Boolean = getEnableDepthTest()
+    def enableDepthTest_=(v: Boolean): Unit = setEnableDepthTest(v)
+    def enableDepthWrite: Boolean = getEnableDepthWrite()
+    def enableDepthWrite_=(v: Boolean): Unit = setEnableDepthWrite(v)
+    def depthCompareOperator: Int = getDepthCompareOperator()
+    def depthCompareOperator_=(v: Int): Unit = setDepthCompareOperator(v)
+    def enableDepthRange: Boolean = getEnableDepthRange()
+    def enableDepthRange_=(v: Boolean): Unit = setEnableDepthRange(v)
+    def depthRangeMin: Float = getDepthRangeMin()
+    def depthRangeMin_=(v: Float): Unit = setDepthRangeMin(v)
+    def depthRangeMax: Float = getDepthRangeMax()
+    def depthRangeMax_=(v: Float): Unit = setDepthRangeMax(v)
+    def enableStencil: Boolean = getEnableStencil()
+    def enableStencil_=(v: Boolean): Unit = setEnableStencil(v)
+    def frontOpFail: Int = getFrontOpFail()
+    def frontOpFail_=(v: Int): Unit = setFrontOpFail(v)
+    def frontOpPass: Int = getFrontOpPass()
+    def frontOpPass_=(v: Int): Unit = setFrontOpPass(v)
+    def frontOpDepthFail: Int = getFrontOpDepthFail()
+    def frontOpDepthFail_=(v: Int): Unit = setFrontOpDepthFail(v)
+    def frontOpCompare: Int = getFrontOpCompare()
+    def frontOpCompare_=(v: Int): Unit = setFrontOpCompare(v)
+    def frontOpCompareMask: Int = getFrontOpCompareMask()
+    def frontOpCompareMask_=(v: Int): Unit = setFrontOpCompareMask(v)
+    def frontOpWriteMask: Int = getFrontOpWriteMask()
+    def frontOpWriteMask_=(v: Int): Unit = setFrontOpWriteMask(v)
+    def frontOpReference: Int = getFrontOpReference()
+    def frontOpReference_=(v: Int): Unit = setFrontOpReference(v)
+    def backOpFail: Int = getBackOpFail()
+    def backOpFail_=(v: Int): Unit = setBackOpFail(v)
+    def backOpPass: Int = getBackOpPass()
+    def backOpPass_=(v: Int): Unit = setBackOpPass(v)
+    def backOpDepthFail: Int = getBackOpDepthFail()
+    def backOpDepthFail_=(v: Int): Unit = setBackOpDepthFail(v)
+    def backOpCompare: Int = getBackOpCompare()
+    def backOpCompare_=(v: Int): Unit = setBackOpCompare(v)
+    def backOpCompareMask: Int = getBackOpCompareMask()
+    def backOpCompareMask_=(v: Int): Unit = setBackOpCompareMask(v)
+    def backOpWriteMask: Int = getBackOpWriteMask()
+    def backOpWriteMask_=(v: Int): Unit = setBackOpWriteMask(v)
+    def backOpReference: Int = getBackOpReference()
+    def backOpReference_=(v: Int): Unit = setBackOpReference(v)
+}
 
 object RDPipelineDepthStencilState:
-    object Binds:
-        var setEnableDepthTest: Ptr[Byte] = null
-        var getEnableDepthTest: Ptr[Byte] = null
-        var setEnableDepthWrite: Ptr[Byte] = null
-        var getEnableDepthWrite: Ptr[Byte] = null
-        var setDepthCompareOperator: Ptr[Byte] = null
-        var getDepthCompareOperator: Ptr[Byte] = null
-        var setEnableDepthRange: Ptr[Byte] = null
-        var getEnableDepthRange: Ptr[Byte] = null
-        var setDepthRangeMin: Ptr[Byte] = null
-        var getDepthRangeMin: Ptr[Byte] = null
-        var setDepthRangeMax: Ptr[Byte] = null
-        var getDepthRangeMax: Ptr[Byte] = null
-        var setEnableStencil: Ptr[Byte] = null
-        var getEnableStencil: Ptr[Byte] = null
-        var setFrontOpFail: Ptr[Byte] = null
-        var getFrontOpFail: Ptr[Byte] = null
-        var setFrontOpPass: Ptr[Byte] = null
-        var getFrontOpPass: Ptr[Byte] = null
-        var setFrontOpDepthFail: Ptr[Byte] = null
-        var getFrontOpDepthFail: Ptr[Byte] = null
-        var setFrontOpCompare: Ptr[Byte] = null
-        var getFrontOpCompare: Ptr[Byte] = null
-        var setFrontOpCompareMask: Ptr[Byte] = null
-        var getFrontOpCompareMask: Ptr[Byte] = null
-        var setFrontOpWriteMask: Ptr[Byte] = null
-        var getFrontOpWriteMask: Ptr[Byte] = null
-        var setFrontOpReference: Ptr[Byte] = null
-        var getFrontOpReference: Ptr[Byte] = null
-        var setBackOpFail: Ptr[Byte] = null
-        var getBackOpFail: Ptr[Byte] = null
-        var setBackOpPass: Ptr[Byte] = null
-        var getBackOpPass: Ptr[Byte] = null
-        var setBackOpDepthFail: Ptr[Byte] = null
-        var getBackOpDepthFail: Ptr[Byte] = null
-        var setBackOpCompare: Ptr[Byte] = null
-        var getBackOpCompare: Ptr[Byte] = null
-        var setBackOpCompareMask: Ptr[Byte] = null
-        var getBackOpCompareMask: Ptr[Byte] = null
-        var setBackOpWriteMask: Ptr[Byte] = null
-        var getBackOpWriteMask: Ptr[Byte] = null
-        var setBackOpReference: Ptr[Byte] = null
-        var getBackOpReference: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setEnableDepthTest = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_enable_depth_test", 2586408642L)
-            Binds.getEnableDepthTest = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_enable_depth_test", 36873697L)
-            Binds.setEnableDepthWrite = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_enable_depth_write", 2586408642L)
-            Binds.getEnableDepthWrite = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_enable_depth_write", 36873697L)
-            Binds.setDepthCompareOperator = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_depth_compare_operator", 2573711505L)
-            Binds.getDepthCompareOperator = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_depth_compare_operator", 269730778L)
-            Binds.setEnableDepthRange = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_enable_depth_range", 2586408642L)
-            Binds.getEnableDepthRange = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_enable_depth_range", 36873697L)
-            Binds.setDepthRangeMin = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_depth_range_min", 373806689L)
-            Binds.getDepthRangeMin = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_depth_range_min", 1740695150L)
-            Binds.setDepthRangeMax = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_depth_range_max", 373806689L)
-            Binds.getDepthRangeMax = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_depth_range_max", 1740695150L)
-            Binds.setEnableStencil = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_enable_stencil", 2586408642L)
-            Binds.getEnableStencil = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_enable_stencil", 36873697L)
-            Binds.setFrontOpFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_fail", 2092799566L)
-            Binds.getFrontOpFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_fail", 1714732389L)
-            Binds.setFrontOpPass = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_pass", 2092799566L)
-            Binds.getFrontOpPass = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_pass", 1714732389L)
-            Binds.setFrontOpDepthFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_depth_fail", 2092799566L)
-            Binds.getFrontOpDepthFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_depth_fail", 1714732389L)
-            Binds.setFrontOpCompare = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_compare", 2573711505L)
-            Binds.getFrontOpCompare = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_compare", 269730778L)
-            Binds.setFrontOpCompareMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_compare_mask", 1286410249L)
-            Binds.getFrontOpCompareMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_compare_mask", 3905245786L)
-            Binds.setFrontOpWriteMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_write_mask", 1286410249L)
-            Binds.getFrontOpWriteMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_write_mask", 3905245786L)
-            Binds.setFrontOpReference = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_front_op_reference", 1286410249L)
-            Binds.getFrontOpReference = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_front_op_reference", 3905245786L)
-            Binds.setBackOpFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_fail", 2092799566L)
-            Binds.getBackOpFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_fail", 1714732389L)
-            Binds.setBackOpPass = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_pass", 2092799566L)
-            Binds.getBackOpPass = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_pass", 1714732389L)
-            Binds.setBackOpDepthFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_depth_fail", 2092799566L)
-            Binds.getBackOpDepthFail = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_depth_fail", 1714732389L)
-            Binds.setBackOpCompare = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_compare", 2573711505L)
-            Binds.getBackOpCompare = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_compare", 269730778L)
-            Binds.setBackOpCompareMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_compare_mask", 1286410249L)
-            Binds.getBackOpCompareMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_compare_mask", 3905245786L)
-            Binds.setBackOpWriteMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_write_mask", 1286410249L)
-            Binds.getBackOpWriteMask = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_write_mask", 3905245786L)
-            Binds.setBackOpReference = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"set_back_op_reference", 1286410249L)
-            Binds.getBackOpReference = GdxApi.getMethodBind(c"RDPipelineDepthStencilState", c"get_back_op_reference", 3905245786L)
-
-    def apply(): RDPipelineDepthStencilState =
-        val obj = new RDPipelineDepthStencilState()
-        obj.ptr = GdxApi.constructObject(c"RDPipelineDepthStencilState")
-        obj
+def apply(): RDPipelineDepthStencilState = {
+  val obj = new RDPipelineDepthStencilState()
+  obj.ptr = GdxApi.constructObject(c"RDPipelineDepthStencilState")
+  obj
+}

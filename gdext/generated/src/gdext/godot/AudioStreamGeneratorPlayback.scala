@@ -5,60 +5,67 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamGeneratorPlayback extends AudioStreamPlaybackResampled
-
-    def pushFrame(frame: Vector2): Boolean =
+class AudioStreamGeneratorPlayback extends AudioStreamPlaybackResampled {
+    def pushFrame(frame: Vector2): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = frame.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamGeneratorPlayback.Binds.pushFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def canPushBuffer(amount: Int): Boolean =
+    def canPushBuffer(amount: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
+        val _a0 = stackalloc[Long](); !_a0 = amount.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamGeneratorPlayback.Binds.canPushBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def pushBuffer(frames: PackedVector2Array): Boolean =
+    def pushBuffer(frames: PackedVector2Array): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = frames.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamGeneratorPlayback.Binds.pushBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFramesAvailable(): Int =
+    def getFramesAvailable(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamGeneratorPlayback.Binds.getFramesAvailable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSkips(): Int =
+    def getSkips(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AudioStreamGeneratorPlayback.Binds.getSkips, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearBuffer(): Unit =
+    def clearBuffer(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamGeneratorPlayback.Binds.clearBuffer, ptr, _args, null)
-
+}
+}
 
 object AudioStreamGeneratorPlayback:
-    object Binds:
-        var pushFrame: Ptr[Byte] = null
+object Binds {
+          var pushFrame: Ptr[Byte] = null
         var canPushBuffer: Ptr[Byte] = null
         var pushBuffer: Ptr[Byte] = null
         var getFramesAvailable: Ptr[Byte] = null
         var getSkips: Ptr[Byte] = null
         var clearBuffer: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.pushFrame = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"push_frame", 3975407249L)
+  def loadBinds(): Unit = {
+                Binds.pushFrame = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"push_frame", 3975407249L)
             Binds.canPushBuffer = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"can_push_buffer", 1116898809L)
             Binds.pushBuffer = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"push_buffer", 1361156557L)
             Binds.getFramesAvailable = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"get_frames_available", 3905245786L)
             Binds.getSkips = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"get_skips", 3905245786L)
             Binds.clearBuffer = GdxApi.getMethodBind(c"AudioStreamGeneratorPlayback", c"clear_buffer", 3218959716L)
+  }
+}

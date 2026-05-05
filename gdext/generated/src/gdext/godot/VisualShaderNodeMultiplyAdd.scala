@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeMultiplyAdd extends VisualShaderNode
-
-    def setOpType(`type`: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(VisualShaderNodeMultiplyAdd.Binds.setOpType, ptr, _args, null)
-
-    def getOpType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeMultiplyAdd.Binds.getOpType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def opType: Ptr[Byte] = getOpType()
-    def opType_=(v: Ptr[Byte]): Unit = setOpType(v)
+class VisualShaderNodeMultiplyAdd extends VisualShaderNode {
+    def opType: Int = getOpType()
+    def opType_=(v: Int): Unit = setOpType(v)
+}
 
 object VisualShaderNodeMultiplyAdd:
-    object Binds:
-        var setOpType: Ptr[Byte] = null
-        var getOpType: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOpType = GdxApi.getMethodBind(c"VisualShaderNodeMultiplyAdd", c"set_op_type", 1409862380L)
-            Binds.getOpType = GdxApi.getMethodBind(c"VisualShaderNodeMultiplyAdd", c"get_op_type", 2823201991L)
-
-    def apply(): VisualShaderNodeMultiplyAdd =
-        val obj = new VisualShaderNodeMultiplyAdd()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeMultiplyAdd")
-        obj
+def apply(): VisualShaderNodeMultiplyAdd = {
+  val obj = new VisualShaderNodeMultiplyAdd()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeMultiplyAdd")
+  obj
+}

@@ -5,35 +5,40 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioListener2D extends Node2D
-
-    def makeCurrent(): Unit =
+class AudioListener2D extends Node2D {
+    def makeCurrent(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioListener2D.Binds.makeCurrent, ptr, _args, null)
+}
 
-    def clearCurrent(): Unit =
+    def clearCurrent(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioListener2D.Binds.clearCurrent, ptr, _args, null)
+}
 
-    def isCurrent(): Boolean =
+    def isCurrent(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioListener2D.Binds.isCurrent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object AudioListener2D:
-    object Binds:
-        var makeCurrent: Ptr[Byte] = null
+object Binds {
+          var makeCurrent: Ptr[Byte] = null
         var clearCurrent: Ptr[Byte] = null
         var isCurrent: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.makeCurrent = GdxApi.getMethodBind(c"AudioListener2D", c"make_current", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.makeCurrent = GdxApi.getMethodBind(c"AudioListener2D", c"make_current", 3218959716L)
             Binds.clearCurrent = GdxApi.getMethodBind(c"AudioListener2D", c"clear_current", 3218959716L)
             Binds.isCurrent = GdxApi.getMethodBind(c"AudioListener2D", c"is_current", 36873697L)
+  }
+}
 
-    def apply(): AudioListener2D =
-        val obj = new AudioListener2D()
-        obj.ptr = GdxApi.constructObject(c"AudioListener2D")
-        obj
+def apply(): AudioListener2D = {
+  val obj = new AudioListener2D()
+  obj.ptr = GdxApi.constructObject(c"AudioListener2D")
+  obj
+}

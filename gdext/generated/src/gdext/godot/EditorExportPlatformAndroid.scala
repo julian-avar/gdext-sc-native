@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPlatformAndroid extends EditorExportPlatform
-
-
-
+class EditorExportPlatformAndroid extends EditorExportPlatform {}
 
 object EditorExportPlatformAndroid:
-    def apply(): EditorExportPlatformAndroid =
-        val obj = new EditorExportPlatformAndroid()
-        obj.ptr = GdxApi.constructObject(c"EditorExportPlatformAndroid")
-        obj
+def apply(): EditorExportPlatformAndroid = {
+  val obj = new EditorExportPlatformAndroid()
+  obj.ptr = GdxApi.constructObject(c"EditorExportPlatformAndroid")
+  obj
+}

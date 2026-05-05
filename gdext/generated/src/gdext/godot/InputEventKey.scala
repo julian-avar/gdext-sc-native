@@ -5,147 +5,75 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventKey extends InputEventWithModifiers
-
-    def setPressed(pressed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pressed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventKey.Binds.setPressed, ptr, _args, null)
-
-    def setKeycode(keycode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keycode.ptr
-        GdxApi.ptrcall(InputEventKey.Binds.setKeycode, ptr, _args, null)
-
-    def getKeycode(): Int =
+class InputEventKey extends InputEventWithModifiers {
+    def getKeycodeWithModifiers(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventKey.Binds.getKeycode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPhysicalKeycode(physicalKeycode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = physicalKeycode.ptr
-        GdxApi.ptrcall(InputEventKey.Binds.setPhysicalKeycode, ptr, _args, null)
-
-    def getPhysicalKeycode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventKey.Binds.getPhysicalKeycode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setKeyLabel(keyLabel: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keyLabel.ptr
-        GdxApi.ptrcall(InputEventKey.Binds.setKeyLabel, ptr, _args, null)
-
-    def getKeyLabel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventKey.Binds.getKeyLabel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setUnicode(unicode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unicode.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventKey.Binds.setUnicode, ptr, _args, null)
-
-    def getUnicode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventKey.Binds.getUnicode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLocation(location: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = location.ptr
-        GdxApi.ptrcall(InputEventKey.Binds.setLocation, ptr, _args, null)
-
-    def getLocation(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventKey.Binds.getLocation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEcho(echo: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if echo then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventKey.Binds.setEcho, ptr, _args, null)
-
-    def getKeycodeWithModifiers(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(InputEventKey.Binds.getKeycodeWithModifiers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPhysicalKeycodeWithModifiers(): Int =
+    def getPhysicalKeycodeWithModifiers(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(InputEventKey.Binds.getPhysicalKeycodeWithModifiers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getKeyLabelWithModifiers(): Int =
+    def getKeyLabelWithModifiers(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(InputEventKey.Binds.getKeyLabelWithModifiers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def asTextKeycode(): CString =
+    def asTextKeycode(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputEventKey.Binds.asTextKeycode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def asTextPhysicalKeycode(): CString =
+    def asTextPhysicalKeycode(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputEventKey.Binds.asTextPhysicalKeycode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def asTextKeyLabel(): CString =
+    def asTextKeyLabel(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputEventKey.Binds.asTextKeyLabel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def asTextLocation(): CString =
+    def asTextLocation(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(InputEventKey.Binds.asTextLocation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
+
     def pressed: Ptr[Byte] = isPressed()
-    def pressed_=(v: Ptr[Byte]): Unit = setPressed(v)
-    def keycode: Ptr[Byte] = getKeycode()
-    def keycode_=(v: Ptr[Byte]): Unit = setKeycode(v)
-    def physicalKeycode: Ptr[Byte] = getPhysicalKeycode()
-    def physicalKeycode_=(v: Ptr[Byte]): Unit = setPhysicalKeycode(v)
-    def keyLabel: Ptr[Byte] = getKeyLabel()
-    def keyLabel_=(v: Ptr[Byte]): Unit = setKeyLabel(v)
-    def unicode: Ptr[Byte] = getUnicode()
-    def unicode_=(v: Ptr[Byte]): Unit = setUnicode(v)
-    def location: Ptr[Byte] = getLocation()
-    def location_=(v: Ptr[Byte]): Unit = setLocation(v)
+    def pressed_=(v: Boolean): Unit = setPressed(v)
+    def keycode: Int = getKeycode()
+    def keycode_=(v: Int): Unit = setKeycode(v)
+    def physicalKeycode: Int = getPhysicalKeycode()
+    def physicalKeycode_=(v: Int): Unit = setPhysicalKeycode(v)
+    def keyLabel: Int = getKeyLabel()
+    def keyLabel_=(v: Int): Unit = setKeyLabel(v)
+    def unicode: Int = getUnicode()
+    def unicode_=(v: Int): Unit = setUnicode(v)
+    def location: Int = getLocation()
+    def location_=(v: Int): Unit = setLocation(v)
     def echo: Ptr[Byte] = isEcho()
-    def echo_=(v: Ptr[Byte]): Unit = setEcho(v)
+    def echo_=(v: Boolean): Unit = setEcho(v)
+}
 
 object InputEventKey:
-    object Binds:
-        var setPressed: Ptr[Byte] = null
-        var setKeycode: Ptr[Byte] = null
-        var getKeycode: Ptr[Byte] = null
-        var setPhysicalKeycode: Ptr[Byte] = null
-        var getPhysicalKeycode: Ptr[Byte] = null
-        var setKeyLabel: Ptr[Byte] = null
-        var getKeyLabel: Ptr[Byte] = null
-        var setUnicode: Ptr[Byte] = null
-        var getUnicode: Ptr[Byte] = null
-        var setLocation: Ptr[Byte] = null
-        var getLocation: Ptr[Byte] = null
-        var setEcho: Ptr[Byte] = null
-        var getKeycodeWithModifiers: Ptr[Byte] = null
+object Binds {
+          var getKeycodeWithModifiers: Ptr[Byte] = null
         var getPhysicalKeycodeWithModifiers: Ptr[Byte] = null
         var getKeyLabelWithModifiers: Ptr[Byte] = null
         var asTextKeycode: Ptr[Byte] = null
@@ -153,28 +81,19 @@ object InputEventKey:
         var asTextKeyLabel: Ptr[Byte] = null
         var asTextLocation: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPressed = GdxApi.getMethodBind(c"InputEventKey", c"set_pressed", 2586408642L)
-            Binds.setKeycode = GdxApi.getMethodBind(c"InputEventKey", c"set_keycode", 888074362L)
-            Binds.getKeycode = GdxApi.getMethodBind(c"InputEventKey", c"get_keycode", 1585896689L)
-            Binds.setPhysicalKeycode = GdxApi.getMethodBind(c"InputEventKey", c"set_physical_keycode", 888074362L)
-            Binds.getPhysicalKeycode = GdxApi.getMethodBind(c"InputEventKey", c"get_physical_keycode", 1585896689L)
-            Binds.setKeyLabel = GdxApi.getMethodBind(c"InputEventKey", c"set_key_label", 888074362L)
-            Binds.getKeyLabel = GdxApi.getMethodBind(c"InputEventKey", c"get_key_label", 1585896689L)
-            Binds.setUnicode = GdxApi.getMethodBind(c"InputEventKey", c"set_unicode", 1286410249L)
-            Binds.getUnicode = GdxApi.getMethodBind(c"InputEventKey", c"get_unicode", 3905245786L)
-            Binds.setLocation = GdxApi.getMethodBind(c"InputEventKey", c"set_location", 634453155L)
-            Binds.getLocation = GdxApi.getMethodBind(c"InputEventKey", c"get_location", 211810873L)
-            Binds.setEcho = GdxApi.getMethodBind(c"InputEventKey", c"set_echo", 2586408642L)
-            Binds.getKeycodeWithModifiers = GdxApi.getMethodBind(c"InputEventKey", c"get_keycode_with_modifiers", 1585896689L)
+  def loadBinds(): Unit = {
+                Binds.getKeycodeWithModifiers = GdxApi.getMethodBind(c"InputEventKey", c"get_keycode_with_modifiers", 1585896689L)
             Binds.getPhysicalKeycodeWithModifiers = GdxApi.getMethodBind(c"InputEventKey", c"get_physical_keycode_with_modifiers", 1585896689L)
             Binds.getKeyLabelWithModifiers = GdxApi.getMethodBind(c"InputEventKey", c"get_key_label_with_modifiers", 1585896689L)
             Binds.asTextKeycode = GdxApi.getMethodBind(c"InputEventKey", c"as_text_keycode", 201670096L)
             Binds.asTextPhysicalKeycode = GdxApi.getMethodBind(c"InputEventKey", c"as_text_physical_keycode", 201670096L)
             Binds.asTextKeyLabel = GdxApi.getMethodBind(c"InputEventKey", c"as_text_key_label", 201670096L)
             Binds.asTextLocation = GdxApi.getMethodBind(c"InputEventKey", c"as_text_location", 201670096L)
+  }
+}
 
-    def apply(): InputEventKey =
-        val obj = new InputEventKey()
-        obj.ptr = GdxApi.constructObject(c"InputEventKey")
-        obj
+def apply(): InputEventKey = {
+  val obj = new InputEventKey()
+  obj.ptr = GdxApi.constructObject(c"InputEventKey")
+  obj
+}

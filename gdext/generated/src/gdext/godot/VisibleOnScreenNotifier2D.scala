@@ -5,57 +5,31 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisibleOnScreenNotifier2D extends Node2D
-
-    def setRect(rect: Rect2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = rect.ptr
-        GdxApi.ptrcall(VisibleOnScreenNotifier2D.Binds.setRect, ptr, _args, null)
-
-    def getRect(): Rect2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisibleOnScreenNotifier2D.Binds.getRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2(!_ret)
-
-    def setShowRect(showRect: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if showRect then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisibleOnScreenNotifier2D.Binds.setShowRect, ptr, _args, null)
-
-    def isShowingRect(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VisibleOnScreenNotifier2D.Binds.isShowingRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isOnScreen(): Boolean =
+class VisibleOnScreenNotifier2D extends Node2D {
+    def isOnScreen(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(VisibleOnScreenNotifier2D.Binds.isOnScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def rect: Ptr[Byte] = getRect()
-    def rect_=(v: Ptr[Byte]): Unit = setRect(v)
-    def showRect: Ptr[Byte] = isShowingRect()
-    def showRect_=(v: Ptr[Byte]): Unit = setShowRect(v)
+}
+
+    def rect: Rect2 = getRect()
+    def rect_=(v: Rect2): Unit = setRect(v)
+    def showRect: Boolean = isShowingRect()
+    def showRect_=(v: Boolean): Unit = setShowRect(v)
+}
 
 object VisibleOnScreenNotifier2D:
-    object Binds:
-        var setRect: Ptr[Byte] = null
-        var getRect: Ptr[Byte] = null
-        var setShowRect: Ptr[Byte] = null
-        var isShowingRect: Ptr[Byte] = null
-        var isOnScreen: Ptr[Byte] = null
+object Binds {
+          var isOnScreen: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRect = GdxApi.getMethodBind(c"VisibleOnScreenNotifier2D", c"set_rect", 2046264180L)
-            Binds.getRect = GdxApi.getMethodBind(c"VisibleOnScreenNotifier2D", c"get_rect", 1639390495L)
-            Binds.setShowRect = GdxApi.getMethodBind(c"VisibleOnScreenNotifier2D", c"set_show_rect", 2586408642L)
-            Binds.isShowingRect = GdxApi.getMethodBind(c"VisibleOnScreenNotifier2D", c"is_showing_rect", 36873697L)
-            Binds.isOnScreen = GdxApi.getMethodBind(c"VisibleOnScreenNotifier2D", c"is_on_screen", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.isOnScreen = GdxApi.getMethodBind(c"VisibleOnScreenNotifier2D", c"is_on_screen", 36873697L)
+  }
+}
 
-    def apply(): VisibleOnScreenNotifier2D =
-        val obj = new VisibleOnScreenNotifier2D()
-        obj.ptr = GdxApi.constructObject(c"VisibleOnScreenNotifier2D")
-        obj
+def apply(): VisibleOnScreenNotifier2D = {
+  val obj = new VisibleOnScreenNotifier2D()
+  obj.ptr = GdxApi.constructObject(c"VisibleOnScreenNotifier2D")
+  obj
+}

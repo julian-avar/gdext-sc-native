@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPlaybackOggVorbis extends AudioStreamPlaybackResampled
-
-
-
+class AudioStreamPlaybackOggVorbis extends AudioStreamPlaybackResampled {}
 
 object AudioStreamPlaybackOggVorbis:
-    def apply(): AudioStreamPlaybackOggVorbis =
-        val obj = new AudioStreamPlaybackOggVorbis()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamPlaybackOggVorbis")
-        obj
+def apply(): AudioStreamPlaybackOggVorbis = {
+  val obj = new AudioStreamPlaybackOggVorbis()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamPlaybackOggVorbis")
+  obj
+}

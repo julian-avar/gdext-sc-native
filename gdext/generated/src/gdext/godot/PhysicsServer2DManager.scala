@@ -5,32 +5,36 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsServer2DManager extends Object
-
-    def registerServer(name: CString, createCallback: Callable): Unit =
+class PhysicsServer2DManager extends Object {
+    def registerServer(name: CString, createCallback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = createCallback.ptr
         GdxApi.ptrcall(PhysicsServer2DManager.Binds.registerServer, ptr, _args, null)
+}
 
-    def setDefaultServer(name: CString, priority: Int): Unit =
+    def setDefaultServer(name: CString, priority: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = priority.toLong
+        _args(0) = name
+        val _a1 = stackalloc[Long](); !_a1 = priority.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(PhysicsServer2DManager.Binds.setDefaultServer, ptr, _args, null)
-
+}
+}
 
 object PhysicsServer2DManager:
-    object Binds:
-        var registerServer: Ptr[Byte] = null
+object Binds {
+          var registerServer: Ptr[Byte] = null
         var setDefaultServer: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.registerServer = GdxApi.getMethodBind(c"PhysicsServer2DManager", c"register_server", 2137474292L)
+  def loadBinds(): Unit = {
+                Binds.registerServer = GdxApi.getMethodBind(c"PhysicsServer2DManager", c"register_server", 2137474292L)
             Binds.setDefaultServer = GdxApi.getMethodBind(c"PhysicsServer2DManager", c"set_default_server", 2956805083L)
+  }
+}
 
-    def apply(): PhysicsServer2DManager =
-        val obj = new PhysicsServer2DManager()
-        obj.ptr = GdxApi.constructObject(c"PhysicsServer2DManager")
-        obj
+def apply(): PhysicsServer2DManager = {
+  val obj = new PhysicsServer2DManager()
+  obj.ptr = GdxApi.constructObject(c"PhysicsServer2DManager")
+  obj
+}

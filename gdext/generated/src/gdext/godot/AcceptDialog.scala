@@ -5,150 +5,82 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AcceptDialog extends Window
-
-    def getOkButton(): Button =
+class AcceptDialog extends Window {
+    def getOkButton(): Button = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AcceptDialog.Binds.getOkButton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Button(!_ret)
+}
 
-    def getLabel(): Label =
+    def getLabel(): Label = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AcceptDialog.Binds.getLabel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Label(!_ret)
+}
 
-    def setHideOnOk(enabled: Boolean): Unit =
+    def addButton(text: CString): Button = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AcceptDialog.Binds.setHideOnOk, ptr, _args, null)
-
-    def getHideOnOk(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AcceptDialog.Binds.getHideOnOk, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCloseOnEscape(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AcceptDialog.Binds.setCloseOnEscape, ptr, _args, null)
-
-    def getCloseOnEscape(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AcceptDialog.Binds.getCloseOnEscape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def addButton(text: CString): Button =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
+        _args(0) = text
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AcceptDialog.Binds.addButton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Button(!_ret)
+}
 
-    def addCancelButton(name: CString): Button =
+    def addCancelButton(name: CString): Button = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AcceptDialog.Binds.addCancelButton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Button(!_ret)
+}
 
-    def removeButton(button: Button): Unit =
+    def removeButton(button: Button): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = button.ptr
         GdxApi.ptrcall(AcceptDialog.Binds.removeButton, ptr, _args, null)
+}
 
-    def registerTextEnter(lineEdit: LineEdit): Unit =
+    def registerTextEnter(lineEdit: LineEdit): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = lineEdit.ptr
         GdxApi.ptrcall(AcceptDialog.Binds.registerTextEnter, ptr, _args, null)
+}
 
-    def setText(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(AcceptDialog.Binds.setText, ptr, _args, null)
-
-    def getText(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AcceptDialog.Binds.getText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setAutowrap(autowrap: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if autowrap then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AcceptDialog.Binds.setAutowrap, ptr, _args, null)
-
-    def hasAutowrap(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AcceptDialog.Binds.hasAutowrap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOkButtonText(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(AcceptDialog.Binds.setOkButtonText, ptr, _args, null)
-
-    def getOkButtonText(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AcceptDialog.Binds.getOkButtonText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def okButtonText: Ptr[Byte] = getOkButtonText()
-    def okButtonText_=(v: Ptr[Byte]): Unit = setOkButtonText(v)
-    def dialogText: Ptr[Byte] = getText()
-    def dialogText_=(v: Ptr[Byte]): Unit = setText(v)
-    def dialogHideOnOk: Ptr[Byte] = getHideOnOk()
-    def dialogHideOnOk_=(v: Ptr[Byte]): Unit = setHideOnOk(v)
-    def dialogCloseOnEscape: Ptr[Byte] = getCloseOnEscape()
-    def dialogCloseOnEscape_=(v: Ptr[Byte]): Unit = setCloseOnEscape(v)
-    def dialogAutowrap: Ptr[Byte] = hasAutowrap()
-    def dialogAutowrap_=(v: Ptr[Byte]): Unit = setAutowrap(v)
+    def okButtonText: CString = getOkButtonText()
+    def okButtonText_=(v: CString): Unit = setOkButtonText(v)
+    def dialogText: CString = getText()
+    def dialogText_=(v: CString): Unit = setText(v)
+    def dialogHideOnOk: Boolean = getHideOnOk()
+    def dialogHideOnOk_=(v: Boolean): Unit = setHideOnOk(v)
+    def dialogCloseOnEscape: Boolean = getCloseOnEscape()
+    def dialogCloseOnEscape_=(v: Boolean): Unit = setCloseOnEscape(v)
+    def dialogAutowrap: Boolean = hasAutowrap()
+    def dialogAutowrap_=(v: Boolean): Unit = setAutowrap(v)
+}
 
 object AcceptDialog:
-    object Binds:
-        var getOkButton: Ptr[Byte] = null
+object Binds {
+          var getOkButton: Ptr[Byte] = null
         var getLabel: Ptr[Byte] = null
-        var setHideOnOk: Ptr[Byte] = null
-        var getHideOnOk: Ptr[Byte] = null
-        var setCloseOnEscape: Ptr[Byte] = null
-        var getCloseOnEscape: Ptr[Byte] = null
         var addButton: Ptr[Byte] = null
         var addCancelButton: Ptr[Byte] = null
         var removeButton: Ptr[Byte] = null
         var registerTextEnter: Ptr[Byte] = null
-        var setText: Ptr[Byte] = null
-        var getText: Ptr[Byte] = null
-        var setAutowrap: Ptr[Byte] = null
-        var hasAutowrap: Ptr[Byte] = null
-        var setOkButtonText: Ptr[Byte] = null
-        var getOkButtonText: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getOkButton = GdxApi.getMethodBind(c"AcceptDialog", c"get_ok_button", 1856205918L)
+  def loadBinds(): Unit = {
+                Binds.getOkButton = GdxApi.getMethodBind(c"AcceptDialog", c"get_ok_button", 1856205918L)
             Binds.getLabel = GdxApi.getMethodBind(c"AcceptDialog", c"get_label", 566733104L)
-            Binds.setHideOnOk = GdxApi.getMethodBind(c"AcceptDialog", c"set_hide_on_ok", 2586408642L)
-            Binds.getHideOnOk = GdxApi.getMethodBind(c"AcceptDialog", c"get_hide_on_ok", 36873697L)
-            Binds.setCloseOnEscape = GdxApi.getMethodBind(c"AcceptDialog", c"set_close_on_escape", 2586408642L)
-            Binds.getCloseOnEscape = GdxApi.getMethodBind(c"AcceptDialog", c"get_close_on_escape", 36873697L)
             Binds.addButton = GdxApi.getMethodBind(c"AcceptDialog", c"add_button", 3328440682L)
             Binds.addCancelButton = GdxApi.getMethodBind(c"AcceptDialog", c"add_cancel_button", 242045556L)
             Binds.removeButton = GdxApi.getMethodBind(c"AcceptDialog", c"remove_button", 2068354942L)
             Binds.registerTextEnter = GdxApi.getMethodBind(c"AcceptDialog", c"register_text_enter", 3714008017L)
-            Binds.setText = GdxApi.getMethodBind(c"AcceptDialog", c"set_text", 83702148L)
-            Binds.getText = GdxApi.getMethodBind(c"AcceptDialog", c"get_text", 201670096L)
-            Binds.setAutowrap = GdxApi.getMethodBind(c"AcceptDialog", c"set_autowrap", 2586408642L)
-            Binds.hasAutowrap = GdxApi.getMethodBind(c"AcceptDialog", c"has_autowrap", 2240911060L)
-            Binds.setOkButtonText = GdxApi.getMethodBind(c"AcceptDialog", c"set_ok_button_text", 83702148L)
-            Binds.getOkButtonText = GdxApi.getMethodBind(c"AcceptDialog", c"get_ok_button_text", 201670096L)
+  }
+}
 
-    def apply(): AcceptDialog =
-        val obj = new AcceptDialog()
-        obj.ptr = GdxApi.constructObject(c"AcceptDialog")
-        obj
+def apply(): AcceptDialog = {
+  val obj = new AcceptDialog()
+  obj.ptr = GdxApi.constructObject(c"AcceptDialog")
+  obj
+}

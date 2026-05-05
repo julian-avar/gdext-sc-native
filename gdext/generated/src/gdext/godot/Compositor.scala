@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Compositor extends Resource
-
-    def setCompositorEffects(compositorEffects: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = compositorEffects.ptr
-        GdxApi.ptrcall(Compositor.Binds.setCompositorEffects, ptr, _args, null)
-
-    def getCompositorEffects(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Compositor.Binds.getCompositorEffects, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
+class Compositor extends Resource {
     def compositorEffects: Ptr[Byte] = getCompositorEffects()
     def compositorEffects_=(v: Ptr[Byte]): Unit = setCompositorEffects(v)
+}
 
 object Compositor:
-    object Binds:
-        var setCompositorEffects: Ptr[Byte] = null
-        var getCompositorEffects: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setCompositorEffects = GdxApi.getMethodBind(c"Compositor", c"set_compositor_effects", 381264803L)
-            Binds.getCompositorEffects = GdxApi.getMethodBind(c"Compositor", c"get_compositor_effects", 3995934104L)
-
-    def apply(): Compositor =
-        val obj = new Compositor()
-        obj.ptr = GdxApi.constructObject(c"Compositor")
-        obj
+def apply(): Compositor = {
+  val obj = new Compositor()
+  obj.ptr = GdxApi.constructObject(c"Compositor")
+  obj
+}

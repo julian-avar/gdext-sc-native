@@ -5,187 +5,32 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Parallax2D extends Node2D
-
-    def setScrollScale(scale: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setScrollScale, ptr, _args, null)
-
-    def getScrollScale(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getScrollScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setRepeatSize(repeatSize: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = repeatSize.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setRepeatSize, ptr, _args, null)
-
-    def getRepeatSize(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getRepeatSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setRepeatTimes(repeatTimes: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = repeatTimes.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Parallax2D.Binds.setRepeatTimes, ptr, _args, null)
-
-    def getRepeatTimes(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Parallax2D.Binds.getRepeatTimes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAutoscroll(autoscroll: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = autoscroll.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setAutoscroll, ptr, _args, null)
-
-    def getAutoscroll(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getAutoscroll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setScrollOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setScrollOffset, ptr, _args, null)
-
-    def getScrollOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getScrollOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setScreenOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setScreenOffset, ptr, _args, null)
-
-    def getScreenOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getScreenOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setLimitBegin(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setLimitBegin, ptr, _args, null)
-
-    def getLimitBegin(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getLimitBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setLimitEnd(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(Parallax2D.Binds.setLimitEnd, ptr, _args, null)
-
-    def getLimitEnd(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Parallax2D.Binds.getLimitEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setFollowViewport(follow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if follow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Parallax2D.Binds.setFollowViewport, ptr, _args, null)
-
-    def getFollowViewport(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Parallax2D.Binds.getFollowViewport, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setIgnoreCameraScroll(ignore: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ignore then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Parallax2D.Binds.setIgnoreCameraScroll, ptr, _args, null)
-
-    def isIgnoreCameraScroll(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Parallax2D.Binds.isIgnoreCameraScroll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def scrollScale: Ptr[Byte] = getScrollScale()
-    def scrollScale_=(v: Ptr[Byte]): Unit = setScrollScale(v)
-    def scrollOffset: Ptr[Byte] = getScrollOffset()
-    def scrollOffset_=(v: Ptr[Byte]): Unit = setScrollOffset(v)
-    def repeatSize: Ptr[Byte] = getRepeatSize()
-    def repeatSize_=(v: Ptr[Byte]): Unit = setRepeatSize(v)
-    def autoscroll: Ptr[Byte] = getAutoscroll()
-    def autoscroll_=(v: Ptr[Byte]): Unit = setAutoscroll(v)
-    def repeatTimes: Ptr[Byte] = getRepeatTimes()
-    def repeatTimes_=(v: Ptr[Byte]): Unit = setRepeatTimes(v)
-    def limitBegin: Ptr[Byte] = getLimitBegin()
-    def limitBegin_=(v: Ptr[Byte]): Unit = setLimitBegin(v)
-    def limitEnd: Ptr[Byte] = getLimitEnd()
-    def limitEnd_=(v: Ptr[Byte]): Unit = setLimitEnd(v)
-    def followViewport: Ptr[Byte] = getFollowViewport()
-    def followViewport_=(v: Ptr[Byte]): Unit = setFollowViewport(v)
-    def ignoreCameraScroll: Ptr[Byte] = isIgnoreCameraScroll()
-    def ignoreCameraScroll_=(v: Ptr[Byte]): Unit = setIgnoreCameraScroll(v)
-    def screenOffset: Ptr[Byte] = getScreenOffset()
-    def screenOffset_=(v: Ptr[Byte]): Unit = setScreenOffset(v)
+class Parallax2D extends Node2D {
+    def scrollScale: Vector2 = getScrollScale()
+    def scrollScale_=(v: Vector2): Unit = setScrollScale(v)
+    def scrollOffset: Vector2 = getScrollOffset()
+    def scrollOffset_=(v: Vector2): Unit = setScrollOffset(v)
+    def repeatSize: Vector2 = getRepeatSize()
+    def repeatSize_=(v: Vector2): Unit = setRepeatSize(v)
+    def autoscroll: Vector2 = getAutoscroll()
+    def autoscroll_=(v: Vector2): Unit = setAutoscroll(v)
+    def repeatTimes: Int = getRepeatTimes()
+    def repeatTimes_=(v: Int): Unit = setRepeatTimes(v)
+    def limitBegin: Vector2 = getLimitBegin()
+    def limitBegin_=(v: Vector2): Unit = setLimitBegin(v)
+    def limitEnd: Vector2 = getLimitEnd()
+    def limitEnd_=(v: Vector2): Unit = setLimitEnd(v)
+    def followViewport: Boolean = getFollowViewport()
+    def followViewport_=(v: Boolean): Unit = setFollowViewport(v)
+    def ignoreCameraScroll: Boolean = isIgnoreCameraScroll()
+    def ignoreCameraScroll_=(v: Boolean): Unit = setIgnoreCameraScroll(v)
+    def screenOffset: Vector2 = getScreenOffset()
+    def screenOffset_=(v: Vector2): Unit = setScreenOffset(v)
+}
 
 object Parallax2D:
-    object Binds:
-        var setScrollScale: Ptr[Byte] = null
-        var getScrollScale: Ptr[Byte] = null
-        var setRepeatSize: Ptr[Byte] = null
-        var getRepeatSize: Ptr[Byte] = null
-        var setRepeatTimes: Ptr[Byte] = null
-        var getRepeatTimes: Ptr[Byte] = null
-        var setAutoscroll: Ptr[Byte] = null
-        var getAutoscroll: Ptr[Byte] = null
-        var setScrollOffset: Ptr[Byte] = null
-        var getScrollOffset: Ptr[Byte] = null
-        var setScreenOffset: Ptr[Byte] = null
-        var getScreenOffset: Ptr[Byte] = null
-        var setLimitBegin: Ptr[Byte] = null
-        var getLimitBegin: Ptr[Byte] = null
-        var setLimitEnd: Ptr[Byte] = null
-        var getLimitEnd: Ptr[Byte] = null
-        var setFollowViewport: Ptr[Byte] = null
-        var getFollowViewport: Ptr[Byte] = null
-        var setIgnoreCameraScroll: Ptr[Byte] = null
-        var isIgnoreCameraScroll: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setScrollScale = GdxApi.getMethodBind(c"Parallax2D", c"set_scroll_scale", 743155724L)
-            Binds.getScrollScale = GdxApi.getMethodBind(c"Parallax2D", c"get_scroll_scale", 3341600327L)
-            Binds.setRepeatSize = GdxApi.getMethodBind(c"Parallax2D", c"set_repeat_size", 743155724L)
-            Binds.getRepeatSize = GdxApi.getMethodBind(c"Parallax2D", c"get_repeat_size", 3341600327L)
-            Binds.setRepeatTimes = GdxApi.getMethodBind(c"Parallax2D", c"set_repeat_times", 1286410249L)
-            Binds.getRepeatTimes = GdxApi.getMethodBind(c"Parallax2D", c"get_repeat_times", 3905245786L)
-            Binds.setAutoscroll = GdxApi.getMethodBind(c"Parallax2D", c"set_autoscroll", 743155724L)
-            Binds.getAutoscroll = GdxApi.getMethodBind(c"Parallax2D", c"get_autoscroll", 3341600327L)
-            Binds.setScrollOffset = GdxApi.getMethodBind(c"Parallax2D", c"set_scroll_offset", 743155724L)
-            Binds.getScrollOffset = GdxApi.getMethodBind(c"Parallax2D", c"get_scroll_offset", 3341600327L)
-            Binds.setScreenOffset = GdxApi.getMethodBind(c"Parallax2D", c"set_screen_offset", 743155724L)
-            Binds.getScreenOffset = GdxApi.getMethodBind(c"Parallax2D", c"get_screen_offset", 3341600327L)
-            Binds.setLimitBegin = GdxApi.getMethodBind(c"Parallax2D", c"set_limit_begin", 743155724L)
-            Binds.getLimitBegin = GdxApi.getMethodBind(c"Parallax2D", c"get_limit_begin", 3341600327L)
-            Binds.setLimitEnd = GdxApi.getMethodBind(c"Parallax2D", c"set_limit_end", 743155724L)
-            Binds.getLimitEnd = GdxApi.getMethodBind(c"Parallax2D", c"get_limit_end", 3341600327L)
-            Binds.setFollowViewport = GdxApi.getMethodBind(c"Parallax2D", c"set_follow_viewport", 2586408642L)
-            Binds.getFollowViewport = GdxApi.getMethodBind(c"Parallax2D", c"get_follow_viewport", 2240911060L)
-            Binds.setIgnoreCameraScroll = GdxApi.getMethodBind(c"Parallax2D", c"set_ignore_camera_scroll", 2586408642L)
-            Binds.isIgnoreCameraScroll = GdxApi.getMethodBind(c"Parallax2D", c"is_ignore_camera_scroll", 2240911060L)
-
-    def apply(): Parallax2D =
-        val obj = new Parallax2D()
-        obj.ptr = GdxApi.constructObject(c"Parallax2D")
-        obj
+def apply(): Parallax2D = {
+  val obj = new Parallax2D()
+  obj.ptr = GdxApi.constructObject(c"Parallax2D")
+  obj
+}

@@ -5,129 +5,145 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConfigFile extends RefCounted
-
-    def setValue(section: CString, key: CString, value: Ptr[Byte]): Unit =
+class ConfigFile extends RefCounted {
+    def setValue(section: CString, key: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = section.ptr
-        _args(1) = key.ptr
-        _args(2) = value.ptr
+        _args(0) = section
+        _args(1) = key
+        _args(2) = value
         GdxApi.ptrcall(ConfigFile.Binds.setValue, ptr, _args, null)
+}
 
-    def getValue(section: CString, key: CString): Ptr[Byte] =
+    def getValue(section: CString, key: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = section.ptr
-        _args(1) = key.ptr
+        _args(0) = section
+        _args(1) = key
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ConfigFile.Binds.getValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasSection(section: CString): Boolean =
+    def hasSection(section: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = section.ptr
+        _args(0) = section
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ConfigFile.Binds.hasSection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasSectionKey(section: CString, key: CString): Boolean =
+    def hasSectionKey(section: CString, key: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = section.ptr
-        _args(1) = key.ptr
+        _args(0) = section
+        _args(1) = key
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ConfigFile.Binds.hasSectionKey, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSections(): PackedStringArray =
+    def getSections(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ConfigFile.Binds.getSections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getSectionKeys(section: CString): PackedStringArray =
+    def getSectionKeys(section: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = section.ptr
+        _args(0) = section
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ConfigFile.Binds.getSectionKeys, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def eraseSection(section: CString): Unit =
+    def eraseSection(section: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = section.ptr
+        _args(0) = section
         GdxApi.ptrcall(ConfigFile.Binds.eraseSection, ptr, _args, null)
+}
 
-    def eraseSectionKey(section: CString, key: CString): Unit =
+    def eraseSectionKey(section: CString, key: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = section.ptr
-        _args(1) = key.ptr
+        _args(0) = section
+        _args(1) = key
         GdxApi.ptrcall(ConfigFile.Binds.eraseSectionKey, ptr, _args, null)
+}
 
-    def load(path: CString): Int =
+    def load(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.load, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def parse(data: CString): Int =
+    def parse(data: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = data.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = data
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.parse, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def save(path: CString): Int =
+    def save(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.save, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def encodeToText(): CString =
+    def encodeToText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ConfigFile.Binds.encodeToText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def loadEncrypted(path: CString, key: PackedByteArray): Int =
+    def loadEncrypted(path: CString, key: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
+        _args(0) = path
         _args(1) = key.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.loadEncrypted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadEncryptedPass(path: CString, password: CString): Int =
+    def loadEncryptedPass(path: CString, password: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
-        _args(1) = password.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        _args(1) = password
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.loadEncryptedPass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveEncrypted(path: CString, key: PackedByteArray): Int =
+    def saveEncrypted(path: CString, key: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
+        _args(0) = path
         _args(1) = key.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.saveEncrypted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveEncryptedPass(path: CString, password: CString): Int =
+    def saveEncryptedPass(path: CString, password: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
-        _args(1) = password.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        _args(1) = password
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ConfigFile.Binds.saveEncryptedPass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ConfigFile.Binds.clear, ptr, _args, null)
-
+}
+}
 
 object ConfigFile:
-    object Binds:
-        var setValue: Ptr[Byte] = null
+object Binds {
+          var setValue: Ptr[Byte] = null
         var getValue: Ptr[Byte] = null
         var hasSection: Ptr[Byte] = null
         var hasSectionKey: Ptr[Byte] = null
@@ -145,8 +161,8 @@ object ConfigFile:
         var saveEncryptedPass: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setValue = GdxApi.getMethodBind(c"ConfigFile", c"set_value", 2504492430L)
+  def loadBinds(): Unit = {
+                Binds.setValue = GdxApi.getMethodBind(c"ConfigFile", c"set_value", 2504492430L)
             Binds.getValue = GdxApi.getMethodBind(c"ConfigFile", c"get_value", 89809366L)
             Binds.hasSection = GdxApi.getMethodBind(c"ConfigFile", c"has_section", 3927539163L)
             Binds.hasSectionKey = GdxApi.getMethodBind(c"ConfigFile", c"has_section_key", 820780508L)
@@ -163,8 +179,11 @@ object ConfigFile:
             Binds.saveEncrypted = GdxApi.getMethodBind(c"ConfigFile", c"save_encrypted", 887037711L)
             Binds.saveEncryptedPass = GdxApi.getMethodBind(c"ConfigFile", c"save_encrypted_pass", 852856452L)
             Binds.clear = GdxApi.getMethodBind(c"ConfigFile", c"clear", 3218959716L)
+  }
+}
 
-    def apply(): ConfigFile =
-        val obj = new ConfigFile()
-        obj.ptr = GdxApi.constructObject(c"ConfigFile")
-        obj
+def apply(): ConfigFile = {
+  val obj = new ConfigFile()
+  obj.ptr = GdxApi.constructObject(c"ConfigFile")
+  obj
+}

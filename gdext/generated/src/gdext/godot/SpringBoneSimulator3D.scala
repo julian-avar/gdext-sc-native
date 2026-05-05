@@ -5,664 +5,723 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpringBoneSimulator3D extends SkeletonModifier3D
-
-    def setRootBoneName(index: Int, boneName: CString): Unit =
+class SpringBoneSimulator3D extends SkeletonModifier3D {
+    def setRootBoneName(index: Int, boneName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = boneName.ptr
+        _args(1) = boneName
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setRootBoneName, ptr, _args, null)
+}
 
-    def getRootBoneName(index: Int): CString =
+    def getRootBoneName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getRootBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setRootBone(index: Int, bone: Int): Unit =
+    def setRootBone(index: Int, bone: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setRootBone, ptr, _args, null)
+}
 
-    def getRootBone(index: Int): Int =
+    def getRootBone(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getRootBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setEndBoneName(index: Int, boneName: CString): Unit =
+    def setEndBoneName(index: Int, boneName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = boneName.ptr
+        _args(1) = boneName
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setEndBoneName, ptr, _args, null)
+}
 
-    def getEndBoneName(index: Int): CString =
+    def getEndBoneName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getEndBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setEndBone(index: Int, bone: Int): Unit =
+    def setEndBone(index: Int, bone: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setEndBone, ptr, _args, null)
+}
 
-    def getEndBone(index: Int): Int =
+    def getEndBone(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getEndBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setExtendEndBone(index: Int, enabled: Boolean): Unit =
+    def setExtendEndBone(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setExtendEndBone, ptr, _args, null)
+}
 
-    def isEndBoneExtended(index: Int): Boolean =
+    def isEndBoneExtended(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.isEndBoneExtended, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setEndBoneDirection(index: Int, boneDirection: Int): Unit =
+    def setEndBoneDirection(index: Int, boneDirection: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = boneDirection.ptr
+        val _a1 = stackalloc[Long](); !_a1 = boneDirection.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setEndBoneDirection, ptr, _args, null)
+}
 
-    def getEndBoneDirection(index: Int): Int =
+    def getEndBoneDirection(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getEndBoneDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setEndBoneLength(index: Int, length: Float): Unit =
+    def setEndBoneLength(index: Int, length: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = length.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setEndBoneLength, ptr, _args, null)
+}
 
-    def getEndBoneLength(index: Int): Float =
+    def getEndBoneLength(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getEndBoneLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCenterFrom(index: Int, centerFrom: Int): Unit =
+    def setCenterFrom(index: Int, centerFrom: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = centerFrom.ptr
+        val _a1 = stackalloc[Long](); !_a1 = centerFrom.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setCenterFrom, ptr, _args, null)
+}
 
-    def getCenterFrom(index: Int): Int =
+    def getCenterFrom(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getCenterFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCenterNode(index: Int, nodePath: NodePath): Unit =
+    def setCenterNode(index: Int, nodePath: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = nodePath.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setCenterNode, ptr, _args, null)
+}
 
-    def getCenterNode(index: Int): NodePath =
+    def getCenterNode(index: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getCenterNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setCenterBoneName(index: Int, boneName: CString): Unit =
+    def setCenterBoneName(index: Int, boneName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = boneName.ptr
+        _args(1) = boneName
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setCenterBoneName, ptr, _args, null)
+}
 
-    def getCenterBoneName(index: Int): CString =
+    def getCenterBoneName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getCenterBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCenterBone(index: Int, bone: Int): Unit =
+    def setCenterBone(index: Int, bone: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = bone.toLong
+        val _a1 = stackalloc[Long](); !_a1 = bone.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setCenterBone, ptr, _args, null)
+}
 
-    def getCenterBone(index: Int): Int =
+    def getCenterBone(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getCenterBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setRadius(index: Int, radius: Float): Unit =
+    def setRadius(index: Int, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setRadius, ptr, _args, null)
+}
 
-    def getRadius(index: Int): Float =
+    def getRadius(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setRotationAxis(index: Int, axis: Int): Unit =
+    def setRotationAxis(index: Int, axis: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = axis.ptr
+        val _a1 = stackalloc[Long](); !_a1 = axis.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setRotationAxis, ptr, _args, null)
+}
 
-    def getRotationAxis(index: Int): Int =
+    def getRotationAxis(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getRotationAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setRotationAxisVector(index: Int, vector: Vector3): Unit =
+    def setRotationAxisVector(index: Int, vector: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = vector.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setRotationAxisVector, ptr, _args, null)
+}
 
-    def getRotationAxisVector(index: Int): Vector3 =
+    def getRotationAxisVector(index: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getRotationAxisVector, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setRadiusDampingCurve(index: Int, curve: Curve): Unit =
+    def setRadiusDampingCurve(index: Int, curve: Curve): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = curve.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setRadiusDampingCurve, ptr, _args, null)
+}
 
-    def getRadiusDampingCurve(index: Int): Curve =
+    def getRadiusDampingCurve(index: Int): Curve = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getRadiusDampingCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Curve(!_ret)
+}
 
-    def setStiffness(index: Int, stiffness: Float): Unit =
+    def setStiffness(index: Int, stiffness: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = stiffness.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setStiffness, ptr, _args, null)
+}
 
-    def getStiffness(index: Int): Float =
+    def getStiffness(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getStiffness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setStiffnessDampingCurve(index: Int, curve: Curve): Unit =
+    def setStiffnessDampingCurve(index: Int, curve: Curve): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = curve.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setStiffnessDampingCurve, ptr, _args, null)
+}
 
-    def getStiffnessDampingCurve(index: Int): Curve =
+    def getStiffnessDampingCurve(index: Int): Curve = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getStiffnessDampingCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Curve(!_ret)
+}
 
-    def setDrag(index: Int, drag: Float): Unit =
+    def setDrag(index: Int, drag: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = drag.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setDrag, ptr, _args, null)
+}
 
-    def getDrag(index: Int): Float =
+    def getDrag(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getDrag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setDragDampingCurve(index: Int, curve: Curve): Unit =
+    def setDragDampingCurve(index: Int, curve: Curve): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = curve.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setDragDampingCurve, ptr, _args, null)
+}
 
-    def getDragDampingCurve(index: Int): Curve =
+    def getDragDampingCurve(index: Int): Curve = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getDragDampingCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Curve(!_ret)
+}
 
-    def setGravity(index: Int, gravity: Float): Unit =
+    def setGravity(index: Int, gravity: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = gravity.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setGravity, ptr, _args, null)
+}
 
-    def getGravity(index: Int): Float =
+    def getGravity(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setGravityDampingCurve(index: Int, curve: Curve): Unit =
+    def setGravityDampingCurve(index: Int, curve: Curve): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = curve.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setGravityDampingCurve, ptr, _args, null)
+}
 
-    def getGravityDampingCurve(index: Int): Curve =
+    def getGravityDampingCurve(index: Int): Curve = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getGravityDampingCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Curve(!_ret)
+}
 
-    def setGravityDirection(index: Int, gravityDirection: Vector3): Unit =
+    def setGravityDirection(index: Int, gravityDirection: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = gravityDirection.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setGravityDirection, ptr, _args, null)
+}
 
-    def getGravityDirection(index: Int): Vector3 =
+    def getGravityDirection(index: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getGravityDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setSettingCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setSettingCount, ptr, _args, null)
-
-    def getSettingCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getSettingCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def clearSettings(): Unit =
+    def clearSettings(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.clearSettings, ptr, _args, null)
+}
 
-    def setIndividualConfig(index: Int, enabled: Boolean): Unit =
+    def setIndividualConfig(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setIndividualConfig, ptr, _args, null)
+}
 
-    def isConfigIndividual(index: Int): Boolean =
+    def isConfigIndividual(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.isConfigIndividual, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getJointBoneName(index: Int, joint: Int): CString =
+    def getJointBoneName(index: Int, joint: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointBoneName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getJointBone(index: Int, joint: Int): Int =
+    def getJointBone(index: Int, joint: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setJointRotationAxis(index: Int, joint: Int, axis: Int): Unit =
+    def setJointRotationAxis(index: Int, joint: Int, axis: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = axis.ptr
+        val _a2 = stackalloc[Long](); !_a2 = axis.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointRotationAxis, ptr, _args, null)
+}
 
-    def getJointRotationAxis(index: Int, joint: Int): Int =
+    def getJointRotationAxis(index: Int, joint: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointRotationAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setJointRotationAxisVector(index: Int, joint: Int, vector: Vector3): Unit =
+    def setJointRotationAxisVector(index: Int, joint: Int, vector: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = vector.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointRotationAxisVector, ptr, _args, null)
+}
 
-    def getJointRotationAxisVector(index: Int, joint: Int): Vector3 =
+    def getJointRotationAxisVector(index: Int, joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointRotationAxisVector, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setJointRadius(index: Int, joint: Int, radius: Float): Unit =
+    def setJointRadius(index: Int, joint: Int, radius: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = radius.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointRadius, ptr, _args, null)
+}
 
-    def getJointRadius(index: Int, joint: Int): Float =
+    def getJointRadius(index: Int, joint: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJointStiffness(index: Int, joint: Int, stiffness: Float): Unit =
+    def setJointStiffness(index: Int, joint: Int, stiffness: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = stiffness.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointStiffness, ptr, _args, null)
+}
 
-    def getJointStiffness(index: Int, joint: Int): Float =
+    def getJointStiffness(index: Int, joint: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointStiffness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJointDrag(index: Int, joint: Int, drag: Float): Unit =
+    def setJointDrag(index: Int, joint: Int, drag: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = drag.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointDrag, ptr, _args, null)
+}
 
-    def getJointDrag(index: Int, joint: Int): Float =
+    def getJointDrag(index: Int, joint: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointDrag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJointGravity(index: Int, joint: Int, gravity: Float): Unit =
+    def setJointGravity(index: Int, joint: Int, gravity: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = gravity.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointGravity, ptr, _args, null)
+}
 
-    def getJointGravity(index: Int, joint: Int): Float =
+    def getJointGravity(index: Int, joint: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setJointGravityDirection(index: Int, joint: Int, gravityDirection: Vector3): Unit =
+    def setJointGravityDirection(index: Int, joint: Int, gravityDirection: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = gravityDirection.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setJointGravityDirection, ptr, _args, null)
+}
 
-    def getJointGravityDirection(index: Int, joint: Int): Vector3 =
+    def getJointGravityDirection(index: Int, joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = joint.toLong
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointGravityDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getJointCount(index: Int): Int =
+    def getJointCount(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getJointCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setEnableAllChildCollisions(index: Int, enabled: Boolean): Unit =
+    def setEnableAllChildCollisions(index: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setEnableAllChildCollisions, ptr, _args, null)
+}
 
-    def areAllChildCollisionsEnabled(index: Int): Boolean =
+    def areAllChildCollisionsEnabled(index: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.areAllChildCollisionsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setExcludeCollisionPath(index: Int, collision: Int, nodePath: NodePath): Unit =
+    def setExcludeCollisionPath(index: Int, collision: Int, nodePath: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = collision.toLong
+        val _a1 = stackalloc[Long](); !_a1 = collision.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = nodePath.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setExcludeCollisionPath, ptr, _args, null)
+}
 
-    def getExcludeCollisionPath(index: Int, collision: Int): NodePath =
+    def getExcludeCollisionPath(index: Int, collision: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = collision.toLong
+        val _a1 = stackalloc[Long](); !_a1 = collision.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getExcludeCollisionPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setExcludeCollisionCount(index: Int, count: Int): Unit =
+    def setExcludeCollisionCount(index: Int, count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = count.toLong
+        val _a1 = stackalloc[Long](); !_a1 = count.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setExcludeCollisionCount, ptr, _args, null)
+}
 
-    def getExcludeCollisionCount(index: Int): Int =
+    def getExcludeCollisionCount(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getExcludeCollisionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearExcludeCollisions(index: Int): Unit =
+    def clearExcludeCollisions(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.clearExcludeCollisions, ptr, _args, null)
+}
 
-    def setCollisionPath(index: Int, collision: Int, nodePath: NodePath): Unit =
+    def setCollisionPath(index: Int, collision: Int, nodePath: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = collision.toLong
+        val _a1 = stackalloc[Long](); !_a1 = collision.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = nodePath.ptr
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setCollisionPath, ptr, _args, null)
+}
 
-    def getCollisionPath(index: Int, collision: Int): NodePath =
+    def getCollisionPath(index: Int, collision: Int): NodePath = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = collision.toLong
+        val _a1 = stackalloc[Long](); !_a1 = collision.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getCollisionPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new NodePath(!_ret)
+}
 
-    def setCollisionCount(index: Int, count: Int): Unit =
+    def setCollisionCount(index: Int, count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = count.toLong
+        val _a1 = stackalloc[Long](); !_a1 = count.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setCollisionCount, ptr, _args, null)
+}
 
-    def getCollisionCount(index: Int): Int =
+    def getCollisionCount(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getCollisionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearCollisions(index: Int): Unit =
+    def clearCollisions(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.clearCollisions, ptr, _args, null)
+}
 
-    def setExternalForce(force: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = force.ptr
-        GdxApi.ptrcall(SpringBoneSimulator3D.Binds.setExternalForce, ptr, _args, null)
-
-    def getExternalForce(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpringBoneSimulator3D.Binds.getExternalForce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def reset(): Unit =
+    def reset(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(SpringBoneSimulator3D.Binds.reset, ptr, _args, null)
-    def externalForce: Ptr[Byte] = getExternalForce()
-    def externalForce_=(v: Ptr[Byte]): Unit = setExternalForce(v)
-    def settingCount: Ptr[Byte] = getSettingCount()
-    def settingCount_=(v: Ptr[Byte]): Unit = setSettingCount(v)
+}
+
+    def externalForce: Vector3 = getExternalForce()
+    def externalForce_=(v: Vector3): Unit = setExternalForce(v)
+    def settingCount: Int = getSettingCount()
+    def settingCount_=(v: Int): Unit = setSettingCount(v)
+}
 
 object SpringBoneSimulator3D:
-    object Binds:
-        var setRootBoneName: Ptr[Byte] = null
+object Binds {
+          var setRootBoneName: Ptr[Byte] = null
         var getRootBoneName: Ptr[Byte] = null
         var setRootBone: Ptr[Byte] = null
         var getRootBone: Ptr[Byte] = null
@@ -706,8 +765,6 @@ object SpringBoneSimulator3D:
         var getGravityDampingCurve: Ptr[Byte] = null
         var setGravityDirection: Ptr[Byte] = null
         var getGravityDirection: Ptr[Byte] = null
-        var setSettingCount: Ptr[Byte] = null
-        var getSettingCount: Ptr[Byte] = null
         var clearSettings: Ptr[Byte] = null
         var setIndividualConfig: Ptr[Byte] = null
         var isConfigIndividual: Ptr[Byte] = null
@@ -740,12 +797,10 @@ object SpringBoneSimulator3D:
         var setCollisionCount: Ptr[Byte] = null
         var getCollisionCount: Ptr[Byte] = null
         var clearCollisions: Ptr[Byte] = null
-        var setExternalForce: Ptr[Byte] = null
-        var getExternalForce: Ptr[Byte] = null
         var reset: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRootBoneName = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_root_bone_name", 501894301L)
+  def loadBinds(): Unit = {
+                Binds.setRootBoneName = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_root_bone_name", 501894301L)
             Binds.getRootBoneName = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_root_bone_name", 844755477L)
             Binds.setRootBone = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_root_bone", 3937882851L)
             Binds.getRootBone = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_root_bone", 923996154L)
@@ -789,8 +844,6 @@ object SpringBoneSimulator3D:
             Binds.getGravityDampingCurve = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_gravity_damping_curve", 747537754L)
             Binds.setGravityDirection = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_gravity_direction", 1530502735L)
             Binds.getGravityDirection = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_gravity_direction", 711720468L)
-            Binds.setSettingCount = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_setting_count", 1286410249L)
-            Binds.getSettingCount = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_setting_count", 3905245786L)
             Binds.clearSettings = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"clear_settings", 3218959716L)
             Binds.setIndividualConfig = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_individual_config", 300928843L)
             Binds.isConfigIndividual = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"is_config_individual", 1116898809L)
@@ -823,11 +876,12 @@ object SpringBoneSimulator3D:
             Binds.setCollisionCount = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_collision_count", 3937882851L)
             Binds.getCollisionCount = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_collision_count", 923996154L)
             Binds.clearCollisions = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"clear_collisions", 1286410249L)
-            Binds.setExternalForce = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"set_external_force", 3460891852L)
-            Binds.getExternalForce = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"get_external_force", 3360562783L)
             Binds.reset = GdxApi.getMethodBind(c"SpringBoneSimulator3D", c"reset", 3218959716L)
+  }
+}
 
-    def apply(): SpringBoneSimulator3D =
-        val obj = new SpringBoneSimulator3D()
-        obj.ptr = GdxApi.constructObject(c"SpringBoneSimulator3D")
-        obj
+def apply(): SpringBoneSimulator3D = {
+  val obj = new SpringBoneSimulator3D()
+  obj.ptr = GdxApi.constructObject(c"SpringBoneSimulator3D")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OfflineMultiplayerPeer extends MultiplayerPeer
-
-
-
+class OfflineMultiplayerPeer extends MultiplayerPeer {}
 
 object OfflineMultiplayerPeer:
-    def apply(): OfflineMultiplayerPeer =
-        val obj = new OfflineMultiplayerPeer()
-        obj.ptr = GdxApi.constructObject(c"OfflineMultiplayerPeer")
-        obj
+def apply(): OfflineMultiplayerPeer = {
+  val obj = new OfflineMultiplayerPeer()
+  obj.ptr = GdxApi.constructObject(c"OfflineMultiplayerPeer")
+  obj
+}

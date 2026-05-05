@@ -5,112 +5,125 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorFileSystemDirectory extends Object
-
-    def getSubdirCount(): Int =
+class EditorFileSystemDirectory extends Object {
+    def getSubdirCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getSubdirCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSubdir(idx: Int): EditorFileSystemDirectory =
+    def getSubdir(idx: Int): EditorFileSystemDirectory = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getSubdir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorFileSystemDirectory(!_ret)
+}
 
-    def getFileCount(): Int =
+    def getFileCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFileCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFile(idx: Int): CString =
+    def getFile(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFilePath(idx: Int): CString =
+    def getFilePath(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFilePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFileType(idx: Int): CString =
+    def getFileType(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFileType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFileScriptClassName(idx: Int): CString =
+    def getFileScriptClassName(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFileScriptClassName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFileScriptClassExtends(idx: Int): CString =
+    def getFileScriptClassExtends(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFileScriptClassExtends, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFileImportIsValid(idx: Int): Boolean =
+    def getFileImportIsValid(idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getFileImportIsValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getName(): CString =
+    def getName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPath(): CString =
+    def getPath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getParent(): EditorFileSystemDirectory =
+    def getParent(): EditorFileSystemDirectory = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.getParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorFileSystemDirectory(!_ret)
+}
 
-    def findFileIndex(name: CString): Int =
+    def findFileIndex(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.findFileIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def findDirIndex(name: CString): Int =
+    def findDirIndex(name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFileSystemDirectory.Binds.findDirIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object EditorFileSystemDirectory:
-    object Binds:
-        var getSubdirCount: Ptr[Byte] = null
+object Binds {
+          var getSubdirCount: Ptr[Byte] = null
         var getSubdir: Ptr[Byte] = null
         var getFileCount: Ptr[Byte] = null
         var getFile: Ptr[Byte] = null
@@ -125,8 +138,8 @@ object EditorFileSystemDirectory:
         var findFileIndex: Ptr[Byte] = null
         var findDirIndex: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSubdirCount = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"get_subdir_count", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getSubdirCount = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"get_subdir_count", 3905245786L)
             Binds.getSubdir = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"get_subdir", 2330964164L)
             Binds.getFileCount = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"get_file_count", 3905245786L)
             Binds.getFile = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"get_file", 844755477L)
@@ -140,8 +153,11 @@ object EditorFileSystemDirectory:
             Binds.getParent = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"get_parent", 842323275L)
             Binds.findFileIndex = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"find_file_index", 1321353865L)
             Binds.findDirIndex = GdxApi.getMethodBind(c"EditorFileSystemDirectory", c"find_dir_index", 1321353865L)
+  }
+}
 
-    def apply(): EditorFileSystemDirectory =
-        val obj = new EditorFileSystemDirectory()
-        obj.ptr = GdxApi.constructObject(c"EditorFileSystemDirectory")
-        obj
+def apply(): EditorFileSystemDirectory = {
+  val obj = new EditorFileSystemDirectory()
+  obj.ptr = GdxApi.constructObject(c"EditorFileSystemDirectory")
+  obj
+}

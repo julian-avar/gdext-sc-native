@@ -5,91 +5,104 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorFeatureProfile extends RefCounted
-
-    def setDisableClass(className: CString, disable: Boolean): Unit =
+class EditorFeatureProfile extends RefCounted {
+    def setDisableClass(className: CString, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = className.ptr
+        _args(0) = className
         val _a1 = stackalloc[Byte](); !_a1 = if disable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorFeatureProfile.Binds.setDisableClass, ptr, _args, null)
+}
 
-    def isClassDisabled(className: CString): Boolean =
+    def isClassDisabled(className: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = className.ptr
+        _args(0) = className
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.isClassDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDisableClassEditor(className: CString, disable: Boolean): Unit =
+    def setDisableClassEditor(className: CString, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = className.ptr
+        _args(0) = className
         val _a1 = stackalloc[Byte](); !_a1 = if disable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorFeatureProfile.Binds.setDisableClassEditor, ptr, _args, null)
+}
 
-    def isClassEditorDisabled(className: CString): Boolean =
+    def isClassEditorDisabled(className: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = className.ptr
+        _args(0) = className
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.isClassEditorDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDisableClassProperty(className: CString, property: CString, disable: Boolean): Unit =
+    def setDisableClassProperty(className: CString, property: CString, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = className.ptr
-        _args(1) = property.ptr
+        _args(0) = className
+        _args(1) = property
         val _a2 = stackalloc[Byte](); !_a2 = if disable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorFeatureProfile.Binds.setDisableClassProperty, ptr, _args, null)
+}
 
-    def isClassPropertyDisabled(className: CString, property: CString): Boolean =
+    def isClassPropertyDisabled(className: CString, property: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = className.ptr
-        _args(1) = property.ptr
+        _args(0) = className
+        _args(1) = property
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.isClassPropertyDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDisableFeature(feature: Int, disable: Boolean): Unit =
+    def setDisableFeature(feature: Int, disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if disable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorFeatureProfile.Binds.setDisableFeature, ptr, _args, null)
+}
 
-    def isFeatureDisabled(feature: Int): Boolean =
+    def isFeatureDisabled(feature: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.isFeatureDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFeatureName(feature: Int): CString =
+    def getFeatureName(feature: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.getFeatureName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def saveToFile(path: CString): Int =
+    def saveToFile(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.saveToFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadFromFile(path: CString): Int =
+    def loadFromFile(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFeatureProfile.Binds.loadFromFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object EditorFeatureProfile:
-    object Binds:
-        var setDisableClass: Ptr[Byte] = null
+object Binds {
+          var setDisableClass: Ptr[Byte] = null
         var isClassDisabled: Ptr[Byte] = null
         var setDisableClassEditor: Ptr[Byte] = null
         var isClassEditorDisabled: Ptr[Byte] = null
@@ -101,8 +114,8 @@ object EditorFeatureProfile:
         var saveToFile: Ptr[Byte] = null
         var loadFromFile: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setDisableClass = GdxApi.getMethodBind(c"EditorFeatureProfile", c"set_disable_class", 2524380260L)
+  def loadBinds(): Unit = {
+                Binds.setDisableClass = GdxApi.getMethodBind(c"EditorFeatureProfile", c"set_disable_class", 2524380260L)
             Binds.isClassDisabled = GdxApi.getMethodBind(c"EditorFeatureProfile", c"is_class_disabled", 2619796661L)
             Binds.setDisableClassEditor = GdxApi.getMethodBind(c"EditorFeatureProfile", c"set_disable_class_editor", 2524380260L)
             Binds.isClassEditorDisabled = GdxApi.getMethodBind(c"EditorFeatureProfile", c"is_class_editor_disabled", 2619796661L)
@@ -113,8 +126,11 @@ object EditorFeatureProfile:
             Binds.getFeatureName = GdxApi.getMethodBind(c"EditorFeatureProfile", c"get_feature_name", 3401335809L)
             Binds.saveToFile = GdxApi.getMethodBind(c"EditorFeatureProfile", c"save_to_file", 166001499L)
             Binds.loadFromFile = GdxApi.getMethodBind(c"EditorFeatureProfile", c"load_from_file", 166001499L)
+  }
+}
 
-    def apply(): EditorFeatureProfile =
-        val obj = new EditorFeatureProfile()
-        obj.ptr = GdxApi.constructObject(c"EditorFeatureProfile")
-        obj
+def apply(): EditorFeatureProfile = {
+  val obj = new EditorFeatureProfile()
+  obj.ptr = GdxApi.constructObject(c"EditorFeatureProfile")
+  obj
+}

@@ -5,322 +5,368 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TreeItem extends Object
-
-    def setCellMode(column: Int, mode: Int): Unit =
+class TreeItem extends Object {
+    def setCellMode(column: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setCellMode, ptr, _args, null)
+}
 
-    def getCellMode(column: Int): Int =
+    def getCellMode(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getCellMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setAutoTranslateMode(column: Int, mode: Int): Unit =
+    def setAutoTranslateMode(column: Int, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setAutoTranslateMode, ptr, _args, null)
+}
 
-    def getAutoTranslateMode(column: Int): Int =
+    def getAutoTranslateMode(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getAutoTranslateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setEditMultiline(column: Int, multiline: Boolean): Unit =
+    def setEditMultiline(column: Int, multiline: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if multiline then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setEditMultiline, ptr, _args, null)
+}
 
-    def isEditMultiline(column: Int): Boolean =
+    def isEditMultiline(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isEditMultiline, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setChecked(column: Int, checked: Boolean): Unit =
+    def setChecked(column: Int, checked: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if checked then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setChecked, ptr, _args, null)
+}
 
-    def setIndeterminate(column: Int, indeterminate: Boolean): Unit =
+    def setIndeterminate(column: Int, indeterminate: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if indeterminate then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setIndeterminate, ptr, _args, null)
+}
 
-    def isChecked(column: Int): Boolean =
+    def isChecked(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isChecked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isIndeterminate(column: Int): Boolean =
+    def isIndeterminate(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isIndeterminate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def propagateCheck(column: Int): Unit =
+    def propagateCheck(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.propagateCheck, ptr, _args, null)
+}
 
-    def setText(column: Int, text: CString): Unit =
+    def setText(column: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = text.ptr
+        _args(1) = text
         GdxApi.ptrcall(TreeItem.Binds.setText, ptr, _args, null)
+}
 
-    def getText(column: Int): CString =
+    def getText(column: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setDescription(column: Int, description: CString): Unit =
+    def setDescription(column: Int, description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = description.ptr
+        _args(1) = description
         GdxApi.ptrcall(TreeItem.Binds.setDescription, ptr, _args, null)
+}
 
-    def getDescription(column: Int): CString =
+    def getDescription(column: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTextDirection(column: Int, direction: Int): Unit =
+    def setTextDirection(column: Int, direction: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = direction.ptr
+        val _a1 = stackalloc[Long](); !_a1 = direction.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setTextDirection, ptr, _args, null)
+}
 
-    def getTextDirection(column: Int): Int =
+    def getTextDirection(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setAutowrapMode(column: Int, autowrapMode: Int): Unit =
+    def setAutowrapMode(column: Int, autowrapMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = autowrapMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = autowrapMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setAutowrapMode, ptr, _args, null)
+}
 
-    def getAutowrapMode(column: Int): Int =
+    def getAutowrapMode(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getAutowrapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTextOverrunBehavior(column: Int, overrunBehavior: Int): Unit =
+    def setTextOverrunBehavior(column: Int, overrunBehavior: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = overrunBehavior.ptr
+        val _a1 = stackalloc[Long](); !_a1 = overrunBehavior.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setTextOverrunBehavior, ptr, _args, null)
+}
 
-    def getTextOverrunBehavior(column: Int): Int =
+    def getTextOverrunBehavior(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getTextOverrunBehavior, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setStructuredTextBidiOverride(column: Int, parser: Int): Unit =
+    def setStructuredTextBidiOverride(column: Int, parser: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = parser.ptr
+        val _a1 = stackalloc[Long](); !_a1 = parser.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setStructuredTextBidiOverride, ptr, _args, null)
+}
 
-    def getStructuredTextBidiOverride(column: Int): Int =
+    def getStructuredTextBidiOverride(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getStructuredTextBidiOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setStructuredTextBidiOverrideOptions(column: Int, args: Array): Unit =
+    def setStructuredTextBidiOverrideOptions(column: Int, args: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = args.ptr
+        _args(1) = args
         GdxApi.ptrcall(TreeItem.Binds.setStructuredTextBidiOverrideOptions, ptr, _args, null)
+}
 
-    def getStructuredTextBidiOverrideOptions(column: Int): Array =
+    def getStructuredTextBidiOverrideOptions(column: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getStructuredTextBidiOverrideOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setLanguage(column: Int, language: CString): Unit =
+    def setLanguage(column: Int, language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = language.ptr
+        _args(1) = language
         GdxApi.ptrcall(TreeItem.Binds.setLanguage, ptr, _args, null)
+}
 
-    def getLanguage(column: Int): CString =
+    def getLanguage(column: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setSuffix(column: Int, text: CString): Unit =
+    def setSuffix(column: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = text.ptr
+        _args(1) = text
         GdxApi.ptrcall(TreeItem.Binds.setSuffix, ptr, _args, null)
+}
 
-    def getSuffix(column: Int): CString =
+    def getSuffix(column: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getSuffix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setIcon(column: Int, texture: Texture2D): Unit =
+    def setIcon(column: Int, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = texture.ptr
         GdxApi.ptrcall(TreeItem.Binds.setIcon, ptr, _args, null)
+}
 
-    def getIcon(column: Int): Texture2D =
+    def getIcon(column: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setIconOverlay(column: Int, texture: Texture2D): Unit =
+    def setIconOverlay(column: Int, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = texture.ptr
         GdxApi.ptrcall(TreeItem.Binds.setIconOverlay, ptr, _args, null)
+}
 
-    def getIconOverlay(column: Int): Texture2D =
+    def getIconOverlay(column: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getIconOverlay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setIconRegion(column: Int, region: Rect2): Unit =
+    def setIconRegion(column: Int, region: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = region.ptr
         GdxApi.ptrcall(TreeItem.Binds.setIconRegion, ptr, _args, null)
+}
 
-    def getIconRegion(column: Int): Rect2 =
+    def getIconRegion(column: Int): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getIconRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def setIconMaxWidth(column: Int, width: Int): Unit =
+    def setIconMaxWidth(column: Int, width: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = width.toLong
+        val _a1 = stackalloc[Long](); !_a1 = width.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setIconMaxWidth, ptr, _args, null)
+}
 
-    def getIconMaxWidth(column: Int): Int =
+    def getIconMaxWidth(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getIconMaxWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setIconModulate(column: Int, modulate: Color): Unit =
+    def setIconModulate(column: Int, modulate: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = modulate.ptr
         GdxApi.ptrcall(TreeItem.Binds.setIconModulate, ptr, _args, null)
+}
 
-    def getIconModulate(column: Int): Color =
+    def getIconModulate(column: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getIconModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setRange(column: Int, value: Double): Unit =
+    def setRange(column: Int, value: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = value
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setRange, ptr, _args, null)
+}
 
-    def getRange(column: Int): Double =
+    def getRange(column: Int): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TreeItem.Binds.getRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setRangeConfig(column: Int, min: Double, max: Double, step: Double): Unit =
+    def setRangeConfig(column: Int, min: Double, max: Double, step: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = min
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
@@ -329,565 +375,590 @@ class TreeItem extends Object
         val _a3 = stackalloc[Double](); !_a3 = step
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setRangeConfig, ptr, _args, null)
+}
 
-    def getRangeConfig(column: Int): Dictionary =
+    def getRangeConfig(column: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getRangeConfig, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def setMetadata(column: Int, meta: Ptr[Byte]): Unit =
+    def setMetadata(column: Int, meta: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = meta.ptr
+        _args(1) = meta
         GdxApi.ptrcall(TreeItem.Binds.setMetadata, ptr, _args, null)
+}
 
-    def getMetadata(column: Int): Ptr[Byte] =
+    def getMetadata(column: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getMetadata, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCustomDraw(column: Int, `object`: Object, callback: CString): Unit =
+    def setCustomDraw(column: Int, `object`: Object, callback: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = `object`.ptr
-        _args(2) = callback.ptr
+        _args(2) = callback
         GdxApi.ptrcall(TreeItem.Binds.setCustomDraw, ptr, _args, null)
+}
 
-    def setCustomDrawCallback(column: Int, callback: Callable): Unit =
+    def setCustomDrawCallback(column: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = callback.ptr
         GdxApi.ptrcall(TreeItem.Binds.setCustomDrawCallback, ptr, _args, null)
+}
 
-    def getCustomDrawCallback(column: Int): Callable =
+    def getCustomDrawCallback(column: Int): Callable = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getCustomDrawCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def setCollapsed(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TreeItem.Binds.setCollapsed, ptr, _args, null)
-
-    def isCollapsed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TreeItem.Binds.isCollapsed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollapsedRecursive(enable: Boolean): Unit =
+    def setCollapsedRecursive(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setCollapsedRecursive, ptr, _args, null)
+}
 
-    def isAnyCollapsed(): Boolean =
+    def isAnyCollapsed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isAnyCollapsed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setVisible(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TreeItem.Binds.setVisible, ptr, _args, null)
-
-    def isVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TreeItem.Binds.isVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isVisibleInTree(): Boolean =
+    def isVisibleInTree(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isVisibleInTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def uncollapseTree(): Unit =
+    def uncollapseTree(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TreeItem.Binds.uncollapseTree, ptr, _args, null)
+}
 
-    def setCustomMinimumHeight(height: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = height.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TreeItem.Binds.setCustomMinimumHeight, ptr, _args, null)
-
-    def getCustomMinimumHeight(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(TreeItem.Binds.getCustomMinimumHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSelectable(column: Int, selectable: Boolean): Unit =
+    def setSelectable(column: Int, selectable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if selectable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setSelectable, ptr, _args, null)
+}
 
-    def isSelectable(column: Int): Boolean =
+    def isSelectable(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isSelectable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isSelected(column: Int): Boolean =
+    def isSelected(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isSelected, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def select(column: Int): Unit =
+    def select(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.select, ptr, _args, null)
+}
 
-    def deselect(column: Int): Unit =
+    def deselect(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.deselect, ptr, _args, null)
+}
 
-    def setEditable(column: Int, enabled: Boolean): Unit =
+    def setEditable(column: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setEditable, ptr, _args, null)
+}
 
-    def isEditable(column: Int): Boolean =
+    def isEditable(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isEditable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setCustomColor(column: Int, color: Color): Unit =
+    def setCustomColor(column: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(TreeItem.Binds.setCustomColor, ptr, _args, null)
+}
 
-    def getCustomColor(column: Int): Color =
+    def getCustomColor(column: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getCustomColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def clearCustomColor(column: Int): Unit =
+    def clearCustomColor(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.clearCustomColor, ptr, _args, null)
+}
 
-    def setCustomFont(column: Int, font: Font): Unit =
+    def setCustomFont(column: Int, font: Font): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = font.ptr
         GdxApi.ptrcall(TreeItem.Binds.setCustomFont, ptr, _args, null)
+}
 
-    def getCustomFont(column: Int): Font =
+    def getCustomFont(column: Int): Font = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getCustomFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Font(!_ret)
+}
 
-    def setCustomFontSize(column: Int, fontSize: Int): Unit =
+    def setCustomFontSize(column: Int, fontSize: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = fontSize.toLong
+        val _a1 = stackalloc[Long](); !_a1 = fontSize.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setCustomFontSize, ptr, _args, null)
+}
 
-    def getCustomFontSize(column: Int): Int =
+    def getCustomFontSize(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getCustomFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCustomBgColor(column: Int, color: Color): Unit =
+    def setCustomBgColor(column: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(TreeItem.Binds.setCustomBgColor, ptr, _args, null)
+}
 
-    def clearCustomBgColor(column: Int): Unit =
+    def clearCustomBgColor(column: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.clearCustomBgColor, ptr, _args, null)
+}
 
-    def getCustomBgColor(column: Int): Color =
+    def getCustomBgColor(column: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getCustomBgColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setCustomAsButton(column: Int, enable: Boolean): Unit =
+    def setCustomAsButton(column: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setCustomAsButton, ptr, _args, null)
+}
 
-    def isCustomSetAsButton(column: Int): Boolean =
+    def isCustomSetAsButton(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isCustomSetAsButton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearButtons(): Unit =
+    def clearButtons(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TreeItem.Binds.clearButtons, ptr, _args, null)
+}
 
-    def addButton(column: Int, button: Texture2D): Unit =
+    def addButton(column: Int, button: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = button.ptr
         GdxApi.ptrcall(TreeItem.Binds.addButton, ptr, _args, null)
+}
 
-    def getButtonCount(column: Int): Int =
+    def getButtonCount(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getButtonCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getButtonTooltipText(column: Int, buttonIndex: Int): CString =
+    def getButtonTooltipText(column: Int, buttonIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getButtonTooltipText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getButtonId(column: Int, buttonIndex: Int): Int =
+    def getButtonId(column: Int, buttonIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getButtonId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getButtonById(column: Int, id: Int): Int =
+    def getButtonById(column: Int, id: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getButtonById, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getButtonColor(column: Int, id: Int): Color =
+    def getButtonColor(column: Int, id: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getButtonColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getButton(column: Int, buttonIndex: Int): Texture2D =
+    def getButton(column: Int, buttonIndex: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getButton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def setButtonTooltipText(column: Int, buttonIndex: Int, tooltip: CString): Unit =
+    def setButtonTooltipText(column: Int, buttonIndex: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = tooltip.ptr
+        _args(2) = tooltip
         GdxApi.ptrcall(TreeItem.Binds.setButtonTooltipText, ptr, _args, null)
+}
 
-    def setButton(column: Int, buttonIndex: Int, button: Texture2D): Unit =
+    def setButton(column: Int, buttonIndex: Int, button: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = button.ptr
         GdxApi.ptrcall(TreeItem.Binds.setButton, ptr, _args, null)
+}
 
-    def eraseButton(column: Int, buttonIndex: Int): Unit =
+    def eraseButton(column: Int, buttonIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.eraseButton, ptr, _args, null)
+}
 
-    def setButtonDescription(column: Int, buttonIndex: Int, description: CString): Unit =
+    def setButtonDescription(column: Int, buttonIndex: Int, description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = description.ptr
+        _args(2) = description
         GdxApi.ptrcall(TreeItem.Binds.setButtonDescription, ptr, _args, null)
+}
 
-    def setButtonDisabled(column: Int, buttonIndex: Int, disabled: Boolean): Unit =
+    def setButtonDisabled(column: Int, buttonIndex: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if disabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setButtonDisabled, ptr, _args, null)
+}
 
-    def setButtonColor(column: Int, buttonIndex: Int, color: Color): Unit =
+    def setButtonColor(column: Int, buttonIndex: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = color.ptr
         GdxApi.ptrcall(TreeItem.Binds.setButtonColor, ptr, _args, null)
+}
 
-    def isButtonDisabled(column: Int, buttonIndex: Int): Boolean =
+    def isButtonDisabled(column: Int, buttonIndex: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = buttonIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = buttonIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.isButtonDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setTooltipText(column: Int, tooltip: CString): Unit =
+    def setTooltipText(column: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(TreeItem.Binds.setTooltipText, ptr, _args, null)
+}
 
-    def getTooltipText(column: Int): CString =
+    def getTooltipText(column: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getTooltipText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setTextAlignment(column: Int, textAlignment: Int): Unit =
+    def setTextAlignment(column: Int, textAlignment: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = textAlignment.ptr
+        val _a1 = stackalloc[Long](); !_a1 = textAlignment.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setTextAlignment, ptr, _args, null)
+}
 
-    def getTextAlignment(column: Int): Int =
+    def getTextAlignment(column: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getTextAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setExpandRight(column: Int, enable: Boolean): Unit =
+    def setExpandRight(column: Int, enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enable then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TreeItem.Binds.setExpandRight, ptr, _args, null)
+}
 
-    def getExpandRight(column: Int): Boolean =
+    def getExpandRight(column: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TreeItem.Binds.getExpandRight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDisableFolding(disable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TreeItem.Binds.setDisableFolding, ptr, _args, null)
-
-    def isFoldingDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TreeItem.Binds.isFoldingDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def createChild(): TreeItem =
+    def createChild(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.createChild, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def addChild(child: TreeItem): Unit =
+    def addChild(child: TreeItem): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = child.ptr
         GdxApi.ptrcall(TreeItem.Binds.addChild, ptr, _args, null)
+}
 
-    def removeChild(child: TreeItem): Unit =
+    def removeChild(child: TreeItem): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = child.ptr
         GdxApi.ptrcall(TreeItem.Binds.removeChild, ptr, _args, null)
+}
 
-    def getTree(): Tree =
+    def getTree(): Tree = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Tree(!_ret)
+}
 
-    def getNext(): TreeItem =
+    def getNext(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getNext, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getPrev(): TreeItem =
+    def getPrev(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getPrev, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getParent(): TreeItem =
+    def getParent(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getFirstChild(): TreeItem =
+    def getFirstChild(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getFirstChild, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getNextInTree(): TreeItem =
+    def getNextInTree(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getNextInTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getPrevInTree(): TreeItem =
+    def getPrevInTree(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getPrevInTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getNextVisible(): TreeItem =
+    def getNextVisible(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getNextVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getPrevVisible(): TreeItem =
+    def getPrevVisible(): TreeItem = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getPrevVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getChild(index: Int): TreeItem =
+    def getChild(index: Int): TreeItem = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getChild, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TreeItem(!_ret)
+}
 
-    def getChildCount(): Int =
+    def getChildCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getChildCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getChildren(): Ptr[Byte] =
+    def getChildren(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TreeItem.Binds.getChildren, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getIndex(): Int =
+    def getIndex(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TreeItem.Binds.getIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def moveBefore(item: TreeItem): Unit =
+    def moveBefore(item: TreeItem): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = item.ptr
         GdxApi.ptrcall(TreeItem.Binds.moveBefore, ptr, _args, null)
+}
 
-    def moveAfter(item: TreeItem): Unit =
+    def moveAfter(item: TreeItem): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = item.ptr
         GdxApi.ptrcall(TreeItem.Binds.moveAfter, ptr, _args, null)
+}
 
-    def callRecursive(method: CString): Unit =
+    def callRecursive(method: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = method.ptr
+        _args(0) = method
         GdxApi.ptrcall(TreeItem.Binds.callRecursive, ptr, _args, null)
-    def collapsed: Ptr[Byte] = isCollapsed()
-    def collapsed_=(v: Ptr[Byte]): Unit = setCollapsed(v)
-    def visible: Ptr[Byte] = isVisible()
-    def visible_=(v: Ptr[Byte]): Unit = setVisible(v)
-    def disableFolding: Ptr[Byte] = isFoldingDisabled()
-    def disableFolding_=(v: Ptr[Byte]): Unit = setDisableFolding(v)
-    def customMinimumHeight: Ptr[Byte] = getCustomMinimumHeight()
-    def customMinimumHeight_=(v: Ptr[Byte]): Unit = setCustomMinimumHeight(v)
+}
+
+    def collapsed: Boolean = isCollapsed()
+    def collapsed_=(v: Boolean): Unit = setCollapsed(v)
+    def visible: Boolean = isVisible()
+    def visible_=(v: Boolean): Unit = setVisible(v)
+    def disableFolding: Boolean = isFoldingDisabled()
+    def disableFolding_=(v: Boolean): Unit = setDisableFolding(v)
+    def customMinimumHeight: Int = getCustomMinimumHeight()
+    def customMinimumHeight_=(v: Int): Unit = setCustomMinimumHeight(v)
+}
 
 object TreeItem:
-    object Binds:
-        var setCellMode: Ptr[Byte] = null
+object Binds {
+          var setCellMode: Ptr[Byte] = null
         var getCellMode: Ptr[Byte] = null
         var setAutoTranslateMode: Ptr[Byte] = null
         var getAutoTranslateMode: Ptr[Byte] = null
@@ -935,16 +1006,10 @@ object TreeItem:
         var setCustomDraw: Ptr[Byte] = null
         var setCustomDrawCallback: Ptr[Byte] = null
         var getCustomDrawCallback: Ptr[Byte] = null
-        var setCollapsed: Ptr[Byte] = null
-        var isCollapsed: Ptr[Byte] = null
         var setCollapsedRecursive: Ptr[Byte] = null
         var isAnyCollapsed: Ptr[Byte] = null
-        var setVisible: Ptr[Byte] = null
-        var isVisible: Ptr[Byte] = null
         var isVisibleInTree: Ptr[Byte] = null
         var uncollapseTree: Ptr[Byte] = null
-        var setCustomMinimumHeight: Ptr[Byte] = null
-        var getCustomMinimumHeight: Ptr[Byte] = null
         var setSelectable: Ptr[Byte] = null
         var isSelectable: Ptr[Byte] = null
         var isSelected: Ptr[Byte] = null
@@ -985,8 +1050,6 @@ object TreeItem:
         var getTextAlignment: Ptr[Byte] = null
         var setExpandRight: Ptr[Byte] = null
         var getExpandRight: Ptr[Byte] = null
-        var setDisableFolding: Ptr[Byte] = null
-        var isFoldingDisabled: Ptr[Byte] = null
         var createChild: Ptr[Byte] = null
         var addChild: Ptr[Byte] = null
         var removeChild: Ptr[Byte] = null
@@ -1007,8 +1070,8 @@ object TreeItem:
         var moveAfter: Ptr[Byte] = null
         var callRecursive: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setCellMode = GdxApi.getMethodBind(c"TreeItem", c"set_cell_mode", 289920701L)
+  def loadBinds(): Unit = {
+                Binds.setCellMode = GdxApi.getMethodBind(c"TreeItem", c"set_cell_mode", 289920701L)
             Binds.getCellMode = GdxApi.getMethodBind(c"TreeItem", c"get_cell_mode", 3406114978L)
             Binds.setAutoTranslateMode = GdxApi.getMethodBind(c"TreeItem", c"set_auto_translate_mode", 287402019L)
             Binds.getAutoTranslateMode = GdxApi.getMethodBind(c"TreeItem", c"get_auto_translate_mode", 906302372L)
@@ -1056,16 +1119,10 @@ object TreeItem:
             Binds.setCustomDraw = GdxApi.getMethodBind(c"TreeItem", c"set_custom_draw", 272420368L)
             Binds.setCustomDrawCallback = GdxApi.getMethodBind(c"TreeItem", c"set_custom_draw_callback", 957362965L)
             Binds.getCustomDrawCallback = GdxApi.getMethodBind(c"TreeItem", c"get_custom_draw_callback", 1317077508L)
-            Binds.setCollapsed = GdxApi.getMethodBind(c"TreeItem", c"set_collapsed", 2586408642L)
-            Binds.isCollapsed = GdxApi.getMethodBind(c"TreeItem", c"is_collapsed", 2240911060L)
             Binds.setCollapsedRecursive = GdxApi.getMethodBind(c"TreeItem", c"set_collapsed_recursive", 2586408642L)
             Binds.isAnyCollapsed = GdxApi.getMethodBind(c"TreeItem", c"is_any_collapsed", 2595650253L)
-            Binds.setVisible = GdxApi.getMethodBind(c"TreeItem", c"set_visible", 2586408642L)
-            Binds.isVisible = GdxApi.getMethodBind(c"TreeItem", c"is_visible", 2240911060L)
             Binds.isVisibleInTree = GdxApi.getMethodBind(c"TreeItem", c"is_visible_in_tree", 36873697L)
             Binds.uncollapseTree = GdxApi.getMethodBind(c"TreeItem", c"uncollapse_tree", 3218959716L)
-            Binds.setCustomMinimumHeight = GdxApi.getMethodBind(c"TreeItem", c"set_custom_minimum_height", 1286410249L)
-            Binds.getCustomMinimumHeight = GdxApi.getMethodBind(c"TreeItem", c"get_custom_minimum_height", 3905245786L)
             Binds.setSelectable = GdxApi.getMethodBind(c"TreeItem", c"set_selectable", 300928843L)
             Binds.isSelectable = GdxApi.getMethodBind(c"TreeItem", c"is_selectable", 1116898809L)
             Binds.isSelected = GdxApi.getMethodBind(c"TreeItem", c"is_selected", 3067735520L)
@@ -1106,8 +1163,6 @@ object TreeItem:
             Binds.getTextAlignment = GdxApi.getMethodBind(c"TreeItem", c"get_text_alignment", 4171562184L)
             Binds.setExpandRight = GdxApi.getMethodBind(c"TreeItem", c"set_expand_right", 300928843L)
             Binds.getExpandRight = GdxApi.getMethodBind(c"TreeItem", c"get_expand_right", 1116898809L)
-            Binds.setDisableFolding = GdxApi.getMethodBind(c"TreeItem", c"set_disable_folding", 2586408642L)
-            Binds.isFoldingDisabled = GdxApi.getMethodBind(c"TreeItem", c"is_folding_disabled", 36873697L)
             Binds.createChild = GdxApi.getMethodBind(c"TreeItem", c"create_child", 954243986L)
             Binds.addChild = GdxApi.getMethodBind(c"TreeItem", c"add_child", 1819951137L)
             Binds.removeChild = GdxApi.getMethodBind(c"TreeItem", c"remove_child", 1819951137L)
@@ -1127,3 +1182,5 @@ object TreeItem:
             Binds.moveBefore = GdxApi.getMethodBind(c"TreeItem", c"move_before", 1819951137L)
             Binds.moveAfter = GdxApi.getMethodBind(c"TreeItem", c"move_after", 1819951137L)
             Binds.callRecursive = GdxApi.getMethodBind(c"TreeItem", c"call_recursive", 2866548813L)
+  }
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorVCSInterface extends Object
+class EditorVCSInterface extends Object {
     def _initialize(projectPath: CString): Boolean = false
     def _setCredentials(username: CString, password: CString, sshPublicKeyPath: CString, sshPrivateKeyPath: CString, sshPassphrase: CString): Unit = ()
     def _getModifiedFilesData(): Ptr[Byte] = null
@@ -29,87 +29,98 @@ class EditorVCSInterface extends Object
     def _push(remote: CString, force: Boolean): Unit = ()
     def _fetch(remote: CString): Unit = ()
     def _getLineDiff(filePath: CString, text: CString): Ptr[Byte] = null
-    def createDiffLine(newLineNo: Int, oldLineNo: Int, content: CString, status: CString): Dictionary =
+
+    def createDiffLine(newLineNo: Int, oldLineNo: Int, content: CString, status: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = newLineNo.toLong
+        val _a0 = stackalloc[Long](); !_a0 = newLineNo.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = oldLineNo.toLong
+        val _a1 = stackalloc[Long](); !_a1 = oldLineNo.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = content.ptr
-        _args(3) = status.ptr
+        _args(2) = content
+        _args(3) = status
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.createDiffLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def createDiffHunk(oldStart: Int, newStart: Int, oldLines: Int, newLines: Int): Dictionary =
+    def createDiffHunk(oldStart: Int, newStart: Int, oldLines: Int, newLines: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = oldStart.toLong
+        val _a0 = stackalloc[Long](); !_a0 = oldStart.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = newStart.toLong
+        val _a1 = stackalloc[Long](); !_a1 = newStart.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = oldLines.toLong
+        val _a2 = stackalloc[Long](); !_a2 = oldLines.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = newLines.toLong
+        val _a3 = stackalloc[Long](); !_a3 = newLines.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.createDiffHunk, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def createDiffFile(newFile: CString, oldFile: CString): Dictionary =
+    def createDiffFile(newFile: CString, oldFile: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = newFile.ptr
-        _args(1) = oldFile.ptr
+        _args(0) = newFile
+        _args(1) = oldFile
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.createDiffFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def createCommit(msg: CString, author: CString, id: CString, unixTimestamp: Long, offsetMinutes: Long): Dictionary =
+    def createCommit(msg: CString, author: CString, id: CString, unixTimestamp: Long, offsetMinutes: Long): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](5)
-        _args(0) = msg.ptr
-        _args(1) = author.ptr
-        _args(2) = id.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = unixTimestamp
+        _args(0) = msg
+        _args(1) = author
+        _args(2) = id
+        val _a3 = stackalloc[Long](); !_a3 = unixTimestamp
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = offsetMinutes
+        val _a4 = stackalloc[Long](); !_a4 = offsetMinutes
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.createCommit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def createStatusFile(filePath: CString, changeType: Int, area: Int): Dictionary =
+    def createStatusFile(filePath: CString, changeType: Int, area: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = filePath.ptr
-        _args(1) = changeType.ptr
-        _args(2) = area.ptr
+        _args(0) = filePath
+        val _a1 = stackalloc[Long](); !_a1 = changeType.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = area.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.createStatusFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def addDiffHunksIntoDiffFile(diffFile: Dictionary, diffHunks: Ptr[Byte]): Dictionary =
+    def addDiffHunksIntoDiffFile(diffFile: Dictionary, diffHunks: Ptr[Byte]): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = diffFile.ptr
-        _args(1) = diffHunks.ptr
+        _args(1) = diffHunks
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.addDiffHunksIntoDiffFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def addLineDiffsIntoDiffHunk(diffHunk: Dictionary, lineDiffs: Ptr[Byte]): Dictionary =
+    def addLineDiffsIntoDiffHunk(diffHunk: Dictionary, lineDiffs: Ptr[Byte]): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = diffHunk.ptr
-        _args(1) = lineDiffs.ptr
+        _args(1) = lineDiffs
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorVCSInterface.Binds.addLineDiffsIntoDiffHunk, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def popupError(msg: CString): Unit =
+    def popupError(msg: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = msg.ptr
+        _args(0) = msg
         GdxApi.ptrcall(EditorVCSInterface.Binds.popupError, ptr, _args, null)
-
+}
+}
 
 object EditorVCSInterface:
-    object Binds:
-        var createDiffLine: Ptr[Byte] = null
+object Binds {
+          var createDiffLine: Ptr[Byte] = null
         var createDiffHunk: Ptr[Byte] = null
         var createDiffFile: Ptr[Byte] = null
         var createCommit: Ptr[Byte] = null
@@ -118,8 +129,8 @@ object EditorVCSInterface:
         var addLineDiffsIntoDiffHunk: Ptr[Byte] = null
         var popupError: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.createDiffLine = GdxApi.getMethodBind(c"EditorVCSInterface", c"create_diff_line", 2901184053L)
+  def loadBinds(): Unit = {
+                Binds.createDiffLine = GdxApi.getMethodBind(c"EditorVCSInterface", c"create_diff_line", 2901184053L)
             Binds.createDiffHunk = GdxApi.getMethodBind(c"EditorVCSInterface", c"create_diff_hunk", 3784842090L)
             Binds.createDiffFile = GdxApi.getMethodBind(c"EditorVCSInterface", c"create_diff_file", 2723227684L)
             Binds.createCommit = GdxApi.getMethodBind(c"EditorVCSInterface", c"create_commit", 1075983584L)
@@ -127,8 +138,11 @@ object EditorVCSInterface:
             Binds.addDiffHunksIntoDiffFile = GdxApi.getMethodBind(c"EditorVCSInterface", c"add_diff_hunks_into_diff_file", 4015243225L)
             Binds.addLineDiffsIntoDiffHunk = GdxApi.getMethodBind(c"EditorVCSInterface", c"add_line_diffs_into_diff_hunk", 4015243225L)
             Binds.popupError = GdxApi.getMethodBind(c"EditorVCSInterface", c"popup_error", 83702148L)
+  }
+}
 
-    def apply(): EditorVCSInterface =
-        val obj = new EditorVCSInterface()
-        obj.ptr = GdxApi.constructObject(c"EditorVCSInterface")
-        obj
+def apply(): EditorVCSInterface = {
+  val obj = new EditorVCSInterface()
+  obj.ptr = GdxApi.constructObject(c"EditorVCSInterface")
+  obj
+}

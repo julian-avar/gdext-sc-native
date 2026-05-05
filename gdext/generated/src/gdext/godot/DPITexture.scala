@@ -5,97 +5,58 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class DPITexture extends Texture2D
-
-    def setSource(source: CString): Unit =
+class DPITexture extends Texture2D {
+    def setSource(source: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = source.ptr
+        _args(0) = source
         GdxApi.ptrcall(DPITexture.Binds.setSource, ptr, _args, null)
+}
 
-    def getSource(): CString =
+    def getSource(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DPITexture.Binds.getSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setBaseScale(baseScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = baseScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DPITexture.Binds.setBaseScale, ptr, _args, null)
-
-    def getBaseScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(DPITexture.Binds.getBaseScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSaturation(saturation: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = saturation.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(DPITexture.Binds.setSaturation, ptr, _args, null)
-
-    def getSaturation(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(DPITexture.Binds.getSaturation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setColorMap(colorMap: Dictionary): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = colorMap.ptr
-        GdxApi.ptrcall(DPITexture.Binds.setColorMap, ptr, _args, null)
-
-    def getColorMap(): Dictionary =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(DPITexture.Binds.getColorMap, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Dictionary(!_ret)
-
-    def setSizeOverride(size: Vector2i): Unit =
+    def setSizeOverride(size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = size.ptr
         GdxApi.ptrcall(DPITexture.Binds.setSizeOverride, ptr, _args, null)
+}
 
-    def getScaledRid(): RID =
+    def getScaledRid(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DPITexture.Binds.getScaledRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
-    def baseScale: Ptr[Byte] = getBaseScale()
-    def baseScale_=(v: Ptr[Byte]): Unit = setBaseScale(v)
-    def saturation: Ptr[Byte] = getSaturation()
-    def saturation_=(v: Ptr[Byte]): Unit = setSaturation(v)
-    def colorMap: Ptr[Byte] = getColorMap()
-    def colorMap_=(v: Ptr[Byte]): Unit = setColorMap(v)
+}
+
+    def baseScale: Float = getBaseScale()
+    def baseScale_=(v: Float): Unit = setBaseScale(v)
+    def saturation: Float = getSaturation()
+    def saturation_=(v: Float): Unit = setSaturation(v)
+    def colorMap: Dictionary = getColorMap()
+    def colorMap_=(v: Dictionary): Unit = setColorMap(v)
+}
 
 object DPITexture:
-    object Binds:
-        var setSource: Ptr[Byte] = null
+object Binds {
+          var setSource: Ptr[Byte] = null
         var getSource: Ptr[Byte] = null
-        var setBaseScale: Ptr[Byte] = null
-        var getBaseScale: Ptr[Byte] = null
-        var setSaturation: Ptr[Byte] = null
-        var getSaturation: Ptr[Byte] = null
-        var setColorMap: Ptr[Byte] = null
-        var getColorMap: Ptr[Byte] = null
         var setSizeOverride: Ptr[Byte] = null
         var getScaledRid: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSource = GdxApi.getMethodBind(c"DPITexture", c"set_source", 83702148L)
+  def loadBinds(): Unit = {
+                Binds.setSource = GdxApi.getMethodBind(c"DPITexture", c"set_source", 83702148L)
             Binds.getSource = GdxApi.getMethodBind(c"DPITexture", c"get_source", 201670096L)
-            Binds.setBaseScale = GdxApi.getMethodBind(c"DPITexture", c"set_base_scale", 373806689L)
-            Binds.getBaseScale = GdxApi.getMethodBind(c"DPITexture", c"get_base_scale", 1740695150L)
-            Binds.setSaturation = GdxApi.getMethodBind(c"DPITexture", c"set_saturation", 373806689L)
-            Binds.getSaturation = GdxApi.getMethodBind(c"DPITexture", c"get_saturation", 1740695150L)
-            Binds.setColorMap = GdxApi.getMethodBind(c"DPITexture", c"set_color_map", 4155329257L)
-            Binds.getColorMap = GdxApi.getMethodBind(c"DPITexture", c"get_color_map", 3102165223L)
             Binds.setSizeOverride = GdxApi.getMethodBind(c"DPITexture", c"set_size_override", 1130785943L)
             Binds.getScaledRid = GdxApi.getMethodBind(c"DPITexture", c"get_scaled_rid", 2944877500L)
+  }
+}
 
-    def apply(): DPITexture =
-        val obj = new DPITexture()
-        obj.ptr = GdxApi.constructObject(c"DPITexture")
-        obj
+def apply(): DPITexture = {
+  val obj = new DPITexture()
+  obj.ptr = GdxApi.constructObject(c"DPITexture")
+  obj
+}

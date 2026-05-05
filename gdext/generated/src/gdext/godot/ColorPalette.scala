@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ColorPalette extends Resource
-
-    def setColors(colors: PackedColorArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = colors.ptr
-        GdxApi.ptrcall(ColorPalette.Binds.setColors, ptr, _args, null)
-
-    def getColors(): PackedColorArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ColorPalette.Binds.getColors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedColorArray(!_ret)
-    def colors: Ptr[Byte] = getColors()
-    def colors_=(v: Ptr[Byte]): Unit = setColors(v)
+class ColorPalette extends Resource {
+    def colors: PackedColorArray = getColors()
+    def colors_=(v: PackedColorArray): Unit = setColors(v)
+}
 
 object ColorPalette:
-    object Binds:
-        var setColors: Ptr[Byte] = null
-        var getColors: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setColors = GdxApi.getMethodBind(c"ColorPalette", c"set_colors", 3546319833L)
-            Binds.getColors = GdxApi.getMethodBind(c"ColorPalette", c"get_colors", 1392750486L)
-
-    def apply(): ColorPalette =
-        val obj = new ColorPalette()
-        obj.ptr = GdxApi.constructObject(c"ColorPalette")
-        obj
+def apply(): ColorPalette = {
+  val obj = new ColorPalette()
+  obj.ptr = GdxApi.constructObject(c"ColorPalette")
+  obj
+}

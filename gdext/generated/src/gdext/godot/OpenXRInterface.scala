@@ -5,238 +5,197 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRInterface extends XRInterface
-
-    def getSessionState(): Int =
+class OpenXRInterface extends XRInterface {
+    def getSessionState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getSessionState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getDisplayRefreshRate(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRInterface.Binds.getDisplayRefreshRate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDisplayRefreshRate(refreshRate: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = refreshRate.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRInterface.Binds.setDisplayRefreshRate, ptr, _args, null)
-
-    def getRenderTargetSizeMultiplier(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRInterface.Binds.getRenderTargetSizeMultiplier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setRenderTargetSizeMultiplier(multiplier: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = multiplier
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRInterface.Binds.setRenderTargetSizeMultiplier, ptr, _args, null)
-
-    def isFoveationSupported(): Boolean =
+    def isFoveationSupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRInterface.Binds.isFoveationSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFoveationLevel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OpenXRInterface.Binds.getFoveationLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFoveationLevel(foveationLevel: Int): Unit =
+    def isActionSetActive(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = foveationLevel.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRInterface.Binds.setFoveationLevel, ptr, _args, null)
-
-    def getFoveationDynamic(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OpenXRInterface.Binds.getFoveationDynamic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFoveationDynamic(foveationDynamic: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if foveationDynamic then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRInterface.Binds.setFoveationDynamic, ptr, _args, null)
-
-    def isActionSetActive(name: CString): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRInterface.Binds.isActionSetActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setActionSetActive(name: CString, active: Boolean): Unit =
+    def setActionSetActive(name: CString, active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         val _a1 = stackalloc[Byte](); !_a1 = if active then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRInterface.Binds.setActionSetActive, ptr, _args, null)
+}
 
-    def getActionSets(): Array =
+    def getActionSets(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getActionSets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAvailableDisplayRefreshRates(): Array =
+    def getAvailableDisplayRefreshRates(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getAvailableDisplayRefreshRates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMotionRange(hand: Int, motionRange: Int): Unit =
+    def setMotionRange(hand: Int, motionRange: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = motionRange.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = motionRange.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRInterface.Binds.setMotionRange, ptr, _args, null)
+}
 
-    def getMotionRange(hand: Int): Int =
+    def getMotionRange(hand: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hand.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getMotionRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getHandTrackingSource(hand: Int): Int =
+    def getHandTrackingSource(hand: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hand.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandTrackingSource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getHandJointFlags(hand: Int, joint: Int): Int =
+    def getHandJointFlags(hand: Int, joint: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = joint.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandJointFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getHandJointRotation(hand: Int, joint: Int): Quaternion =
+    def getHandJointRotation(hand: Int, joint: Int): Quaternion = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandJointRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Quaternion(!_ret)
+}
 
-    def getHandJointPosition(hand: Int, joint: Int): Vector3 =
+    def getHandJointPosition(hand: Int, joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandJointPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getHandJointRadius(hand: Int, joint: Int): Float =
+    def getHandJointRadius(hand: Int, joint: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandJointRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getHandJointLinearVelocity(hand: Int, joint: Int): Vector3 =
+    def getHandJointLinearVelocity(hand: Int, joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandJointLinearVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getHandJointAngularVelocity(hand: Int, joint: Int): Vector3 =
+    def getHandJointAngularVelocity(hand: Int, joint: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = hand.ptr
-        _args(1) = joint.ptr
+        val _a0 = stackalloc[Long](); !_a0 = hand.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = joint.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInterface.Binds.getHandJointAngularVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def isHandTrackingSupported(): Boolean =
+    def isHandTrackingSupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRInterface.Binds.isHandTrackingSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isHandInteractionSupported(): Boolean =
+    def isHandInteractionSupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRInterface.Binds.isHandInteractionSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isEyeGazeInteractionSupported(): Boolean =
+    def isEyeGazeInteractionSupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(OpenXRInterface.Binds.isEyeGazeInteractionSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getVrsMinRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRInterface.Binds.getVrsMinRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVrsMinRadius(radius: Float): Unit =
+    def setCpuLevel(level: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
+        val _a0 = stackalloc[Long](); !_a0 = level.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRInterface.Binds.setVrsMinRadius, ptr, _args, null)
-
-    def getVrsStrength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRInterface.Binds.getVrsStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVrsStrength(strength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = strength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRInterface.Binds.setVrsStrength, ptr, _args, null)
-
-    def setCpuLevel(level: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = level.ptr
         GdxApi.ptrcall(OpenXRInterface.Binds.setCpuLevel, ptr, _args, null)
+}
 
-    def setGpuLevel(level: Int): Unit =
+    def setGpuLevel(level: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = level.ptr
+        val _a0 = stackalloc[Long](); !_a0 = level.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(OpenXRInterface.Binds.setGpuLevel, ptr, _args, null)
-    def displayRefreshRate: Ptr[Byte] = getDisplayRefreshRate()
-    def displayRefreshRate_=(v: Ptr[Byte]): Unit = setDisplayRefreshRate(v)
-    def renderTargetSizeMultiplier: Ptr[Byte] = getRenderTargetSizeMultiplier()
-    def renderTargetSizeMultiplier_=(v: Ptr[Byte]): Unit = setRenderTargetSizeMultiplier(v)
-    def foveationLevel: Ptr[Byte] = getFoveationLevel()
-    def foveationLevel_=(v: Ptr[Byte]): Unit = setFoveationLevel(v)
-    def foveationDynamic: Ptr[Byte] = getFoveationDynamic()
-    def foveationDynamic_=(v: Ptr[Byte]): Unit = setFoveationDynamic(v)
-    def vrsMinRadius: Ptr[Byte] = getVrsMinRadius()
-    def vrsMinRadius_=(v: Ptr[Byte]): Unit = setVrsMinRadius(v)
-    def vrsStrength: Ptr[Byte] = getVrsStrength()
-    def vrsStrength_=(v: Ptr[Byte]): Unit = setVrsStrength(v)
+}
+
+    def displayRefreshRate: Float = getDisplayRefreshRate()
+    def displayRefreshRate_=(v: Float): Unit = setDisplayRefreshRate(v)
+    def renderTargetSizeMultiplier: Double = getRenderTargetSizeMultiplier()
+    def renderTargetSizeMultiplier_=(v: Double): Unit = setRenderTargetSizeMultiplier(v)
+    def foveationLevel: Int = getFoveationLevel()
+    def foveationLevel_=(v: Int): Unit = setFoveationLevel(v)
+    def foveationDynamic: Boolean = getFoveationDynamic()
+    def foveationDynamic_=(v: Boolean): Unit = setFoveationDynamic(v)
+    def vrsMinRadius: Float = getVrsMinRadius()
+    def vrsMinRadius_=(v: Float): Unit = setVrsMinRadius(v)
+    def vrsStrength: Float = getVrsStrength()
+    def vrsStrength_=(v: Float): Unit = setVrsStrength(v)
+}
 
 object OpenXRInterface:
-    object Binds:
-        var getSessionState: Ptr[Byte] = null
-        var getDisplayRefreshRate: Ptr[Byte] = null
-        var setDisplayRefreshRate: Ptr[Byte] = null
-        var getRenderTargetSizeMultiplier: Ptr[Byte] = null
-        var setRenderTargetSizeMultiplier: Ptr[Byte] = null
+object Binds {
+          var getSessionState: Ptr[Byte] = null
         var isFoveationSupported: Ptr[Byte] = null
-        var getFoveationLevel: Ptr[Byte] = null
-        var setFoveationLevel: Ptr[Byte] = null
-        var getFoveationDynamic: Ptr[Byte] = null
-        var setFoveationDynamic: Ptr[Byte] = null
         var isActionSetActive: Ptr[Byte] = null
         var setActionSetActive: Ptr[Byte] = null
         var getActionSets: Ptr[Byte] = null
@@ -253,24 +212,12 @@ object OpenXRInterface:
         var isHandTrackingSupported: Ptr[Byte] = null
         var isHandInteractionSupported: Ptr[Byte] = null
         var isEyeGazeInteractionSupported: Ptr[Byte] = null
-        var getVrsMinRadius: Ptr[Byte] = null
-        var setVrsMinRadius: Ptr[Byte] = null
-        var getVrsStrength: Ptr[Byte] = null
-        var setVrsStrength: Ptr[Byte] = null
         var setCpuLevel: Ptr[Byte] = null
         var setGpuLevel: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSessionState = GdxApi.getMethodBind(c"OpenXRInterface", c"get_session_state", 896364779L)
-            Binds.getDisplayRefreshRate = GdxApi.getMethodBind(c"OpenXRInterface", c"get_display_refresh_rate", 1740695150L)
-            Binds.setDisplayRefreshRate = GdxApi.getMethodBind(c"OpenXRInterface", c"set_display_refresh_rate", 373806689L)
-            Binds.getRenderTargetSizeMultiplier = GdxApi.getMethodBind(c"OpenXRInterface", c"get_render_target_size_multiplier", 1740695150L)
-            Binds.setRenderTargetSizeMultiplier = GdxApi.getMethodBind(c"OpenXRInterface", c"set_render_target_size_multiplier", 373806689L)
+  def loadBinds(): Unit = {
+                Binds.getSessionState = GdxApi.getMethodBind(c"OpenXRInterface", c"get_session_state", 896364779L)
             Binds.isFoveationSupported = GdxApi.getMethodBind(c"OpenXRInterface", c"is_foveation_supported", 36873697L)
-            Binds.getFoveationLevel = GdxApi.getMethodBind(c"OpenXRInterface", c"get_foveation_level", 3905245786L)
-            Binds.setFoveationLevel = GdxApi.getMethodBind(c"OpenXRInterface", c"set_foveation_level", 1286410249L)
-            Binds.getFoveationDynamic = GdxApi.getMethodBind(c"OpenXRInterface", c"get_foveation_dynamic", 36873697L)
-            Binds.setFoveationDynamic = GdxApi.getMethodBind(c"OpenXRInterface", c"set_foveation_dynamic", 2586408642L)
             Binds.isActionSetActive = GdxApi.getMethodBind(c"OpenXRInterface", c"is_action_set_active", 3927539163L)
             Binds.setActionSetActive = GdxApi.getMethodBind(c"OpenXRInterface", c"set_action_set_active", 2678287736L)
             Binds.getActionSets = GdxApi.getMethodBind(c"OpenXRInterface", c"get_action_sets", 3995934104L)
@@ -287,14 +234,13 @@ object OpenXRInterface:
             Binds.isHandTrackingSupported = GdxApi.getMethodBind(c"OpenXRInterface", c"is_hand_tracking_supported", 2240911060L)
             Binds.isHandInteractionSupported = GdxApi.getMethodBind(c"OpenXRInterface", c"is_hand_interaction_supported", 36873697L)
             Binds.isEyeGazeInteractionSupported = GdxApi.getMethodBind(c"OpenXRInterface", c"is_eye_gaze_interaction_supported", 2240911060L)
-            Binds.getVrsMinRadius = GdxApi.getMethodBind(c"OpenXRInterface", c"get_vrs_min_radius", 1740695150L)
-            Binds.setVrsMinRadius = GdxApi.getMethodBind(c"OpenXRInterface", c"set_vrs_min_radius", 373806689L)
-            Binds.getVrsStrength = GdxApi.getMethodBind(c"OpenXRInterface", c"get_vrs_strength", 1740695150L)
-            Binds.setVrsStrength = GdxApi.getMethodBind(c"OpenXRInterface", c"set_vrs_strength", 373806689L)
             Binds.setCpuLevel = GdxApi.getMethodBind(c"OpenXRInterface", c"set_cpu_level", 2940842095L)
             Binds.setGpuLevel = GdxApi.getMethodBind(c"OpenXRInterface", c"set_gpu_level", 2940842095L)
+  }
+}
 
-    def apply(): OpenXRInterface =
-        val obj = new OpenXRInterface()
-        obj.ptr = GdxApi.constructObject(c"OpenXRInterface")
-        obj
+def apply(): OpenXRInterface = {
+  val obj = new OpenXRInterface()
+  obj.ptr = GdxApi.constructObject(c"OpenXRInterface")
+  obj
+}

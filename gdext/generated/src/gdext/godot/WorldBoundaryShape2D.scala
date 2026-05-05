@@ -5,49 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WorldBoundaryShape2D extends Shape2D
-
-    def setNormal(normal: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = normal.ptr
-        GdxApi.ptrcall(WorldBoundaryShape2D.Binds.setNormal, ptr, _args, null)
-
-    def getNormal(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WorldBoundaryShape2D.Binds.getNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setDistance(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(WorldBoundaryShape2D.Binds.setDistance, ptr, _args, null)
-
-    def getDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(WorldBoundaryShape2D.Binds.getDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def normal: Ptr[Byte] = getNormal()
-    def normal_=(v: Ptr[Byte]): Unit = setNormal(v)
-    def distance: Ptr[Byte] = getDistance()
-    def distance_=(v: Ptr[Byte]): Unit = setDistance(v)
+class WorldBoundaryShape2D extends Shape2D {
+    def normal: Vector2 = getNormal()
+    def normal_=(v: Vector2): Unit = setNormal(v)
+    def distance: Float = getDistance()
+    def distance_=(v: Float): Unit = setDistance(v)
+}
 
 object WorldBoundaryShape2D:
-    object Binds:
-        var setNormal: Ptr[Byte] = null
-        var getNormal: Ptr[Byte] = null
-        var setDistance: Ptr[Byte] = null
-        var getDistance: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setNormal = GdxApi.getMethodBind(c"WorldBoundaryShape2D", c"set_normal", 743155724L)
-            Binds.getNormal = GdxApi.getMethodBind(c"WorldBoundaryShape2D", c"get_normal", 3341600327L)
-            Binds.setDistance = GdxApi.getMethodBind(c"WorldBoundaryShape2D", c"set_distance", 373806689L)
-            Binds.getDistance = GdxApi.getMethodBind(c"WorldBoundaryShape2D", c"get_distance", 1740695150L)
-
-    def apply(): WorldBoundaryShape2D =
-        val obj = new WorldBoundaryShape2D()
-        obj.ptr = GdxApi.constructObject(c"WorldBoundaryShape2D")
-        obj
+def apply(): WorldBoundaryShape2D = {
+  val obj = new WorldBoundaryShape2D()
+  obj.ptr = GdxApi.constructObject(c"WorldBoundaryShape2D")
+  obj
+}

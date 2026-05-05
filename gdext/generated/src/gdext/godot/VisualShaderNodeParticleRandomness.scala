@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParticleRandomness extends VisualShaderNode
-
-    def setOpType(`type`: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(VisualShaderNodeParticleRandomness.Binds.setOpType, ptr, _args, null)
-
-    def getOpType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeParticleRandomness.Binds.getOpType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def opType: Ptr[Byte] = getOpType()
-    def opType_=(v: Ptr[Byte]): Unit = setOpType(v)
+class VisualShaderNodeParticleRandomness extends VisualShaderNode {
+    def opType: Int = getOpType()
+    def opType_=(v: Int): Unit = setOpType(v)
+}
 
 object VisualShaderNodeParticleRandomness:
-    object Binds:
-        var setOpType: Ptr[Byte] = null
-        var getOpType: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOpType = GdxApi.getMethodBind(c"VisualShaderNodeParticleRandomness", c"set_op_type", 2060089061L)
-            Binds.getOpType = GdxApi.getMethodBind(c"VisualShaderNodeParticleRandomness", c"get_op_type", 3597061078L)
-
-    def apply(): VisualShaderNodeParticleRandomness =
-        val obj = new VisualShaderNodeParticleRandomness()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleRandomness")
-        obj
+def apply(): VisualShaderNodeParticleRandomness = {
+  val obj = new VisualShaderNodeParticleRandomness()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleRandomness")
+  obj
+}

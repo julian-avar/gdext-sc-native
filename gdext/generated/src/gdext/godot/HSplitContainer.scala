@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HSplitContainer extends SplitContainer
-
-
-
+class HSplitContainer extends SplitContainer {}
 
 object HSplitContainer:
-    def apply(): HSplitContainer =
-        val obj = new HSplitContainer()
-        obj.ptr = GdxApi.constructObject(c"HSplitContainer")
-        obj
+def apply(): HSplitContainer = {
+  val obj = new HSplitContainer()
+  obj.ptr = GdxApi.constructObject(c"HSplitContainer")
+  obj
+}

@@ -5,151 +5,99 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamRandomizer extends AudioStream
-
-    def addStream(index: Int, stream: AudioStream): Unit =
+class AudioStreamRandomizer extends AudioStream {
+    def addStream(index: Int, stream: AudioStream): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = stream.ptr
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.addStream, ptr, _args, null)
+}
 
-    def moveStream(indexFrom: Int, indexTo: Int): Unit =
+    def moveStream(indexFrom: Int, indexTo: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = indexFrom.toLong
+        val _a0 = stackalloc[Long](); !_a0 = indexFrom.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = indexTo.toLong
+        val _a1 = stackalloc[Long](); !_a1 = indexTo.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.moveStream, ptr, _args, null)
+}
 
-    def removeStream(index: Int): Unit =
+    def removeStream(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.removeStream, ptr, _args, null)
+}
 
-    def setStream(index: Int, stream: AudioStream): Unit =
+    def setStream(index: Int, stream: AudioStream): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = stream.ptr
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.setStream, ptr, _args, null)
+}
 
-    def getStream(index: Int): AudioStream =
+    def getStream(index: Int): AudioStream = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.getStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioStream(!_ret)
+}
 
-    def setStreamProbabilityWeight(index: Int, weight: Float): Unit =
+    def setStreamProbabilityWeight(index: Int, weight: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = weight.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.setStreamProbabilityWeight, ptr, _args, null)
+}
 
-    def getStreamProbabilityWeight(index: Int): Float =
+    def getStreamProbabilityWeight(index: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AudioStreamRandomizer.Binds.getStreamProbabilityWeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setStreamsCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.setStreamsCount, ptr, _args, null)
-
-    def getStreamsCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.getStreamsCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRandomPitch(scale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = scale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.setRandomPitch, ptr, _args, null)
-
-    def getRandomPitch(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.getRandomPitch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRandomVolumeOffsetDb(dbOffset: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = dbOffset.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.setRandomVolumeOffsetDb, ptr, _args, null)
-
-    def getRandomVolumeOffsetDb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.getRandomVolumeOffsetDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPlaybackMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.setPlaybackMode, ptr, _args, null)
-
-    def getPlaybackMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamRandomizer.Binds.getPlaybackMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def playbackMode: Ptr[Byte] = getPlaybackMode()
-    def playbackMode_=(v: Ptr[Byte]): Unit = setPlaybackMode(v)
-    def randomPitch: Ptr[Byte] = getRandomPitch()
-    def randomPitch_=(v: Ptr[Byte]): Unit = setRandomPitch(v)
-    def randomVolumeOffsetDb: Ptr[Byte] = getRandomVolumeOffsetDb()
-    def randomVolumeOffsetDb_=(v: Ptr[Byte]): Unit = setRandomVolumeOffsetDb(v)
-    def streamsCount: Ptr[Byte] = getStreamsCount()
-    def streamsCount_=(v: Ptr[Byte]): Unit = setStreamsCount(v)
+    def playbackMode: Int = getPlaybackMode()
+    def playbackMode_=(v: Int): Unit = setPlaybackMode(v)
+    def randomPitch: Float = getRandomPitch()
+    def randomPitch_=(v: Float): Unit = setRandomPitch(v)
+    def randomVolumeOffsetDb: Float = getRandomVolumeOffsetDb()
+    def randomVolumeOffsetDb_=(v: Float): Unit = setRandomVolumeOffsetDb(v)
+    def streamsCount: Int = getStreamsCount()
+    def streamsCount_=(v: Int): Unit = setStreamsCount(v)
+}
 
 object AudioStreamRandomizer:
-    object Binds:
-        var addStream: Ptr[Byte] = null
+object Binds {
+          var addStream: Ptr[Byte] = null
         var moveStream: Ptr[Byte] = null
         var removeStream: Ptr[Byte] = null
         var setStream: Ptr[Byte] = null
         var getStream: Ptr[Byte] = null
         var setStreamProbabilityWeight: Ptr[Byte] = null
         var getStreamProbabilityWeight: Ptr[Byte] = null
-        var setStreamsCount: Ptr[Byte] = null
-        var getStreamsCount: Ptr[Byte] = null
-        var setRandomPitch: Ptr[Byte] = null
-        var getRandomPitch: Ptr[Byte] = null
-        var setRandomVolumeOffsetDb: Ptr[Byte] = null
-        var getRandomVolumeOffsetDb: Ptr[Byte] = null
-        var setPlaybackMode: Ptr[Byte] = null
-        var getPlaybackMode: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addStream = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"add_stream", 1892018854L)
+  def loadBinds(): Unit = {
+                Binds.addStream = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"add_stream", 1892018854L)
             Binds.moveStream = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"move_stream", 3937882851L)
             Binds.removeStream = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"remove_stream", 1286410249L)
             Binds.setStream = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"set_stream", 111075094L)
             Binds.getStream = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"get_stream", 2739380747L)
             Binds.setStreamProbabilityWeight = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"set_stream_probability_weight", 1602489585L)
             Binds.getStreamProbabilityWeight = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"get_stream_probability_weight", 2339986948L)
-            Binds.setStreamsCount = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"set_streams_count", 1286410249L)
-            Binds.getStreamsCount = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"get_streams_count", 3905245786L)
-            Binds.setRandomPitch = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"set_random_pitch", 373806689L)
-            Binds.getRandomPitch = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"get_random_pitch", 1740695150L)
-            Binds.setRandomVolumeOffsetDb = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"set_random_volume_offset_db", 373806689L)
-            Binds.getRandomVolumeOffsetDb = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"get_random_volume_offset_db", 1740695150L)
-            Binds.setPlaybackMode = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"set_playback_mode", 3950967023L)
-            Binds.getPlaybackMode = GdxApi.getMethodBind(c"AudioStreamRandomizer", c"get_playback_mode", 3943055077L)
+  }
+}
 
-    def apply(): AudioStreamRandomizer =
-        val obj = new AudioStreamRandomizer()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamRandomizer")
-        obj
+def apply(): AudioStreamRandomizer = {
+  val obj = new AudioStreamRandomizer()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamRandomizer")
+  obj
+}

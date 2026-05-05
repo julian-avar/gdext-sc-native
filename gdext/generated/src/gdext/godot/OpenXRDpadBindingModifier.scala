@@ -5,172 +5,30 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRDpadBindingModifier extends OpenXRIPBindingModifier
-
-    def setActionSet(actionSet: OpenXRActionSet): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = actionSet.ptr
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setActionSet, ptr, _args, null)
-
-    def getActionSet(): OpenXRActionSet =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getActionSet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new OpenXRActionSet(!_ret)
-
-    def setInputPath(inputPath: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = inputPath.ptr
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setInputPath, ptr, _args, null)
-
-    def getInputPath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getInputPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setThreshold(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setThreshold, ptr, _args, null)
-
-    def getThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setThresholdReleased(thresholdReleased: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = thresholdReleased.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setThresholdReleased, ptr, _args, null)
-
-    def getThresholdReleased(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getThresholdReleased, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCenterRegion(centerRegion: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = centerRegion.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setCenterRegion, ptr, _args, null)
-
-    def getCenterRegion(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getCenterRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setWedgeAngle(wedgeAngle: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = wedgeAngle.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setWedgeAngle, ptr, _args, null)
-
-    def getWedgeAngle(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getWedgeAngle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setIsSticky(isSticky: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if isSticky then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setIsSticky, ptr, _args, null)
-
-    def getIsSticky(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getIsSticky, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOnHaptic(haptic: OpenXRHapticBase): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = haptic.ptr
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setOnHaptic, ptr, _args, null)
-
-    def getOnHaptic(): OpenXRHapticBase =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getOnHaptic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new OpenXRHapticBase(!_ret)
-
-    def setOffHaptic(haptic: OpenXRHapticBase): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = haptic.ptr
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.setOffHaptic, ptr, _args, null)
-
-    def getOffHaptic(): OpenXRHapticBase =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRDpadBindingModifier.Binds.getOffHaptic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new OpenXRHapticBase(!_ret)
-    def actionSet: Ptr[Byte] = getActionSet()
-    def actionSet_=(v: Ptr[Byte]): Unit = setActionSet(v)
-    def inputPath: Ptr[Byte] = getInputPath()
-    def inputPath_=(v: Ptr[Byte]): Unit = setInputPath(v)
-    def threshold: Ptr[Byte] = getThreshold()
-    def threshold_=(v: Ptr[Byte]): Unit = setThreshold(v)
-    def thresholdReleased: Ptr[Byte] = getThresholdReleased()
-    def thresholdReleased_=(v: Ptr[Byte]): Unit = setThresholdReleased(v)
-    def centerRegion: Ptr[Byte] = getCenterRegion()
-    def centerRegion_=(v: Ptr[Byte]): Unit = setCenterRegion(v)
-    def wedgeAngle: Ptr[Byte] = getWedgeAngle()
-    def wedgeAngle_=(v: Ptr[Byte]): Unit = setWedgeAngle(v)
-    def isSticky: Ptr[Byte] = getIsSticky()
-    def isSticky_=(v: Ptr[Byte]): Unit = setIsSticky(v)
-    def onHaptic: Ptr[Byte] = getOnHaptic()
-    def onHaptic_=(v: Ptr[Byte]): Unit = setOnHaptic(v)
-    def offHaptic: Ptr[Byte] = getOffHaptic()
-    def offHaptic_=(v: Ptr[Byte]): Unit = setOffHaptic(v)
+class OpenXRDpadBindingModifier extends OpenXRIPBindingModifier {
+    def actionSet: OpenXRActionSet = getActionSet()
+    def actionSet_=(v: OpenXRActionSet): Unit = setActionSet(v)
+    def inputPath: CString = getInputPath()
+    def inputPath_=(v: CString): Unit = setInputPath(v)
+    def threshold: Float = getThreshold()
+    def threshold_=(v: Float): Unit = setThreshold(v)
+    def thresholdReleased: Float = getThresholdReleased()
+    def thresholdReleased_=(v: Float): Unit = setThresholdReleased(v)
+    def centerRegion: Float = getCenterRegion()
+    def centerRegion_=(v: Float): Unit = setCenterRegion(v)
+    def wedgeAngle: Float = getWedgeAngle()
+    def wedgeAngle_=(v: Float): Unit = setWedgeAngle(v)
+    def isSticky: Boolean = getIsSticky()
+    def isSticky_=(v: Boolean): Unit = setIsSticky(v)
+    def onHaptic: OpenXRHapticBase = getOnHaptic()
+    def onHaptic_=(v: OpenXRHapticBase): Unit = setOnHaptic(v)
+    def offHaptic: OpenXRHapticBase = getOffHaptic()
+    def offHaptic_=(v: OpenXRHapticBase): Unit = setOffHaptic(v)
+}
 
 object OpenXRDpadBindingModifier:
-    object Binds:
-        var setActionSet: Ptr[Byte] = null
-        var getActionSet: Ptr[Byte] = null
-        var setInputPath: Ptr[Byte] = null
-        var getInputPath: Ptr[Byte] = null
-        var setThreshold: Ptr[Byte] = null
-        var getThreshold: Ptr[Byte] = null
-        var setThresholdReleased: Ptr[Byte] = null
-        var getThresholdReleased: Ptr[Byte] = null
-        var setCenterRegion: Ptr[Byte] = null
-        var getCenterRegion: Ptr[Byte] = null
-        var setWedgeAngle: Ptr[Byte] = null
-        var getWedgeAngle: Ptr[Byte] = null
-        var setIsSticky: Ptr[Byte] = null
-        var getIsSticky: Ptr[Byte] = null
-        var setOnHaptic: Ptr[Byte] = null
-        var getOnHaptic: Ptr[Byte] = null
-        var setOffHaptic: Ptr[Byte] = null
-        var getOffHaptic: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setActionSet = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_action_set", 2093310581L)
-            Binds.getActionSet = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_action_set", 619941079L)
-            Binds.setInputPath = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_input_path", 83702148L)
-            Binds.getInputPath = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_input_path", 201670096L)
-            Binds.setThreshold = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_threshold", 373806689L)
-            Binds.getThreshold = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_threshold", 1740695150L)
-            Binds.setThresholdReleased = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_threshold_released", 373806689L)
-            Binds.getThresholdReleased = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_threshold_released", 1740695150L)
-            Binds.setCenterRegion = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_center_region", 373806689L)
-            Binds.getCenterRegion = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_center_region", 1740695150L)
-            Binds.setWedgeAngle = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_wedge_angle", 373806689L)
-            Binds.getWedgeAngle = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_wedge_angle", 1740695150L)
-            Binds.setIsSticky = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_is_sticky", 2586408642L)
-            Binds.getIsSticky = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_is_sticky", 36873697L)
-            Binds.setOnHaptic = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_on_haptic", 2998020150L)
-            Binds.getOnHaptic = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_on_haptic", 922310751L)
-            Binds.setOffHaptic = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"set_off_haptic", 2998020150L)
-            Binds.getOffHaptic = GdxApi.getMethodBind(c"OpenXRDpadBindingModifier", c"get_off_haptic", 922310751L)
-
-    def apply(): OpenXRDpadBindingModifier =
-        val obj = new OpenXRDpadBindingModifier()
-        obj.ptr = GdxApi.constructObject(c"OpenXRDpadBindingModifier")
-        obj
+def apply(): OpenXRDpadBindingModifier = {
+  val obj = new OpenXRDpadBindingModifier()
+  obj.ptr = GdxApi.constructObject(c"OpenXRDpadBindingModifier")
+  obj
+}

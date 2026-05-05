@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConcavePolygonShape2D extends Shape2D
-
-    def setSegments(segments: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = segments.ptr
-        GdxApi.ptrcall(ConcavePolygonShape2D.Binds.setSegments, ptr, _args, null)
-
-    def getSegments(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ConcavePolygonShape2D.Binds.getSegments, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-    def segments: Ptr[Byte] = getSegments()
-    def segments_=(v: Ptr[Byte]): Unit = setSegments(v)
+class ConcavePolygonShape2D extends Shape2D {
+    def segments: PackedVector2Array = getSegments()
+    def segments_=(v: PackedVector2Array): Unit = setSegments(v)
+}
 
 object ConcavePolygonShape2D:
-    object Binds:
-        var setSegments: Ptr[Byte] = null
-        var getSegments: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSegments = GdxApi.getMethodBind(c"ConcavePolygonShape2D", c"set_segments", 1509147220L)
-            Binds.getSegments = GdxApi.getMethodBind(c"ConcavePolygonShape2D", c"get_segments", 2961356807L)
-
-    def apply(): ConcavePolygonShape2D =
-        val obj = new ConcavePolygonShape2D()
-        obj.ptr = GdxApi.constructObject(c"ConcavePolygonShape2D")
-        obj
+def apply(): ConcavePolygonShape2D = {
+  val obj = new ConcavePolygonShape2D()
+  obj.ptr = GdxApi.constructObject(c"ConcavePolygonShape2D")
+  obj
+}

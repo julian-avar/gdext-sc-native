@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VFlowContainer extends FlowContainer
-
-
-
+class VFlowContainer extends FlowContainer {}
 
 object VFlowContainer:
-    def apply(): VFlowContainer =
-        val obj = new VFlowContainer()
-        obj.ptr = GdxApi.constructObject(c"VFlowContainer")
-        obj
+def apply(): VFlowContainer = {
+  val obj = new VFlowContainer()
+  obj.ptr = GdxApi.constructObject(c"VFlowContainer")
+  obj
+}

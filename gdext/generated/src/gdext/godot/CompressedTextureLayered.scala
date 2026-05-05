@@ -5,28 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CompressedTextureLayered extends TextureLayered
-
-    def load(path: CString): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CompressedTextureLayered.Binds.load, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getLoadPath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CompressedTextureLayered.Binds.getLoadPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def loadPath: Ptr[Byte] = getLoadPath()
-    def loadPath_=(v: Ptr[Byte]): Unit = load(v)
-
-object CompressedTextureLayered:
-    object Binds:
-        var load: Ptr[Byte] = null
-        var getLoadPath: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.load = GdxApi.getMethodBind(c"CompressedTextureLayered", c"load", 166001499L)
-            Binds.getLoadPath = GdxApi.getMethodBind(c"CompressedTextureLayered", c"get_load_path", 201670096L)
+class CompressedTextureLayered extends TextureLayered {
+    def loadPath: CString = getLoadPath()
+    def loadPath_=(v: CString): Unit = load(v)
+}

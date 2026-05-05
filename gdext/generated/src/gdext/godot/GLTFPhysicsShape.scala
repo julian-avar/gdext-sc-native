@@ -5,161 +5,59 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFPhysicsShape extends Resource
-
-    def toNode(): CollisionShape3D =
+class GLTFPhysicsShape extends Resource {
+    def toNode(): CollisionShape3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFPhysicsShape.Binds.toNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CollisionShape3D(!_ret)
+}
 
-    def toResource(): Shape3D =
+    def toResource(): Shape3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFPhysicsShape.Binds.toResource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Shape3D(!_ret)
+}
 
-    def toDictionary(): Dictionary =
+    def toDictionary(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFPhysicsShape.Binds.toDictionary, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getShapeType(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getShapeType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setShapeType(shapeType: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shapeType.ptr
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setShapeType, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setSize, ptr, _args, null)
-
-    def getRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setRadius, ptr, _args, null)
-
-    def getHeight(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setHeight(height: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = height.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setHeight, ptr, _args, null)
-
-    def getIsTrigger(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getIsTrigger, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setIsTrigger(isTrigger: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if isTrigger then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setIsTrigger, ptr, _args, null)
-
-    def getMeshIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getMeshIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMeshIndex(meshIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = meshIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setMeshIndex, ptr, _args, null)
-
-    def getImporterMesh(): ImporterMesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.getImporterMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new ImporterMesh(!_ret)
-
-    def setImporterMesh(importerMesh: ImporterMesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = importerMesh.ptr
-        GdxApi.ptrcall(GLTFPhysicsShape.Binds.setImporterMesh, ptr, _args, null)
-    def shapeType: Ptr[Byte] = getShapeType()
-    def shapeType_=(v: Ptr[Byte]): Unit = setShapeType(v)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def radius: Ptr[Byte] = getRadius()
-    def radius_=(v: Ptr[Byte]): Unit = setRadius(v)
-    def height: Ptr[Byte] = getHeight()
-    def height_=(v: Ptr[Byte]): Unit = setHeight(v)
-    def isTrigger: Ptr[Byte] = getIsTrigger()
-    def isTrigger_=(v: Ptr[Byte]): Unit = setIsTrigger(v)
-    def meshIndex: Ptr[Byte] = getMeshIndex()
-    def meshIndex_=(v: Ptr[Byte]): Unit = setMeshIndex(v)
-    def importerMesh: Ptr[Byte] = getImporterMesh()
-    def importerMesh_=(v: Ptr[Byte]): Unit = setImporterMesh(v)
+    def shapeType: CString = getShapeType()
+    def shapeType_=(v: CString): Unit = setShapeType(v)
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def radius: Float = getRadius()
+    def radius_=(v: Float): Unit = setRadius(v)
+    def height: Float = getHeight()
+    def height_=(v: Float): Unit = setHeight(v)
+    def isTrigger: Boolean = getIsTrigger()
+    def isTrigger_=(v: Boolean): Unit = setIsTrigger(v)
+    def meshIndex: Int = getMeshIndex()
+    def meshIndex_=(v: Int): Unit = setMeshIndex(v)
+    def importerMesh: ImporterMesh = getImporterMesh()
+    def importerMesh_=(v: ImporterMesh): Unit = setImporterMesh(v)
+}
 
 object GLTFPhysicsShape:
-    object Binds:
-        var toNode: Ptr[Byte] = null
+object Binds {
+          var toNode: Ptr[Byte] = null
         var toResource: Ptr[Byte] = null
         var toDictionary: Ptr[Byte] = null
-        var getShapeType: Ptr[Byte] = null
-        var setShapeType: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setSize: Ptr[Byte] = null
-        var getRadius: Ptr[Byte] = null
-        var setRadius: Ptr[Byte] = null
-        var getHeight: Ptr[Byte] = null
-        var setHeight: Ptr[Byte] = null
-        var getIsTrigger: Ptr[Byte] = null
-        var setIsTrigger: Ptr[Byte] = null
-        var getMeshIndex: Ptr[Byte] = null
-        var setMeshIndex: Ptr[Byte] = null
-        var getImporterMesh: Ptr[Byte] = null
-        var setImporterMesh: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.toNode = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"to_node", 563689933L)
+  def loadBinds(): Unit = {
+                Binds.toNode = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"to_node", 563689933L)
             Binds.toResource = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"to_resource", 1913542110L)
             Binds.toDictionary = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"to_dictionary", 3102165223L)
-            Binds.getShapeType = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_shape_type", 201670096L)
-            Binds.setShapeType = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_shape_type", 83702148L)
-            Binds.getSize = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_size", 3360562783L)
-            Binds.setSize = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_size", 3460891852L)
-            Binds.getRadius = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_radius", 1740695150L)
-            Binds.setRadius = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_radius", 373806689L)
-            Binds.getHeight = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_height", 1740695150L)
-            Binds.setHeight = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_height", 373806689L)
-            Binds.getIsTrigger = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_is_trigger", 36873697L)
-            Binds.setIsTrigger = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_is_trigger", 2586408642L)
-            Binds.getMeshIndex = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_mesh_index", 3905245786L)
-            Binds.setMeshIndex = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_mesh_index", 1286410249L)
-            Binds.getImporterMesh = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"get_importer_mesh", 3161779525L)
-            Binds.setImporterMesh = GdxApi.getMethodBind(c"GLTFPhysicsShape", c"set_importer_mesh", 2255166972L)
+  }
+}
 
-    def apply(): GLTFPhysicsShape =
-        val obj = new GLTFPhysicsShape()
-        obj.ptr = GdxApi.constructObject(c"GLTFPhysicsShape")
-        obj
+def apply(): GLTFPhysicsShape = {
+  val obj = new GLTFPhysicsShape()
+  obj.ptr = GdxApi.constructObject(c"GLTFPhysicsShape")
+  obj
+}

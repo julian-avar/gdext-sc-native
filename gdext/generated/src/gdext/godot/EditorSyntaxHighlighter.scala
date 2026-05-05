@@ -5,15 +5,15 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorSyntaxHighlighter extends SyntaxHighlighter
+class EditorSyntaxHighlighter extends SyntaxHighlighter {
     def _getName(): CString = null
     def _getSupportedLanguages(): PackedStringArray = null
     def _create(): EditorSyntaxHighlighter = null
-
-
+}
 
 object EditorSyntaxHighlighter:
-    def apply(): EditorSyntaxHighlighter =
-        val obj = new EditorSyntaxHighlighter()
-        obj.ptr = GdxApi.constructObject(c"EditorSyntaxHighlighter")
-        obj
+def apply(): EditorSyntaxHighlighter = {
+  val obj = new EditorSyntaxHighlighter()
+  obj.ptr = GdxApi.constructObject(c"EditorSyntaxHighlighter")
+  obj
+}

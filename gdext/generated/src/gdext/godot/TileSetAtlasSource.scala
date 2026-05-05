@@ -5,100 +5,48 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TileSetAtlasSource extends TileSetSource
-
-    def setTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setMargins(margins: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = margins.ptr
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.setMargins, ptr, _args, null)
-
-    def getMargins(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.getMargins, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setSeparation(separation: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = separation.ptr
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.setSeparation, ptr, _args, null)
-
-    def getSeparation(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.getSeparation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setTextureRegionSize(textureRegionSize: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = textureRegionSize.ptr
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.setTextureRegionSize, ptr, _args, null)
-
-    def getTextureRegionSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.getTextureRegionSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setUseTexturePadding(useTexturePadding: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useTexturePadding then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.setUseTexturePadding, ptr, _args, null)
-
-    def getUseTexturePadding(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TileSetAtlasSource.Binds.getUseTexturePadding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def createTile(atlasCoords: Vector2i): Unit =
+class TileSetAtlasSource extends TileSetSource {
+    def createTile(atlasCoords: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         GdxApi.ptrcall(TileSetAtlasSource.Binds.createTile, ptr, _args, null)
+}
 
-    def removeTile(atlasCoords: Vector2i): Unit =
+    def removeTile(atlasCoords: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         GdxApi.ptrcall(TileSetAtlasSource.Binds.removeTile, ptr, _args, null)
+}
 
-    def moveTileInAtlas(atlasCoords: Vector2i): Unit =
+    def moveTileInAtlas(atlasCoords: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         GdxApi.ptrcall(TileSetAtlasSource.Binds.moveTileInAtlas, ptr, _args, null)
+}
 
-    def getTileSizeInAtlas(atlasCoords: Vector2i): Vector2i =
+    def getTileSizeInAtlas(atlasCoords: Vector2i): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileSizeInAtlas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def hasRoomForTile(atlasCoords: Vector2i, size: Vector2i, animationColumns: Int, animationSeparation: Vector2i, framesCount: Int): Boolean =
+    def hasRoomForTile(atlasCoords: Vector2i, size: Vector2i, animationColumns: Int, animationSeparation: Vector2i, framesCount: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = atlasCoords.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = animationColumns.toLong
+        val _a2 = stackalloc[Long](); !_a2 = animationColumns.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = animationSeparation.ptr
-        val _a4 = stackalloc[CLong](); !_a4 = framesCount.toLong
+        val _a4 = stackalloc[Long](); !_a4 = framesCount.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.hasRoomForTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getTilesToBeRemovedOnChange(texture: Texture2D, margins: Vector2i, separation: Vector2i, textureRegionSize: Vector2i): PackedVector2Array =
+    def getTilesToBeRemovedOnChange(texture: Texture2D, margins: Vector2i, separation: Vector2i, textureRegionSize: Vector2i): PackedVector2Array = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = texture.ptr
         _args(1) = margins.ptr
@@ -107,207 +55,226 @@ class TileSetAtlasSource extends TileSetSource
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTilesToBeRemovedOnChange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector2Array(!_ret)
+}
 
-    def getTileAtCoords(atlasCoords: Vector2i): Vector2i =
+    def getTileAtCoords(atlasCoords: Vector2i): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAtCoords, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def hasTilesOutsideTexture(): Boolean =
+    def hasTilesOutsideTexture(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.hasTilesOutsideTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearTilesOutsideTexture(): Unit =
+    def clearTilesOutsideTexture(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.clearTilesOutsideTexture, ptr, _args, null)
+}
 
-    def setTileAnimationColumns(atlasCoords: Vector2i, frameColumns: Int): Unit =
+    def setTileAnimationColumns(atlasCoords: Vector2i, frameColumns: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = frameColumns.toLong
+        val _a1 = stackalloc[Long](); !_a1 = frameColumns.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setTileAnimationColumns, ptr, _args, null)
+}
 
-    def getTileAnimationColumns(atlasCoords: Vector2i): Int =
+    def getTileAnimationColumns(atlasCoords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationColumns, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTileAnimationSeparation(atlasCoords: Vector2i, separation: Vector2i): Unit =
+    def setTileAnimationSeparation(atlasCoords: Vector2i, separation: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
         _args(1) = separation.ptr
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setTileAnimationSeparation, ptr, _args, null)
+}
 
-    def getTileAnimationSeparation(atlasCoords: Vector2i): Vector2i =
+    def getTileAnimationSeparation(atlasCoords: Vector2i): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationSeparation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def setTileAnimationSpeed(atlasCoords: Vector2i, speed: Float): Unit =
+    def setTileAnimationSpeed(atlasCoords: Vector2i, speed: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
         val _a1 = stackalloc[Double](); !_a1 = speed.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setTileAnimationSpeed, ptr, _args, null)
+}
 
-    def getTileAnimationSpeed(atlasCoords: Vector2i): Float =
+    def getTileAnimationSpeed(atlasCoords: Vector2i): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setTileAnimationMode(atlasCoords: Vector2i, mode: Int): Unit =
+    def setTileAnimationMode(atlasCoords: Vector2i, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setTileAnimationMode, ptr, _args, null)
+}
 
-    def getTileAnimationMode(atlasCoords: Vector2i): Int =
+    def getTileAnimationMode(atlasCoords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTileAnimationFramesCount(atlasCoords: Vector2i, framesCount: Int): Unit =
+    def setTileAnimationFramesCount(atlasCoords: Vector2i, framesCount: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = framesCount.toLong
+        val _a1 = stackalloc[Long](); !_a1 = framesCount.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setTileAnimationFramesCount, ptr, _args, null)
+}
 
-    def getTileAnimationFramesCount(atlasCoords: Vector2i): Int =
+    def getTileAnimationFramesCount(atlasCoords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationFramesCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTileAnimationFrameDuration(atlasCoords: Vector2i, frameIndex: Int, duration: Float): Unit =
+    def setTileAnimationFrameDuration(atlasCoords: Vector2i, frameIndex: Int, duration: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = frameIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = frameIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = duration.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setTileAnimationFrameDuration, ptr, _args, null)
+}
 
-    def getTileAnimationFrameDuration(atlasCoords: Vector2i, frameIndex: Int): Float =
+    def getTileAnimationFrameDuration(atlasCoords: Vector2i, frameIndex: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = frameIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = frameIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationFrameDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getTileAnimationTotalDuration(atlasCoords: Vector2i): Float =
+    def getTileAnimationTotalDuration(atlasCoords: Vector2i): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileAnimationTotalDuration, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def createAlternativeTile(atlasCoords: Vector2i): Int =
+    def createAlternativeTile(atlasCoords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.createAlternativeTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Unit =
+    def removeAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = alternativeTile.toLong
+        val _a1 = stackalloc[Long](); !_a1 = alternativeTile.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.removeAlternativeTile, ptr, _args, null)
+}
 
-    def setAlternativeTileId(atlasCoords: Vector2i, alternativeTile: Int, newId: Int): Unit =
+    def setAlternativeTileId(atlasCoords: Vector2i, alternativeTile: Int, newId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = alternativeTile.toLong
+        val _a1 = stackalloc[Long](); !_a1 = alternativeTile.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = newId.toLong
+        val _a2 = stackalloc[Long](); !_a2 = newId.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetAtlasSource.Binds.setAlternativeTileId, ptr, _args, null)
+}
 
-    def getNextAlternativeTileId(atlasCoords: Vector2i): Int =
+    def getNextAlternativeTileId(atlasCoords: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getNextAlternativeTileId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTileData(atlasCoords: Vector2i, alternativeTile: Int): TileData =
+    def getTileData(atlasCoords: Vector2i, alternativeTile: Int): TileData = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = alternativeTile.toLong
+        val _a1 = stackalloc[Long](); !_a1 = alternativeTile.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TileData(!_ret)
+}
 
-    def getAtlasGridSize(): Vector2i =
+    def getAtlasGridSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getAtlasGridSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getTileTextureRegion(atlasCoords: Vector2i): Rect2i =
+    def getTileTextureRegion(atlasCoords: Vector2i): Rect2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = atlasCoords.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getTileTextureRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def getRuntimeTexture(): Texture2D =
+    def getRuntimeTexture(): Texture2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getRuntimeTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def getRuntimeTileTextureRegion(atlasCoords: Vector2i, frame: Int): Rect2i =
+    def getRuntimeTileTextureRegion(atlasCoords: Vector2i, frame: Int): Rect2i = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = atlasCoords.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = frame.toLong
+        val _a1 = stackalloc[Long](); !_a1 = frame.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetAtlasSource.Binds.getRuntimeTileTextureRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def margins: Ptr[Byte] = getMargins()
-    def margins_=(v: Ptr[Byte]): Unit = setMargins(v)
-    def separation: Ptr[Byte] = getSeparation()
-    def separation_=(v: Ptr[Byte]): Unit = setSeparation(v)
-    def textureRegionSize: Ptr[Byte] = getTextureRegionSize()
-    def textureRegionSize_=(v: Ptr[Byte]): Unit = setTextureRegionSize(v)
-    def useTexturePadding: Ptr[Byte] = getUseTexturePadding()
-    def useTexturePadding_=(v: Ptr[Byte]): Unit = setUseTexturePadding(v)
+}
+
+    def texture: Texture2D = getTexture()
+    def texture_=(v: Texture2D): Unit = setTexture(v)
+    def margins: Vector2i = getMargins()
+    def margins_=(v: Vector2i): Unit = setMargins(v)
+    def separation: Vector2i = getSeparation()
+    def separation_=(v: Vector2i): Unit = setSeparation(v)
+    def textureRegionSize: Vector2i = getTextureRegionSize()
+    def textureRegionSize_=(v: Vector2i): Unit = setTextureRegionSize(v)
+    def useTexturePadding: Boolean = getUseTexturePadding()
+    def useTexturePadding_=(v: Boolean): Unit = setUseTexturePadding(v)
+}
 
 object TileSetAtlasSource:
-    object Binds:
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-        var setMargins: Ptr[Byte] = null
-        var getMargins: Ptr[Byte] = null
-        var setSeparation: Ptr[Byte] = null
-        var getSeparation: Ptr[Byte] = null
-        var setTextureRegionSize: Ptr[Byte] = null
-        var getTextureRegionSize: Ptr[Byte] = null
-        var setUseTexturePadding: Ptr[Byte] = null
-        var getUseTexturePadding: Ptr[Byte] = null
-        var createTile: Ptr[Byte] = null
+object Binds {
+          var createTile: Ptr[Byte] = null
         var removeTile: Ptr[Byte] = null
         var moveTileInAtlas: Ptr[Byte] = null
         var getTileSizeInAtlas: Ptr[Byte] = null
@@ -339,18 +306,8 @@ object TileSetAtlasSource:
         var getRuntimeTexture: Ptr[Byte] = null
         var getRuntimeTileTextureRegion: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTexture = GdxApi.getMethodBind(c"TileSetAtlasSource", c"set_texture", 4051416890L)
-            Binds.getTexture = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_texture", 3635182373L)
-            Binds.setMargins = GdxApi.getMethodBind(c"TileSetAtlasSource", c"set_margins", 1130785943L)
-            Binds.getMargins = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_margins", 3690982128L)
-            Binds.setSeparation = GdxApi.getMethodBind(c"TileSetAtlasSource", c"set_separation", 1130785943L)
-            Binds.getSeparation = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_separation", 3690982128L)
-            Binds.setTextureRegionSize = GdxApi.getMethodBind(c"TileSetAtlasSource", c"set_texture_region_size", 1130785943L)
-            Binds.getTextureRegionSize = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_texture_region_size", 3690982128L)
-            Binds.setUseTexturePadding = GdxApi.getMethodBind(c"TileSetAtlasSource", c"set_use_texture_padding", 2586408642L)
-            Binds.getUseTexturePadding = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_use_texture_padding", 36873697L)
-            Binds.createTile = GdxApi.getMethodBind(c"TileSetAtlasSource", c"create_tile", 190528769L)
+  def loadBinds(): Unit = {
+                Binds.createTile = GdxApi.getMethodBind(c"TileSetAtlasSource", c"create_tile", 190528769L)
             Binds.removeTile = GdxApi.getMethodBind(c"TileSetAtlasSource", c"remove_tile", 1130785943L)
             Binds.moveTileInAtlas = GdxApi.getMethodBind(c"TileSetAtlasSource", c"move_tile_in_atlas", 3870111920L)
             Binds.getTileSizeInAtlas = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_tile_size_in_atlas", 3050897911L)
@@ -381,8 +338,11 @@ object TileSetAtlasSource:
             Binds.getTileTextureRegion = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_tile_texture_region", 241857547L)
             Binds.getRuntimeTexture = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_runtime_texture", 3635182373L)
             Binds.getRuntimeTileTextureRegion = GdxApi.getMethodBind(c"TileSetAtlasSource", c"get_runtime_tile_texture_region", 104874263L)
+  }
+}
 
-    def apply(): TileSetAtlasSource =
-        val obj = new TileSetAtlasSource()
-        obj.ptr = GdxApi.constructObject(c"TileSetAtlasSource")
-        obj
+def apply(): TileSetAtlasSource = {
+  val obj = new TileSetAtlasSource()
+  obj.ptr = GdxApi.constructObject(c"TileSetAtlasSource")
+  obj
+}

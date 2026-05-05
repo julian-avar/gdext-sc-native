@@ -5,15 +5,15 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorResourceConversionPlugin extends RefCounted
+class EditorResourceConversionPlugin extends RefCounted {
     def _convertsTo(): CString = null
     def _handles(resource: Resource): Boolean = false
     def _convert(resource: Resource): Resource = null
-
-
+}
 
 object EditorResourceConversionPlugin:
-    def apply(): EditorResourceConversionPlugin =
-        val obj = new EditorResourceConversionPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorResourceConversionPlugin")
-        obj
+def apply(): EditorResourceConversionPlugin = {
+  val obj = new EditorResourceConversionPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorResourceConversionPlugin")
+  obj
+}

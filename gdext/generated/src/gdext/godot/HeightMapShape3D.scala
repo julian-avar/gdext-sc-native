@@ -5,56 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HeightMapShape3D extends Shape3D
-
-    def setMapWidth(width: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HeightMapShape3D.Binds.setMapWidth, ptr, _args, null)
-
-    def getMapWidth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(HeightMapShape3D.Binds.getMapWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMapDepth(height: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = height.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HeightMapShape3D.Binds.setMapDepth, ptr, _args, null)
-
-    def getMapDepth(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(HeightMapShape3D.Binds.getMapDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMapData(data: PackedFloat32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = data.ptr
-        GdxApi.ptrcall(HeightMapShape3D.Binds.setMapData, ptr, _args, null)
-
-    def getMapData(): PackedFloat32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(HeightMapShape3D.Binds.getMapData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedFloat32Array(!_ret)
-
-    def getMinHeight(): Float =
+class HeightMapShape3D extends Shape3D {
+    def getMinHeight(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(HeightMapShape3D.Binds.getMinHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getMaxHeight(): Float =
+    def getMaxHeight(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(HeightMapShape3D.Binds.getMaxHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def updateMapDataFromImage(image: Image, heightMin: Float, heightMax: Float): Unit =
+    def updateMapDataFromImage(image: Image, heightMin: Float, heightMax: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = image.ptr
         val _a1 = stackalloc[Double](); !_a1 = heightMin.toDouble
@@ -62,37 +28,31 @@ class HeightMapShape3D extends Shape3D
         val _a2 = stackalloc[Double](); !_a2 = heightMax.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HeightMapShape3D.Binds.updateMapDataFromImage, ptr, _args, null)
-    def mapWidth: Ptr[Byte] = getMapWidth()
-    def mapWidth_=(v: Ptr[Byte]): Unit = setMapWidth(v)
-    def mapDepth: Ptr[Byte] = getMapDepth()
-    def mapDepth_=(v: Ptr[Byte]): Unit = setMapDepth(v)
-    def mapData: Ptr[Byte] = getMapData()
-    def mapData_=(v: Ptr[Byte]): Unit = setMapData(v)
+}
+
+    def mapWidth: Int = getMapWidth()
+    def mapWidth_=(v: Int): Unit = setMapWidth(v)
+    def mapDepth: Int = getMapDepth()
+    def mapDepth_=(v: Int): Unit = setMapDepth(v)
+    def mapData: PackedFloat32Array = getMapData()
+    def mapData_=(v: PackedFloat32Array): Unit = setMapData(v)
+}
 
 object HeightMapShape3D:
-    object Binds:
-        var setMapWidth: Ptr[Byte] = null
-        var getMapWidth: Ptr[Byte] = null
-        var setMapDepth: Ptr[Byte] = null
-        var getMapDepth: Ptr[Byte] = null
-        var setMapData: Ptr[Byte] = null
-        var getMapData: Ptr[Byte] = null
-        var getMinHeight: Ptr[Byte] = null
+object Binds {
+          var getMinHeight: Ptr[Byte] = null
         var getMaxHeight: Ptr[Byte] = null
         var updateMapDataFromImage: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setMapWidth = GdxApi.getMethodBind(c"HeightMapShape3D", c"set_map_width", 1286410249L)
-            Binds.getMapWidth = GdxApi.getMethodBind(c"HeightMapShape3D", c"get_map_width", 3905245786L)
-            Binds.setMapDepth = GdxApi.getMethodBind(c"HeightMapShape3D", c"set_map_depth", 1286410249L)
-            Binds.getMapDepth = GdxApi.getMethodBind(c"HeightMapShape3D", c"get_map_depth", 3905245786L)
-            Binds.setMapData = GdxApi.getMethodBind(c"HeightMapShape3D", c"set_map_data", 2899603908L)
-            Binds.getMapData = GdxApi.getMethodBind(c"HeightMapShape3D", c"get_map_data", 675695659L)
-            Binds.getMinHeight = GdxApi.getMethodBind(c"HeightMapShape3D", c"get_min_height", 1740695150L)
+  def loadBinds(): Unit = {
+                Binds.getMinHeight = GdxApi.getMethodBind(c"HeightMapShape3D", c"get_min_height", 1740695150L)
             Binds.getMaxHeight = GdxApi.getMethodBind(c"HeightMapShape3D", c"get_max_height", 1740695150L)
             Binds.updateMapDataFromImage = GdxApi.getMethodBind(c"HeightMapShape3D", c"update_map_data_from_image", 2636652979L)
+  }
+}
 
-    def apply(): HeightMapShape3D =
-        val obj = new HeightMapShape3D()
-        obj.ptr = GdxApi.constructObject(c"HeightMapShape3D")
-        obj
+def apply(): HeightMapShape3D = {
+  val obj = new HeightMapShape3D()
+  obj.ptr = GdxApi.constructObject(c"HeightMapShape3D")
+  obj
+}

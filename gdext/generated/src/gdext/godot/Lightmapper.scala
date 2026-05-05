@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Lightmapper extends RefCounted
-
-
-
+class Lightmapper extends RefCounted {}

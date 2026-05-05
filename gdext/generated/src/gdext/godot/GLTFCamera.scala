@@ -5,120 +5,46 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFCamera extends Resource
-
-    def toNode(): Camera3D =
+class GLTFCamera extends Resource {
+    def toNode(): Camera3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFCamera.Binds.toNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Camera3D(!_ret)
+}
 
-    def toDictionary(): Dictionary =
+    def toDictionary(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFCamera.Binds.toDictionary, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getPerspective(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(GLTFCamera.Binds.getPerspective, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPerspective(perspective: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if perspective then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFCamera.Binds.setPerspective, ptr, _args, null)
-
-    def getFov(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFCamera.Binds.getFov, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFov(fov: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = fov.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFCamera.Binds.setFov, ptr, _args, null)
-
-    def getSizeMag(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFCamera.Binds.getSizeMag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSizeMag(sizeMag: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = sizeMag.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFCamera.Binds.setSizeMag, ptr, _args, null)
-
-    def getDepthFar(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFCamera.Binds.getDepthFar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDepthFar(zdepthFar: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = zdepthFar.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFCamera.Binds.setDepthFar, ptr, _args, null)
-
-    def getDepthNear(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GLTFCamera.Binds.getDepthNear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDepthNear(zdepthNear: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = zdepthNear.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GLTFCamera.Binds.setDepthNear, ptr, _args, null)
-    def perspective: Ptr[Byte] = getPerspective()
-    def perspective_=(v: Ptr[Byte]): Unit = setPerspective(v)
-    def fov: Ptr[Byte] = getFov()
-    def fov_=(v: Ptr[Byte]): Unit = setFov(v)
-    def sizeMag: Ptr[Byte] = getSizeMag()
-    def sizeMag_=(v: Ptr[Byte]): Unit = setSizeMag(v)
-    def depthFar: Ptr[Byte] = getDepthFar()
-    def depthFar_=(v: Ptr[Byte]): Unit = setDepthFar(v)
-    def depthNear: Ptr[Byte] = getDepthNear()
-    def depthNear_=(v: Ptr[Byte]): Unit = setDepthNear(v)
+    def perspective: Boolean = getPerspective()
+    def perspective_=(v: Boolean): Unit = setPerspective(v)
+    def fov: Float = getFov()
+    def fov_=(v: Float): Unit = setFov(v)
+    def sizeMag: Float = getSizeMag()
+    def sizeMag_=(v: Float): Unit = setSizeMag(v)
+    def depthFar: Float = getDepthFar()
+    def depthFar_=(v: Float): Unit = setDepthFar(v)
+    def depthNear: Float = getDepthNear()
+    def depthNear_=(v: Float): Unit = setDepthNear(v)
+}
 
 object GLTFCamera:
-    object Binds:
-        var toNode: Ptr[Byte] = null
+object Binds {
+          var toNode: Ptr[Byte] = null
         var toDictionary: Ptr[Byte] = null
-        var getPerspective: Ptr[Byte] = null
-        var setPerspective: Ptr[Byte] = null
-        var getFov: Ptr[Byte] = null
-        var setFov: Ptr[Byte] = null
-        var getSizeMag: Ptr[Byte] = null
-        var setSizeMag: Ptr[Byte] = null
-        var getDepthFar: Ptr[Byte] = null
-        var setDepthFar: Ptr[Byte] = null
-        var getDepthNear: Ptr[Byte] = null
-        var setDepthNear: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.toNode = GdxApi.getMethodBind(c"GLTFCamera", c"to_node", 2285090890L)
+  def loadBinds(): Unit = {
+                Binds.toNode = GdxApi.getMethodBind(c"GLTFCamera", c"to_node", 2285090890L)
             Binds.toDictionary = GdxApi.getMethodBind(c"GLTFCamera", c"to_dictionary", 3102165223L)
-            Binds.getPerspective = GdxApi.getMethodBind(c"GLTFCamera", c"get_perspective", 36873697L)
-            Binds.setPerspective = GdxApi.getMethodBind(c"GLTFCamera", c"set_perspective", 2586408642L)
-            Binds.getFov = GdxApi.getMethodBind(c"GLTFCamera", c"get_fov", 1740695150L)
-            Binds.setFov = GdxApi.getMethodBind(c"GLTFCamera", c"set_fov", 373806689L)
-            Binds.getSizeMag = GdxApi.getMethodBind(c"GLTFCamera", c"get_size_mag", 1740695150L)
-            Binds.setSizeMag = GdxApi.getMethodBind(c"GLTFCamera", c"set_size_mag", 373806689L)
-            Binds.getDepthFar = GdxApi.getMethodBind(c"GLTFCamera", c"get_depth_far", 1740695150L)
-            Binds.setDepthFar = GdxApi.getMethodBind(c"GLTFCamera", c"set_depth_far", 373806689L)
-            Binds.getDepthNear = GdxApi.getMethodBind(c"GLTFCamera", c"get_depth_near", 1740695150L)
-            Binds.setDepthNear = GdxApi.getMethodBind(c"GLTFCamera", c"set_depth_near", 373806689L)
+  }
+}
 
-    def apply(): GLTFCamera =
-        val obj = new GLTFCamera()
-        obj.ptr = GdxApi.constructObject(c"GLTFCamera")
-        obj
+def apply(): GLTFCamera = {
+  val obj = new GLTFCamera()
+  obj.ptr = GdxApi.constructObject(c"GLTFCamera")
+  obj
+}

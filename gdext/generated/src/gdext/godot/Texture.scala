@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Texture extends Resource
-
-
-
+class Texture extends Resource {}
 
 object Texture:
-    def apply(): Texture =
-        val obj = new Texture()
-        obj.ptr = GdxApi.constructObject(c"Texture")
-        obj
+def apply(): Texture = {
+  val obj = new Texture()
+  obj.ptr = GdxApi.constructObject(c"Texture")
+  obj
+}

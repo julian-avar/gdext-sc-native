@@ -5,102 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsPointQueryParameters3D extends RefCounted
-
-    def setPosition(position: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.setPosition, ptr, _args, null)
-
-    def getPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.getPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setCollisionMask(collisionMask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = collisionMask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setExclude(exclude: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = exclude.ptr
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.setExclude, ptr, _args, null)
-
-    def getExclude(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.getExclude, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setCollideWithBodies(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.setCollideWithBodies, ptr, _args, null)
-
-    def isCollideWithBodiesEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.isCollideWithBodiesEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollideWithAreas(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.setCollideWithAreas, ptr, _args, null)
-
-    def isCollideWithAreasEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsPointQueryParameters3D.Binds.isCollideWithAreasEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def position: Ptr[Byte] = getPosition()
-    def position_=(v: Ptr[Byte]): Unit = setPosition(v)
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
+class PhysicsPointQueryParameters3D extends RefCounted {
+    def position: Vector3 = getPosition()
+    def position_=(v: Vector3): Unit = setPosition(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
     def exclude: Ptr[Byte] = getExclude()
     def exclude_=(v: Ptr[Byte]): Unit = setExclude(v)
-    def collideWithBodies: Ptr[Byte] = isCollideWithBodiesEnabled()
-    def collideWithBodies_=(v: Ptr[Byte]): Unit = setCollideWithBodies(v)
-    def collideWithAreas: Ptr[Byte] = isCollideWithAreasEnabled()
-    def collideWithAreas_=(v: Ptr[Byte]): Unit = setCollideWithAreas(v)
+    def collideWithBodies: Boolean = isCollideWithBodiesEnabled()
+    def collideWithBodies_=(v: Boolean): Unit = setCollideWithBodies(v)
+    def collideWithAreas: Boolean = isCollideWithAreasEnabled()
+    def collideWithAreas_=(v: Boolean): Unit = setCollideWithAreas(v)
+}
 
 object PhysicsPointQueryParameters3D:
-    object Binds:
-        var setPosition: Ptr[Byte] = null
-        var getPosition: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
-        var setExclude: Ptr[Byte] = null
-        var getExclude: Ptr[Byte] = null
-        var setCollideWithBodies: Ptr[Byte] = null
-        var isCollideWithBodiesEnabled: Ptr[Byte] = null
-        var setCollideWithAreas: Ptr[Byte] = null
-        var isCollideWithAreasEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPosition = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"set_position", 3460891852L)
-            Binds.getPosition = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"get_position", 3360562783L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"get_collision_mask", 3905245786L)
-            Binds.setExclude = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"set_exclude", 381264803L)
-            Binds.getExclude = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"get_exclude", 3995934104L)
-            Binds.setCollideWithBodies = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"set_collide_with_bodies", 2586408642L)
-            Binds.isCollideWithBodiesEnabled = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"is_collide_with_bodies_enabled", 36873697L)
-            Binds.setCollideWithAreas = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"set_collide_with_areas", 2586408642L)
-            Binds.isCollideWithAreasEnabled = GdxApi.getMethodBind(c"PhysicsPointQueryParameters3D", c"is_collide_with_areas_enabled", 36873697L)
-
-    def apply(): PhysicsPointQueryParameters3D =
-        val obj = new PhysicsPointQueryParameters3D()
-        obj.ptr = GdxApi.constructObject(c"PhysicsPointQueryParameters3D")
-        obj
+def apply(): PhysicsPointQueryParameters3D = {
+  val obj = new PhysicsPointQueryParameters3D()
+  obj.ptr = GdxApi.constructObject(c"PhysicsPointQueryParameters3D")
+  obj
+}

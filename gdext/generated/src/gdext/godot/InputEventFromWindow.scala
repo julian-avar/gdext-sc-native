@@ -5,27 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventFromWindow extends InputEvent
-
-    def setWindowId(id: Long): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventFromWindow.Binds.setWindowId, ptr, _args, null)
-
-    def getWindowId(): Long =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventFromWindow.Binds.getWindowId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def windowId: Ptr[Byte] = getWindowId()
-    def windowId_=(v: Ptr[Byte]): Unit = setWindowId(v)
-
-object InputEventFromWindow:
-    object Binds:
-        var setWindowId: Ptr[Byte] = null
-        var getWindowId: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setWindowId = GdxApi.getMethodBind(c"InputEventFromWindow", c"set_window_id", 1286410249L)
-            Binds.getWindowId = GdxApi.getMethodBind(c"InputEventFromWindow", c"get_window_id", 3905245786L)
+class InputEventFromWindow extends InputEvent {
+    def windowId: Long = getWindowId()
+    def windowId_=(v: Long): Unit = setWindowId(v)
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporterCSVTranslation extends ResourceImporter
-
-
-
+class ResourceImporterCSVTranslation extends ResourceImporter {}
 
 object ResourceImporterCSVTranslation:
-    def apply(): ResourceImporterCSVTranslation =
-        val obj = new ResourceImporterCSVTranslation()
-        obj.ptr = GdxApi.constructObject(c"ResourceImporterCSVTranslation")
-        obj
+def apply(): ResourceImporterCSVTranslation = {
+  val obj = new ResourceImporterCSVTranslation()
+  obj.ptr = GdxApi.constructObject(c"ResourceImporterCSVTranslation")
+  obj
+}

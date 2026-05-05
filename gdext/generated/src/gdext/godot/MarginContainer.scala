@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MarginContainer extends Container
-
-
-
+class MarginContainer extends Container {}
 
 object MarginContainer:
-    def apply(): MarginContainer =
-        val obj = new MarginContainer()
-        obj.ptr = GdxApi.constructObject(c"MarginContainer")
-        obj
+def apply(): MarginContainer = {
+  val obj = new MarginContainer()
+  obj.ptr = GdxApi.constructObject(c"MarginContainer")
+  obj
+}

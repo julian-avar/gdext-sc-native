@@ -5,50 +5,55 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Skeleton2D extends Node2D
-
-    def getBoneCount(): Int =
+class Skeleton2D extends Node2D {
+    def getBoneCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Skeleton2D.Binds.getBoneCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBone(idx: Int): Bone2D =
+    def getBone(idx: Int): Bone2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Skeleton2D.Binds.getBone, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Bone2D(!_ret)
+}
 
-    def getSkeleton(): RID =
+    def getSkeleton(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Skeleton2D.Binds.getSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setModificationStack(modificationStack: SkeletonModificationStack2D): Unit =
+    def setModificationStack(modificationStack: SkeletonModificationStack2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = modificationStack.ptr
         GdxApi.ptrcall(Skeleton2D.Binds.setModificationStack, ptr, _args, null)
+}
 
-    def getModificationStack(): SkeletonModificationStack2D =
+    def getModificationStack(): SkeletonModificationStack2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Skeleton2D.Binds.getModificationStack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SkeletonModificationStack2D(!_ret)
+}
 
-    def executeModifications(delta: Float, executionMode: Int): Unit =
+    def executeModifications(delta: Float, executionMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         val _a0 = stackalloc[Double](); !_a0 = delta.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = executionMode.toLong
+        val _a1 = stackalloc[Long](); !_a1 = executionMode.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Skeleton2D.Binds.executeModifications, ptr, _args, null)
+}
 
-    def setBoneLocalPoseOverride(boneIdx: Int, overridePose: Transform2D, strength: Float, persistent: Boolean): Unit =
+    def setBoneLocalPoseOverride(boneIdx: Int, overridePose: Transform2D, strength: Float, persistent: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = boneIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = boneIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = overridePose.ptr
         val _a2 = stackalloc[Double](); !_a2 = strength.toDouble
@@ -56,19 +61,21 @@ class Skeleton2D extends Node2D
         val _a3 = stackalloc[Byte](); !_a3 = if persistent then 1.toByte else 0.toByte
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Skeleton2D.Binds.setBoneLocalPoseOverride, ptr, _args, null)
+}
 
-    def getBoneLocalPoseOverride(boneIdx: Int): Transform2D =
+    def getBoneLocalPoseOverride(boneIdx: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = boneIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = boneIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Skeleton2D.Binds.getBoneLocalPoseOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
-
+}
+}
 
 object Skeleton2D:
-    object Binds:
-        var getBoneCount: Ptr[Byte] = null
+object Binds {
+          var getBoneCount: Ptr[Byte] = null
         var getBone: Ptr[Byte] = null
         var getSkeleton: Ptr[Byte] = null
         var setModificationStack: Ptr[Byte] = null
@@ -77,8 +84,8 @@ object Skeleton2D:
         var setBoneLocalPoseOverride: Ptr[Byte] = null
         var getBoneLocalPoseOverride: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getBoneCount = GdxApi.getMethodBind(c"Skeleton2D", c"get_bone_count", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getBoneCount = GdxApi.getMethodBind(c"Skeleton2D", c"get_bone_count", 3905245786L)
             Binds.getBone = GdxApi.getMethodBind(c"Skeleton2D", c"get_bone", 2556267111L)
             Binds.getSkeleton = GdxApi.getMethodBind(c"Skeleton2D", c"get_skeleton", 2944877500L)
             Binds.setModificationStack = GdxApi.getMethodBind(c"Skeleton2D", c"set_modification_stack", 3907307132L)
@@ -86,8 +93,11 @@ object Skeleton2D:
             Binds.executeModifications = GdxApi.getMethodBind(c"Skeleton2D", c"execute_modifications", 1005356550L)
             Binds.setBoneLocalPoseOverride = GdxApi.getMethodBind(c"Skeleton2D", c"set_bone_local_pose_override", 555457532L)
             Binds.getBoneLocalPoseOverride = GdxApi.getMethodBind(c"Skeleton2D", c"get_bone_local_pose_override", 2995540667L)
+  }
+}
 
-    def apply(): Skeleton2D =
-        val obj = new Skeleton2D()
-        obj.ptr = GdxApi.constructObject(c"Skeleton2D")
-        obj
+def apply(): Skeleton2D = {
+  val obj = new Skeleton2D()
+  obj.ptr = GdxApi.constructObject(c"Skeleton2D")
+  obj
+}

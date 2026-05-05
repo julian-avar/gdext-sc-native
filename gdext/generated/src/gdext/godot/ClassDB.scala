@@ -5,239 +5,268 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ClassDB extends Object
-
-    def getClassList(): PackedStringArray =
+class ClassDB extends Object {
+    def getClassList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.getClassList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getInheritersFromClass(`class`: CString): PackedStringArray =
+    def getInheritersFromClass(`class`: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.getInheritersFromClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getParentClass(`class`: CString): CString =
+    def getParentClass(`class`: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.getParentClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classExists(`class`: CString): Boolean =
+    def classExists(`class`: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.classExists, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isParentClass(`class`: CString, inherits: CString): Boolean =
+    def isParentClass(`class`: CString, inherits: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = inherits.ptr
+        _args(0) = `class`
+        _args(1) = inherits
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.isParentClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def canInstantiate(`class`: CString): Boolean =
+    def canInstantiate(`class`: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.canInstantiate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def instantiate(`class`: CString): Ptr[Byte] =
+    def instantiate(`class`: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.instantiate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classGetApiType(`class`: CString): Int =
+    def classGetApiType(`class`: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = `class`
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ClassDB.Binds.classGetApiType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def classHasSignal(`class`: CString, signal: CString): Boolean =
+    def classHasSignal(`class`: CString, signal: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = signal.ptr
+        _args(0) = `class`
+        _args(1) = signal
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.classHasSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def classGetSignal(`class`: CString, signal: CString): Dictionary =
+    def classGetSignal(`class`: CString, signal: CString): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = signal.ptr
+        _args(0) = `class`
+        _args(1) = signal
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetSignal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def classGetSignalList(`class`: CString): Ptr[Byte] =
+    def classGetSignalList(`class`: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetSignalList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classGetPropertyList(`class`: CString): Ptr[Byte] =
+    def classGetPropertyList(`class`: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetPropertyList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classGetPropertyGetter(`class`: CString, property: CString): CString =
+    def classGetPropertyGetter(`class`: CString, property: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = property.ptr
+        _args(0) = `class`
+        _args(1) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetPropertyGetter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classGetPropertySetter(`class`: CString, property: CString): CString =
+    def classGetPropertySetter(`class`: CString, property: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = property.ptr
+        _args(0) = `class`
+        _args(1) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetPropertySetter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classGetProperty(`object`: Object, property: CString): Ptr[Byte] =
+    def classGetProperty(`object`: Object, property: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = `object`.ptr
-        _args(1) = property.ptr
+        _args(1) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetProperty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classSetProperty(`object`: Object, property: CString, value: Ptr[Byte]): Int =
+    def classSetProperty(`object`: Object, property: CString, value: Ptr[Byte]): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = `object`.ptr
-        _args(1) = property.ptr
-        _args(2) = value.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = property
+        _args(2) = value
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ClassDB.Binds.classSetProperty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def classGetPropertyDefaultValue(`class`: CString, property: CString): Ptr[Byte] =
+    def classGetPropertyDefaultValue(`class`: CString, property: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = property.ptr
+        _args(0) = `class`
+        _args(1) = property
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetPropertyDefaultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classHasMethod(`class`: CString, method: CString): Boolean =
+    def classHasMethod(`class`: CString, method: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = method.ptr
+        _args(0) = `class`
+        _args(1) = method
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.classHasMethod, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def classGetMethodArgumentCount(`class`: CString, method: CString): Int =
+    def classGetMethodArgumentCount(`class`: CString, method: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = method.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = `class`
+        _args(1) = method
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ClassDB.Binds.classGetMethodArgumentCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def classGetMethodList(`class`: CString): Ptr[Byte] =
+    def classGetMethodList(`class`: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetMethodList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classCallStatic(`class`: CString, method: CString): Ptr[Byte] =
+    def classCallStatic(`class`: CString, method: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = method.ptr
+        _args(0) = `class`
+        _args(1) = method
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classCallStatic, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classGetIntegerConstantList(`class`: CString): PackedStringArray =
+    def classGetIntegerConstantList(`class`: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetIntegerConstantList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def classHasIntegerConstant(`class`: CString, name: CString): Boolean =
+    def classHasIntegerConstant(`class`: CString, name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = name.ptr
+        _args(0) = `class`
+        _args(1) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.classHasIntegerConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def classGetIntegerConstant(`class`: CString, name: CString): Long =
+    def classGetIntegerConstant(`class`: CString, name: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = `class`
+        _args(1) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ClassDB.Binds.classGetIntegerConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def classHasEnum(`class`: CString, name: CString): Boolean =
+    def classHasEnum(`class`: CString, name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = name.ptr
+        _args(0) = `class`
+        _args(1) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.classHasEnum, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def classGetEnumList(`class`: CString): PackedStringArray =
+    def classGetEnumList(`class`: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetEnumList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def classGetEnumConstants(`class`: CString, `enum`: CString): PackedStringArray =
+    def classGetEnumConstants(`class`: CString, `enum`: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = `enum`.ptr
+        _args(0) = `class`
+        _args(1) = `enum`
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetEnumConstants, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def classGetIntegerConstantEnum(`class`: CString, name: CString): CString =
+    def classGetIntegerConstantEnum(`class`: CString, name: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = name.ptr
+        _args(0) = `class`
+        _args(1) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ClassDB.Binds.classGetIntegerConstantEnum, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isClassEnumBitfield(`class`: CString, `enum`: CString): Boolean =
+    def isClassEnumBitfield(`class`: CString, `enum`: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `class`.ptr
-        _args(1) = `enum`.ptr
+        _args(0) = `class`
+        _args(1) = `enum`
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.isClassEnumBitfield, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isClassEnabled(`class`: CString): Boolean =
+    def isClassEnabled(`class`: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `class`.ptr
+        _args(0) = `class`
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ClassDB.Binds.isClassEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object ClassDB:
-    object Binds:
-        var getClassList: Ptr[Byte] = null
+object Binds {
+          var getClassList: Ptr[Byte] = null
         var getInheritersFromClass: Ptr[Byte] = null
         var getParentClass: Ptr[Byte] = null
         var classExists: Ptr[Byte] = null
@@ -268,8 +297,8 @@ object ClassDB:
         var isClassEnumBitfield: Ptr[Byte] = null
         var isClassEnabled: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getClassList = GdxApi.getMethodBind(c"ClassDB", c"get_class_list", 1139954409L)
+  def loadBinds(): Unit = {
+                Binds.getClassList = GdxApi.getMethodBind(c"ClassDB", c"get_class_list", 1139954409L)
             Binds.getInheritersFromClass = GdxApi.getMethodBind(c"ClassDB", c"get_inheriters_from_class", 1761182771L)
             Binds.getParentClass = GdxApi.getMethodBind(c"ClassDB", c"get_parent_class", 1965194235L)
             Binds.classExists = GdxApi.getMethodBind(c"ClassDB", c"class_exists", 2619796661L)
@@ -299,8 +328,11 @@ object ClassDB:
             Binds.classGetIntegerConstantEnum = GdxApi.getMethodBind(c"ClassDB", c"class_get_integer_constant_enum", 2457504236L)
             Binds.isClassEnumBitfield = GdxApi.getMethodBind(c"ClassDB", c"is_class_enum_bitfield", 3860701026L)
             Binds.isClassEnabled = GdxApi.getMethodBind(c"ClassDB", c"is_class_enabled", 2619796661L)
+  }
+}
 
-    def apply(): ClassDB =
-        val obj = new ClassDB()
-        obj.ptr = GdxApi.constructObject(c"ClassDB")
-        obj
+def apply(): ClassDB = {
+  val obj = new ClassDB()
+  obj.ptr = GdxApi.constructObject(c"ClassDB")
+  obj
+}

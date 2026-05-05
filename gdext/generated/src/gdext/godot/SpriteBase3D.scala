@@ -5,316 +5,70 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpriteBase3D extends GeometryInstance3D
-
-    def setCentered(centered: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if centered then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setCentered, ptr, _args, null)
-
-    def isCentered(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.isCentered, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setOffset, ptr, _args, null)
-
-    def getOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setFlipH(flipH: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flipH then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setFlipH, ptr, _args, null)
-
-    def isFlippedH(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.isFlippedH, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFlipV(flipV: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flipV then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setFlipV, ptr, _args, null)
-
-    def isFlippedV(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.isFlippedV, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setModulate(modulate: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = modulate.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setModulate, ptr, _args, null)
-
-    def getModulate(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setRenderPriority(priority: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = priority.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setRenderPriority, ptr, _args, null)
-
-    def getRenderPriority(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getRenderPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPixelSize(pixelSize: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pixelSize.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setPixelSize, ptr, _args, null)
-
-    def getPixelSize(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getPixelSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAxis(axis: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = axis.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setAxis, ptr, _args, null)
-
-    def getAxis(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getAxis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDrawFlag(flag: Int, enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = flag.ptr
-        val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setDrawFlag, ptr, _args, null)
-
-    def getDrawFlag(flag: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flag.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getDrawFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAlphaCutMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setAlphaCutMode, ptr, _args, null)
-
-    def getAlphaCutMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getAlphaCutMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaScissorThreshold(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setAlphaScissorThreshold, ptr, _args, null)
-
-    def getAlphaScissorThreshold(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getAlphaScissorThreshold, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAlphaHashScale(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setAlphaHashScale, ptr, _args, null)
-
-    def getAlphaHashScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getAlphaHashScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAlphaAntialiasing(alphaAa: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alphaAa.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setAlphaAntialiasing, ptr, _args, null)
-
-    def getAlphaAntialiasing(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getAlphaAntialiasing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAlphaAntialiasingEdge(edge: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = edge.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SpriteBase3D.Binds.setAlphaAntialiasingEdge, ptr, _args, null)
-
-    def getAlphaAntialiasingEdge(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getAlphaAntialiasingEdge, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBillboardMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setBillboardMode, ptr, _args, null)
-
-    def getBillboardMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getBillboardMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextureFilter(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(SpriteBase3D.Binds.setTextureFilter, ptr, _args, null)
-
-    def getTextureFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SpriteBase3D.Binds.getTextureFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getItemRect(): Rect2 =
+class SpriteBase3D extends GeometryInstance3D {
+    def getItemRect(): Rect2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpriteBase3D.Binds.getItemRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def generateTriangleMesh(): TriangleMesh =
+    def generateTriangleMesh(): TriangleMesh = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SpriteBase3D.Binds.generateTriangleMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TriangleMesh(!_ret)
-    def centered: Ptr[Byte] = isCentered()
-    def centered_=(v: Ptr[Byte]): Unit = setCentered(v)
-    def offset: Ptr[Byte] = getOffset()
-    def offset_=(v: Ptr[Byte]): Unit = setOffset(v)
-    def flipH: Ptr[Byte] = isFlippedH()
-    def flipH_=(v: Ptr[Byte]): Unit = setFlipH(v)
-    def flipV: Ptr[Byte] = isFlippedV()
-    def flipV_=(v: Ptr[Byte]): Unit = setFlipV(v)
-    def modulate: Ptr[Byte] = getModulate()
-    def modulate_=(v: Ptr[Byte]): Unit = setModulate(v)
-    def pixelSize: Ptr[Byte] = getPixelSize()
-    def pixelSize_=(v: Ptr[Byte]): Unit = setPixelSize(v)
-    def axis: Ptr[Byte] = getAxis()
-    def axis_=(v: Ptr[Byte]): Unit = setAxis(v)
-    def billboard: Ptr[Byte] = getBillboardMode()
-    def billboard_=(v: Ptr[Byte]): Unit = setBillboardMode(v)
-    def transparent: Ptr[Byte] = getDrawFlag()
-    def transparent_=(v: Ptr[Byte]): Unit = setDrawFlag(v)
-    def shaded: Ptr[Byte] = getDrawFlag()
-    def shaded_=(v: Ptr[Byte]): Unit = setDrawFlag(v)
-    def doubleSided: Ptr[Byte] = getDrawFlag()
-    def doubleSided_=(v: Ptr[Byte]): Unit = setDrawFlag(v)
-    def noDepthTest: Ptr[Byte] = getDrawFlag()
-    def noDepthTest_=(v: Ptr[Byte]): Unit = setDrawFlag(v)
-    def fixedSize: Ptr[Byte] = getDrawFlag()
-    def fixedSize_=(v: Ptr[Byte]): Unit = setDrawFlag(v)
-    def alphaCut: Ptr[Byte] = getAlphaCutMode()
-    def alphaCut_=(v: Ptr[Byte]): Unit = setAlphaCutMode(v)
-    def alphaScissorThreshold: Ptr[Byte] = getAlphaScissorThreshold()
-    def alphaScissorThreshold_=(v: Ptr[Byte]): Unit = setAlphaScissorThreshold(v)
-    def alphaHashScale: Ptr[Byte] = getAlphaHashScale()
-    def alphaHashScale_=(v: Ptr[Byte]): Unit = setAlphaHashScale(v)
-    def alphaAntialiasingMode: Ptr[Byte] = getAlphaAntialiasing()
-    def alphaAntialiasingMode_=(v: Ptr[Byte]): Unit = setAlphaAntialiasing(v)
-    def alphaAntialiasingEdge: Ptr[Byte] = getAlphaAntialiasingEdge()
-    def alphaAntialiasingEdge_=(v: Ptr[Byte]): Unit = setAlphaAntialiasingEdge(v)
-    def textureFilter: Ptr[Byte] = getTextureFilter()
-    def textureFilter_=(v: Ptr[Byte]): Unit = setTextureFilter(v)
-    def renderPriority: Ptr[Byte] = getRenderPriority()
-    def renderPriority_=(v: Ptr[Byte]): Unit = setRenderPriority(v)
+}
+
+    def centered: Boolean = isCentered()
+    def centered_=(v: Boolean): Unit = setCentered(v)
+    def offset: Vector2 = getOffset()
+    def offset_=(v: Vector2): Unit = setOffset(v)
+    def flipH: Boolean = isFlippedH()
+    def flipH_=(v: Boolean): Unit = setFlipH(v)
+    def flipV: Boolean = isFlippedV()
+    def flipV_=(v: Boolean): Unit = setFlipV(v)
+    def modulate: Color = getModulate()
+    def modulate_=(v: Color): Unit = setModulate(v)
+    def pixelSize: Float = getPixelSize()
+    def pixelSize_=(v: Float): Unit = setPixelSize(v)
+    def axis: Int = getAxis()
+    def axis_=(v: Int): Unit = setAxis(v)
+    def billboard: Int = getBillboardMode()
+    def billboard_=(v: Int): Unit = setBillboardMode(v)
+    def transparent: Boolean = getDrawFlag()
+    def transparent_=(v: Int): Unit = setDrawFlag(v)
+    def shaded: Boolean = getDrawFlag()
+    def shaded_=(v: Int): Unit = setDrawFlag(v)
+    def doubleSided: Boolean = getDrawFlag()
+    def doubleSided_=(v: Int): Unit = setDrawFlag(v)
+    def noDepthTest: Boolean = getDrawFlag()
+    def noDepthTest_=(v: Int): Unit = setDrawFlag(v)
+    def fixedSize: Boolean = getDrawFlag()
+    def fixedSize_=(v: Int): Unit = setDrawFlag(v)
+    def alphaCut: Int = getAlphaCutMode()
+    def alphaCut_=(v: Int): Unit = setAlphaCutMode(v)
+    def alphaScissorThreshold: Float = getAlphaScissorThreshold()
+    def alphaScissorThreshold_=(v: Float): Unit = setAlphaScissorThreshold(v)
+    def alphaHashScale: Float = getAlphaHashScale()
+    def alphaHashScale_=(v: Float): Unit = setAlphaHashScale(v)
+    def alphaAntialiasingMode: Int = getAlphaAntialiasing()
+    def alphaAntialiasingMode_=(v: Int): Unit = setAlphaAntialiasing(v)
+    def alphaAntialiasingEdge: Float = getAlphaAntialiasingEdge()
+    def alphaAntialiasingEdge_=(v: Float): Unit = setAlphaAntialiasingEdge(v)
+    def textureFilter: Int = getTextureFilter()
+    def textureFilter_=(v: Int): Unit = setTextureFilter(v)
+    def renderPriority: Int = getRenderPriority()
+    def renderPriority_=(v: Int): Unit = setRenderPriority(v)
+}
 
 object SpriteBase3D:
-    object Binds:
-        var setCentered: Ptr[Byte] = null
-        var isCentered: Ptr[Byte] = null
-        var setOffset: Ptr[Byte] = null
-        var getOffset: Ptr[Byte] = null
-        var setFlipH: Ptr[Byte] = null
-        var isFlippedH: Ptr[Byte] = null
-        var setFlipV: Ptr[Byte] = null
-        var isFlippedV: Ptr[Byte] = null
-        var setModulate: Ptr[Byte] = null
-        var getModulate: Ptr[Byte] = null
-        var setRenderPriority: Ptr[Byte] = null
-        var getRenderPriority: Ptr[Byte] = null
-        var setPixelSize: Ptr[Byte] = null
-        var getPixelSize: Ptr[Byte] = null
-        var setAxis: Ptr[Byte] = null
-        var getAxis: Ptr[Byte] = null
-        var setDrawFlag: Ptr[Byte] = null
-        var getDrawFlag: Ptr[Byte] = null
-        var setAlphaCutMode: Ptr[Byte] = null
-        var getAlphaCutMode: Ptr[Byte] = null
-        var setAlphaScissorThreshold: Ptr[Byte] = null
-        var getAlphaScissorThreshold: Ptr[Byte] = null
-        var setAlphaHashScale: Ptr[Byte] = null
-        var getAlphaHashScale: Ptr[Byte] = null
-        var setAlphaAntialiasing: Ptr[Byte] = null
-        var getAlphaAntialiasing: Ptr[Byte] = null
-        var setAlphaAntialiasingEdge: Ptr[Byte] = null
-        var getAlphaAntialiasingEdge: Ptr[Byte] = null
-        var setBillboardMode: Ptr[Byte] = null
-        var getBillboardMode: Ptr[Byte] = null
-        var setTextureFilter: Ptr[Byte] = null
-        var getTextureFilter: Ptr[Byte] = null
-        var getItemRect: Ptr[Byte] = null
+object Binds {
+          var getItemRect: Ptr[Byte] = null
         var generateTriangleMesh: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setCentered = GdxApi.getMethodBind(c"SpriteBase3D", c"set_centered", 2586408642L)
-            Binds.isCentered = GdxApi.getMethodBind(c"SpriteBase3D", c"is_centered", 36873697L)
-            Binds.setOffset = GdxApi.getMethodBind(c"SpriteBase3D", c"set_offset", 743155724L)
-            Binds.getOffset = GdxApi.getMethodBind(c"SpriteBase3D", c"get_offset", 3341600327L)
-            Binds.setFlipH = GdxApi.getMethodBind(c"SpriteBase3D", c"set_flip_h", 2586408642L)
-            Binds.isFlippedH = GdxApi.getMethodBind(c"SpriteBase3D", c"is_flipped_h", 36873697L)
-            Binds.setFlipV = GdxApi.getMethodBind(c"SpriteBase3D", c"set_flip_v", 2586408642L)
-            Binds.isFlippedV = GdxApi.getMethodBind(c"SpriteBase3D", c"is_flipped_v", 36873697L)
-            Binds.setModulate = GdxApi.getMethodBind(c"SpriteBase3D", c"set_modulate", 2920490490L)
-            Binds.getModulate = GdxApi.getMethodBind(c"SpriteBase3D", c"get_modulate", 3444240500L)
-            Binds.setRenderPriority = GdxApi.getMethodBind(c"SpriteBase3D", c"set_render_priority", 1286410249L)
-            Binds.getRenderPriority = GdxApi.getMethodBind(c"SpriteBase3D", c"get_render_priority", 3905245786L)
-            Binds.setPixelSize = GdxApi.getMethodBind(c"SpriteBase3D", c"set_pixel_size", 373806689L)
-            Binds.getPixelSize = GdxApi.getMethodBind(c"SpriteBase3D", c"get_pixel_size", 1740695150L)
-            Binds.setAxis = GdxApi.getMethodBind(c"SpriteBase3D", c"set_axis", 1144690656L)
-            Binds.getAxis = GdxApi.getMethodBind(c"SpriteBase3D", c"get_axis", 3050976882L)
-            Binds.setDrawFlag = GdxApi.getMethodBind(c"SpriteBase3D", c"set_draw_flag", 1135633219L)
-            Binds.getDrawFlag = GdxApi.getMethodBind(c"SpriteBase3D", c"get_draw_flag", 1733036628L)
-            Binds.setAlphaCutMode = GdxApi.getMethodBind(c"SpriteBase3D", c"set_alpha_cut_mode", 227561226L)
-            Binds.getAlphaCutMode = GdxApi.getMethodBind(c"SpriteBase3D", c"get_alpha_cut_mode", 336003791L)
-            Binds.setAlphaScissorThreshold = GdxApi.getMethodBind(c"SpriteBase3D", c"set_alpha_scissor_threshold", 373806689L)
-            Binds.getAlphaScissorThreshold = GdxApi.getMethodBind(c"SpriteBase3D", c"get_alpha_scissor_threshold", 1740695150L)
-            Binds.setAlphaHashScale = GdxApi.getMethodBind(c"SpriteBase3D", c"set_alpha_hash_scale", 373806689L)
-            Binds.getAlphaHashScale = GdxApi.getMethodBind(c"SpriteBase3D", c"get_alpha_hash_scale", 1740695150L)
-            Binds.setAlphaAntialiasing = GdxApi.getMethodBind(c"SpriteBase3D", c"set_alpha_antialiasing", 3212649852L)
-            Binds.getAlphaAntialiasing = GdxApi.getMethodBind(c"SpriteBase3D", c"get_alpha_antialiasing", 2889939400L)
-            Binds.setAlphaAntialiasingEdge = GdxApi.getMethodBind(c"SpriteBase3D", c"set_alpha_antialiasing_edge", 373806689L)
-            Binds.getAlphaAntialiasingEdge = GdxApi.getMethodBind(c"SpriteBase3D", c"get_alpha_antialiasing_edge", 1740695150L)
-            Binds.setBillboardMode = GdxApi.getMethodBind(c"SpriteBase3D", c"set_billboard_mode", 4202036497L)
-            Binds.getBillboardMode = GdxApi.getMethodBind(c"SpriteBase3D", c"get_billboard_mode", 1283840139L)
-            Binds.setTextureFilter = GdxApi.getMethodBind(c"SpriteBase3D", c"set_texture_filter", 22904437L)
-            Binds.getTextureFilter = GdxApi.getMethodBind(c"SpriteBase3D", c"get_texture_filter", 3289213076L)
-            Binds.getItemRect = GdxApi.getMethodBind(c"SpriteBase3D", c"get_item_rect", 1639390495L)
+  def loadBinds(): Unit = {
+                Binds.getItemRect = GdxApi.getMethodBind(c"SpriteBase3D", c"get_item_rect", 1639390495L)
             Binds.generateTriangleMesh = GdxApi.getMethodBind(c"SpriteBase3D", c"generate_triangle_mesh", 3476533166L)
+  }
+}

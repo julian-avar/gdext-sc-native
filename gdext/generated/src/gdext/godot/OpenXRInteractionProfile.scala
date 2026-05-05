@@ -5,101 +5,64 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRInteractionProfile extends Resource
-
-    def setInteractionProfilePath(interactionProfilePath: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = interactionProfilePath.ptr
-        GdxApi.ptrcall(OpenXRInteractionProfile.Binds.setInteractionProfilePath, ptr, _args, null)
-
-    def getInteractionProfilePath(): CString =
+class OpenXRInteractionProfile extends Resource {
+    def getBindingCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getInteractionProfilePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getBindingCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getBindingCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBinding(index: Int): OpenXRIPBinding =
+    def getBinding(index: Int): OpenXRIPBinding = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getBinding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new OpenXRIPBinding(!_ret)
+}
 
-    def setBindings(bindings: Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bindings.ptr
-        GdxApi.ptrcall(OpenXRInteractionProfile.Binds.setBindings, ptr, _args, null)
-
-    def getBindings(): Array =
+    def getBindingModifierCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getBindings, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getBindingModifierCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getBindingModifierCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBindingModifier(index: Int): OpenXRIPBindingModifier =
+    def getBindingModifier(index: Int): OpenXRIPBindingModifier = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getBindingModifier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new OpenXRIPBindingModifier(!_ret)
+}
 
-    def setBindingModifiers(bindingModifiers: Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bindingModifiers.ptr
-        GdxApi.ptrcall(OpenXRInteractionProfile.Binds.setBindingModifiers, ptr, _args, null)
-
-    def getBindingModifiers(): Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OpenXRInteractionProfile.Binds.getBindingModifiers, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-    def interactionProfilePath: Ptr[Byte] = getInteractionProfilePath()
-    def interactionProfilePath_=(v: Ptr[Byte]): Unit = setInteractionProfilePath(v)
+    def interactionProfilePath: CString = getInteractionProfilePath()
+    def interactionProfilePath_=(v: CString): Unit = setInteractionProfilePath(v)
     def bindings: Ptr[Byte] = getBindings()
     def bindings_=(v: Ptr[Byte]): Unit = setBindings(v)
     def bindingModifiers: Ptr[Byte] = getBindingModifiers()
     def bindingModifiers_=(v: Ptr[Byte]): Unit = setBindingModifiers(v)
+}
 
 object OpenXRInteractionProfile:
-    object Binds:
-        var setInteractionProfilePath: Ptr[Byte] = null
-        var getInteractionProfilePath: Ptr[Byte] = null
-        var getBindingCount: Ptr[Byte] = null
+object Binds {
+          var getBindingCount: Ptr[Byte] = null
         var getBinding: Ptr[Byte] = null
-        var setBindings: Ptr[Byte] = null
-        var getBindings: Ptr[Byte] = null
         var getBindingModifierCount: Ptr[Byte] = null
         var getBindingModifier: Ptr[Byte] = null
-        var setBindingModifiers: Ptr[Byte] = null
-        var getBindingModifiers: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setInteractionProfilePath = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"set_interaction_profile_path", 83702148L)
-            Binds.getInteractionProfilePath = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_interaction_profile_path", 201670096L)
-            Binds.getBindingCount = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_binding_count", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getBindingCount = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_binding_count", 3905245786L)
             Binds.getBinding = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_binding", 3934429652L)
-            Binds.setBindings = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"set_bindings", 381264803L)
-            Binds.getBindings = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_bindings", 3995934104L)
             Binds.getBindingModifierCount = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_binding_modifier_count", 3905245786L)
             Binds.getBindingModifier = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_binding_modifier", 2419896583L)
-            Binds.setBindingModifiers = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"set_binding_modifiers", 381264803L)
-            Binds.getBindingModifiers = GdxApi.getMethodBind(c"OpenXRInteractionProfile", c"get_binding_modifiers", 3995934104L)
+  }
+}
 
-    def apply(): OpenXRInteractionProfile =
-        val obj = new OpenXRInteractionProfile()
-        obj.ptr = GdxApi.constructObject(c"OpenXRInteractionProfile")
-        obj
+def apply(): OpenXRInteractionProfile = {
+  val obj = new OpenXRInteractionProfile()
+  obj.ptr = GdxApi.constructObject(c"OpenXRInteractionProfile")
+  obj
+}

@@ -5,67 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LightOccluder2D extends Node2D
-
-    def setOccluderPolygon(polygon: OccluderPolygon2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = polygon.ptr
-        GdxApi.ptrcall(LightOccluder2D.Binds.setOccluderPolygon, ptr, _args, null)
-
-    def getOccluderPolygon(): OccluderPolygon2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(LightOccluder2D.Binds.getOccluderPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new OccluderPolygon2D(!_ret)
-
-    def setOccluderLightMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightOccluder2D.Binds.setOccluderLightMask, ptr, _args, null)
-
-    def getOccluderLightMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(LightOccluder2D.Binds.getOccluderLightMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAsSdfCollision(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(LightOccluder2D.Binds.setAsSdfCollision, ptr, _args, null)
-
-    def isSetAsSdfCollision(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(LightOccluder2D.Binds.isSetAsSdfCollision, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def occluder: Ptr[Byte] = getOccluderPolygon()
-    def occluder_=(v: Ptr[Byte]): Unit = setOccluderPolygon(v)
-    def sdfCollision: Ptr[Byte] = isSetAsSdfCollision()
-    def sdfCollision_=(v: Ptr[Byte]): Unit = setAsSdfCollision(v)
-    def occluderLightMask: Ptr[Byte] = getOccluderLightMask()
-    def occluderLightMask_=(v: Ptr[Byte]): Unit = setOccluderLightMask(v)
+class LightOccluder2D extends Node2D {
+    def occluder: OccluderPolygon2D = getOccluderPolygon()
+    def occluder_=(v: OccluderPolygon2D): Unit = setOccluderPolygon(v)
+    def sdfCollision: Boolean = isSetAsSdfCollision()
+    def sdfCollision_=(v: Boolean): Unit = setAsSdfCollision(v)
+    def occluderLightMask: Int = getOccluderLightMask()
+    def occluderLightMask_=(v: Int): Unit = setOccluderLightMask(v)
+}
 
 object LightOccluder2D:
-    object Binds:
-        var setOccluderPolygon: Ptr[Byte] = null
-        var getOccluderPolygon: Ptr[Byte] = null
-        var setOccluderLightMask: Ptr[Byte] = null
-        var getOccluderLightMask: Ptr[Byte] = null
-        var setAsSdfCollision: Ptr[Byte] = null
-        var isSetAsSdfCollision: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setOccluderPolygon = GdxApi.getMethodBind(c"LightOccluder2D", c"set_occluder_polygon", 3258315893L)
-            Binds.getOccluderPolygon = GdxApi.getMethodBind(c"LightOccluder2D", c"get_occluder_polygon", 3962317075L)
-            Binds.setOccluderLightMask = GdxApi.getMethodBind(c"LightOccluder2D", c"set_occluder_light_mask", 1286410249L)
-            Binds.getOccluderLightMask = GdxApi.getMethodBind(c"LightOccluder2D", c"get_occluder_light_mask", 3905245786L)
-            Binds.setAsSdfCollision = GdxApi.getMethodBind(c"LightOccluder2D", c"set_as_sdf_collision", 2586408642L)
-            Binds.isSetAsSdfCollision = GdxApi.getMethodBind(c"LightOccluder2D", c"is_set_as_sdf_collision", 36873697L)
-
-    def apply(): LightOccluder2D =
-        val obj = new LightOccluder2D()
-        obj.ptr = GdxApi.constructObject(c"LightOccluder2D")
-        obj
+def apply(): LightOccluder2D = {
+  val obj = new LightOccluder2D()
+  obj.ptr = GdxApi.constructObject(c"LightOccluder2D")
+  obj
+}

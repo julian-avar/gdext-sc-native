@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioSamplePlayback extends RefCounted
-
-
-
+class AudioSamplePlayback extends RefCounted {}
 
 object AudioSamplePlayback:
-    def apply(): AudioSamplePlayback =
-        val obj = new AudioSamplePlayback()
-        obj.ptr = GdxApi.constructObject(c"AudioSamplePlayback")
-        obj
+def apply(): AudioSamplePlayback = {
+  val obj = new AudioSamplePlayback()
+  obj.ptr = GdxApi.constructObject(c"AudioSamplePlayback")
+  obj
+}

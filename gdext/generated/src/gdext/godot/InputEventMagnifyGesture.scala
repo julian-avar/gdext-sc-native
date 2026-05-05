@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventMagnifyGesture extends InputEventGesture
-
-    def setFactor(factor: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = factor.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMagnifyGesture.Binds.setFactor, ptr, _args, null)
-
-    def getFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(InputEventMagnifyGesture.Binds.getFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def factor: Ptr[Byte] = getFactor()
-    def factor_=(v: Ptr[Byte]): Unit = setFactor(v)
+class InputEventMagnifyGesture extends InputEventGesture {
+    def factor: Float = getFactor()
+    def factor_=(v: Float): Unit = setFactor(v)
+}
 
 object InputEventMagnifyGesture:
-    object Binds:
-        var setFactor: Ptr[Byte] = null
-        var getFactor: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFactor = GdxApi.getMethodBind(c"InputEventMagnifyGesture", c"set_factor", 373806689L)
-            Binds.getFactor = GdxApi.getMethodBind(c"InputEventMagnifyGesture", c"get_factor", 1740695150L)
-
-    def apply(): InputEventMagnifyGesture =
-        val obj = new InputEventMagnifyGesture()
-        obj.ptr = GdxApi.constructObject(c"InputEventMagnifyGesture")
-        obj
+def apply(): InputEventMagnifyGesture = {
+  val obj = new InputEventMagnifyGesture()
+  obj.ptr = GdxApi.constructObject(c"InputEventMagnifyGesture")
+  obj
+}

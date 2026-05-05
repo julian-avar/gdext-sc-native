@@ -5,352 +5,237 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsDirectBodyState3D extends Object
-
-    def getTotalGravity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getTotalGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getTotalLinearDamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getTotalLinearDamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getTotalAngularDamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getTotalAngularDamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getCenterOfMass(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getCenterOfMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getCenterOfMassLocal(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getCenterOfMassLocal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getPrincipalInertiaAxes(): Basis =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getPrincipalInertiaAxes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Basis(!_ret)
-
-    def getInverseMass(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getInverseMass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getInverseInertia(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getInverseInertia, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getInverseInertiaTensor(): Basis =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getInverseInertiaTensor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Basis(!_ret)
-
-    def setLinearVelocity(velocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = velocity.ptr
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setLinearVelocity, ptr, _args, null)
-
-    def getLinearVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getLinearVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setAngularVelocity(velocity: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = velocity.ptr
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setAngularVelocity, ptr, _args, null)
-
-    def getAngularVelocity(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getAngularVelocity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setTransform(transform: Transform3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = transform.ptr
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setTransform, ptr, _args, null)
-
-    def getTransform(): Transform3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform3D(!_ret)
-
-    def getVelocityAtLocalPosition(localPosition: Vector3): Vector3 =
+class PhysicsDirectBodyState3D extends Object {
+    def getVelocityAtLocalPosition(localPosition: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = localPosition.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getVelocityAtLocalPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def applyCentralImpulse(): Unit =
+    def applyCentralImpulse(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.applyCentralImpulse, ptr, _args, null)
+}
 
-    def applyImpulse(impulse: Vector3): Unit =
+    def applyImpulse(impulse: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = impulse.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.applyImpulse, ptr, _args, null)
+}
 
-    def applyTorqueImpulse(impulse: Vector3): Unit =
+    def applyTorqueImpulse(impulse: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = impulse.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.applyTorqueImpulse, ptr, _args, null)
+}
 
-    def applyCentralForce(): Unit =
+    def applyCentralForce(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.applyCentralForce, ptr, _args, null)
+}
 
-    def applyForce(force: Vector3): Unit =
+    def applyForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.applyForce, ptr, _args, null)
+}
 
-    def applyTorque(torque: Vector3): Unit =
+    def applyTorque(torque: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = torque.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.applyTorque, ptr, _args, null)
+}
 
-    def addConstantCentralForce(): Unit =
+    def addConstantCentralForce(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.addConstantCentralForce, ptr, _args, null)
+}
 
-    def addConstantForce(force: Vector3): Unit =
+    def addConstantForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.addConstantForce, ptr, _args, null)
+}
 
-    def addConstantTorque(torque: Vector3): Unit =
+    def addConstantTorque(torque: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = torque.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.addConstantTorque, ptr, _args, null)
+}
 
-    def setConstantForce(force: Vector3): Unit =
+    def setConstantForce(force: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = force.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setConstantForce, ptr, _args, null)
+}
 
-    def getConstantForce(): Vector3 =
+    def getConstantForce(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getConstantForce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setConstantTorque(torque: Vector3): Unit =
+    def setConstantTorque(torque: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = torque.ptr
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setConstantTorque, ptr, _args, null)
+}
 
-    def getConstantTorque(): Vector3 =
+    def getConstantTorque(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getConstantTorque, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setSleepState(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setSleepState, ptr, _args, null)
-
-    def isSleeping(): Boolean =
+    def getContactCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.isSleeping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollisionLayer(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setCollisionLayer, ptr, _args, null)
-
-    def getCollisionLayer(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getCollisionLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getContactCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getContactLocalPosition(contactIdx: Int): Vector3 =
+    def getContactLocalPosition(contactIdx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactLocalPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getContactLocalNormal(contactIdx: Int): Vector3 =
+    def getContactLocalNormal(contactIdx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactLocalNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getContactImpulse(contactIdx: Int): Vector3 =
+    def getContactImpulse(contactIdx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactImpulse, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getContactLocalShape(contactIdx: Int): Int =
+    def getContactLocalShape(contactIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactLocalShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getContactLocalVelocityAtPosition(contactIdx: Int): Vector3 =
+    def getContactLocalVelocityAtPosition(contactIdx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactLocalVelocityAtPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getContactCollider(contactIdx: Int): RID =
+    def getContactCollider(contactIdx: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactCollider, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getContactColliderPosition(contactIdx: Int): Vector3 =
+    def getContactColliderPosition(contactIdx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactColliderPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getContactColliderId(contactIdx: Int): Long =
+    def getContactColliderId(contactIdx: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactColliderId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getContactColliderObject(contactIdx: Int): Object =
+    def getContactColliderObject(contactIdx: Int): Object = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactColliderObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def getContactColliderShape(contactIdx: Int): Int =
+    def getContactColliderShape(contactIdx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactColliderShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getContactColliderVelocityAtPosition(contactIdx: Int): Vector3 =
+    def getContactColliderVelocityAtPosition(contactIdx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = contactIdx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = contactIdx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getContactColliderVelocityAtPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getStep(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getStep, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def integrateForces(): Unit =
+    def integrateForces(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.integrateForces, ptr, _args, null)
+}
 
-    def getSpaceState(): PhysicsDirectSpaceState3D =
+    def getSpaceState(): PhysicsDirectSpaceState3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PhysicsDirectBodyState3D.Binds.getSpaceState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PhysicsDirectSpaceState3D(!_ret)
-    def step: Ptr[Byte] = getStep()
-    def inverseMass: Ptr[Byte] = getInverseMass()
-    def totalAngularDamp: Ptr[Byte] = getTotalAngularDamp()
-    def totalLinearDamp: Ptr[Byte] = getTotalLinearDamp()
-    def inverseInertia: Ptr[Byte] = getInverseInertia()
-    def inverseInertiaTensor: Ptr[Byte] = getInverseInertiaTensor()
-    def totalGravity: Ptr[Byte] = getTotalGravity()
-    def centerOfMass: Ptr[Byte] = getCenterOfMass()
-    def centerOfMassLocal: Ptr[Byte] = getCenterOfMassLocal()
-    def principalInertiaAxes: Ptr[Byte] = getPrincipalInertiaAxes()
-    def angularVelocity: Ptr[Byte] = getAngularVelocity()
-    def angularVelocity_=(v: Ptr[Byte]): Unit = setAngularVelocity(v)
-    def linearVelocity: Ptr[Byte] = getLinearVelocity()
-    def linearVelocity_=(v: Ptr[Byte]): Unit = setLinearVelocity(v)
-    def sleeping: Ptr[Byte] = isSleeping()
-    def sleeping_=(v: Ptr[Byte]): Unit = setSleepState(v)
-    def collisionLayer: Ptr[Byte] = getCollisionLayer()
-    def collisionLayer_=(v: Ptr[Byte]): Unit = setCollisionLayer(v)
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
-    def transform: Ptr[Byte] = getTransform()
-    def transform_=(v: Ptr[Byte]): Unit = setTransform(v)
+}
+
+    def step: Float = getStep()
+    def inverseMass: Float = getInverseMass()
+    def totalAngularDamp: Float = getTotalAngularDamp()
+    def totalLinearDamp: Float = getTotalLinearDamp()
+    def inverseInertia: Vector3 = getInverseInertia()
+    def inverseInertiaTensor: Basis = getInverseInertiaTensor()
+    def totalGravity: Vector3 = getTotalGravity()
+    def centerOfMass: Vector3 = getCenterOfMass()
+    def centerOfMassLocal: Vector3 = getCenterOfMassLocal()
+    def principalInertiaAxes: Basis = getPrincipalInertiaAxes()
+    def angularVelocity: Vector3 = getAngularVelocity()
+    def angularVelocity_=(v: Vector3): Unit = setAngularVelocity(v)
+    def linearVelocity: Vector3 = getLinearVelocity()
+    def linearVelocity_=(v: Vector3): Unit = setLinearVelocity(v)
+    def sleeping: Boolean = isSleeping()
+    def sleeping_=(v: Boolean): Unit = setSleepState(v)
+    def collisionLayer: Int = getCollisionLayer()
+    def collisionLayer_=(v: Int): Unit = setCollisionLayer(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
+    def transform: Transform3D = getTransform()
+    def transform_=(v: Transform3D): Unit = setTransform(v)
+}
 
 object PhysicsDirectBodyState3D:
-    object Binds:
-        var getTotalGravity: Ptr[Byte] = null
-        var getTotalLinearDamp: Ptr[Byte] = null
-        var getTotalAngularDamp: Ptr[Byte] = null
-        var getCenterOfMass: Ptr[Byte] = null
-        var getCenterOfMassLocal: Ptr[Byte] = null
-        var getPrincipalInertiaAxes: Ptr[Byte] = null
-        var getInverseMass: Ptr[Byte] = null
-        var getInverseInertia: Ptr[Byte] = null
-        var getInverseInertiaTensor: Ptr[Byte] = null
-        var setLinearVelocity: Ptr[Byte] = null
-        var getLinearVelocity: Ptr[Byte] = null
-        var setAngularVelocity: Ptr[Byte] = null
-        var getAngularVelocity: Ptr[Byte] = null
-        var setTransform: Ptr[Byte] = null
-        var getTransform: Ptr[Byte] = null
-        var getVelocityAtLocalPosition: Ptr[Byte] = null
+object Binds {
+          var getVelocityAtLocalPosition: Ptr[Byte] = null
         var applyCentralImpulse: Ptr[Byte] = null
         var applyImpulse: Ptr[Byte] = null
         var applyTorqueImpulse: Ptr[Byte] = null
@@ -364,12 +249,6 @@ object PhysicsDirectBodyState3D:
         var getConstantForce: Ptr[Byte] = null
         var setConstantTorque: Ptr[Byte] = null
         var getConstantTorque: Ptr[Byte] = null
-        var setSleepState: Ptr[Byte] = null
-        var isSleeping: Ptr[Byte] = null
-        var setCollisionLayer: Ptr[Byte] = null
-        var getCollisionLayer: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
         var getContactCount: Ptr[Byte] = null
         var getContactLocalPosition: Ptr[Byte] = null
         var getContactLocalNormal: Ptr[Byte] = null
@@ -382,27 +261,11 @@ object PhysicsDirectBodyState3D:
         var getContactColliderObject: Ptr[Byte] = null
         var getContactColliderShape: Ptr[Byte] = null
         var getContactColliderVelocityAtPosition: Ptr[Byte] = null
-        var getStep: Ptr[Byte] = null
         var integrateForces: Ptr[Byte] = null
         var getSpaceState: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getTotalGravity = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_total_gravity", 3360562783L)
-            Binds.getTotalLinearDamp = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_total_linear_damp", 1740695150L)
-            Binds.getTotalAngularDamp = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_total_angular_damp", 1740695150L)
-            Binds.getCenterOfMass = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_center_of_mass", 3360562783L)
-            Binds.getCenterOfMassLocal = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_center_of_mass_local", 3360562783L)
-            Binds.getPrincipalInertiaAxes = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_principal_inertia_axes", 2716978435L)
-            Binds.getInverseMass = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_inverse_mass", 1740695150L)
-            Binds.getInverseInertia = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_inverse_inertia", 3360562783L)
-            Binds.getInverseInertiaTensor = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_inverse_inertia_tensor", 2716978435L)
-            Binds.setLinearVelocity = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_linear_velocity", 3460891852L)
-            Binds.getLinearVelocity = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_linear_velocity", 3360562783L)
-            Binds.setAngularVelocity = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_angular_velocity", 3460891852L)
-            Binds.getAngularVelocity = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_angular_velocity", 3360562783L)
-            Binds.setTransform = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_transform", 2952846383L)
-            Binds.getTransform = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_transform", 3229777777L)
-            Binds.getVelocityAtLocalPosition = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_velocity_at_local_position", 192990374L)
+  def loadBinds(): Unit = {
+                Binds.getVelocityAtLocalPosition = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_velocity_at_local_position", 192990374L)
             Binds.applyCentralImpulse = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"apply_central_impulse", 2007698547L)
             Binds.applyImpulse = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"apply_impulse", 2754756483L)
             Binds.applyTorqueImpulse = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"apply_torque_impulse", 3460891852L)
@@ -416,12 +279,6 @@ object PhysicsDirectBodyState3D:
             Binds.getConstantForce = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_constant_force", 3360562783L)
             Binds.setConstantTorque = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_constant_torque", 3460891852L)
             Binds.getConstantTorque = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_constant_torque", 3360562783L)
-            Binds.setSleepState = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_sleep_state", 2586408642L)
-            Binds.isSleeping = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"is_sleeping", 36873697L)
-            Binds.setCollisionLayer = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_collision_layer", 1286410249L)
-            Binds.getCollisionLayer = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_collision_layer", 3905245786L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_collision_mask", 3905245786L)
             Binds.getContactCount = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_contact_count", 3905245786L)
             Binds.getContactLocalPosition = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_contact_local_position", 711720468L)
             Binds.getContactLocalNormal = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_contact_local_normal", 711720468L)
@@ -434,6 +291,7 @@ object PhysicsDirectBodyState3D:
             Binds.getContactColliderObject = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_contact_collider_object", 3332903315L)
             Binds.getContactColliderShape = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_contact_collider_shape", 923996154L)
             Binds.getContactColliderVelocityAtPosition = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_contact_collider_velocity_at_position", 711720468L)
-            Binds.getStep = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_step", 1740695150L)
             Binds.integrateForces = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"integrate_forces", 3218959716L)
             Binds.getSpaceState = GdxApi.getMethodBind(c"PhysicsDirectBodyState3D", c"get_space_state", 2069328350L)
+  }
+}

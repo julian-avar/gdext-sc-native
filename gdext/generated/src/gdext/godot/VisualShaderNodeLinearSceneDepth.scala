@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeLinearSceneDepth extends VisualShaderNode
-
-
-
+class VisualShaderNodeLinearSceneDepth extends VisualShaderNode {}
 
 object VisualShaderNodeLinearSceneDepth:
-    def apply(): VisualShaderNodeLinearSceneDepth =
-        val obj = new VisualShaderNodeLinearSceneDepth()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeLinearSceneDepth")
-        obj
+def apply(): VisualShaderNodeLinearSceneDepth = {
+  val obj = new VisualShaderNodeLinearSceneDepth()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeLinearSceneDepth")
+  obj
+}

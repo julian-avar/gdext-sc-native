@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PlaceholderTexture2DArray extends PlaceholderTextureLayered
-
-
-
+class PlaceholderTexture2DArray extends PlaceholderTextureLayered {}
 
 object PlaceholderTexture2DArray:
-    def apply(): PlaceholderTexture2DArray =
-        val obj = new PlaceholderTexture2DArray()
-        obj.ptr = GdxApi.constructObject(c"PlaceholderTexture2DArray")
-        obj
+def apply(): PlaceholderTexture2DArray = {
+  val obj = new PlaceholderTexture2DArray()
+  obj.ptr = GdxApi.constructObject(c"PlaceholderTexture2DArray")
+  obj
+}

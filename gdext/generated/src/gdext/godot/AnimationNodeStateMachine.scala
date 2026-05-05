@@ -5,183 +5,169 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeStateMachine extends AnimationRootNode
-
-    def addNode(name: CString, node: AnimationNode): Unit =
+class AnimationNodeStateMachine extends AnimationRootNode {
+    def addNode(name: CString, node: AnimationNode): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = node.ptr
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.addNode, ptr, _args, null)
+}
 
-    def replaceNode(name: CString, node: AnimationNode): Unit =
+    def replaceNode(name: CString, node: AnimationNode): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = node.ptr
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.replaceNode, ptr, _args, null)
+}
 
-    def getNode(name: CString): AnimationNode =
+    def getNode(name: CString): AnimationNode = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AnimationNode(!_ret)
+}
 
-    def removeNode(name: CString): Unit =
+    def removeNode(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.removeNode, ptr, _args, null)
+}
 
-    def renameNode(name: CString, newName: CString): Unit =
+    def renameNode(name: CString, newName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = newName.ptr
+        _args(0) = name
+        _args(1) = newName
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.renameNode, ptr, _args, null)
+}
 
-    def hasNode(name: CString): Boolean =
+    def hasNode(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.hasNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getNodeName(node: AnimationNode): CString =
+    def getNodeName(node: AnimationNode): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getNodeName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodeList(): Ptr[Byte] =
+    def getNodeList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getNodeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setNodePosition(name: CString, position: Vector2): Unit =
+    def setNodePosition(name: CString, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = position.ptr
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.setNodePosition, ptr, _args, null)
+}
 
-    def getNodePosition(name: CString): Vector2 =
+    def getNodePosition(name: CString): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getNodePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def hasTransition(from: CString, to: CString): Boolean =
+    def hasTransition(from: CString, to: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = from.ptr
-        _args(1) = to.ptr
+        _args(0) = from
+        _args(1) = to
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.hasTransition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addTransition(from: CString, to: CString, transition: AnimationNodeStateMachineTransition): Unit =
+    def addTransition(from: CString, to: CString, transition: AnimationNodeStateMachineTransition): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = from.ptr
-        _args(1) = to.ptr
+        _args(0) = from
+        _args(1) = to
         _args(2) = transition.ptr
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.addTransition, ptr, _args, null)
+}
 
-    def getTransition(idx: Int): AnimationNodeStateMachineTransition =
+    def getTransition(idx: Int): AnimationNodeStateMachineTransition = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getTransition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AnimationNodeStateMachineTransition(!_ret)
+}
 
-    def getTransitionFrom(idx: Int): CString =
+    def getTransitionFrom(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getTransitionFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTransitionTo(idx: Int): CString =
+    def getTransitionTo(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getTransitionTo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTransitionCount(): Int =
+    def getTransitionCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getTransitionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def removeTransitionByIndex(idx: Int): Unit =
+    def removeTransitionByIndex(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.removeTransitionByIndex, ptr, _args, null)
+}
 
-    def removeTransition(from: CString, to: CString): Unit =
+    def removeTransition(from: CString, to: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = from.ptr
-        _args(1) = to.ptr
+        _args(0) = from
+        _args(1) = to
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.removeTransition, ptr, _args, null)
+}
 
-    def setGraphOffset(offset: Vector2): Unit =
+    def setGraphOffset(offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.setGraphOffset, ptr, _args, null)
+}
 
-    def getGraphOffset(): Vector2 =
+    def getGraphOffset(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getGraphOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setStateMachineType(stateMachineType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stateMachineType.ptr
-        GdxApi.ptrcall(AnimationNodeStateMachine.Binds.setStateMachineType, ptr, _args, null)
-
-    def getStateMachineType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AnimationNodeStateMachine.Binds.getStateMachineType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAllowTransitionToSelf(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeStateMachine.Binds.setAllowTransitionToSelf, ptr, _args, null)
-
-    def isAllowTransitionToSelf(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeStateMachine.Binds.isAllowTransitionToSelf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setResetEnds(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimationNodeStateMachine.Binds.setResetEnds, ptr, _args, null)
-
-    def areEndsReset(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimationNodeStateMachine.Binds.areEndsReset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def stateMachineType: Ptr[Byte] = getStateMachineType()
-    def stateMachineType_=(v: Ptr[Byte]): Unit = setStateMachineType(v)
-    def allowTransitionToSelf: Ptr[Byte] = isAllowTransitionToSelf()
-    def allowTransitionToSelf_=(v: Ptr[Byte]): Unit = setAllowTransitionToSelf(v)
-    def resetEnds: Ptr[Byte] = areEndsReset()
-    def resetEnds_=(v: Ptr[Byte]): Unit = setResetEnds(v)
+    def stateMachineType: Int = getStateMachineType()
+    def stateMachineType_=(v: Int): Unit = setStateMachineType(v)
+    def allowTransitionToSelf: Boolean = isAllowTransitionToSelf()
+    def allowTransitionToSelf_=(v: Boolean): Unit = setAllowTransitionToSelf(v)
+    def resetEnds: Boolean = areEndsReset()
+    def resetEnds_=(v: Boolean): Unit = setResetEnds(v)
+}
 
 object AnimationNodeStateMachine:
-    object Binds:
-        var addNode: Ptr[Byte] = null
+object Binds {
+          var addNode: Ptr[Byte] = null
         var replaceNode: Ptr[Byte] = null
         var getNode: Ptr[Byte] = null
         var removeNode: Ptr[Byte] = null
@@ -201,15 +187,9 @@ object AnimationNodeStateMachine:
         var removeTransition: Ptr[Byte] = null
         var setGraphOffset: Ptr[Byte] = null
         var getGraphOffset: Ptr[Byte] = null
-        var setStateMachineType: Ptr[Byte] = null
-        var getStateMachineType: Ptr[Byte] = null
-        var setAllowTransitionToSelf: Ptr[Byte] = null
-        var isAllowTransitionToSelf: Ptr[Byte] = null
-        var setResetEnds: Ptr[Byte] = null
-        var areEndsReset: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addNode = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"add_node", 1980270704L)
+  def loadBinds(): Unit = {
+                Binds.addNode = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"add_node", 1980270704L)
             Binds.replaceNode = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"replace_node", 2559412862L)
             Binds.getNode = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"get_node", 625644256L)
             Binds.removeNode = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"remove_node", 3304788590L)
@@ -229,14 +209,11 @@ object AnimationNodeStateMachine:
             Binds.removeTransition = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"remove_transition", 3740211285L)
             Binds.setGraphOffset = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"set_graph_offset", 743155724L)
             Binds.getGraphOffset = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"get_graph_offset", 3341600327L)
-            Binds.setStateMachineType = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"set_state_machine_type", 2584759088L)
-            Binds.getStateMachineType = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"get_state_machine_type", 1140726469L)
-            Binds.setAllowTransitionToSelf = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"set_allow_transition_to_self", 2586408642L)
-            Binds.isAllowTransitionToSelf = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"is_allow_transition_to_self", 36873697L)
-            Binds.setResetEnds = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"set_reset_ends", 2586408642L)
-            Binds.areEndsReset = GdxApi.getMethodBind(c"AnimationNodeStateMachine", c"are_ends_reset", 36873697L)
+  }
+}
 
-    def apply(): AnimationNodeStateMachine =
-        val obj = new AnimationNodeStateMachine()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeStateMachine")
-        obj
+def apply(): AnimationNodeStateMachine = {
+  val obj = new AnimationNodeStateMachine()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeStateMachine")
+  obj
+}

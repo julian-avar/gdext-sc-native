@@ -5,103 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectDistortion extends AudioEffect
-
-    def setMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.setMode, ptr, _args, null)
-
-    def getMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.getMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPreGain(preGain: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = preGain.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.setPreGain, ptr, _args, null)
-
-    def getPreGain(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.getPreGain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setKeepHfHz(keepHfHz: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = keepHfHz.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.setKeepHfHz, ptr, _args, null)
-
-    def getKeepHfHz(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.getKeepHfHz, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDrive(drive: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = drive.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.setDrive, ptr, _args, null)
-
-    def getDrive(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.getDrive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPostGain(postGain: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = postGain.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.setPostGain, ptr, _args, null)
-
-    def getPostGain(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectDistortion.Binds.getPostGain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def mode: Ptr[Byte] = getMode()
-    def mode_=(v: Ptr[Byte]): Unit = setMode(v)
-    def preGain: Ptr[Byte] = getPreGain()
-    def preGain_=(v: Ptr[Byte]): Unit = setPreGain(v)
-    def keepHfHz: Ptr[Byte] = getKeepHfHz()
-    def keepHfHz_=(v: Ptr[Byte]): Unit = setKeepHfHz(v)
-    def drive: Ptr[Byte] = getDrive()
-    def drive_=(v: Ptr[Byte]): Unit = setDrive(v)
-    def postGain: Ptr[Byte] = getPostGain()
-    def postGain_=(v: Ptr[Byte]): Unit = setPostGain(v)
+class AudioEffectDistortion extends AudioEffect {
+    def mode: Int = getMode()
+    def mode_=(v: Int): Unit = setMode(v)
+    def preGain: Float = getPreGain()
+    def preGain_=(v: Float): Unit = setPreGain(v)
+    def keepHfHz: Float = getKeepHfHz()
+    def keepHfHz_=(v: Float): Unit = setKeepHfHz(v)
+    def drive: Float = getDrive()
+    def drive_=(v: Float): Unit = setDrive(v)
+    def postGain: Float = getPostGain()
+    def postGain_=(v: Float): Unit = setPostGain(v)
+}
 
 object AudioEffectDistortion:
-    object Binds:
-        var setMode: Ptr[Byte] = null
-        var getMode: Ptr[Byte] = null
-        var setPreGain: Ptr[Byte] = null
-        var getPreGain: Ptr[Byte] = null
-        var setKeepHfHz: Ptr[Byte] = null
-        var getKeepHfHz: Ptr[Byte] = null
-        var setDrive: Ptr[Byte] = null
-        var getDrive: Ptr[Byte] = null
-        var setPostGain: Ptr[Byte] = null
-        var getPostGain: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMode = GdxApi.getMethodBind(c"AudioEffectDistortion", c"set_mode", 1314744793L)
-            Binds.getMode = GdxApi.getMethodBind(c"AudioEffectDistortion", c"get_mode", 809118343L)
-            Binds.setPreGain = GdxApi.getMethodBind(c"AudioEffectDistortion", c"set_pre_gain", 373806689L)
-            Binds.getPreGain = GdxApi.getMethodBind(c"AudioEffectDistortion", c"get_pre_gain", 1740695150L)
-            Binds.setKeepHfHz = GdxApi.getMethodBind(c"AudioEffectDistortion", c"set_keep_hf_hz", 373806689L)
-            Binds.getKeepHfHz = GdxApi.getMethodBind(c"AudioEffectDistortion", c"get_keep_hf_hz", 1740695150L)
-            Binds.setDrive = GdxApi.getMethodBind(c"AudioEffectDistortion", c"set_drive", 373806689L)
-            Binds.getDrive = GdxApi.getMethodBind(c"AudioEffectDistortion", c"get_drive", 1740695150L)
-            Binds.setPostGain = GdxApi.getMethodBind(c"AudioEffectDistortion", c"set_post_gain", 373806689L)
-            Binds.getPostGain = GdxApi.getMethodBind(c"AudioEffectDistortion", c"get_post_gain", 1740695150L)
-
-    def apply(): AudioEffectDistortion =
-        val obj = new AudioEffectDistortion()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectDistortion")
-        obj
+def apply(): AudioEffectDistortion = {
+  val obj = new AudioEffectDistortion()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectDistortion")
+  obj
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VideoStreamPlayback extends Resource
+class VideoStreamPlayback extends Resource {
     def _stop(): Unit = ()
     def _play(): Unit = ()
     def _isPlaying(): Boolean = false
@@ -19,23 +19,28 @@ class VideoStreamPlayback extends Resource
     def _update(delta: Double): Unit = ()
     def _getChannels(): Int = 0
     def _getMixRate(): Int = 0
-    def mixAudio(numFrames: Int): Int =
+
+    def mixAudio(numFrames: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = numFrames.toLong
+        val _a0 = stackalloc[Long](); !_a0 = numFrames.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(VideoStreamPlayback.Binds.mixAudio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object VideoStreamPlayback:
-    object Binds:
-        var mixAudio: Ptr[Byte] = null
+object Binds {
+          var mixAudio: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.mixAudio = GdxApi.getMethodBind(c"VideoStreamPlayback", c"mix_audio", 93876830L)
+  def loadBinds(): Unit = {
+                Binds.mixAudio = GdxApi.getMethodBind(c"VideoStreamPlayback", c"mix_audio", 93876830L)
+  }
+}
 
-    def apply(): VideoStreamPlayback =
-        val obj = new VideoStreamPlayback()
-        obj.ptr = GdxApi.constructObject(c"VideoStreamPlayback")
-        obj
+def apply(): VideoStreamPlayback = {
+  val obj = new VideoStreamPlayback()
+  obj.ptr = GdxApi.constructObject(c"VideoStreamPlayback")
+  obj
+}

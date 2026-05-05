@@ -5,26 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeResizableBase extends VisualShaderNode
-
-    def setSize(size: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(VisualShaderNodeResizableBase.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeResizableBase.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-
-object VisualShaderNodeResizableBase:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"VisualShaderNodeResizableBase", c"set_size", 743155724L)
-            Binds.getSize = GdxApi.getMethodBind(c"VisualShaderNodeResizableBase", c"get_size", 3341600327L)
+class VisualShaderNodeResizableBase extends VisualShaderNode {
+    def size: Vector2 = getSize()
+    def size_=(v: Vector2): Unit = setSize(v)
+}

@@ -5,24 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeReroute extends VisualShaderNode
-
-    def getPortType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeReroute.Binds.getPortType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def portType: Ptr[Byte] = getPortType()
+class VisualShaderNodeReroute extends VisualShaderNode {
+    def portType: Int = getPortType()
     def portType_=(v: Ptr[Byte]): Unit = _setPortType(v)
+}
 
 object VisualShaderNodeReroute:
-    object Binds:
-        var getPortType: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getPortType = GdxApi.getMethodBind(c"VisualShaderNodeReroute", c"get_port_type", 1287173294L)
-
-    def apply(): VisualShaderNodeReroute =
-        val obj = new VisualShaderNodeReroute()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeReroute")
-        obj
+def apply(): VisualShaderNodeReroute = {
+  val obj = new VisualShaderNodeReroute()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeReroute")
+  obj
+}

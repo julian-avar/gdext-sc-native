@@ -5,100 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SubViewport extends Viewport
-
-    def setSize(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(SubViewport.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SubViewport.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setSize2dOverride(size: Vector2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(SubViewport.Binds.setSize2dOverride, ptr, _args, null)
-
-    def getSize2dOverride(): Vector2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SubViewport.Binds.getSize2dOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2i(!_ret)
-
-    def setSize2dOverrideStretch(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(SubViewport.Binds.setSize2dOverrideStretch, ptr, _args, null)
-
-    def isSize2dOverrideStretchEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(SubViewport.Binds.isSize2dOverrideStretchEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUpdateMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(SubViewport.Binds.setUpdateMode, ptr, _args, null)
-
-    def getUpdateMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SubViewport.Binds.getUpdateMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setClearMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(SubViewport.Binds.setClearMode, ptr, _args, null)
-
-    def getClearMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(SubViewport.Binds.getClearMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def size2dOverride: Ptr[Byte] = getSize2dOverride()
-    def size2dOverride_=(v: Ptr[Byte]): Unit = setSize2dOverride(v)
-    def size2dOverrideStretch: Ptr[Byte] = isSize2dOverrideStretchEnabled()
-    def size2dOverrideStretch_=(v: Ptr[Byte]): Unit = setSize2dOverrideStretch(v)
-    def renderTargetClearMode: Ptr[Byte] = getClearMode()
-    def renderTargetClearMode_=(v: Ptr[Byte]): Unit = setClearMode(v)
-    def renderTargetUpdateMode: Ptr[Byte] = getUpdateMode()
-    def renderTargetUpdateMode_=(v: Ptr[Byte]): Unit = setUpdateMode(v)
+class SubViewport extends Viewport {
+    def size: Vector2i = getSize()
+    def size_=(v: Vector2i): Unit = setSize(v)
+    def size2dOverride: Vector2i = getSize2dOverride()
+    def size2dOverride_=(v: Vector2i): Unit = setSize2dOverride(v)
+    def size2dOverrideStretch: Boolean = isSize2dOverrideStretchEnabled()
+    def size2dOverrideStretch_=(v: Boolean): Unit = setSize2dOverrideStretch(v)
+    def renderTargetClearMode: Int = getClearMode()
+    def renderTargetClearMode_=(v: Int): Unit = setClearMode(v)
+    def renderTargetUpdateMode: Int = getUpdateMode()
+    def renderTargetUpdateMode_=(v: Int): Unit = setUpdateMode(v)
+}
 
 object SubViewport:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setSize2dOverride: Ptr[Byte] = null
-        var getSize2dOverride: Ptr[Byte] = null
-        var setSize2dOverrideStretch: Ptr[Byte] = null
-        var isSize2dOverrideStretchEnabled: Ptr[Byte] = null
-        var setUpdateMode: Ptr[Byte] = null
-        var getUpdateMode: Ptr[Byte] = null
-        var setClearMode: Ptr[Byte] = null
-        var getClearMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"SubViewport", c"set_size", 1130785943L)
-            Binds.getSize = GdxApi.getMethodBind(c"SubViewport", c"get_size", 3690982128L)
-            Binds.setSize2dOverride = GdxApi.getMethodBind(c"SubViewport", c"set_size_2d_override", 1130785943L)
-            Binds.getSize2dOverride = GdxApi.getMethodBind(c"SubViewport", c"get_size_2d_override", 3690982128L)
-            Binds.setSize2dOverrideStretch = GdxApi.getMethodBind(c"SubViewport", c"set_size_2d_override_stretch", 2586408642L)
-            Binds.isSize2dOverrideStretchEnabled = GdxApi.getMethodBind(c"SubViewport", c"is_size_2d_override_stretch_enabled", 36873697L)
-            Binds.setUpdateMode = GdxApi.getMethodBind(c"SubViewport", c"set_update_mode", 1295690030L)
-            Binds.getUpdateMode = GdxApi.getMethodBind(c"SubViewport", c"get_update_mode", 2980171553L)
-            Binds.setClearMode = GdxApi.getMethodBind(c"SubViewport", c"set_clear_mode", 2834454712L)
-            Binds.getClearMode = GdxApi.getMethodBind(c"SubViewport", c"get_clear_mode", 331324495L)
-
-    def apply(): SubViewport =
-        val obj = new SubViewport()
-        obj.ptr = GdxApi.constructObject(c"SubViewport")
-        obj
+def apply(): SubViewport = {
+  val obj = new SubViewport()
+  obj.ptr = GdxApi.constructObject(c"SubViewport")
+  obj
+}

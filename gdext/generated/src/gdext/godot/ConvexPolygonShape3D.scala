@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConvexPolygonShape3D extends Shape3D
-
-    def setPoints(points: PackedVector3Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = points.ptr
-        GdxApi.ptrcall(ConvexPolygonShape3D.Binds.setPoints, ptr, _args, null)
-
-    def getPoints(): PackedVector3Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ConvexPolygonShape3D.Binds.getPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector3Array(!_ret)
-    def points: Ptr[Byte] = getPoints()
-    def points_=(v: Ptr[Byte]): Unit = setPoints(v)
+class ConvexPolygonShape3D extends Shape3D {
+    def points: PackedVector3Array = getPoints()
+    def points_=(v: PackedVector3Array): Unit = setPoints(v)
+}
 
 object ConvexPolygonShape3D:
-    object Binds:
-        var setPoints: Ptr[Byte] = null
-        var getPoints: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPoints = GdxApi.getMethodBind(c"ConvexPolygonShape3D", c"set_points", 334873810L)
-            Binds.getPoints = GdxApi.getMethodBind(c"ConvexPolygonShape3D", c"get_points", 497664490L)
-
-    def apply(): ConvexPolygonShape3D =
-        val obj = new ConvexPolygonShape3D()
-        obj.ptr = GdxApi.constructObject(c"ConvexPolygonShape3D")
-        obj
+def apply(): ConvexPolygonShape3D = {
+  val obj = new ConvexPolygonShape3D()
+  obj.ptr = GdxApi.constructObject(c"ConvexPolygonShape3D")
+  obj
+}

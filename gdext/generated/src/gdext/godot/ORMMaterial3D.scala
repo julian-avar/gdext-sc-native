@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ORMMaterial3D extends BaseMaterial3D
-
-
-
+class ORMMaterial3D extends BaseMaterial3D {}
 
 object ORMMaterial3D:
-    def apply(): ORMMaterial3D =
-        val obj = new ORMMaterial3D()
-        obj.ptr = GdxApi.constructObject(c"ORMMaterial3D")
-        obj
+def apply(): ORMMaterial3D = {
+  val obj = new ORMMaterial3D()
+  obj.ptr = GdxApi.constructObject(c"ORMMaterial3D")
+  obj
+}

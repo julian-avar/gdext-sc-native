@@ -5,92 +5,102 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TileSetScenesCollectionSource extends TileSetSource
-
-    def getSceneTilesCount(): Int =
+class TileSetScenesCollectionSource extends TileSetSource {
+    def getSceneTilesCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.getSceneTilesCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSceneTileId(index: Int): Int =
+    def getSceneTileId(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.getSceneTileId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasSceneTileId(id: Int): Boolean =
+    def hasSceneTileId(id: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.hasSceneTileId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def createSceneTile(packedScene: PackedScene): Int =
+    def createSceneTile(packedScene: PackedScene): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = packedScene.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.createSceneTile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setSceneTileId(id: Int, newId: Int): Unit =
+    def setSceneTileId(id: Int, newId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = newId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = newId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.setSceneTileId, ptr, _args, null)
+}
 
-    def setSceneTileScene(id: Int, packedScene: PackedScene): Unit =
+    def setSceneTileScene(id: Int, packedScene: PackedScene): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = packedScene.ptr
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.setSceneTileScene, ptr, _args, null)
+}
 
-    def getSceneTileScene(id: Int): PackedScene =
+    def getSceneTileScene(id: Int): PackedScene = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.getSceneTileScene, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedScene(!_ret)
+}
 
-    def setSceneTileDisplayPlaceholder(id: Int, displayPlaceholder: Boolean): Unit =
+    def setSceneTileDisplayPlaceholder(id: Int, displayPlaceholder: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if displayPlaceholder then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.setSceneTileDisplayPlaceholder, ptr, _args, null)
+}
 
-    def getSceneTileDisplayPlaceholder(id: Int): Boolean =
+    def getSceneTileDisplayPlaceholder(id: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.getSceneTileDisplayPlaceholder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeSceneTile(id: Int): Unit =
+    def removeSceneTile(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.removeSceneTile, ptr, _args, null)
+}
 
-    def getNextSceneTileId(): Int =
+    def getNextSceneTileId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TileSetScenesCollectionSource.Binds.getNextSceneTileId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object TileSetScenesCollectionSource:
-    object Binds:
-        var getSceneTilesCount: Ptr[Byte] = null
+object Binds {
+          var getSceneTilesCount: Ptr[Byte] = null
         var getSceneTileId: Ptr[Byte] = null
         var hasSceneTileId: Ptr[Byte] = null
         var createSceneTile: Ptr[Byte] = null
@@ -102,8 +112,8 @@ object TileSetScenesCollectionSource:
         var removeSceneTile: Ptr[Byte] = null
         var getNextSceneTileId: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getSceneTilesCount = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"get_scene_tiles_count", 2455072627L)
+  def loadBinds(): Unit = {
+                Binds.getSceneTilesCount = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"get_scene_tiles_count", 2455072627L)
             Binds.getSceneTileId = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"get_scene_tile_id", 3744713108L)
             Binds.hasSceneTileId = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"has_scene_tile_id", 3067735520L)
             Binds.createSceneTile = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"create_scene_tile", 1117465415L)
@@ -114,8 +124,11 @@ object TileSetScenesCollectionSource:
             Binds.getSceneTileDisplayPlaceholder = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"get_scene_tile_display_placeholder", 1116898809L)
             Binds.removeSceneTile = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"remove_scene_tile", 1286410249L)
             Binds.getNextSceneTileId = GdxApi.getMethodBind(c"TileSetScenesCollectionSource", c"get_next_scene_tile_id", 3905245786L)
+  }
+}
 
-    def apply(): TileSetScenesCollectionSource =
-        val obj = new TileSetScenesCollectionSource()
-        obj.ptr = GdxApi.constructObject(c"TileSetScenesCollectionSource")
-        obj
+def apply(): TileSetScenesCollectionSource = {
+  val obj = new TileSetScenesCollectionSource()
+  obj.ptr = GdxApi.constructObject(c"TileSetScenesCollectionSource")
+  obj
+}

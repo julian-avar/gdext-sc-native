@@ -5,260 +5,40 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ProceduralSkyMaterial extends Material
-
-    def setSkyTopColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSkyTopColor, ptr, _args, null)
-
-    def getSkyTopColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSkyTopColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setSkyHorizonColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSkyHorizonColor, ptr, _args, null)
-
-    def getSkyHorizonColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSkyHorizonColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setSkyCurve(curve: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = curve.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSkyCurve, ptr, _args, null)
-
-    def getSkyCurve(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSkyCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSkyEnergyMultiplier(multiplier: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = multiplier.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSkyEnergyMultiplier, ptr, _args, null)
-
-    def getSkyEnergyMultiplier(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSkyEnergyMultiplier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSkyCover(skyCover: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skyCover.ptr
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSkyCover, ptr, _args, null)
-
-    def getSkyCover(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSkyCover, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setSkyCoverModulate(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSkyCoverModulate, ptr, _args, null)
-
-    def getSkyCoverModulate(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSkyCoverModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setGroundBottomColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setGroundBottomColor, ptr, _args, null)
-
-    def getGroundBottomColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getGroundBottomColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setGroundHorizonColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setGroundHorizonColor, ptr, _args, null)
-
-    def getGroundHorizonColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getGroundHorizonColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setGroundCurve(curve: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = curve.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setGroundCurve, ptr, _args, null)
-
-    def getGroundCurve(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getGroundCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGroundEnergyMultiplier(energy: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = energy.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setGroundEnergyMultiplier, ptr, _args, null)
-
-    def getGroundEnergyMultiplier(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getGroundEnergyMultiplier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSunAngleMax(degrees: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = degrees.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSunAngleMax, ptr, _args, null)
-
-    def getSunAngleMax(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSunAngleMax, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSunCurve(curve: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = curve.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setSunCurve, ptr, _args, null)
-
-    def getSunCurve(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getSunCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUseDebanding(useDebanding: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useDebanding then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setUseDebanding, ptr, _args, null)
-
-    def getUseDebanding(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getUseDebanding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEnergyMultiplier(multiplier: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = multiplier.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.setEnergyMultiplier, ptr, _args, null)
-
-    def getEnergyMultiplier(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ProceduralSkyMaterial.Binds.getEnergyMultiplier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def skyTopColor: Ptr[Byte] = getSkyTopColor()
-    def skyTopColor_=(v: Ptr[Byte]): Unit = setSkyTopColor(v)
-    def skyHorizonColor: Ptr[Byte] = getSkyHorizonColor()
-    def skyHorizonColor_=(v: Ptr[Byte]): Unit = setSkyHorizonColor(v)
-    def skyCurve: Ptr[Byte] = getSkyCurve()
-    def skyCurve_=(v: Ptr[Byte]): Unit = setSkyCurve(v)
-    def skyEnergyMultiplier: Ptr[Byte] = getSkyEnergyMultiplier()
-    def skyEnergyMultiplier_=(v: Ptr[Byte]): Unit = setSkyEnergyMultiplier(v)
-    def skyCover: Ptr[Byte] = getSkyCover()
-    def skyCover_=(v: Ptr[Byte]): Unit = setSkyCover(v)
-    def skyCoverModulate: Ptr[Byte] = getSkyCoverModulate()
-    def skyCoverModulate_=(v: Ptr[Byte]): Unit = setSkyCoverModulate(v)
-    def groundBottomColor: Ptr[Byte] = getGroundBottomColor()
-    def groundBottomColor_=(v: Ptr[Byte]): Unit = setGroundBottomColor(v)
-    def groundHorizonColor: Ptr[Byte] = getGroundHorizonColor()
-    def groundHorizonColor_=(v: Ptr[Byte]): Unit = setGroundHorizonColor(v)
-    def groundCurve: Ptr[Byte] = getGroundCurve()
-    def groundCurve_=(v: Ptr[Byte]): Unit = setGroundCurve(v)
-    def groundEnergyMultiplier: Ptr[Byte] = getGroundEnergyMultiplier()
-    def groundEnergyMultiplier_=(v: Ptr[Byte]): Unit = setGroundEnergyMultiplier(v)
-    def sunAngleMax: Ptr[Byte] = getSunAngleMax()
-    def sunAngleMax_=(v: Ptr[Byte]): Unit = setSunAngleMax(v)
-    def sunCurve: Ptr[Byte] = getSunCurve()
-    def sunCurve_=(v: Ptr[Byte]): Unit = setSunCurve(v)
-    def useDebanding: Ptr[Byte] = getUseDebanding()
-    def useDebanding_=(v: Ptr[Byte]): Unit = setUseDebanding(v)
-    def energyMultiplier: Ptr[Byte] = getEnergyMultiplier()
-    def energyMultiplier_=(v: Ptr[Byte]): Unit = setEnergyMultiplier(v)
+class ProceduralSkyMaterial extends Material {
+    def skyTopColor: Color = getSkyTopColor()
+    def skyTopColor_=(v: Color): Unit = setSkyTopColor(v)
+    def skyHorizonColor: Color = getSkyHorizonColor()
+    def skyHorizonColor_=(v: Color): Unit = setSkyHorizonColor(v)
+    def skyCurve: Float = getSkyCurve()
+    def skyCurve_=(v: Float): Unit = setSkyCurve(v)
+    def skyEnergyMultiplier: Float = getSkyEnergyMultiplier()
+    def skyEnergyMultiplier_=(v: Float): Unit = setSkyEnergyMultiplier(v)
+    def skyCover: Texture2D = getSkyCover()
+    def skyCover_=(v: Texture2D): Unit = setSkyCover(v)
+    def skyCoverModulate: Color = getSkyCoverModulate()
+    def skyCoverModulate_=(v: Color): Unit = setSkyCoverModulate(v)
+    def groundBottomColor: Color = getGroundBottomColor()
+    def groundBottomColor_=(v: Color): Unit = setGroundBottomColor(v)
+    def groundHorizonColor: Color = getGroundHorizonColor()
+    def groundHorizonColor_=(v: Color): Unit = setGroundHorizonColor(v)
+    def groundCurve: Float = getGroundCurve()
+    def groundCurve_=(v: Float): Unit = setGroundCurve(v)
+    def groundEnergyMultiplier: Float = getGroundEnergyMultiplier()
+    def groundEnergyMultiplier_=(v: Float): Unit = setGroundEnergyMultiplier(v)
+    def sunAngleMax: Float = getSunAngleMax()
+    def sunAngleMax_=(v: Float): Unit = setSunAngleMax(v)
+    def sunCurve: Float = getSunCurve()
+    def sunCurve_=(v: Float): Unit = setSunCurve(v)
+    def useDebanding: Boolean = getUseDebanding()
+    def useDebanding_=(v: Boolean): Unit = setUseDebanding(v)
+    def energyMultiplier: Float = getEnergyMultiplier()
+    def energyMultiplier_=(v: Float): Unit = setEnergyMultiplier(v)
+}
 
 object ProceduralSkyMaterial:
-    object Binds:
-        var setSkyTopColor: Ptr[Byte] = null
-        var getSkyTopColor: Ptr[Byte] = null
-        var setSkyHorizonColor: Ptr[Byte] = null
-        var getSkyHorizonColor: Ptr[Byte] = null
-        var setSkyCurve: Ptr[Byte] = null
-        var getSkyCurve: Ptr[Byte] = null
-        var setSkyEnergyMultiplier: Ptr[Byte] = null
-        var getSkyEnergyMultiplier: Ptr[Byte] = null
-        var setSkyCover: Ptr[Byte] = null
-        var getSkyCover: Ptr[Byte] = null
-        var setSkyCoverModulate: Ptr[Byte] = null
-        var getSkyCoverModulate: Ptr[Byte] = null
-        var setGroundBottomColor: Ptr[Byte] = null
-        var getGroundBottomColor: Ptr[Byte] = null
-        var setGroundHorizonColor: Ptr[Byte] = null
-        var getGroundHorizonColor: Ptr[Byte] = null
-        var setGroundCurve: Ptr[Byte] = null
-        var getGroundCurve: Ptr[Byte] = null
-        var setGroundEnergyMultiplier: Ptr[Byte] = null
-        var getGroundEnergyMultiplier: Ptr[Byte] = null
-        var setSunAngleMax: Ptr[Byte] = null
-        var getSunAngleMax: Ptr[Byte] = null
-        var setSunCurve: Ptr[Byte] = null
-        var getSunCurve: Ptr[Byte] = null
-        var setUseDebanding: Ptr[Byte] = null
-        var getUseDebanding: Ptr[Byte] = null
-        var setEnergyMultiplier: Ptr[Byte] = null
-        var getEnergyMultiplier: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSkyTopColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sky_top_color", 2920490490L)
-            Binds.getSkyTopColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sky_top_color", 3444240500L)
-            Binds.setSkyHorizonColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sky_horizon_color", 2920490490L)
-            Binds.getSkyHorizonColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sky_horizon_color", 3444240500L)
-            Binds.setSkyCurve = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sky_curve", 373806689L)
-            Binds.getSkyCurve = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sky_curve", 1740695150L)
-            Binds.setSkyEnergyMultiplier = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sky_energy_multiplier", 373806689L)
-            Binds.getSkyEnergyMultiplier = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sky_energy_multiplier", 1740695150L)
-            Binds.setSkyCover = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sky_cover", 4051416890L)
-            Binds.getSkyCover = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sky_cover", 3635182373L)
-            Binds.setSkyCoverModulate = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sky_cover_modulate", 2920490490L)
-            Binds.getSkyCoverModulate = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sky_cover_modulate", 3444240500L)
-            Binds.setGroundBottomColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_ground_bottom_color", 2920490490L)
-            Binds.getGroundBottomColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_ground_bottom_color", 3444240500L)
-            Binds.setGroundHorizonColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_ground_horizon_color", 2920490490L)
-            Binds.getGroundHorizonColor = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_ground_horizon_color", 3444240500L)
-            Binds.setGroundCurve = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_ground_curve", 373806689L)
-            Binds.getGroundCurve = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_ground_curve", 1740695150L)
-            Binds.setGroundEnergyMultiplier = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_ground_energy_multiplier", 373806689L)
-            Binds.getGroundEnergyMultiplier = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_ground_energy_multiplier", 1740695150L)
-            Binds.setSunAngleMax = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sun_angle_max", 373806689L)
-            Binds.getSunAngleMax = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sun_angle_max", 1740695150L)
-            Binds.setSunCurve = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_sun_curve", 373806689L)
-            Binds.getSunCurve = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_sun_curve", 1740695150L)
-            Binds.setUseDebanding = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_use_debanding", 2586408642L)
-            Binds.getUseDebanding = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_use_debanding", 36873697L)
-            Binds.setEnergyMultiplier = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"set_energy_multiplier", 373806689L)
-            Binds.getEnergyMultiplier = GdxApi.getMethodBind(c"ProceduralSkyMaterial", c"get_energy_multiplier", 1740695150L)
-
-    def apply(): ProceduralSkyMaterial =
-        val obj = new ProceduralSkyMaterial()
-        obj.ptr = GdxApi.constructObject(c"ProceduralSkyMaterial")
-        obj
+def apply(): ProceduralSkyMaterial = {
+  val obj = new ProceduralSkyMaterial()
+  obj.ptr = GdxApi.constructObject(c"ProceduralSkyMaterial")
+  obj
+}

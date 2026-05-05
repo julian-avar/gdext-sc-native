@@ -5,48 +5,39 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ShaderMaterial extends Material
-
-    def setShader(shader: Shader): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shader.ptr
-        GdxApi.ptrcall(ShaderMaterial.Binds.setShader, ptr, _args, null)
-
-    def getShader(): Shader =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ShaderMaterial.Binds.getShader, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Shader(!_ret)
-
-    def setShaderParameter(param: CString, value: Ptr[Byte]): Unit =
+class ShaderMaterial extends Material {
+    def setShaderParameter(param: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = param.ptr
-        _args(1) = value.ptr
+        _args(0) = param
+        _args(1) = value
         GdxApi.ptrcall(ShaderMaterial.Binds.setShaderParameter, ptr, _args, null)
+}
 
-    def getShaderParameter(param: CString): Ptr[Byte] =
+    def getShaderParameter(param: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = param.ptr
+        _args(0) = param
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ShaderMaterial.Binds.getShaderParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def shader: Ptr[Byte] = getShader()
-    def shader_=(v: Ptr[Byte]): Unit = setShader(v)
+}
+
+    def shader: Shader = getShader()
+    def shader_=(v: Shader): Unit = setShader(v)
+}
 
 object ShaderMaterial:
-    object Binds:
-        var setShader: Ptr[Byte] = null
-        var getShader: Ptr[Byte] = null
-        var setShaderParameter: Ptr[Byte] = null
+object Binds {
+          var setShaderParameter: Ptr[Byte] = null
         var getShaderParameter: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setShader = GdxApi.getMethodBind(c"ShaderMaterial", c"set_shader", 3341921675L)
-            Binds.getShader = GdxApi.getMethodBind(c"ShaderMaterial", c"get_shader", 2078273437L)
-            Binds.setShaderParameter = GdxApi.getMethodBind(c"ShaderMaterial", c"set_shader_parameter", 3776071444L)
+  def loadBinds(): Unit = {
+                Binds.setShaderParameter = GdxApi.getMethodBind(c"ShaderMaterial", c"set_shader_parameter", 3776071444L)
             Binds.getShaderParameter = GdxApi.getMethodBind(c"ShaderMaterial", c"get_shader_parameter", 2760726917L)
+  }
+}
 
-    def apply(): ShaderMaterial =
-        val obj = new ShaderMaterial()
-        obj.ptr = GdxApi.constructObject(c"ShaderMaterial")
-        obj
+def apply(): ShaderMaterial = {
+  val obj = new ShaderMaterial()
+  obj.ptr = GdxApi.constructObject(c"ShaderMaterial")
+  obj
+}

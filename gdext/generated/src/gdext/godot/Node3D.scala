@@ -5,486 +5,301 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Node3D extends Node
-
-    def setTransform(local: Transform3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = local.ptr
-        GdxApi.ptrcall(Node3D.Binds.setTransform, ptr, _args, null)
-
-    def getTransform(): Transform3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform3D(!_ret)
-
-    def setPosition(position: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(Node3D.Binds.setPosition, ptr, _args, null)
-
-    def getPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setRotation(eulerRadians: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = eulerRadians.ptr
-        GdxApi.ptrcall(Node3D.Binds.setRotation, ptr, _args, null)
-
-    def getRotation(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setRotationDegrees(eulerDegrees: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = eulerDegrees.ptr
-        GdxApi.ptrcall(Node3D.Binds.setRotationDegrees, ptr, _args, null)
-
-    def getRotationDegrees(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getRotationDegrees, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setRotationOrder(order: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = order.ptr
-        GdxApi.ptrcall(Node3D.Binds.setRotationOrder, ptr, _args, null)
-
-    def getRotationOrder(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node3D.Binds.getRotationOrder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRotationEditMode(editMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = editMode.ptr
-        GdxApi.ptrcall(Node3D.Binds.setRotationEditMode, ptr, _args, null)
-
-    def getRotationEditMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Node3D.Binds.getRotationEditMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setScale(scale: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(Node3D.Binds.setScale, ptr, _args, null)
-
-    def getScale(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setQuaternion(quaternion: Quaternion): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = quaternion.ptr
-        GdxApi.ptrcall(Node3D.Binds.setQuaternion, ptr, _args, null)
-
-    def getQuaternion(): Quaternion =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getQuaternion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Quaternion(!_ret)
-
-    def setBasis(basis: Basis): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = basis.ptr
-        GdxApi.ptrcall(Node3D.Binds.setBasis, ptr, _args, null)
-
-    def getBasis(): Basis =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getBasis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Basis(!_ret)
-
-    def setGlobalTransform(global: Transform3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = global.ptr
-        GdxApi.ptrcall(Node3D.Binds.setGlobalTransform, ptr, _args, null)
-
-    def getGlobalTransform(): Transform3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getGlobalTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform3D(!_ret)
-
-    def getGlobalTransformInterpolated(): Transform3D =
+class Node3D extends Node {
+    def getGlobalTransformInterpolated(): Transform3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node3D.Binds.getGlobalTransformInterpolated, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def setGlobalPosition(position: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(Node3D.Binds.setGlobalPosition, ptr, _args, null)
-
-    def getGlobalPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getGlobalPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setGlobalBasis(basis: Basis): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = basis.ptr
-        GdxApi.ptrcall(Node3D.Binds.setGlobalBasis, ptr, _args, null)
-
-    def getGlobalBasis(): Basis =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getGlobalBasis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Basis(!_ret)
-
-    def setGlobalRotation(eulerRadians: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = eulerRadians.ptr
-        GdxApi.ptrcall(Node3D.Binds.setGlobalRotation, ptr, _args, null)
-
-    def getGlobalRotation(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getGlobalRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setGlobalRotationDegrees(eulerDegrees: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = eulerDegrees.ptr
-        GdxApi.ptrcall(Node3D.Binds.setGlobalRotationDegrees, ptr, _args, null)
-
-    def getGlobalRotationDegrees(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getGlobalRotationDegrees, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def getParentNode3d(): Node3D =
+    def getParentNode3d(): Node3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node3D.Binds.getParentNode3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node3D(!_ret)
+}
 
-    def setIgnoreTransformNotification(enabled: Boolean): Unit =
+    def setIgnoreTransformNotification(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.setIgnoreTransformNotification, ptr, _args, null)
+}
 
-    def setAsTopLevel(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node3D.Binds.setAsTopLevel, ptr, _args, null)
-
-    def isSetAsTopLevel(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Node3D.Binds.isSetAsTopLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDisableScale(disable: Boolean): Unit =
+    def setDisableScale(disable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if disable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.setDisableScale, ptr, _args, null)
+}
 
-    def isScaleDisabled(): Boolean =
+    def isScaleDisabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node3D.Binds.isScaleDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getWorld3d(): World3D =
+    def getWorld3d(): World3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node3D.Binds.getWorld3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new World3D(!_ret)
+}
 
-    def forceUpdateTransform(): Unit =
+    def forceUpdateTransform(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.forceUpdateTransform, ptr, _args, null)
+}
 
-    def setVisibilityParent(path: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(Node3D.Binds.setVisibilityParent, ptr, _args, null)
-
-    def getVisibilityParent(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node3D.Binds.getVisibilityParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def updateGizmos(): Unit =
+    def updateGizmos(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.updateGizmos, ptr, _args, null)
+}
 
-    def addGizmo(gizmo: Node3DGizmo): Unit =
+    def addGizmo(gizmo: Node3DGizmo): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = gizmo.ptr
         GdxApi.ptrcall(Node3D.Binds.addGizmo, ptr, _args, null)
+}
 
-    def getGizmos(): Ptr[Byte] =
+    def getGizmos(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node3D.Binds.getGizmos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clearGizmos(): Unit =
+    def clearGizmos(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.clearGizmos, ptr, _args, null)
+}
 
-    def setSubgizmoSelection(gizmo: Node3DGizmo, id: Int, transform: Transform3D): Unit =
+    def setSubgizmoSelection(gizmo: Node3DGizmo, id: Int, transform: Transform3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = gizmo.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = id.toLong
+        val _a1 = stackalloc[Long](); !_a1 = id.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = transform.ptr
         GdxApi.ptrcall(Node3D.Binds.setSubgizmoSelection, ptr, _args, null)
+}
 
-    def clearSubgizmoSelection(): Unit =
+    def clearSubgizmoSelection(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.clearSubgizmoSelection, ptr, _args, null)
+}
 
-    def setVisible(visible: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if visible then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node3D.Binds.setVisible, ptr, _args, null)
-
-    def isVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Node3D.Binds.isVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isVisibleInTree(): Boolean =
+    def isVisibleInTree(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node3D.Binds.isVisibleInTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def show(): Unit =
+    def show(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.show, ptr, _args, null)
+}
 
-    def hide(): Unit =
+    def hide(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.hide, ptr, _args, null)
+}
 
-    def setNotifyLocalTransform(enable: Boolean): Unit =
+    def setNotifyLocalTransform(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.setNotifyLocalTransform, ptr, _args, null)
+}
 
-    def isLocalTransformNotificationEnabled(): Boolean =
+    def isLocalTransformNotificationEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node3D.Binds.isLocalTransformNotificationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setNotifyTransform(enable: Boolean): Unit =
+    def setNotifyTransform(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.setNotifyTransform, ptr, _args, null)
+}
 
-    def isTransformNotificationEnabled(): Boolean =
+    def isTransformNotificationEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Node3D.Binds.isTransformNotificationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def rotate(axis: Vector3, angle: Float): Unit =
+    def rotate(axis: Vector3, angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = axis.ptr
         val _a1 = stackalloc[Double](); !_a1 = angle.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.rotate, ptr, _args, null)
+}
 
-    def globalRotate(axis: Vector3, angle: Float): Unit =
+    def globalRotate(axis: Vector3, angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = axis.ptr
         val _a1 = stackalloc[Double](); !_a1 = angle.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.globalRotate, ptr, _args, null)
+}
 
-    def globalScale(scale: Vector3): Unit =
+    def globalScale(scale: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = scale.ptr
         GdxApi.ptrcall(Node3D.Binds.globalScale, ptr, _args, null)
+}
 
-    def globalTranslate(offset: Vector3): Unit =
+    def globalTranslate(offset: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(Node3D.Binds.globalTranslate, ptr, _args, null)
+}
 
-    def rotateObjectLocal(axis: Vector3, angle: Float): Unit =
+    def rotateObjectLocal(axis: Vector3, angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = axis.ptr
         val _a1 = stackalloc[Double](); !_a1 = angle.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.rotateObjectLocal, ptr, _args, null)
+}
 
-    def scaleObjectLocal(scale: Vector3): Unit =
+    def scaleObjectLocal(scale: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = scale.ptr
         GdxApi.ptrcall(Node3D.Binds.scaleObjectLocal, ptr, _args, null)
+}
 
-    def translateObjectLocal(offset: Vector3): Unit =
+    def translateObjectLocal(offset: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(Node3D.Binds.translateObjectLocal, ptr, _args, null)
+}
 
-    def rotateX(angle: Float): Unit =
+    def rotateX(angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.rotateX, ptr, _args, null)
+}
 
-    def rotateY(angle: Float): Unit =
+    def rotateY(angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.rotateY, ptr, _args, null)
+}
 
-    def rotateZ(angle: Float): Unit =
+    def rotateZ(angle: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = angle.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node3D.Binds.rotateZ, ptr, _args, null)
+}
 
-    def translate(offset: Vector3): Unit =
+    def translate(offset: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(Node3D.Binds.translate, ptr, _args, null)
+}
 
-    def orthonormalize(): Unit =
+    def orthonormalize(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.orthonormalize, ptr, _args, null)
+}
 
-    def setIdentity(): Unit =
+    def setIdentity(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Node3D.Binds.setIdentity, ptr, _args, null)
+}
 
-    def lookAt(target: Vector3): Unit =
+    def lookAt(target: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = target.ptr
         GdxApi.ptrcall(Node3D.Binds.lookAt, ptr, _args, null)
+}
 
-    def lookAtFromPosition(position: Vector3, target: Vector3): Unit =
+    def lookAtFromPosition(position: Vector3, target: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = position.ptr
         _args(1) = target.ptr
         GdxApi.ptrcall(Node3D.Binds.lookAtFromPosition, ptr, _args, null)
+}
 
-    def toLocal(globalPoint: Vector3): Vector3 =
+    def toLocal(globalPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = globalPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node3D.Binds.toLocal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def toGlobal(localPoint: Vector3): Vector3 =
+    def toGlobal(localPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = localPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node3D.Binds.toGlobal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
-    def transform: Ptr[Byte] = getTransform()
-    def transform_=(v: Ptr[Byte]): Unit = setTransform(v)
-    def globalTransform: Ptr[Byte] = getGlobalTransform()
-    def globalTransform_=(v: Ptr[Byte]): Unit = setGlobalTransform(v)
-    def position: Ptr[Byte] = getPosition()
-    def position_=(v: Ptr[Byte]): Unit = setPosition(v)
-    def rotation: Ptr[Byte] = getRotation()
-    def rotation_=(v: Ptr[Byte]): Unit = setRotation(v)
-    def rotationDegrees: Ptr[Byte] = getRotationDegrees()
-    def rotationDegrees_=(v: Ptr[Byte]): Unit = setRotationDegrees(v)
-    def quaternion: Ptr[Byte] = getQuaternion()
-    def quaternion_=(v: Ptr[Byte]): Unit = setQuaternion(v)
-    def basis: Ptr[Byte] = getBasis()
-    def basis_=(v: Ptr[Byte]): Unit = setBasis(v)
-    def scale: Ptr[Byte] = getScale()
-    def scale_=(v: Ptr[Byte]): Unit = setScale(v)
-    def rotationEditMode: Ptr[Byte] = getRotationEditMode()
-    def rotationEditMode_=(v: Ptr[Byte]): Unit = setRotationEditMode(v)
-    def rotationOrder: Ptr[Byte] = getRotationOrder()
-    def rotationOrder_=(v: Ptr[Byte]): Unit = setRotationOrder(v)
-    def topLevel: Ptr[Byte] = isSetAsTopLevel()
-    def topLevel_=(v: Ptr[Byte]): Unit = setAsTopLevel(v)
-    def globalPosition: Ptr[Byte] = getGlobalPosition()
-    def globalPosition_=(v: Ptr[Byte]): Unit = setGlobalPosition(v)
-    def globalBasis: Ptr[Byte] = getGlobalBasis()
-    def globalBasis_=(v: Ptr[Byte]): Unit = setGlobalBasis(v)
-    def globalRotation: Ptr[Byte] = getGlobalRotation()
-    def globalRotation_=(v: Ptr[Byte]): Unit = setGlobalRotation(v)
-    def globalRotationDegrees: Ptr[Byte] = getGlobalRotationDegrees()
-    def globalRotationDegrees_=(v: Ptr[Byte]): Unit = setGlobalRotationDegrees(v)
-    def visible: Ptr[Byte] = isVisible()
-    def visible_=(v: Ptr[Byte]): Unit = setVisible(v)
-    def visibilityParent: Ptr[Byte] = getVisibilityParent()
-    def visibilityParent_=(v: Ptr[Byte]): Unit = setVisibilityParent(v)
+}
+
+    def transform: Transform3D = getTransform()
+    def transform_=(v: Transform3D): Unit = setTransform(v)
+    def globalTransform: Transform3D = getGlobalTransform()
+    def globalTransform_=(v: Transform3D): Unit = setGlobalTransform(v)
+    def position: Vector3 = getPosition()
+    def position_=(v: Vector3): Unit = setPosition(v)
+    def rotation: Vector3 = getRotation()
+    def rotation_=(v: Vector3): Unit = setRotation(v)
+    def rotationDegrees: Vector3 = getRotationDegrees()
+    def rotationDegrees_=(v: Vector3): Unit = setRotationDegrees(v)
+    def quaternion: Quaternion = getQuaternion()
+    def quaternion_=(v: Quaternion): Unit = setQuaternion(v)
+    def basis: Basis = getBasis()
+    def basis_=(v: Basis): Unit = setBasis(v)
+    def scale: Vector3 = getScale()
+    def scale_=(v: Vector3): Unit = setScale(v)
+    def rotationEditMode: Int = getRotationEditMode()
+    def rotationEditMode_=(v: Int): Unit = setRotationEditMode(v)
+    def rotationOrder: Int = getRotationOrder()
+    def rotationOrder_=(v: Int): Unit = setRotationOrder(v)
+    def topLevel: Boolean = isSetAsTopLevel()
+    def topLevel_=(v: Boolean): Unit = setAsTopLevel(v)
+    def globalPosition: Vector3 = getGlobalPosition()
+    def globalPosition_=(v: Vector3): Unit = setGlobalPosition(v)
+    def globalBasis: Basis = getGlobalBasis()
+    def globalBasis_=(v: Basis): Unit = setGlobalBasis(v)
+    def globalRotation: Vector3 = getGlobalRotation()
+    def globalRotation_=(v: Vector3): Unit = setGlobalRotation(v)
+    def globalRotationDegrees: Vector3 = getGlobalRotationDegrees()
+    def globalRotationDegrees_=(v: Vector3): Unit = setGlobalRotationDegrees(v)
+    def visible: Boolean = isVisible()
+    def visible_=(v: Boolean): Unit = setVisible(v)
+    def visibilityParent: NodePath = getVisibilityParent()
+    def visibilityParent_=(v: NodePath): Unit = setVisibilityParent(v)
+}
 
 object Node3D:
-    object Binds:
-        var setTransform: Ptr[Byte] = null
-        var getTransform: Ptr[Byte] = null
-        var setPosition: Ptr[Byte] = null
-        var getPosition: Ptr[Byte] = null
-        var setRotation: Ptr[Byte] = null
-        var getRotation: Ptr[Byte] = null
-        var setRotationDegrees: Ptr[Byte] = null
-        var getRotationDegrees: Ptr[Byte] = null
-        var setRotationOrder: Ptr[Byte] = null
-        var getRotationOrder: Ptr[Byte] = null
-        var setRotationEditMode: Ptr[Byte] = null
-        var getRotationEditMode: Ptr[Byte] = null
-        var setScale: Ptr[Byte] = null
-        var getScale: Ptr[Byte] = null
-        var setQuaternion: Ptr[Byte] = null
-        var getQuaternion: Ptr[Byte] = null
-        var setBasis: Ptr[Byte] = null
-        var getBasis: Ptr[Byte] = null
-        var setGlobalTransform: Ptr[Byte] = null
-        var getGlobalTransform: Ptr[Byte] = null
-        var getGlobalTransformInterpolated: Ptr[Byte] = null
-        var setGlobalPosition: Ptr[Byte] = null
-        var getGlobalPosition: Ptr[Byte] = null
-        var setGlobalBasis: Ptr[Byte] = null
-        var getGlobalBasis: Ptr[Byte] = null
-        var setGlobalRotation: Ptr[Byte] = null
-        var getGlobalRotation: Ptr[Byte] = null
-        var setGlobalRotationDegrees: Ptr[Byte] = null
-        var getGlobalRotationDegrees: Ptr[Byte] = null
+object Binds {
+          var getGlobalTransformInterpolated: Ptr[Byte] = null
         var getParentNode3d: Ptr[Byte] = null
         var setIgnoreTransformNotification: Ptr[Byte] = null
-        var setAsTopLevel: Ptr[Byte] = null
-        var isSetAsTopLevel: Ptr[Byte] = null
         var setDisableScale: Ptr[Byte] = null
         var isScaleDisabled: Ptr[Byte] = null
         var getWorld3d: Ptr[Byte] = null
         var forceUpdateTransform: Ptr[Byte] = null
-        var setVisibilityParent: Ptr[Byte] = null
-        var getVisibilityParent: Ptr[Byte] = null
         var updateGizmos: Ptr[Byte] = null
         var addGizmo: Ptr[Byte] = null
         var getGizmos: Ptr[Byte] = null
         var clearGizmos: Ptr[Byte] = null
         var setSubgizmoSelection: Ptr[Byte] = null
         var clearSubgizmoSelection: Ptr[Byte] = null
-        var setVisible: Ptr[Byte] = null
-        var isVisible: Ptr[Byte] = null
         var isVisibleInTree: Ptr[Byte] = null
         var show: Ptr[Byte] = null
         var hide: Ptr[Byte] = null
@@ -510,54 +325,20 @@ object Node3D:
         var toLocal: Ptr[Byte] = null
         var toGlobal: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setTransform = GdxApi.getMethodBind(c"Node3D", c"set_transform", 2952846383L)
-            Binds.getTransform = GdxApi.getMethodBind(c"Node3D", c"get_transform", 3229777777L)
-            Binds.setPosition = GdxApi.getMethodBind(c"Node3D", c"set_position", 3460891852L)
-            Binds.getPosition = GdxApi.getMethodBind(c"Node3D", c"get_position", 3360562783L)
-            Binds.setRotation = GdxApi.getMethodBind(c"Node3D", c"set_rotation", 3460891852L)
-            Binds.getRotation = GdxApi.getMethodBind(c"Node3D", c"get_rotation", 3360562783L)
-            Binds.setRotationDegrees = GdxApi.getMethodBind(c"Node3D", c"set_rotation_degrees", 3460891852L)
-            Binds.getRotationDegrees = GdxApi.getMethodBind(c"Node3D", c"get_rotation_degrees", 3360562783L)
-            Binds.setRotationOrder = GdxApi.getMethodBind(c"Node3D", c"set_rotation_order", 1820889989L)
-            Binds.getRotationOrder = GdxApi.getMethodBind(c"Node3D", c"get_rotation_order", 916939469L)
-            Binds.setRotationEditMode = GdxApi.getMethodBind(c"Node3D", c"set_rotation_edit_mode", 141483330L)
-            Binds.getRotationEditMode = GdxApi.getMethodBind(c"Node3D", c"get_rotation_edit_mode", 1572188370L)
-            Binds.setScale = GdxApi.getMethodBind(c"Node3D", c"set_scale", 3460891852L)
-            Binds.getScale = GdxApi.getMethodBind(c"Node3D", c"get_scale", 3360562783L)
-            Binds.setQuaternion = GdxApi.getMethodBind(c"Node3D", c"set_quaternion", 1727505552L)
-            Binds.getQuaternion = GdxApi.getMethodBind(c"Node3D", c"get_quaternion", 1222331677L)
-            Binds.setBasis = GdxApi.getMethodBind(c"Node3D", c"set_basis", 1055510324L)
-            Binds.getBasis = GdxApi.getMethodBind(c"Node3D", c"get_basis", 2716978435L)
-            Binds.setGlobalTransform = GdxApi.getMethodBind(c"Node3D", c"set_global_transform", 2952846383L)
-            Binds.getGlobalTransform = GdxApi.getMethodBind(c"Node3D", c"get_global_transform", 3229777777L)
-            Binds.getGlobalTransformInterpolated = GdxApi.getMethodBind(c"Node3D", c"get_global_transform_interpolated", 4183770049L)
-            Binds.setGlobalPosition = GdxApi.getMethodBind(c"Node3D", c"set_global_position", 3460891852L)
-            Binds.getGlobalPosition = GdxApi.getMethodBind(c"Node3D", c"get_global_position", 3360562783L)
-            Binds.setGlobalBasis = GdxApi.getMethodBind(c"Node3D", c"set_global_basis", 1055510324L)
-            Binds.getGlobalBasis = GdxApi.getMethodBind(c"Node3D", c"get_global_basis", 2716978435L)
-            Binds.setGlobalRotation = GdxApi.getMethodBind(c"Node3D", c"set_global_rotation", 3460891852L)
-            Binds.getGlobalRotation = GdxApi.getMethodBind(c"Node3D", c"get_global_rotation", 3360562783L)
-            Binds.setGlobalRotationDegrees = GdxApi.getMethodBind(c"Node3D", c"set_global_rotation_degrees", 3460891852L)
-            Binds.getGlobalRotationDegrees = GdxApi.getMethodBind(c"Node3D", c"get_global_rotation_degrees", 3360562783L)
+  def loadBinds(): Unit = {
+                Binds.getGlobalTransformInterpolated = GdxApi.getMethodBind(c"Node3D", c"get_global_transform_interpolated", 4183770049L)
             Binds.getParentNode3d = GdxApi.getMethodBind(c"Node3D", c"get_parent_node_3d", 151077316L)
             Binds.setIgnoreTransformNotification = GdxApi.getMethodBind(c"Node3D", c"set_ignore_transform_notification", 2586408642L)
-            Binds.setAsTopLevel = GdxApi.getMethodBind(c"Node3D", c"set_as_top_level", 2586408642L)
-            Binds.isSetAsTopLevel = GdxApi.getMethodBind(c"Node3D", c"is_set_as_top_level", 36873697L)
             Binds.setDisableScale = GdxApi.getMethodBind(c"Node3D", c"set_disable_scale", 2586408642L)
             Binds.isScaleDisabled = GdxApi.getMethodBind(c"Node3D", c"is_scale_disabled", 36873697L)
             Binds.getWorld3d = GdxApi.getMethodBind(c"Node3D", c"get_world_3d", 317588385L)
             Binds.forceUpdateTransform = GdxApi.getMethodBind(c"Node3D", c"force_update_transform", 3218959716L)
-            Binds.setVisibilityParent = GdxApi.getMethodBind(c"Node3D", c"set_visibility_parent", 1348162250L)
-            Binds.getVisibilityParent = GdxApi.getMethodBind(c"Node3D", c"get_visibility_parent", 4075236667L)
             Binds.updateGizmos = GdxApi.getMethodBind(c"Node3D", c"update_gizmos", 3218959716L)
             Binds.addGizmo = GdxApi.getMethodBind(c"Node3D", c"add_gizmo", 1544533845L)
             Binds.getGizmos = GdxApi.getMethodBind(c"Node3D", c"get_gizmos", 3995934104L)
             Binds.clearGizmos = GdxApi.getMethodBind(c"Node3D", c"clear_gizmos", 3218959716L)
             Binds.setSubgizmoSelection = GdxApi.getMethodBind(c"Node3D", c"set_subgizmo_selection", 3317607635L)
             Binds.clearSubgizmoSelection = GdxApi.getMethodBind(c"Node3D", c"clear_subgizmo_selection", 3218959716L)
-            Binds.setVisible = GdxApi.getMethodBind(c"Node3D", c"set_visible", 2586408642L)
-            Binds.isVisible = GdxApi.getMethodBind(c"Node3D", c"is_visible", 36873697L)
             Binds.isVisibleInTree = GdxApi.getMethodBind(c"Node3D", c"is_visible_in_tree", 36873697L)
             Binds.show = GdxApi.getMethodBind(c"Node3D", c"show", 3218959716L)
             Binds.hide = GdxApi.getMethodBind(c"Node3D", c"hide", 3218959716L)
@@ -582,8 +363,11 @@ object Node3D:
             Binds.lookAtFromPosition = GdxApi.getMethodBind(c"Node3D", c"look_at_from_position", 2086826090L)
             Binds.toLocal = GdxApi.getMethodBind(c"Node3D", c"to_local", 192990374L)
             Binds.toGlobal = GdxApi.getMethodBind(c"Node3D", c"to_global", 192990374L)
+  }
+}
 
-    def apply(): Node3D =
-        val obj = new Node3D()
-        obj.ptr = GdxApi.constructObject(c"Node3D")
-        obj
+def apply(): Node3D = {
+  val obj = new Node3D()
+  obj.ptr = GdxApi.constructObject(c"Node3D")
+  obj
+}

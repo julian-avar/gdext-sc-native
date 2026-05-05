@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GPUParticlesAttractorVectorField3D extends GPUParticlesAttractor3D
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(GPUParticlesAttractorVectorField3D.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GPUParticlesAttractorVectorField3D.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setTexture(texture: Texture3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(GPUParticlesAttractorVectorField3D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GPUParticlesAttractorVectorField3D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture3D(!_ret)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
+class GPUParticlesAttractorVectorField3D extends GPUParticlesAttractor3D {
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def texture: Texture3D = getTexture()
+    def texture_=(v: Texture3D): Unit = setTexture(v)
+}
 
 object GPUParticlesAttractorVectorField3D:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"GPUParticlesAttractorVectorField3D", c"set_size", 3460891852L)
-            Binds.getSize = GdxApi.getMethodBind(c"GPUParticlesAttractorVectorField3D", c"get_size", 3360562783L)
-            Binds.setTexture = GdxApi.getMethodBind(c"GPUParticlesAttractorVectorField3D", c"set_texture", 1188404210L)
-            Binds.getTexture = GdxApi.getMethodBind(c"GPUParticlesAttractorVectorField3D", c"get_texture", 373985333L)
-
-    def apply(): GPUParticlesAttractorVectorField3D =
-        val obj = new GPUParticlesAttractorVectorField3D()
-        obj.ptr = GdxApi.constructObject(c"GPUParticlesAttractorVectorField3D")
-        obj
+def apply(): GPUParticlesAttractorVectorField3D = {
+  val obj = new GPUParticlesAttractorVectorField3D()
+  obj.ptr = GdxApi.constructObject(c"GPUParticlesAttractorVectorField3D")
+  obj
+}

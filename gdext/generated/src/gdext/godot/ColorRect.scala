@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ColorRect extends Control
-
-    def setColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ColorRect.Binds.setColor, ptr, _args, null)
-
-    def getColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ColorRect.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-    def color: Ptr[Byte] = getColor()
-    def color_=(v: Ptr[Byte]): Unit = setColor(v)
+class ColorRect extends Control {
+    def color: Color = getColor()
+    def color_=(v: Color): Unit = setColor(v)
+}
 
 object ColorRect:
-    object Binds:
-        var setColor: Ptr[Byte] = null
-        var getColor: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setColor = GdxApi.getMethodBind(c"ColorRect", c"set_color", 2920490490L)
-            Binds.getColor = GdxApi.getMethodBind(c"ColorRect", c"get_color", 3444240500L)
-
-    def apply(): ColorRect =
-        val obj = new ColorRect()
-        obj.ptr = GdxApi.constructObject(c"ColorRect")
-        obj
+def apply(): ColorRect = {
+  val obj = new ColorRect()
+  obj.ptr = GdxApi.constructObject(c"ColorRect")
+  obj
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WebRTCDataChannelExtension extends WebRTCDataChannel
+class WebRTCDataChannelExtension extends WebRTCDataChannel {
     def _getPacket(rBuffer: Ptr[Byte], rBufferSize: Ptr[Byte]): Int = null
     def _putPacket(pBuffer: Ptr[Byte], pBufferSize: Int): Int = null
     def _getAvailablePacketCount(): Int = 0
@@ -24,11 +24,11 @@ class WebRTCDataChannelExtension extends WebRTCDataChannel
     def _getProtocol(): CString = null
     def _isNegotiated(): Boolean = false
     def _getBufferedAmount(): Int = 0
-
-
+}
 
 object WebRTCDataChannelExtension:
-    def apply(): WebRTCDataChannelExtension =
-        val obj = new WebRTCDataChannelExtension()
-        obj.ptr = GdxApi.constructObject(c"WebRTCDataChannelExtension")
-        obj
+def apply(): WebRTCDataChannelExtension = {
+  val obj = new WebRTCDataChannelExtension()
+  obj.ptr = GdxApi.constructObject(c"WebRTCDataChannelExtension")
+  obj
+}

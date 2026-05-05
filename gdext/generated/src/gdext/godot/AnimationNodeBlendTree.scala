@@ -5,89 +5,89 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimationNodeBlendTree extends AnimationRootNode
-
-    def addNode(name: CString, node: AnimationNode): Unit =
+class AnimationNodeBlendTree extends AnimationRootNode {
+    def addNode(name: CString, node: AnimationNode): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = node.ptr
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.addNode, ptr, _args, null)
+}
 
-    def getNode(name: CString): AnimationNode =
+    def getNode(name: CString): AnimationNode = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.getNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AnimationNode(!_ret)
+}
 
-    def removeNode(name: CString): Unit =
+    def removeNode(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.removeNode, ptr, _args, null)
+}
 
-    def renameNode(name: CString, newName: CString): Unit =
+    def renameNode(name: CString, newName: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = newName.ptr
+        _args(0) = name
+        _args(1) = newName
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.renameNode, ptr, _args, null)
+}
 
-    def hasNode(name: CString): Boolean =
+    def hasNode(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.hasNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def connectNode(inputNode: CString, inputIndex: Int, outputNode: CString): Unit =
+    def connectNode(inputNode: CString, inputIndex: Int, outputNode: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = inputNode.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = inputIndex.toLong
+        _args(0) = inputNode
+        val _a1 = stackalloc[Long](); !_a1 = inputIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = outputNode.ptr
+        _args(2) = outputNode
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.connectNode, ptr, _args, null)
+}
 
-    def disconnectNode(inputNode: CString, inputIndex: Int): Unit =
+    def disconnectNode(inputNode: CString, inputIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = inputNode.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = inputIndex.toLong
+        _args(0) = inputNode
+        val _a1 = stackalloc[Long](); !_a1 = inputIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.disconnectNode, ptr, _args, null)
+}
 
-    def getNodeList(): Ptr[Byte] =
+    def getNodeList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.getNodeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setNodePosition(name: CString, position: Vector2): Unit =
+    def setNodePosition(name: CString, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = position.ptr
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.setNodePosition, ptr, _args, null)
+}
 
-    def getNodePosition(name: CString): Vector2 =
+    def getNodePosition(name: CString): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AnimationNodeBlendTree.Binds.getNodePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setGraphOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(AnimationNodeBlendTree.Binds.setGraphOffset, ptr, _args, null)
-
-    def getGraphOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AnimationNodeBlendTree.Binds.getGraphOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def graphOffset: Ptr[Byte] = getGraphOffset()
-    def graphOffset_=(v: Ptr[Byte]): Unit = setGraphOffset(v)
+    def graphOffset: Vector2 = getGraphOffset()
+    def graphOffset_=(v: Vector2): Unit = setGraphOffset(v)
+}
 
 object AnimationNodeBlendTree:
-    object Binds:
-        var addNode: Ptr[Byte] = null
+object Binds {
+          var addNode: Ptr[Byte] = null
         var getNode: Ptr[Byte] = null
         var removeNode: Ptr[Byte] = null
         var renameNode: Ptr[Byte] = null
@@ -97,11 +97,9 @@ object AnimationNodeBlendTree:
         var getNodeList: Ptr[Byte] = null
         var setNodePosition: Ptr[Byte] = null
         var getNodePosition: Ptr[Byte] = null
-        var setGraphOffset: Ptr[Byte] = null
-        var getGraphOffset: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addNode = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"add_node", 1980270704L)
+  def loadBinds(): Unit = {
+                Binds.addNode = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"add_node", 1980270704L)
             Binds.getNode = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"get_node", 625644256L)
             Binds.removeNode = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"remove_node", 3304788590L)
             Binds.renameNode = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"rename_node", 3740211285L)
@@ -111,10 +109,11 @@ object AnimationNodeBlendTree:
             Binds.getNodeList = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"get_node_list", 3995934104L)
             Binds.setNodePosition = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"set_node_position", 1999414630L)
             Binds.getNodePosition = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"get_node_position", 3100822709L)
-            Binds.setGraphOffset = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"set_graph_offset", 743155724L)
-            Binds.getGraphOffset = GdxApi.getMethodBind(c"AnimationNodeBlendTree", c"get_graph_offset", 3341600327L)
+  }
+}
 
-    def apply(): AnimationNodeBlendTree =
-        val obj = new AnimationNodeBlendTree()
-        obj.ptr = GdxApi.constructObject(c"AnimationNodeBlendTree")
-        obj
+def apply(): AnimationNodeBlendTree = {
+  val obj = new AnimationNodeBlendTree()
+  obj.ptr = GdxApi.constructObject(c"AnimationNodeBlendTree")
+  obj
+}

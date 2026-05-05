@@ -16,7 +16,7 @@ object ClassRegistrar:
 
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
     private var factoryMap: Map[Ptr[Byte], (() => GodotClass, String)] = Map.empty
-    private var _createFn: CreateInstanceFn                             = null
+    private var _createFn: CreateInstanceFn                            = null
 
     // Shared CallVirtualFn pointers — created once, reused for every class.
     private var _readyFn: Ptr[Byte]          = null
@@ -63,9 +63,9 @@ object ClassRegistrar:
 
             val info = stackalloc[ClassCreationInfo2]()
             memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassCreationInfo2])
-            info._1  = 0.toUByte // is_virtual
-            info._2  = 0.toUByte // is_abstract
-            info._3  = 1.toUByte // is_exposed
+            info._1 = 0.toUByte // is_virtual
+            info._2 = 0.toUByte // is_abstract
+            info._3 = 1.toUByte // is_exposed
             info._15 = CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]]
             info._16 = CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]]
             info._18 = CFuncPtr.toPtr(getVirtualFn).asInstanceOf[Ptr[Byte]]
@@ -112,8 +112,7 @@ object ClassRegistrar:
         if _createFn == null then
             _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
                 factoryMap.get(userdata) match
-                    case Some((factory, parentName)) =>
-                        Zone {
+                    case Some((factory, parentName)) => Zone {
                             val godotPtr = GdxApi.constructObject(toCString(parentName))
                             val obj      = factory()
                             obj.ptr = godotPtr

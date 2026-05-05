@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Texture2DArrayRD extends TextureLayeredRD
-
-
-
+class Texture2DArrayRD extends TextureLayeredRD {}
 
 object Texture2DArrayRD:
-    def apply(): Texture2DArrayRD =
-        val obj = new Texture2DArrayRD()
-        obj.ptr = GdxApi.constructObject(c"Texture2DArrayRD")
-        obj
+def apply(): Texture2DArrayRD = {
+  val obj = new Texture2DArrayRD()
+  obj.ptr = GdxApi.constructObject(c"Texture2DArrayRD")
+  obj
+}

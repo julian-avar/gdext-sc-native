@@ -5,252 +5,90 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPlayer extends Node
-
-    def setStream(stream: AudioStream): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = stream.ptr
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setStream, ptr, _args, null)
-
-    def getStream(): AudioStream =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getStream, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new AudioStream(!_ret)
-
-    def setVolumeDb(volumeDb: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = volumeDb.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setVolumeDb, ptr, _args, null)
-
-    def getVolumeDb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getVolumeDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVolumeLinear(volumeLinear: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = volumeLinear.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setVolumeLinear, ptr, _args, null)
-
-    def getVolumeLinear(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getVolumeLinear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPitchScale(pitchScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = pitchScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setPitchScale, ptr, _args, null)
-
-    def getPitchScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getPitchScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def play(): Unit =
+class AudioStreamPlayer extends Node {
+    def play(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamPlayer.Binds.play, ptr, _args, null)
+}
 
-    def seek(toPosition: Float): Unit =
+    def seek(toPosition: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = toPosition.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(AudioStreamPlayer.Binds.seek, ptr, _args, null)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(AudioStreamPlayer.Binds.stop, ptr, _args, null)
+}
 
-    def isPlaying(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.isPlaying, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getPlaybackPosition(): Float =
+    def getPlaybackPosition(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(AudioStreamPlayer.Binds.getPlaybackPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setBus(bus: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bus.ptr
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setBus, ptr, _args, null)
-
-    def getBus(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getBus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setAutoplay(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setAutoplay, ptr, _args, null)
-
-    def isAutoplayEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.isAutoplayEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMixTarget(mixTarget: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mixTarget.ptr
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setMixTarget, ptr, _args, null)
-
-    def getMixTarget(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getMixTarget, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPlaying(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setPlaying, ptr, _args, null)
-
-    def setStreamPaused(pause: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pause then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setStreamPaused, ptr, _args, null)
-
-    def getStreamPaused(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getStreamPaused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMaxPolyphony(maxPolyphony: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxPolyphony.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setMaxPolyphony, ptr, _args, null)
-
-    def getMaxPolyphony(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getMaxPolyphony, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def hasStreamPlayback(): Boolean =
+    def hasStreamPlayback(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(AudioStreamPlayer.Binds.hasStreamPlayback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getStreamPlayback(): AudioStreamPlayback =
+    def getStreamPlayback(): AudioStreamPlayback = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioStreamPlayer.Binds.getStreamPlayback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new AudioStreamPlayback(!_ret)
+}
 
-    def setPlaybackType(playbackType: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = playbackType.ptr
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.setPlaybackType, ptr, _args, null)
-
-    def getPlaybackType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamPlayer.Binds.getPlaybackType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def stream: Ptr[Byte] = getStream()
-    def stream_=(v: Ptr[Byte]): Unit = setStream(v)
-    def volumeDb: Ptr[Byte] = getVolumeDb()
-    def volumeDb_=(v: Ptr[Byte]): Unit = setVolumeDb(v)
-    def volumeLinear: Ptr[Byte] = getVolumeLinear()
-    def volumeLinear_=(v: Ptr[Byte]): Unit = setVolumeLinear(v)
-    def pitchScale: Ptr[Byte] = getPitchScale()
-    def pitchScale_=(v: Ptr[Byte]): Unit = setPitchScale(v)
-    def playing: Ptr[Byte] = isPlaying()
-    def playing_=(v: Ptr[Byte]): Unit = setPlaying(v)
-    def autoplay: Ptr[Byte] = isAutoplayEnabled()
-    def autoplay_=(v: Ptr[Byte]): Unit = setAutoplay(v)
-    def streamPaused: Ptr[Byte] = getStreamPaused()
-    def streamPaused_=(v: Ptr[Byte]): Unit = setStreamPaused(v)
-    def mixTarget: Ptr[Byte] = getMixTarget()
-    def mixTarget_=(v: Ptr[Byte]): Unit = setMixTarget(v)
-    def maxPolyphony: Ptr[Byte] = getMaxPolyphony()
-    def maxPolyphony_=(v: Ptr[Byte]): Unit = setMaxPolyphony(v)
-    def bus: Ptr[Byte] = getBus()
-    def bus_=(v: Ptr[Byte]): Unit = setBus(v)
-    def playbackType: Ptr[Byte] = getPlaybackType()
-    def playbackType_=(v: Ptr[Byte]): Unit = setPlaybackType(v)
+    def stream: AudioStream = getStream()
+    def stream_=(v: AudioStream): Unit = setStream(v)
+    def volumeDb: Float = getVolumeDb()
+    def volumeDb_=(v: Float): Unit = setVolumeDb(v)
+    def volumeLinear: Float = getVolumeLinear()
+    def volumeLinear_=(v: Float): Unit = setVolumeLinear(v)
+    def pitchScale: Float = getPitchScale()
+    def pitchScale_=(v: Float): Unit = setPitchScale(v)
+    def playing: Boolean = isPlaying()
+    def playing_=(v: Boolean): Unit = setPlaying(v)
+    def autoplay: Boolean = isAutoplayEnabled()
+    def autoplay_=(v: Boolean): Unit = setAutoplay(v)
+    def streamPaused: Boolean = getStreamPaused()
+    def streamPaused_=(v: Boolean): Unit = setStreamPaused(v)
+    def mixTarget: Int = getMixTarget()
+    def mixTarget_=(v: Int): Unit = setMixTarget(v)
+    def maxPolyphony: Int = getMaxPolyphony()
+    def maxPolyphony_=(v: Int): Unit = setMaxPolyphony(v)
+    def bus: CString = getBus()
+    def bus_=(v: CString): Unit = setBus(v)
+    def playbackType: Int = getPlaybackType()
+    def playbackType_=(v: Int): Unit = setPlaybackType(v)
+}
 
 object AudioStreamPlayer:
-    object Binds:
-        var setStream: Ptr[Byte] = null
-        var getStream: Ptr[Byte] = null
-        var setVolumeDb: Ptr[Byte] = null
-        var getVolumeDb: Ptr[Byte] = null
-        var setVolumeLinear: Ptr[Byte] = null
-        var getVolumeLinear: Ptr[Byte] = null
-        var setPitchScale: Ptr[Byte] = null
-        var getPitchScale: Ptr[Byte] = null
-        var play: Ptr[Byte] = null
+object Binds {
+          var play: Ptr[Byte] = null
         var seek: Ptr[Byte] = null
         var stop: Ptr[Byte] = null
-        var isPlaying: Ptr[Byte] = null
         var getPlaybackPosition: Ptr[Byte] = null
-        var setBus: Ptr[Byte] = null
-        var getBus: Ptr[Byte] = null
-        var setAutoplay: Ptr[Byte] = null
-        var isAutoplayEnabled: Ptr[Byte] = null
-        var setMixTarget: Ptr[Byte] = null
-        var getMixTarget: Ptr[Byte] = null
-        var setPlaying: Ptr[Byte] = null
-        var setStreamPaused: Ptr[Byte] = null
-        var getStreamPaused: Ptr[Byte] = null
-        var setMaxPolyphony: Ptr[Byte] = null
-        var getMaxPolyphony: Ptr[Byte] = null
         var hasStreamPlayback: Ptr[Byte] = null
         var getStreamPlayback: Ptr[Byte] = null
-        var setPlaybackType: Ptr[Byte] = null
-        var getPlaybackType: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setStream = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_stream", 2210767741L)
-            Binds.getStream = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_stream", 160907539L)
-            Binds.setVolumeDb = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_volume_db", 373806689L)
-            Binds.getVolumeDb = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_volume_db", 1740695150L)
-            Binds.setVolumeLinear = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_volume_linear", 373806689L)
-            Binds.getVolumeLinear = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_volume_linear", 1740695150L)
-            Binds.setPitchScale = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_pitch_scale", 373806689L)
-            Binds.getPitchScale = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_pitch_scale", 1740695150L)
-            Binds.play = GdxApi.getMethodBind(c"AudioStreamPlayer", c"play", 1958160172L)
+  def loadBinds(): Unit = {
+                Binds.play = GdxApi.getMethodBind(c"AudioStreamPlayer", c"play", 1958160172L)
             Binds.seek = GdxApi.getMethodBind(c"AudioStreamPlayer", c"seek", 373806689L)
             Binds.stop = GdxApi.getMethodBind(c"AudioStreamPlayer", c"stop", 3218959716L)
-            Binds.isPlaying = GdxApi.getMethodBind(c"AudioStreamPlayer", c"is_playing", 36873697L)
             Binds.getPlaybackPosition = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_playback_position", 191475506L)
-            Binds.setBus = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_bus", 3304788590L)
-            Binds.getBus = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_bus", 2002593661L)
-            Binds.setAutoplay = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_autoplay", 2586408642L)
-            Binds.isAutoplayEnabled = GdxApi.getMethodBind(c"AudioStreamPlayer", c"is_autoplay_enabled", 36873697L)
-            Binds.setMixTarget = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_mix_target", 2300306138L)
-            Binds.getMixTarget = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_mix_target", 172807476L)
-            Binds.setPlaying = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_playing", 2586408642L)
-            Binds.setStreamPaused = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_stream_paused", 2586408642L)
-            Binds.getStreamPaused = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_stream_paused", 36873697L)
-            Binds.setMaxPolyphony = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_max_polyphony", 1286410249L)
-            Binds.getMaxPolyphony = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_max_polyphony", 3905245786L)
             Binds.hasStreamPlayback = GdxApi.getMethodBind(c"AudioStreamPlayer", c"has_stream_playback", 2240911060L)
             Binds.getStreamPlayback = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_stream_playback", 210135309L)
-            Binds.setPlaybackType = GdxApi.getMethodBind(c"AudioStreamPlayer", c"set_playback_type", 725473817L)
-            Binds.getPlaybackType = GdxApi.getMethodBind(c"AudioStreamPlayer", c"get_playback_type", 4011264623L)
+  }
+}
 
-    def apply(): AudioStreamPlayer =
-        val obj = new AudioStreamPlayer()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamPlayer")
-        obj
+def apply(): AudioStreamPlayer = {
+  val obj = new AudioStreamPlayer()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamPlayer")
+  obj
+}

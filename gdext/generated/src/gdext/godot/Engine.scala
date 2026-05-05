@@ -5,286 +5,220 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Engine extends Object
-
-    def setPhysicsTicksPerSecond(physicsTicksPerSecond: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = physicsTicksPerSecond.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setPhysicsTicksPerSecond, ptr, _args, null)
-
-    def getPhysicsTicksPerSecond(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Engine.Binds.getPhysicsTicksPerSecond, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxPhysicsStepsPerFrame(maxPhysicsSteps: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxPhysicsSteps.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setMaxPhysicsStepsPerFrame, ptr, _args, null)
-
-    def getMaxPhysicsStepsPerFrame(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Engine.Binds.getMaxPhysicsStepsPerFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPhysicsJitterFix(physicsJitterFix: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = physicsJitterFix
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setPhysicsJitterFix, ptr, _args, null)
-
-    def getPhysicsJitterFix(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Engine.Binds.getPhysicsJitterFix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getPhysicsInterpolationFraction(): Double =
+class Engine extends Object {
+    def getPhysicsInterpolationFraction(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Engine.Binds.getPhysicsInterpolationFraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setMaxFps(maxFps: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxFps.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setMaxFps, ptr, _args, null)
-
-    def getMaxFps(): Int =
+    def getFramesDrawn(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Engine.Binds.getMaxFps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTimeScale(timeScale: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = timeScale
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setTimeScale, ptr, _args, null)
-
-    def getTimeScale(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Engine.Binds.getTimeScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getFramesDrawn(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Engine.Binds.getFramesDrawn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFramesPerSecond(): Double =
+    def getFramesPerSecond(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Engine.Binds.getFramesPerSecond, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getPhysicsFrames(): Long =
+    def getPhysicsFrames(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Engine.Binds.getPhysicsFrames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getProcessFrames(): Long =
+    def getProcessFrames(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Engine.Binds.getProcessFrames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMainLoop(): MainLoop =
+    def getMainLoop(): MainLoop = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getMainLoop, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new MainLoop(!_ret)
+}
 
-    def getVersionInfo(): Dictionary =
+    def getVersionInfo(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getVersionInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getAuthorInfo(): Dictionary =
+    def getAuthorInfo(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getAuthorInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getCopyrightInfo(): Ptr[Byte] =
+    def getCopyrightInfo(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getCopyrightInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDonorInfo(): Dictionary =
+    def getDonorInfo(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getDonorInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getLicenseInfo(): Dictionary =
+    def getLicenseInfo(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getLicenseInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getLicenseText(): CString =
+    def getLicenseText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getLicenseText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getArchitectureName(): CString =
+    def getArchitectureName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getArchitectureName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isInPhysicsFrame(): Boolean =
+    def isInPhysicsFrame(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Engine.Binds.isInPhysicsFrame, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasSingleton(name: CString): Boolean =
+    def hasSingleton(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Engine.Binds.hasSingleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSingleton(name: CString): Object =
+    def getSingleton(name: CString): Object = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getSingleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def registerSingleton(name: CString, instance: Object): Unit =
+    def registerSingleton(name: CString, instance: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = instance.ptr
         GdxApi.ptrcall(Engine.Binds.registerSingleton, ptr, _args, null)
+}
 
-    def unregisterSingleton(name: CString): Unit =
+    def unregisterSingleton(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(Engine.Binds.unregisterSingleton, ptr, _args, null)
+}
 
-    def getSingletonList(): PackedStringArray =
+    def getSingletonList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getSingletonList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def registerScriptLanguage(language: ScriptLanguage): Int =
+    def registerScriptLanguage(language: ScriptLanguage): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = language.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Engine.Binds.registerScriptLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def unregisterScriptLanguage(language: ScriptLanguage): Int =
+    def unregisterScriptLanguage(language: ScriptLanguage): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = language.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Engine.Binds.unregisterScriptLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getScriptLanguageCount(): Int =
+    def getScriptLanguageCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Engine.Binds.getScriptLanguageCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getScriptLanguage(index: Int): ScriptLanguage =
+    def getScriptLanguage(index: Int): ScriptLanguage = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getScriptLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new ScriptLanguage(!_ret)
+}
 
-    def captureScriptBacktraces(): Ptr[Byte] =
+    def captureScriptBacktraces(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.captureScriptBacktraces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isEditorHint(): Boolean =
+    def isEditorHint(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Engine.Binds.isEditorHint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isEmbeddedInEditor(): Boolean =
+    def isEmbeddedInEditor(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Engine.Binds.isEmbeddedInEditor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getWriteMoviePath(): CString =
+    def getWriteMoviePath(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Engine.Binds.getWriteMoviePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setPrintToStdout(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setPrintToStdout, ptr, _args, null)
-
-    def isPrintingToStdout(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Engine.Binds.isPrintingToStdout, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPrintErrorMessages(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Engine.Binds.setPrintErrorMessages, ptr, _args, null)
-
-    def isPrintingErrorMessages(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Engine.Binds.isPrintingErrorMessages, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def printErrorMessages: Ptr[Byte] = isPrintingErrorMessages()
-    def printErrorMessages_=(v: Ptr[Byte]): Unit = setPrintErrorMessages(v)
-    def printToStdout: Ptr[Byte] = isPrintingToStdout()
-    def printToStdout_=(v: Ptr[Byte]): Unit = setPrintToStdout(v)
-    def physicsTicksPerSecond: Ptr[Byte] = getPhysicsTicksPerSecond()
-    def physicsTicksPerSecond_=(v: Ptr[Byte]): Unit = setPhysicsTicksPerSecond(v)
-    def maxPhysicsStepsPerFrame: Ptr[Byte] = getMaxPhysicsStepsPerFrame()
-    def maxPhysicsStepsPerFrame_=(v: Ptr[Byte]): Unit = setMaxPhysicsStepsPerFrame(v)
-    def maxFps: Ptr[Byte] = getMaxFps()
-    def maxFps_=(v: Ptr[Byte]): Unit = setMaxFps(v)
-    def timeScale: Ptr[Byte] = getTimeScale()
-    def timeScale_=(v: Ptr[Byte]): Unit = setTimeScale(v)
-    def physicsJitterFix: Ptr[Byte] = getPhysicsJitterFix()
-    def physicsJitterFix_=(v: Ptr[Byte]): Unit = setPhysicsJitterFix(v)
+    def printErrorMessages: Boolean = isPrintingErrorMessages()
+    def printErrorMessages_=(v: Boolean): Unit = setPrintErrorMessages(v)
+    def printToStdout: Boolean = isPrintingToStdout()
+    def printToStdout_=(v: Boolean): Unit = setPrintToStdout(v)
+    def physicsTicksPerSecond: Int = getPhysicsTicksPerSecond()
+    def physicsTicksPerSecond_=(v: Int): Unit = setPhysicsTicksPerSecond(v)
+    def maxPhysicsStepsPerFrame: Int = getMaxPhysicsStepsPerFrame()
+    def maxPhysicsStepsPerFrame_=(v: Int): Unit = setMaxPhysicsStepsPerFrame(v)
+    def maxFps: Int = getMaxFps()
+    def maxFps_=(v: Int): Unit = setMaxFps(v)
+    def timeScale: Double = getTimeScale()
+    def timeScale_=(v: Double): Unit = setTimeScale(v)
+    def physicsJitterFix: Double = getPhysicsJitterFix()
+    def physicsJitterFix_=(v: Double): Unit = setPhysicsJitterFix(v)
+}
 
 object Engine:
-    object Binds:
-        var setPhysicsTicksPerSecond: Ptr[Byte] = null
-        var getPhysicsTicksPerSecond: Ptr[Byte] = null
-        var setMaxPhysicsStepsPerFrame: Ptr[Byte] = null
-        var getMaxPhysicsStepsPerFrame: Ptr[Byte] = null
-        var setPhysicsJitterFix: Ptr[Byte] = null
-        var getPhysicsJitterFix: Ptr[Byte] = null
-        var getPhysicsInterpolationFraction: Ptr[Byte] = null
-        var setMaxFps: Ptr[Byte] = null
-        var getMaxFps: Ptr[Byte] = null
-        var setTimeScale: Ptr[Byte] = null
-        var getTimeScale: Ptr[Byte] = null
+object Binds {
+          var getPhysicsInterpolationFraction: Ptr[Byte] = null
         var getFramesDrawn: Ptr[Byte] = null
         var getFramesPerSecond: Ptr[Byte] = null
         var getPhysicsFrames: Ptr[Byte] = null
@@ -311,23 +245,9 @@ object Engine:
         var isEditorHint: Ptr[Byte] = null
         var isEmbeddedInEditor: Ptr[Byte] = null
         var getWriteMoviePath: Ptr[Byte] = null
-        var setPrintToStdout: Ptr[Byte] = null
-        var isPrintingToStdout: Ptr[Byte] = null
-        var setPrintErrorMessages: Ptr[Byte] = null
-        var isPrintingErrorMessages: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPhysicsTicksPerSecond = GdxApi.getMethodBind(c"Engine", c"set_physics_ticks_per_second", 1286410249L)
-            Binds.getPhysicsTicksPerSecond = GdxApi.getMethodBind(c"Engine", c"get_physics_ticks_per_second", 3905245786L)
-            Binds.setMaxPhysicsStepsPerFrame = GdxApi.getMethodBind(c"Engine", c"set_max_physics_steps_per_frame", 1286410249L)
-            Binds.getMaxPhysicsStepsPerFrame = GdxApi.getMethodBind(c"Engine", c"get_max_physics_steps_per_frame", 3905245786L)
-            Binds.setPhysicsJitterFix = GdxApi.getMethodBind(c"Engine", c"set_physics_jitter_fix", 373806689L)
-            Binds.getPhysicsJitterFix = GdxApi.getMethodBind(c"Engine", c"get_physics_jitter_fix", 1740695150L)
-            Binds.getPhysicsInterpolationFraction = GdxApi.getMethodBind(c"Engine", c"get_physics_interpolation_fraction", 1740695150L)
-            Binds.setMaxFps = GdxApi.getMethodBind(c"Engine", c"set_max_fps", 1286410249L)
-            Binds.getMaxFps = GdxApi.getMethodBind(c"Engine", c"get_max_fps", 3905245786L)
-            Binds.setTimeScale = GdxApi.getMethodBind(c"Engine", c"set_time_scale", 373806689L)
-            Binds.getTimeScale = GdxApi.getMethodBind(c"Engine", c"get_time_scale", 191475506L)
+  def loadBinds(): Unit = {
+                Binds.getPhysicsInterpolationFraction = GdxApi.getMethodBind(c"Engine", c"get_physics_interpolation_fraction", 1740695150L)
             Binds.getFramesDrawn = GdxApi.getMethodBind(c"Engine", c"get_frames_drawn", 2455072627L)
             Binds.getFramesPerSecond = GdxApi.getMethodBind(c"Engine", c"get_frames_per_second", 1740695150L)
             Binds.getPhysicsFrames = GdxApi.getMethodBind(c"Engine", c"get_physics_frames", 3905245786L)
@@ -354,12 +274,11 @@ object Engine:
             Binds.isEditorHint = GdxApi.getMethodBind(c"Engine", c"is_editor_hint", 36873697L)
             Binds.isEmbeddedInEditor = GdxApi.getMethodBind(c"Engine", c"is_embedded_in_editor", 36873697L)
             Binds.getWriteMoviePath = GdxApi.getMethodBind(c"Engine", c"get_write_movie_path", 201670096L)
-            Binds.setPrintToStdout = GdxApi.getMethodBind(c"Engine", c"set_print_to_stdout", 2586408642L)
-            Binds.isPrintingToStdout = GdxApi.getMethodBind(c"Engine", c"is_printing_to_stdout", 36873697L)
-            Binds.setPrintErrorMessages = GdxApi.getMethodBind(c"Engine", c"set_print_error_messages", 2586408642L)
-            Binds.isPrintingErrorMessages = GdxApi.getMethodBind(c"Engine", c"is_printing_error_messages", 36873697L)
+  }
+}
 
-    def apply(): Engine =
-        val obj = new Engine()
-        obj.ptr = GdxApi.constructObject(c"Engine")
-        obj
+def apply(): Engine = {
+  val obj = new Engine()
+  obj.ptr = GdxApi.constructObject(c"Engine")
+  obj
+}

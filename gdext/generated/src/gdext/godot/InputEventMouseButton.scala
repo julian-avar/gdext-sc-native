@@ -5,87 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class InputEventMouseButton extends InputEventMouse
-
-    def setFactor(factor: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = factor.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMouseButton.Binds.setFactor, ptr, _args, null)
-
-    def getFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(InputEventMouseButton.Binds.getFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setButtonIndex(buttonIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = buttonIndex.ptr
-        GdxApi.ptrcall(InputEventMouseButton.Binds.setButtonIndex, ptr, _args, null)
-
-    def getButtonIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(InputEventMouseButton.Binds.getButtonIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPressed(pressed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if pressed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMouseButton.Binds.setPressed, ptr, _args, null)
-
-    def setCanceled(canceled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if canceled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMouseButton.Binds.setCanceled, ptr, _args, null)
-
-    def setDoubleClick(doubleClick: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if doubleClick then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(InputEventMouseButton.Binds.setDoubleClick, ptr, _args, null)
-
-    def isDoubleClick(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(InputEventMouseButton.Binds.isDoubleClick, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def factor: Ptr[Byte] = getFactor()
-    def factor_=(v: Ptr[Byte]): Unit = setFactor(v)
-    def buttonIndex: Ptr[Byte] = getButtonIndex()
-    def buttonIndex_=(v: Ptr[Byte]): Unit = setButtonIndex(v)
+class InputEventMouseButton extends InputEventMouse {
+    def factor: Float = getFactor()
+    def factor_=(v: Float): Unit = setFactor(v)
+    def buttonIndex: Int = getButtonIndex()
+    def buttonIndex_=(v: Int): Unit = setButtonIndex(v)
     def canceled: Ptr[Byte] = isCanceled()
-    def canceled_=(v: Ptr[Byte]): Unit = setCanceled(v)
+    def canceled_=(v: Boolean): Unit = setCanceled(v)
     def pressed: Ptr[Byte] = isPressed()
-    def pressed_=(v: Ptr[Byte]): Unit = setPressed(v)
-    def doubleClick: Ptr[Byte] = isDoubleClick()
-    def doubleClick_=(v: Ptr[Byte]): Unit = setDoubleClick(v)
+    def pressed_=(v: Boolean): Unit = setPressed(v)
+    def doubleClick: Boolean = isDoubleClick()
+    def doubleClick_=(v: Boolean): Unit = setDoubleClick(v)
+}
 
 object InputEventMouseButton:
-    object Binds:
-        var setFactor: Ptr[Byte] = null
-        var getFactor: Ptr[Byte] = null
-        var setButtonIndex: Ptr[Byte] = null
-        var getButtonIndex: Ptr[Byte] = null
-        var setPressed: Ptr[Byte] = null
-        var setCanceled: Ptr[Byte] = null
-        var setDoubleClick: Ptr[Byte] = null
-        var isDoubleClick: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFactor = GdxApi.getMethodBind(c"InputEventMouseButton", c"set_factor", 373806689L)
-            Binds.getFactor = GdxApi.getMethodBind(c"InputEventMouseButton", c"get_factor", 1740695150L)
-            Binds.setButtonIndex = GdxApi.getMethodBind(c"InputEventMouseButton", c"set_button_index", 3624991109L)
-            Binds.getButtonIndex = GdxApi.getMethodBind(c"InputEventMouseButton", c"get_button_index", 1132662608L)
-            Binds.setPressed = GdxApi.getMethodBind(c"InputEventMouseButton", c"set_pressed", 2586408642L)
-            Binds.setCanceled = GdxApi.getMethodBind(c"InputEventMouseButton", c"set_canceled", 2586408642L)
-            Binds.setDoubleClick = GdxApi.getMethodBind(c"InputEventMouseButton", c"set_double_click", 2586408642L)
-            Binds.isDoubleClick = GdxApi.getMethodBind(c"InputEventMouseButton", c"is_double_click", 36873697L)
-
-    def apply(): InputEventMouseButton =
-        val obj = new InputEventMouseButton()
-        obj.ptr = GdxApi.constructObject(c"InputEventMouseButton")
-        obj
+def apply(): InputEventMouseButton = {
+  val obj = new InputEventMouseButton()
+  obj.ptr = GdxApi.constructObject(c"InputEventMouseButton")
+  obj
+}

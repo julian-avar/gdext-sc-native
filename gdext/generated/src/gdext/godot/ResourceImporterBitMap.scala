@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporterBitMap extends ResourceImporter
-
-
-
+class ResourceImporterBitMap extends ResourceImporter {}
 
 object ResourceImporterBitMap:
-    def apply(): ResourceImporterBitMap =
-        val obj = new ResourceImporterBitMap()
-        obj.ptr = GdxApi.constructObject(c"ResourceImporterBitMap")
-        obj
+def apply(): ResourceImporterBitMap = {
+  val obj = new ResourceImporterBitMap()
+  obj.ptr = GdxApi.constructObject(c"ResourceImporterBitMap")
+  obj
+}

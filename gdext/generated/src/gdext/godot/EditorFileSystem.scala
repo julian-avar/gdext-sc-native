@@ -5,62 +5,70 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorFileSystem extends Node
-
-    def getFilesystem(): EditorFileSystemDirectory =
+class EditorFileSystem extends Node {
+    def getFilesystem(): EditorFileSystemDirectory = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystem.Binds.getFilesystem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorFileSystemDirectory(!_ret)
+}
 
-    def isScanning(): Boolean =
+    def isScanning(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorFileSystem.Binds.isScanning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getScanningProgress(): Float =
+    def getScanningProgress(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(EditorFileSystem.Binds.getScanningProgress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def scan(): Unit =
+    def scan(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorFileSystem.Binds.scan, ptr, _args, null)
+}
 
-    def scanSources(): Unit =
+    def scanSources(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorFileSystem.Binds.scanSources, ptr, _args, null)
+}
 
-    def updateFile(path: CString): Unit =
+    def updateFile(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(EditorFileSystem.Binds.updateFile, ptr, _args, null)
+}
 
-    def getFilesystemPath(path: CString): EditorFileSystemDirectory =
+    def getFilesystemPath(path: CString): EditorFileSystemDirectory = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystem.Binds.getFilesystemPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new EditorFileSystemDirectory(!_ret)
+}
 
-    def getFileType(path: CString): CString =
+    def getFileType(path: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileSystem.Binds.getFileType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def reimportFiles(files: PackedStringArray): Unit =
+    def reimportFiles(files: PackedStringArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = files.ptr
         GdxApi.ptrcall(EditorFileSystem.Binds.reimportFiles, ptr, _args, null)
-
+}
+}
 
 object EditorFileSystem:
-    object Binds:
-        var getFilesystem: Ptr[Byte] = null
+object Binds {
+          var getFilesystem: Ptr[Byte] = null
         var isScanning: Ptr[Byte] = null
         var getScanningProgress: Ptr[Byte] = null
         var scan: Ptr[Byte] = null
@@ -70,8 +78,8 @@ object EditorFileSystem:
         var getFileType: Ptr[Byte] = null
         var reimportFiles: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getFilesystem = GdxApi.getMethodBind(c"EditorFileSystem", c"get_filesystem", 842323275L)
+  def loadBinds(): Unit = {
+                Binds.getFilesystem = GdxApi.getMethodBind(c"EditorFileSystem", c"get_filesystem", 842323275L)
             Binds.isScanning = GdxApi.getMethodBind(c"EditorFileSystem", c"is_scanning", 36873697L)
             Binds.getScanningProgress = GdxApi.getMethodBind(c"EditorFileSystem", c"get_scanning_progress", 1740695150L)
             Binds.scan = GdxApi.getMethodBind(c"EditorFileSystem", c"scan", 3218959716L)
@@ -80,3 +88,5 @@ object EditorFileSystem:
             Binds.getFilesystemPath = GdxApi.getMethodBind(c"EditorFileSystem", c"get_filesystem_path", 3188521125L)
             Binds.getFileType = GdxApi.getMethodBind(c"EditorFileSystem", c"get_file_type", 3135753539L)
             Binds.reimportFiles = GdxApi.getMethodBind(c"EditorFileSystem", c"reimport_files", 4015028928L)
+  }
+}

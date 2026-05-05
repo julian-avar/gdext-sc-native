@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GridContainer extends Container
-
-    def setColumns(columns: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = columns.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GridContainer.Binds.setColumns, ptr, _args, null)
-
-    def getColumns(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(GridContainer.Binds.getColumns, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def columns: Ptr[Byte] = getColumns()
-    def columns_=(v: Ptr[Byte]): Unit = setColumns(v)
+class GridContainer extends Container {
+    def columns: Int = getColumns()
+    def columns_=(v: Int): Unit = setColumns(v)
+}
 
 object GridContainer:
-    object Binds:
-        var setColumns: Ptr[Byte] = null
-        var getColumns: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setColumns = GdxApi.getMethodBind(c"GridContainer", c"set_columns", 1286410249L)
-            Binds.getColumns = GdxApi.getMethodBind(c"GridContainer", c"get_columns", 3905245786L)
-
-    def apply(): GridContainer =
-        val obj = new GridContainer()
-        obj.ptr = GdxApi.constructObject(c"GridContainer")
-        obj
+def apply(): GridContainer = {
+  val obj = new GridContainer()
+  obj.ptr = GdxApi.constructObject(c"GridContainer")
+  obj
+}

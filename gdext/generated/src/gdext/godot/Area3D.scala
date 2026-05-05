@@ -5,452 +5,118 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Area3D extends CollisionObject3D
-
-    def setGravitySpaceOverrideMode(spaceOverrideMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = spaceOverrideMode.ptr
-        GdxApi.ptrcall(Area3D.Binds.setGravitySpaceOverrideMode, ptr, _args, null)
-
-    def getGravitySpaceOverrideMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Area3D.Binds.getGravitySpaceOverrideMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setGravityIsPoint(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setGravityIsPoint, ptr, _args, null)
-
-    def isGravityAPoint(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Area3D.Binds.isGravityAPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setGravityPointUnitDistance(distanceScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distanceScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setGravityPointUnitDistance, ptr, _args, null)
-
-    def getGravityPointUnitDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getGravityPointUnitDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGravityPointCenter(center: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = center.ptr
-        GdxApi.ptrcall(Area3D.Binds.setGravityPointCenter, ptr, _args, null)
-
-    def getGravityPointCenter(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Area3D.Binds.getGravityPointCenter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setGravityDirection(direction: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(Area3D.Binds.setGravityDirection, ptr, _args, null)
-
-    def getGravityDirection(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Area3D.Binds.getGravityDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setGravity(gravity: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = gravity.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setGravity, ptr, _args, null)
-
-    def getGravity(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getGravity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLinearDampSpaceOverrideMode(spaceOverrideMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = spaceOverrideMode.ptr
-        GdxApi.ptrcall(Area3D.Binds.setLinearDampSpaceOverrideMode, ptr, _args, null)
-
-    def getLinearDampSpaceOverrideMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Area3D.Binds.getLinearDampSpaceOverrideMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAngularDampSpaceOverrideMode(spaceOverrideMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = spaceOverrideMode.ptr
-        GdxApi.ptrcall(Area3D.Binds.setAngularDampSpaceOverrideMode, ptr, _args, null)
-
-    def getAngularDampSpaceOverrideMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Area3D.Binds.getAngularDampSpaceOverrideMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAngularDamp(angularDamp: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = angularDamp.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setAngularDamp, ptr, _args, null)
-
-    def getAngularDamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getAngularDamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setLinearDamp(linearDamp: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = linearDamp.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setLinearDamp, ptr, _args, null)
-
-    def getLinearDamp(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getLinearDamp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setPriority(priority: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = priority.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setPriority, ptr, _args, null)
-
-    def getPriority(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Area3D.Binds.getPriority, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setWindForceMagnitude(windForceMagnitude: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = windForceMagnitude.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setWindForceMagnitude, ptr, _args, null)
-
-    def getWindForceMagnitude(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getWindForceMagnitude, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setWindAttenuationFactor(windAttenuationFactor: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = windAttenuationFactor.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setWindAttenuationFactor, ptr, _args, null)
-
-    def getWindAttenuationFactor(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getWindAttenuationFactor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setWindSourcePath(windSourcePath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = windSourcePath.ptr
-        GdxApi.ptrcall(Area3D.Binds.setWindSourcePath, ptr, _args, null)
-
-    def getWindSourcePath(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Area3D.Binds.getWindSourcePath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setMonitorable(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setMonitorable, ptr, _args, null)
-
-    def isMonitorable(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Area3D.Binds.isMonitorable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMonitoring(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setMonitoring, ptr, _args, null)
-
-    def isMonitoring(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Area3D.Binds.isMonitoring, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getOverlappingBodies(): Ptr[Byte] =
+class Area3D extends CollisionObject3D {
+    def getOverlappingBodies(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Area3D.Binds.getOverlappingBodies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getOverlappingAreas(): Ptr[Byte] =
+    def getOverlappingAreas(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Area3D.Binds.getOverlappingAreas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasOverlappingBodies(): Boolean =
+    def hasOverlappingBodies(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Area3D.Binds.hasOverlappingBodies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasOverlappingAreas(): Boolean =
+    def hasOverlappingAreas(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Area3D.Binds.hasOverlappingAreas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def overlapsBody(body: Node): Boolean =
+    def overlapsBody(body: Node): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = body.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Area3D.Binds.overlapsBody, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def overlapsArea(area: Node): Boolean =
+    def overlapsArea(area: Node): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = area.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Area3D.Binds.overlapsArea, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setAudioBusOverride(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setAudioBusOverride, ptr, _args, null)
-
-    def isOverridingAudioBus(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Area3D.Binds.isOverridingAudioBus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAudioBusName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(Area3D.Binds.setAudioBusName, ptr, _args, null)
-
-    def getAudioBusName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Area3D.Binds.getAudioBusName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setUseReverbBus(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setUseReverbBus, ptr, _args, null)
-
-    def isUsingReverbBus(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Area3D.Binds.isUsingReverbBus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setReverbBusName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(Area3D.Binds.setReverbBusName, ptr, _args, null)
-
-    def getReverbBusName(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Area3D.Binds.getReverbBusName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setReverbAmount(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setReverbAmount, ptr, _args, null)
-
-    def getReverbAmount(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getReverbAmount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setReverbUniformity(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Area3D.Binds.setReverbUniformity, ptr, _args, null)
-
-    def getReverbUniformity(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Area3D.Binds.getReverbUniformity, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def monitoring: Ptr[Byte] = isMonitoring()
-    def monitoring_=(v: Ptr[Byte]): Unit = setMonitoring(v)
-    def monitorable: Ptr[Byte] = isMonitorable()
-    def monitorable_=(v: Ptr[Byte]): Unit = setMonitorable(v)
-    def priority: Ptr[Byte] = getPriority()
-    def priority_=(v: Ptr[Byte]): Unit = setPriority(v)
-    def gravitySpaceOverride: Ptr[Byte] = getGravitySpaceOverrideMode()
-    def gravitySpaceOverride_=(v: Ptr[Byte]): Unit = setGravitySpaceOverrideMode(v)
-    def gravityPoint: Ptr[Byte] = isGravityAPoint()
-    def gravityPoint_=(v: Ptr[Byte]): Unit = setGravityIsPoint(v)
-    def gravityPointUnitDistance: Ptr[Byte] = getGravityPointUnitDistance()
-    def gravityPointUnitDistance_=(v: Ptr[Byte]): Unit = setGravityPointUnitDistance(v)
-    def gravityPointCenter: Ptr[Byte] = getGravityPointCenter()
-    def gravityPointCenter_=(v: Ptr[Byte]): Unit = setGravityPointCenter(v)
-    def gravityDirection: Ptr[Byte] = getGravityDirection()
-    def gravityDirection_=(v: Ptr[Byte]): Unit = setGravityDirection(v)
-    def gravity: Ptr[Byte] = getGravity()
-    def gravity_=(v: Ptr[Byte]): Unit = setGravity(v)
-    def linearDampSpaceOverride: Ptr[Byte] = getLinearDampSpaceOverrideMode()
-    def linearDampSpaceOverride_=(v: Ptr[Byte]): Unit = setLinearDampSpaceOverrideMode(v)
-    def linearDamp: Ptr[Byte] = getLinearDamp()
-    def linearDamp_=(v: Ptr[Byte]): Unit = setLinearDamp(v)
-    def angularDampSpaceOverride: Ptr[Byte] = getAngularDampSpaceOverrideMode()
-    def angularDampSpaceOverride_=(v: Ptr[Byte]): Unit = setAngularDampSpaceOverrideMode(v)
-    def angularDamp: Ptr[Byte] = getAngularDamp()
-    def angularDamp_=(v: Ptr[Byte]): Unit = setAngularDamp(v)
-    def windForceMagnitude: Ptr[Byte] = getWindForceMagnitude()
-    def windForceMagnitude_=(v: Ptr[Byte]): Unit = setWindForceMagnitude(v)
-    def windAttenuationFactor: Ptr[Byte] = getWindAttenuationFactor()
-    def windAttenuationFactor_=(v: Ptr[Byte]): Unit = setWindAttenuationFactor(v)
-    def windSourcePath: Ptr[Byte] = getWindSourcePath()
-    def windSourcePath_=(v: Ptr[Byte]): Unit = setWindSourcePath(v)
-    def audioBusOverride: Ptr[Byte] = isOverridingAudioBus()
-    def audioBusOverride_=(v: Ptr[Byte]): Unit = setAudioBusOverride(v)
-    def audioBusName: Ptr[Byte] = getAudioBusName()
-    def audioBusName_=(v: Ptr[Byte]): Unit = setAudioBusName(v)
-    def reverbBusEnabled: Ptr[Byte] = isUsingReverbBus()
-    def reverbBusEnabled_=(v: Ptr[Byte]): Unit = setUseReverbBus(v)
-    def reverbBusName: Ptr[Byte] = getReverbBusName()
-    def reverbBusName_=(v: Ptr[Byte]): Unit = setReverbBusName(v)
-    def reverbBusAmount: Ptr[Byte] = getReverbAmount()
-    def reverbBusAmount_=(v: Ptr[Byte]): Unit = setReverbAmount(v)
-    def reverbBusUniformity: Ptr[Byte] = getReverbUniformity()
-    def reverbBusUniformity_=(v: Ptr[Byte]): Unit = setReverbUniformity(v)
+    def monitoring: Boolean = isMonitoring()
+    def monitoring_=(v: Boolean): Unit = setMonitoring(v)
+    def monitorable: Boolean = isMonitorable()
+    def monitorable_=(v: Boolean): Unit = setMonitorable(v)
+    def priority: Int = getPriority()
+    def priority_=(v: Int): Unit = setPriority(v)
+    def gravitySpaceOverride: Int = getGravitySpaceOverrideMode()
+    def gravitySpaceOverride_=(v: Int): Unit = setGravitySpaceOverrideMode(v)
+    def gravityPoint: Boolean = isGravityAPoint()
+    def gravityPoint_=(v: Boolean): Unit = setGravityIsPoint(v)
+    def gravityPointUnitDistance: Float = getGravityPointUnitDistance()
+    def gravityPointUnitDistance_=(v: Float): Unit = setGravityPointUnitDistance(v)
+    def gravityPointCenter: Vector3 = getGravityPointCenter()
+    def gravityPointCenter_=(v: Vector3): Unit = setGravityPointCenter(v)
+    def gravityDirection: Vector3 = getGravityDirection()
+    def gravityDirection_=(v: Vector3): Unit = setGravityDirection(v)
+    def gravity: Float = getGravity()
+    def gravity_=(v: Float): Unit = setGravity(v)
+    def linearDampSpaceOverride: Int = getLinearDampSpaceOverrideMode()
+    def linearDampSpaceOverride_=(v: Int): Unit = setLinearDampSpaceOverrideMode(v)
+    def linearDamp: Float = getLinearDamp()
+    def linearDamp_=(v: Float): Unit = setLinearDamp(v)
+    def angularDampSpaceOverride: Int = getAngularDampSpaceOverrideMode()
+    def angularDampSpaceOverride_=(v: Int): Unit = setAngularDampSpaceOverrideMode(v)
+    def angularDamp: Float = getAngularDamp()
+    def angularDamp_=(v: Float): Unit = setAngularDamp(v)
+    def windForceMagnitude: Float = getWindForceMagnitude()
+    def windForceMagnitude_=(v: Float): Unit = setWindForceMagnitude(v)
+    def windAttenuationFactor: Float = getWindAttenuationFactor()
+    def windAttenuationFactor_=(v: Float): Unit = setWindAttenuationFactor(v)
+    def windSourcePath: NodePath = getWindSourcePath()
+    def windSourcePath_=(v: NodePath): Unit = setWindSourcePath(v)
+    def audioBusOverride: Boolean = isOverridingAudioBus()
+    def audioBusOverride_=(v: Boolean): Unit = setAudioBusOverride(v)
+    def audioBusName: CString = getAudioBusName()
+    def audioBusName_=(v: CString): Unit = setAudioBusName(v)
+    def reverbBusEnabled: Boolean = isUsingReverbBus()
+    def reverbBusEnabled_=(v: Boolean): Unit = setUseReverbBus(v)
+    def reverbBusName: CString = getReverbBusName()
+    def reverbBusName_=(v: CString): Unit = setReverbBusName(v)
+    def reverbBusAmount: Float = getReverbAmount()
+    def reverbBusAmount_=(v: Float): Unit = setReverbAmount(v)
+    def reverbBusUniformity: Float = getReverbUniformity()
+    def reverbBusUniformity_=(v: Float): Unit = setReverbUniformity(v)
+}
 
 object Area3D:
-    object Binds:
-        var setGravitySpaceOverrideMode: Ptr[Byte] = null
-        var getGravitySpaceOverrideMode: Ptr[Byte] = null
-        var setGravityIsPoint: Ptr[Byte] = null
-        var isGravityAPoint: Ptr[Byte] = null
-        var setGravityPointUnitDistance: Ptr[Byte] = null
-        var getGravityPointUnitDistance: Ptr[Byte] = null
-        var setGravityPointCenter: Ptr[Byte] = null
-        var getGravityPointCenter: Ptr[Byte] = null
-        var setGravityDirection: Ptr[Byte] = null
-        var getGravityDirection: Ptr[Byte] = null
-        var setGravity: Ptr[Byte] = null
-        var getGravity: Ptr[Byte] = null
-        var setLinearDampSpaceOverrideMode: Ptr[Byte] = null
-        var getLinearDampSpaceOverrideMode: Ptr[Byte] = null
-        var setAngularDampSpaceOverrideMode: Ptr[Byte] = null
-        var getAngularDampSpaceOverrideMode: Ptr[Byte] = null
-        var setAngularDamp: Ptr[Byte] = null
-        var getAngularDamp: Ptr[Byte] = null
-        var setLinearDamp: Ptr[Byte] = null
-        var getLinearDamp: Ptr[Byte] = null
-        var setPriority: Ptr[Byte] = null
-        var getPriority: Ptr[Byte] = null
-        var setWindForceMagnitude: Ptr[Byte] = null
-        var getWindForceMagnitude: Ptr[Byte] = null
-        var setWindAttenuationFactor: Ptr[Byte] = null
-        var getWindAttenuationFactor: Ptr[Byte] = null
-        var setWindSourcePath: Ptr[Byte] = null
-        var getWindSourcePath: Ptr[Byte] = null
-        var setMonitorable: Ptr[Byte] = null
-        var isMonitorable: Ptr[Byte] = null
-        var setMonitoring: Ptr[Byte] = null
-        var isMonitoring: Ptr[Byte] = null
-        var getOverlappingBodies: Ptr[Byte] = null
+object Binds {
+          var getOverlappingBodies: Ptr[Byte] = null
         var getOverlappingAreas: Ptr[Byte] = null
         var hasOverlappingBodies: Ptr[Byte] = null
         var hasOverlappingAreas: Ptr[Byte] = null
         var overlapsBody: Ptr[Byte] = null
         var overlapsArea: Ptr[Byte] = null
-        var setAudioBusOverride: Ptr[Byte] = null
-        var isOverridingAudioBus: Ptr[Byte] = null
-        var setAudioBusName: Ptr[Byte] = null
-        var getAudioBusName: Ptr[Byte] = null
-        var setUseReverbBus: Ptr[Byte] = null
-        var isUsingReverbBus: Ptr[Byte] = null
-        var setReverbBusName: Ptr[Byte] = null
-        var getReverbBusName: Ptr[Byte] = null
-        var setReverbAmount: Ptr[Byte] = null
-        var getReverbAmount: Ptr[Byte] = null
-        var setReverbUniformity: Ptr[Byte] = null
-        var getReverbUniformity: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setGravitySpaceOverrideMode = GdxApi.getMethodBind(c"Area3D", c"set_gravity_space_override_mode", 2311433571L)
-            Binds.getGravitySpaceOverrideMode = GdxApi.getMethodBind(c"Area3D", c"get_gravity_space_override_mode", 958191869L)
-            Binds.setGravityIsPoint = GdxApi.getMethodBind(c"Area3D", c"set_gravity_is_point", 2586408642L)
-            Binds.isGravityAPoint = GdxApi.getMethodBind(c"Area3D", c"is_gravity_a_point", 36873697L)
-            Binds.setGravityPointUnitDistance = GdxApi.getMethodBind(c"Area3D", c"set_gravity_point_unit_distance", 373806689L)
-            Binds.getGravityPointUnitDistance = GdxApi.getMethodBind(c"Area3D", c"get_gravity_point_unit_distance", 1740695150L)
-            Binds.setGravityPointCenter = GdxApi.getMethodBind(c"Area3D", c"set_gravity_point_center", 3460891852L)
-            Binds.getGravityPointCenter = GdxApi.getMethodBind(c"Area3D", c"get_gravity_point_center", 3360562783L)
-            Binds.setGravityDirection = GdxApi.getMethodBind(c"Area3D", c"set_gravity_direction", 3460891852L)
-            Binds.getGravityDirection = GdxApi.getMethodBind(c"Area3D", c"get_gravity_direction", 3360562783L)
-            Binds.setGravity = GdxApi.getMethodBind(c"Area3D", c"set_gravity", 373806689L)
-            Binds.getGravity = GdxApi.getMethodBind(c"Area3D", c"get_gravity", 1740695150L)
-            Binds.setLinearDampSpaceOverrideMode = GdxApi.getMethodBind(c"Area3D", c"set_linear_damp_space_override_mode", 2311433571L)
-            Binds.getLinearDampSpaceOverrideMode = GdxApi.getMethodBind(c"Area3D", c"get_linear_damp_space_override_mode", 958191869L)
-            Binds.setAngularDampSpaceOverrideMode = GdxApi.getMethodBind(c"Area3D", c"set_angular_damp_space_override_mode", 2311433571L)
-            Binds.getAngularDampSpaceOverrideMode = GdxApi.getMethodBind(c"Area3D", c"get_angular_damp_space_override_mode", 958191869L)
-            Binds.setAngularDamp = GdxApi.getMethodBind(c"Area3D", c"set_angular_damp", 373806689L)
-            Binds.getAngularDamp = GdxApi.getMethodBind(c"Area3D", c"get_angular_damp", 1740695150L)
-            Binds.setLinearDamp = GdxApi.getMethodBind(c"Area3D", c"set_linear_damp", 373806689L)
-            Binds.getLinearDamp = GdxApi.getMethodBind(c"Area3D", c"get_linear_damp", 1740695150L)
-            Binds.setPriority = GdxApi.getMethodBind(c"Area3D", c"set_priority", 1286410249L)
-            Binds.getPriority = GdxApi.getMethodBind(c"Area3D", c"get_priority", 3905245786L)
-            Binds.setWindForceMagnitude = GdxApi.getMethodBind(c"Area3D", c"set_wind_force_magnitude", 373806689L)
-            Binds.getWindForceMagnitude = GdxApi.getMethodBind(c"Area3D", c"get_wind_force_magnitude", 1740695150L)
-            Binds.setWindAttenuationFactor = GdxApi.getMethodBind(c"Area3D", c"set_wind_attenuation_factor", 373806689L)
-            Binds.getWindAttenuationFactor = GdxApi.getMethodBind(c"Area3D", c"get_wind_attenuation_factor", 1740695150L)
-            Binds.setWindSourcePath = GdxApi.getMethodBind(c"Area3D", c"set_wind_source_path", 1348162250L)
-            Binds.getWindSourcePath = GdxApi.getMethodBind(c"Area3D", c"get_wind_source_path", 4075236667L)
-            Binds.setMonitorable = GdxApi.getMethodBind(c"Area3D", c"set_monitorable", 2586408642L)
-            Binds.isMonitorable = GdxApi.getMethodBind(c"Area3D", c"is_monitorable", 36873697L)
-            Binds.setMonitoring = GdxApi.getMethodBind(c"Area3D", c"set_monitoring", 2586408642L)
-            Binds.isMonitoring = GdxApi.getMethodBind(c"Area3D", c"is_monitoring", 36873697L)
-            Binds.getOverlappingBodies = GdxApi.getMethodBind(c"Area3D", c"get_overlapping_bodies", 3995934104L)
+  def loadBinds(): Unit = {
+                Binds.getOverlappingBodies = GdxApi.getMethodBind(c"Area3D", c"get_overlapping_bodies", 3995934104L)
             Binds.getOverlappingAreas = GdxApi.getMethodBind(c"Area3D", c"get_overlapping_areas", 3995934104L)
             Binds.hasOverlappingBodies = GdxApi.getMethodBind(c"Area3D", c"has_overlapping_bodies", 36873697L)
             Binds.hasOverlappingAreas = GdxApi.getMethodBind(c"Area3D", c"has_overlapping_areas", 36873697L)
             Binds.overlapsBody = GdxApi.getMethodBind(c"Area3D", c"overlaps_body", 3093956946L)
             Binds.overlapsArea = GdxApi.getMethodBind(c"Area3D", c"overlaps_area", 3093956946L)
-            Binds.setAudioBusOverride = GdxApi.getMethodBind(c"Area3D", c"set_audio_bus_override", 2586408642L)
-            Binds.isOverridingAudioBus = GdxApi.getMethodBind(c"Area3D", c"is_overriding_audio_bus", 36873697L)
-            Binds.setAudioBusName = GdxApi.getMethodBind(c"Area3D", c"set_audio_bus_name", 3304788590L)
-            Binds.getAudioBusName = GdxApi.getMethodBind(c"Area3D", c"get_audio_bus_name", 2002593661L)
-            Binds.setUseReverbBus = GdxApi.getMethodBind(c"Area3D", c"set_use_reverb_bus", 2586408642L)
-            Binds.isUsingReverbBus = GdxApi.getMethodBind(c"Area3D", c"is_using_reverb_bus", 36873697L)
-            Binds.setReverbBusName = GdxApi.getMethodBind(c"Area3D", c"set_reverb_bus_name", 3304788590L)
-            Binds.getReverbBusName = GdxApi.getMethodBind(c"Area3D", c"get_reverb_bus_name", 2002593661L)
-            Binds.setReverbAmount = GdxApi.getMethodBind(c"Area3D", c"set_reverb_amount", 373806689L)
-            Binds.getReverbAmount = GdxApi.getMethodBind(c"Area3D", c"get_reverb_amount", 1740695150L)
-            Binds.setReverbUniformity = GdxApi.getMethodBind(c"Area3D", c"set_reverb_uniformity", 373806689L)
-            Binds.getReverbUniformity = GdxApi.getMethodBind(c"Area3D", c"get_reverb_uniformity", 1740695150L)
+  }
+}
 
-    def apply(): Area3D =
-        val obj = new Area3D()
-        obj.ptr = GdxApi.constructObject(c"Area3D")
-        obj
+def apply(): Area3D = {
+  val obj = new Area3D()
+  obj.ptr = GdxApi.constructObject(c"Area3D")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectNotchFilter extends AudioEffectFilter
-
-
-
+class AudioEffectNotchFilter extends AudioEffectFilter {}
 
 object AudioEffectNotchFilter:
-    def apply(): AudioEffectNotchFilter =
-        val obj = new AudioEffectNotchFilter()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectNotchFilter")
-        obj
+def apply(): AudioEffectNotchFilter = {
+  val obj = new AudioEffectNotchFilter()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectNotchFilter")
+  obj
+}

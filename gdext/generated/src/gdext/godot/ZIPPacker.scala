@@ -5,75 +5,68 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ZIPPacker extends RefCounted
-
-    def open(path: CString): Int =
+class ZIPPacker extends RefCounted {
+    def open(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPPacker.Binds.open, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setCompressionLevel(compressionLevel: Int): Unit =
+    def startFile(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = compressionLevel.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ZIPPacker.Binds.setCompressionLevel, ptr, _args, null)
-
-    def getCompressionLevel(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ZIPPacker.Binds.getCompressionLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def startFile(path: CString): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPPacker.Binds.startFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def writeFile(data: PackedByteArray): Int =
+    def writeFile(data: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = data.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPPacker.Binds.writeFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def closeFile(): Int =
+    def closeFile(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPPacker.Binds.closeFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def close(): Int =
+    def close(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPPacker.Binds.close, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def compressionLevel: Ptr[Byte] = getCompressionLevel()
-    def compressionLevel_=(v: Ptr[Byte]): Unit = setCompressionLevel(v)
+}
+
+    def compressionLevel: Int = getCompressionLevel()
+    def compressionLevel_=(v: Int): Unit = setCompressionLevel(v)
+}
 
 object ZIPPacker:
-    object Binds:
-        var open: Ptr[Byte] = null
-        var setCompressionLevel: Ptr[Byte] = null
-        var getCompressionLevel: Ptr[Byte] = null
+object Binds {
+          var open: Ptr[Byte] = null
         var startFile: Ptr[Byte] = null
         var writeFile: Ptr[Byte] = null
         var closeFile: Ptr[Byte] = null
         var close: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.open = GdxApi.getMethodBind(c"ZIPPacker", c"open", 1936816515L)
-            Binds.setCompressionLevel = GdxApi.getMethodBind(c"ZIPPacker", c"set_compression_level", 1286410249L)
-            Binds.getCompressionLevel = GdxApi.getMethodBind(c"ZIPPacker", c"get_compression_level", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.open = GdxApi.getMethodBind(c"ZIPPacker", c"open", 1936816515L)
             Binds.startFile = GdxApi.getMethodBind(c"ZIPPacker", c"start_file", 166001499L)
             Binds.writeFile = GdxApi.getMethodBind(c"ZIPPacker", c"write_file", 680677267L)
             Binds.closeFile = GdxApi.getMethodBind(c"ZIPPacker", c"close_file", 166280745L)
             Binds.close = GdxApi.getMethodBind(c"ZIPPacker", c"close", 166280745L)
+  }
+}
 
-    def apply(): ZIPPacker =
-        val obj = new ZIPPacker()
-        obj.ptr = GdxApi.constructObject(c"ZIPPacker")
-        obj
+def apply(): ZIPPacker = {
+  val obj = new ZIPPacker()
+  obj.ptr = GdxApi.constructObject(c"ZIPPacker")
+  obj
+}

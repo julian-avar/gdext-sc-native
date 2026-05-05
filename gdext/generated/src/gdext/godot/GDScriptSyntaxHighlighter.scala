@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GDScriptSyntaxHighlighter extends EditorSyntaxHighlighter
-
-
-
+class GDScriptSyntaxHighlighter extends EditorSyntaxHighlighter {}
 
 object GDScriptSyntaxHighlighter:
-    def apply(): GDScriptSyntaxHighlighter =
-        val obj = new GDScriptSyntaxHighlighter()
-        obj.ptr = GdxApi.constructObject(c"GDScriptSyntaxHighlighter")
-        obj
+def apply(): GDScriptSyntaxHighlighter = {
+  val obj = new GDScriptSyntaxHighlighter()
+  obj.ptr = GdxApi.constructObject(c"GDScriptSyntaxHighlighter")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FramebufferCacheRD extends Object
-
-
-
+class FramebufferCacheRD extends Object {}
 
 object FramebufferCacheRD:
-    def apply(): FramebufferCacheRD =
-        val obj = new FramebufferCacheRD()
-        obj.ptr = GdxApi.constructObject(c"FramebufferCacheRD")
-        obj
+def apply(): FramebufferCacheRD = {
+  val obj = new FramebufferCacheRD()
+  obj.ptr = GdxApi.constructObject(c"FramebufferCacheRD")
+  obj
+}

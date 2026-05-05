@@ -5,117 +5,24 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ParallaxBackground extends CanvasLayer
-
-    def setScrollOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(ParallaxBackground.Binds.setScrollOffset, ptr, _args, null)
-
-    def getScrollOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ParallaxBackground.Binds.getScrollOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setScrollBaseOffset(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(ParallaxBackground.Binds.setScrollBaseOffset, ptr, _args, null)
-
-    def getScrollBaseOffset(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ParallaxBackground.Binds.getScrollBaseOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setScrollBaseScale(scale: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(ParallaxBackground.Binds.setScrollBaseScale, ptr, _args, null)
-
-    def getScrollBaseScale(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ParallaxBackground.Binds.getScrollBaseScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setLimitBegin(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(ParallaxBackground.Binds.setLimitBegin, ptr, _args, null)
-
-    def getLimitBegin(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ParallaxBackground.Binds.getLimitBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setLimitEnd(offset: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = offset.ptr
-        GdxApi.ptrcall(ParallaxBackground.Binds.setLimitEnd, ptr, _args, null)
-
-    def getLimitEnd(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ParallaxBackground.Binds.getLimitEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setIgnoreCameraZoom(ignore: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ignore then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ParallaxBackground.Binds.setIgnoreCameraZoom, ptr, _args, null)
-
-    def isIgnoreCameraZoom(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ParallaxBackground.Binds.isIgnoreCameraZoom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def scrollOffset: Ptr[Byte] = getScrollOffset()
-    def scrollOffset_=(v: Ptr[Byte]): Unit = setScrollOffset(v)
-    def scrollBaseOffset: Ptr[Byte] = getScrollBaseOffset()
-    def scrollBaseOffset_=(v: Ptr[Byte]): Unit = setScrollBaseOffset(v)
-    def scrollBaseScale: Ptr[Byte] = getScrollBaseScale()
-    def scrollBaseScale_=(v: Ptr[Byte]): Unit = setScrollBaseScale(v)
-    def scrollLimitBegin: Ptr[Byte] = getLimitBegin()
-    def scrollLimitBegin_=(v: Ptr[Byte]): Unit = setLimitBegin(v)
-    def scrollLimitEnd: Ptr[Byte] = getLimitEnd()
-    def scrollLimitEnd_=(v: Ptr[Byte]): Unit = setLimitEnd(v)
-    def scrollIgnoreCameraZoom: Ptr[Byte] = isIgnoreCameraZoom()
-    def scrollIgnoreCameraZoom_=(v: Ptr[Byte]): Unit = setIgnoreCameraZoom(v)
+class ParallaxBackground extends CanvasLayer {
+    def scrollOffset: Vector2 = getScrollOffset()
+    def scrollOffset_=(v: Vector2): Unit = setScrollOffset(v)
+    def scrollBaseOffset: Vector2 = getScrollBaseOffset()
+    def scrollBaseOffset_=(v: Vector2): Unit = setScrollBaseOffset(v)
+    def scrollBaseScale: Vector2 = getScrollBaseScale()
+    def scrollBaseScale_=(v: Vector2): Unit = setScrollBaseScale(v)
+    def scrollLimitBegin: Vector2 = getLimitBegin()
+    def scrollLimitBegin_=(v: Vector2): Unit = setLimitBegin(v)
+    def scrollLimitEnd: Vector2 = getLimitEnd()
+    def scrollLimitEnd_=(v: Vector2): Unit = setLimitEnd(v)
+    def scrollIgnoreCameraZoom: Boolean = isIgnoreCameraZoom()
+    def scrollIgnoreCameraZoom_=(v: Boolean): Unit = setIgnoreCameraZoom(v)
+}
 
 object ParallaxBackground:
-    object Binds:
-        var setScrollOffset: Ptr[Byte] = null
-        var getScrollOffset: Ptr[Byte] = null
-        var setScrollBaseOffset: Ptr[Byte] = null
-        var getScrollBaseOffset: Ptr[Byte] = null
-        var setScrollBaseScale: Ptr[Byte] = null
-        var getScrollBaseScale: Ptr[Byte] = null
-        var setLimitBegin: Ptr[Byte] = null
-        var getLimitBegin: Ptr[Byte] = null
-        var setLimitEnd: Ptr[Byte] = null
-        var getLimitEnd: Ptr[Byte] = null
-        var setIgnoreCameraZoom: Ptr[Byte] = null
-        var isIgnoreCameraZoom: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setScrollOffset = GdxApi.getMethodBind(c"ParallaxBackground", c"set_scroll_offset", 743155724L)
-            Binds.getScrollOffset = GdxApi.getMethodBind(c"ParallaxBackground", c"get_scroll_offset", 3341600327L)
-            Binds.setScrollBaseOffset = GdxApi.getMethodBind(c"ParallaxBackground", c"set_scroll_base_offset", 743155724L)
-            Binds.getScrollBaseOffset = GdxApi.getMethodBind(c"ParallaxBackground", c"get_scroll_base_offset", 3341600327L)
-            Binds.setScrollBaseScale = GdxApi.getMethodBind(c"ParallaxBackground", c"set_scroll_base_scale", 743155724L)
-            Binds.getScrollBaseScale = GdxApi.getMethodBind(c"ParallaxBackground", c"get_scroll_base_scale", 3341600327L)
-            Binds.setLimitBegin = GdxApi.getMethodBind(c"ParallaxBackground", c"set_limit_begin", 743155724L)
-            Binds.getLimitBegin = GdxApi.getMethodBind(c"ParallaxBackground", c"get_limit_begin", 3341600327L)
-            Binds.setLimitEnd = GdxApi.getMethodBind(c"ParallaxBackground", c"set_limit_end", 743155724L)
-            Binds.getLimitEnd = GdxApi.getMethodBind(c"ParallaxBackground", c"get_limit_end", 3341600327L)
-            Binds.setIgnoreCameraZoom = GdxApi.getMethodBind(c"ParallaxBackground", c"set_ignore_camera_zoom", 2586408642L)
-            Binds.isIgnoreCameraZoom = GdxApi.getMethodBind(c"ParallaxBackground", c"is_ignore_camera_zoom", 2240911060L)
-
-    def apply(): ParallaxBackground =
-        val obj = new ParallaxBackground()
-        obj.ptr = GdxApi.constructObject(c"ParallaxBackground")
-        obj
+def apply(): ParallaxBackground = {
+  val obj = new ParallaxBackground()
+  obj.ptr = GdxApi.constructObject(c"ParallaxBackground")
+  obj
+}

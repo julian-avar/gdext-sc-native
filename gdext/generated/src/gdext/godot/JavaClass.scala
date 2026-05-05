@@ -5,39 +5,44 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class JavaClass extends RefCounted
-
-    def getJavaClassName(): CString =
+class JavaClass extends RefCounted {
+    def getJavaClassName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(JavaClass.Binds.getJavaClassName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getJavaMethodList(): Ptr[Byte] =
+    def getJavaMethodList(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(JavaClass.Binds.getJavaMethodList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getJavaParentClass(): JavaClass =
+    def getJavaParentClass(): JavaClass = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(JavaClass.Binds.getJavaParentClass, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new JavaClass(!_ret)
-
+}
+}
 
 object JavaClass:
-    object Binds:
-        var getJavaClassName: Ptr[Byte] = null
+object Binds {
+          var getJavaClassName: Ptr[Byte] = null
         var getJavaMethodList: Ptr[Byte] = null
         var getJavaParentClass: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getJavaClassName = GdxApi.getMethodBind(c"JavaClass", c"get_java_class_name", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getJavaClassName = GdxApi.getMethodBind(c"JavaClass", c"get_java_class_name", 201670096L)
             Binds.getJavaMethodList = GdxApi.getMethodBind(c"JavaClass", c"get_java_method_list", 3995934104L)
             Binds.getJavaParentClass = GdxApi.getMethodBind(c"JavaClass", c"get_java_parent_class", 541536347L)
+  }
+}
 
-    def apply(): JavaClass =
-        val obj = new JavaClass()
-        obj.ptr = GdxApi.constructObject(c"JavaClass")
-        obj
+def apply(): JavaClass = {
+  val obj = new JavaClass()
+  obj.ptr = GdxApi.constructObject(c"JavaClass")
+  obj
+}

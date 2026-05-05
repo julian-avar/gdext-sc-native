@@ -5,86 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsMaterial extends Resource
-
-    def setFriction(friction: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = friction.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsMaterial.Binds.setFriction, ptr, _args, null)
-
-    def getFriction(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsMaterial.Binds.getFriction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRough(rough: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if rough then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsMaterial.Binds.setRough, ptr, _args, null)
-
-    def isRough(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsMaterial.Binds.isRough, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setBounce(bounce: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = bounce.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsMaterial.Binds.setBounce, ptr, _args, null)
-
-    def getBounce(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsMaterial.Binds.getBounce, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAbsorbent(absorbent: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if absorbent then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsMaterial.Binds.setAbsorbent, ptr, _args, null)
-
-    def isAbsorbent(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsMaterial.Binds.isAbsorbent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def friction: Ptr[Byte] = getFriction()
-    def friction_=(v: Ptr[Byte]): Unit = setFriction(v)
-    def rough: Ptr[Byte] = isRough()
-    def rough_=(v: Ptr[Byte]): Unit = setRough(v)
-    def bounce: Ptr[Byte] = getBounce()
-    def bounce_=(v: Ptr[Byte]): Unit = setBounce(v)
-    def absorbent: Ptr[Byte] = isAbsorbent()
-    def absorbent_=(v: Ptr[Byte]): Unit = setAbsorbent(v)
+class PhysicsMaterial extends Resource {
+    def friction: Float = getFriction()
+    def friction_=(v: Float): Unit = setFriction(v)
+    def rough: Boolean = isRough()
+    def rough_=(v: Boolean): Unit = setRough(v)
+    def bounce: Float = getBounce()
+    def bounce_=(v: Float): Unit = setBounce(v)
+    def absorbent: Boolean = isAbsorbent()
+    def absorbent_=(v: Boolean): Unit = setAbsorbent(v)
+}
 
 object PhysicsMaterial:
-    object Binds:
-        var setFriction: Ptr[Byte] = null
-        var getFriction: Ptr[Byte] = null
-        var setRough: Ptr[Byte] = null
-        var isRough: Ptr[Byte] = null
-        var setBounce: Ptr[Byte] = null
-        var getBounce: Ptr[Byte] = null
-        var setAbsorbent: Ptr[Byte] = null
-        var isAbsorbent: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setFriction = GdxApi.getMethodBind(c"PhysicsMaterial", c"set_friction", 373806689L)
-            Binds.getFriction = GdxApi.getMethodBind(c"PhysicsMaterial", c"get_friction", 1740695150L)
-            Binds.setRough = GdxApi.getMethodBind(c"PhysicsMaterial", c"set_rough", 2586408642L)
-            Binds.isRough = GdxApi.getMethodBind(c"PhysicsMaterial", c"is_rough", 36873697L)
-            Binds.setBounce = GdxApi.getMethodBind(c"PhysicsMaterial", c"set_bounce", 373806689L)
-            Binds.getBounce = GdxApi.getMethodBind(c"PhysicsMaterial", c"get_bounce", 1740695150L)
-            Binds.setAbsorbent = GdxApi.getMethodBind(c"PhysicsMaterial", c"set_absorbent", 2586408642L)
-            Binds.isAbsorbent = GdxApi.getMethodBind(c"PhysicsMaterial", c"is_absorbent", 36873697L)
-
-    def apply(): PhysicsMaterial =
-        val obj = new PhysicsMaterial()
-        obj.ptr = GdxApi.constructObject(c"PhysicsMaterial")
-        obj
+def apply(): PhysicsMaterial = {
+  val obj = new PhysicsMaterial()
+  obj.ptr = GdxApi.constructObject(c"PhysicsMaterial")
+  obj
+}

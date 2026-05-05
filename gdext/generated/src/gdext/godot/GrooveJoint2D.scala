@@ -5,50 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GrooveJoint2D extends Joint2D
-
-    def setLength(length: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = length.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GrooveJoint2D.Binds.setLength, ptr, _args, null)
-
-    def getLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GrooveJoint2D.Binds.getLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setInitialOffset(offset: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = offset.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(GrooveJoint2D.Binds.setInitialOffset, ptr, _args, null)
-
-    def getInitialOffset(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(GrooveJoint2D.Binds.getInitialOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def length: Ptr[Byte] = getLength()
-    def length_=(v: Ptr[Byte]): Unit = setLength(v)
-    def initialOffset: Ptr[Byte] = getInitialOffset()
-    def initialOffset_=(v: Ptr[Byte]): Unit = setInitialOffset(v)
+class GrooveJoint2D extends Joint2D {
+    def length: Float = getLength()
+    def length_=(v: Float): Unit = setLength(v)
+    def initialOffset: Float = getInitialOffset()
+    def initialOffset_=(v: Float): Unit = setInitialOffset(v)
+}
 
 object GrooveJoint2D:
-    object Binds:
-        var setLength: Ptr[Byte] = null
-        var getLength: Ptr[Byte] = null
-        var setInitialOffset: Ptr[Byte] = null
-        var getInitialOffset: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setLength = GdxApi.getMethodBind(c"GrooveJoint2D", c"set_length", 373806689L)
-            Binds.getLength = GdxApi.getMethodBind(c"GrooveJoint2D", c"get_length", 1740695150L)
-            Binds.setInitialOffset = GdxApi.getMethodBind(c"GrooveJoint2D", c"set_initial_offset", 373806689L)
-            Binds.getInitialOffset = GdxApi.getMethodBind(c"GrooveJoint2D", c"get_initial_offset", 1740695150L)
-
-    def apply(): GrooveJoint2D =
-        val obj = new GrooveJoint2D()
-        obj.ptr = GdxApi.constructObject(c"GrooveJoint2D")
-        obj
+def apply(): GrooveJoint2D = {
+  val obj = new GrooveJoint2D()
+  obj.ptr = GdxApi.constructObject(c"GrooveJoint2D")
+  obj
+}

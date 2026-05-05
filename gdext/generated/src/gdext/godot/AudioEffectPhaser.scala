@@ -5,104 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectPhaser extends AudioEffect
-
-    def setRangeMinHz(hz: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = hz.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.setRangeMinHz, ptr, _args, null)
-
-    def getRangeMinHz(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.getRangeMinHz, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRangeMaxHz(hz: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = hz.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.setRangeMaxHz, ptr, _args, null)
-
-    def getRangeMaxHz(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.getRangeMaxHz, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRateHz(hz: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = hz.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.setRateHz, ptr, _args, null)
-
-    def getRateHz(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.getRateHz, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFeedback(fbk: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = fbk.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.setFeedback, ptr, _args, null)
-
-    def getFeedback(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.getFeedback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDepth(depth: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = depth.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.setDepth, ptr, _args, null)
-
-    def getDepth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectPhaser.Binds.getDepth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def rangeMinHz: Ptr[Byte] = getRangeMinHz()
-    def rangeMinHz_=(v: Ptr[Byte]): Unit = setRangeMinHz(v)
-    def rangeMaxHz: Ptr[Byte] = getRangeMaxHz()
-    def rangeMaxHz_=(v: Ptr[Byte]): Unit = setRangeMaxHz(v)
-    def rateHz: Ptr[Byte] = getRateHz()
-    def rateHz_=(v: Ptr[Byte]): Unit = setRateHz(v)
-    def feedback: Ptr[Byte] = getFeedback()
-    def feedback_=(v: Ptr[Byte]): Unit = setFeedback(v)
-    def depth: Ptr[Byte] = getDepth()
-    def depth_=(v: Ptr[Byte]): Unit = setDepth(v)
+class AudioEffectPhaser extends AudioEffect {
+    def rangeMinHz: Float = getRangeMinHz()
+    def rangeMinHz_=(v: Float): Unit = setRangeMinHz(v)
+    def rangeMaxHz: Float = getRangeMaxHz()
+    def rangeMaxHz_=(v: Float): Unit = setRangeMaxHz(v)
+    def rateHz: Float = getRateHz()
+    def rateHz_=(v: Float): Unit = setRateHz(v)
+    def feedback: Float = getFeedback()
+    def feedback_=(v: Float): Unit = setFeedback(v)
+    def depth: Float = getDepth()
+    def depth_=(v: Float): Unit = setDepth(v)
+}
 
 object AudioEffectPhaser:
-    object Binds:
-        var setRangeMinHz: Ptr[Byte] = null
-        var getRangeMinHz: Ptr[Byte] = null
-        var setRangeMaxHz: Ptr[Byte] = null
-        var getRangeMaxHz: Ptr[Byte] = null
-        var setRateHz: Ptr[Byte] = null
-        var getRateHz: Ptr[Byte] = null
-        var setFeedback: Ptr[Byte] = null
-        var getFeedback: Ptr[Byte] = null
-        var setDepth: Ptr[Byte] = null
-        var getDepth: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setRangeMinHz = GdxApi.getMethodBind(c"AudioEffectPhaser", c"set_range_min_hz", 373806689L)
-            Binds.getRangeMinHz = GdxApi.getMethodBind(c"AudioEffectPhaser", c"get_range_min_hz", 1740695150L)
-            Binds.setRangeMaxHz = GdxApi.getMethodBind(c"AudioEffectPhaser", c"set_range_max_hz", 373806689L)
-            Binds.getRangeMaxHz = GdxApi.getMethodBind(c"AudioEffectPhaser", c"get_range_max_hz", 1740695150L)
-            Binds.setRateHz = GdxApi.getMethodBind(c"AudioEffectPhaser", c"set_rate_hz", 373806689L)
-            Binds.getRateHz = GdxApi.getMethodBind(c"AudioEffectPhaser", c"get_rate_hz", 1740695150L)
-            Binds.setFeedback = GdxApi.getMethodBind(c"AudioEffectPhaser", c"set_feedback", 373806689L)
-            Binds.getFeedback = GdxApi.getMethodBind(c"AudioEffectPhaser", c"get_feedback", 1740695150L)
-            Binds.setDepth = GdxApi.getMethodBind(c"AudioEffectPhaser", c"set_depth", 373806689L)
-            Binds.getDepth = GdxApi.getMethodBind(c"AudioEffectPhaser", c"get_depth", 1740695150L)
-
-    def apply(): AudioEffectPhaser =
-        val obj = new AudioEffectPhaser()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectPhaser")
-        obj
+def apply(): AudioEffectPhaser = {
+  val obj = new AudioEffectPhaser()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectPhaser")
+  obj
+}

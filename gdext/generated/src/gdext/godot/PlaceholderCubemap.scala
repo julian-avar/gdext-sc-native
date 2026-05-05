@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PlaceholderCubemap extends PlaceholderTextureLayered
-
-
-
+class PlaceholderCubemap extends PlaceholderTextureLayered {}
 
 object PlaceholderCubemap:
-    def apply(): PlaceholderCubemap =
-        val obj = new PlaceholderCubemap()
-        obj.ptr = GdxApi.constructObject(c"PlaceholderCubemap")
-        obj
+def apply(): PlaceholderCubemap = {
+  val obj = new PlaceholderCubemap()
+  obj.ptr = GdxApi.constructObject(c"PlaceholderCubemap")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamMicrophone extends AudioStream
-
-
-
+class AudioStreamMicrophone extends AudioStream {}
 
 object AudioStreamMicrophone:
-    def apply(): AudioStreamMicrophone =
-        val obj = new AudioStreamMicrophone()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamMicrophone")
-        obj
+def apply(): AudioStreamMicrophone = {
+  val obj = new AudioStreamMicrophone()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamMicrophone")
+  obj
+}

@@ -5,123 +5,139 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XMLParser extends RefCounted
-
-    def read(): Int =
+class XMLParser extends RefCounted {
+    def read(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.read, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNodeType(): Int =
+    def getNodeType(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.getNodeType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNodeName(): CString =
+    def getNodeName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XMLParser.Binds.getNodeName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodeData(): CString =
+    def getNodeData(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XMLParser.Binds.getNodeData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNodeOffset(): Long =
+    def getNodeOffset(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.getNodeOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAttributeCount(): Int =
+    def getAttributeCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.getAttributeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getAttributeName(idx: Int): CString =
+    def getAttributeName(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XMLParser.Binds.getAttributeName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAttributeValue(idx: Int): CString =
+    def getAttributeValue(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XMLParser.Binds.getAttributeValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasAttribute(name: CString): Boolean =
+    def hasAttribute(name: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XMLParser.Binds.hasAttribute, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getNamedAttributeValue(name: CString): CString =
+    def getNamedAttributeValue(name: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XMLParser.Binds.getNamedAttributeValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getNamedAttributeValueSafe(name: CString): CString =
+    def getNamedAttributeValueSafe(name: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XMLParser.Binds.getNamedAttributeValueSafe, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isEmpty(): Boolean =
+    def isEmpty(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XMLParser.Binds.isEmpty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCurrentLine(): Int =
+    def getCurrentLine(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.getCurrentLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def skipSection(): Unit =
+    def skipSection(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(XMLParser.Binds.skipSection, ptr, _args, null)
+}
 
-    def seek(position: Long): Int =
+    def seek(position: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = position
+        val _a0 = stackalloc[Long](); !_a0 = position
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.seek, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def open(file: CString): Int =
+    def open(file: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = file.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = file
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.open, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def openBuffer(buffer: PackedByteArray): Int =
+    def openBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XMLParser.Binds.openBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object XMLParser:
-    object Binds:
-        var read: Ptr[Byte] = null
+object Binds {
+          var read: Ptr[Byte] = null
         var getNodeType: Ptr[Byte] = null
         var getNodeName: Ptr[Byte] = null
         var getNodeData: Ptr[Byte] = null
@@ -139,8 +155,8 @@ object XMLParser:
         var open: Ptr[Byte] = null
         var openBuffer: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.read = GdxApi.getMethodBind(c"XMLParser", c"read", 166280745L)
+  def loadBinds(): Unit = {
+                Binds.read = GdxApi.getMethodBind(c"XMLParser", c"read", 166280745L)
             Binds.getNodeType = GdxApi.getMethodBind(c"XMLParser", c"get_node_type", 2984359541L)
             Binds.getNodeName = GdxApi.getMethodBind(c"XMLParser", c"get_node_name", 201670096L)
             Binds.getNodeData = GdxApi.getMethodBind(c"XMLParser", c"get_node_data", 201670096L)
@@ -157,8 +173,11 @@ object XMLParser:
             Binds.seek = GdxApi.getMethodBind(c"XMLParser", c"seek", 844576869L)
             Binds.open = GdxApi.getMethodBind(c"XMLParser", c"open", 166001499L)
             Binds.openBuffer = GdxApi.getMethodBind(c"XMLParser", c"open_buffer", 680677267L)
+  }
+}
 
-    def apply(): XMLParser =
-        val obj = new XMLParser()
-        obj.ptr = GdxApi.constructObject(c"XMLParser")
-        obj
+def apply(): XMLParser = {
+  val obj = new XMLParser()
+  obj.ptr = GdxApi.constructObject(c"XMLParser")
+  obj
+}

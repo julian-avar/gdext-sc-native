@@ -108,75 +108,69 @@ object Parser:
             case t if t.startsWith("bitfield::")   => Int
             case _                                 => Object
         end match
+    end toReturnType
 
-    def godotClasses(json: ujson.Value): Vector[Ast.GodotClass] =
-        json("classes").arr.map { cls =>
-            val rawMethods = cls.obj.get("methods")
-                .map(_.arr.toVector)
-                .getOrElse(Vector.empty)
+    def godotClasses(json: ujson.Value): Vector[Ast.GodotClass] = json("classes").arr.map { cls =>
+        val rawMethods = cls.obj.get("methods").map(_.arr.toVector).getOrElse(Vector.empty)
 
-            val methods = rawMethods.map { m =>
-                val rv = m.obj.get("return_value")
-                Ast.GodotMethod(
-                  name           = m("name").str,
-                  hash           = m.obj.get("hash").map(_.num.toLong).getOrElse(0L),
-                  returnTypeName = rv.map(_("type").str).getOrElse("void"),
-                  returnMeta     = rv.flatMap(_.obj.get("meta").map(_.str)),
-                  args           = m.obj.get("arguments")
-                      .map(_.arr.toVector.map { a =>
-                          Ast.GodotArg(
-                            name       = a("name").str,
-                            typeName   = a("type").str,
-                            meta       = a.obj.get("meta").map(_.str),
-                            hasDefault = a.obj.contains("default_value")
-                          )
-                      })
-                      .getOrElse(Vector.empty),
-                  isStatic   = m("is_static").bool,
-                  isVirtual  = m("is_virtual").bool,
-                  isRequired = m.obj.get("is_required").exists(_.bool)
-                )
-            }
-
-            val properties = cls.obj.get("properties")
-                .map(_.arr.toVector.map { p =>
-                    Ast.GodotProperty(
-                      name   = p("name").str,
-                      getter = p("getter").str,
-                      setter = p.obj.get("setter").map(_.str).filter(_.nonEmpty)
-                    )
-                })
-                .getOrElse(Vector.empty)
-
-            Ast.GodotClass(
-              name           = cls("name").str,
-              inherits       = cls.obj.get("inherits").map(_.str),
-              isRefcounted   = cls("is_refcounted").bool,
-              isInstantiable = cls("is_instantiable").bool,
-              methods        = methods,
-              properties     = properties
+        val methods = rawMethods.map { m =>
+            val rv = m.obj.get("return_value")
+            Ast.GodotMethod(
+              name = m("name").str,
+              hash = m.obj.get("hash").map(_.num.toLong).getOrElse(0L),
+              returnTypeName = rv.map(_("type").str).getOrElse("void"),
+              returnMeta = rv.flatMap(_.obj.get("meta").map(_.str)),
+              args = m.obj.get("arguments").map(_.arr.toVector.map { a =>
+                  Ast.GodotArg(
+                    name = a("name").str,
+                    typeName = a("type").str,
+                    meta = a.obj.get("meta").map(_.str),
+                    hasDefault = a.obj.contains("default_value")
+                  )
+              }).getOrElse(Vector.empty),
+              isStatic = m("is_static").bool,
+              isVirtual = m("is_virtual").bool,
+              isRequired = m.obj.get("is_required").exists(_.bool)
             )
-        }.toVector
+        }
+
+        val properties = cls.obj.get("properties").map(_.arr.toVector.map { p =>
+            Ast.GodotProperty(
+              name = p("name").str,
+              getter = p("getter").str,
+              setter = p.obj.get("setter").map(_.str).filter(_.nonEmpty)
+            )
+        }).getOrElse(Vector.empty)
+
+        Ast.GodotClass(
+          name = cls("name").str,
+          inherits = cls.obj.get("inherits").map(_.str),
+          isRefcounted = cls("is_refcounted").bool,
+          isInstantiable = cls("is_instantiable").bool,
+          methods = methods,
+          properties = properties
+        )
+    }.toVector
 
     def typeName(toParseType: String): String =
-        val baseTypeMap: Map[String, String] = Vector(
-          ("void"     -> "CVoidPtr"),
-          ("int8_t"   -> "CSignedChar"),
-          ("uint8_t"  -> "UByte"),
-          ("int16_t"  -> "Short"),
-          ("uint16_t" -> "UShort"),
-          ("int32_t"  -> "CInt"),
-          ("uint32_t" -> "CUnsignedInt"),
-          ("int64_t"  -> "CLongLong"),
-          ("uint64_t" -> "CUnsignedLongLong"),
-          ("size_t"   -> "CSize"),
-          ("char"     -> "CChar"),
-          ("char16_t" -> "CChar16"),
-          ("char32_t" -> "CChar32"),
-          ("wchar_t"  -> "CWideChar"),
-          ("float"    -> "CFloat"),
-          ("double"   -> "CDouble")
-        ).toMap
+        val baseTypeMap: Map[String, String] = Map(
+          "void"     -> "CVoidPtr",
+          "int8_t"   -> "CSignedChar",
+          "uint8_t"  -> "UByte",
+          "int16_t"  -> "Short",
+          "uint16_t" -> "UShort",
+          "int32_t"  -> "CInt",
+          "uint32_t" -> "CUnsignedInt",
+          "int64_t"  -> "CLongLong",
+          "uint64_t" -> "CUnsignedLongLong",
+          "size_t"   -> "CSize",
+          "char"     -> "CChar",
+          "char16_t" -> "CChar16",
+          "char32_t" -> "CChar32",
+          "wchar_t"  -> "CWideChar",
+          "float"    -> "CFloat",
+          "double"   -> "CDouble"
+        )
 
         def ptrOrRaw: String =
             if toParseType.endsWith("*") then

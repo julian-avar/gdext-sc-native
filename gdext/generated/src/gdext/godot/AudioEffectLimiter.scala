@@ -5,86 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectLimiter extends AudioEffect
-
-    def setCeilingDb(ceiling: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ceiling.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.setCeilingDb, ptr, _args, null)
-
-    def getCeilingDb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.getCeilingDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setThresholdDb(threshold: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = threshold.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.setThresholdDb, ptr, _args, null)
-
-    def getThresholdDb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.getThresholdDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSoftClipDb(softClip: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = softClip.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.setSoftClipDb, ptr, _args, null)
-
-    def getSoftClipDb(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.getSoftClipDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setSoftClipRatio(softClip: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = softClip.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.setSoftClipRatio, ptr, _args, null)
-
-    def getSoftClipRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectLimiter.Binds.getSoftClipRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def ceilingDb: Ptr[Byte] = getCeilingDb()
-    def ceilingDb_=(v: Ptr[Byte]): Unit = setCeilingDb(v)
-    def thresholdDb: Ptr[Byte] = getThresholdDb()
-    def thresholdDb_=(v: Ptr[Byte]): Unit = setThresholdDb(v)
-    def softClipDb: Ptr[Byte] = getSoftClipDb()
-    def softClipDb_=(v: Ptr[Byte]): Unit = setSoftClipDb(v)
-    def softClipRatio: Ptr[Byte] = getSoftClipRatio()
-    def softClipRatio_=(v: Ptr[Byte]): Unit = setSoftClipRatio(v)
+class AudioEffectLimiter extends AudioEffect {
+    def ceilingDb: Float = getCeilingDb()
+    def ceilingDb_=(v: Float): Unit = setCeilingDb(v)
+    def thresholdDb: Float = getThresholdDb()
+    def thresholdDb_=(v: Float): Unit = setThresholdDb(v)
+    def softClipDb: Float = getSoftClipDb()
+    def softClipDb_=(v: Float): Unit = setSoftClipDb(v)
+    def softClipRatio: Float = getSoftClipRatio()
+    def softClipRatio_=(v: Float): Unit = setSoftClipRatio(v)
+}
 
 object AudioEffectLimiter:
-    object Binds:
-        var setCeilingDb: Ptr[Byte] = null
-        var getCeilingDb: Ptr[Byte] = null
-        var setThresholdDb: Ptr[Byte] = null
-        var getThresholdDb: Ptr[Byte] = null
-        var setSoftClipDb: Ptr[Byte] = null
-        var getSoftClipDb: Ptr[Byte] = null
-        var setSoftClipRatio: Ptr[Byte] = null
-        var getSoftClipRatio: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setCeilingDb = GdxApi.getMethodBind(c"AudioEffectLimiter", c"set_ceiling_db", 373806689L)
-            Binds.getCeilingDb = GdxApi.getMethodBind(c"AudioEffectLimiter", c"get_ceiling_db", 1740695150L)
-            Binds.setThresholdDb = GdxApi.getMethodBind(c"AudioEffectLimiter", c"set_threshold_db", 373806689L)
-            Binds.getThresholdDb = GdxApi.getMethodBind(c"AudioEffectLimiter", c"get_threshold_db", 1740695150L)
-            Binds.setSoftClipDb = GdxApi.getMethodBind(c"AudioEffectLimiter", c"set_soft_clip_db", 373806689L)
-            Binds.getSoftClipDb = GdxApi.getMethodBind(c"AudioEffectLimiter", c"get_soft_clip_db", 1740695150L)
-            Binds.setSoftClipRatio = GdxApi.getMethodBind(c"AudioEffectLimiter", c"set_soft_clip_ratio", 373806689L)
-            Binds.getSoftClipRatio = GdxApi.getMethodBind(c"AudioEffectLimiter", c"get_soft_clip_ratio", 1740695150L)
-
-    def apply(): AudioEffectLimiter =
-        val obj = new AudioEffectLimiter()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectLimiter")
-        obj
+def apply(): AudioEffectLimiter = {
+  val obj = new AudioEffectLimiter()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectLimiter")
+  obj
+}

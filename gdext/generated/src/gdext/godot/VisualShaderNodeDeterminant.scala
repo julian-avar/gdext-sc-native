@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeDeterminant extends VisualShaderNode
-
-
-
+class VisualShaderNodeDeterminant extends VisualShaderNode {}
 
 object VisualShaderNodeDeterminant:
-    def apply(): VisualShaderNodeDeterminant =
-        val obj = new VisualShaderNodeDeterminant()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeDeterminant")
-        obj
+def apply(): VisualShaderNodeDeterminant = {
+  val obj = new VisualShaderNodeDeterminant()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeDeterminant")
+  obj
+}

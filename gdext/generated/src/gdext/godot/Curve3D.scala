@@ -5,233 +5,208 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Curve3D extends Resource
-
-    def getPointCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Curve3D.Binds.getPointCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPointCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Curve3D.Binds.setPointCount, ptr, _args, null)
-
-    def addPoint(position: Vector3): Unit =
+class Curve3D extends Resource {
+    def addPoint(position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(Curve3D.Binds.addPoint, ptr, _args, null)
+}
 
-    def setPointPosition(idx: Int, position: Vector3): Unit =
+    def setPointPosition(idx: Int, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = position.ptr
         GdxApi.ptrcall(Curve3D.Binds.setPointPosition, ptr, _args, null)
+}
 
-    def getPointPosition(idx: Int): Vector3 =
+    def getPointPosition(idx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getPointPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setPointTilt(idx: Int, tilt: Float): Unit =
+    def setPointTilt(idx: Int, tilt: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = tilt.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Curve3D.Binds.setPointTilt, ptr, _args, null)
+}
 
-    def getPointTilt(idx: Int): Float =
+    def getPointTilt(idx: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Curve3D.Binds.getPointTilt, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setPointIn(idx: Int, position: Vector3): Unit =
+    def setPointIn(idx: Int, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = position.ptr
         GdxApi.ptrcall(Curve3D.Binds.setPointIn, ptr, _args, null)
+}
 
-    def getPointIn(idx: Int): Vector3 =
+    def getPointIn(idx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getPointIn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setPointOut(idx: Int, position: Vector3): Unit =
+    def setPointOut(idx: Int, position: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = position.ptr
         GdxApi.ptrcall(Curve3D.Binds.setPointOut, ptr, _args, null)
+}
 
-    def getPointOut(idx: Int): Vector3 =
+    def getPointOut(idx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getPointOut, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def removePoint(idx: Int): Unit =
+    def removePoint(idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Curve3D.Binds.removePoint, ptr, _args, null)
+}
 
-    def clearPoints(): Unit =
+    def clearPoints(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Curve3D.Binds.clearPoints, ptr, _args, null)
+}
 
-    def sample(idx: Int, t: Float): Vector3 =
+    def sample(idx: Int, t: Float): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = t.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.sample, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def samplef(fofs: Float): Vector3 =
+    def samplef(fofs: Float): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = fofs.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.samplef, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setClosed(closed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if closed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Curve3D.Binds.setClosed, ptr, _args, null)
-
-    def isClosed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Curve3D.Binds.isClosed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setBakeInterval(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Curve3D.Binds.setBakeInterval, ptr, _args, null)
-
-    def getBakeInterval(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Curve3D.Binds.getBakeInterval, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setUpVectorEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Curve3D.Binds.setUpVectorEnabled, ptr, _args, null)
-
-    def isUpVectorEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Curve3D.Binds.isUpVectorEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getBakedLength(): Float =
+    def getBakedLength(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Curve3D.Binds.getBakedLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def sampleBaked(): Vector3 =
+    def sampleBaked(): Vector3 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.sampleBaked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def sampleBakedWithRotation(): Transform3D =
+    def sampleBakedWithRotation(): Transform3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.sampleBakedWithRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def sampleBakedUpVector(offset: Float): Vector3 =
+    def sampleBakedUpVector(offset: Float): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = offset.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.sampleBakedUpVector, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getBakedPoints(): PackedVector3Array =
+    def getBakedPoints(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getBakedPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def getBakedTilts(): PackedFloat32Array =
+    def getBakedTilts(): PackedFloat32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getBakedTilts, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedFloat32Array(!_ret)
+}
 
-    def getBakedUpVectors(): PackedVector3Array =
+    def getBakedUpVectors(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getBakedUpVectors, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def getClosestPoint(toPoint: Vector3): Vector3 =
+    def getClosestPoint(toPoint: Vector3): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = toPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.getClosestPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getClosestOffset(toPoint: Vector3): Float =
+    def getClosestOffset(toPoint: Vector3): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = toPoint.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Curve3D.Binds.getClosestOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def tessellate(): PackedVector3Array =
+    def tessellate(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.tessellate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def tessellateEvenLength(): PackedVector3Array =
+    def tessellateEvenLength(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Curve3D.Binds.tessellateEvenLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
-    def closed: Ptr[Byte] = isClosed()
-    def closed_=(v: Ptr[Byte]): Unit = setClosed(v)
-    def bakeInterval: Ptr[Byte] = getBakeInterval()
-    def bakeInterval_=(v: Ptr[Byte]): Unit = setBakeInterval(v)
-    def pointCount: Ptr[Byte] = getPointCount()
-    def pointCount_=(v: Ptr[Byte]): Unit = setPointCount(v)
-    def upVectorEnabled: Ptr[Byte] = isUpVectorEnabled()
-    def upVectorEnabled_=(v: Ptr[Byte]): Unit = setUpVectorEnabled(v)
+}
+
+    def closed: Boolean = isClosed()
+    def closed_=(v: Boolean): Unit = setClosed(v)
+    def bakeInterval: Float = getBakeInterval()
+    def bakeInterval_=(v: Float): Unit = setBakeInterval(v)
+    def pointCount: Int = getPointCount()
+    def pointCount_=(v: Int): Unit = setPointCount(v)
+    def upVectorEnabled: Boolean = isUpVectorEnabled()
+    def upVectorEnabled_=(v: Boolean): Unit = setUpVectorEnabled(v)
+}
 
 object Curve3D:
-    object Binds:
-        var getPointCount: Ptr[Byte] = null
-        var setPointCount: Ptr[Byte] = null
-        var addPoint: Ptr[Byte] = null
+object Binds {
+          var addPoint: Ptr[Byte] = null
         var setPointPosition: Ptr[Byte] = null
         var getPointPosition: Ptr[Byte] = null
         var setPointTilt: Ptr[Byte] = null
@@ -244,12 +219,6 @@ object Curve3D:
         var clearPoints: Ptr[Byte] = null
         var sample: Ptr[Byte] = null
         var samplef: Ptr[Byte] = null
-        var setClosed: Ptr[Byte] = null
-        var isClosed: Ptr[Byte] = null
-        var setBakeInterval: Ptr[Byte] = null
-        var getBakeInterval: Ptr[Byte] = null
-        var setUpVectorEnabled: Ptr[Byte] = null
-        var isUpVectorEnabled: Ptr[Byte] = null
         var getBakedLength: Ptr[Byte] = null
         var sampleBaked: Ptr[Byte] = null
         var sampleBakedWithRotation: Ptr[Byte] = null
@@ -262,10 +231,8 @@ object Curve3D:
         var tessellate: Ptr[Byte] = null
         var tessellateEvenLength: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getPointCount = GdxApi.getMethodBind(c"Curve3D", c"get_point_count", 3905245786L)
-            Binds.setPointCount = GdxApi.getMethodBind(c"Curve3D", c"set_point_count", 1286410249L)
-            Binds.addPoint = GdxApi.getMethodBind(c"Curve3D", c"add_point", 2931053748L)
+  def loadBinds(): Unit = {
+                Binds.addPoint = GdxApi.getMethodBind(c"Curve3D", c"add_point", 2931053748L)
             Binds.setPointPosition = GdxApi.getMethodBind(c"Curve3D", c"set_point_position", 1530502735L)
             Binds.getPointPosition = GdxApi.getMethodBind(c"Curve3D", c"get_point_position", 711720468L)
             Binds.setPointTilt = GdxApi.getMethodBind(c"Curve3D", c"set_point_tilt", 1602489585L)
@@ -278,12 +245,6 @@ object Curve3D:
             Binds.clearPoints = GdxApi.getMethodBind(c"Curve3D", c"clear_points", 3218959716L)
             Binds.sample = GdxApi.getMethodBind(c"Curve3D", c"sample", 3285246857L)
             Binds.samplef = GdxApi.getMethodBind(c"Curve3D", c"samplef", 2553580215L)
-            Binds.setClosed = GdxApi.getMethodBind(c"Curve3D", c"set_closed", 2586408642L)
-            Binds.isClosed = GdxApi.getMethodBind(c"Curve3D", c"is_closed", 36873697L)
-            Binds.setBakeInterval = GdxApi.getMethodBind(c"Curve3D", c"set_bake_interval", 373806689L)
-            Binds.getBakeInterval = GdxApi.getMethodBind(c"Curve3D", c"get_bake_interval", 1740695150L)
-            Binds.setUpVectorEnabled = GdxApi.getMethodBind(c"Curve3D", c"set_up_vector_enabled", 2586408642L)
-            Binds.isUpVectorEnabled = GdxApi.getMethodBind(c"Curve3D", c"is_up_vector_enabled", 36873697L)
             Binds.getBakedLength = GdxApi.getMethodBind(c"Curve3D", c"get_baked_length", 1740695150L)
             Binds.sampleBaked = GdxApi.getMethodBind(c"Curve3D", c"sample_baked", 1350085894L)
             Binds.sampleBakedWithRotation = GdxApi.getMethodBind(c"Curve3D", c"sample_baked_with_rotation", 1939359131L)
@@ -295,8 +256,11 @@ object Curve3D:
             Binds.getClosestOffset = GdxApi.getMethodBind(c"Curve3D", c"get_closest_offset", 1109078154L)
             Binds.tessellate = GdxApi.getMethodBind(c"Curve3D", c"tessellate", 1519759391L)
             Binds.tessellateEvenLength = GdxApi.getMethodBind(c"Curve3D", c"tessellate_even_length", 133237049L)
+  }
+}
 
-    def apply(): Curve3D =
-        val obj = new Curve3D()
-        obj.ptr = GdxApi.constructObject(c"Curve3D")
-        obj
+def apply(): Curve3D = {
+  val obj = new Curve3D()
+  obj.ptr = GdxApi.constructObject(c"Curve3D")
+  obj
+}

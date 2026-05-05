@@ -5,48 +5,54 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PackedScene extends Resource
-
-    def pack(path: Node): Int =
+class PackedScene extends Resource {
+    def pack(path: Node): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(PackedScene.Binds.pack, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def instantiate(): Node =
+    def instantiate(): Node = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PackedScene.Binds.instantiate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Node(!_ret)
+}
 
-    def canInstantiate(): Boolean =
+    def canInstantiate(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(PackedScene.Binds.canInstantiate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getState(): SceneState =
+    def getState(): SceneState = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(PackedScene.Binds.getState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SceneState(!_ret)
-
+}
+}
 
 object PackedScene:
-    object Binds:
-        var pack: Ptr[Byte] = null
+object Binds {
+          var pack: Ptr[Byte] = null
         var instantiate: Ptr[Byte] = null
         var canInstantiate: Ptr[Byte] = null
         var getState: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.pack = GdxApi.getMethodBind(c"PackedScene", c"pack", 2584678054L)
+  def loadBinds(): Unit = {
+                Binds.pack = GdxApi.getMethodBind(c"PackedScene", c"pack", 2584678054L)
             Binds.instantiate = GdxApi.getMethodBind(c"PackedScene", c"instantiate", 2628778455L)
             Binds.canInstantiate = GdxApi.getMethodBind(c"PackedScene", c"can_instantiate", 36873697L)
             Binds.getState = GdxApi.getMethodBind(c"PackedScene", c"get_state", 3479783971L)
+  }
+}
 
-    def apply(): PackedScene =
-        val obj = new PackedScene()
-        obj.ptr = GdxApi.constructObject(c"PackedScene")
-        obj
+def apply(): PackedScene = {
+  val obj = new PackedScene()
+  obj.ptr = GdxApi.constructObject(c"PackedScene")
+  obj
+}

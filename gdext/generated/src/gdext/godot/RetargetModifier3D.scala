@@ -5,114 +5,78 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RetargetModifier3D extends SkeletonModifier3D
-
-    def setProfile(profile: SkeletonProfile): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = profile.ptr
-        GdxApi.ptrcall(RetargetModifier3D.Binds.setProfile, ptr, _args, null)
-
-    def getProfile(): SkeletonProfile =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RetargetModifier3D.Binds.getProfile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new SkeletonProfile(!_ret)
-
-    def setUseGlobalPose(useGlobalPose: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useGlobalPose then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RetargetModifier3D.Binds.setUseGlobalPose, ptr, _args, null)
-
-    def isUsingGlobalPose(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RetargetModifier3D.Binds.isUsingGlobalPose, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEnableFlags(enableFlags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = enableFlags.ptr
-        GdxApi.ptrcall(RetargetModifier3D.Binds.setEnableFlags, ptr, _args, null)
-
-    def getEnableFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RetargetModifier3D.Binds.getEnableFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPositionEnabled(enabled: Boolean): Unit =
+class RetargetModifier3D extends SkeletonModifier3D {
+    def setPositionEnabled(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RetargetModifier3D.Binds.setPositionEnabled, ptr, _args, null)
+}
 
-    def isPositionEnabled(): Boolean =
+    def isPositionEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RetargetModifier3D.Binds.isPositionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setRotationEnabled(enabled: Boolean): Unit =
+    def setRotationEnabled(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RetargetModifier3D.Binds.setRotationEnabled, ptr, _args, null)
+}
 
-    def isRotationEnabled(): Boolean =
+    def isRotationEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RetargetModifier3D.Binds.isRotationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setScaleEnabled(enabled: Boolean): Unit =
+    def setScaleEnabled(enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RetargetModifier3D.Binds.setScaleEnabled, ptr, _args, null)
+}
 
-    def isScaleEnabled(): Boolean =
+    def isScaleEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RetargetModifier3D.Binds.isScaleEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-    def profile: Ptr[Byte] = getProfile()
-    def profile_=(v: Ptr[Byte]): Unit = setProfile(v)
-    def useGlobalPose: Ptr[Byte] = isUsingGlobalPose()
-    def useGlobalPose_=(v: Ptr[Byte]): Unit = setUseGlobalPose(v)
-    def enable: Ptr[Byte] = getEnableFlags()
-    def enable_=(v: Ptr[Byte]): Unit = setEnableFlags(v)
+}
+
+    def profile: SkeletonProfile = getProfile()
+    def profile_=(v: SkeletonProfile): Unit = setProfile(v)
+    def useGlobalPose: Boolean = isUsingGlobalPose()
+    def useGlobalPose_=(v: Boolean): Unit = setUseGlobalPose(v)
+    def enable: Int = getEnableFlags()
+    def enable_=(v: Int): Unit = setEnableFlags(v)
+}
 
 object RetargetModifier3D:
-    object Binds:
-        var setProfile: Ptr[Byte] = null
-        var getProfile: Ptr[Byte] = null
-        var setUseGlobalPose: Ptr[Byte] = null
-        var isUsingGlobalPose: Ptr[Byte] = null
-        var setEnableFlags: Ptr[Byte] = null
-        var getEnableFlags: Ptr[Byte] = null
-        var setPositionEnabled: Ptr[Byte] = null
+object Binds {
+          var setPositionEnabled: Ptr[Byte] = null
         var isPositionEnabled: Ptr[Byte] = null
         var setRotationEnabled: Ptr[Byte] = null
         var isRotationEnabled: Ptr[Byte] = null
         var setScaleEnabled: Ptr[Byte] = null
         var isScaleEnabled: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setProfile = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_profile", 3870374136L)
-            Binds.getProfile = GdxApi.getMethodBind(c"RetargetModifier3D", c"get_profile", 4291782652L)
-            Binds.setUseGlobalPose = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_use_global_pose", 2586408642L)
-            Binds.isUsingGlobalPose = GdxApi.getMethodBind(c"RetargetModifier3D", c"is_using_global_pose", 36873697L)
-            Binds.setEnableFlags = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_enable_flags", 2687954213L)
-            Binds.getEnableFlags = GdxApi.getMethodBind(c"RetargetModifier3D", c"get_enable_flags", 358995420L)
-            Binds.setPositionEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_position_enabled", 2586408642L)
+  def loadBinds(): Unit = {
+                Binds.setPositionEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_position_enabled", 2586408642L)
             Binds.isPositionEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"is_position_enabled", 36873697L)
             Binds.setRotationEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_rotation_enabled", 2586408642L)
             Binds.isRotationEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"is_rotation_enabled", 36873697L)
             Binds.setScaleEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"set_scale_enabled", 2586408642L)
             Binds.isScaleEnabled = GdxApi.getMethodBind(c"RetargetModifier3D", c"is_scale_enabled", 36873697L)
+  }
+}
 
-    def apply(): RetargetModifier3D =
-        val obj = new RetargetModifier3D()
-        obj.ptr = GdxApi.constructObject(c"RetargetModifier3D")
-        obj
+def apply(): RetargetModifier3D = {
+  val obj = new RetargetModifier3D()
+  obj.ptr = GdxApi.constructObject(c"RetargetModifier3D")
+  obj
+}

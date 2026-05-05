@@ -5,9 +5,8 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectSpectrumAnalyzerInstance extends AudioEffectInstance
-
-    def getMagnitudeForFrequencyRange(fromHz: Float, toHz: Float): Vector2 =
+class AudioEffectSpectrumAnalyzerInstance extends AudioEffectInstance {
+    def getMagnitudeForFrequencyRange(fromHz: Float, toHz: Float): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
         val _a0 = stackalloc[Double](); !_a0 = fromHz.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -16,11 +15,14 @@ class AudioEffectSpectrumAnalyzerInstance extends AudioEffectInstance
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(AudioEffectSpectrumAnalyzerInstance.Binds.getMagnitudeForFrequencyRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
-
+}
+}
 
 object AudioEffectSpectrumAnalyzerInstance:
-    object Binds:
-        var getMagnitudeForFrequencyRange: Ptr[Byte] = null
+object Binds {
+          var getMagnitudeForFrequencyRange: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getMagnitudeForFrequencyRange = GdxApi.getMethodBind(c"AudioEffectSpectrumAnalyzerInstance", c"get_magnitude_for_frequency_range", 797993915L)
+  def loadBinds(): Unit = {
+                Binds.getMagnitudeForFrequencyRange = GdxApi.getMethodBind(c"AudioEffectSpectrumAnalyzerInstance", c"get_magnitude_for_frequency_range", 797993915L)
+  }
+}

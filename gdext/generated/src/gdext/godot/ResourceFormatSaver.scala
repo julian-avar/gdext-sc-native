@@ -5,17 +5,17 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceFormatSaver extends RefCounted
+class ResourceFormatSaver extends RefCounted {
     def _save(resource: Resource, path: CString, flags: Int): Int = null
     def _setUid(path: CString, uid: Long): Int = null
     def _recognize(resource: Resource): Boolean = false
     def _getRecognizedExtensions(resource: Resource): PackedStringArray = null
     def _recognizePath(resource: Resource, path: CString): Boolean = false
-
-
+}
 
 object ResourceFormatSaver:
-    def apply(): ResourceFormatSaver =
-        val obj = new ResourceFormatSaver()
-        obj.ptr = GdxApi.constructObject(c"ResourceFormatSaver")
-        obj
+def apply(): ResourceFormatSaver = {
+  val obj = new ResourceFormatSaver()
+  obj.ptr = GdxApi.constructObject(c"ResourceFormatSaver")
+  obj
+}

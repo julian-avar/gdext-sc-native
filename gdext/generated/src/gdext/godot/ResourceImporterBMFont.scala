@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporterBMFont extends ResourceImporter
-
-
-
+class ResourceImporterBMFont extends ResourceImporter {}
 
 object ResourceImporterBMFont:
-    def apply(): ResourceImporterBMFont =
-        val obj = new ResourceImporterBMFont()
-        obj.ptr = GdxApi.constructObject(c"ResourceImporterBMFont")
-        obj
+def apply(): ResourceImporterBMFont = {
+  val obj = new ResourceImporterBMFont()
+  obj.ptr = GdxApi.constructObject(c"ResourceImporterBMFont")
+  obj
+}

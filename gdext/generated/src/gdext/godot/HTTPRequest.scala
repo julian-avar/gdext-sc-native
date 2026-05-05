@@ -5,212 +5,114 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class HTTPRequest extends Node
-
-    def request(url: CString): Int =
+class HTTPRequest extends Node {
+    def request(url: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = url.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = url
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPRequest.Binds.request, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def requestRaw(url: CString): Int =
+    def requestRaw(url: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = url.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = url
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPRequest.Binds.requestRaw, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def cancelRequest(): Unit =
+    def cancelRequest(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(HTTPRequest.Binds.cancelRequest, ptr, _args, null)
+}
 
-    def setTlsOptions(clientOptions: TLSOptions): Unit =
+    def setTlsOptions(clientOptions: TLSOptions): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = clientOptions.ptr
         GdxApi.ptrcall(HTTPRequest.Binds.setTlsOptions, ptr, _args, null)
+}
 
-    def getHttpClientStatus(): Int =
+    def getHttpClientStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPRequest.Binds.getHttpClientStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setUseThreads(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPRequest.Binds.setUseThreads, ptr, _args, null)
-
-    def isUsingThreads(): Boolean =
+    def getDownloadedBytes(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(HTTPRequest.Binds.isUsingThreads, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAcceptGzip(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPRequest.Binds.setAcceptGzip, ptr, _args, null)
-
-    def isAcceptingGzip(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(HTTPRequest.Binds.isAcceptingGzip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setBodySizeLimit(bytes: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = bytes.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPRequest.Binds.setBodySizeLimit, ptr, _args, null)
-
-    def getBodySizeLimit(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(HTTPRequest.Binds.getBodySizeLimit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxRedirects(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPRequest.Binds.setMaxRedirects, ptr, _args, null)
-
-    def getMaxRedirects(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(HTTPRequest.Binds.getMaxRedirects, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDownloadFile(path: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(HTTPRequest.Binds.setDownloadFile, ptr, _args, null)
-
-    def getDownloadFile(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(HTTPRequest.Binds.getDownloadFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getDownloadedBytes(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPRequest.Binds.getDownloadedBytes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBodySize(): Int =
+    def getBodySize(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(HTTPRequest.Binds.getBodySize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setTimeout(timeout: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = timeout
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPRequest.Binds.setTimeout, ptr, _args, null)
-
-    def getTimeout(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(HTTPRequest.Binds.getTimeout, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDownloadChunkSize(chunkSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = chunkSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(HTTPRequest.Binds.setDownloadChunkSize, ptr, _args, null)
-
-    def getDownloadChunkSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(HTTPRequest.Binds.getDownloadChunkSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setHttpProxy(host: CString, port: Int): Unit =
+    def setHttpProxy(host: CString, port: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = host.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = host
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HTTPRequest.Binds.setHttpProxy, ptr, _args, null)
+}
 
-    def setHttpsProxy(host: CString, port: Int): Unit =
+    def setHttpsProxy(host: CString, port: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = host.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = port.toLong
+        _args(0) = host
+        val _a1 = stackalloc[Long](); !_a1 = port.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(HTTPRequest.Binds.setHttpsProxy, ptr, _args, null)
-    def downloadFile: Ptr[Byte] = getDownloadFile()
-    def downloadFile_=(v: Ptr[Byte]): Unit = setDownloadFile(v)
-    def downloadChunkSize: Ptr[Byte] = getDownloadChunkSize()
-    def downloadChunkSize_=(v: Ptr[Byte]): Unit = setDownloadChunkSize(v)
-    def useThreads: Ptr[Byte] = isUsingThreads()
-    def useThreads_=(v: Ptr[Byte]): Unit = setUseThreads(v)
-    def acceptGzip: Ptr[Byte] = isAcceptingGzip()
-    def acceptGzip_=(v: Ptr[Byte]): Unit = setAcceptGzip(v)
-    def bodySizeLimit: Ptr[Byte] = getBodySizeLimit()
-    def bodySizeLimit_=(v: Ptr[Byte]): Unit = setBodySizeLimit(v)
-    def maxRedirects: Ptr[Byte] = getMaxRedirects()
-    def maxRedirects_=(v: Ptr[Byte]): Unit = setMaxRedirects(v)
-    def timeout: Ptr[Byte] = getTimeout()
-    def timeout_=(v: Ptr[Byte]): Unit = setTimeout(v)
+}
+
+    def downloadFile: CString = getDownloadFile()
+    def downloadFile_=(v: CString): Unit = setDownloadFile(v)
+    def downloadChunkSize: Int = getDownloadChunkSize()
+    def downloadChunkSize_=(v: Int): Unit = setDownloadChunkSize(v)
+    def useThreads: Boolean = isUsingThreads()
+    def useThreads_=(v: Boolean): Unit = setUseThreads(v)
+    def acceptGzip: Boolean = isAcceptingGzip()
+    def acceptGzip_=(v: Boolean): Unit = setAcceptGzip(v)
+    def bodySizeLimit: Int = getBodySizeLimit()
+    def bodySizeLimit_=(v: Int): Unit = setBodySizeLimit(v)
+    def maxRedirects: Int = getMaxRedirects()
+    def maxRedirects_=(v: Int): Unit = setMaxRedirects(v)
+    def timeout: Double = getTimeout()
+    def timeout_=(v: Double): Unit = setTimeout(v)
+}
 
 object HTTPRequest:
-    object Binds:
-        var request: Ptr[Byte] = null
+object Binds {
+          var request: Ptr[Byte] = null
         var requestRaw: Ptr[Byte] = null
         var cancelRequest: Ptr[Byte] = null
         var setTlsOptions: Ptr[Byte] = null
         var getHttpClientStatus: Ptr[Byte] = null
-        var setUseThreads: Ptr[Byte] = null
-        var isUsingThreads: Ptr[Byte] = null
-        var setAcceptGzip: Ptr[Byte] = null
-        var isAcceptingGzip: Ptr[Byte] = null
-        var setBodySizeLimit: Ptr[Byte] = null
-        var getBodySizeLimit: Ptr[Byte] = null
-        var setMaxRedirects: Ptr[Byte] = null
-        var getMaxRedirects: Ptr[Byte] = null
-        var setDownloadFile: Ptr[Byte] = null
-        var getDownloadFile: Ptr[Byte] = null
         var getDownloadedBytes: Ptr[Byte] = null
         var getBodySize: Ptr[Byte] = null
-        var setTimeout: Ptr[Byte] = null
-        var getTimeout: Ptr[Byte] = null
-        var setDownloadChunkSize: Ptr[Byte] = null
-        var getDownloadChunkSize: Ptr[Byte] = null
         var setHttpProxy: Ptr[Byte] = null
         var setHttpsProxy: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.request = GdxApi.getMethodBind(c"HTTPRequest", c"request", 3215244323L)
+  def loadBinds(): Unit = {
+                Binds.request = GdxApi.getMethodBind(c"HTTPRequest", c"request", 3215244323L)
             Binds.requestRaw = GdxApi.getMethodBind(c"HTTPRequest", c"request_raw", 2714829993L)
             Binds.cancelRequest = GdxApi.getMethodBind(c"HTTPRequest", c"cancel_request", 3218959716L)
             Binds.setTlsOptions = GdxApi.getMethodBind(c"HTTPRequest", c"set_tls_options", 2210231844L)
             Binds.getHttpClientStatus = GdxApi.getMethodBind(c"HTTPRequest", c"get_http_client_status", 1426656811L)
-            Binds.setUseThreads = GdxApi.getMethodBind(c"HTTPRequest", c"set_use_threads", 2586408642L)
-            Binds.isUsingThreads = GdxApi.getMethodBind(c"HTTPRequest", c"is_using_threads", 36873697L)
-            Binds.setAcceptGzip = GdxApi.getMethodBind(c"HTTPRequest", c"set_accept_gzip", 2586408642L)
-            Binds.isAcceptingGzip = GdxApi.getMethodBind(c"HTTPRequest", c"is_accepting_gzip", 36873697L)
-            Binds.setBodySizeLimit = GdxApi.getMethodBind(c"HTTPRequest", c"set_body_size_limit", 1286410249L)
-            Binds.getBodySizeLimit = GdxApi.getMethodBind(c"HTTPRequest", c"get_body_size_limit", 3905245786L)
-            Binds.setMaxRedirects = GdxApi.getMethodBind(c"HTTPRequest", c"set_max_redirects", 1286410249L)
-            Binds.getMaxRedirects = GdxApi.getMethodBind(c"HTTPRequest", c"get_max_redirects", 3905245786L)
-            Binds.setDownloadFile = GdxApi.getMethodBind(c"HTTPRequest", c"set_download_file", 83702148L)
-            Binds.getDownloadFile = GdxApi.getMethodBind(c"HTTPRequest", c"get_download_file", 201670096L)
             Binds.getDownloadedBytes = GdxApi.getMethodBind(c"HTTPRequest", c"get_downloaded_bytes", 3905245786L)
             Binds.getBodySize = GdxApi.getMethodBind(c"HTTPRequest", c"get_body_size", 3905245786L)
-            Binds.setTimeout = GdxApi.getMethodBind(c"HTTPRequest", c"set_timeout", 373806689L)
-            Binds.getTimeout = GdxApi.getMethodBind(c"HTTPRequest", c"get_timeout", 191475506L)
-            Binds.setDownloadChunkSize = GdxApi.getMethodBind(c"HTTPRequest", c"set_download_chunk_size", 1286410249L)
-            Binds.getDownloadChunkSize = GdxApi.getMethodBind(c"HTTPRequest", c"get_download_chunk_size", 3905245786L)
             Binds.setHttpProxy = GdxApi.getMethodBind(c"HTTPRequest", c"set_http_proxy", 2956805083L)
             Binds.setHttpsProxy = GdxApi.getMethodBind(c"HTTPRequest", c"set_https_proxy", 2956805083L)
+  }
+}
 
-    def apply(): HTTPRequest =
-        val obj = new HTTPRequest()
-        obj.ptr = GdxApi.constructObject(c"HTTPRequest")
-        obj
+def apply(): HTTPRequest = {
+  val obj = new HTTPRequest()
+  obj.ptr = GdxApi.constructObject(c"HTTPRequest")
+  obj
+}

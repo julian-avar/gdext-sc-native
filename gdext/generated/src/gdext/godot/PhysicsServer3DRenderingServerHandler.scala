@@ -5,42 +5,49 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsServer3DRenderingServerHandler extends Object
+class PhysicsServer3DRenderingServerHandler extends Object {
     def _setVertex(vertexId: Int, vertex: Vector3): Unit = ()
     def _setNormal(vertexId: Int, normal: Vector3): Unit = ()
     def _setAabb(aabb: AABB): Unit = ()
-    def setVertex(vertexId: Int, vertex: Vector3): Unit =
+
+    def setVertex(vertexId: Int, vertex: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = vertexId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = vertexId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = vertex.ptr
         GdxApi.ptrcall(PhysicsServer3DRenderingServerHandler.Binds.setVertex, ptr, _args, null)
+}
 
-    def setNormal(vertexId: Int, normal: Vector3): Unit =
+    def setNormal(vertexId: Int, normal: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = vertexId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = vertexId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = normal.ptr
         GdxApi.ptrcall(PhysicsServer3DRenderingServerHandler.Binds.setNormal, ptr, _args, null)
+}
 
-    def setAabb(aabb: AABB): Unit =
+    def setAabb(aabb: AABB): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = aabb.ptr
         GdxApi.ptrcall(PhysicsServer3DRenderingServerHandler.Binds.setAabb, ptr, _args, null)
-
+}
+}
 
 object PhysicsServer3DRenderingServerHandler:
-    object Binds:
-        var setVertex: Ptr[Byte] = null
+object Binds {
+          var setVertex: Ptr[Byte] = null
         var setNormal: Ptr[Byte] = null
         var setAabb: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setVertex = GdxApi.getMethodBind(c"PhysicsServer3DRenderingServerHandler", c"set_vertex", 1530502735L)
+  def loadBinds(): Unit = {
+                Binds.setVertex = GdxApi.getMethodBind(c"PhysicsServer3DRenderingServerHandler", c"set_vertex", 1530502735L)
             Binds.setNormal = GdxApi.getMethodBind(c"PhysicsServer3DRenderingServerHandler", c"set_normal", 1530502735L)
             Binds.setAabb = GdxApi.getMethodBind(c"PhysicsServer3DRenderingServerHandler", c"set_aabb", 259215842L)
+  }
+}
 
-    def apply(): PhysicsServer3DRenderingServerHandler =
-        val obj = new PhysicsServer3DRenderingServerHandler()
-        obj.ptr = GdxApi.constructObject(c"PhysicsServer3DRenderingServerHandler")
-        obj
+def apply(): PhysicsServer3DRenderingServerHandler = {
+  val obj = new PhysicsServer3DRenderingServerHandler()
+  obj.ptr = GdxApi.constructObject(c"PhysicsServer3DRenderingServerHandler")
+  obj
+}

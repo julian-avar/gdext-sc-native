@@ -5,154 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class PhysicsTestMotionParameters3D extends RefCounted
-
-    def getFrom(): Transform3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.getFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Transform3D(!_ret)
-
-    def setFrom(from: Transform3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = from.ptr
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setFrom, ptr, _args, null)
-
-    def getMotion(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.getMotion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setMotion(motion: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = motion.ptr
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setMotion, ptr, _args, null)
-
-    def getMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.getMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setMargin, ptr, _args, null)
-
-    def getMaxCollisions(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.getMaxCollisions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMaxCollisions(maxCollisions: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxCollisions.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setMaxCollisions, ptr, _args, null)
-
-    def isCollideSeparationRayEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.isCollideSeparationRayEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollideSeparationRayEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setCollideSeparationRayEnabled, ptr, _args, null)
-
-    def getExcludeBodies(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.getExcludeBodies, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setExcludeBodies(excludeList: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = excludeList.ptr
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setExcludeBodies, ptr, _args, null)
-
-    def getExcludeObjects(): Ptr[Byte] =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.getExcludeObjects, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setExcludeObjects(excludeList: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = excludeList.ptr
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setExcludeObjects, ptr, _args, null)
-
-    def isRecoveryAsCollisionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.isRecoveryAsCollisionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setRecoveryAsCollisionEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(PhysicsTestMotionParameters3D.Binds.setRecoveryAsCollisionEnabled, ptr, _args, null)
-    def from: Ptr[Byte] = getFrom()
-    def from_=(v: Ptr[Byte]): Unit = setFrom(v)
-    def motion: Ptr[Byte] = getMotion()
-    def motion_=(v: Ptr[Byte]): Unit = setMotion(v)
-    def margin: Ptr[Byte] = getMargin()
-    def margin_=(v: Ptr[Byte]): Unit = setMargin(v)
-    def maxCollisions: Ptr[Byte] = getMaxCollisions()
-    def maxCollisions_=(v: Ptr[Byte]): Unit = setMaxCollisions(v)
-    def collideSeparationRay: Ptr[Byte] = isCollideSeparationRayEnabled()
-    def collideSeparationRay_=(v: Ptr[Byte]): Unit = setCollideSeparationRayEnabled(v)
+class PhysicsTestMotionParameters3D extends RefCounted {
+    def from: Transform3D = getFrom()
+    def from_=(v: Transform3D): Unit = setFrom(v)
+    def motion: Vector3 = getMotion()
+    def motion_=(v: Vector3): Unit = setMotion(v)
+    def margin: Float = getMargin()
+    def margin_=(v: Float): Unit = setMargin(v)
+    def maxCollisions: Int = getMaxCollisions()
+    def maxCollisions_=(v: Int): Unit = setMaxCollisions(v)
+    def collideSeparationRay: Boolean = isCollideSeparationRayEnabled()
+    def collideSeparationRay_=(v: Boolean): Unit = setCollideSeparationRayEnabled(v)
     def excludeBodies: Ptr[Byte] = getExcludeBodies()
     def excludeBodies_=(v: Ptr[Byte]): Unit = setExcludeBodies(v)
     def excludeObjects: Ptr[Byte] = getExcludeObjects()
     def excludeObjects_=(v: Ptr[Byte]): Unit = setExcludeObjects(v)
-    def recoveryAsCollision: Ptr[Byte] = isRecoveryAsCollisionEnabled()
-    def recoveryAsCollision_=(v: Ptr[Byte]): Unit = setRecoveryAsCollisionEnabled(v)
+    def recoveryAsCollision: Boolean = isRecoveryAsCollisionEnabled()
+    def recoveryAsCollision_=(v: Boolean): Unit = setRecoveryAsCollisionEnabled(v)
+}
 
 object PhysicsTestMotionParameters3D:
-    object Binds:
-        var getFrom: Ptr[Byte] = null
-        var setFrom: Ptr[Byte] = null
-        var getMotion: Ptr[Byte] = null
-        var setMotion: Ptr[Byte] = null
-        var getMargin: Ptr[Byte] = null
-        var setMargin: Ptr[Byte] = null
-        var getMaxCollisions: Ptr[Byte] = null
-        var setMaxCollisions: Ptr[Byte] = null
-        var isCollideSeparationRayEnabled: Ptr[Byte] = null
-        var setCollideSeparationRayEnabled: Ptr[Byte] = null
-        var getExcludeBodies: Ptr[Byte] = null
-        var setExcludeBodies: Ptr[Byte] = null
-        var getExcludeObjects: Ptr[Byte] = null
-        var setExcludeObjects: Ptr[Byte] = null
-        var isRecoveryAsCollisionEnabled: Ptr[Byte] = null
-        var setRecoveryAsCollisionEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getFrom = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"get_from", 3229777777L)
-            Binds.setFrom = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_from", 2952846383L)
-            Binds.getMotion = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"get_motion", 3360562783L)
-            Binds.setMotion = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_motion", 3460891852L)
-            Binds.getMargin = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"get_margin", 1740695150L)
-            Binds.setMargin = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_margin", 373806689L)
-            Binds.getMaxCollisions = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"get_max_collisions", 3905245786L)
-            Binds.setMaxCollisions = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_max_collisions", 1286410249L)
-            Binds.isCollideSeparationRayEnabled = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"is_collide_separation_ray_enabled", 36873697L)
-            Binds.setCollideSeparationRayEnabled = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_collide_separation_ray_enabled", 2586408642L)
-            Binds.getExcludeBodies = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"get_exclude_bodies", 3995934104L)
-            Binds.setExcludeBodies = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_exclude_bodies", 381264803L)
-            Binds.getExcludeObjects = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"get_exclude_objects", 3995934104L)
-            Binds.setExcludeObjects = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_exclude_objects", 381264803L)
-            Binds.isRecoveryAsCollisionEnabled = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"is_recovery_as_collision_enabled", 36873697L)
-            Binds.setRecoveryAsCollisionEnabled = GdxApi.getMethodBind(c"PhysicsTestMotionParameters3D", c"set_recovery_as_collision_enabled", 2586408642L)
-
-    def apply(): PhysicsTestMotionParameters3D =
-        val obj = new PhysicsTestMotionParameters3D()
-        obj.ptr = GdxApi.constructObject(c"PhysicsTestMotionParameters3D")
-        obj
+def apply(): PhysicsTestMotionParameters3D = {
+  val obj = new PhysicsTestMotionParameters3D()
+  obj.ptr = GdxApi.constructObject(c"PhysicsTestMotionParameters3D")
+  obj
+}

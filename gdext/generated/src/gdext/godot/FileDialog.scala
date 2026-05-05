@@ -5,394 +5,196 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FileDialog extends ConfirmationDialog
-
-    def clearFilters(): Unit =
+class FileDialog extends ConfirmationDialog {
+    def clearFilters(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileDialog.Binds.clearFilters, ptr, _args, null)
+}
 
-    def addFilter(filter: CString): Unit =
+    def addFilter(filter: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
+        _args(0) = filter
         GdxApi.ptrcall(FileDialog.Binds.addFilter, ptr, _args, null)
+}
 
-    def setFilters(filters: PackedStringArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filters.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setFilters, ptr, _args, null)
-
-    def getFilters(): PackedStringArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FileDialog.Binds.getFilters, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedStringArray(!_ret)
-
-    def clearFilenameFilter(): Unit =
+    def clearFilenameFilter(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileDialog.Binds.clearFilenameFilter, ptr, _args, null)
+}
 
-    def setFilenameFilter(filter: CString): Unit =
+    def getOptionName(option: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setFilenameFilter, ptr, _args, null)
-
-    def getFilenameFilter(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FileDialog.Binds.getFilenameFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getOptionName(option: Int): CString =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileDialog.Binds.getOptionName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getOptionValues(option: Int): PackedStringArray =
+    def getOptionValues(option: Int): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileDialog.Binds.getOptionValues, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getOptionDefault(option: Int): Int =
+    def getOptionDefault(option: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FileDialog.Binds.getOptionDefault, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setOptionName(option: Int, name: CString): Unit =
+    def setOptionName(option: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(FileDialog.Binds.setOptionName, ptr, _args, null)
+}
 
-    def setOptionValues(option: Int, values: PackedStringArray): Unit =
+    def setOptionValues(option: Int, values: PackedStringArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = values.ptr
         GdxApi.ptrcall(FileDialog.Binds.setOptionValues, ptr, _args, null)
+}
 
-    def setOptionDefault(option: Int, defaultValueIndex: Int): Unit =
+    def setOptionDefault(option: Int, defaultValueIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = defaultValueIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = defaultValueIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FileDialog.Binds.setOptionDefault, ptr, _args, null)
+}
 
-    def setOptionCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FileDialog.Binds.setOptionCount, ptr, _args, null)
-
-    def getOptionCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FileDialog.Binds.getOptionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def addOption(name: CString, values: PackedStringArray, defaultValueIndex: Int): Unit =
+    def addOption(name: CString, values: PackedStringArray, defaultValueIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = values.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = defaultValueIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = defaultValueIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FileDialog.Binds.addOption, ptr, _args, null)
+}
 
-    def getSelectedOptions(): Dictionary =
+    def getSelectedOptions(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileDialog.Binds.getSelectedOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getCurrentDir(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FileDialog.Binds.getCurrentDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getCurrentFile(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FileDialog.Binds.getCurrentFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getCurrentPath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FileDialog.Binds.getCurrentPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setCurrentDir(dir: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = dir.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setCurrentDir, ptr, _args, null)
-
-    def setCurrentFile(file: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = file.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setCurrentFile, ptr, _args, null)
-
-    def setCurrentPath(path: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setCurrentPath, ptr, _args, null)
-
-    def setModeOverridesTitle(`override`: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if `override` then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FileDialog.Binds.setModeOverridesTitle, ptr, _args, null)
-
-    def isModeOverridingTitle(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FileDialog.Binds.isModeOverridingTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFileMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setFileMode, ptr, _args, null)
-
-    def getFileMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FileDialog.Binds.getFileMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDisplayMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setDisplayMode, ptr, _args, null)
-
-    def getDisplayMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FileDialog.Binds.getDisplayMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getVbox(): VBoxContainer =
+    def getVbox(): VBoxContainer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileDialog.Binds.getVbox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VBoxContainer(!_ret)
+}
 
-    def getLineEdit(): LineEdit =
+    def getLineEdit(): LineEdit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FileDialog.Binds.getLineEdit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new LineEdit(!_ret)
+}
 
-    def setAccess(access: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = access.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setAccess, ptr, _args, null)
-
-    def getAccess(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FileDialog.Binds.getAccess, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setRootSubfolder(dir: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = dir.ptr
-        GdxApi.ptrcall(FileDialog.Binds.setRootSubfolder, ptr, _args, null)
-
-    def getRootSubfolder(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FileDialog.Binds.getRootSubfolder, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setShowHiddenFiles(show: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if show then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FileDialog.Binds.setShowHiddenFiles, ptr, _args, null)
-
-    def isShowingHiddenFiles(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FileDialog.Binds.isShowingHiddenFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUseNativeDialog(native: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if native then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FileDialog.Binds.setUseNativeDialog, ptr, _args, null)
-
-    def getUseNativeDialog(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FileDialog.Binds.getUseNativeDialog, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCustomizationFlagEnabled(flag: Int, enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = flag.ptr
-        val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
-        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FileDialog.Binds.setCustomizationFlagEnabled, ptr, _args, null)
-
-    def isCustomizationFlagEnabled(flag: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flag.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FileDialog.Binds.isCustomizationFlagEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def deselectAll(): Unit =
+    def deselectAll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileDialog.Binds.deselectAll, ptr, _args, null)
+}
 
-    def invalidate(): Unit =
+    def invalidate(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FileDialog.Binds.invalidate, ptr, _args, null)
-    def modeOverridesTitle: Ptr[Byte] = isModeOverridingTitle()
-    def modeOverridesTitle_=(v: Ptr[Byte]): Unit = setModeOverridesTitle(v)
-    def fileMode: Ptr[Byte] = getFileMode()
-    def fileMode_=(v: Ptr[Byte]): Unit = setFileMode(v)
-    def displayMode: Ptr[Byte] = getDisplayMode()
-    def displayMode_=(v: Ptr[Byte]): Unit = setDisplayMode(v)
-    def access: Ptr[Byte] = getAccess()
-    def access_=(v: Ptr[Byte]): Unit = setAccess(v)
-    def rootSubfolder: Ptr[Byte] = getRootSubfolder()
-    def rootSubfolder_=(v: Ptr[Byte]): Unit = setRootSubfolder(v)
-    def filters: Ptr[Byte] = getFilters()
-    def filters_=(v: Ptr[Byte]): Unit = setFilters(v)
-    def filenameFilter: Ptr[Byte] = getFilenameFilter()
-    def filenameFilter_=(v: Ptr[Byte]): Unit = setFilenameFilter(v)
-    def showHiddenFiles: Ptr[Byte] = isShowingHiddenFiles()
-    def showHiddenFiles_=(v: Ptr[Byte]): Unit = setShowHiddenFiles(v)
-    def useNativeDialog: Ptr[Byte] = getUseNativeDialog()
-    def useNativeDialog_=(v: Ptr[Byte]): Unit = setUseNativeDialog(v)
-    def optionCount: Ptr[Byte] = getOptionCount()
-    def optionCount_=(v: Ptr[Byte]): Unit = setOptionCount(v)
-    def hiddenFilesToggleEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def hiddenFilesToggleEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def fileFilterToggleEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def fileFilterToggleEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def fileSortOptionsEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def fileSortOptionsEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def folderCreationEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def folderCreationEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def favoritesEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def favoritesEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def recentListEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def recentListEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def layoutToggleEnabled: Ptr[Byte] = isCustomizationFlagEnabled()
-    def layoutToggleEnabled_=(v: Ptr[Byte]): Unit = setCustomizationFlagEnabled(v)
-    def currentDir: Ptr[Byte] = getCurrentDir()
-    def currentDir_=(v: Ptr[Byte]): Unit = setCurrentDir(v)
-    def currentFile: Ptr[Byte] = getCurrentFile()
-    def currentFile_=(v: Ptr[Byte]): Unit = setCurrentFile(v)
-    def currentPath: Ptr[Byte] = getCurrentPath()
-    def currentPath_=(v: Ptr[Byte]): Unit = setCurrentPath(v)
+}
+
+    def modeOverridesTitle: Boolean = isModeOverridingTitle()
+    def modeOverridesTitle_=(v: Boolean): Unit = setModeOverridesTitle(v)
+    def fileMode: Int = getFileMode()
+    def fileMode_=(v: Int): Unit = setFileMode(v)
+    def displayMode: Int = getDisplayMode()
+    def displayMode_=(v: Int): Unit = setDisplayMode(v)
+    def access: Int = getAccess()
+    def access_=(v: Int): Unit = setAccess(v)
+    def rootSubfolder: CString = getRootSubfolder()
+    def rootSubfolder_=(v: CString): Unit = setRootSubfolder(v)
+    def filters: PackedStringArray = getFilters()
+    def filters_=(v: PackedStringArray): Unit = setFilters(v)
+    def filenameFilter: CString = getFilenameFilter()
+    def filenameFilter_=(v: CString): Unit = setFilenameFilter(v)
+    def showHiddenFiles: Boolean = isShowingHiddenFiles()
+    def showHiddenFiles_=(v: Boolean): Unit = setShowHiddenFiles(v)
+    def useNativeDialog: Boolean = getUseNativeDialog()
+    def useNativeDialog_=(v: Boolean): Unit = setUseNativeDialog(v)
+    def optionCount: Int = getOptionCount()
+    def optionCount_=(v: Int): Unit = setOptionCount(v)
+    def hiddenFilesToggleEnabled: Boolean = isCustomizationFlagEnabled()
+    def hiddenFilesToggleEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def fileFilterToggleEnabled: Boolean = isCustomizationFlagEnabled()
+    def fileFilterToggleEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def fileSortOptionsEnabled: Boolean = isCustomizationFlagEnabled()
+    def fileSortOptionsEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def folderCreationEnabled: Boolean = isCustomizationFlagEnabled()
+    def folderCreationEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def favoritesEnabled: Boolean = isCustomizationFlagEnabled()
+    def favoritesEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def recentListEnabled: Boolean = isCustomizationFlagEnabled()
+    def recentListEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def layoutToggleEnabled: Boolean = isCustomizationFlagEnabled()
+    def layoutToggleEnabled_=(v: Int): Unit = setCustomizationFlagEnabled(v)
+    def currentDir: CString = getCurrentDir()
+    def currentDir_=(v: CString): Unit = setCurrentDir(v)
+    def currentFile: CString = getCurrentFile()
+    def currentFile_=(v: CString): Unit = setCurrentFile(v)
+    def currentPath: CString = getCurrentPath()
+    def currentPath_=(v: CString): Unit = setCurrentPath(v)
+}
 
 object FileDialog:
-    object Binds:
-        var clearFilters: Ptr[Byte] = null
+object Binds {
+          var clearFilters: Ptr[Byte] = null
         var addFilter: Ptr[Byte] = null
-        var setFilters: Ptr[Byte] = null
-        var getFilters: Ptr[Byte] = null
         var clearFilenameFilter: Ptr[Byte] = null
-        var setFilenameFilter: Ptr[Byte] = null
-        var getFilenameFilter: Ptr[Byte] = null
         var getOptionName: Ptr[Byte] = null
         var getOptionValues: Ptr[Byte] = null
         var getOptionDefault: Ptr[Byte] = null
         var setOptionName: Ptr[Byte] = null
         var setOptionValues: Ptr[Byte] = null
         var setOptionDefault: Ptr[Byte] = null
-        var setOptionCount: Ptr[Byte] = null
-        var getOptionCount: Ptr[Byte] = null
         var addOption: Ptr[Byte] = null
         var getSelectedOptions: Ptr[Byte] = null
-        var getCurrentDir: Ptr[Byte] = null
-        var getCurrentFile: Ptr[Byte] = null
-        var getCurrentPath: Ptr[Byte] = null
-        var setCurrentDir: Ptr[Byte] = null
-        var setCurrentFile: Ptr[Byte] = null
-        var setCurrentPath: Ptr[Byte] = null
-        var setModeOverridesTitle: Ptr[Byte] = null
-        var isModeOverridingTitle: Ptr[Byte] = null
-        var setFileMode: Ptr[Byte] = null
-        var getFileMode: Ptr[Byte] = null
-        var setDisplayMode: Ptr[Byte] = null
-        var getDisplayMode: Ptr[Byte] = null
         var getVbox: Ptr[Byte] = null
         var getLineEdit: Ptr[Byte] = null
-        var setAccess: Ptr[Byte] = null
-        var getAccess: Ptr[Byte] = null
-        var setRootSubfolder: Ptr[Byte] = null
-        var getRootSubfolder: Ptr[Byte] = null
-        var setShowHiddenFiles: Ptr[Byte] = null
-        var isShowingHiddenFiles: Ptr[Byte] = null
-        var setUseNativeDialog: Ptr[Byte] = null
-        var getUseNativeDialog: Ptr[Byte] = null
-        var setCustomizationFlagEnabled: Ptr[Byte] = null
-        var isCustomizationFlagEnabled: Ptr[Byte] = null
         var deselectAll: Ptr[Byte] = null
         var invalidate: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.clearFilters = GdxApi.getMethodBind(c"FileDialog", c"clear_filters", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.clearFilters = GdxApi.getMethodBind(c"FileDialog", c"clear_filters", 3218959716L)
             Binds.addFilter = GdxApi.getMethodBind(c"FileDialog", c"add_filter", 3388804757L)
-            Binds.setFilters = GdxApi.getMethodBind(c"FileDialog", c"set_filters", 4015028928L)
-            Binds.getFilters = GdxApi.getMethodBind(c"FileDialog", c"get_filters", 1139954409L)
             Binds.clearFilenameFilter = GdxApi.getMethodBind(c"FileDialog", c"clear_filename_filter", 3218959716L)
-            Binds.setFilenameFilter = GdxApi.getMethodBind(c"FileDialog", c"set_filename_filter", 83702148L)
-            Binds.getFilenameFilter = GdxApi.getMethodBind(c"FileDialog", c"get_filename_filter", 201670096L)
             Binds.getOptionName = GdxApi.getMethodBind(c"FileDialog", c"get_option_name", 844755477L)
             Binds.getOptionValues = GdxApi.getMethodBind(c"FileDialog", c"get_option_values", 647634434L)
             Binds.getOptionDefault = GdxApi.getMethodBind(c"FileDialog", c"get_option_default", 923996154L)
             Binds.setOptionName = GdxApi.getMethodBind(c"FileDialog", c"set_option_name", 501894301L)
             Binds.setOptionValues = GdxApi.getMethodBind(c"FileDialog", c"set_option_values", 3353661094L)
             Binds.setOptionDefault = GdxApi.getMethodBind(c"FileDialog", c"set_option_default", 3937882851L)
-            Binds.setOptionCount = GdxApi.getMethodBind(c"FileDialog", c"set_option_count", 1286410249L)
-            Binds.getOptionCount = GdxApi.getMethodBind(c"FileDialog", c"get_option_count", 3905245786L)
             Binds.addOption = GdxApi.getMethodBind(c"FileDialog", c"add_option", 149592325L)
             Binds.getSelectedOptions = GdxApi.getMethodBind(c"FileDialog", c"get_selected_options", 3102165223L)
-            Binds.getCurrentDir = GdxApi.getMethodBind(c"FileDialog", c"get_current_dir", 201670096L)
-            Binds.getCurrentFile = GdxApi.getMethodBind(c"FileDialog", c"get_current_file", 201670096L)
-            Binds.getCurrentPath = GdxApi.getMethodBind(c"FileDialog", c"get_current_path", 201670096L)
-            Binds.setCurrentDir = GdxApi.getMethodBind(c"FileDialog", c"set_current_dir", 83702148L)
-            Binds.setCurrentFile = GdxApi.getMethodBind(c"FileDialog", c"set_current_file", 83702148L)
-            Binds.setCurrentPath = GdxApi.getMethodBind(c"FileDialog", c"set_current_path", 83702148L)
-            Binds.setModeOverridesTitle = GdxApi.getMethodBind(c"FileDialog", c"set_mode_overrides_title", 2586408642L)
-            Binds.isModeOverridingTitle = GdxApi.getMethodBind(c"FileDialog", c"is_mode_overriding_title", 36873697L)
-            Binds.setFileMode = GdxApi.getMethodBind(c"FileDialog", c"set_file_mode", 3654936397L)
-            Binds.getFileMode = GdxApi.getMethodBind(c"FileDialog", c"get_file_mode", 4074825319L)
-            Binds.setDisplayMode = GdxApi.getMethodBind(c"FileDialog", c"set_display_mode", 2692197101L)
-            Binds.getDisplayMode = GdxApi.getMethodBind(c"FileDialog", c"get_display_mode", 1092104624L)
             Binds.getVbox = GdxApi.getMethodBind(c"FileDialog", c"get_vbox", 915758477L)
             Binds.getLineEdit = GdxApi.getMethodBind(c"FileDialog", c"get_line_edit", 4071694264L)
-            Binds.setAccess = GdxApi.getMethodBind(c"FileDialog", c"set_access", 4104413466L)
-            Binds.getAccess = GdxApi.getMethodBind(c"FileDialog", c"get_access", 3344081076L)
-            Binds.setRootSubfolder = GdxApi.getMethodBind(c"FileDialog", c"set_root_subfolder", 83702148L)
-            Binds.getRootSubfolder = GdxApi.getMethodBind(c"FileDialog", c"get_root_subfolder", 201670096L)
-            Binds.setShowHiddenFiles = GdxApi.getMethodBind(c"FileDialog", c"set_show_hidden_files", 2586408642L)
-            Binds.isShowingHiddenFiles = GdxApi.getMethodBind(c"FileDialog", c"is_showing_hidden_files", 36873697L)
-            Binds.setUseNativeDialog = GdxApi.getMethodBind(c"FileDialog", c"set_use_native_dialog", 2586408642L)
-            Binds.getUseNativeDialog = GdxApi.getMethodBind(c"FileDialog", c"get_use_native_dialog", 36873697L)
-            Binds.setCustomizationFlagEnabled = GdxApi.getMethodBind(c"FileDialog", c"set_customization_flag_enabled", 3849177100L)
-            Binds.isCustomizationFlagEnabled = GdxApi.getMethodBind(c"FileDialog", c"is_customization_flag_enabled", 3722277863L)
             Binds.deselectAll = GdxApi.getMethodBind(c"FileDialog", c"deselect_all", 3218959716L)
             Binds.invalidate = GdxApi.getMethodBind(c"FileDialog", c"invalidate", 3218959716L)
+  }
+}
 
-    def apply(): FileDialog =
-        val obj = new FileDialog()
-        obj.ptr = GdxApi.constructObject(c"FileDialog")
-        obj
+def apply(): FileDialog = {
+  val obj = new FileDialog()
+  obj.ptr = GdxApi.constructObject(c"FileDialog")
+  obj
+}

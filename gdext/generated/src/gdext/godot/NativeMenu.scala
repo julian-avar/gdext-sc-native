@@ -5,542 +5,612 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class NativeMenu extends Object
-
-    def hasFeature(feature: Int): Boolean =
+class NativeMenu extends Object {
+    def hasFeature(feature: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.hasFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def hasSystemMenu(menuId: Int): Boolean =
+    def hasSystemMenu(menuId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = menuId.ptr
+        val _a0 = stackalloc[Long](); !_a0 = menuId.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.hasSystemMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSystemMenu(menuId: Int): RID =
+    def getSystemMenu(menuId: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = menuId.ptr
+        val _a0 = stackalloc[Long](); !_a0 = menuId.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getSystemMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getSystemMenuName(menuId: Int): CString =
+    def getSystemMenuName(menuId: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = menuId.ptr
+        val _a0 = stackalloc[Long](); !_a0 = menuId.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getSystemMenuName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def createMenu(): RID =
+    def createMenu(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.createMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def hasMenu(rid: RID): Boolean =
+    def hasMenu(rid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.hasMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def freeMenu(rid: RID): Unit =
+    def freeMenu(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(NativeMenu.Binds.freeMenu, ptr, _args, null)
+}
 
-    def getSize(rid: RID): Vector2 =
+    def getSize(rid: RID): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def popup(rid: RID, position: Vector2i): Unit =
+    def popup(rid: RID, position: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
         _args(1) = position.ptr
         GdxApi.ptrcall(NativeMenu.Binds.popup, ptr, _args, null)
+}
 
-    def setInterfaceDirection(rid: RID, isRtl: Boolean): Unit =
+    def setInterfaceDirection(rid: RID, isRtl: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if isRtl then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setInterfaceDirection, ptr, _args, null)
+}
 
-    def setPopupOpenCallback(rid: RID, callback: Callable): Unit =
+    def setPopupOpenCallback(rid: RID, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setPopupOpenCallback, ptr, _args, null)
+}
 
-    def getPopupOpenCallback(rid: RID): Callable =
+    def getPopupOpenCallback(rid: RID): Callable = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getPopupOpenCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def setPopupCloseCallback(rid: RID, callback: Callable): Unit =
+    def setPopupCloseCallback(rid: RID, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
         _args(1) = callback.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setPopupCloseCallback, ptr, _args, null)
+}
 
-    def getPopupCloseCallback(rid: RID): Callable =
+    def getPopupCloseCallback(rid: RID): Callable = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getPopupCloseCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def setMinimumWidth(rid: RID, width: Float): Unit =
+    def setMinimumWidth(rid: RID, width: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
         val _a1 = stackalloc[Double](); !_a1 = width.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setMinimumWidth, ptr, _args, null)
+}
 
-    def getMinimumWidth(rid: RID): Float =
+    def getMinimumWidth(rid: RID): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(NativeMenu.Binds.getMinimumWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def isOpened(rid: RID): Boolean =
+    def isOpened(rid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isOpened, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def addSubmenuItem(rid: RID, label: CString, submenuRid: RID): Int =
+    def addSubmenuItem(rid: RID, label: CString, submenuRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        _args(1) = label.ptr
+        _args(1) = label
         _args(2) = submenuRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addSubmenuItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addItem(rid: RID, label: CString): Int =
+    def addItem(rid: RID, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        _args(1) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addCheckItem(rid: RID, label: CString): Int =
+    def addCheckItem(rid: RID, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        _args(1) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addIconItem(rid: RID, icon: Texture2D, label: CString): Int =
+    def addIconItem(rid: RID, icon: Texture2D, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
         _args(1) = icon.ptr
-        _args(2) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addIconItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addIconCheckItem(rid: RID, icon: Texture2D, label: CString): Int =
+    def addIconCheckItem(rid: RID, icon: Texture2D, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
         _args(1) = icon.ptr
-        _args(2) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addIconCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addRadioCheckItem(rid: RID, label: CString): Int =
+    def addRadioCheckItem(rid: RID, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        _args(1) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addRadioCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addIconRadioCheckItem(rid: RID, icon: Texture2D, label: CString): Int =
+    def addIconRadioCheckItem(rid: RID, icon: Texture2D, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
         _args(1) = icon.ptr
-        _args(2) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addIconRadioCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addMultistateItem(rid: RID, label: CString, maxStates: Int, defaultState: Int): Int =
+    def addMultistateItem(rid: RID, label: CString, maxStates: Int, defaultState: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = rid.ptr
-        _args(1) = label.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = maxStates.toLong
+        _args(1) = label
+        val _a2 = stackalloc[Long](); !_a2 = maxStates.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = defaultState.toLong
+        val _a3 = stackalloc[Long](); !_a3 = defaultState.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addMultistateItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addSeparator(rid: RID): Int =
+    def addSeparator(rid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.addSeparator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def findItemIndexWithText(rid: RID, text: CString): Int =
+    def findItemIndexWithText(rid: RID, text: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        _args(1) = text.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = text
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.findItemIndexWithText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def findItemIndexWithTag(rid: RID, tag: Ptr[Byte]): Int =
+    def findItemIndexWithTag(rid: RID, tag: Ptr[Byte]): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        _args(1) = tag.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = tag
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.findItemIndexWithTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def findItemIndexWithSubmenu(rid: RID, submenuRid: RID): Int =
+    def findItemIndexWithSubmenu(rid: RID, submenuRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
         _args(1) = submenuRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.findItemIndexWithSubmenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isItemChecked(rid: RID, idx: Int): Boolean =
+    def isItemChecked(rid: RID, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isItemChecked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isItemCheckable(rid: RID, idx: Int): Boolean =
+    def isItemCheckable(rid: RID, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isItemCheckable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isItemRadioCheckable(rid: RID, idx: Int): Boolean =
+    def isItemRadioCheckable(rid: RID, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isItemRadioCheckable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getItemCallback(rid: RID, idx: Int): Callable =
+    def getItemCallback(rid: RID, idx: Int): Callable = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def getItemKeyCallback(rid: RID, idx: Int): Callable =
+    def getItemKeyCallback(rid: RID, idx: Int): Callable = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemKeyCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def getItemTag(rid: RID, idx: Int): Ptr[Byte] =
+    def getItemTag(rid: RID, idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemText(rid: RID, idx: Int): CString =
+    def getItemText(rid: RID, idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemSubmenu(rid: RID, idx: Int): RID =
+    def getItemSubmenu(rid: RID, idx: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemSubmenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getItemAccelerator(rid: RID, idx: Int): Int =
+    def getItemAccelerator(rid: RID, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemAccelerator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isItemDisabled(rid: RID, idx: Int): Boolean =
+    def isItemDisabled(rid: RID, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isItemDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isItemHidden(rid: RID, idx: Int): Boolean =
+    def isItemHidden(rid: RID, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isItemHidden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getItemTooltip(rid: RID, idx: Int): CString =
+    def getItemTooltip(rid: RID, idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemTooltip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getItemState(rid: RID, idx: Int): Int =
+    def getItemState(rid: RID, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getItemMaxStates(rid: RID, idx: Int): Int =
+    def getItemMaxStates(rid: RID, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemMaxStates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getItemIcon(rid: RID, idx: Int): Texture2D =
+    def getItemIcon(rid: RID, idx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def getItemIndentationLevel(rid: RID, idx: Int): Int =
+    def getItemIndentationLevel(rid: RID, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemIndentationLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setItemChecked(rid: RID, idx: Int, checked: Boolean): Unit =
+    def setItemChecked(rid: RID, idx: Int, checked: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if checked then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemChecked, ptr, _args, null)
+}
 
-    def setItemCheckable(rid: RID, idx: Int, checkable: Boolean): Unit =
+    def setItemCheckable(rid: RID, idx: Int, checkable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if checkable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemCheckable, ptr, _args, null)
+}
 
-    def setItemRadioCheckable(rid: RID, idx: Int, checkable: Boolean): Unit =
+    def setItemRadioCheckable(rid: RID, idx: Int, checkable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if checkable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemRadioCheckable, ptr, _args, null)
+}
 
-    def setItemCallback(rid: RID, idx: Int, callback: Callable): Unit =
+    def setItemCallback(rid: RID, idx: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callback.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setItemCallback, ptr, _args, null)
+}
 
-    def setItemHoverCallbacks(rid: RID, idx: Int, callback: Callable): Unit =
+    def setItemHoverCallbacks(rid: RID, idx: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callback.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setItemHoverCallbacks, ptr, _args, null)
+}
 
-    def setItemKeyCallback(rid: RID, idx: Int, keyCallback: Callable): Unit =
+    def setItemKeyCallback(rid: RID, idx: Int, keyCallback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = keyCallback.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setItemKeyCallback, ptr, _args, null)
+}
 
-    def setItemTag(rid: RID, idx: Int, tag: Ptr[Byte]): Unit =
+    def setItemTag(rid: RID, idx: Int, tag: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = tag.ptr
+        _args(2) = tag
         GdxApi.ptrcall(NativeMenu.Binds.setItemTag, ptr, _args, null)
+}
 
-    def setItemText(rid: RID, idx: Int, text: CString): Unit =
+    def setItemText(rid: RID, idx: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(NativeMenu.Binds.setItemText, ptr, _args, null)
+}
 
-    def setItemSubmenu(rid: RID, idx: Int, submenuRid: RID): Unit =
+    def setItemSubmenu(rid: RID, idx: Int, submenuRid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = submenuRid.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setItemSubmenu, ptr, _args, null)
+}
 
-    def setItemAccelerator(rid: RID, idx: Int, keycode: Int): Unit =
+    def setItemAccelerator(rid: RID, idx: Int, keycode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = keycode.ptr
+        val _a2 = stackalloc[Long](); !_a2 = keycode.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemAccelerator, ptr, _args, null)
+}
 
-    def setItemDisabled(rid: RID, idx: Int, disabled: Boolean): Unit =
+    def setItemDisabled(rid: RID, idx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if disabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemDisabled, ptr, _args, null)
+}
 
-    def setItemHidden(rid: RID, idx: Int, hidden: Boolean): Unit =
+    def setItemHidden(rid: RID, idx: Int, hidden: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if hidden then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemHidden, ptr, _args, null)
+}
 
-    def setItemTooltip(rid: RID, idx: Int, tooltip: CString): Unit =
+    def setItemTooltip(rid: RID, idx: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = tooltip.ptr
+        _args(2) = tooltip
         GdxApi.ptrcall(NativeMenu.Binds.setItemTooltip, ptr, _args, null)
+}
 
-    def setItemState(rid: RID, idx: Int, state: Int): Unit =
+    def setItemState(rid: RID, idx: Int, state: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = state.toLong
+        val _a2 = stackalloc[Long](); !_a2 = state.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemState, ptr, _args, null)
+}
 
-    def setItemMaxStates(rid: RID, idx: Int, maxStates: Int): Unit =
+    def setItemMaxStates(rid: RID, idx: Int, maxStates: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = maxStates.toLong
+        val _a2 = stackalloc[Long](); !_a2 = maxStates.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemMaxStates, ptr, _args, null)
+}
 
-    def setItemIcon(rid: RID, idx: Int, icon: Texture2D): Unit =
+    def setItemIcon(rid: RID, idx: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = icon.ptr
         GdxApi.ptrcall(NativeMenu.Binds.setItemIcon, ptr, _args, null)
+}
 
-    def setItemIndentationLevel(rid: RID, idx: Int, level: Int): Unit =
+    def setItemIndentationLevel(rid: RID, idx: Int, level: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = level.toLong
+        val _a2 = stackalloc[Long](); !_a2 = level.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.setItemIndentationLevel, ptr, _args, null)
+}
 
-    def getItemCount(rid: RID): Int =
+    def getItemCount(rid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(NativeMenu.Binds.getItemCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isSystemMenu(rid: RID): Boolean =
+    def isSystemMenu(rid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(NativeMenu.Binds.isSystemMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeItem(rid: RID, idx: Int): Unit =
+    def removeItem(rid: RID, idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(NativeMenu.Binds.removeItem, ptr, _args, null)
+}
 
-    def clear(rid: RID): Unit =
+    def clear(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(NativeMenu.Binds.clear, ptr, _args, null)
-
+}
+}
 
 object NativeMenu:
-    object Binds:
-        var hasFeature: Ptr[Byte] = null
+object Binds {
+          var hasFeature: Ptr[Byte] = null
         var hasSystemMenu: Ptr[Byte] = null
         var getSystemMenu: Ptr[Byte] = null
         var getSystemMenuName: Ptr[Byte] = null
@@ -607,8 +677,8 @@ object NativeMenu:
         var removeItem: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasFeature = GdxApi.getMethodBind(c"NativeMenu", c"has_feature", 1708975490L)
+  def loadBinds(): Unit = {
+                Binds.hasFeature = GdxApi.getMethodBind(c"NativeMenu", c"has_feature", 1708975490L)
             Binds.hasSystemMenu = GdxApi.getMethodBind(c"NativeMenu", c"has_system_menu", 718213027L)
             Binds.getSystemMenu = GdxApi.getMethodBind(c"NativeMenu", c"get_system_menu", 469707506L)
             Binds.getSystemMenuName = GdxApi.getMethodBind(c"NativeMenu", c"get_system_menu_name", 1281499290L)
@@ -674,8 +744,11 @@ object NativeMenu:
             Binds.isSystemMenu = GdxApi.getMethodBind(c"NativeMenu", c"is_system_menu", 4155700596L)
             Binds.removeItem = GdxApi.getMethodBind(c"NativeMenu", c"remove_item", 3411492887L)
             Binds.clear = GdxApi.getMethodBind(c"NativeMenu", c"clear", 2722037293L)
+  }
+}
 
-    def apply(): NativeMenu =
-        val obj = new NativeMenu()
-        obj.ptr = GdxApi.constructObject(c"NativeMenu")
-        obj
+def apply(): NativeMenu = {
+  val obj = new NativeMenu()
+  obj.ptr = GdxApi.constructObject(c"NativeMenu")
+  obj
+}

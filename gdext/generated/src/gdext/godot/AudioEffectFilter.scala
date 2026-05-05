@@ -5,85 +5,20 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioEffectFilter extends AudioEffect
-
-    def setCutoff(freq: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = freq.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectFilter.Binds.setCutoff, ptr, _args, null)
-
-    def getCutoff(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectFilter.Binds.getCutoff, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setResonance(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectFilter.Binds.setResonance, ptr, _args, null)
-
-    def getResonance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectFilter.Binds.getResonance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGain(amount: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = amount.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioEffectFilter.Binds.setGain, ptr, _args, null)
-
-    def getGain(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(AudioEffectFilter.Binds.getGain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setDb(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = amount.ptr
-        GdxApi.ptrcall(AudioEffectFilter.Binds.setDb, ptr, _args, null)
-
-    def getDb(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioEffectFilter.Binds.getDb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def cutoffHz: Ptr[Byte] = getCutoff()
-    def cutoffHz_=(v: Ptr[Byte]): Unit = setCutoff(v)
-    def resonance: Ptr[Byte] = getResonance()
-    def resonance_=(v: Ptr[Byte]): Unit = setResonance(v)
-    def gain: Ptr[Byte] = getGain()
-    def gain_=(v: Ptr[Byte]): Unit = setGain(v)
-    def db: Ptr[Byte] = getDb()
-    def db_=(v: Ptr[Byte]): Unit = setDb(v)
+class AudioEffectFilter extends AudioEffect {
+    def cutoffHz: Float = getCutoff()
+    def cutoffHz_=(v: Float): Unit = setCutoff(v)
+    def resonance: Float = getResonance()
+    def resonance_=(v: Float): Unit = setResonance(v)
+    def gain: Float = getGain()
+    def gain_=(v: Float): Unit = setGain(v)
+    def db: Int = getDb()
+    def db_=(v: Int): Unit = setDb(v)
+}
 
 object AudioEffectFilter:
-    object Binds:
-        var setCutoff: Ptr[Byte] = null
-        var getCutoff: Ptr[Byte] = null
-        var setResonance: Ptr[Byte] = null
-        var getResonance: Ptr[Byte] = null
-        var setGain: Ptr[Byte] = null
-        var getGain: Ptr[Byte] = null
-        var setDb: Ptr[Byte] = null
-        var getDb: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setCutoff = GdxApi.getMethodBind(c"AudioEffectFilter", c"set_cutoff", 373806689L)
-            Binds.getCutoff = GdxApi.getMethodBind(c"AudioEffectFilter", c"get_cutoff", 1740695150L)
-            Binds.setResonance = GdxApi.getMethodBind(c"AudioEffectFilter", c"set_resonance", 373806689L)
-            Binds.getResonance = GdxApi.getMethodBind(c"AudioEffectFilter", c"get_resonance", 1740695150L)
-            Binds.setGain = GdxApi.getMethodBind(c"AudioEffectFilter", c"set_gain", 373806689L)
-            Binds.getGain = GdxApi.getMethodBind(c"AudioEffectFilter", c"get_gain", 1740695150L)
-            Binds.setDb = GdxApi.getMethodBind(c"AudioEffectFilter", c"set_db", 771740901L)
-            Binds.getDb = GdxApi.getMethodBind(c"AudioEffectFilter", c"get_db", 3981721890L)
-
-    def apply(): AudioEffectFilter =
-        val obj = new AudioEffectFilter()
-        obj.ptr = GdxApi.constructObject(c"AudioEffectFilter")
-        obj
+def apply(): AudioEffectFilter = {
+  val obj = new AudioEffectFilter()
+  obj.ptr = GdxApi.constructObject(c"AudioEffectFilter")
+  obj
+}

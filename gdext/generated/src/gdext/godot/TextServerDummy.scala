@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextServerDummy extends TextServerExtension
-
-
-
+class TextServerDummy extends TextServerExtension {}
 
 object TextServerDummy:
-    def apply(): TextServerDummy =
-        val obj = new TextServerDummy()
-        obj.ptr = GdxApi.constructObject(c"TextServerDummy")
-        obj
+def apply(): TextServerDummy = {
+  val obj = new TextServerDummy()
+  obj.ptr = GdxApi.constructObject(c"TextServerDummy")
+  obj
+}

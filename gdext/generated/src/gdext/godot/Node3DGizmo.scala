@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Node3DGizmo extends RefCounted
-
-
-
+class Node3DGizmo extends RefCounted {}

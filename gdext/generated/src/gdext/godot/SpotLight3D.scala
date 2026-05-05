@@ -5,9 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpotLight3D extends Light3D
-
-
+class SpotLight3D extends Light3D {
     def spotRange: Ptr[Byte] = getParam()
     def spotRange_=(v: Ptr[Byte]): Unit = setParam(v)
     def spotAttenuation: Ptr[Byte] = getParam()
@@ -16,9 +14,11 @@ class SpotLight3D extends Light3D
     def spotAngle_=(v: Ptr[Byte]): Unit = setParam(v)
     def spotAngleAttenuation: Ptr[Byte] = getParam()
     def spotAngleAttenuation_=(v: Ptr[Byte]): Unit = setParam(v)
+}
 
 object SpotLight3D:
-    def apply(): SpotLight3D =
-        val obj = new SpotLight3D()
-        obj.ptr = GdxApi.constructObject(c"SpotLight3D")
-        obj
+def apply(): SpotLight3D = {
+  val obj = new SpotLight3D()
+  obj.ptr = GdxApi.constructObject(c"SpotLight3D")
+  obj
+}

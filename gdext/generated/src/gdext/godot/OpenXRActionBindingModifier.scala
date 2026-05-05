@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRActionBindingModifier extends OpenXRBindingModifier
-
-
-
+class OpenXRActionBindingModifier extends OpenXRBindingModifier {}
 
 object OpenXRActionBindingModifier:
-    def apply(): OpenXRActionBindingModifier =
-        val obj = new OpenXRActionBindingModifier()
-        obj.ptr = GdxApi.constructObject(c"OpenXRActionBindingModifier")
-        obj
+def apply(): OpenXRActionBindingModifier = {
+  val obj = new OpenXRActionBindingModifier()
+  obj.ptr = GdxApi.constructObject(c"OpenXRActionBindingModifier")
+  obj
+}

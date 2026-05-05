@@ -5,94 +5,40 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VoxelGI extends VisualInstance3D
-
-    def setProbeData(data: VoxelGIData): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = data.ptr
-        GdxApi.ptrcall(VoxelGI.Binds.setProbeData, ptr, _args, null)
-
-    def getProbeData(): VoxelGIData =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VoxelGI.Binds.getProbeData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new VoxelGIData(!_ret)
-
-    def setSubdiv(subdiv: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = subdiv.ptr
-        GdxApi.ptrcall(VoxelGI.Binds.setSubdiv, ptr, _args, null)
-
-    def getSubdiv(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VoxelGI.Binds.getSubdiv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSize(size: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(VoxelGI.Binds.setSize, ptr, _args, null)
-
-    def getSize(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VoxelGI.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setCameraAttributes(cameraAttributes: CameraAttributes): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = cameraAttributes.ptr
-        GdxApi.ptrcall(VoxelGI.Binds.setCameraAttributes, ptr, _args, null)
-
-    def getCameraAttributes(): CameraAttributes =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VoxelGI.Binds.getCameraAttributes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new CameraAttributes(!_ret)
-
-    def bake(): Unit =
+class VoxelGI extends VisualInstance3D {
+    def bake(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(VoxelGI.Binds.bake, ptr, _args, null)
+}
 
-    def debugBake(): Unit =
+    def debugBake(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(VoxelGI.Binds.debugBake, ptr, _args, null)
-    def subdiv: Ptr[Byte] = getSubdiv()
-    def subdiv_=(v: Ptr[Byte]): Unit = setSubdiv(v)
-    def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
-    def cameraAttributes: Ptr[Byte] = getCameraAttributes()
-    def cameraAttributes_=(v: Ptr[Byte]): Unit = setCameraAttributes(v)
-    def data: Ptr[Byte] = getProbeData()
-    def data_=(v: Ptr[Byte]): Unit = setProbeData(v)
+}
+
+    def subdiv: Int = getSubdiv()
+    def subdiv_=(v: Int): Unit = setSubdiv(v)
+    def size: Vector3 = getSize()
+    def size_=(v: Vector3): Unit = setSize(v)
+    def cameraAttributes: CameraAttributes = getCameraAttributes()
+    def cameraAttributes_=(v: CameraAttributes): Unit = setCameraAttributes(v)
+    def data: VoxelGIData = getProbeData()
+    def data_=(v: VoxelGIData): Unit = setProbeData(v)
+}
 
 object VoxelGI:
-    object Binds:
-        var setProbeData: Ptr[Byte] = null
-        var getProbeData: Ptr[Byte] = null
-        var setSubdiv: Ptr[Byte] = null
-        var getSubdiv: Ptr[Byte] = null
-        var setSize: Ptr[Byte] = null
-        var getSize: Ptr[Byte] = null
-        var setCameraAttributes: Ptr[Byte] = null
-        var getCameraAttributes: Ptr[Byte] = null
-        var bake: Ptr[Byte] = null
+object Binds {
+          var bake: Ptr[Byte] = null
         var debugBake: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setProbeData = GdxApi.getMethodBind(c"VoxelGI", c"set_probe_data", 1637849675L)
-            Binds.getProbeData = GdxApi.getMethodBind(c"VoxelGI", c"get_probe_data", 1730645405L)
-            Binds.setSubdiv = GdxApi.getMethodBind(c"VoxelGI", c"set_subdiv", 2240898472L)
-            Binds.getSubdiv = GdxApi.getMethodBind(c"VoxelGI", c"get_subdiv", 4261647950L)
-            Binds.setSize = GdxApi.getMethodBind(c"VoxelGI", c"set_size", 3460891852L)
-            Binds.getSize = GdxApi.getMethodBind(c"VoxelGI", c"get_size", 3360562783L)
-            Binds.setCameraAttributes = GdxApi.getMethodBind(c"VoxelGI", c"set_camera_attributes", 2817810567L)
-            Binds.getCameraAttributes = GdxApi.getMethodBind(c"VoxelGI", c"get_camera_attributes", 3921283215L)
-            Binds.bake = GdxApi.getMethodBind(c"VoxelGI", c"bake", 2781551026L)
+  def loadBinds(): Unit = {
+                Binds.bake = GdxApi.getMethodBind(c"VoxelGI", c"bake", 2781551026L)
             Binds.debugBake = GdxApi.getMethodBind(c"VoxelGI", c"debug_bake", 3218959716L)
+  }
+}
 
-    def apply(): VoxelGI =
-        val obj = new VoxelGI()
-        obj.ptr = GdxApi.constructObject(c"VoxelGI")
-        obj
+def apply(): VoxelGI = {
+  val obj = new VoxelGI()
+  obj.ptr = GdxApi.constructObject(c"VoxelGI")
+  obj
+}

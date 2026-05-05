@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OggPacketSequencePlayback extends RefCounted
-
-
-
+class OggPacketSequencePlayback extends RefCounted {}
 
 object OggPacketSequencePlayback:
-    def apply(): OggPacketSequencePlayback =
-        val obj = new OggPacketSequencePlayback()
-        obj.ptr = GdxApi.constructObject(c"OggPacketSequencePlayback")
-        obj
+def apply(): OggPacketSequencePlayback = {
+  val obj = new OggPacketSequencePlayback()
+  obj.ptr = GdxApi.constructObject(c"OggPacketSequencePlayback")
+  obj
+}

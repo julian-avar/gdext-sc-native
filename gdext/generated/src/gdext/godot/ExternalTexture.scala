@@ -5,39 +5,38 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ExternalTexture extends Texture2D
-
-    def setSize(size: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = size.ptr
-        GdxApi.ptrcall(ExternalTexture.Binds.setSize, ptr, _args, null)
-
-    def getExternalTextureId(): Long =
+class ExternalTexture extends Texture2D {
+    def getExternalTextureId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ExternalTexture.Binds.getExternalTextureId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setExternalBufferId(externalBufferId: Long): Unit =
+    def setExternalBufferId(externalBufferId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = externalBufferId
+        val _a0 = stackalloc[Long](); !_a0 = externalBufferId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ExternalTexture.Binds.setExternalBufferId, ptr, _args, null)
+}
+
     def size: Ptr[Byte] = getSize()
-    def size_=(v: Ptr[Byte]): Unit = setSize(v)
+    def size_=(v: Vector2): Unit = setSize(v)
+}
 
 object ExternalTexture:
-    object Binds:
-        var setSize: Ptr[Byte] = null
-        var getExternalTextureId: Ptr[Byte] = null
+object Binds {
+          var getExternalTextureId: Ptr[Byte] = null
         var setExternalBufferId: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setSize = GdxApi.getMethodBind(c"ExternalTexture", c"set_size", 743155724L)
-            Binds.getExternalTextureId = GdxApi.getMethodBind(c"ExternalTexture", c"get_external_texture_id", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getExternalTextureId = GdxApi.getMethodBind(c"ExternalTexture", c"get_external_texture_id", 3905245786L)
             Binds.setExternalBufferId = GdxApi.getMethodBind(c"ExternalTexture", c"set_external_buffer_id", 1286410249L)
+  }
+}
 
-    def apply(): ExternalTexture =
-        val obj = new ExternalTexture()
-        obj.ptr = GdxApi.constructObject(c"ExternalTexture")
-        obj
+def apply(): ExternalTexture = {
+  val obj = new ExternalTexture()
+  obj.ptr = GdxApi.constructObject(c"ExternalTexture")
+  obj
+}

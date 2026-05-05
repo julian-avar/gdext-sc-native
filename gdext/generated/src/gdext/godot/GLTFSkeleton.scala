@@ -5,108 +5,55 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFSkeleton extends Resource
-
-    def getJoints(): PackedInt32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFSkeleton.Binds.getJoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedInt32Array(!_ret)
-
-    def setJoints(joints: PackedInt32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = joints.ptr
-        GdxApi.ptrcall(GLTFSkeleton.Binds.setJoints, ptr, _args, null)
-
-    def getRoots(): PackedInt32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFSkeleton.Binds.getRoots, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedInt32Array(!_ret)
-
-    def setRoots(roots: PackedInt32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = roots.ptr
-        GdxApi.ptrcall(GLTFSkeleton.Binds.setRoots, ptr, _args, null)
-
-    def getGodotSkeleton(): Skeleton3D =
+class GLTFSkeleton extends Resource {
+    def getGodotSkeleton(): Skeleton3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFSkeleton.Binds.getGodotSkeleton, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Skeleton3D(!_ret)
+}
 
-    def getUniqueNames(): Ptr[Byte] =
+    def getBoneAttachmentCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFSkeleton.Binds.getUniqueNames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setUniqueNames(uniqueNames: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = uniqueNames.ptr
-        GdxApi.ptrcall(GLTFSkeleton.Binds.setUniqueNames, ptr, _args, null)
-
-    def getGodotBoneNode(): Dictionary =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(GLTFSkeleton.Binds.getGodotBoneNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Dictionary(!_ret)
-
-    def setGodotBoneNode(godotBoneNode: Dictionary): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = godotBoneNode.ptr
-        GdxApi.ptrcall(GLTFSkeleton.Binds.setGodotBoneNode, ptr, _args, null)
-
-    def getBoneAttachmentCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(GLTFSkeleton.Binds.getBoneAttachmentCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getBoneAttachment(idx: Int): BoneAttachment3D =
+    def getBoneAttachment(idx: Int): BoneAttachment3D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(GLTFSkeleton.Binds.getBoneAttachment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new BoneAttachment3D(!_ret)
-    def joints: Ptr[Byte] = getJoints()
-    def joints_=(v: Ptr[Byte]): Unit = setJoints(v)
-    def roots: Ptr[Byte] = getRoots()
-    def roots_=(v: Ptr[Byte]): Unit = setRoots(v)
+}
+
+    def joints: PackedInt32Array = getJoints()
+    def joints_=(v: PackedInt32Array): Unit = setJoints(v)
+    def roots: PackedInt32Array = getRoots()
+    def roots_=(v: PackedInt32Array): Unit = setRoots(v)
     def uniqueNames: Ptr[Byte] = getUniqueNames()
     def uniqueNames_=(v: Ptr[Byte]): Unit = setUniqueNames(v)
-    def godotBoneNode: Ptr[Byte] = getGodotBoneNode()
-    def godotBoneNode_=(v: Ptr[Byte]): Unit = setGodotBoneNode(v)
+    def godotBoneNode: Dictionary = getGodotBoneNode()
+    def godotBoneNode_=(v: Dictionary): Unit = setGodotBoneNode(v)
+}
 
 object GLTFSkeleton:
-    object Binds:
-        var getJoints: Ptr[Byte] = null
-        var setJoints: Ptr[Byte] = null
-        var getRoots: Ptr[Byte] = null
-        var setRoots: Ptr[Byte] = null
-        var getGodotSkeleton: Ptr[Byte] = null
-        var getUniqueNames: Ptr[Byte] = null
-        var setUniqueNames: Ptr[Byte] = null
-        var getGodotBoneNode: Ptr[Byte] = null
-        var setGodotBoneNode: Ptr[Byte] = null
+object Binds {
+          var getGodotSkeleton: Ptr[Byte] = null
         var getBoneAttachmentCount: Ptr[Byte] = null
         var getBoneAttachment: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getJoints = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_joints", 969006518L)
-            Binds.setJoints = GdxApi.getMethodBind(c"GLTFSkeleton", c"set_joints", 3614634198L)
-            Binds.getRoots = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_roots", 969006518L)
-            Binds.setRoots = GdxApi.getMethodBind(c"GLTFSkeleton", c"set_roots", 3614634198L)
-            Binds.getGodotSkeleton = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_godot_skeleton", 1814733083L)
-            Binds.getUniqueNames = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_unique_names", 2915620761L)
-            Binds.setUniqueNames = GdxApi.getMethodBind(c"GLTFSkeleton", c"set_unique_names", 381264803L)
-            Binds.getGodotBoneNode = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_godot_bone_node", 2382534195L)
-            Binds.setGodotBoneNode = GdxApi.getMethodBind(c"GLTFSkeleton", c"set_godot_bone_node", 4155329257L)
+  def loadBinds(): Unit = {
+                Binds.getGodotSkeleton = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_godot_skeleton", 1814733083L)
             Binds.getBoneAttachmentCount = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_bone_attachment_count", 2455072627L)
             Binds.getBoneAttachment = GdxApi.getMethodBind(c"GLTFSkeleton", c"get_bone_attachment", 945440495L)
+  }
+}
 
-    def apply(): GLTFSkeleton =
-        val obj = new GLTFSkeleton()
-        obj.ptr = GdxApi.constructObject(c"GLTFSkeleton")
-        obj
+def apply(): GLTFSkeleton = {
+  val obj = new GLTFSkeleton()
+  obj.ptr = GdxApi.constructObject(c"GLTFSkeleton")
+  obj
+}

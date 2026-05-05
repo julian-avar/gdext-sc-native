@@ -5,67 +5,75 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ZIPReader extends RefCounted
-
-    def open(path: CString): Int =
+class ZIPReader extends RefCounted {
+    def open(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPReader.Binds.open, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def close(): Int =
+    def close(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPReader.Binds.close, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFiles(): PackedStringArray =
+    def getFiles(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ZIPReader.Binds.getFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def readFile(path: CString): PackedByteArray =
+    def readFile(path: CString): PackedByteArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ZIPReader.Binds.readFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def fileExists(path: CString): Boolean =
+    def fileExists(path: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ZIPReader.Binds.fileExists, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCompressionLevel(path: CString): Int =
+    def getCompressionLevel(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ZIPReader.Binds.getCompressionLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object ZIPReader:
-    object Binds:
-        var open: Ptr[Byte] = null
+object Binds {
+          var open: Ptr[Byte] = null
         var close: Ptr[Byte] = null
         var getFiles: Ptr[Byte] = null
         var readFile: Ptr[Byte] = null
         var fileExists: Ptr[Byte] = null
         var getCompressionLevel: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.open = GdxApi.getMethodBind(c"ZIPReader", c"open", 166001499L)
+  def loadBinds(): Unit = {
+                Binds.open = GdxApi.getMethodBind(c"ZIPReader", c"open", 166001499L)
             Binds.close = GdxApi.getMethodBind(c"ZIPReader", c"close", 166280745L)
             Binds.getFiles = GdxApi.getMethodBind(c"ZIPReader", c"get_files", 2981934095L)
             Binds.readFile = GdxApi.getMethodBind(c"ZIPReader", c"read_file", 740857591L)
             Binds.fileExists = GdxApi.getMethodBind(c"ZIPReader", c"file_exists", 35364943L)
             Binds.getCompressionLevel = GdxApi.getMethodBind(c"ZIPReader", c"get_compression_level", 3694577386L)
+  }
+}
 
-    def apply(): ZIPReader =
-        val obj = new ZIPReader()
-        obj.ptr = GdxApi.constructObject(c"ZIPReader")
-        obj
+def apply(): ZIPReader = {
+  val obj = new ZIPReader()
+  obj.ptr = GdxApi.constructObject(c"ZIPReader")
+  obj
+}

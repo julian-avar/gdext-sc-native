@@ -5,31 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FileSystemDock extends VBoxContainer
-
-    def navigateToPath(path: CString): Unit =
+class FileSystemDock extends VBoxContainer {
+    def navigateToPath(path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
+        _args(0) = path
         GdxApi.ptrcall(FileSystemDock.Binds.navigateToPath, ptr, _args, null)
+}
 
-    def addResourceTooltipPlugin(plugin: EditorResourceTooltipPlugin): Unit =
+    def addResourceTooltipPlugin(plugin: EditorResourceTooltipPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(FileSystemDock.Binds.addResourceTooltipPlugin, ptr, _args, null)
+}
 
-    def removeResourceTooltipPlugin(plugin: EditorResourceTooltipPlugin): Unit =
+    def removeResourceTooltipPlugin(plugin: EditorResourceTooltipPlugin): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = plugin.ptr
         GdxApi.ptrcall(FileSystemDock.Binds.removeResourceTooltipPlugin, ptr, _args, null)
-
+}
+}
 
 object FileSystemDock:
-    object Binds:
-        var navigateToPath: Ptr[Byte] = null
+object Binds {
+          var navigateToPath: Ptr[Byte] = null
         var addResourceTooltipPlugin: Ptr[Byte] = null
         var removeResourceTooltipPlugin: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.navigateToPath = GdxApi.getMethodBind(c"FileSystemDock", c"navigate_to_path", 83702148L)
+  def loadBinds(): Unit = {
+                Binds.navigateToPath = GdxApi.getMethodBind(c"FileSystemDock", c"navigate_to_path", 83702148L)
             Binds.addResourceTooltipPlugin = GdxApi.getMethodBind(c"FileSystemDock", c"add_resource_tooltip_plugin", 2258356838L)
             Binds.removeResourceTooltipPlugin = GdxApi.getMethodBind(c"FileSystemDock", c"remove_resource_tooltip_plugin", 2258356838L)
+  }
+}

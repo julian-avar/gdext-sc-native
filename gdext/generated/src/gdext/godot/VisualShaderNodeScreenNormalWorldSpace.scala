@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeScreenNormalWorldSpace extends VisualShaderNode
-
-
-
+class VisualShaderNodeScreenNormalWorldSpace extends VisualShaderNode {}
 
 object VisualShaderNodeScreenNormalWorldSpace:
-    def apply(): VisualShaderNodeScreenNormalWorldSpace =
-        val obj = new VisualShaderNodeScreenNormalWorldSpace()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeScreenNormalWorldSpace")
-        obj
+def apply(): VisualShaderNodeScreenNormalWorldSpace = {
+  val obj = new VisualShaderNodeScreenNormalWorldSpace()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeScreenNormalWorldSpace")
+  obj
+}

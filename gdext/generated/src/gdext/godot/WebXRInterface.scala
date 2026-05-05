@@ -5,165 +5,91 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WebXRInterface extends XRInterface
-
-    def isSessionSupported(sessionMode: CString): Unit =
+class WebXRInterface extends XRInterface {
+    def isSessionSupported(sessionMode: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sessionMode.ptr
+        _args(0) = sessionMode
         GdxApi.ptrcall(WebXRInterface.Binds.isSessionSupported, ptr, _args, null)
+}
 
-    def setSessionMode(sessionMode: CString): Unit =
+    def isInputSourceActive(inputSourceId: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = sessionMode.ptr
-        GdxApi.ptrcall(WebXRInterface.Binds.setSessionMode, ptr, _args, null)
-
-    def getSessionMode(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getSessionMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setRequiredFeatures(requiredFeatures: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = requiredFeatures.ptr
-        GdxApi.ptrcall(WebXRInterface.Binds.setRequiredFeatures, ptr, _args, null)
-
-    def getRequiredFeatures(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getRequiredFeatures, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setOptionalFeatures(optionalFeatures: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = optionalFeatures.ptr
-        GdxApi.ptrcall(WebXRInterface.Binds.setOptionalFeatures, ptr, _args, null)
-
-    def getOptionalFeatures(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getOptionalFeatures, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getReferenceSpaceType(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getReferenceSpaceType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getEnabledFeatures(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getEnabledFeatures, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setRequestedReferenceSpaceTypes(requestedReferenceSpaceTypes: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = requestedReferenceSpaceTypes.ptr
-        GdxApi.ptrcall(WebXRInterface.Binds.setRequestedReferenceSpaceTypes, ptr, _args, null)
-
-    def getRequestedReferenceSpaceTypes(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getRequestedReferenceSpaceTypes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def isInputSourceActive(inputSourceId: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = inputSourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = inputSourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(WebXRInterface.Binds.isInputSourceActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getInputSourceTracker(inputSourceId: Int): XRControllerTracker =
+    def getInputSourceTracker(inputSourceId: Int): XRControllerTracker = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = inputSourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = inputSourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebXRInterface.Binds.getInputSourceTracker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new XRControllerTracker(!_ret)
+}
 
-    def getInputSourceTargetRayMode(inputSourceId: Int): Int =
+    def getInputSourceTargetRayMode(inputSourceId: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = inputSourceId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = inputSourceId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebXRInterface.Binds.getInputSourceTargetRayMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVisibilityState(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(WebXRInterface.Binds.getVisibilityState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getDisplayRefreshRate(): Float =
+    def getDisplayRefreshRate(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(WebXRInterface.Binds.getDisplayRefreshRate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setDisplayRefreshRate(refreshRate: Float): Unit =
+    def setDisplayRefreshRate(refreshRate: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = refreshRate.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(WebXRInterface.Binds.setDisplayRefreshRate, ptr, _args, null)
+}
 
-    def getAvailableDisplayRefreshRates(): Array =
+    def getAvailableDisplayRefreshRates(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebXRInterface.Binds.getAvailableDisplayRefreshRates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def sessionMode: Ptr[Byte] = getSessionMode()
-    def sessionMode_=(v: Ptr[Byte]): Unit = setSessionMode(v)
-    def requiredFeatures: Ptr[Byte] = getRequiredFeatures()
-    def requiredFeatures_=(v: Ptr[Byte]): Unit = setRequiredFeatures(v)
-    def optionalFeatures: Ptr[Byte] = getOptionalFeatures()
-    def optionalFeatures_=(v: Ptr[Byte]): Unit = setOptionalFeatures(v)
-    def requestedReferenceSpaceTypes: Ptr[Byte] = getRequestedReferenceSpaceTypes()
-    def requestedReferenceSpaceTypes_=(v: Ptr[Byte]): Unit = setRequestedReferenceSpaceTypes(v)
-    def referenceSpaceType: Ptr[Byte] = getReferenceSpaceType()
-    def enabledFeatures: Ptr[Byte] = getEnabledFeatures()
-    def visibilityState: Ptr[Byte] = getVisibilityState()
+}
+
+    def sessionMode: CString = getSessionMode()
+    def sessionMode_=(v: CString): Unit = setSessionMode(v)
+    def requiredFeatures: CString = getRequiredFeatures()
+    def requiredFeatures_=(v: CString): Unit = setRequiredFeatures(v)
+    def optionalFeatures: CString = getOptionalFeatures()
+    def optionalFeatures_=(v: CString): Unit = setOptionalFeatures(v)
+    def requestedReferenceSpaceTypes: CString = getRequestedReferenceSpaceTypes()
+    def requestedReferenceSpaceTypes_=(v: CString): Unit = setRequestedReferenceSpaceTypes(v)
+    def referenceSpaceType: CString = getReferenceSpaceType()
+    def enabledFeatures: CString = getEnabledFeatures()
+    def visibilityState: CString = getVisibilityState()
+}
 
 object WebXRInterface:
-    object Binds:
-        var isSessionSupported: Ptr[Byte] = null
-        var setSessionMode: Ptr[Byte] = null
-        var getSessionMode: Ptr[Byte] = null
-        var setRequiredFeatures: Ptr[Byte] = null
-        var getRequiredFeatures: Ptr[Byte] = null
-        var setOptionalFeatures: Ptr[Byte] = null
-        var getOptionalFeatures: Ptr[Byte] = null
-        var getReferenceSpaceType: Ptr[Byte] = null
-        var getEnabledFeatures: Ptr[Byte] = null
-        var setRequestedReferenceSpaceTypes: Ptr[Byte] = null
-        var getRequestedReferenceSpaceTypes: Ptr[Byte] = null
+object Binds {
+          var isSessionSupported: Ptr[Byte] = null
         var isInputSourceActive: Ptr[Byte] = null
         var getInputSourceTracker: Ptr[Byte] = null
         var getInputSourceTargetRayMode: Ptr[Byte] = null
-        var getVisibilityState: Ptr[Byte] = null
         var getDisplayRefreshRate: Ptr[Byte] = null
         var setDisplayRefreshRate: Ptr[Byte] = null
         var getAvailableDisplayRefreshRates: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.isSessionSupported = GdxApi.getMethodBind(c"WebXRInterface", c"is_session_supported", 83702148L)
-            Binds.setSessionMode = GdxApi.getMethodBind(c"WebXRInterface", c"set_session_mode", 83702148L)
-            Binds.getSessionMode = GdxApi.getMethodBind(c"WebXRInterface", c"get_session_mode", 201670096L)
-            Binds.setRequiredFeatures = GdxApi.getMethodBind(c"WebXRInterface", c"set_required_features", 83702148L)
-            Binds.getRequiredFeatures = GdxApi.getMethodBind(c"WebXRInterface", c"get_required_features", 201670096L)
-            Binds.setOptionalFeatures = GdxApi.getMethodBind(c"WebXRInterface", c"set_optional_features", 83702148L)
-            Binds.getOptionalFeatures = GdxApi.getMethodBind(c"WebXRInterface", c"get_optional_features", 201670096L)
-            Binds.getReferenceSpaceType = GdxApi.getMethodBind(c"WebXRInterface", c"get_reference_space_type", 201670096L)
-            Binds.getEnabledFeatures = GdxApi.getMethodBind(c"WebXRInterface", c"get_enabled_features", 201670096L)
-            Binds.setRequestedReferenceSpaceTypes = GdxApi.getMethodBind(c"WebXRInterface", c"set_requested_reference_space_types", 83702148L)
-            Binds.getRequestedReferenceSpaceTypes = GdxApi.getMethodBind(c"WebXRInterface", c"get_requested_reference_space_types", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.isSessionSupported = GdxApi.getMethodBind(c"WebXRInterface", c"is_session_supported", 83702148L)
             Binds.isInputSourceActive = GdxApi.getMethodBind(c"WebXRInterface", c"is_input_source_active", 1116898809L)
             Binds.getInputSourceTracker = GdxApi.getMethodBind(c"WebXRInterface", c"get_input_source_tracker", 399776966L)
             Binds.getInputSourceTargetRayMode = GdxApi.getMethodBind(c"WebXRInterface", c"get_input_source_target_ray_mode", 2852387453L)
-            Binds.getVisibilityState = GdxApi.getMethodBind(c"WebXRInterface", c"get_visibility_state", 201670096L)
             Binds.getDisplayRefreshRate = GdxApi.getMethodBind(c"WebXRInterface", c"get_display_refresh_rate", 1740695150L)
             Binds.setDisplayRefreshRate = GdxApi.getMethodBind(c"WebXRInterface", c"set_display_refresh_rate", 373806689L)
             Binds.getAvailableDisplayRefreshRates = GdxApi.getMethodBind(c"WebXRInterface", c"get_available_display_refresh_rates", 3995934104L)
+  }
+}

@@ -5,486 +5,522 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Theme extends Resource
-
-    def setIcon(name: CString, themeType: CString, texture: Texture2D): Unit =
+class Theme extends Resource {
+    def setIcon(name: CString, themeType: CString, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         _args(2) = texture.ptr
         GdxApi.ptrcall(Theme.Binds.setIcon, ptr, _args, null)
+}
 
-    def getIcon(name: CString, themeType: CString): Texture2D =
+    def getIcon(name: CString, themeType: CString): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def hasIcon(name: CString, themeType: CString): Boolean =
+    def hasIcon(name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameIcon(oldName: CString, name: CString, themeType: CString): Unit =
+    def renameIcon(oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = oldName.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        _args(0) = oldName
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.renameIcon, ptr, _args, null)
+}
 
-    def clearIcon(name: CString, themeType: CString): Unit =
+    def clearIcon(name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.clearIcon, ptr, _args, null)
+}
 
-    def getIconList(themeType: CString): PackedStringArray =
+    def getIconList(themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getIconList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getIconTypeList(): PackedStringArray =
+    def getIconTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getIconTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setStylebox(name: CString, themeType: CString, texture: StyleBox): Unit =
+    def setStylebox(name: CString, themeType: CString, texture: StyleBox): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         _args(2) = texture.ptr
         GdxApi.ptrcall(Theme.Binds.setStylebox, ptr, _args, null)
+}
 
-    def getStylebox(name: CString, themeType: CString): StyleBox =
+    def getStylebox(name: CString, themeType: CString): StyleBox = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getStylebox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new StyleBox(!_ret)
+}
 
-    def hasStylebox(name: CString, themeType: CString): Boolean =
+    def hasStylebox(name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasStylebox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameStylebox(oldName: CString, name: CString, themeType: CString): Unit =
+    def renameStylebox(oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = oldName.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        _args(0) = oldName
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.renameStylebox, ptr, _args, null)
+}
 
-    def clearStylebox(name: CString, themeType: CString): Unit =
+    def clearStylebox(name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.clearStylebox, ptr, _args, null)
+}
 
-    def getStyleboxList(themeType: CString): PackedStringArray =
+    def getStyleboxList(themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getStyleboxList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getStyleboxTypeList(): PackedStringArray =
+    def getStyleboxTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getStyleboxTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setFont(name: CString, themeType: CString, font: Font): Unit =
+    def setFont(name: CString, themeType: CString, font: Font): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         _args(2) = font.ptr
         GdxApi.ptrcall(Theme.Binds.setFont, ptr, _args, null)
+}
 
-    def getFont(name: CString, themeType: CString): Font =
+    def getFont(name: CString, themeType: CString): Font = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Font(!_ret)
+}
 
-    def hasFont(name: CString, themeType: CString): Boolean =
+    def hasFont(name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameFont(oldName: CString, name: CString, themeType: CString): Unit =
+    def renameFont(oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = oldName.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        _args(0) = oldName
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.renameFont, ptr, _args, null)
+}
 
-    def clearFont(name: CString, themeType: CString): Unit =
+    def clearFont(name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.clearFont, ptr, _args, null)
+}
 
-    def getFontList(themeType: CString): PackedStringArray =
+    def getFontList(themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getFontList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getFontTypeList(): PackedStringArray =
+    def getFontTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getFontTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setFontSize(name: CString, themeType: CString, fontSize: Int): Unit =
+    def setFontSize(name: CString, themeType: CString, fontSize: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = fontSize.toLong
+        _args(0) = name
+        _args(1) = themeType
+        val _a2 = stackalloc[Long](); !_a2 = fontSize.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Theme.Binds.setFontSize, ptr, _args, null)
+}
 
-    def getFontSize(name: CString, themeType: CString): Int =
+    def getFontSize(name: CString, themeType: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        _args(1) = themeType
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Theme.Binds.getFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasFontSize(name: CString, themeType: CString): Boolean =
+    def hasFontSize(name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameFontSize(oldName: CString, name: CString, themeType: CString): Unit =
+    def renameFontSize(oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = oldName.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        _args(0) = oldName
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.renameFontSize, ptr, _args, null)
+}
 
-    def clearFontSize(name: CString, themeType: CString): Unit =
+    def clearFontSize(name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.clearFontSize, ptr, _args, null)
+}
 
-    def getFontSizeList(themeType: CString): PackedStringArray =
+    def getFontSizeList(themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getFontSizeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getFontSizeTypeList(): PackedStringArray =
+    def getFontSizeTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getFontSizeTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setColor(name: CString, themeType: CString, color: Color): Unit =
+    def setColor(name: CString, themeType: CString, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         _args(2) = color.ptr
         GdxApi.ptrcall(Theme.Binds.setColor, ptr, _args, null)
+}
 
-    def getColor(name: CString, themeType: CString): Color =
+    def getColor(name: CString, themeType: CString): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def hasColor(name: CString, themeType: CString): Boolean =
+    def hasColor(name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameColor(oldName: CString, name: CString, themeType: CString): Unit =
+    def renameColor(oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = oldName.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        _args(0) = oldName
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.renameColor, ptr, _args, null)
+}
 
-    def clearColor(name: CString, themeType: CString): Unit =
+    def clearColor(name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.clearColor, ptr, _args, null)
+}
 
-    def getColorList(themeType: CString): PackedStringArray =
+    def getColorList(themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getColorList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getColorTypeList(): PackedStringArray =
+    def getColorTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getColorTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setConstant(name: CString, themeType: CString, constant: Int): Unit =
+    def setConstant(name: CString, themeType: CString, constant: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = constant.toLong
+        _args(0) = name
+        _args(1) = themeType
+        val _a2 = stackalloc[Long](); !_a2 = constant.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Theme.Binds.setConstant, ptr, _args, null)
+}
 
-    def getConstant(name: CString, themeType: CString): Int =
+    def getConstant(name: CString, themeType: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        _args(1) = themeType
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Theme.Binds.getConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasConstant(name: CString, themeType: CString): Boolean =
+    def hasConstant(name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasConstant, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameConstant(oldName: CString, name: CString, themeType: CString): Unit =
+    def renameConstant(oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = oldName.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        _args(0) = oldName
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.renameConstant, ptr, _args, null)
+}
 
-    def clearConstant(name: CString, themeType: CString): Unit =
+    def clearConstant(name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = themeType.ptr
+        _args(0) = name
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.clearConstant, ptr, _args, null)
+}
 
-    def getConstantList(themeType: CString): PackedStringArray =
+    def getConstantList(themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getConstantList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getConstantTypeList(): PackedStringArray =
+    def getConstantTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getConstantTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setDefaultBaseScale(baseScale: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = baseScale.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Theme.Binds.setDefaultBaseScale, ptr, _args, null)
-
-    def getDefaultBaseScale(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Theme.Binds.getDefaultBaseScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def hasDefaultBaseScale(): Boolean =
+    def hasDefaultBaseScale(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasDefaultBaseScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDefaultFont(font: Font): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = font.ptr
-        GdxApi.ptrcall(Theme.Binds.setDefaultFont, ptr, _args, null)
-
-    def getDefaultFont(): Font =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Theme.Binds.getDefaultFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Font(!_ret)
-
-    def hasDefaultFont(): Boolean =
+    def hasDefaultFont(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasDefaultFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setDefaultFontSize(fontSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = fontSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Theme.Binds.setDefaultFontSize, ptr, _args, null)
-
-    def getDefaultFontSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Theme.Binds.getDefaultFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def hasDefaultFontSize(): Boolean =
+    def hasDefaultFontSize(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasDefaultFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setThemeItem(dataType: Int, name: CString, themeType: CString, value: Ptr[Byte]): Unit =
+    def setThemeItem(dataType: Int, name: CString, themeType: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = dataType.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
-        _args(3) = value.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = name
+        _args(2) = themeType
+        _args(3) = value
         GdxApi.ptrcall(Theme.Binds.setThemeItem, ptr, _args, null)
+}
 
-    def getThemeItem(dataType: Int, name: CString, themeType: CString): Ptr[Byte] =
+    def getThemeItem(dataType: Int, name: CString, themeType: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = dataType.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = name
+        _args(2) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getThemeItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def hasThemeItem(dataType: Int, name: CString, themeType: CString): Boolean =
+    def hasThemeItem(dataType: Int, name: CString, themeType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = dataType.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = name
+        _args(2) = themeType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.hasThemeItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def renameThemeItem(dataType: Int, oldName: CString, name: CString, themeType: CString): Unit =
+    def renameThemeItem(dataType: Int, oldName: CString, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = dataType.ptr
-        _args(1) = oldName.ptr
-        _args(2) = name.ptr
-        _args(3) = themeType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = oldName
+        _args(2) = name
+        _args(3) = themeType
         GdxApi.ptrcall(Theme.Binds.renameThemeItem, ptr, _args, null)
+}
 
-    def clearThemeItem(dataType: Int, name: CString, themeType: CString): Unit =
+    def clearThemeItem(dataType: Int, name: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = dataType.ptr
-        _args(1) = name.ptr
-        _args(2) = themeType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = name
+        _args(2) = themeType
         GdxApi.ptrcall(Theme.Binds.clearThemeItem, ptr, _args, null)
+}
 
-    def getThemeItemList(dataType: Int, themeType: CString): PackedStringArray =
+    def getThemeItemList(dataType: Int, themeType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = dataType.ptr
-        _args(1) = themeType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getThemeItemList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getThemeItemTypeList(dataType: Int): PackedStringArray =
+    def getThemeItemTypeList(dataType: Int): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = dataType.ptr
+        val _a0 = stackalloc[Long](); !_a0 = dataType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getThemeItemTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setTypeVariation(themeType: CString, baseType: CString): Unit =
+    def setTypeVariation(themeType: CString, baseType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = themeType.ptr
-        _args(1) = baseType.ptr
+        _args(0) = themeType
+        _args(1) = baseType
         GdxApi.ptrcall(Theme.Binds.setTypeVariation, ptr, _args, null)
+}
 
-    def isTypeVariation(themeType: CString, baseType: CString): Boolean =
+    def isTypeVariation(themeType: CString, baseType: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = themeType.ptr
-        _args(1) = baseType.ptr
+        _args(0) = themeType
+        _args(1) = baseType
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Theme.Binds.isTypeVariation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clearTypeVariation(themeType: CString): Unit =
+    def clearTypeVariation(themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         GdxApi.ptrcall(Theme.Binds.clearTypeVariation, ptr, _args, null)
+}
 
-    def getTypeVariationBase(themeType: CString): CString =
+    def getTypeVariationBase(themeType: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getTypeVariationBase, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getTypeVariationList(baseType: CString): PackedStringArray =
+    def getTypeVariationList(baseType: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = baseType.ptr
+        _args(0) = baseType
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getTypeVariationList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def addType(themeType: CString): Unit =
+    def addType(themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         GdxApi.ptrcall(Theme.Binds.addType, ptr, _args, null)
+}
 
-    def removeType(themeType: CString): Unit =
+    def removeType(themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = themeType.ptr
+        _args(0) = themeType
         GdxApi.ptrcall(Theme.Binds.removeType, ptr, _args, null)
+}
 
-    def renameType(oldThemeType: CString, themeType: CString): Unit =
+    def renameType(oldThemeType: CString, themeType: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = oldThemeType.ptr
-        _args(1) = themeType.ptr
+        _args(0) = oldThemeType
+        _args(1) = themeType
         GdxApi.ptrcall(Theme.Binds.renameType, ptr, _args, null)
+}
 
-    def getTypeList(): PackedStringArray =
+    def getTypeList(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Theme.Binds.getTypeList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def mergeWith(other: Theme): Unit =
+    def mergeWith(other: Theme): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = other.ptr
         GdxApi.ptrcall(Theme.Binds.mergeWith, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Theme.Binds.clear, ptr, _args, null)
-    def defaultBaseScale: Ptr[Byte] = getDefaultBaseScale()
-    def defaultBaseScale_=(v: Ptr[Byte]): Unit = setDefaultBaseScale(v)
-    def defaultFont: Ptr[Byte] = getDefaultFont()
-    def defaultFont_=(v: Ptr[Byte]): Unit = setDefaultFont(v)
-    def defaultFontSize: Ptr[Byte] = getDefaultFontSize()
-    def defaultFontSize_=(v: Ptr[Byte]): Unit = setDefaultFontSize(v)
+}
+
+    def defaultBaseScale: Float = getDefaultBaseScale()
+    def defaultBaseScale_=(v: Float): Unit = setDefaultBaseScale(v)
+    def defaultFont: Font = getDefaultFont()
+    def defaultFont_=(v: Font): Unit = setDefaultFont(v)
+    def defaultFontSize: Int = getDefaultFontSize()
+    def defaultFontSize_=(v: Int): Unit = setDefaultFontSize(v)
+}
 
 object Theme:
-    object Binds:
-        var setIcon: Ptr[Byte] = null
+object Binds {
+          var setIcon: Ptr[Byte] = null
         var getIcon: Ptr[Byte] = null
         var hasIcon: Ptr[Byte] = null
         var renameIcon: Ptr[Byte] = null
@@ -526,14 +562,8 @@ object Theme:
         var clearConstant: Ptr[Byte] = null
         var getConstantList: Ptr[Byte] = null
         var getConstantTypeList: Ptr[Byte] = null
-        var setDefaultBaseScale: Ptr[Byte] = null
-        var getDefaultBaseScale: Ptr[Byte] = null
         var hasDefaultBaseScale: Ptr[Byte] = null
-        var setDefaultFont: Ptr[Byte] = null
-        var getDefaultFont: Ptr[Byte] = null
         var hasDefaultFont: Ptr[Byte] = null
-        var setDefaultFontSize: Ptr[Byte] = null
-        var getDefaultFontSize: Ptr[Byte] = null
         var hasDefaultFontSize: Ptr[Byte] = null
         var setThemeItem: Ptr[Byte] = null
         var getThemeItem: Ptr[Byte] = null
@@ -554,8 +584,8 @@ object Theme:
         var mergeWith: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setIcon = GdxApi.getMethodBind(c"Theme", c"set_icon", 2188371082L)
+  def loadBinds(): Unit = {
+                Binds.setIcon = GdxApi.getMethodBind(c"Theme", c"set_icon", 2188371082L)
             Binds.getIcon = GdxApi.getMethodBind(c"Theme", c"get_icon", 934555193L)
             Binds.hasIcon = GdxApi.getMethodBind(c"Theme", c"has_icon", 471820014L)
             Binds.renameIcon = GdxApi.getMethodBind(c"Theme", c"rename_icon", 642128662L)
@@ -597,14 +627,8 @@ object Theme:
             Binds.clearConstant = GdxApi.getMethodBind(c"Theme", c"clear_constant", 3740211285L)
             Binds.getConstantList = GdxApi.getMethodBind(c"Theme", c"get_constant_list", 4291131558L)
             Binds.getConstantTypeList = GdxApi.getMethodBind(c"Theme", c"get_constant_type_list", 1139954409L)
-            Binds.setDefaultBaseScale = GdxApi.getMethodBind(c"Theme", c"set_default_base_scale", 373806689L)
-            Binds.getDefaultBaseScale = GdxApi.getMethodBind(c"Theme", c"get_default_base_scale", 1740695150L)
             Binds.hasDefaultBaseScale = GdxApi.getMethodBind(c"Theme", c"has_default_base_scale", 36873697L)
-            Binds.setDefaultFont = GdxApi.getMethodBind(c"Theme", c"set_default_font", 1262170328L)
-            Binds.getDefaultFont = GdxApi.getMethodBind(c"Theme", c"get_default_font", 3229501585L)
             Binds.hasDefaultFont = GdxApi.getMethodBind(c"Theme", c"has_default_font", 36873697L)
-            Binds.setDefaultFontSize = GdxApi.getMethodBind(c"Theme", c"set_default_font_size", 1286410249L)
-            Binds.getDefaultFontSize = GdxApi.getMethodBind(c"Theme", c"get_default_font_size", 3905245786L)
             Binds.hasDefaultFontSize = GdxApi.getMethodBind(c"Theme", c"has_default_font_size", 36873697L)
             Binds.setThemeItem = GdxApi.getMethodBind(c"Theme", c"set_theme_item", 2492983623L)
             Binds.getThemeItem = GdxApi.getMethodBind(c"Theme", c"get_theme_item", 2191024021L)
@@ -624,8 +648,11 @@ object Theme:
             Binds.getTypeList = GdxApi.getMethodBind(c"Theme", c"get_type_list", 1139954409L)
             Binds.mergeWith = GdxApi.getMethodBind(c"Theme", c"merge_with", 2326690814L)
             Binds.clear = GdxApi.getMethodBind(c"Theme", c"clear", 3218959716L)
+  }
+}
 
-    def apply(): Theme =
-        val obj = new Theme()
-        obj.ptr = GdxApi.constructObject(c"Theme")
-        obj
+def apply(): Theme = {
+  val obj = new Theme()
+  obj.ptr = GdxApi.constructObject(c"Theme")
+  obj
+}

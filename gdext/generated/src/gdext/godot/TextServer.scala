@@ -5,1376 +5,1563 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextServer extends RefCounted
-
-    def hasFeature(feature: Int): Boolean =
+class TextServer extends RefCounted {
+    def hasFeature(feature: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.hasFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getName(): CString =
+    def getName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFeatures(): Long =
+    def getFeatures(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.getFeatures, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def loadSupportData(filename: CString): Boolean =
+    def loadSupportData(filename: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filename.ptr
+        _args(0) = filename
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.loadSupportData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSupportDataFilename(): CString =
+    def getSupportDataFilename(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.getSupportDataFilename, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSupportDataInfo(): CString =
+    def getSupportDataInfo(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.getSupportDataInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def saveSupportData(filename: CString): Boolean =
+    def saveSupportData(filename: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filename.ptr
+        _args(0) = filename
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.saveSupportData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getSupportData(): PackedByteArray =
+    def getSupportData(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.getSupportData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def isLocaleRightToLeft(locale: CString): Boolean =
+    def isLocaleRightToLeft(locale: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.isLocaleRightToLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def nameToTag(name: CString): Long =
+    def nameToTag(name: CString): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.nameToTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def tagToName(tag: Long): CString =
+    def tagToName(tag: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = tag
+        val _a0 = stackalloc[Long](); !_a0 = tag
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.tagToName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def has(rid: RID): Boolean =
+    def has(rid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.has, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def freeRid(rid: RID): Unit =
+    def freeRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(TextServer.Binds.freeRid, ptr, _args, null)
+}
 
-    def createFont(): RID =
+    def createFont(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.createFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def createFontLinkedVariation(fontRid: RID): RID =
+    def createFontLinkedVariation(fontRid: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.createFontLinkedVariation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def fontSetData(fontRid: RID, data: PackedByteArray): Unit =
+    def fontSetData(fontRid: RID, data: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = data.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetData, ptr, _args, null)
+}
 
-    def fontSetFaceIndex(fontRid: RID, faceIndex: Long): Unit =
+    def fontSetFaceIndex(fontRid: RID, faceIndex: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = faceIndex
+        val _a1 = stackalloc[Long](); !_a1 = faceIndex
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetFaceIndex, ptr, _args, null)
+}
 
-    def fontGetFaceIndex(fontRid: RID): Long =
+    def fontGetFaceIndex(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetFaceIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontGetFaceCount(fontRid: RID): Long =
+    def fontGetFaceCount(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetFaceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetStyle(fontRid: RID, style: Int): Unit =
+    def fontSetStyle(fontRid: RID, style: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = style.ptr
+        val _a1 = stackalloc[Long](); !_a1 = style.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetStyle, ptr, _args, null)
+}
 
-    def fontGetStyle(fontRid: RID): Int =
+    def fontGetStyle(fontRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetStyle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fontSetName(fontRid: RID, name: CString): Unit =
+    def fontSetName(fontRid: RID, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(TextServer.Binds.fontSetName, ptr, _args, null)
+}
 
-    def fontGetName(fontRid: RID): CString =
+    def fontGetName(fontRid: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontGetOtNameStrings(fontRid: RID): Dictionary =
+    def fontGetOtNameStrings(fontRid: RID): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetOtNameStrings, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def fontSetStyleName(fontRid: RID, name: CString): Unit =
+    def fontSetStyleName(fontRid: RID, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(TextServer.Binds.fontSetStyleName, ptr, _args, null)
+}
 
-    def fontGetStyleName(fontRid: RID): CString =
+    def fontGetStyleName(fontRid: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetStyleName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetWeight(fontRid: RID, weight: Long): Unit =
+    def fontSetWeight(fontRid: RID, weight: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = weight
+        val _a1 = stackalloc[Long](); !_a1 = weight
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetWeight, ptr, _args, null)
+}
 
-    def fontGetWeight(fontRid: RID): Long =
+    def fontGetWeight(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetWeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetStretch(fontRid: RID, weight: Long): Unit =
+    def fontSetStretch(fontRid: RID, weight: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = weight
+        val _a1 = stackalloc[Long](); !_a1 = weight
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetStretch, ptr, _args, null)
+}
 
-    def fontGetStretch(fontRid: RID): Long =
+    def fontGetStretch(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetStretch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetAntialiasing(fontRid: RID, antialiasing: Int): Unit =
+    def fontSetAntialiasing(fontRid: RID, antialiasing: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = antialiasing.ptr
+        val _a1 = stackalloc[Long](); !_a1 = antialiasing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetAntialiasing, ptr, _args, null)
+}
 
-    def fontGetAntialiasing(fontRid: RID): Int =
+    def fontGetAntialiasing(fontRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetAntialiasing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fontSetDisableEmbeddedBitmaps(fontRid: RID, disableEmbeddedBitmaps: Boolean): Unit =
+    def fontSetDisableEmbeddedBitmaps(fontRid: RID, disableEmbeddedBitmaps: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if disableEmbeddedBitmaps then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetDisableEmbeddedBitmaps, ptr, _args, null)
+}
 
-    def fontGetDisableEmbeddedBitmaps(fontRid: RID): Boolean =
+    def fontGetDisableEmbeddedBitmaps(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontGetDisableEmbeddedBitmaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetGenerateMipmaps(fontRid: RID, generateMipmaps: Boolean): Unit =
+    def fontSetGenerateMipmaps(fontRid: RID, generateMipmaps: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if generateMipmaps then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetGenerateMipmaps, ptr, _args, null)
+}
 
-    def fontGetGenerateMipmaps(fontRid: RID): Boolean =
+    def fontGetGenerateMipmaps(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGenerateMipmaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetMultichannelSignedDistanceField(fontRid: RID, msdf: Boolean): Unit =
+    def fontSetMultichannelSignedDistanceField(fontRid: RID, msdf: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if msdf then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetMultichannelSignedDistanceField, ptr, _args, null)
+}
 
-    def fontIsMultichannelSignedDistanceField(fontRid: RID): Boolean =
+    def fontIsMultichannelSignedDistanceField(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontIsMultichannelSignedDistanceField, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetMsdfPixelRange(fontRid: RID, msdfPixelRange: Long): Unit =
+    def fontSetMsdfPixelRange(fontRid: RID, msdfPixelRange: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = msdfPixelRange
+        val _a1 = stackalloc[Long](); !_a1 = msdfPixelRange
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetMsdfPixelRange, ptr, _args, null)
+}
 
-    def fontGetMsdfPixelRange(fontRid: RID): Long =
+    def fontGetMsdfPixelRange(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetMsdfPixelRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetMsdfSize(fontRid: RID, msdfSize: Long): Unit =
+    def fontSetMsdfSize(fontRid: RID, msdfSize: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = msdfSize
+        val _a1 = stackalloc[Long](); !_a1 = msdfSize
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetMsdfSize, ptr, _args, null)
+}
 
-    def fontGetMsdfSize(fontRid: RID): Long =
+    def fontGetMsdfSize(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetMsdfSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetFixedSize(fontRid: RID, fixedSize: Long): Unit =
+    def fontSetFixedSize(fontRid: RID, fixedSize: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = fixedSize
+        val _a1 = stackalloc[Long](); !_a1 = fixedSize
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetFixedSize, ptr, _args, null)
+}
 
-    def fontGetFixedSize(fontRid: RID): Long =
+    def fontGetFixedSize(fontRid: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetFixedSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetFixedSizeScaleMode(fontRid: RID, fixedSizeScaleMode: Int): Unit =
+    def fontSetFixedSizeScaleMode(fontRid: RID, fixedSizeScaleMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = fixedSizeScaleMode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = fixedSizeScaleMode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetFixedSizeScaleMode, ptr, _args, null)
+}
 
-    def fontGetFixedSizeScaleMode(fontRid: RID): Int =
+    def fontGetFixedSizeScaleMode(fontRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetFixedSizeScaleMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fontSetAllowSystemFallback(fontRid: RID, allowSystemFallback: Boolean): Unit =
+    def fontSetAllowSystemFallback(fontRid: RID, allowSystemFallback: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if allowSystemFallback then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetAllowSystemFallback, ptr, _args, null)
+}
 
-    def fontIsAllowSystemFallback(fontRid: RID): Boolean =
+    def fontIsAllowSystemFallback(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontIsAllowSystemFallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontClearSystemFallbackCache(): Unit =
+    def fontClearSystemFallbackCache(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TextServer.Binds.fontClearSystemFallbackCache, ptr, _args, null)
+}
 
-    def fontSetForceAutohinter(fontRid: RID, forceAutohinter: Boolean): Unit =
+    def fontSetForceAutohinter(fontRid: RID, forceAutohinter: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if forceAutohinter then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetForceAutohinter, ptr, _args, null)
+}
 
-    def fontIsForceAutohinter(fontRid: RID): Boolean =
+    def fontIsForceAutohinter(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontIsForceAutohinter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetModulateColorGlyphs(fontRid: RID, forceAutohinter: Boolean): Unit =
+    def fontSetModulateColorGlyphs(fontRid: RID, forceAutohinter: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if forceAutohinter then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetModulateColorGlyphs, ptr, _args, null)
+}
 
-    def fontIsModulateColorGlyphs(fontRid: RID): Boolean =
+    def fontIsModulateColorGlyphs(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontIsModulateColorGlyphs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetHinting(fontRid: RID, hinting: Int): Unit =
+    def fontSetHinting(fontRid: RID, hinting: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = hinting.ptr
+        val _a1 = stackalloc[Long](); !_a1 = hinting.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetHinting, ptr, _args, null)
+}
 
-    def fontGetHinting(fontRid: RID): Int =
+    def fontGetHinting(fontRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetHinting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fontSetSubpixelPositioning(fontRid: RID, subpixelPositioning: Int): Unit =
+    def fontSetSubpixelPositioning(fontRid: RID, subpixelPositioning: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = subpixelPositioning.ptr
+        val _a1 = stackalloc[Long](); !_a1 = subpixelPositioning.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetSubpixelPositioning, ptr, _args, null)
+}
 
-    def fontGetSubpixelPositioning(fontRid: RID): Int =
+    def fontGetSubpixelPositioning(fontRid: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetSubpixelPositioning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fontSetKeepRoundingRemainders(fontRid: RID, keepRoundingRemainders: Boolean): Unit =
+    def fontSetKeepRoundingRemainders(fontRid: RID, keepRoundingRemainders: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if keepRoundingRemainders then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetKeepRoundingRemainders, ptr, _args, null)
+}
 
-    def fontGetKeepRoundingRemainders(fontRid: RID): Boolean =
+    def fontGetKeepRoundingRemainders(fontRid: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontGetKeepRoundingRemainders, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetEmbolden(fontRid: RID, strength: Double): Unit =
+    def fontSetEmbolden(fontRid: RID, strength: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Double](); !_a1 = strength
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetEmbolden, ptr, _args, null)
+}
 
-    def fontGetEmbolden(fontRid: RID): Double =
+    def fontGetEmbolden(fontRid: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetEmbolden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetSpacing(fontRid: RID, spacing: Int, value: Long): Unit =
+    def fontSetSpacing(fontRid: RID, spacing: Int, value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        _args(1) = spacing.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = value
+        val _a1 = stackalloc[Long](); !_a1 = spacing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = value
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetSpacing, ptr, _args, null)
+}
 
-    def fontGetSpacing(fontRid: RID, spacing: Int): Long =
+    def fontGetSpacing(fontRid: RID, spacing: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = spacing.ptr
-        val _ret = stackalloc[CLong]()
+        val _a1 = stackalloc[Long](); !_a1 = spacing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetSpacing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetBaselineOffset(fontRid: RID, baselineOffset: Double): Unit =
+    def fontSetBaselineOffset(fontRid: RID, baselineOffset: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Double](); !_a1 = baselineOffset
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetBaselineOffset, ptr, _args, null)
+}
 
-    def fontGetBaselineOffset(fontRid: RID): Double =
+    def fontGetBaselineOffset(fontRid: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetBaselineOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetTransform(fontRid: RID, transform: Transform2D): Unit =
+    def fontSetTransform(fontRid: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetTransform, ptr, _args, null)
+}
 
-    def fontGetTransform(fontRid: RID): Transform2D =
+    def fontGetTransform(fontRid: RID): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def fontSetVariationCoordinates(fontRid: RID, variationCoordinates: Dictionary): Unit =
+    def fontSetVariationCoordinates(fontRid: RID, variationCoordinates: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = variationCoordinates.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetVariationCoordinates, ptr, _args, null)
+}
 
-    def fontGetVariationCoordinates(fontRid: RID): Dictionary =
+    def fontGetVariationCoordinates(fontRid: RID): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetVariationCoordinates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def fontSetOversampling(fontRid: RID, oversampling: Double): Unit =
+    def fontSetOversampling(fontRid: RID, oversampling: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         val _a1 = stackalloc[Double](); !_a1 = oversampling
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetOversampling, ptr, _args, null)
+}
 
-    def fontGetOversampling(fontRid: RID): Double =
+    def fontGetOversampling(fontRid: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontGetSizeCacheList(fontRid: RID): Ptr[Byte] =
+    def fontGetSizeCacheList(fontRid: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetSizeCacheList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontClearSizeCache(fontRid: RID): Unit =
+    def fontClearSizeCache(fontRid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         GdxApi.ptrcall(TextServer.Binds.fontClearSizeCache, ptr, _args, null)
+}
 
-    def fontRemoveSizeCache(fontRid: RID, size: Vector2i): Unit =
+    def fontRemoveSizeCache(fontRid: RID, size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
         GdxApi.ptrcall(TextServer.Binds.fontRemoveSizeCache, ptr, _args, null)
+}
 
-    def fontGetSizeCacheInfo(fontRid: RID): Ptr[Byte] =
+    def fontGetSizeCacheInfo(fontRid: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetSizeCacheInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetAscent(fontRid: RID, size: Long, ascent: Double): Unit =
+    def fontSetAscent(fontRid: RID, size: Long, ascent: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = ascent
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetAscent, ptr, _args, null)
+}
 
-    def fontGetAscent(fontRid: RID, size: Long): Double =
+    def fontGetAscent(fontRid: RID, size: Long): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetAscent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetDescent(fontRid: RID, size: Long, descent: Double): Unit =
+    def fontSetDescent(fontRid: RID, size: Long, descent: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = descent
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetDescent, ptr, _args, null)
+}
 
-    def fontGetDescent(fontRid: RID, size: Long): Double =
+    def fontGetDescent(fontRid: RID, size: Long): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetDescent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetUnderlinePosition(fontRid: RID, size: Long, underlinePosition: Double): Unit =
+    def fontSetUnderlinePosition(fontRid: RID, size: Long, underlinePosition: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = underlinePosition
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetUnderlinePosition, ptr, _args, null)
+}
 
-    def fontGetUnderlinePosition(fontRid: RID, size: Long): Double =
+    def fontGetUnderlinePosition(fontRid: RID, size: Long): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetUnderlinePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetUnderlineThickness(fontRid: RID, size: Long, underlineThickness: Double): Unit =
+    def fontSetUnderlineThickness(fontRid: RID, size: Long, underlineThickness: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = underlineThickness
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetUnderlineThickness, ptr, _args, null)
+}
 
-    def fontGetUnderlineThickness(fontRid: RID, size: Long): Double =
+    def fontGetUnderlineThickness(fontRid: RID, size: Long): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetUnderlineThickness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetScale(fontRid: RID, size: Long, scale: Double): Unit =
+    def fontSetScale(fontRid: RID, size: Long, scale: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = scale
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetScale, ptr, _args, null)
+}
 
-    def fontGetScale(fontRid: RID, size: Long): Double =
+    def fontGetScale(fontRid: RID, size: Long): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontGetTextureCount(fontRid: RID, size: Vector2i): Long =
+    def fontGetTextureCount(fontRid: RID, size: Vector2i): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetTextureCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontClearTextures(fontRid: RID, size: Vector2i): Unit =
+    def fontClearTextures(fontRid: RID, size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
         GdxApi.ptrcall(TextServer.Binds.fontClearTextures, ptr, _args, null)
+}
 
-    def fontRemoveTexture(fontRid: RID, size: Vector2i, textureIndex: Long): Unit =
+    def fontRemoveTexture(fontRid: RID, size: Vector2i, textureIndex: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontRemoveTexture, ptr, _args, null)
+}
 
-    def fontSetTextureImage(fontRid: RID, size: Vector2i, textureIndex: Long, image: Image): Unit =
+    def fontSetTextureImage(fontRid: RID, size: Vector2i, textureIndex: Long, image: Image): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = image.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetTextureImage, ptr, _args, null)
+}
 
-    def fontGetTextureImage(fontRid: RID, size: Vector2i, textureIndex: Long): Image =
+    def fontGetTextureImage(fontRid: RID, size: Vector2i, textureIndex: Long): Image = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetTextureImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def fontSetTextureOffsets(fontRid: RID, size: Vector2i, textureIndex: Long, offset: PackedInt32Array): Unit =
+    def fontSetTextureOffsets(fontRid: RID, size: Vector2i, textureIndex: Long, offset: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = offset.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetTextureOffsets, ptr, _args, null)
+}
 
-    def fontGetTextureOffsets(fontRid: RID, size: Vector2i, textureIndex: Long): PackedInt32Array =
+    def fontGetTextureOffsets(fontRid: RID, size: Vector2i, textureIndex: Long): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetTextureOffsets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def fontGetGlyphList(fontRid: RID, size: Vector2i): PackedInt32Array =
+    def fontGetGlyphList(fontRid: RID, size: Vector2i): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def fontClearGlyphs(fontRid: RID, size: Vector2i): Unit =
+    def fontClearGlyphs(fontRid: RID, size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
         GdxApi.ptrcall(TextServer.Binds.fontClearGlyphs, ptr, _args, null)
+}
 
-    def fontRemoveGlyph(fontRid: RID, size: Vector2i, glyph: Long): Unit =
+    def fontRemoveGlyph(fontRid: RID, size: Vector2i, glyph: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontRemoveGlyph, ptr, _args, null)
+}
 
-    def fontGetGlyphAdvance(fontRid: RID, size: Long, glyph: Long): Vector2 =
+    def fontGetGlyphAdvance(fontRid: RID, size: Long, glyph: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphAdvance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def fontSetGlyphAdvance(fontRid: RID, size: Long, glyph: Long, advance: Vector2): Unit =
+    def fontSetGlyphAdvance(fontRid: RID, size: Long, glyph: Long, advance: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = advance.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetGlyphAdvance, ptr, _args, null)
+}
 
-    def fontGetGlyphOffset(fontRid: RID, size: Vector2i, glyph: Long): Vector2 =
+    def fontGetGlyphOffset(fontRid: RID, size: Vector2i, glyph: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def fontSetGlyphOffset(fontRid: RID, size: Vector2i, glyph: Long, offset: Vector2): Unit =
+    def fontSetGlyphOffset(fontRid: RID, size: Vector2i, glyph: Long, offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = offset.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetGlyphOffset, ptr, _args, null)
+}
 
-    def fontGetGlyphSize(fontRid: RID, size: Vector2i, glyph: Long): Vector2 =
+    def fontGetGlyphSize(fontRid: RID, size: Vector2i, glyph: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def fontSetGlyphSize(fontRid: RID, size: Vector2i, glyph: Long, glSize: Vector2): Unit =
+    def fontSetGlyphSize(fontRid: RID, size: Vector2i, glyph: Long, glSize: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = glSize.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetGlyphSize, ptr, _args, null)
+}
 
-    def fontGetGlyphUvRect(fontRid: RID, size: Vector2i, glyph: Long): Rect2 =
+    def fontGetGlyphUvRect(fontRid: RID, size: Vector2i, glyph: Long): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphUvRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def fontSetGlyphUvRect(fontRid: RID, size: Vector2i, glyph: Long, uvRect: Rect2): Unit =
+    def fontSetGlyphUvRect(fontRid: RID, size: Vector2i, glyph: Long, uvRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = uvRect.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetGlyphUvRect, ptr, _args, null)
+}
 
-    def fontGetGlyphTextureIdx(fontRid: RID, size: Vector2i, glyph: Long): Long =
+    def fontGetGlyphTextureIdx(fontRid: RID, size: Vector2i, glyph: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphTextureIdx, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetGlyphTextureIdx(fontRid: RID, size: Vector2i, glyph: Long, textureIdx: Long): Unit =
+    def fontSetGlyphTextureIdx(fontRid: RID, size: Vector2i, glyph: Long, textureIdx: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = textureIdx
+        val _a3 = stackalloc[Long](); !_a3 = textureIdx
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetGlyphTextureIdx, ptr, _args, null)
+}
 
-    def fontGetGlyphTextureRid(fontRid: RID, size: Vector2i, glyph: Long): RID =
+    def fontGetGlyphTextureRid(fontRid: RID, size: Vector2i, glyph: Long): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphTextureRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def fontGetGlyphTextureSize(fontRid: RID, size: Vector2i, glyph: Long): Vector2 =
+    def fontGetGlyphTextureSize(fontRid: RID, size: Vector2i, glyph: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph
+        val _a2 = stackalloc[Long](); !_a2 = glyph
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphTextureSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def fontGetGlyphContours(font: RID, size: Long, index: Long): Dictionary =
+    def fontGetGlyphContours(font: RID, size: Long, index: Long): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = index
+        val _a2 = stackalloc[Long](); !_a2 = index
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphContours, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def fontGetKerningList(fontRid: RID, size: Long): Ptr[Byte] =
+    def fontGetKerningList(fontRid: RID, size: Long): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetKerningList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontClearKerningMap(fontRid: RID, size: Long): Unit =
+    def fontClearKerningMap(fontRid: RID, size: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontClearKerningMap, ptr, _args, null)
+}
 
-    def fontRemoveKerning(fontRid: RID, size: Long, glyphPair: Vector2i): Unit =
+    def fontRemoveKerning(fontRid: RID, size: Long, glyphPair: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = glyphPair.ptr
         GdxApi.ptrcall(TextServer.Binds.fontRemoveKerning, ptr, _args, null)
+}
 
-    def fontSetKerning(fontRid: RID, size: Long, glyphPair: Vector2i, kerning: Vector2): Unit =
+    def fontSetKerning(fontRid: RID, size: Long, glyphPair: Vector2i, kerning: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = glyphPair.ptr
         _args(3) = kerning.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetKerning, ptr, _args, null)
+}
 
-    def fontGetKerning(fontRid: RID, size: Long, glyphPair: Vector2i): Vector2 =
+    def fontGetKerning(fontRid: RID, size: Long, glyphPair: Vector2i): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = glyphPair.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetKerning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def fontGetGlyphIndex(fontRid: RID, size: Long, char: Long, variationSelector: Long): Long =
+    def fontGetGlyphIndex(fontRid: RID, size: Long, char: Long, variationSelector: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = char
+        val _a2 = stackalloc[Long](); !_a2 = char
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = variationSelector
+        val _a3 = stackalloc[Long](); !_a3 = variationSelector
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlyphIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontGetCharFromGlyphIndex(fontRid: RID, size: Long, glyphIndex: Long): Long =
+    def fontGetCharFromGlyphIndex(fontRid: RID, size: Long, glyphIndex: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = glyphIndex
+        val _a2 = stackalloc[Long](); !_a2 = glyphIndex
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.fontGetCharFromGlyphIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontHasChar(fontRid: RID, char: Long): Boolean =
+    def fontHasChar(fontRid: RID, char: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = char
+        val _a1 = stackalloc[Long](); !_a1 = char
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontHasChar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontGetSupportedChars(fontRid: RID): CString =
+    def fontGetSupportedChars(fontRid: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetSupportedChars, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontGetSupportedGlyphs(fontRid: RID): PackedInt32Array =
+    def fontGetSupportedGlyphs(fontRid: RID): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetSupportedGlyphs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def fontRenderRange(fontRid: RID, size: Vector2i, start: Long, end: Long): Unit =
+    def fontRenderRange(fontRid: RID, size: Vector2i, start: Long, end: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = start
+        val _a2 = stackalloc[Long](); !_a2 = start
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = end
+        val _a3 = stackalloc[Long](); !_a3 = end
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontRenderRange, ptr, _args, null)
+}
 
-    def fontRenderGlyph(fontRid: RID, size: Vector2i, index: Long): Unit =
+    def fontRenderGlyph(fontRid: RID, size: Vector2i, index: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = index
+        val _a2 = stackalloc[Long](); !_a2 = index
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontRenderGlyph, ptr, _args, null)
+}
 
-    def fontDrawGlyph(fontRid: RID, canvas: RID, size: Long, pos: Vector2, index: Long): Unit =
+    def fontDrawGlyph(fontRid: RID, canvas: RID, size: Long, pos: Vector2, index: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = fontRid.ptr
         _args(1) = canvas.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = size
+        val _a2 = stackalloc[Long](); !_a2 = size
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = pos.ptr
-        val _a4 = stackalloc[CLong](); !_a4 = index
+        val _a4 = stackalloc[Long](); !_a4 = index
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontDrawGlyph, ptr, _args, null)
+}
 
-    def fontDrawGlyphOutline(fontRid: RID, canvas: RID, size: Long, outlineSize: Long, pos: Vector2, index: Long): Unit =
+    def fontDrawGlyphOutline(fontRid: RID, canvas: RID, size: Long, outlineSize: Long, pos: Vector2, index: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = fontRid.ptr
         _args(1) = canvas.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = size
+        val _a2 = stackalloc[Long](); !_a2 = size
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = outlineSize
+        val _a3 = stackalloc[Long](); !_a3 = outlineSize
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         _args(4) = pos.ptr
-        val _a5 = stackalloc[CLong](); !_a5 = index
+        val _a5 = stackalloc[Long](); !_a5 = index
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontDrawGlyphOutline, ptr, _args, null)
+}
 
-    def fontIsLanguageSupported(fontRid: RID, language: CString): Boolean =
+    def fontIsLanguageSupported(fontRid: RID, language: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = language.ptr
+        _args(1) = language
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontIsLanguageSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetLanguageSupportOverride(fontRid: RID, language: CString, supported: Boolean): Unit =
+    def fontSetLanguageSupportOverride(fontRid: RID, language: CString, supported: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        _args(1) = language.ptr
+        _args(1) = language
         val _a2 = stackalloc[Byte](); !_a2 = if supported then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetLanguageSupportOverride, ptr, _args, null)
+}
 
-    def fontGetLanguageSupportOverride(fontRid: RID, language: CString): Boolean =
+    def fontGetLanguageSupportOverride(fontRid: RID, language: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = language.ptr
+        _args(1) = language
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontGetLanguageSupportOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontRemoveLanguageSupportOverride(fontRid: RID, language: CString): Unit =
+    def fontRemoveLanguageSupportOverride(fontRid: RID, language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = language.ptr
+        _args(1) = language
         GdxApi.ptrcall(TextServer.Binds.fontRemoveLanguageSupportOverride, ptr, _args, null)
+}
 
-    def fontGetLanguageSupportOverrides(fontRid: RID): PackedStringArray =
+    def fontGetLanguageSupportOverrides(fontRid: RID): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetLanguageSupportOverrides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def fontIsScriptSupported(fontRid: RID, script: CString): Boolean =
+    def fontIsScriptSupported(fontRid: RID, script: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = script.ptr
+        _args(1) = script
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontIsScriptSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontSetScriptSupportOverride(fontRid: RID, script: CString, supported: Boolean): Unit =
+    def fontSetScriptSupportOverride(fontRid: RID, script: CString, supported: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = fontRid.ptr
-        _args(1) = script.ptr
+        _args(1) = script
         val _a2 = stackalloc[Byte](); !_a2 = if supported then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetScriptSupportOverride, ptr, _args, null)
+}
 
-    def fontGetScriptSupportOverride(fontRid: RID, script: CString): Boolean =
+    def fontGetScriptSupportOverride(fontRid: RID, script: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = script.ptr
+        _args(1) = script
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.fontGetScriptSupportOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def fontRemoveScriptSupportOverride(fontRid: RID, script: CString): Unit =
+    def fontRemoveScriptSupportOverride(fontRid: RID, script: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
-        _args(1) = script.ptr
+        _args(1) = script
         GdxApi.ptrcall(TextServer.Binds.fontRemoveScriptSupportOverride, ptr, _args, null)
+}
 
-    def fontGetScriptSupportOverrides(fontRid: RID): PackedStringArray =
+    def fontGetScriptSupportOverrides(fontRid: RID): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetScriptSupportOverrides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def fontSetOpentypeFeatureOverrides(fontRid: RID, overrides: Dictionary): Unit =
+    def fontSetOpentypeFeatureOverrides(fontRid: RID, overrides: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = fontRid.ptr
         _args(1) = overrides.ptr
         GdxApi.ptrcall(TextServer.Binds.fontSetOpentypeFeatureOverrides, ptr, _args, null)
+}
 
-    def fontGetOpentypeFeatureOverrides(fontRid: RID): Dictionary =
+    def fontGetOpentypeFeatureOverrides(fontRid: RID): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontGetOpentypeFeatureOverrides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def fontSupportedFeatureList(fontRid: RID): Dictionary =
+    def fontSupportedFeatureList(fontRid: RID): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontSupportedFeatureList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def fontSupportedVariationList(fontRid: RID): Dictionary =
+    def fontSupportedVariationList(fontRid: RID): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fontRid.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.fontSupportedVariationList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def fontGetGlobalOversampling(): Double =
+    def fontGetGlobalOversampling(): Double = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.fontGetGlobalOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def fontSetGlobalOversampling(oversampling: Double): Unit =
+    def fontSetGlobalOversampling(oversampling: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = oversampling
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.fontSetGlobalOversampling, ptr, _args, null)
+}
 
-    def getHexCodeBoxSize(size: Long, index: Long): Vector2 =
+    def getHexCodeBoxSize(size: Long, index: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = size
+        val _a0 = stackalloc[Long](); !_a0 = size
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.getHexCodeBoxSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def drawHexCodeBox(canvas: RID, size: Long, pos: Vector2, index: Long, color: Color): Unit =
+    def drawHexCodeBox(canvas: RID, size: Long, pos: Vector2, index: Long, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = canvas.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size
+        val _a1 = stackalloc[Long](); !_a1 = size
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = pos.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = index
+        val _a3 = stackalloc[Long](); !_a3 = index
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         _args(4) = color.ptr
         GdxApi.ptrcall(TextServer.Binds.drawHexCodeBox, ptr, _args, null)
+}
 
-    def createShapedText(): RID =
+    def createShapedText(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.createShapedText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shapedTextClear(rid: RID): Unit =
+    def shapedTextClear(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(TextServer.Binds.shapedTextClear, ptr, _args, null)
+}
 
-    def shapedTextSetDirection(shaped: RID): Unit =
+    def shapedTextSetDirection(shaped: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetDirection, ptr, _args, null)
+}
 
-    def shapedTextGetDirection(shaped: RID): Int =
+    def shapedTextGetDirection(shaped: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapedTextGetInferredDirection(shaped: RID): Int =
+    def shapedTextGetInferredDirection(shaped: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetInferredDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapedTextSetBidiOverride(shaped: RID, `override`: Array): Unit =
+    def shapedTextSetBidiOverride(shaped: RID, `override`: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        _args(1) = `override`.ptr
+        _args(1) = `override`
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetBidiOverride, ptr, _args, null)
+}
 
-    def shapedTextSetCustomPunctuation(shaped: RID, punct: CString): Unit =
+    def shapedTextSetCustomPunctuation(shaped: RID, punct: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        _args(1) = punct.ptr
+        _args(1) = punct
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetCustomPunctuation, ptr, _args, null)
+}
 
-    def shapedTextGetCustomPunctuation(shaped: RID): CString =
+    def shapedTextGetCustomPunctuation(shaped: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetCustomPunctuation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextSetCustomEllipsis(shaped: RID, char: Long): Unit =
+    def shapedTextSetCustomEllipsis(shaped: RID, char: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = char
+        val _a1 = stackalloc[Long](); !_a1 = char
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetCustomEllipsis, ptr, _args, null)
+}
 
-    def shapedTextGetCustomEllipsis(shaped: RID): Long =
+    def shapedTextGetCustomEllipsis(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetCustomEllipsis, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextSetOrientation(shaped: RID): Unit =
+    def shapedTextSetOrientation(shaped: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetOrientation, ptr, _args, null)
+}
 
-    def shapedTextGetOrientation(shaped: RID): Int =
+    def shapedTextGetOrientation(shaped: RID): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetOrientation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapedTextSetPreserveInvalid(shaped: RID, enabled: Boolean): Unit =
+    def shapedTextSetPreserveInvalid(shaped: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetPreserveInvalid, ptr, _args, null)
+}
 
-    def shapedTextGetPreserveInvalid(shaped: RID): Boolean =
+    def shapedTextGetPreserveInvalid(shaped: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetPreserveInvalid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextSetPreserveControl(shaped: RID, enabled: Boolean): Unit =
+    def shapedTextSetPreserveControl(shaped: RID, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetPreserveControl, ptr, _args, null)
+}
 
-    def shapedTextGetPreserveControl(shaped: RID): Boolean =
+    def shapedTextGetPreserveControl(shaped: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetPreserveControl, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextSetSpacing(shaped: RID, spacing: Int, value: Long): Unit =
+    def shapedTextSetSpacing(shaped: RID, spacing: Int, value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
-        _args(1) = spacing.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = value
+        val _a1 = stackalloc[Long](); !_a1 = spacing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = value
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.shapedTextSetSpacing, ptr, _args, null)
+}
 
-    def shapedTextGetSpacing(shaped: RID, spacing: Int): Long =
+    def shapedTextGetSpacing(shaped: RID, spacing: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        _args(1) = spacing.ptr
-        val _ret = stackalloc[CLong]()
+        val _a1 = stackalloc[Long](); !_a1 = spacing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetSpacing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextAddString(shaped: RID, text: CString, fonts: Ptr[Byte], size: Long): Boolean =
+    def shapedTextAddString(shaped: RID, text: CString, fonts: Ptr[Byte], size: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = shaped.ptr
-        _args(1) = text.ptr
-        _args(2) = fonts.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = size
+        _args(1) = text
+        _args(2) = fonts
+        val _a3 = stackalloc[Long](); !_a3 = size
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextAddString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextAddObject(shaped: RID, key: Ptr[Byte], size: Vector2): Boolean =
+    def shapedTextAddObject(shaped: RID, key: Ptr[Byte], size: Vector2): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
-        _args(1) = key.ptr
+        _args(1) = key
         _args(2) = size.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextAddObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextResizeObject(shaped: RID, key: Ptr[Byte], size: Vector2): Boolean =
+    def shapedTextResizeObject(shaped: RID, key: Ptr[Byte], size: Vector2): Boolean = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
-        _args(1) = key.ptr
+        _args(1) = key
         _args(2) = size.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextResizeObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedGetText(shaped: RID): CString =
+    def shapedGetText(shaped: RID): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetSpanCount(shaped: RID): Long =
+    def shapedGetSpanCount(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetSpanCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetSpanMeta(shaped: RID, index: Long): Ptr[Byte] =
+    def shapedGetSpanMeta(shaped: RID, index: Long): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetSpanMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetSpanEmbeddedObject(shaped: RID, index: Long): Ptr[Byte] =
+    def shapedGetSpanEmbeddedObject(shaped: RID, index: Long): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetSpanEmbeddedObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetSpanText(shaped: RID, index: Long): CString =
+    def shapedGetSpanText(shaped: RID, index: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetSpanText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetSpanObject(shaped: RID, index: Long): Ptr[Byte] =
+    def shapedGetSpanObject(shaped: RID, index: Long): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetSpanObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedSetSpanUpdateFont(shaped: RID, index: Long, fonts: Ptr[Byte], size: Long): Unit =
+    def shapedSetSpanUpdateFont(shaped: RID, index: Long, fonts: Ptr[Byte], size: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = fonts.ptr
-        val _a3 = stackalloc[CLong](); !_a3 = size
+        _args(2) = fonts
+        val _a3 = stackalloc[Long](); !_a3 = size
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(TextServer.Binds.shapedSetSpanUpdateFont, ptr, _args, null)
+}
 
-    def shapedGetRunCount(shaped: RID): Long =
+    def shapedGetRunCount(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetRunText(shaped: RID, index: Long): CString =
+    def shapedGetRunText(shaped: RID, index: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetRunRange(shaped: RID, index: Long): Vector2i =
+    def shapedGetRunRange(shaped: RID, index: Long): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def shapedGetRunFontRid(shaped: RID, index: Long): RID =
+    def shapedGetRunFontRid(shaped: RID, index: Long): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunFontRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shapedGetRunFontSize(shaped: RID, index: Long): Int =
+    def shapedGetRunFontSize(shaped: RID, index: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunFontSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapedGetRunLanguage(shaped: RID, index: Long): CString =
+    def shapedGetRunLanguage(shaped: RID, index: Long): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedGetRunDirection(shaped: RID, index: Long): Int =
+    def shapedGetRunDirection(shaped: RID, index: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def shapedGetRunObject(shaped: RID, index: Long): Ptr[Byte] =
+    def shapedGetRunObject(shaped: RID, index: Long): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index
+        val _a1 = stackalloc[Long](); !_a1 = index
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedGetRunObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextSubstr(shaped: RID, start: Long, length: Long): RID =
+    def shapedTextSubstr(shaped: RID, start: Long, length: Long): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = start
+        val _a1 = stackalloc[Long](); !_a1 = start
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = length
+        val _a2 = stackalloc[Long](); !_a2 = length
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextSubstr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shapedTextGetParent(shaped: RID): RID =
+    def shapedTextGetParent(shaped: RID): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def shapedTextFitToWidth(shaped: RID, width: Double): Double =
+    def shapedTextFitToWidth(shaped: RID, width: Double): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         val _a1 = stackalloc[Double](); !_a1 = width
@@ -1382,73 +1569,83 @@ class TextServer extends RefCounted
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextFitToWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextTabAlign(shaped: RID, tabStops: PackedFloat32Array): Double =
+    def shapedTextTabAlign(shaped: RID, tabStops: PackedFloat32Array): Double = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         _args(1) = tabStops.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextTabAlign, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextShape(shaped: RID): Boolean =
+    def shapedTextShape(shaped: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextIsReady(shaped: RID): Boolean =
+    def shapedTextIsReady(shaped: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextIsReady, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextHasVisibleChars(shaped: RID): Boolean =
+    def shapedTextHasVisibleChars(shaped: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextHasVisibleChars, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def shapedTextGetGlyphs(shaped: RID): Ptr[Byte] =
+    def shapedTextGetGlyphs(shaped: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetGlyphs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextSortLogical(shaped: RID): Ptr[Byte] =
+    def shapedTextSortLogical(shaped: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextSortLogical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetGlyphCount(shaped: RID): Long =
+    def shapedTextGetGlyphCount(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetGlyphCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetRange(shaped: RID): Vector2i =
+    def shapedTextGetRange(shaped: RID): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def shapedTextGetLineBreaksAdv(shaped: RID, width: PackedFloat32Array): PackedInt32Array =
+    def shapedTextGetLineBreaksAdv(shaped: RID, width: PackedFloat32Array): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         _args(1) = width.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetLineBreaksAdv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def shapedTextGetLineBreaks(shaped: RID, width: Double): PackedInt32Array =
+    def shapedTextGetLineBreaks(shaped: RID, width: Double): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         val _a1 = stackalloc[Double](); !_a1 = width
@@ -1456,349 +1653,395 @@ class TextServer extends RefCounted
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetLineBreaks, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def shapedTextGetWordBreaks(shaped: RID): PackedInt32Array =
+    def shapedTextGetWordBreaks(shaped: RID): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetWordBreaks, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def shapedTextGetTrimPos(shaped: RID): Long =
+    def shapedTextGetTrimPos(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetTrimPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetEllipsisPos(shaped: RID): Long =
+    def shapedTextGetEllipsisPos(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetEllipsisPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetEllipsisGlyphs(shaped: RID): Ptr[Byte] =
+    def shapedTextGetEllipsisGlyphs(shaped: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetEllipsisGlyphs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetEllipsisGlyphCount(shaped: RID): Long =
+    def shapedTextGetEllipsisGlyphCount(shaped: RID): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetEllipsisGlyphCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextOverrunTrimToWidth(shaped: RID): Unit =
+    def shapedTextOverrunTrimToWidth(shaped: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         GdxApi.ptrcall(TextServer.Binds.shapedTextOverrunTrimToWidth, ptr, _args, null)
+}
 
-    def shapedTextGetObjects(shaped: RID): Array =
+    def shapedTextGetObjects(shaped: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetObjects, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetObjectRect(shaped: RID, key: Ptr[Byte]): Rect2 =
+    def shapedTextGetObjectRect(shaped: RID, key: Ptr[Byte]): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        _args(1) = key.ptr
+        _args(1) = key
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetObjectRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def shapedTextGetObjectRange(shaped: RID, key: Ptr[Byte]): Vector2i =
+    def shapedTextGetObjectRange(shaped: RID, key: Ptr[Byte]): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        _args(1) = key.ptr
+        _args(1) = key
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetObjectRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def shapedTextGetObjectGlyph(shaped: RID, key: Ptr[Byte]): Long =
+    def shapedTextGetObjectGlyph(shaped: RID, key: Ptr[Byte]): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        _args(1) = key.ptr
-        val _ret = stackalloc[CLong]()
+        _args(1) = key
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetObjectGlyph, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetSize(shaped: RID): Vector2 =
+    def shapedTextGetSize(shaped: RID): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def shapedTextGetAscent(shaped: RID): Double =
+    def shapedTextGetAscent(shaped: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetAscent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetDescent(shaped: RID): Double =
+    def shapedTextGetDescent(shaped: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetDescent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetWidth(shaped: RID): Double =
+    def shapedTextGetWidth(shaped: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetUnderlinePosition(shaped: RID): Double =
+    def shapedTextGetUnderlinePosition(shaped: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetUnderlinePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetUnderlineThickness(shaped: RID): Double =
+    def shapedTextGetUnderlineThickness(shaped: RID): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetUnderlineThickness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetCarets(shaped: RID, position: Long): Dictionary =
+    def shapedTextGetCarets(shaped: RID, position: Long): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = position
+        val _a1 = stackalloc[Long](); !_a1 = position
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetCarets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def shapedTextGetSelection(shaped: RID, start: Long, end: Long): PackedVector2Array =
+    def shapedTextGetSelection(shaped: RID, start: Long, end: Long): PackedVector2Array = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = start
+        val _a1 = stackalloc[Long](); !_a1 = start
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = end
+        val _a2 = stackalloc[Long](); !_a2 = end
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector2Array(!_ret)
+}
 
-    def shapedTextHitTestGrapheme(shaped: RID, coords: Double): Long =
+    def shapedTextHitTestGrapheme(shaped: RID, coords: Double): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         val _a1 = stackalloc[Double](); !_a1 = coords
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextHitTestGrapheme, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextHitTestPosition(shaped: RID, coords: Double): Long =
+    def shapedTextHitTestPosition(shaped: RID, coords: Double): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
         val _a1 = stackalloc[Double](); !_a1 = coords
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextHitTestPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetGraphemeBounds(shaped: RID, pos: Long): Vector2 =
+    def shapedTextGetGraphemeBounds(shaped: RID, pos: Long): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pos
+        val _a1 = stackalloc[Long](); !_a1 = pos
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetGraphemeBounds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def shapedTextNextGraphemePos(shaped: RID, pos: Long): Long =
+    def shapedTextNextGraphemePos(shaped: RID, pos: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pos
+        val _a1 = stackalloc[Long](); !_a1 = pos
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextNextGraphemePos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextPrevGraphemePos(shaped: RID, pos: Long): Long =
+    def shapedTextPrevGraphemePos(shaped: RID, pos: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pos
+        val _a1 = stackalloc[Long](); !_a1 = pos
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextPrevGraphemePos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextGetCharacterBreaks(shaped: RID): PackedInt32Array =
+    def shapedTextGetCharacterBreaks(shaped: RID): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = shaped.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetCharacterBreaks, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def shapedTextNextCharacterPos(shaped: RID, pos: Long): Long =
+    def shapedTextNextCharacterPos(shaped: RID, pos: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pos
+        val _a1 = stackalloc[Long](); !_a1 = pos
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextNextCharacterPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextPrevCharacterPos(shaped: RID, pos: Long): Long =
+    def shapedTextPrevCharacterPos(shaped: RID, pos: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pos
+        val _a1 = stackalloc[Long](); !_a1 = pos
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextPrevCharacterPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextClosestCharacterPos(shaped: RID, pos: Long): Long =
+    def shapedTextClosestCharacterPos(shaped: RID, pos: Long): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = pos
+        val _a1 = stackalloc[Long](); !_a1 = pos
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextClosestCharacterPos, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def shapedTextDraw(shaped: RID, canvas: RID, pos: Vector2): Unit =
+    def shapedTextDraw(shaped: RID, canvas: RID, pos: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
         _args(1) = canvas.ptr
         _args(2) = pos.ptr
         GdxApi.ptrcall(TextServer.Binds.shapedTextDraw, ptr, _args, null)
+}
 
-    def shapedTextDrawOutline(shaped: RID, canvas: RID, pos: Vector2): Unit =
+    def shapedTextDrawOutline(shaped: RID, canvas: RID, pos: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
         _args(1) = canvas.ptr
         _args(2) = pos.ptr
         GdxApi.ptrcall(TextServer.Binds.shapedTextDrawOutline, ptr, _args, null)
+}
 
-    def shapedTextGetDominantDirectionInRange(shaped: RID, start: Long, end: Long): Int =
+    def shapedTextGetDominantDirectionInRange(shaped: RID, start: Long, end: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = shaped.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = start
+        val _a1 = stackalloc[Long](); !_a1 = start
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = end
+        val _a2 = stackalloc[Long](); !_a2 = end
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.shapedTextGetDominantDirectionInRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def formatNumber(number: CString): CString =
+    def formatNumber(number: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = number.ptr
+        _args(0) = number
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.formatNumber, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def parseNumber(number: CString): CString =
+    def parseNumber(number: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = number.ptr
+        _args(0) = number
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.parseNumber, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def percentSign(): CString =
+    def percentSign(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.percentSign, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def stringGetWordBreaks(string: CString): PackedInt32Array =
+    def stringGetWordBreaks(string: CString): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.stringGetWordBreaks, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def stringGetCharacterBreaks(string: CString): PackedInt32Array =
+    def stringGetCharacterBreaks(string: CString): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.stringGetCharacterBreaks, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def isConfusable(string: CString, dict: PackedStringArray): Long =
+    def isConfusable(string: CString, dict: PackedStringArray): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = string.ptr
+        _args(0) = string
         _args(1) = dict.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TextServer.Binds.isConfusable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def spoofCheck(string: CString): Boolean =
+    def spoofCheck(string: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.spoofCheck, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def stripDiacritics(string: CString): CString =
+    def stripDiacritics(string: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.stripDiacritics, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isValidIdentifier(string: CString): Boolean =
+    def isValidIdentifier(string: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.isValidIdentifier, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isValidLetter(unicode: Long): Boolean =
+    def isValidLetter(unicode: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = unicode
+        val _a0 = stackalloc[Long](); !_a0 = unicode
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TextServer.Binds.isValidLetter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def stringToUpper(string: CString): CString =
+    def stringToUpper(string: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.stringToUpper, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def stringToLower(string: CString): CString =
+    def stringToLower(string: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.stringToLower, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def stringToTitle(string: CString): CString =
+    def stringToTitle(string: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = string.ptr
+        _args(0) = string
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.stringToTitle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def parseStructuredText(parserType: Int, args: Array, text: CString): Ptr[Byte] =
+    def parseStructuredText(parserType: Int, args: Ptr[Byte], text: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = parserType.ptr
-        _args(1) = args.ptr
-        _args(2) = text.ptr
+        val _a0 = stackalloc[Long](); !_a0 = parserType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        _args(1) = args
+        _args(2) = text
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TextServer.Binds.parseStructuredText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object TextServer:
-    object Binds:
-        var hasFeature: Ptr[Byte] = null
+object Binds {
+          var hasFeature: Ptr[Byte] = null
         var getName: Ptr[Byte] = null
         var getFeatures: Ptr[Byte] = null
         var loadSupportData: Ptr[Byte] = null
@@ -2032,8 +2275,8 @@ object TextServer:
         var stringToTitle: Ptr[Byte] = null
         var parseStructuredText: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasFeature = GdxApi.getMethodBind(c"TextServer", c"has_feature", 3967367083L)
+  def loadBinds(): Unit = {
+                Binds.hasFeature = GdxApi.getMethodBind(c"TextServer", c"has_feature", 3967367083L)
             Binds.getName = GdxApi.getMethodBind(c"TextServer", c"get_name", 201670096L)
             Binds.getFeatures = GdxApi.getMethodBind(c"TextServer", c"get_features", 3905245786L)
             Binds.loadSupportData = GdxApi.getMethodBind(c"TextServer", c"load_support_data", 2323990056L)
@@ -2266,3 +2509,5 @@ object TextServer:
             Binds.stringToLower = GdxApi.getMethodBind(c"TextServer", c"string_to_lower", 2664628024L)
             Binds.stringToTitle = GdxApi.getMethodBind(c"TextServer", c"string_to_title", 2664628024L)
             Binds.parseStructuredText = GdxApi.getMethodBind(c"TextServer", c"parse_structured_text", 3310685015L)
+  }
+}

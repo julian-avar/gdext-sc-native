@@ -5,88 +5,83 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class UDPServer extends RefCounted
-
-    def listen(port: Long): Int =
+class UDPServer extends RefCounted {
+    def listen(port: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port
+        val _a0 = stackalloc[Long](); !_a0 = port
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UDPServer.Binds.listen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def poll(): Int =
+    def poll(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UDPServer.Binds.poll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isConnectionAvailable(): Boolean =
+    def isConnectionAvailable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UDPServer.Binds.isConnectionAvailable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getLocalPort(): Int =
+    def getLocalPort(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UDPServer.Binds.getLocalPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isListening(): Boolean =
+    def isListening(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(UDPServer.Binds.isListening, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def takeConnection(): PacketPeerUDP =
+    def takeConnection(): PacketPeerUDP = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UDPServer.Binds.takeConnection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PacketPeerUDP(!_ret)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(UDPServer.Binds.stop, ptr, _args, null)
+}
 
-    def setMaxPendingConnections(maxPendingConnections: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxPendingConnections.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(UDPServer.Binds.setMaxPendingConnections, ptr, _args, null)
-
-    def getMaxPendingConnections(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(UDPServer.Binds.getMaxPendingConnections, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def maxPendingConnections: Ptr[Byte] = getMaxPendingConnections()
-    def maxPendingConnections_=(v: Ptr[Byte]): Unit = setMaxPendingConnections(v)
+    def maxPendingConnections: Int = getMaxPendingConnections()
+    def maxPendingConnections_=(v: Int): Unit = setMaxPendingConnections(v)
+}
 
 object UDPServer:
-    object Binds:
-        var listen: Ptr[Byte] = null
+object Binds {
+          var listen: Ptr[Byte] = null
         var poll: Ptr[Byte] = null
         var isConnectionAvailable: Ptr[Byte] = null
         var getLocalPort: Ptr[Byte] = null
         var isListening: Ptr[Byte] = null
         var takeConnection: Ptr[Byte] = null
         var stop: Ptr[Byte] = null
-        var setMaxPendingConnections: Ptr[Byte] = null
-        var getMaxPendingConnections: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.listen = GdxApi.getMethodBind(c"UDPServer", c"listen", 3167955072L)
+  def loadBinds(): Unit = {
+                Binds.listen = GdxApi.getMethodBind(c"UDPServer", c"listen", 3167955072L)
             Binds.poll = GdxApi.getMethodBind(c"UDPServer", c"poll", 166280745L)
             Binds.isConnectionAvailable = GdxApi.getMethodBind(c"UDPServer", c"is_connection_available", 36873697L)
             Binds.getLocalPort = GdxApi.getMethodBind(c"UDPServer", c"get_local_port", 3905245786L)
             Binds.isListening = GdxApi.getMethodBind(c"UDPServer", c"is_listening", 36873697L)
             Binds.takeConnection = GdxApi.getMethodBind(c"UDPServer", c"take_connection", 808734560L)
             Binds.stop = GdxApi.getMethodBind(c"UDPServer", c"stop", 3218959716L)
-            Binds.setMaxPendingConnections = GdxApi.getMethodBind(c"UDPServer", c"set_max_pending_connections", 1286410249L)
-            Binds.getMaxPendingConnections = GdxApi.getMethodBind(c"UDPServer", c"get_max_pending_connections", 3905245786L)
+  }
+}
 
-    def apply(): UDPServer =
-        val obj = new UDPServer()
-        obj.ptr = GdxApi.constructObject(c"UDPServer")
-        obj
+def apply(): UDPServer = {
+  val obj = new UDPServer()
+  obj.ptr = GdxApi.constructObject(c"UDPServer")
+  obj
+}

@@ -5,296 +5,141 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Node2D extends CanvasItem
-
-    def setPosition(position: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(Node2D.Binds.setPosition, ptr, _args, null)
-
-    def setRotation(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node2D.Binds.setRotation, ptr, _args, null)
-
-    def setRotationDegrees(degrees: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = degrees.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node2D.Binds.setRotationDegrees, ptr, _args, null)
-
-    def setSkew(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node2D.Binds.setSkew, ptr, _args, null)
-
-    def setScale(scale: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(Node2D.Binds.setScale, ptr, _args, null)
-
-    def getPosition(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node2D.Binds.getPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def getRotation(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Node2D.Binds.getRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getRotationDegrees(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Node2D.Binds.getRotationDegrees, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getSkew(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Node2D.Binds.getSkew, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getScale(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node2D.Binds.getScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def rotate(radians: Float): Unit =
+class Node2D extends CanvasItem {
+    def rotate(radians: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node2D.Binds.rotate, ptr, _args, null)
+}
 
-    def moveLocalX(delta: Float): Unit =
+    def moveLocalX(delta: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = delta.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node2D.Binds.moveLocalX, ptr, _args, null)
+}
 
-    def moveLocalY(delta: Float): Unit =
+    def moveLocalY(delta: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = delta.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Node2D.Binds.moveLocalY, ptr, _args, null)
+}
 
-    def translate(offset: Vector2): Unit =
+    def translate(offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(Node2D.Binds.translate, ptr, _args, null)
+}
 
-    def globalTranslate(offset: Vector2): Unit =
+    def globalTranslate(offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(Node2D.Binds.globalTranslate, ptr, _args, null)
+}
 
-    def applyScale(ratio: Vector2): Unit =
+    def applyScale(ratio: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = ratio.ptr
         GdxApi.ptrcall(Node2D.Binds.applyScale, ptr, _args, null)
+}
 
-    def setGlobalPosition(position: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = position.ptr
-        GdxApi.ptrcall(Node2D.Binds.setGlobalPosition, ptr, _args, null)
-
-    def getGlobalPosition(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node2D.Binds.getGlobalPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setGlobalRotation(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node2D.Binds.setGlobalRotation, ptr, _args, null)
-
-    def setGlobalRotationDegrees(degrees: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = degrees.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node2D.Binds.setGlobalRotationDegrees, ptr, _args, null)
-
-    def getGlobalRotation(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Node2D.Binds.getGlobalRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getGlobalRotationDegrees(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Node2D.Binds.getGlobalRotationDegrees, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGlobalSkew(radians: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radians.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Node2D.Binds.setGlobalSkew, ptr, _args, null)
-
-    def getGlobalSkew(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Node2D.Binds.getGlobalSkew, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGlobalScale(scale: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = scale.ptr
-        GdxApi.ptrcall(Node2D.Binds.setGlobalScale, ptr, _args, null)
-
-    def getGlobalScale(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Node2D.Binds.getGlobalScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setTransform(xform: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = xform.ptr
-        GdxApi.ptrcall(Node2D.Binds.setTransform, ptr, _args, null)
-
-    def setGlobalTransform(xform: Transform2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = xform.ptr
-        GdxApi.ptrcall(Node2D.Binds.setGlobalTransform, ptr, _args, null)
-
-    def lookAt(point: Vector2): Unit =
+    def lookAt(point: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = point.ptr
         GdxApi.ptrcall(Node2D.Binds.lookAt, ptr, _args, null)
+}
 
-    def getAngleTo(point: Vector2): Float =
+    def getAngleTo(point: Vector2): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = point.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Node2D.Binds.getAngleTo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def toLocal(globalPoint: Vector2): Vector2 =
+    def toLocal(globalPoint: Vector2): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = globalPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node2D.Binds.toLocal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def toGlobal(localPoint: Vector2): Vector2 =
+    def toGlobal(localPoint: Vector2): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = localPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node2D.Binds.toGlobal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getRelativeTransformToParent(parent: Node): Transform2D =
+    def getRelativeTransformToParent(parent: Node): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = parent.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Node2D.Binds.getRelativeTransformToParent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
-    def position: Ptr[Byte] = getPosition()
-    def position_=(v: Ptr[Byte]): Unit = setPosition(v)
-    def rotation: Ptr[Byte] = getRotation()
-    def rotation_=(v: Ptr[Byte]): Unit = setRotation(v)
-    def rotationDegrees: Ptr[Byte] = getRotationDegrees()
-    def rotationDegrees_=(v: Ptr[Byte]): Unit = setRotationDegrees(v)
-    def scale: Ptr[Byte] = getScale()
-    def scale_=(v: Ptr[Byte]): Unit = setScale(v)
-    def skew: Ptr[Byte] = getSkew()
-    def skew_=(v: Ptr[Byte]): Unit = setSkew(v)
+}
+
+    def position: Vector2 = getPosition()
+    def position_=(v: Vector2): Unit = setPosition(v)
+    def rotation: Float = getRotation()
+    def rotation_=(v: Float): Unit = setRotation(v)
+    def rotationDegrees: Float = getRotationDegrees()
+    def rotationDegrees_=(v: Float): Unit = setRotationDegrees(v)
+    def scale: Vector2 = getScale()
+    def scale_=(v: Vector2): Unit = setScale(v)
+    def skew: Float = getSkew()
+    def skew_=(v: Float): Unit = setSkew(v)
     def transform: Ptr[Byte] = getTransform()
-    def transform_=(v: Ptr[Byte]): Unit = setTransform(v)
-    def globalPosition: Ptr[Byte] = getGlobalPosition()
-    def globalPosition_=(v: Ptr[Byte]): Unit = setGlobalPosition(v)
-    def globalRotation: Ptr[Byte] = getGlobalRotation()
-    def globalRotation_=(v: Ptr[Byte]): Unit = setGlobalRotation(v)
-    def globalRotationDegrees: Ptr[Byte] = getGlobalRotationDegrees()
-    def globalRotationDegrees_=(v: Ptr[Byte]): Unit = setGlobalRotationDegrees(v)
-    def globalScale: Ptr[Byte] = getGlobalScale()
-    def globalScale_=(v: Ptr[Byte]): Unit = setGlobalScale(v)
-    def globalSkew: Ptr[Byte] = getGlobalSkew()
-    def globalSkew_=(v: Ptr[Byte]): Unit = setGlobalSkew(v)
+    def transform_=(v: Transform2D): Unit = setTransform(v)
+    def globalPosition: Vector2 = getGlobalPosition()
+    def globalPosition_=(v: Vector2): Unit = setGlobalPosition(v)
+    def globalRotation: Float = getGlobalRotation()
+    def globalRotation_=(v: Float): Unit = setGlobalRotation(v)
+    def globalRotationDegrees: Float = getGlobalRotationDegrees()
+    def globalRotationDegrees_=(v: Float): Unit = setGlobalRotationDegrees(v)
+    def globalScale: Vector2 = getGlobalScale()
+    def globalScale_=(v: Vector2): Unit = setGlobalScale(v)
+    def globalSkew: Float = getGlobalSkew()
+    def globalSkew_=(v: Float): Unit = setGlobalSkew(v)
     def globalTransform: Ptr[Byte] = getGlobalTransform()
-    def globalTransform_=(v: Ptr[Byte]): Unit = setGlobalTransform(v)
+    def globalTransform_=(v: Transform2D): Unit = setGlobalTransform(v)
+}
 
 object Node2D:
-    object Binds:
-        var setPosition: Ptr[Byte] = null
-        var setRotation: Ptr[Byte] = null
-        var setRotationDegrees: Ptr[Byte] = null
-        var setSkew: Ptr[Byte] = null
-        var setScale: Ptr[Byte] = null
-        var getPosition: Ptr[Byte] = null
-        var getRotation: Ptr[Byte] = null
-        var getRotationDegrees: Ptr[Byte] = null
-        var getSkew: Ptr[Byte] = null
-        var getScale: Ptr[Byte] = null
-        var rotate: Ptr[Byte] = null
+object Binds {
+          var rotate: Ptr[Byte] = null
         var moveLocalX: Ptr[Byte] = null
         var moveLocalY: Ptr[Byte] = null
         var translate: Ptr[Byte] = null
         var globalTranslate: Ptr[Byte] = null
         var applyScale: Ptr[Byte] = null
-        var setGlobalPosition: Ptr[Byte] = null
-        var getGlobalPosition: Ptr[Byte] = null
-        var setGlobalRotation: Ptr[Byte] = null
-        var setGlobalRotationDegrees: Ptr[Byte] = null
-        var getGlobalRotation: Ptr[Byte] = null
-        var getGlobalRotationDegrees: Ptr[Byte] = null
-        var setGlobalSkew: Ptr[Byte] = null
-        var getGlobalSkew: Ptr[Byte] = null
-        var setGlobalScale: Ptr[Byte] = null
-        var getGlobalScale: Ptr[Byte] = null
-        var setTransform: Ptr[Byte] = null
-        var setGlobalTransform: Ptr[Byte] = null
         var lookAt: Ptr[Byte] = null
         var getAngleTo: Ptr[Byte] = null
         var toLocal: Ptr[Byte] = null
         var toGlobal: Ptr[Byte] = null
         var getRelativeTransformToParent: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPosition = GdxApi.getMethodBind(c"Node2D", c"set_position", 743155724L)
-            Binds.setRotation = GdxApi.getMethodBind(c"Node2D", c"set_rotation", 373806689L)
-            Binds.setRotationDegrees = GdxApi.getMethodBind(c"Node2D", c"set_rotation_degrees", 373806689L)
-            Binds.setSkew = GdxApi.getMethodBind(c"Node2D", c"set_skew", 373806689L)
-            Binds.setScale = GdxApi.getMethodBind(c"Node2D", c"set_scale", 743155724L)
-            Binds.getPosition = GdxApi.getMethodBind(c"Node2D", c"get_position", 3341600327L)
-            Binds.getRotation = GdxApi.getMethodBind(c"Node2D", c"get_rotation", 1740695150L)
-            Binds.getRotationDegrees = GdxApi.getMethodBind(c"Node2D", c"get_rotation_degrees", 1740695150L)
-            Binds.getSkew = GdxApi.getMethodBind(c"Node2D", c"get_skew", 1740695150L)
-            Binds.getScale = GdxApi.getMethodBind(c"Node2D", c"get_scale", 3341600327L)
-            Binds.rotate = GdxApi.getMethodBind(c"Node2D", c"rotate", 373806689L)
+  def loadBinds(): Unit = {
+                Binds.rotate = GdxApi.getMethodBind(c"Node2D", c"rotate", 373806689L)
             Binds.moveLocalX = GdxApi.getMethodBind(c"Node2D", c"move_local_x", 2087892650L)
             Binds.moveLocalY = GdxApi.getMethodBind(c"Node2D", c"move_local_y", 2087892650L)
             Binds.translate = GdxApi.getMethodBind(c"Node2D", c"translate", 743155724L)
             Binds.globalTranslate = GdxApi.getMethodBind(c"Node2D", c"global_translate", 743155724L)
             Binds.applyScale = GdxApi.getMethodBind(c"Node2D", c"apply_scale", 743155724L)
-            Binds.setGlobalPosition = GdxApi.getMethodBind(c"Node2D", c"set_global_position", 743155724L)
-            Binds.getGlobalPosition = GdxApi.getMethodBind(c"Node2D", c"get_global_position", 3341600327L)
-            Binds.setGlobalRotation = GdxApi.getMethodBind(c"Node2D", c"set_global_rotation", 373806689L)
-            Binds.setGlobalRotationDegrees = GdxApi.getMethodBind(c"Node2D", c"set_global_rotation_degrees", 373806689L)
-            Binds.getGlobalRotation = GdxApi.getMethodBind(c"Node2D", c"get_global_rotation", 1740695150L)
-            Binds.getGlobalRotationDegrees = GdxApi.getMethodBind(c"Node2D", c"get_global_rotation_degrees", 1740695150L)
-            Binds.setGlobalSkew = GdxApi.getMethodBind(c"Node2D", c"set_global_skew", 373806689L)
-            Binds.getGlobalSkew = GdxApi.getMethodBind(c"Node2D", c"get_global_skew", 1740695150L)
-            Binds.setGlobalScale = GdxApi.getMethodBind(c"Node2D", c"set_global_scale", 743155724L)
-            Binds.getGlobalScale = GdxApi.getMethodBind(c"Node2D", c"get_global_scale", 3341600327L)
-            Binds.setTransform = GdxApi.getMethodBind(c"Node2D", c"set_transform", 2761652528L)
-            Binds.setGlobalTransform = GdxApi.getMethodBind(c"Node2D", c"set_global_transform", 2761652528L)
             Binds.lookAt = GdxApi.getMethodBind(c"Node2D", c"look_at", 743155724L)
             Binds.getAngleTo = GdxApi.getMethodBind(c"Node2D", c"get_angle_to", 2276447920L)
             Binds.toLocal = GdxApi.getMethodBind(c"Node2D", c"to_local", 2656412154L)
             Binds.toGlobal = GdxApi.getMethodBind(c"Node2D", c"to_global", 2656412154L)
             Binds.getRelativeTransformToParent = GdxApi.getMethodBind(c"Node2D", c"get_relative_transform_to_parent", 904556875L)
+  }
+}
 
-    def apply(): Node2D =
-        val obj = new Node2D()
-        obj.ptr = GdxApi.constructObject(c"Node2D")
-        obj
+def apply(): Node2D = {
+  val obj = new Node2D()
+  obj.ptr = GdxApi.constructObject(c"Node2D")
+  obj
+}

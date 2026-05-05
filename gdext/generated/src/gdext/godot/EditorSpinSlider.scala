@@ -5,120 +5,24 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorSpinSlider extends Range
-
-    def setLabel(label: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = label.ptr
-        GdxApi.ptrcall(EditorSpinSlider.Binds.setLabel, ptr, _args, null)
-
-    def getLabel(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorSpinSlider.Binds.getLabel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setSuffix(suffix: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = suffix.ptr
-        GdxApi.ptrcall(EditorSpinSlider.Binds.setSuffix, ptr, _args, null)
-
-    def getSuffix(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorSpinSlider.Binds.getSuffix, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setReadOnly(readOnly: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if readOnly then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorSpinSlider.Binds.setReadOnly, ptr, _args, null)
-
-    def isReadOnly(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorSpinSlider.Binds.isReadOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setFlat(flat: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if flat then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorSpinSlider.Binds.setFlat, ptr, _args, null)
-
-    def isFlat(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorSpinSlider.Binds.isFlat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHideSlider(hideSlider: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if hideSlider then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorSpinSlider.Binds.setHideSlider, ptr, _args, null)
-
-    def isHidingSlider(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorSpinSlider.Binds.isHidingSlider, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEditingInteger(editingInteger: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if editingInteger then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorSpinSlider.Binds.setEditingInteger, ptr, _args, null)
-
-    def isEditingInteger(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorSpinSlider.Binds.isEditingInteger, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def label: Ptr[Byte] = getLabel()
-    def label_=(v: Ptr[Byte]): Unit = setLabel(v)
-    def suffix: Ptr[Byte] = getSuffix()
-    def suffix_=(v: Ptr[Byte]): Unit = setSuffix(v)
-    def readOnly: Ptr[Byte] = isReadOnly()
-    def readOnly_=(v: Ptr[Byte]): Unit = setReadOnly(v)
-    def flat: Ptr[Byte] = isFlat()
-    def flat_=(v: Ptr[Byte]): Unit = setFlat(v)
-    def hideSlider: Ptr[Byte] = isHidingSlider()
-    def hideSlider_=(v: Ptr[Byte]): Unit = setHideSlider(v)
-    def editingInteger: Ptr[Byte] = isEditingInteger()
-    def editingInteger_=(v: Ptr[Byte]): Unit = setEditingInteger(v)
+class EditorSpinSlider extends Range {
+    def label: CString = getLabel()
+    def label_=(v: CString): Unit = setLabel(v)
+    def suffix: CString = getSuffix()
+    def suffix_=(v: CString): Unit = setSuffix(v)
+    def readOnly: Boolean = isReadOnly()
+    def readOnly_=(v: Boolean): Unit = setReadOnly(v)
+    def flat: Boolean = isFlat()
+    def flat_=(v: Boolean): Unit = setFlat(v)
+    def hideSlider: Boolean = isHidingSlider()
+    def hideSlider_=(v: Boolean): Unit = setHideSlider(v)
+    def editingInteger: Boolean = isEditingInteger()
+    def editingInteger_=(v: Boolean): Unit = setEditingInteger(v)
+}
 
 object EditorSpinSlider:
-    object Binds:
-        var setLabel: Ptr[Byte] = null
-        var getLabel: Ptr[Byte] = null
-        var setSuffix: Ptr[Byte] = null
-        var getSuffix: Ptr[Byte] = null
-        var setReadOnly: Ptr[Byte] = null
-        var isReadOnly: Ptr[Byte] = null
-        var setFlat: Ptr[Byte] = null
-        var isFlat: Ptr[Byte] = null
-        var setHideSlider: Ptr[Byte] = null
-        var isHidingSlider: Ptr[Byte] = null
-        var setEditingInteger: Ptr[Byte] = null
-        var isEditingInteger: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setLabel = GdxApi.getMethodBind(c"EditorSpinSlider", c"set_label", 83702148L)
-            Binds.getLabel = GdxApi.getMethodBind(c"EditorSpinSlider", c"get_label", 201670096L)
-            Binds.setSuffix = GdxApi.getMethodBind(c"EditorSpinSlider", c"set_suffix", 83702148L)
-            Binds.getSuffix = GdxApi.getMethodBind(c"EditorSpinSlider", c"get_suffix", 201670096L)
-            Binds.setReadOnly = GdxApi.getMethodBind(c"EditorSpinSlider", c"set_read_only", 2586408642L)
-            Binds.isReadOnly = GdxApi.getMethodBind(c"EditorSpinSlider", c"is_read_only", 36873697L)
-            Binds.setFlat = GdxApi.getMethodBind(c"EditorSpinSlider", c"set_flat", 2586408642L)
-            Binds.isFlat = GdxApi.getMethodBind(c"EditorSpinSlider", c"is_flat", 36873697L)
-            Binds.setHideSlider = GdxApi.getMethodBind(c"EditorSpinSlider", c"set_hide_slider", 2586408642L)
-            Binds.isHidingSlider = GdxApi.getMethodBind(c"EditorSpinSlider", c"is_hiding_slider", 36873697L)
-            Binds.setEditingInteger = GdxApi.getMethodBind(c"EditorSpinSlider", c"set_editing_integer", 2586408642L)
-            Binds.isEditingInteger = GdxApi.getMethodBind(c"EditorSpinSlider", c"is_editing_integer", 36873697L)
-
-    def apply(): EditorSpinSlider =
-        val obj = new EditorSpinSlider()
-        obj.ptr = GdxApi.constructObject(c"EditorSpinSlider")
-        obj
+def apply(): EditorSpinSlider = {
+  val obj = new EditorSpinSlider()
+  obj.ptr = GdxApi.constructObject(c"EditorSpinSlider")
+  obj
+}

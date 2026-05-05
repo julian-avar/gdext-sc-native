@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeParticleAccelerator extends VisualShaderNode
-
-    def setMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(VisualShaderNodeParticleAccelerator.Binds.setMode, ptr, _args, null)
-
-    def getMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeParticleAccelerator.Binds.getMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def mode: Ptr[Byte] = getMode()
-    def mode_=(v: Ptr[Byte]): Unit = setMode(v)
+class VisualShaderNodeParticleAccelerator extends VisualShaderNode {
+    def mode: Int = getMode()
+    def mode_=(v: Int): Unit = setMode(v)
+}
 
 object VisualShaderNodeParticleAccelerator:
-    object Binds:
-        var setMode: Ptr[Byte] = null
-        var getMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMode = GdxApi.getMethodBind(c"VisualShaderNodeParticleAccelerator", c"set_mode", 3457585749L)
-            Binds.getMode = GdxApi.getMethodBind(c"VisualShaderNodeParticleAccelerator", c"get_mode", 2660365633L)
-
-    def apply(): VisualShaderNodeParticleAccelerator =
-        val obj = new VisualShaderNodeParticleAccelerator()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleAccelerator")
-        obj
+def apply(): VisualShaderNodeParticleAccelerator = {
+  val obj = new VisualShaderNodeParticleAccelerator()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeParticleAccelerator")
+  obj
+}

@@ -5,278 +5,164 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ShapeCast3D extends Node3D
-
-    def resourceChanged(resource: Resource): Unit =
+class ShapeCast3D extends Node3D {
+    def resourceChanged(resource: Resource): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = resource.ptr
         GdxApi.ptrcall(ShapeCast3D.Binds.resourceChanged, ptr, _args, null)
+}
 
-    def setEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setEnabled, ptr, _args, null)
-
-    def isEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.isEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShape(shape: Shape3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
-        GdxApi.ptrcall(ShapeCast3D.Binds.setShape, ptr, _args, null)
-
-    def getShape(): Shape3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Shape3D(!_ret)
-
-    def setTargetPosition(localPoint: Vector3): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = localPoint.ptr
-        GdxApi.ptrcall(ShapeCast3D.Binds.setTargetPosition, ptr, _args, null)
-
-    def getTargetPosition(): Vector3 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getTargetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector3(!_ret)
-
-    def setMargin(margin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = margin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setMargin, ptr, _args, null)
-
-    def getMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setMaxResults(maxResults: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = maxResults.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setMaxResults, ptr, _args, null)
-
-    def getMaxResults(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getMaxResults, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def isColliding(): Boolean =
+    def isColliding(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ShapeCast3D.Binds.isColliding, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCollisionCount(): Int =
+    def getCollisionCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getCollisionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def forceShapecastUpdate(): Unit =
+    def forceShapecastUpdate(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ShapeCast3D.Binds.forceShapecastUpdate, ptr, _args, null)
+}
 
-    def getCollider(index: Int): Object =
+    def getCollider(index: Int): Object = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getCollider, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Object(!_ret)
+}
 
-    def getColliderRid(index: Int): RID =
+    def getColliderRid(index: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getColliderRid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getColliderShape(index: Int): Int =
+    def getColliderShape(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getColliderShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCollisionPoint(index: Int): Vector3 =
+    def getCollisionPoint(index: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getCollisionPoint, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getCollisionNormal(index: Int): Vector3 =
+    def getCollisionNormal(index: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getCollisionNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getClosestCollisionSafeFraction(): Float =
+    def getClosestCollisionSafeFraction(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getClosestCollisionSafeFraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getClosestCollisionUnsafeFraction(): Float =
+    def getClosestCollisionUnsafeFraction(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getClosestCollisionUnsafeFraction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def addExceptionRid(rid: RID): Unit =
+    def addExceptionRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(ShapeCast3D.Binds.addExceptionRid, ptr, _args, null)
+}
 
-    def addException(node: CollisionObject3D): Unit =
+    def addException(node: CollisionObject3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(ShapeCast3D.Binds.addException, ptr, _args, null)
+}
 
-    def removeExceptionRid(rid: RID): Unit =
+    def removeExceptionRid(rid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rid.ptr
         GdxApi.ptrcall(ShapeCast3D.Binds.removeExceptionRid, ptr, _args, null)
+}
 
-    def removeException(node: CollisionObject3D): Unit =
+    def removeException(node: CollisionObject3D): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = node.ptr
         GdxApi.ptrcall(ShapeCast3D.Binds.removeException, ptr, _args, null)
+}
 
-    def clearExceptions(): Unit =
+    def clearExceptions(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(ShapeCast3D.Binds.clearExceptions, ptr, _args, null)
+}
 
-    def setCollisionMask(mask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setCollisionMask, ptr, _args, null)
-
-    def getCollisionMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getCollisionMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit =
+    def setCollisionMaskValue(layerNumber: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if value then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(ShapeCast3D.Binds.setCollisionMaskValue, ptr, _args, null)
+}
 
-    def getCollisionMaskValue(layerNumber: Int): Boolean =
+    def getCollisionMaskValue(layerNumber: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerNumber.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layerNumber.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ShapeCast3D.Binds.getCollisionMaskValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setExcludeParentBody(mask: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if mask then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setExcludeParentBody, ptr, _args, null)
-
-    def getExcludeParentBody(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getExcludeParentBody, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollideWithAreas(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setCollideWithAreas, ptr, _args, null)
-
-    def isCollideWithAreasEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.isCollideWithAreasEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCollideWithBodies(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ShapeCast3D.Binds.setCollideWithBodies, ptr, _args, null)
-
-    def isCollideWithBodiesEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.isCollideWithBodiesEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getCollisionResult(): Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getCollisionResult, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDebugShapeCustomColor(debugShapeCustomColor: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = debugShapeCustomColor.ptr
-        GdxApi.ptrcall(ShapeCast3D.Binds.setDebugShapeCustomColor, ptr, _args, null)
-
-    def getDebugShapeCustomColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ShapeCast3D.Binds.getDebugShapeCustomColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-    def enabled: Ptr[Byte] = isEnabled()
-    def enabled_=(v: Ptr[Byte]): Unit = setEnabled(v)
-    def shape: Ptr[Byte] = getShape()
-    def shape_=(v: Ptr[Byte]): Unit = setShape(v)
-    def excludeParent: Ptr[Byte] = getExcludeParentBody()
-    def excludeParent_=(v: Ptr[Byte]): Unit = setExcludeParentBody(v)
-    def targetPosition: Ptr[Byte] = getTargetPosition()
-    def targetPosition_=(v: Ptr[Byte]): Unit = setTargetPosition(v)
-    def margin: Ptr[Byte] = getMargin()
-    def margin_=(v: Ptr[Byte]): Unit = setMargin(v)
-    def maxResults: Ptr[Byte] = getMaxResults()
-    def maxResults_=(v: Ptr[Byte]): Unit = setMaxResults(v)
-    def collisionMask: Ptr[Byte] = getCollisionMask()
-    def collisionMask_=(v: Ptr[Byte]): Unit = setCollisionMask(v)
+    def enabled: Boolean = isEnabled()
+    def enabled_=(v: Boolean): Unit = setEnabled(v)
+    def shape: Shape3D = getShape()
+    def shape_=(v: Shape3D): Unit = setShape(v)
+    def excludeParent: Boolean = getExcludeParentBody()
+    def excludeParent_=(v: Boolean): Unit = setExcludeParentBody(v)
+    def targetPosition: Vector3 = getTargetPosition()
+    def targetPosition_=(v: Vector3): Unit = setTargetPosition(v)
+    def margin: Float = getMargin()
+    def margin_=(v: Float): Unit = setMargin(v)
+    def maxResults: Int = getMaxResults()
+    def maxResults_=(v: Int): Unit = setMaxResults(v)
+    def collisionMask: Int = getCollisionMask()
+    def collisionMask_=(v: Int): Unit = setCollisionMask(v)
     def collisionResult: Ptr[Byte] = getCollisionResult()
-    def collideWithAreas: Ptr[Byte] = isCollideWithAreasEnabled()
-    def collideWithAreas_=(v: Ptr[Byte]): Unit = setCollideWithAreas(v)
-    def collideWithBodies: Ptr[Byte] = isCollideWithBodiesEnabled()
-    def collideWithBodies_=(v: Ptr[Byte]): Unit = setCollideWithBodies(v)
-    def debugShapeCustomColor: Ptr[Byte] = getDebugShapeCustomColor()
-    def debugShapeCustomColor_=(v: Ptr[Byte]): Unit = setDebugShapeCustomColor(v)
+    def collideWithAreas: Boolean = isCollideWithAreasEnabled()
+    def collideWithAreas_=(v: Boolean): Unit = setCollideWithAreas(v)
+    def collideWithBodies: Boolean = isCollideWithBodiesEnabled()
+    def collideWithBodies_=(v: Boolean): Unit = setCollideWithBodies(v)
+    def debugShapeCustomColor: Color = getDebugShapeCustomColor()
+    def debugShapeCustomColor_=(v: Color): Unit = setDebugShapeCustomColor(v)
+}
 
 object ShapeCast3D:
-    object Binds:
-        var resourceChanged: Ptr[Byte] = null
-        var setEnabled: Ptr[Byte] = null
-        var isEnabled: Ptr[Byte] = null
-        var setShape: Ptr[Byte] = null
-        var getShape: Ptr[Byte] = null
-        var setTargetPosition: Ptr[Byte] = null
-        var getTargetPosition: Ptr[Byte] = null
-        var setMargin: Ptr[Byte] = null
-        var getMargin: Ptr[Byte] = null
-        var setMaxResults: Ptr[Byte] = null
-        var getMaxResults: Ptr[Byte] = null
+object Binds {
+          var resourceChanged: Ptr[Byte] = null
         var isColliding: Ptr[Byte] = null
         var getCollisionCount: Ptr[Byte] = null
         var forceShapecastUpdate: Ptr[Byte] = null
@@ -292,32 +178,11 @@ object ShapeCast3D:
         var removeExceptionRid: Ptr[Byte] = null
         var removeException: Ptr[Byte] = null
         var clearExceptions: Ptr[Byte] = null
-        var setCollisionMask: Ptr[Byte] = null
-        var getCollisionMask: Ptr[Byte] = null
         var setCollisionMaskValue: Ptr[Byte] = null
         var getCollisionMaskValue: Ptr[Byte] = null
-        var setExcludeParentBody: Ptr[Byte] = null
-        var getExcludeParentBody: Ptr[Byte] = null
-        var setCollideWithAreas: Ptr[Byte] = null
-        var isCollideWithAreasEnabled: Ptr[Byte] = null
-        var setCollideWithBodies: Ptr[Byte] = null
-        var isCollideWithBodiesEnabled: Ptr[Byte] = null
-        var getCollisionResult: Ptr[Byte] = null
-        var setDebugShapeCustomColor: Ptr[Byte] = null
-        var getDebugShapeCustomColor: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.resourceChanged = GdxApi.getMethodBind(c"ShapeCast3D", c"resource_changed", 968641751L)
-            Binds.setEnabled = GdxApi.getMethodBind(c"ShapeCast3D", c"set_enabled", 2586408642L)
-            Binds.isEnabled = GdxApi.getMethodBind(c"ShapeCast3D", c"is_enabled", 36873697L)
-            Binds.setShape = GdxApi.getMethodBind(c"ShapeCast3D", c"set_shape", 1549710052L)
-            Binds.getShape = GdxApi.getMethodBind(c"ShapeCast3D", c"get_shape", 3214262478L)
-            Binds.setTargetPosition = GdxApi.getMethodBind(c"ShapeCast3D", c"set_target_position", 3460891852L)
-            Binds.getTargetPosition = GdxApi.getMethodBind(c"ShapeCast3D", c"get_target_position", 3360562783L)
-            Binds.setMargin = GdxApi.getMethodBind(c"ShapeCast3D", c"set_margin", 373806689L)
-            Binds.getMargin = GdxApi.getMethodBind(c"ShapeCast3D", c"get_margin", 1740695150L)
-            Binds.setMaxResults = GdxApi.getMethodBind(c"ShapeCast3D", c"set_max_results", 1286410249L)
-            Binds.getMaxResults = GdxApi.getMethodBind(c"ShapeCast3D", c"get_max_results", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.resourceChanged = GdxApi.getMethodBind(c"ShapeCast3D", c"resource_changed", 968641751L)
             Binds.isColliding = GdxApi.getMethodBind(c"ShapeCast3D", c"is_colliding", 36873697L)
             Binds.getCollisionCount = GdxApi.getMethodBind(c"ShapeCast3D", c"get_collision_count", 3905245786L)
             Binds.forceShapecastUpdate = GdxApi.getMethodBind(c"ShapeCast3D", c"force_shapecast_update", 3218959716L)
@@ -333,21 +198,13 @@ object ShapeCast3D:
             Binds.removeExceptionRid = GdxApi.getMethodBind(c"ShapeCast3D", c"remove_exception_rid", 2722037293L)
             Binds.removeException = GdxApi.getMethodBind(c"ShapeCast3D", c"remove_exception", 1976431078L)
             Binds.clearExceptions = GdxApi.getMethodBind(c"ShapeCast3D", c"clear_exceptions", 3218959716L)
-            Binds.setCollisionMask = GdxApi.getMethodBind(c"ShapeCast3D", c"set_collision_mask", 1286410249L)
-            Binds.getCollisionMask = GdxApi.getMethodBind(c"ShapeCast3D", c"get_collision_mask", 3905245786L)
             Binds.setCollisionMaskValue = GdxApi.getMethodBind(c"ShapeCast3D", c"set_collision_mask_value", 300928843L)
             Binds.getCollisionMaskValue = GdxApi.getMethodBind(c"ShapeCast3D", c"get_collision_mask_value", 1116898809L)
-            Binds.setExcludeParentBody = GdxApi.getMethodBind(c"ShapeCast3D", c"set_exclude_parent_body", 2586408642L)
-            Binds.getExcludeParentBody = GdxApi.getMethodBind(c"ShapeCast3D", c"get_exclude_parent_body", 36873697L)
-            Binds.setCollideWithAreas = GdxApi.getMethodBind(c"ShapeCast3D", c"set_collide_with_areas", 2586408642L)
-            Binds.isCollideWithAreasEnabled = GdxApi.getMethodBind(c"ShapeCast3D", c"is_collide_with_areas_enabled", 36873697L)
-            Binds.setCollideWithBodies = GdxApi.getMethodBind(c"ShapeCast3D", c"set_collide_with_bodies", 2586408642L)
-            Binds.isCollideWithBodiesEnabled = GdxApi.getMethodBind(c"ShapeCast3D", c"is_collide_with_bodies_enabled", 36873697L)
-            Binds.getCollisionResult = GdxApi.getMethodBind(c"ShapeCast3D", c"get_collision_result", 3995934104L)
-            Binds.setDebugShapeCustomColor = GdxApi.getMethodBind(c"ShapeCast3D", c"set_debug_shape_custom_color", 2920490490L)
-            Binds.getDebugShapeCustomColor = GdxApi.getMethodBind(c"ShapeCast3D", c"get_debug_shape_custom_color", 3444240500L)
+  }
+}
 
-    def apply(): ShapeCast3D =
-        val obj = new ShapeCast3D()
-        obj.ptr = GdxApi.constructObject(c"ShapeCast3D")
-        obj
+def apply(): ShapeCast3D = {
+  val obj = new ShapeCast3D()
+  obj.ptr = GdxApi.constructObject(c"ShapeCast3D")
+  obj
+}

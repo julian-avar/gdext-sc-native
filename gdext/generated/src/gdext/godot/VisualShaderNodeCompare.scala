@@ -5,65 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeCompare extends VisualShaderNode
-
-    def setComparisonType(`type`: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = `type`.ptr
-        GdxApi.ptrcall(VisualShaderNodeCompare.Binds.setComparisonType, ptr, _args, null)
-
-    def getComparisonType(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeCompare.Binds.getComparisonType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFunction(func: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = func.ptr
-        GdxApi.ptrcall(VisualShaderNodeCompare.Binds.setFunction, ptr, _args, null)
-
-    def getFunction(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeCompare.Binds.getFunction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCondition(condition: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = condition.ptr
-        GdxApi.ptrcall(VisualShaderNodeCompare.Binds.setCondition, ptr, _args, null)
-
-    def getCondition(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeCompare.Binds.getCondition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def `type`: Ptr[Byte] = getComparisonType()
-    def `type`_=(v: Ptr[Byte]): Unit = setComparisonType(v)
-    def function: Ptr[Byte] = getFunction()
-    def function_=(v: Ptr[Byte]): Unit = setFunction(v)
-    def condition: Ptr[Byte] = getCondition()
-    def condition_=(v: Ptr[Byte]): Unit = setCondition(v)
+class VisualShaderNodeCompare extends VisualShaderNode {
+    def `type`: Int = getComparisonType()
+    def `type_=`(v: Int): Unit = setComparisonType(v)
+    def function: Int = getFunction()
+    def function_=(v: Int): Unit = setFunction(v)
+    def condition: Int = getCondition()
+    def condition_=(v: Int): Unit = setCondition(v)
+}
 
 object VisualShaderNodeCompare:
-    object Binds:
-        var setComparisonType: Ptr[Byte] = null
-        var getComparisonType: Ptr[Byte] = null
-        var setFunction: Ptr[Byte] = null
-        var getFunction: Ptr[Byte] = null
-        var setCondition: Ptr[Byte] = null
-        var getCondition: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setComparisonType = GdxApi.getMethodBind(c"VisualShaderNodeCompare", c"set_comparison_type", 516558320L)
-            Binds.getComparisonType = GdxApi.getMethodBind(c"VisualShaderNodeCompare", c"get_comparison_type", 3495315961L)
-            Binds.setFunction = GdxApi.getMethodBind(c"VisualShaderNodeCompare", c"set_function", 2370951349L)
-            Binds.getFunction = GdxApi.getMethodBind(c"VisualShaderNodeCompare", c"get_function", 4089164265L)
-            Binds.setCondition = GdxApi.getMethodBind(c"VisualShaderNodeCompare", c"set_condition", 918742392L)
-            Binds.getCondition = GdxApi.getMethodBind(c"VisualShaderNodeCompare", c"get_condition", 3281078941L)
-
-    def apply(): VisualShaderNodeCompare =
-        val obj = new VisualShaderNodeCompare()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCompare")
-        obj
+def apply(): VisualShaderNodeCompare = {
+  val obj = new VisualShaderNodeCompare()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCompare")
+  obj
+}

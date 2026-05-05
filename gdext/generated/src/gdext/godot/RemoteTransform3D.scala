@@ -5,109 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RemoteTransform3D extends Node3D
-
-    def setRemoteNode(path: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(RemoteTransform3D.Binds.setRemoteNode, ptr, _args, null)
-
-    def getRemoteNode(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RemoteTransform3D.Binds.getRemoteNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def forceUpdateCache(): Unit =
+class RemoteTransform3D extends Node3D {
+    def forceUpdateCache(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RemoteTransform3D.Binds.forceUpdateCache, ptr, _args, null)
+}
 
-    def setUseGlobalCoordinates(useGlobalCoordinates: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if useGlobalCoordinates then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RemoteTransform3D.Binds.setUseGlobalCoordinates, ptr, _args, null)
-
-    def getUseGlobalCoordinates(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RemoteTransform3D.Binds.getUseGlobalCoordinates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUpdatePosition(updateRemotePosition: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if updateRemotePosition then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RemoteTransform3D.Binds.setUpdatePosition, ptr, _args, null)
-
-    def getUpdatePosition(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RemoteTransform3D.Binds.getUpdatePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUpdateRotation(updateRemoteRotation: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if updateRemoteRotation then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RemoteTransform3D.Binds.setUpdateRotation, ptr, _args, null)
-
-    def getUpdateRotation(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RemoteTransform3D.Binds.getUpdateRotation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setUpdateScale(updateRemoteScale: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if updateRemoteScale then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RemoteTransform3D.Binds.setUpdateScale, ptr, _args, null)
-
-    def getUpdateScale(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RemoteTransform3D.Binds.getUpdateScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def remotePath: Ptr[Byte] = getRemoteNode()
-    def remotePath_=(v: Ptr[Byte]): Unit = setRemoteNode(v)
-    def useGlobalCoordinates: Ptr[Byte] = getUseGlobalCoordinates()
-    def useGlobalCoordinates_=(v: Ptr[Byte]): Unit = setUseGlobalCoordinates(v)
-    def updatePosition: Ptr[Byte] = getUpdatePosition()
-    def updatePosition_=(v: Ptr[Byte]): Unit = setUpdatePosition(v)
-    def updateRotation: Ptr[Byte] = getUpdateRotation()
-    def updateRotation_=(v: Ptr[Byte]): Unit = setUpdateRotation(v)
-    def updateScale: Ptr[Byte] = getUpdateScale()
-    def updateScale_=(v: Ptr[Byte]): Unit = setUpdateScale(v)
+    def remotePath: NodePath = getRemoteNode()
+    def remotePath_=(v: NodePath): Unit = setRemoteNode(v)
+    def useGlobalCoordinates: Boolean = getUseGlobalCoordinates()
+    def useGlobalCoordinates_=(v: Boolean): Unit = setUseGlobalCoordinates(v)
+    def updatePosition: Boolean = getUpdatePosition()
+    def updatePosition_=(v: Boolean): Unit = setUpdatePosition(v)
+    def updateRotation: Boolean = getUpdateRotation()
+    def updateRotation_=(v: Boolean): Unit = setUpdateRotation(v)
+    def updateScale: Boolean = getUpdateScale()
+    def updateScale_=(v: Boolean): Unit = setUpdateScale(v)
+}
 
 object RemoteTransform3D:
-    object Binds:
-        var setRemoteNode: Ptr[Byte] = null
-        var getRemoteNode: Ptr[Byte] = null
-        var forceUpdateCache: Ptr[Byte] = null
-        var setUseGlobalCoordinates: Ptr[Byte] = null
-        var getUseGlobalCoordinates: Ptr[Byte] = null
-        var setUpdatePosition: Ptr[Byte] = null
-        var getUpdatePosition: Ptr[Byte] = null
-        var setUpdateRotation: Ptr[Byte] = null
-        var getUpdateRotation: Ptr[Byte] = null
-        var setUpdateScale: Ptr[Byte] = null
-        var getUpdateScale: Ptr[Byte] = null
+object Binds {
+          var forceUpdateCache: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setRemoteNode = GdxApi.getMethodBind(c"RemoteTransform3D", c"set_remote_node", 1348162250L)
-            Binds.getRemoteNode = GdxApi.getMethodBind(c"RemoteTransform3D", c"get_remote_node", 4075236667L)
-            Binds.forceUpdateCache = GdxApi.getMethodBind(c"RemoteTransform3D", c"force_update_cache", 3218959716L)
-            Binds.setUseGlobalCoordinates = GdxApi.getMethodBind(c"RemoteTransform3D", c"set_use_global_coordinates", 2586408642L)
-            Binds.getUseGlobalCoordinates = GdxApi.getMethodBind(c"RemoteTransform3D", c"get_use_global_coordinates", 36873697L)
-            Binds.setUpdatePosition = GdxApi.getMethodBind(c"RemoteTransform3D", c"set_update_position", 2586408642L)
-            Binds.getUpdatePosition = GdxApi.getMethodBind(c"RemoteTransform3D", c"get_update_position", 36873697L)
-            Binds.setUpdateRotation = GdxApi.getMethodBind(c"RemoteTransform3D", c"set_update_rotation", 2586408642L)
-            Binds.getUpdateRotation = GdxApi.getMethodBind(c"RemoteTransform3D", c"get_update_rotation", 36873697L)
-            Binds.setUpdateScale = GdxApi.getMethodBind(c"RemoteTransform3D", c"set_update_scale", 2586408642L)
-            Binds.getUpdateScale = GdxApi.getMethodBind(c"RemoteTransform3D", c"get_update_scale", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.forceUpdateCache = GdxApi.getMethodBind(c"RemoteTransform3D", c"force_update_cache", 3218959716L)
+  }
+}
 
-    def apply(): RemoteTransform3D =
-        val obj = new RemoteTransform3D()
-        obj.ptr = GdxApi.constructObject(c"RemoteTransform3D")
-        obj
+def apply(): RemoteTransform3D = {
+  val obj = new RemoteTransform3D()
+  obj.ptr = GdxApi.constructObject(c"RemoteTransform3D")
+  obj
+}

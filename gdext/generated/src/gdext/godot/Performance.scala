@@ -5,56 +5,63 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Performance extends Object
-
-    def getMonitor(monitor: Int): Double =
+class Performance extends Object {
+    def getMonitor(monitor: Int): Double = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = monitor.ptr
+        val _a0 = stackalloc[Long](); !_a0 = monitor.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Performance.Binds.getMonitor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addCustomMonitor(id: CString, callable: Callable): Unit =
+    def addCustomMonitor(id: CString, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = id.ptr
+        _args(0) = id
         _args(1) = callable.ptr
         GdxApi.ptrcall(Performance.Binds.addCustomMonitor, ptr, _args, null)
+}
 
-    def removeCustomMonitor(id: CString): Unit =
+    def removeCustomMonitor(id: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = id.ptr
+        _args(0) = id
         GdxApi.ptrcall(Performance.Binds.removeCustomMonitor, ptr, _args, null)
+}
 
-    def hasCustomMonitor(id: CString): Boolean =
+    def hasCustomMonitor(id: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = id.ptr
+        _args(0) = id
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Performance.Binds.hasCustomMonitor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getCustomMonitor(id: CString): Ptr[Byte] =
+    def getCustomMonitor(id: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = id.ptr
+        _args(0) = id
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Performance.Binds.getCustomMonitor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMonitorModificationTime(): Long =
+    def getMonitorModificationTime(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Performance.Binds.getMonitorModificationTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCustomMonitorNames(): Ptr[Byte] =
+    def getCustomMonitorNames(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Performance.Binds.getCustomMonitorNames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object Performance:
-    object Binds:
-        var getMonitor: Ptr[Byte] = null
+object Binds {
+          var getMonitor: Ptr[Byte] = null
         var addCustomMonitor: Ptr[Byte] = null
         var removeCustomMonitor: Ptr[Byte] = null
         var hasCustomMonitor: Ptr[Byte] = null
@@ -62,16 +69,19 @@ object Performance:
         var getMonitorModificationTime: Ptr[Byte] = null
         var getCustomMonitorNames: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getMonitor = GdxApi.getMethodBind(c"Performance", c"get_monitor", 1943275655L)
+  def loadBinds(): Unit = {
+                Binds.getMonitor = GdxApi.getMethodBind(c"Performance", c"get_monitor", 1943275655L)
             Binds.addCustomMonitor = GdxApi.getMethodBind(c"Performance", c"add_custom_monitor", 4099036814L)
             Binds.removeCustomMonitor = GdxApi.getMethodBind(c"Performance", c"remove_custom_monitor", 3304788590L)
             Binds.hasCustomMonitor = GdxApi.getMethodBind(c"Performance", c"has_custom_monitor", 2041966384L)
             Binds.getCustomMonitor = GdxApi.getMethodBind(c"Performance", c"get_custom_monitor", 2138907829L)
             Binds.getMonitorModificationTime = GdxApi.getMethodBind(c"Performance", c"get_monitor_modification_time", 2455072627L)
             Binds.getCustomMonitorNames = GdxApi.getMethodBind(c"Performance", c"get_custom_monitor_names", 2915620761L)
+  }
+}
 
-    def apply(): Performance =
-        val obj = new Performance()
-        obj.ptr = GdxApi.constructObject(c"Performance")
-        obj
+def apply(): Performance = {
+  val obj = new Performance()
+  obj.ptr = GdxApi.constructObject(c"Performance")
+  obj
+}

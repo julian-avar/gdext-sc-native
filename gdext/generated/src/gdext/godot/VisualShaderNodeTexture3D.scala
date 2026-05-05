@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeTexture3D extends VisualShaderNodeSample3D
-
-    def setTexture(value: Texture3D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = value.ptr
-        GdxApi.ptrcall(VisualShaderNodeTexture3D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture3D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeTexture3D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture3D(!_ret)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
+class VisualShaderNodeTexture3D extends VisualShaderNodeSample3D {
+    def texture: Texture3D = getTexture()
+    def texture_=(v: Texture3D): Unit = setTexture(v)
+}
 
 object VisualShaderNodeTexture3D:
-    object Binds:
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTexture = GdxApi.getMethodBind(c"VisualShaderNodeTexture3D", c"set_texture", 1188404210L)
-            Binds.getTexture = GdxApi.getMethodBind(c"VisualShaderNodeTexture3D", c"get_texture", 373985333L)
-
-    def apply(): VisualShaderNodeTexture3D =
-        val obj = new VisualShaderNodeTexture3D()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeTexture3D")
-        obj
+def apply(): VisualShaderNodeTexture3D = {
+  val obj = new VisualShaderNodeTexture3D()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeTexture3D")
+  obj
+}

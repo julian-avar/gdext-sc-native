@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class LightmapProbe extends Node3D
-
-
-
+class LightmapProbe extends Node3D {}
 
 object LightmapProbe:
-    def apply(): LightmapProbe =
-        val obj = new LightmapProbe()
-        obj.ptr = GdxApi.constructObject(c"LightmapProbe")
-        obj
+def apply(): LightmapProbe = {
+  val obj = new LightmapProbe()
+  obj.ptr = GdxApi.constructObject(c"LightmapProbe")
+  obj
+}

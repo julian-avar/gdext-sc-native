@@ -5,166 +5,43 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CameraAttributesPhysical extends CameraAttributes
-
-    def setAperture(aperture: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = aperture.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setAperture, ptr, _args, null)
-
-    def getAperture(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getAperture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setShutterSpeed(shutterSpeed: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = shutterSpeed.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setShutterSpeed, ptr, _args, null)
-
-    def getShutterSpeed(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getShutterSpeed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFocalLength(focalLength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = focalLength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setFocalLength, ptr, _args, null)
-
-    def getFocalLength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getFocalLength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFocusDistance(focusDistance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = focusDistance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setFocusDistance, ptr, _args, null)
-
-    def getFocusDistance(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getFocusDistance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setNear(near: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = near.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setNear, ptr, _args, null)
-
-    def getNear(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getNear, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setFar(far: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = far.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setFar, ptr, _args, null)
-
-    def getFar(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getFar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getFov(): Float =
+class CameraAttributesPhysical extends CameraAttributes {
+    def getFov(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(CameraAttributesPhysical.Binds.getFov, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setAutoExposureMaxExposureValue(exposureValueMax: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = exposureValueMax.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setAutoExposureMaxExposureValue, ptr, _args, null)
-
-    def getAutoExposureMaxExposureValue(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getAutoExposureMaxExposureValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setAutoExposureMinExposureValue(exposureValueMin: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = exposureValueMin.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.setAutoExposureMinExposureValue, ptr, _args, null)
-
-    def getAutoExposureMinExposureValue(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(CameraAttributesPhysical.Binds.getAutoExposureMinExposureValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-    def frustumFocusDistance: Ptr[Byte] = getFocusDistance()
-    def frustumFocusDistance_=(v: Ptr[Byte]): Unit = setFocusDistance(v)
-    def frustumFocalLength: Ptr[Byte] = getFocalLength()
-    def frustumFocalLength_=(v: Ptr[Byte]): Unit = setFocalLength(v)
-    def frustumNear: Ptr[Byte] = getNear()
-    def frustumNear_=(v: Ptr[Byte]): Unit = setNear(v)
-    def frustumFar: Ptr[Byte] = getFar()
-    def frustumFar_=(v: Ptr[Byte]): Unit = setFar(v)
-    def exposureAperture: Ptr[Byte] = getAperture()
-    def exposureAperture_=(v: Ptr[Byte]): Unit = setAperture(v)
-    def exposureShutterSpeed: Ptr[Byte] = getShutterSpeed()
-    def exposureShutterSpeed_=(v: Ptr[Byte]): Unit = setShutterSpeed(v)
-    def autoExposureMinExposureValue: Ptr[Byte] = getAutoExposureMinExposureValue()
-    def autoExposureMinExposureValue_=(v: Ptr[Byte]): Unit = setAutoExposureMinExposureValue(v)
-    def autoExposureMaxExposureValue: Ptr[Byte] = getAutoExposureMaxExposureValue()
-    def autoExposureMaxExposureValue_=(v: Ptr[Byte]): Unit = setAutoExposureMaxExposureValue(v)
+    def frustumFocusDistance: Float = getFocusDistance()
+    def frustumFocusDistance_=(v: Float): Unit = setFocusDistance(v)
+    def frustumFocalLength: Float = getFocalLength()
+    def frustumFocalLength_=(v: Float): Unit = setFocalLength(v)
+    def frustumNear: Float = getNear()
+    def frustumNear_=(v: Float): Unit = setNear(v)
+    def frustumFar: Float = getFar()
+    def frustumFar_=(v: Float): Unit = setFar(v)
+    def exposureAperture: Float = getAperture()
+    def exposureAperture_=(v: Float): Unit = setAperture(v)
+    def exposureShutterSpeed: Float = getShutterSpeed()
+    def exposureShutterSpeed_=(v: Float): Unit = setShutterSpeed(v)
+    def autoExposureMinExposureValue: Float = getAutoExposureMinExposureValue()
+    def autoExposureMinExposureValue_=(v: Float): Unit = setAutoExposureMinExposureValue(v)
+    def autoExposureMaxExposureValue: Float = getAutoExposureMaxExposureValue()
+    def autoExposureMaxExposureValue_=(v: Float): Unit = setAutoExposureMaxExposureValue(v)
+}
 
 object CameraAttributesPhysical:
-    object Binds:
-        var setAperture: Ptr[Byte] = null
-        var getAperture: Ptr[Byte] = null
-        var setShutterSpeed: Ptr[Byte] = null
-        var getShutterSpeed: Ptr[Byte] = null
-        var setFocalLength: Ptr[Byte] = null
-        var getFocalLength: Ptr[Byte] = null
-        var setFocusDistance: Ptr[Byte] = null
-        var getFocusDistance: Ptr[Byte] = null
-        var setNear: Ptr[Byte] = null
-        var getNear: Ptr[Byte] = null
-        var setFar: Ptr[Byte] = null
-        var getFar: Ptr[Byte] = null
-        var getFov: Ptr[Byte] = null
-        var setAutoExposureMaxExposureValue: Ptr[Byte] = null
-        var getAutoExposureMaxExposureValue: Ptr[Byte] = null
-        var setAutoExposureMinExposureValue: Ptr[Byte] = null
-        var getAutoExposureMinExposureValue: Ptr[Byte] = null
+object Binds {
+          var getFov: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setAperture = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_aperture", 373806689L)
-            Binds.getAperture = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_aperture", 1740695150L)
-            Binds.setShutterSpeed = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_shutter_speed", 373806689L)
-            Binds.getShutterSpeed = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_shutter_speed", 1740695150L)
-            Binds.setFocalLength = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_focal_length", 373806689L)
-            Binds.getFocalLength = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_focal_length", 1740695150L)
-            Binds.setFocusDistance = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_focus_distance", 373806689L)
-            Binds.getFocusDistance = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_focus_distance", 1740695150L)
-            Binds.setNear = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_near", 373806689L)
-            Binds.getNear = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_near", 1740695150L)
-            Binds.setFar = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_far", 373806689L)
-            Binds.getFar = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_far", 1740695150L)
-            Binds.getFov = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_fov", 1740695150L)
-            Binds.setAutoExposureMaxExposureValue = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_auto_exposure_max_exposure_value", 373806689L)
-            Binds.getAutoExposureMaxExposureValue = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_auto_exposure_max_exposure_value", 1740695150L)
-            Binds.setAutoExposureMinExposureValue = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"set_auto_exposure_min_exposure_value", 373806689L)
-            Binds.getAutoExposureMinExposureValue = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_auto_exposure_min_exposure_value", 1740695150L)
+  def loadBinds(): Unit = {
+                Binds.getFov = GdxApi.getMethodBind(c"CameraAttributesPhysical", c"get_fov", 1740695150L)
+  }
+}
 
-    def apply(): CameraAttributesPhysical =
-        val obj = new CameraAttributesPhysical()
-        obj.ptr = GdxApi.constructObject(c"CameraAttributesPhysical")
-        obj
+def apply(): CameraAttributesPhysical = {
+  val obj = new CameraAttributesPhysical()
+  obj.ptr = GdxApi.constructObject(c"CameraAttributesPhysical")
+  obj
+}

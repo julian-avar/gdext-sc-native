@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VSplitContainer extends SplitContainer
-
-
-
+class VSplitContainer extends SplitContainer {}
 
 object VSplitContainer:
-    def apply(): VSplitContainer =
-        val obj = new VSplitContainer()
-        obj.ptr = GdxApi.constructObject(c"VSplitContainer")
-        obj
+def apply(): VSplitContainer = {
+  val obj = new VSplitContainer()
+  obj.ptr = GdxApi.constructObject(c"VSplitContainer")
+  obj
+}

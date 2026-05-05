@@ -5,97 +5,110 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SceneReplicationConfig extends Resource
-
-    def getProperties(): Ptr[Byte] =
+class SceneReplicationConfig extends Resource {
+    def getProperties(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.getProperties, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addProperty(path: NodePath): Unit =
+    def addProperty(path: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         GdxApi.ptrcall(SceneReplicationConfig.Binds.addProperty, ptr, _args, null)
+}
 
-    def hasProperty(path: NodePath): Boolean =
+    def hasProperty(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.hasProperty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeProperty(path: NodePath): Unit =
+    def removeProperty(path: NodePath): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         GdxApi.ptrcall(SceneReplicationConfig.Binds.removeProperty, ptr, _args, null)
+}
 
-    def propertyGetIndex(path: NodePath): Int =
+    def propertyGetIndex(path: NodePath): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertyGetIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def propertyGetSpawn(path: NodePath): Boolean =
+    def propertyGetSpawn(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertyGetSpawn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def propertySetSpawn(path: NodePath, enabled: Boolean): Unit =
+    def propertySetSpawn(path: NodePath, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertySetSpawn, ptr, _args, null)
+}
 
-    def propertyGetReplicationMode(path: NodePath): Int =
+    def propertyGetReplicationMode(path: NodePath): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertyGetReplicationMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def propertySetReplicationMode(path: NodePath, mode: Int): Unit =
+    def propertySetReplicationMode(path: NodePath, mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
-        _args(1) = mode.ptr
+        val _a1 = stackalloc[Long](); !_a1 = mode.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertySetReplicationMode, ptr, _args, null)
+}
 
-    def propertyGetSync(path: NodePath): Boolean =
+    def propertyGetSync(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertyGetSync, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def propertySetSync(path: NodePath, enabled: Boolean): Unit =
+    def propertySetSync(path: NodePath, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertySetSync, ptr, _args, null)
+}
 
-    def propertyGetWatch(path: NodePath): Boolean =
+    def propertyGetWatch(path: NodePath): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = path.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertyGetWatch, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def propertySetWatch(path: NodePath, enabled: Boolean): Unit =
+    def propertySetWatch(path: NodePath, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = path.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(SceneReplicationConfig.Binds.propertySetWatch, ptr, _args, null)
-
+}
+}
 
 object SceneReplicationConfig:
-    object Binds:
-        var getProperties: Ptr[Byte] = null
+object Binds {
+          var getProperties: Ptr[Byte] = null
         var addProperty: Ptr[Byte] = null
         var hasProperty: Ptr[Byte] = null
         var removeProperty: Ptr[Byte] = null
@@ -109,8 +122,8 @@ object SceneReplicationConfig:
         var propertyGetWatch: Ptr[Byte] = null
         var propertySetWatch: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getProperties = GdxApi.getMethodBind(c"SceneReplicationConfig", c"get_properties", 3995934104L)
+  def loadBinds(): Unit = {
+                Binds.getProperties = GdxApi.getMethodBind(c"SceneReplicationConfig", c"get_properties", 3995934104L)
             Binds.addProperty = GdxApi.getMethodBind(c"SceneReplicationConfig", c"add_property", 4094619021L)
             Binds.hasProperty = GdxApi.getMethodBind(c"SceneReplicationConfig", c"has_property", 861721659L)
             Binds.removeProperty = GdxApi.getMethodBind(c"SceneReplicationConfig", c"remove_property", 1348162250L)
@@ -123,8 +136,11 @@ object SceneReplicationConfig:
             Binds.propertySetSync = GdxApi.getMethodBind(c"SceneReplicationConfig", c"property_set_sync", 3868023870L)
             Binds.propertyGetWatch = GdxApi.getMethodBind(c"SceneReplicationConfig", c"property_get_watch", 3456846888L)
             Binds.propertySetWatch = GdxApi.getMethodBind(c"SceneReplicationConfig", c"property_set_watch", 3868023870L)
+  }
+}
 
-    def apply(): SceneReplicationConfig =
-        val obj = new SceneReplicationConfig()
-        obj.ptr = GdxApi.constructObject(c"SceneReplicationConfig")
-        obj
+def apply(): SceneReplicationConfig = {
+  val obj = new SceneReplicationConfig()
+  obj.ptr = GdxApi.constructObject(c"SceneReplicationConfig")
+  obj
+}

@@ -5,35 +5,40 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Mutex extends RefCounted
-
-    def lock(): Unit =
+class Mutex extends RefCounted {
+    def lock(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Mutex.Binds.lock, ptr, _args, null)
+}
 
-    def tryLock(): Boolean =
+    def tryLock(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Mutex.Binds.tryLock, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def unlock(): Unit =
+    def unlock(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Mutex.Binds.unlock, ptr, _args, null)
-
+}
+}
 
 object Mutex:
-    object Binds:
-        var lock: Ptr[Byte] = null
+object Binds {
+          var lock: Ptr[Byte] = null
         var tryLock: Ptr[Byte] = null
         var unlock: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.lock = GdxApi.getMethodBind(c"Mutex", c"lock", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.lock = GdxApi.getMethodBind(c"Mutex", c"lock", 3218959716L)
             Binds.tryLock = GdxApi.getMethodBind(c"Mutex", c"try_lock", 2240911060L)
             Binds.unlock = GdxApi.getMethodBind(c"Mutex", c"unlock", 3218959716L)
+  }
+}
 
-    def apply(): Mutex =
-        val obj = new Mutex()
-        obj.ptr = GdxApi.constructObject(c"Mutex")
-        obj
+def apply(): Mutex = {
+  val obj = new Mutex()
+  obj.ptr = GdxApi.constructObject(c"Mutex")
+  obj
+}

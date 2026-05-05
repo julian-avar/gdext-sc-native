@@ -5,24 +5,29 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorResourceTooltipPlugin extends RefCounted
+class EditorResourceTooltipPlugin extends RefCounted {
     def _handles(`type`: CString): Boolean = false
     def _makeTooltipForPath(path: CString, metadata: Dictionary, base: Control): Control = null
-    def requestThumbnail(path: CString, control: TextureRect): Unit =
+
+    def requestThumbnail(path: CString, control: TextureRect): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = path.ptr
+        _args(0) = path
         _args(1) = control.ptr
         GdxApi.ptrcall(EditorResourceTooltipPlugin.Binds.requestThumbnail, ptr, _args, null)
-
+}
+}
 
 object EditorResourceTooltipPlugin:
-    object Binds:
-        var requestThumbnail: Ptr[Byte] = null
+object Binds {
+          var requestThumbnail: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.requestThumbnail = GdxApi.getMethodBind(c"EditorResourceTooltipPlugin", c"request_thumbnail", 3245519720L)
+  def loadBinds(): Unit = {
+                Binds.requestThumbnail = GdxApi.getMethodBind(c"EditorResourceTooltipPlugin", c"request_thumbnail", 3245519720L)
+  }
+}
 
-    def apply(): EditorResourceTooltipPlugin =
-        val obj = new EditorResourceTooltipPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorResourceTooltipPlugin")
-        obj
+def apply(): EditorResourceTooltipPlugin = {
+  val obj = new EditorResourceTooltipPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorResourceTooltipPlugin")
+  obj
+}

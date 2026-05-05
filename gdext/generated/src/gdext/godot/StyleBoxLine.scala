@@ -5,103 +5,22 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class StyleBoxLine extends StyleBox
-
-    def setColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(StyleBoxLine.Binds.setColor, ptr, _args, null)
-
-    def getColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(StyleBoxLine.Binds.getColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setThickness(thickness: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = thickness.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxLine.Binds.setThickness, ptr, _args, null)
-
-    def getThickness(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(StyleBoxLine.Binds.getThickness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setGrowBegin(offset: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = offset.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxLine.Binds.setGrowBegin, ptr, _args, null)
-
-    def getGrowBegin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(StyleBoxLine.Binds.getGrowBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setGrowEnd(offset: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = offset.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxLine.Binds.setGrowEnd, ptr, _args, null)
-
-    def getGrowEnd(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(StyleBoxLine.Binds.getGrowEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVertical(vertical: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if vertical then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(StyleBoxLine.Binds.setVertical, ptr, _args, null)
-
-    def isVertical(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(StyleBoxLine.Binds.isVertical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def color: Ptr[Byte] = getColor()
-    def color_=(v: Ptr[Byte]): Unit = setColor(v)
-    def growBegin: Ptr[Byte] = getGrowBegin()
-    def growBegin_=(v: Ptr[Byte]): Unit = setGrowBegin(v)
-    def growEnd: Ptr[Byte] = getGrowEnd()
-    def growEnd_=(v: Ptr[Byte]): Unit = setGrowEnd(v)
-    def thickness: Ptr[Byte] = getThickness()
-    def thickness_=(v: Ptr[Byte]): Unit = setThickness(v)
-    def vertical: Ptr[Byte] = isVertical()
-    def vertical_=(v: Ptr[Byte]): Unit = setVertical(v)
+class StyleBoxLine extends StyleBox {
+    def color: Color = getColor()
+    def color_=(v: Color): Unit = setColor(v)
+    def growBegin: Float = getGrowBegin()
+    def growBegin_=(v: Float): Unit = setGrowBegin(v)
+    def growEnd: Float = getGrowEnd()
+    def growEnd_=(v: Float): Unit = setGrowEnd(v)
+    def thickness: Int = getThickness()
+    def thickness_=(v: Int): Unit = setThickness(v)
+    def vertical: Boolean = isVertical()
+    def vertical_=(v: Boolean): Unit = setVertical(v)
+}
 
 object StyleBoxLine:
-    object Binds:
-        var setColor: Ptr[Byte] = null
-        var getColor: Ptr[Byte] = null
-        var setThickness: Ptr[Byte] = null
-        var getThickness: Ptr[Byte] = null
-        var setGrowBegin: Ptr[Byte] = null
-        var getGrowBegin: Ptr[Byte] = null
-        var setGrowEnd: Ptr[Byte] = null
-        var getGrowEnd: Ptr[Byte] = null
-        var setVertical: Ptr[Byte] = null
-        var isVertical: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setColor = GdxApi.getMethodBind(c"StyleBoxLine", c"set_color", 2920490490L)
-            Binds.getColor = GdxApi.getMethodBind(c"StyleBoxLine", c"get_color", 3444240500L)
-            Binds.setThickness = GdxApi.getMethodBind(c"StyleBoxLine", c"set_thickness", 1286410249L)
-            Binds.getThickness = GdxApi.getMethodBind(c"StyleBoxLine", c"get_thickness", 3905245786L)
-            Binds.setGrowBegin = GdxApi.getMethodBind(c"StyleBoxLine", c"set_grow_begin", 373806689L)
-            Binds.getGrowBegin = GdxApi.getMethodBind(c"StyleBoxLine", c"get_grow_begin", 1740695150L)
-            Binds.setGrowEnd = GdxApi.getMethodBind(c"StyleBoxLine", c"set_grow_end", 373806689L)
-            Binds.getGrowEnd = GdxApi.getMethodBind(c"StyleBoxLine", c"get_grow_end", 1740695150L)
-            Binds.setVertical = GdxApi.getMethodBind(c"StyleBoxLine", c"set_vertical", 2586408642L)
-            Binds.isVertical = GdxApi.getMethodBind(c"StyleBoxLine", c"is_vertical", 36873697L)
-
-    def apply(): StyleBoxLine =
-        val obj = new StyleBoxLine()
-        obj.ptr = GdxApi.constructObject(c"StyleBoxLine")
-        obj
+def apply(): StyleBoxLine = {
+  val obj = new StyleBoxLine()
+  obj.ptr = GdxApi.constructObject(c"StyleBoxLine")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceImporterShaderFile extends ResourceImporter
-
-
-
+class ResourceImporterShaderFile extends ResourceImporter {}
 
 object ResourceImporterShaderFile:
-    def apply(): ResourceImporterShaderFile =
-        val obj = new ResourceImporterShaderFile()
-        obj.ptr = GdxApi.constructObject(c"ResourceImporterShaderFile")
-        obj
+def apply(): ResourceImporterShaderFile = {
+  val obj = new ResourceImporterShaderFile()
+  obj.ptr = GdxApi.constructObject(c"ResourceImporterShaderFile")
+  obj
+}

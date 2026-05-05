@@ -5,905 +5,713 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FontFile extends Font
-
-    def loadBitmapFont(path: CString): Int =
+class FontFile extends Font {
+    def loadBitmapFont(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.loadBitmapFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadDynamicFont(path: CString): Int =
+    def loadDynamicFont(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.loadDynamicFont, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setData(data: PackedByteArray): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = data.ptr
-        GdxApi.ptrcall(FontFile.Binds.setData, ptr, _args, null)
-
-    def getData(): PackedByteArray =
+    def getCacheCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FontFile.Binds.getData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedByteArray(!_ret)
-
-    def setFontName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(FontFile.Binds.setFontName, ptr, _args, null)
-
-    def setFontStyleName(name: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
-        GdxApi.ptrcall(FontFile.Binds.setFontStyleName, ptr, _args, null)
-
-    def setFontStyle(style: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = style.ptr
-        GdxApi.ptrcall(FontFile.Binds.setFontStyle, ptr, _args, null)
-
-    def setFontWeight(weight: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = weight.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setFontWeight, ptr, _args, null)
-
-    def setFontStretch(stretch: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = stretch.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setFontStretch, ptr, _args, null)
-
-    def setAntialiasing(antialiasing: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = antialiasing.ptr
-        GdxApi.ptrcall(FontFile.Binds.setAntialiasing, ptr, _args, null)
-
-    def getAntialiasing(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getAntialiasing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDisableEmbeddedBitmaps(disableEmbeddedBitmaps: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disableEmbeddedBitmaps then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setDisableEmbeddedBitmaps, ptr, _args, null)
-
-    def getDisableEmbeddedBitmaps(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.getDisableEmbeddedBitmaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setGenerateMipmaps(generateMipmaps: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if generateMipmaps then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setGenerateMipmaps, ptr, _args, null)
-
-    def getGenerateMipmaps(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.getGenerateMipmaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMultichannelSignedDistanceField(msdf: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if msdf then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setMultichannelSignedDistanceField, ptr, _args, null)
-
-    def isMultichannelSignedDistanceField(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.isMultichannelSignedDistanceField, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setMsdfPixelRange(msdfPixelRange: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = msdfPixelRange.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setMsdfPixelRange, ptr, _args, null)
-
-    def getMsdfPixelRange(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getMsdfPixelRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMsdfSize(msdfSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = msdfSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setMsdfSize, ptr, _args, null)
-
-    def getMsdfSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getMsdfSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFixedSize(fixedSize: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = fixedSize.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setFixedSize, ptr, _args, null)
-
-    def getFixedSize(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getFixedSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFixedSizeScaleMode(fixedSizeScaleMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = fixedSizeScaleMode.ptr
-        GdxApi.ptrcall(FontFile.Binds.setFixedSizeScaleMode, ptr, _args, null)
-
-    def getFixedSizeScaleMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getFixedSizeScaleMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAllowSystemFallback(allowSystemFallback: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if allowSystemFallback then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setAllowSystemFallback, ptr, _args, null)
-
-    def isAllowSystemFallback(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.isAllowSystemFallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setForceAutohinter(forceAutohinter: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if forceAutohinter then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setForceAutohinter, ptr, _args, null)
-
-    def isForceAutohinter(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.isForceAutohinter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setModulateColorGlyphs(modulate: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if modulate then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setModulateColorGlyphs, ptr, _args, null)
-
-    def isModulateColorGlyphs(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.isModulateColorGlyphs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHinting(hinting: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = hinting.ptr
-        GdxApi.ptrcall(FontFile.Binds.setHinting, ptr, _args, null)
-
-    def getHinting(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getHinting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSubpixelPositioning(subpixelPositioning: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = subpixelPositioning.ptr
-        GdxApi.ptrcall(FontFile.Binds.setSubpixelPositioning, ptr, _args, null)
-
-    def getSubpixelPositioning(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FontFile.Binds.getSubpixelPositioning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setKeepRoundingRemainders(keepRoundingRemainders: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if keepRoundingRemainders then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setKeepRoundingRemainders, ptr, _args, null)
-
-    def getKeepRoundingRemainders(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FontFile.Binds.getKeepRoundingRemainders, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setOversampling(oversampling: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = oversampling.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FontFile.Binds.setOversampling, ptr, _args, null)
-
-    def getOversampling(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(FontFile.Binds.getOversampling, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getCacheCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getCacheCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearCache(): Unit =
+    def clearCache(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(FontFile.Binds.clearCache, ptr, _args, null)
+}
 
-    def removeCache(cacheIndex: Int): Unit =
+    def removeCache(cacheIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.removeCache, ptr, _args, null)
+}
 
-    def getSizeCacheList(cacheIndex: Int): Ptr[Byte] =
+    def getSizeCacheList(cacheIndex: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getSizeCacheList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clearSizeCache(cacheIndex: Int): Unit =
+    def clearSizeCache(cacheIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.clearSizeCache, ptr, _args, null)
+}
 
-    def removeSizeCache(cacheIndex: Int, size: Vector2i): Unit =
+    def removeSizeCache(cacheIndex: Int, size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
         GdxApi.ptrcall(FontFile.Binds.removeSizeCache, ptr, _args, null)
+}
 
-    def setVariationCoordinates(cacheIndex: Int, variationCoordinates: Dictionary): Unit =
+    def setVariationCoordinates(cacheIndex: Int, variationCoordinates: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = variationCoordinates.ptr
         GdxApi.ptrcall(FontFile.Binds.setVariationCoordinates, ptr, _args, null)
+}
 
-    def getVariationCoordinates(cacheIndex: Int): Dictionary =
+    def getVariationCoordinates(cacheIndex: Int): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getVariationCoordinates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def setEmbolden(cacheIndex: Int, strength: Float): Unit =
+    def setEmbolden(cacheIndex: Int, strength: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = strength.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setEmbolden, ptr, _args, null)
+}
 
-    def getEmbolden(cacheIndex: Int): Float =
+    def getEmbolden(cacheIndex: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getEmbolden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setTransform(cacheIndex: Int, transform: Transform2D): Unit =
+    def setTransform(cacheIndex: Int, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = transform.ptr
         GdxApi.ptrcall(FontFile.Binds.setTransform, ptr, _args, null)
+}
 
-    def getTransform(cacheIndex: Int): Transform2D =
+    def getTransform(cacheIndex: Int): Transform2D = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def setExtraSpacing(cacheIndex: Int, spacing: Int, value: Long): Unit =
+    def setExtraSpacing(cacheIndex: Int, spacing: Int, value: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = spacing.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = value
+        val _a1 = stackalloc[Long](); !_a1 = spacing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _a2 = stackalloc[Long](); !_a2 = value
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setExtraSpacing, ptr, _args, null)
+}
 
-    def getExtraSpacing(cacheIndex: Int, spacing: Int): Long =
+    def getExtraSpacing(cacheIndex: Int, spacing: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = spacing.ptr
-        val _ret = stackalloc[CLong]()
+        val _a1 = stackalloc[Long](); !_a1 = spacing.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getExtraSpacing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setExtraBaselineOffset(cacheIndex: Int, baselineOffset: Float): Unit =
+    def setExtraBaselineOffset(cacheIndex: Int, baselineOffset: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = baselineOffset.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setExtraBaselineOffset, ptr, _args, null)
+}
 
-    def getExtraBaselineOffset(cacheIndex: Int): Float =
+    def getExtraBaselineOffset(cacheIndex: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getExtraBaselineOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setFaceIndex(cacheIndex: Int, faceIndex: Long): Unit =
+    def setFaceIndex(cacheIndex: Int, faceIndex: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = faceIndex
+        val _a1 = stackalloc[Long](); !_a1 = faceIndex
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setFaceIndex, ptr, _args, null)
+}
 
-    def getFaceIndex(cacheIndex: Int): Long =
+    def getFaceIndex(cacheIndex: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getFaceIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setCacheAscent(cacheIndex: Int, size: Int, ascent: Float): Unit =
+    def setCacheAscent(cacheIndex: Int, size: Int, ascent: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = ascent.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setCacheAscent, ptr, _args, null)
+}
 
-    def getCacheAscent(cacheIndex: Int, size: Int): Float =
+    def getCacheAscent(cacheIndex: Int, size: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getCacheAscent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCacheDescent(cacheIndex: Int, size: Int, descent: Float): Unit =
+    def setCacheDescent(cacheIndex: Int, size: Int, descent: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = descent.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setCacheDescent, ptr, _args, null)
+}
 
-    def getCacheDescent(cacheIndex: Int, size: Int): Float =
+    def getCacheDescent(cacheIndex: Int, size: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getCacheDescent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCacheUnderlinePosition(cacheIndex: Int, size: Int, underlinePosition: Float): Unit =
+    def setCacheUnderlinePosition(cacheIndex: Int, size: Int, underlinePosition: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = underlinePosition.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setCacheUnderlinePosition, ptr, _args, null)
+}
 
-    def getCacheUnderlinePosition(cacheIndex: Int, size: Int): Float =
+    def getCacheUnderlinePosition(cacheIndex: Int, size: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getCacheUnderlinePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCacheUnderlineThickness(cacheIndex: Int, size: Int, underlineThickness: Float): Unit =
+    def setCacheUnderlineThickness(cacheIndex: Int, size: Int, underlineThickness: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = underlineThickness.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setCacheUnderlineThickness, ptr, _args, null)
+}
 
-    def getCacheUnderlineThickness(cacheIndex: Int, size: Int): Float =
+    def getCacheUnderlineThickness(cacheIndex: Int, size: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getCacheUnderlineThickness, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def setCacheScale(cacheIndex: Int, size: Int, scale: Float): Unit =
+    def setCacheScale(cacheIndex: Int, size: Int, scale: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Double](); !_a2 = scale.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setCacheScale, ptr, _args, null)
+}
 
-    def getCacheScale(cacheIndex: Int, size: Int): Float =
+    def getCacheScale(cacheIndex: Int, size: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(FontFile.Binds.getCacheScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getTextureCount(cacheIndex: Int, size: Vector2i): Int =
+    def getTextureCount(cacheIndex: Int, size: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getTextureCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearTextures(cacheIndex: Int, size: Vector2i): Unit =
+    def clearTextures(cacheIndex: Int, size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
         GdxApi.ptrcall(FontFile.Binds.clearTextures, ptr, _args, null)
+}
 
-    def removeTexture(cacheIndex: Int, size: Vector2i, textureIndex: Int): Unit =
+    def removeTexture(cacheIndex: Int, size: Vector2i, textureIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.removeTexture, ptr, _args, null)
+}
 
-    def setTextureImage(cacheIndex: Int, size: Vector2i, textureIndex: Int, image: Image): Unit =
+    def setTextureImage(cacheIndex: Int, size: Vector2i, textureIndex: Int, image: Image): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = image.ptr
         GdxApi.ptrcall(FontFile.Binds.setTextureImage, ptr, _args, null)
+}
 
-    def getTextureImage(cacheIndex: Int, size: Vector2i, textureIndex: Int): Image =
+    def getTextureImage(cacheIndex: Int, size: Vector2i, textureIndex: Int): Image = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getTextureImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def setTextureOffsets(cacheIndex: Int, size: Vector2i, textureIndex: Int, offset: PackedInt32Array): Unit =
+    def setTextureOffsets(cacheIndex: Int, size: Vector2i, textureIndex: Int, offset: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = offset.ptr
         GdxApi.ptrcall(FontFile.Binds.setTextureOffsets, ptr, _args, null)
+}
 
-    def getTextureOffsets(cacheIndex: Int, size: Vector2i, textureIndex: Int): PackedInt32Array =
+    def getTextureOffsets(cacheIndex: Int, size: Vector2i, textureIndex: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = textureIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = textureIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getTextureOffsets, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getGlyphList(cacheIndex: Int, size: Vector2i): PackedInt32Array =
+    def getGlyphList(cacheIndex: Int, size: Vector2i): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def clearGlyphs(cacheIndex: Int, size: Vector2i): Unit =
+    def clearGlyphs(cacheIndex: Int, size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
         GdxApi.ptrcall(FontFile.Binds.clearGlyphs, ptr, _args, null)
+}
 
-    def removeGlyph(cacheIndex: Int, size: Vector2i, glyph: Int): Unit =
+    def removeGlyph(cacheIndex: Int, size: Vector2i, glyph: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.removeGlyph, ptr, _args, null)
+}
 
-    def setGlyphAdvance(cacheIndex: Int, size: Int, glyph: Int, advance: Vector2): Unit =
+    def setGlyphAdvance(cacheIndex: Int, size: Int, glyph: Int, advance: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = advance.ptr
         GdxApi.ptrcall(FontFile.Binds.setGlyphAdvance, ptr, _args, null)
+}
 
-    def getGlyphAdvance(cacheIndex: Int, size: Int, glyph: Int): Vector2 =
+    def getGlyphAdvance(cacheIndex: Int, size: Int, glyph: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphAdvance, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setGlyphOffset(cacheIndex: Int, size: Vector2i, glyph: Int, offset: Vector2): Unit =
+    def setGlyphOffset(cacheIndex: Int, size: Vector2i, glyph: Int, offset: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = offset.ptr
         GdxApi.ptrcall(FontFile.Binds.setGlyphOffset, ptr, _args, null)
+}
 
-    def getGlyphOffset(cacheIndex: Int, size: Vector2i, glyph: Int): Vector2 =
+    def getGlyphOffset(cacheIndex: Int, size: Vector2i, glyph: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setGlyphSize(cacheIndex: Int, size: Vector2i, glyph: Int, glSize: Vector2): Unit =
+    def setGlyphSize(cacheIndex: Int, size: Vector2i, glyph: Int, glSize: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = glSize.ptr
         GdxApi.ptrcall(FontFile.Binds.setGlyphSize, ptr, _args, null)
+}
 
-    def getGlyphSize(cacheIndex: Int, size: Vector2i, glyph: Int): Vector2 =
+    def getGlyphSize(cacheIndex: Int, size: Vector2i, glyph: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setGlyphUvRect(cacheIndex: Int, size: Vector2i, glyph: Int, uvRect: Rect2): Unit =
+    def setGlyphUvRect(cacheIndex: Int, size: Vector2i, glyph: Int, uvRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = uvRect.ptr
         GdxApi.ptrcall(FontFile.Binds.setGlyphUvRect, ptr, _args, null)
+}
 
-    def getGlyphUvRect(cacheIndex: Int, size: Vector2i, glyph: Int): Rect2 =
+    def getGlyphUvRect(cacheIndex: Int, size: Vector2i, glyph: Int): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphUvRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def setGlyphTextureIdx(cacheIndex: Int, size: Vector2i, glyph: Int, textureIdx: Int): Unit =
+    def setGlyphTextureIdx(cacheIndex: Int, size: Vector2i, glyph: Int, textureIdx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = textureIdx.toLong
+        val _a3 = stackalloc[Long](); !_a3 = textureIdx.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setGlyphTextureIdx, ptr, _args, null)
+}
 
-    def getGlyphTextureIdx(cacheIndex: Int, size: Vector2i, glyph: Int): Int =
+    def getGlyphTextureIdx(cacheIndex: Int, size: Vector2i, glyph: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = glyph.toLong
+        val _a2 = stackalloc[Long](); !_a2 = glyph.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphTextureIdx, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getKerningList(cacheIndex: Int, size: Int): Ptr[Byte] =
+    def getKerningList(cacheIndex: Int, size: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getKerningList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clearKerningMap(cacheIndex: Int, size: Int): Unit =
+    def clearKerningMap(cacheIndex: Int, size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.clearKerningMap, ptr, _args, null)
+}
 
-    def removeKerning(cacheIndex: Int, size: Int, glyphPair: Vector2i): Unit =
+    def removeKerning(cacheIndex: Int, size: Int, glyphPair: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = glyphPair.ptr
         GdxApi.ptrcall(FontFile.Binds.removeKerning, ptr, _args, null)
+}
 
-    def setKerning(cacheIndex: Int, size: Int, glyphPair: Vector2i, kerning: Vector2): Unit =
+    def setKerning(cacheIndex: Int, size: Int, glyphPair: Vector2i, kerning: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = glyphPair.ptr
         _args(3) = kerning.ptr
         GdxApi.ptrcall(FontFile.Binds.setKerning, ptr, _args, null)
+}
 
-    def getKerning(cacheIndex: Int, size: Int, glyphPair: Vector2i): Vector2 =
+    def getKerning(cacheIndex: Int, size: Int, glyphPair: Vector2i): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = glyphPair.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getKerning, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def renderRange(cacheIndex: Int, size: Vector2i, start: Int, end: Int): Unit =
+    def renderRange(cacheIndex: Int, size: Vector2i, start: Int, end: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = start.toLong
+        val _a2 = stackalloc[Long](); !_a2 = start.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = end.toLong
+        val _a3 = stackalloc[Long](); !_a3 = end.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.renderRange, ptr, _args, null)
+}
 
-    def renderGlyph(cacheIndex: Int, size: Vector2i, index: Int): Unit =
+    def renderGlyph(cacheIndex: Int, size: Vector2i, index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = cacheIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = cacheIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = size.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = index.toLong
+        val _a2 = stackalloc[Long](); !_a2 = index.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.renderGlyph, ptr, _args, null)
+}
 
-    def setLanguageSupportOverride(language: CString, supported: Boolean): Unit =
+    def setLanguageSupportOverride(language: CString, supported: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = language.ptr
+        _args(0) = language
         val _a1 = stackalloc[Byte](); !_a1 = if supported then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setLanguageSupportOverride, ptr, _args, null)
+}
 
-    def getLanguageSupportOverride(language: CString): Boolean =
+    def getLanguageSupportOverride(language: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
+        _args(0) = language
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FontFile.Binds.getLanguageSupportOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeLanguageSupportOverride(language: CString): Unit =
+    def removeLanguageSupportOverride(language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
+        _args(0) = language
         GdxApi.ptrcall(FontFile.Binds.removeLanguageSupportOverride, ptr, _args, null)
+}
 
-    def getLanguageSupportOverrides(): PackedStringArray =
+    def getLanguageSupportOverrides(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getLanguageSupportOverrides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setScriptSupportOverride(script: CString, supported: Boolean): Unit =
+    def setScriptSupportOverride(script: CString, supported: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = script.ptr
+        _args(0) = script
         val _a1 = stackalloc[Byte](); !_a1 = if supported then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(FontFile.Binds.setScriptSupportOverride, ptr, _args, null)
+}
 
-    def getScriptSupportOverride(script: CString): Boolean =
+    def getScriptSupportOverride(script: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = script.ptr
+        _args(0) = script
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(FontFile.Binds.getScriptSupportOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def removeScriptSupportOverride(script: CString): Unit =
+    def removeScriptSupportOverride(script: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = script.ptr
+        _args(0) = script
         GdxApi.ptrcall(FontFile.Binds.removeScriptSupportOverride, ptr, _args, null)
+}
 
-    def getScriptSupportOverrides(): PackedStringArray =
+    def getScriptSupportOverrides(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(FontFile.Binds.getScriptSupportOverrides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setOpentypeFeatureOverrides(overrides: Dictionary): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = overrides.ptr
-        GdxApi.ptrcall(FontFile.Binds.setOpentypeFeatureOverrides, ptr, _args, null)
-
-    def getOpentypeFeatureOverrides(): Dictionary =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(FontFile.Binds.getOpentypeFeatureOverrides, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Dictionary(!_ret)
-
-    def getGlyphIndex(size: Int, char: Int, variationSelector: Int): Int =
+    def getGlyphIndex(size: Int, char: Int, variationSelector: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = char.toLong
+        val _a1 = stackalloc[Long](); !_a1 = char.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = variationSelector.toLong
+        val _a2 = stackalloc[Long](); !_a2 = variationSelector.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getGlyphIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCharFromGlyphIndex(size: Int, glyphIndex: Int): Int =
+    def getCharFromGlyphIndex(size: Int, glyphIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = size.toLong
+        val _a0 = stackalloc[Long](); !_a0 = size.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = glyphIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = glyphIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FontFile.Binds.getCharFromGlyphIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-    def data: Ptr[Byte] = getData()
-    def data_=(v: Ptr[Byte]): Unit = setData(v)
-    def generateMipmaps: Ptr[Byte] = getGenerateMipmaps()
-    def generateMipmaps_=(v: Ptr[Byte]): Unit = setGenerateMipmaps(v)
-    def disableEmbeddedBitmaps: Ptr[Byte] = getDisableEmbeddedBitmaps()
-    def disableEmbeddedBitmaps_=(v: Ptr[Byte]): Unit = setDisableEmbeddedBitmaps(v)
-    def antialiasing: Ptr[Byte] = getAntialiasing()
-    def antialiasing_=(v: Ptr[Byte]): Unit = setAntialiasing(v)
+}
+
+    def data: PackedByteArray = getData()
+    def data_=(v: PackedByteArray): Unit = setData(v)
+    def generateMipmaps: Boolean = getGenerateMipmaps()
+    def generateMipmaps_=(v: Boolean): Unit = setGenerateMipmaps(v)
+    def disableEmbeddedBitmaps: Boolean = getDisableEmbeddedBitmaps()
+    def disableEmbeddedBitmaps_=(v: Boolean): Unit = setDisableEmbeddedBitmaps(v)
+    def antialiasing: Int = getAntialiasing()
+    def antialiasing_=(v: Int): Unit = setAntialiasing(v)
     def fontName: Ptr[Byte] = getFontName()
-    def fontName_=(v: Ptr[Byte]): Unit = setFontName(v)
+    def fontName_=(v: CString): Unit = setFontName(v)
     def styleName: Ptr[Byte] = getFontStyleName()
-    def styleName_=(v: Ptr[Byte]): Unit = setFontStyleName(v)
+    def styleName_=(v: CString): Unit = setFontStyleName(v)
     def fontStyle: Ptr[Byte] = getFontStyle()
-    def fontStyle_=(v: Ptr[Byte]): Unit = setFontStyle(v)
+    def fontStyle_=(v: Int): Unit = setFontStyle(v)
     def fontWeight: Ptr[Byte] = getFontWeight()
-    def fontWeight_=(v: Ptr[Byte]): Unit = setFontWeight(v)
+    def fontWeight_=(v: Int): Unit = setFontWeight(v)
     def fontStretch: Ptr[Byte] = getFontStretch()
-    def fontStretch_=(v: Ptr[Byte]): Unit = setFontStretch(v)
-    def subpixelPositioning: Ptr[Byte] = getSubpixelPositioning()
-    def subpixelPositioning_=(v: Ptr[Byte]): Unit = setSubpixelPositioning(v)
-    def keepRoundingRemainders: Ptr[Byte] = getKeepRoundingRemainders()
-    def keepRoundingRemainders_=(v: Ptr[Byte]): Unit = setKeepRoundingRemainders(v)
-    def multichannelSignedDistanceField: Ptr[Byte] = isMultichannelSignedDistanceField()
-    def multichannelSignedDistanceField_=(v: Ptr[Byte]): Unit = setMultichannelSignedDistanceField(v)
-    def msdfPixelRange: Ptr[Byte] = getMsdfPixelRange()
-    def msdfPixelRange_=(v: Ptr[Byte]): Unit = setMsdfPixelRange(v)
-    def msdfSize: Ptr[Byte] = getMsdfSize()
-    def msdfSize_=(v: Ptr[Byte]): Unit = setMsdfSize(v)
-    def allowSystemFallback: Ptr[Byte] = isAllowSystemFallback()
-    def allowSystemFallback_=(v: Ptr[Byte]): Unit = setAllowSystemFallback(v)
-    def forceAutohinter: Ptr[Byte] = isForceAutohinter()
-    def forceAutohinter_=(v: Ptr[Byte]): Unit = setForceAutohinter(v)
-    def modulateColorGlyphs: Ptr[Byte] = isModulateColorGlyphs()
-    def modulateColorGlyphs_=(v: Ptr[Byte]): Unit = setModulateColorGlyphs(v)
-    def hinting: Ptr[Byte] = getHinting()
-    def hinting_=(v: Ptr[Byte]): Unit = setHinting(v)
-    def fixedSize: Ptr[Byte] = getFixedSize()
-    def fixedSize_=(v: Ptr[Byte]): Unit = setFixedSize(v)
-    def fixedSizeScaleMode: Ptr[Byte] = getFixedSizeScaleMode()
-    def fixedSizeScaleMode_=(v: Ptr[Byte]): Unit = setFixedSizeScaleMode(v)
-    def opentypeFeatureOverrides: Ptr[Byte] = getOpentypeFeatureOverrides()
-    def opentypeFeatureOverrides_=(v: Ptr[Byte]): Unit = setOpentypeFeatureOverrides(v)
-    def oversampling: Ptr[Byte] = getOversampling()
-    def oversampling_=(v: Ptr[Byte]): Unit = setOversampling(v)
+    def fontStretch_=(v: Int): Unit = setFontStretch(v)
+    def subpixelPositioning: Int = getSubpixelPositioning()
+    def subpixelPositioning_=(v: Int): Unit = setSubpixelPositioning(v)
+    def keepRoundingRemainders: Boolean = getKeepRoundingRemainders()
+    def keepRoundingRemainders_=(v: Boolean): Unit = setKeepRoundingRemainders(v)
+    def multichannelSignedDistanceField: Boolean = isMultichannelSignedDistanceField()
+    def multichannelSignedDistanceField_=(v: Boolean): Unit = setMultichannelSignedDistanceField(v)
+    def msdfPixelRange: Int = getMsdfPixelRange()
+    def msdfPixelRange_=(v: Int): Unit = setMsdfPixelRange(v)
+    def msdfSize: Int = getMsdfSize()
+    def msdfSize_=(v: Int): Unit = setMsdfSize(v)
+    def allowSystemFallback: Boolean = isAllowSystemFallback()
+    def allowSystemFallback_=(v: Boolean): Unit = setAllowSystemFallback(v)
+    def forceAutohinter: Boolean = isForceAutohinter()
+    def forceAutohinter_=(v: Boolean): Unit = setForceAutohinter(v)
+    def modulateColorGlyphs: Boolean = isModulateColorGlyphs()
+    def modulateColorGlyphs_=(v: Boolean): Unit = setModulateColorGlyphs(v)
+    def hinting: Int = getHinting()
+    def hinting_=(v: Int): Unit = setHinting(v)
+    def fixedSize: Int = getFixedSize()
+    def fixedSize_=(v: Int): Unit = setFixedSize(v)
+    def fixedSizeScaleMode: Int = getFixedSizeScaleMode()
+    def fixedSizeScaleMode_=(v: Int): Unit = setFixedSizeScaleMode(v)
+    def opentypeFeatureOverrides: Dictionary = getOpentypeFeatureOverrides()
+    def opentypeFeatureOverrides_=(v: Dictionary): Unit = setOpentypeFeatureOverrides(v)
+    def oversampling: Float = getOversampling()
+    def oversampling_=(v: Float): Unit = setOversampling(v)
+}
 
 object FontFile:
-    object Binds:
-        var loadBitmapFont: Ptr[Byte] = null
+object Binds {
+          var loadBitmapFont: Ptr[Byte] = null
         var loadDynamicFont: Ptr[Byte] = null
-        var setData: Ptr[Byte] = null
-        var getData: Ptr[Byte] = null
-        var setFontName: Ptr[Byte] = null
-        var setFontStyleName: Ptr[Byte] = null
-        var setFontStyle: Ptr[Byte] = null
-        var setFontWeight: Ptr[Byte] = null
-        var setFontStretch: Ptr[Byte] = null
-        var setAntialiasing: Ptr[Byte] = null
-        var getAntialiasing: Ptr[Byte] = null
-        var setDisableEmbeddedBitmaps: Ptr[Byte] = null
-        var getDisableEmbeddedBitmaps: Ptr[Byte] = null
-        var setGenerateMipmaps: Ptr[Byte] = null
-        var getGenerateMipmaps: Ptr[Byte] = null
-        var setMultichannelSignedDistanceField: Ptr[Byte] = null
-        var isMultichannelSignedDistanceField: Ptr[Byte] = null
-        var setMsdfPixelRange: Ptr[Byte] = null
-        var getMsdfPixelRange: Ptr[Byte] = null
-        var setMsdfSize: Ptr[Byte] = null
-        var getMsdfSize: Ptr[Byte] = null
-        var setFixedSize: Ptr[Byte] = null
-        var getFixedSize: Ptr[Byte] = null
-        var setFixedSizeScaleMode: Ptr[Byte] = null
-        var getFixedSizeScaleMode: Ptr[Byte] = null
-        var setAllowSystemFallback: Ptr[Byte] = null
-        var isAllowSystemFallback: Ptr[Byte] = null
-        var setForceAutohinter: Ptr[Byte] = null
-        var isForceAutohinter: Ptr[Byte] = null
-        var setModulateColorGlyphs: Ptr[Byte] = null
-        var isModulateColorGlyphs: Ptr[Byte] = null
-        var setHinting: Ptr[Byte] = null
-        var getHinting: Ptr[Byte] = null
-        var setSubpixelPositioning: Ptr[Byte] = null
-        var getSubpixelPositioning: Ptr[Byte] = null
-        var setKeepRoundingRemainders: Ptr[Byte] = null
-        var getKeepRoundingRemainders: Ptr[Byte] = null
-        var setOversampling: Ptr[Byte] = null
-        var getOversampling: Ptr[Byte] = null
         var getCacheCount: Ptr[Byte] = null
         var clearCache: Ptr[Byte] = null
         var removeCache: Ptr[Byte] = null
@@ -967,51 +775,12 @@ object FontFile:
         var getScriptSupportOverride: Ptr[Byte] = null
         var removeScriptSupportOverride: Ptr[Byte] = null
         var getScriptSupportOverrides: Ptr[Byte] = null
-        var setOpentypeFeatureOverrides: Ptr[Byte] = null
-        var getOpentypeFeatureOverrides: Ptr[Byte] = null
         var getGlyphIndex: Ptr[Byte] = null
         var getCharFromGlyphIndex: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.loadBitmapFont = GdxApi.getMethodBind(c"FontFile", c"load_bitmap_font", 166001499L)
+  def loadBinds(): Unit = {
+                Binds.loadBitmapFont = GdxApi.getMethodBind(c"FontFile", c"load_bitmap_font", 166001499L)
             Binds.loadDynamicFont = GdxApi.getMethodBind(c"FontFile", c"load_dynamic_font", 166001499L)
-            Binds.setData = GdxApi.getMethodBind(c"FontFile", c"set_data", 2971499966L)
-            Binds.getData = GdxApi.getMethodBind(c"FontFile", c"get_data", 2362200018L)
-            Binds.setFontName = GdxApi.getMethodBind(c"FontFile", c"set_font_name", 83702148L)
-            Binds.setFontStyleName = GdxApi.getMethodBind(c"FontFile", c"set_font_style_name", 83702148L)
-            Binds.setFontStyle = GdxApi.getMethodBind(c"FontFile", c"set_font_style", 918070724L)
-            Binds.setFontWeight = GdxApi.getMethodBind(c"FontFile", c"set_font_weight", 1286410249L)
-            Binds.setFontStretch = GdxApi.getMethodBind(c"FontFile", c"set_font_stretch", 1286410249L)
-            Binds.setAntialiasing = GdxApi.getMethodBind(c"FontFile", c"set_antialiasing", 1669900L)
-            Binds.getAntialiasing = GdxApi.getMethodBind(c"FontFile", c"get_antialiasing", 4262718649L)
-            Binds.setDisableEmbeddedBitmaps = GdxApi.getMethodBind(c"FontFile", c"set_disable_embedded_bitmaps", 2586408642L)
-            Binds.getDisableEmbeddedBitmaps = GdxApi.getMethodBind(c"FontFile", c"get_disable_embedded_bitmaps", 36873697L)
-            Binds.setGenerateMipmaps = GdxApi.getMethodBind(c"FontFile", c"set_generate_mipmaps", 2586408642L)
-            Binds.getGenerateMipmaps = GdxApi.getMethodBind(c"FontFile", c"get_generate_mipmaps", 36873697L)
-            Binds.setMultichannelSignedDistanceField = GdxApi.getMethodBind(c"FontFile", c"set_multichannel_signed_distance_field", 2586408642L)
-            Binds.isMultichannelSignedDistanceField = GdxApi.getMethodBind(c"FontFile", c"is_multichannel_signed_distance_field", 36873697L)
-            Binds.setMsdfPixelRange = GdxApi.getMethodBind(c"FontFile", c"set_msdf_pixel_range", 1286410249L)
-            Binds.getMsdfPixelRange = GdxApi.getMethodBind(c"FontFile", c"get_msdf_pixel_range", 3905245786L)
-            Binds.setMsdfSize = GdxApi.getMethodBind(c"FontFile", c"set_msdf_size", 1286410249L)
-            Binds.getMsdfSize = GdxApi.getMethodBind(c"FontFile", c"get_msdf_size", 3905245786L)
-            Binds.setFixedSize = GdxApi.getMethodBind(c"FontFile", c"set_fixed_size", 1286410249L)
-            Binds.getFixedSize = GdxApi.getMethodBind(c"FontFile", c"get_fixed_size", 3905245786L)
-            Binds.setFixedSizeScaleMode = GdxApi.getMethodBind(c"FontFile", c"set_fixed_size_scale_mode", 1660989956L)
-            Binds.getFixedSizeScaleMode = GdxApi.getMethodBind(c"FontFile", c"get_fixed_size_scale_mode", 753873478L)
-            Binds.setAllowSystemFallback = GdxApi.getMethodBind(c"FontFile", c"set_allow_system_fallback", 2586408642L)
-            Binds.isAllowSystemFallback = GdxApi.getMethodBind(c"FontFile", c"is_allow_system_fallback", 36873697L)
-            Binds.setForceAutohinter = GdxApi.getMethodBind(c"FontFile", c"set_force_autohinter", 2586408642L)
-            Binds.isForceAutohinter = GdxApi.getMethodBind(c"FontFile", c"is_force_autohinter", 36873697L)
-            Binds.setModulateColorGlyphs = GdxApi.getMethodBind(c"FontFile", c"set_modulate_color_glyphs", 2586408642L)
-            Binds.isModulateColorGlyphs = GdxApi.getMethodBind(c"FontFile", c"is_modulate_color_glyphs", 36873697L)
-            Binds.setHinting = GdxApi.getMethodBind(c"FontFile", c"set_hinting", 1827459492L)
-            Binds.getHinting = GdxApi.getMethodBind(c"FontFile", c"get_hinting", 3683214614L)
-            Binds.setSubpixelPositioning = GdxApi.getMethodBind(c"FontFile", c"set_subpixel_positioning", 4225742182L)
-            Binds.getSubpixelPositioning = GdxApi.getMethodBind(c"FontFile", c"get_subpixel_positioning", 1069238588L)
-            Binds.setKeepRoundingRemainders = GdxApi.getMethodBind(c"FontFile", c"set_keep_rounding_remainders", 2586408642L)
-            Binds.getKeepRoundingRemainders = GdxApi.getMethodBind(c"FontFile", c"get_keep_rounding_remainders", 36873697L)
-            Binds.setOversampling = GdxApi.getMethodBind(c"FontFile", c"set_oversampling", 373806689L)
-            Binds.getOversampling = GdxApi.getMethodBind(c"FontFile", c"get_oversampling", 1740695150L)
             Binds.getCacheCount = GdxApi.getMethodBind(c"FontFile", c"get_cache_count", 3905245786L)
             Binds.clearCache = GdxApi.getMethodBind(c"FontFile", c"clear_cache", 3218959716L)
             Binds.removeCache = GdxApi.getMethodBind(c"FontFile", c"remove_cache", 1286410249L)
@@ -1075,12 +844,13 @@ object FontFile:
             Binds.getScriptSupportOverride = GdxApi.getMethodBind(c"FontFile", c"get_script_support_override", 3927539163L)
             Binds.removeScriptSupportOverride = GdxApi.getMethodBind(c"FontFile", c"remove_script_support_override", 83702148L)
             Binds.getScriptSupportOverrides = GdxApi.getMethodBind(c"FontFile", c"get_script_support_overrides", 1139954409L)
-            Binds.setOpentypeFeatureOverrides = GdxApi.getMethodBind(c"FontFile", c"set_opentype_feature_overrides", 4155329257L)
-            Binds.getOpentypeFeatureOverrides = GdxApi.getMethodBind(c"FontFile", c"get_opentype_feature_overrides", 3102165223L)
             Binds.getGlyphIndex = GdxApi.getMethodBind(c"FontFile", c"get_glyph_index", 864943070L)
             Binds.getCharFromGlyphIndex = GdxApi.getMethodBind(c"FontFile", c"get_char_from_glyph_index", 3175239445L)
+  }
+}
 
-    def apply(): FontFile =
-        val obj = new FontFile()
-        obj.ptr = GdxApi.constructObject(c"FontFile")
-        obj
+def apply(): FontFile = {
+  val obj = new FontFile()
+  obj.ptr = GdxApi.constructObject(c"FontFile")
+  obj
+}

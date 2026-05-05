@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeDotProduct extends VisualShaderNode
-
-
-
+class VisualShaderNodeDotProduct extends VisualShaderNode {}
 
 object VisualShaderNodeDotProduct:
-    def apply(): VisualShaderNodeDotProduct =
-        val obj = new VisualShaderNodeDotProduct()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeDotProduct")
-        obj
+def apply(): VisualShaderNodeDotProduct = {
+  val obj = new VisualShaderNodeDotProduct()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeDotProduct")
+  obj
+}

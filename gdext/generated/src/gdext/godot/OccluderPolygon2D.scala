@@ -5,66 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OccluderPolygon2D extends Resource
-
-    def setClosed(closed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if closed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(OccluderPolygon2D.Binds.setClosed, ptr, _args, null)
-
-    def isClosed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(OccluderPolygon2D.Binds.isClosed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setCullMode(cullMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = cullMode.ptr
-        GdxApi.ptrcall(OccluderPolygon2D.Binds.setCullMode, ptr, _args, null)
-
-    def getCullMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(OccluderPolygon2D.Binds.getCullMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPolygon(polygon: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = polygon.ptr
-        GdxApi.ptrcall(OccluderPolygon2D.Binds.setPolygon, ptr, _args, null)
-
-    def getPolygon(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(OccluderPolygon2D.Binds.getPolygon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-    def closed: Ptr[Byte] = isClosed()
-    def closed_=(v: Ptr[Byte]): Unit = setClosed(v)
-    def cullMode: Ptr[Byte] = getCullMode()
-    def cullMode_=(v: Ptr[Byte]): Unit = setCullMode(v)
-    def polygon: Ptr[Byte] = getPolygon()
-    def polygon_=(v: Ptr[Byte]): Unit = setPolygon(v)
+class OccluderPolygon2D extends Resource {
+    def closed: Boolean = isClosed()
+    def closed_=(v: Boolean): Unit = setClosed(v)
+    def cullMode: Int = getCullMode()
+    def cullMode_=(v: Int): Unit = setCullMode(v)
+    def polygon: PackedVector2Array = getPolygon()
+    def polygon_=(v: PackedVector2Array): Unit = setPolygon(v)
+}
 
 object OccluderPolygon2D:
-    object Binds:
-        var setClosed: Ptr[Byte] = null
-        var isClosed: Ptr[Byte] = null
-        var setCullMode: Ptr[Byte] = null
-        var getCullMode: Ptr[Byte] = null
-        var setPolygon: Ptr[Byte] = null
-        var getPolygon: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setClosed = GdxApi.getMethodBind(c"OccluderPolygon2D", c"set_closed", 2586408642L)
-            Binds.isClosed = GdxApi.getMethodBind(c"OccluderPolygon2D", c"is_closed", 36873697L)
-            Binds.setCullMode = GdxApi.getMethodBind(c"OccluderPolygon2D", c"set_cull_mode", 3500863002L)
-            Binds.getCullMode = GdxApi.getMethodBind(c"OccluderPolygon2D", c"get_cull_mode", 33931036L)
-            Binds.setPolygon = GdxApi.getMethodBind(c"OccluderPolygon2D", c"set_polygon", 1509147220L)
-            Binds.getPolygon = GdxApi.getMethodBind(c"OccluderPolygon2D", c"get_polygon", 2961356807L)
-
-    def apply(): OccluderPolygon2D =
-        val obj = new OccluderPolygon2D()
-        obj.ptr = GdxApi.constructObject(c"OccluderPolygon2D")
-        obj
+def apply(): OccluderPolygon2D = {
+  val obj = new OccluderPolygon2D()
+  obj.ptr = GdxApi.constructObject(c"OccluderPolygon2D")
+  obj
+}

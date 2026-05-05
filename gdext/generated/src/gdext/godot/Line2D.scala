@@ -5,305 +5,100 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Line2D extends Node2D
-
-    def setPoints(points: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = points.ptr
-        GdxApi.ptrcall(Line2D.Binds.setPoints, ptr, _args, null)
-
-    def getPoints(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Line2D.Binds.getPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-
-    def setPointPosition(index: Int, position: Vector2): Unit =
+class Line2D extends Node2D {
+    def setPointPosition(index: Int, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = position.ptr
         GdxApi.ptrcall(Line2D.Binds.setPointPosition, ptr, _args, null)
+}
 
-    def getPointPosition(index: Int): Vector2 =
+    def getPointPosition(index: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Line2D.Binds.getPointPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getPointCount(): Int =
+    def getPointCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Line2D.Binds.getPointCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addPoint(position: Vector2): Unit =
+    def addPoint(position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(Line2D.Binds.addPoint, ptr, _args, null)
+}
 
-    def removePoint(index: Int): Unit =
+    def removePoint(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Line2D.Binds.removePoint, ptr, _args, null)
+}
 
-    def clearPoints(): Unit =
+    def clearPoints(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Line2D.Binds.clearPoints, ptr, _args, null)
+}
 
-    def setClosed(closed: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if closed then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Line2D.Binds.setClosed, ptr, _args, null)
-
-    def isClosed(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Line2D.Binds.isClosed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setWidth(width: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = width.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Line2D.Binds.setWidth, ptr, _args, null)
-
-    def getWidth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Line2D.Binds.getWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setCurve(curve: Curve): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = curve.ptr
-        GdxApi.ptrcall(Line2D.Binds.setCurve, ptr, _args, null)
-
-    def getCurve(): Curve =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Line2D.Binds.getCurve, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Curve(!_ret)
-
-    def setDefaultColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(Line2D.Binds.setDefaultColor, ptr, _args, null)
-
-    def getDefaultColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Line2D.Binds.getDefaultColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setGradient(color: Gradient): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(Line2D.Binds.setGradient, ptr, _args, null)
-
-    def getGradient(): Gradient =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Line2D.Binds.getGradient, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Gradient(!_ret)
-
-    def setTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(Line2D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(Line2D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-
-    def setTextureMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Line2D.Binds.setTextureMode, ptr, _args, null)
-
-    def getTextureMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Line2D.Binds.getTextureMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setJointMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Line2D.Binds.setJointMode, ptr, _args, null)
-
-    def getJointMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Line2D.Binds.getJointMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setBeginCapMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Line2D.Binds.setBeginCapMode, ptr, _args, null)
-
-    def getBeginCapMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Line2D.Binds.getBeginCapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setEndCapMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(Line2D.Binds.setEndCapMode, ptr, _args, null)
-
-    def getEndCapMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Line2D.Binds.getEndCapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setSharpLimit(limit: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = limit.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Line2D.Binds.setSharpLimit, ptr, _args, null)
-
-    def getSharpLimit(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Line2D.Binds.getSharpLimit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setRoundPrecision(precision: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = precision.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Line2D.Binds.setRoundPrecision, ptr, _args, null)
-
-    def getRoundPrecision(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Line2D.Binds.getRoundPrecision, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAntialiased(antialiased: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if antialiased then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Line2D.Binds.setAntialiased, ptr, _args, null)
-
-    def getAntialiased(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Line2D.Binds.getAntialiased, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def points: Ptr[Byte] = getPoints()
-    def points_=(v: Ptr[Byte]): Unit = setPoints(v)
-    def closed: Ptr[Byte] = isClosed()
-    def closed_=(v: Ptr[Byte]): Unit = setClosed(v)
-    def width: Ptr[Byte] = getWidth()
-    def width_=(v: Ptr[Byte]): Unit = setWidth(v)
-    def widthCurve: Ptr[Byte] = getCurve()
-    def widthCurve_=(v: Ptr[Byte]): Unit = setCurve(v)
-    def defaultColor: Ptr[Byte] = getDefaultColor()
-    def defaultColor_=(v: Ptr[Byte]): Unit = setDefaultColor(v)
-    def gradient: Ptr[Byte] = getGradient()
-    def gradient_=(v: Ptr[Byte]): Unit = setGradient(v)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
-    def textureMode: Ptr[Byte] = getTextureMode()
-    def textureMode_=(v: Ptr[Byte]): Unit = setTextureMode(v)
-    def jointMode: Ptr[Byte] = getJointMode()
-    def jointMode_=(v: Ptr[Byte]): Unit = setJointMode(v)
-    def beginCapMode: Ptr[Byte] = getBeginCapMode()
-    def beginCapMode_=(v: Ptr[Byte]): Unit = setBeginCapMode(v)
-    def endCapMode: Ptr[Byte] = getEndCapMode()
-    def endCapMode_=(v: Ptr[Byte]): Unit = setEndCapMode(v)
-    def sharpLimit: Ptr[Byte] = getSharpLimit()
-    def sharpLimit_=(v: Ptr[Byte]): Unit = setSharpLimit(v)
-    def roundPrecision: Ptr[Byte] = getRoundPrecision()
-    def roundPrecision_=(v: Ptr[Byte]): Unit = setRoundPrecision(v)
-    def antialiased: Ptr[Byte] = getAntialiased()
-    def antialiased_=(v: Ptr[Byte]): Unit = setAntialiased(v)
+    def points: PackedVector2Array = getPoints()
+    def points_=(v: PackedVector2Array): Unit = setPoints(v)
+    def closed: Boolean = isClosed()
+    def closed_=(v: Boolean): Unit = setClosed(v)
+    def width: Float = getWidth()
+    def width_=(v: Float): Unit = setWidth(v)
+    def widthCurve: Curve = getCurve()
+    def widthCurve_=(v: Curve): Unit = setCurve(v)
+    def defaultColor: Color = getDefaultColor()
+    def defaultColor_=(v: Color): Unit = setDefaultColor(v)
+    def gradient: Gradient = getGradient()
+    def gradient_=(v: Gradient): Unit = setGradient(v)
+    def texture: Texture2D = getTexture()
+    def texture_=(v: Texture2D): Unit = setTexture(v)
+    def textureMode: Int = getTextureMode()
+    def textureMode_=(v: Int): Unit = setTextureMode(v)
+    def jointMode: Int = getJointMode()
+    def jointMode_=(v: Int): Unit = setJointMode(v)
+    def beginCapMode: Int = getBeginCapMode()
+    def beginCapMode_=(v: Int): Unit = setBeginCapMode(v)
+    def endCapMode: Int = getEndCapMode()
+    def endCapMode_=(v: Int): Unit = setEndCapMode(v)
+    def sharpLimit: Float = getSharpLimit()
+    def sharpLimit_=(v: Float): Unit = setSharpLimit(v)
+    def roundPrecision: Int = getRoundPrecision()
+    def roundPrecision_=(v: Int): Unit = setRoundPrecision(v)
+    def antialiased: Boolean = getAntialiased()
+    def antialiased_=(v: Boolean): Unit = setAntialiased(v)
+}
 
 object Line2D:
-    object Binds:
-        var setPoints: Ptr[Byte] = null
-        var getPoints: Ptr[Byte] = null
-        var setPointPosition: Ptr[Byte] = null
+object Binds {
+          var setPointPosition: Ptr[Byte] = null
         var getPointPosition: Ptr[Byte] = null
         var getPointCount: Ptr[Byte] = null
         var addPoint: Ptr[Byte] = null
         var removePoint: Ptr[Byte] = null
         var clearPoints: Ptr[Byte] = null
-        var setClosed: Ptr[Byte] = null
-        var isClosed: Ptr[Byte] = null
-        var setWidth: Ptr[Byte] = null
-        var getWidth: Ptr[Byte] = null
-        var setCurve: Ptr[Byte] = null
-        var getCurve: Ptr[Byte] = null
-        var setDefaultColor: Ptr[Byte] = null
-        var getDefaultColor: Ptr[Byte] = null
-        var setGradient: Ptr[Byte] = null
-        var getGradient: Ptr[Byte] = null
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-        var setTextureMode: Ptr[Byte] = null
-        var getTextureMode: Ptr[Byte] = null
-        var setJointMode: Ptr[Byte] = null
-        var getJointMode: Ptr[Byte] = null
-        var setBeginCapMode: Ptr[Byte] = null
-        var getBeginCapMode: Ptr[Byte] = null
-        var setEndCapMode: Ptr[Byte] = null
-        var getEndCapMode: Ptr[Byte] = null
-        var setSharpLimit: Ptr[Byte] = null
-        var getSharpLimit: Ptr[Byte] = null
-        var setRoundPrecision: Ptr[Byte] = null
-        var getRoundPrecision: Ptr[Byte] = null
-        var setAntialiased: Ptr[Byte] = null
-        var getAntialiased: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPoints = GdxApi.getMethodBind(c"Line2D", c"set_points", 1509147220L)
-            Binds.getPoints = GdxApi.getMethodBind(c"Line2D", c"get_points", 2961356807L)
-            Binds.setPointPosition = GdxApi.getMethodBind(c"Line2D", c"set_point_position", 163021252L)
+  def loadBinds(): Unit = {
+                Binds.setPointPosition = GdxApi.getMethodBind(c"Line2D", c"set_point_position", 163021252L)
             Binds.getPointPosition = GdxApi.getMethodBind(c"Line2D", c"get_point_position", 2299179447L)
             Binds.getPointCount = GdxApi.getMethodBind(c"Line2D", c"get_point_count", 3905245786L)
             Binds.addPoint = GdxApi.getMethodBind(c"Line2D", c"add_point", 2654014372L)
             Binds.removePoint = GdxApi.getMethodBind(c"Line2D", c"remove_point", 1286410249L)
             Binds.clearPoints = GdxApi.getMethodBind(c"Line2D", c"clear_points", 3218959716L)
-            Binds.setClosed = GdxApi.getMethodBind(c"Line2D", c"set_closed", 2586408642L)
-            Binds.isClosed = GdxApi.getMethodBind(c"Line2D", c"is_closed", 36873697L)
-            Binds.setWidth = GdxApi.getMethodBind(c"Line2D", c"set_width", 373806689L)
-            Binds.getWidth = GdxApi.getMethodBind(c"Line2D", c"get_width", 1740695150L)
-            Binds.setCurve = GdxApi.getMethodBind(c"Line2D", c"set_curve", 270443179L)
-            Binds.getCurve = GdxApi.getMethodBind(c"Line2D", c"get_curve", 2460114913L)
-            Binds.setDefaultColor = GdxApi.getMethodBind(c"Line2D", c"set_default_color", 2920490490L)
-            Binds.getDefaultColor = GdxApi.getMethodBind(c"Line2D", c"get_default_color", 3444240500L)
-            Binds.setGradient = GdxApi.getMethodBind(c"Line2D", c"set_gradient", 2756054477L)
-            Binds.getGradient = GdxApi.getMethodBind(c"Line2D", c"get_gradient", 132272999L)
-            Binds.setTexture = GdxApi.getMethodBind(c"Line2D", c"set_texture", 4051416890L)
-            Binds.getTexture = GdxApi.getMethodBind(c"Line2D", c"get_texture", 3635182373L)
-            Binds.setTextureMode = GdxApi.getMethodBind(c"Line2D", c"set_texture_mode", 1952559516L)
-            Binds.getTextureMode = GdxApi.getMethodBind(c"Line2D", c"get_texture_mode", 2341040722L)
-            Binds.setJointMode = GdxApi.getMethodBind(c"Line2D", c"set_joint_mode", 604292979L)
-            Binds.getJointMode = GdxApi.getMethodBind(c"Line2D", c"get_joint_mode", 2546544037L)
-            Binds.setBeginCapMode = GdxApi.getMethodBind(c"Line2D", c"set_begin_cap_mode", 1669024546L)
-            Binds.getBeginCapMode = GdxApi.getMethodBind(c"Line2D", c"get_begin_cap_mode", 1107511441L)
-            Binds.setEndCapMode = GdxApi.getMethodBind(c"Line2D", c"set_end_cap_mode", 1669024546L)
-            Binds.getEndCapMode = GdxApi.getMethodBind(c"Line2D", c"get_end_cap_mode", 1107511441L)
-            Binds.setSharpLimit = GdxApi.getMethodBind(c"Line2D", c"set_sharp_limit", 373806689L)
-            Binds.getSharpLimit = GdxApi.getMethodBind(c"Line2D", c"get_sharp_limit", 1740695150L)
-            Binds.setRoundPrecision = GdxApi.getMethodBind(c"Line2D", c"set_round_precision", 1286410249L)
-            Binds.getRoundPrecision = GdxApi.getMethodBind(c"Line2D", c"get_round_precision", 3905245786L)
-            Binds.setAntialiased = GdxApi.getMethodBind(c"Line2D", c"set_antialiased", 2586408642L)
-            Binds.getAntialiased = GdxApi.getMethodBind(c"Line2D", c"get_antialiased", 36873697L)
+  }
+}
 
-    def apply(): Line2D =
-        val obj = new Line2D()
-        obj.ptr = GdxApi.constructObject(c"Line2D")
-        obj
+def apply(): Line2D = {
+  val obj = new Line2D()
+  obj.ptr = GdxApi.constructObject(c"Line2D")
+  obj
+}

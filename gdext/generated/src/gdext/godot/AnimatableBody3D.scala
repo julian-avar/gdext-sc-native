@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AnimatableBody3D extends StaticBody3D
-
-    def setSyncToPhysics(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AnimatableBody3D.Binds.setSyncToPhysics, ptr, _args, null)
-
-    def isSyncToPhysicsEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(AnimatableBody3D.Binds.isSyncToPhysicsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def syncToPhysics: Ptr[Byte] = isSyncToPhysicsEnabled()
-    def syncToPhysics_=(v: Ptr[Byte]): Unit = setSyncToPhysics(v)
+class AnimatableBody3D extends StaticBody3D {
+    def syncToPhysics: Boolean = isSyncToPhysicsEnabled()
+    def syncToPhysics_=(v: Boolean): Unit = setSyncToPhysics(v)
+}
 
 object AnimatableBody3D:
-    object Binds:
-        var setSyncToPhysics: Ptr[Byte] = null
-        var isSyncToPhysicsEnabled: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setSyncToPhysics = GdxApi.getMethodBind(c"AnimatableBody3D", c"set_sync_to_physics", 2586408642L)
-            Binds.isSyncToPhysicsEnabled = GdxApi.getMethodBind(c"AnimatableBody3D", c"is_sync_to_physics_enabled", 36873697L)
-
-    def apply(): AnimatableBody3D =
-        val obj = new AnimatableBody3D()
-        obj.ptr = GdxApi.constructObject(c"AnimatableBody3D")
-        obj
+def apply(): AnimatableBody3D = {
+  val obj = new AnimatableBody3D()
+  obj.ptr = GdxApi.constructObject(c"AnimatableBody3D")
+  obj
+}

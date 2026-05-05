@@ -5,15 +5,15 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EngineProfiler extends RefCounted
-    def _toggle(enable: Boolean, options: Array): Unit = ()
-    def _addFrame(data: Array): Unit = ()
+class EngineProfiler extends RefCounted {
+    def _toggle(enable: Boolean, options: Ptr[Byte]): Unit = ()
+    def _addFrame(data: Ptr[Byte]): Unit = ()
     def _tick(frameTime: Double, processTime: Double, physicsTime: Double, physicsFrameTime: Double): Unit = ()
-
-
+}
 
 object EngineProfiler:
-    def apply(): EngineProfiler =
-        val obj = new EngineProfiler()
-        obj.ptr = GdxApi.constructObject(c"EngineProfiler")
-        obj
+def apply(): EngineProfiler = {
+  val obj = new EngineProfiler()
+  obj.ptr = GdxApi.constructObject(c"EngineProfiler")
+  obj
+}

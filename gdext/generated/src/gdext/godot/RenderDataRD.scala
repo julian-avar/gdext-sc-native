@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderDataRD extends RenderData
-
-
-
+class RenderDataRD extends RenderData {}
 
 object RenderDataRD:
-    def apply(): RenderDataRD =
-        val obj = new RenderDataRD()
-        obj.ptr = GdxApi.constructObject(c"RenderDataRD")
-        obj
+def apply(): RenderDataRD = {
+  val obj = new RenderDataRD()
+  obj.ptr = GdxApi.constructObject(c"RenderDataRD")
+  obj
+}

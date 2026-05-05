@@ -5,92 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FlowContainer extends Container
-
-    def getLineCount(): Int =
+class FlowContainer extends Container {
+    def getLineCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(FlowContainer.Binds.getLineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setAlignment(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(FlowContainer.Binds.setAlignment, ptr, _args, null)
-
-    def getAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FlowContainer.Binds.getAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLastWrapAlignment(lastWrapAlignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = lastWrapAlignment.ptr
-        GdxApi.ptrcall(FlowContainer.Binds.setLastWrapAlignment, ptr, _args, null)
-
-    def getLastWrapAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(FlowContainer.Binds.getLastWrapAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVertical(vertical: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if vertical then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FlowContainer.Binds.setVertical, ptr, _args, null)
-
-    def isVertical(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FlowContainer.Binds.isVertical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setReverseFill(reverseFill: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if reverseFill then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(FlowContainer.Binds.setReverseFill, ptr, _args, null)
-
-    def isReverseFill(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(FlowContainer.Binds.isReverseFill, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def alignment: Ptr[Byte] = getAlignment()
-    def alignment_=(v: Ptr[Byte]): Unit = setAlignment(v)
-    def lastWrapAlignment: Ptr[Byte] = getLastWrapAlignment()
-    def lastWrapAlignment_=(v: Ptr[Byte]): Unit = setLastWrapAlignment(v)
-    def vertical: Ptr[Byte] = isVertical()
-    def vertical_=(v: Ptr[Byte]): Unit = setVertical(v)
-    def reverseFill: Ptr[Byte] = isReverseFill()
-    def reverseFill_=(v: Ptr[Byte]): Unit = setReverseFill(v)
+    def alignment: Int = getAlignment()
+    def alignment_=(v: Int): Unit = setAlignment(v)
+    def lastWrapAlignment: Int = getLastWrapAlignment()
+    def lastWrapAlignment_=(v: Int): Unit = setLastWrapAlignment(v)
+    def vertical: Boolean = isVertical()
+    def vertical_=(v: Boolean): Unit = setVertical(v)
+    def reverseFill: Boolean = isReverseFill()
+    def reverseFill_=(v: Boolean): Unit = setReverseFill(v)
+}
 
 object FlowContainer:
-    object Binds:
-        var getLineCount: Ptr[Byte] = null
-        var setAlignment: Ptr[Byte] = null
-        var getAlignment: Ptr[Byte] = null
-        var setLastWrapAlignment: Ptr[Byte] = null
-        var getLastWrapAlignment: Ptr[Byte] = null
-        var setVertical: Ptr[Byte] = null
-        var isVertical: Ptr[Byte] = null
-        var setReverseFill: Ptr[Byte] = null
-        var isReverseFill: Ptr[Byte] = null
+object Binds {
+          var getLineCount: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getLineCount = GdxApi.getMethodBind(c"FlowContainer", c"get_line_count", 3905245786L)
-            Binds.setAlignment = GdxApi.getMethodBind(c"FlowContainer", c"set_alignment", 575250951L)
-            Binds.getAlignment = GdxApi.getMethodBind(c"FlowContainer", c"get_alignment", 3749743559L)
-            Binds.setLastWrapAlignment = GdxApi.getMethodBind(c"FlowContainer", c"set_last_wrap_alignment", 2899697495L)
-            Binds.getLastWrapAlignment = GdxApi.getMethodBind(c"FlowContainer", c"get_last_wrap_alignment", 3743456014L)
-            Binds.setVertical = GdxApi.getMethodBind(c"FlowContainer", c"set_vertical", 2586408642L)
-            Binds.isVertical = GdxApi.getMethodBind(c"FlowContainer", c"is_vertical", 36873697L)
-            Binds.setReverseFill = GdxApi.getMethodBind(c"FlowContainer", c"set_reverse_fill", 2586408642L)
-            Binds.isReverseFill = GdxApi.getMethodBind(c"FlowContainer", c"is_reverse_fill", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getLineCount = GdxApi.getMethodBind(c"FlowContainer", c"get_line_count", 3905245786L)
+  }
+}
 
-    def apply(): FlowContainer =
-        val obj = new FlowContainer()
-        obj.ptr = GdxApi.constructObject(c"FlowContainer")
-        obj
+def apply(): FlowContainer = {
+  val obj = new FlowContainer()
+  obj.ptr = GdxApi.constructObject(c"FlowContainer")
+  obj
+}

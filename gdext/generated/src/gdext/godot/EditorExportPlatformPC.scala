@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPlatformPC extends EditorExportPlatform
-
-
-
+class EditorExportPlatformPC extends EditorExportPlatform {}

@@ -5,38 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ConvexPolygonShape2D extends Shape2D
-
-    def setPointCloud(pointCloud: PackedVector2Array): Unit =
+class ConvexPolygonShape2D extends Shape2D {
+    def setPointCloud(pointCloud: PackedVector2Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = pointCloud.ptr
         GdxApi.ptrcall(ConvexPolygonShape2D.Binds.setPointCloud, ptr, _args, null)
+}
 
-    def setPoints(points: PackedVector2Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = points.ptr
-        GdxApi.ptrcall(ConvexPolygonShape2D.Binds.setPoints, ptr, _args, null)
-
-    def getPoints(): PackedVector2Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ConvexPolygonShape2D.Binds.getPoints, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedVector2Array(!_ret)
-    def points: Ptr[Byte] = getPoints()
-    def points_=(v: Ptr[Byte]): Unit = setPoints(v)
+    def points: PackedVector2Array = getPoints()
+    def points_=(v: PackedVector2Array): Unit = setPoints(v)
+}
 
 object ConvexPolygonShape2D:
-    object Binds:
-        var setPointCloud: Ptr[Byte] = null
-        var setPoints: Ptr[Byte] = null
-        var getPoints: Ptr[Byte] = null
+object Binds {
+          var setPointCloud: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setPointCloud = GdxApi.getMethodBind(c"ConvexPolygonShape2D", c"set_point_cloud", 1509147220L)
-            Binds.setPoints = GdxApi.getMethodBind(c"ConvexPolygonShape2D", c"set_points", 1509147220L)
-            Binds.getPoints = GdxApi.getMethodBind(c"ConvexPolygonShape2D", c"get_points", 2961356807L)
+  def loadBinds(): Unit = {
+                Binds.setPointCloud = GdxApi.getMethodBind(c"ConvexPolygonShape2D", c"set_point_cloud", 1509147220L)
+  }
+}
 
-    def apply(): ConvexPolygonShape2D =
-        val obj = new ConvexPolygonShape2D()
-        obj.ptr = GdxApi.constructObject(c"ConvexPolygonShape2D")
-        obj
+def apply(): ConvexPolygonShape2D = {
+  val obj = new ConvexPolygonShape2D()
+  obj.ptr = GdxApi.constructObject(c"ConvexPolygonShape2D")
+  obj
+}

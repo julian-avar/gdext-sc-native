@@ -5,138 +5,153 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptBacktrace extends RefCounted
-
-    def getLanguageName(): CString =
+class ScriptBacktrace extends RefCounted {
+    def getLanguageName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getLanguageName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isEmpty(): Boolean =
+    def isEmpty(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.isEmpty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFrameCount(): Int =
+    def getFrameCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getFrameCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFrameFunction(index: Int): CString =
+    def getFrameFunction(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getFrameFunction, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFrameFile(index: Int): CString =
+    def getFrameFile(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getFrameFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFrameLine(index: Int): Int =
+    def getFrameLine(index: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getFrameLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getGlobalVariableCount(): Int =
+    def getGlobalVariableCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getGlobalVariableCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getGlobalVariableName(variableIndex: Int): CString =
+    def getGlobalVariableName(variableIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = variableIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = variableIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getGlobalVariableName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getGlobalVariableValue(variableIndex: Int): Ptr[Byte] =
+    def getGlobalVariableValue(variableIndex: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = variableIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = variableIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getGlobalVariableValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLocalVariableCount(frameIndex: Int): Int =
+    def getLocalVariableCount(frameIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frameIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frameIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getLocalVariableCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLocalVariableName(frameIndex: Int, variableIndex: Int): CString =
+    def getLocalVariableName(frameIndex: Int, variableIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frameIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frameIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = variableIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = variableIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getLocalVariableName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLocalVariableValue(frameIndex: Int, variableIndex: Int): Ptr[Byte] =
+    def getLocalVariableValue(frameIndex: Int, variableIndex: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frameIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frameIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = variableIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = variableIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getLocalVariableValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMemberVariableCount(frameIndex: Int): Int =
+    def getMemberVariableCount(frameIndex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = frameIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frameIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getMemberVariableCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getMemberVariableName(frameIndex: Int, variableIndex: Int): CString =
+    def getMemberVariableName(frameIndex: Int, variableIndex: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frameIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frameIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = variableIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = variableIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getMemberVariableName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getMemberVariableValue(frameIndex: Int, variableIndex: Int): Ptr[Byte] =
+    def getMemberVariableValue(frameIndex: Int, variableIndex: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = frameIndex.toLong
+        val _a0 = stackalloc[Long](); !_a0 = frameIndex.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = variableIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = variableIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.getMemberVariableValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def format(): CString =
+    def format(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptBacktrace.Binds.format, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object ScriptBacktrace:
-    object Binds:
-        var getLanguageName: Ptr[Byte] = null
+object Binds {
+          var getLanguageName: Ptr[Byte] = null
         var isEmpty: Ptr[Byte] = null
         var getFrameCount: Ptr[Byte] = null
         var getFrameFunction: Ptr[Byte] = null
@@ -153,8 +168,8 @@ object ScriptBacktrace:
         var getMemberVariableValue: Ptr[Byte] = null
         var format: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getLanguageName = GdxApi.getMethodBind(c"ScriptBacktrace", c"get_language_name", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getLanguageName = GdxApi.getMethodBind(c"ScriptBacktrace", c"get_language_name", 201670096L)
             Binds.isEmpty = GdxApi.getMethodBind(c"ScriptBacktrace", c"is_empty", 36873697L)
             Binds.getFrameCount = GdxApi.getMethodBind(c"ScriptBacktrace", c"get_frame_count", 3905245786L)
             Binds.getFrameFunction = GdxApi.getMethodBind(c"ScriptBacktrace", c"get_frame_function", 844755477L)
@@ -170,8 +185,11 @@ object ScriptBacktrace:
             Binds.getMemberVariableName = GdxApi.getMethodBind(c"ScriptBacktrace", c"get_member_variable_name", 1391810591L)
             Binds.getMemberVariableValue = GdxApi.getMethodBind(c"ScriptBacktrace", c"get_member_variable_value", 678354945L)
             Binds.format = GdxApi.getMethodBind(c"ScriptBacktrace", c"format", 3464456933L)
+  }
+}
 
-    def apply(): ScriptBacktrace =
-        val obj = new ScriptBacktrace()
-        obj.ptr = GdxApi.constructObject(c"ScriptBacktrace")
-        obj
+def apply(): ScriptBacktrace = {
+  val obj = new ScriptBacktrace()
+  obj.ptr = GdxApi.constructObject(c"ScriptBacktrace")
+  obj
+}

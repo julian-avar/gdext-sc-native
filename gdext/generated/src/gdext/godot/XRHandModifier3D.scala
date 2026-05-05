@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRHandModifier3D extends SkeletonModifier3D
-
-    def setHandTracker(trackerName: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = trackerName.ptr
-        GdxApi.ptrcall(XRHandModifier3D.Binds.setHandTracker, ptr, _args, null)
-
-    def getHandTracker(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRHandModifier3D.Binds.getHandTracker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setBoneUpdate(boneUpdate: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = boneUpdate.ptr
-        GdxApi.ptrcall(XRHandModifier3D.Binds.setBoneUpdate, ptr, _args, null)
-
-    def getBoneUpdate(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(XRHandModifier3D.Binds.getBoneUpdate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def handTracker: Ptr[Byte] = getHandTracker()
-    def handTracker_=(v: Ptr[Byte]): Unit = setHandTracker(v)
-    def boneUpdate: Ptr[Byte] = getBoneUpdate()
-    def boneUpdate_=(v: Ptr[Byte]): Unit = setBoneUpdate(v)
+class XRHandModifier3D extends SkeletonModifier3D {
+    def handTracker: CString = getHandTracker()
+    def handTracker_=(v: CString): Unit = setHandTracker(v)
+    def boneUpdate: Int = getBoneUpdate()
+    def boneUpdate_=(v: Int): Unit = setBoneUpdate(v)
+}
 
 object XRHandModifier3D:
-    object Binds:
-        var setHandTracker: Ptr[Byte] = null
-        var getHandTracker: Ptr[Byte] = null
-        var setBoneUpdate: Ptr[Byte] = null
-        var getBoneUpdate: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setHandTracker = GdxApi.getMethodBind(c"XRHandModifier3D", c"set_hand_tracker", 3304788590L)
-            Binds.getHandTracker = GdxApi.getMethodBind(c"XRHandModifier3D", c"get_hand_tracker", 2002593661L)
-            Binds.setBoneUpdate = GdxApi.getMethodBind(c"XRHandModifier3D", c"set_bone_update", 3635701455L)
-            Binds.getBoneUpdate = GdxApi.getMethodBind(c"XRHandModifier3D", c"get_bone_update", 2873665691L)
-
-    def apply(): XRHandModifier3D =
-        val obj = new XRHandModifier3D()
-        obj.ptr = GdxApi.constructObject(c"XRHandModifier3D")
-        obj
+def apply(): XRHandModifier3D = {
+  val obj = new XRHandModifier3D()
+  obj.ptr = GdxApi.constructObject(c"XRHandModifier3D")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class GLTFDocumentExtensionConvertImporterMesh extends GLTFDocumentExtension
-
-
-
+class GLTFDocumentExtensionConvertImporterMesh extends GLTFDocumentExtension {}
 
 object GLTFDocumentExtensionConvertImporterMesh:
-    def apply(): GLTFDocumentExtensionConvertImporterMesh =
-        val obj = new GLTFDocumentExtensionConvertImporterMesh()
-        obj.ptr = GdxApi.constructObject(c"GLTFDocumentExtensionConvertImporterMesh")
-        obj
+def apply(): GLTFDocumentExtensionConvertImporterMesh = {
+  val obj = new GLTFDocumentExtensionConvertImporterMesh()
+  obj.ptr = GdxApi.constructObject(c"GLTFDocumentExtensionConvertImporterMesh")
+  obj
+}

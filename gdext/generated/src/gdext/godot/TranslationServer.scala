@@ -5,177 +5,190 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TranslationServer extends Object
-
-    def setLocale(locale: CString): Unit =
+class TranslationServer extends Object {
+    def setLocale(locale: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         GdxApi.ptrcall(TranslationServer.Binds.setLocale, ptr, _args, null)
+}
 
-    def getLocale(): CString =
+    def getLocale(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getLocale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getToolLocale(): CString =
+    def getToolLocale(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getToolLocale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def compareLocales(localeA: CString, localeB: CString): Int =
+    def compareLocales(localeA: CString, localeB: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = localeA.ptr
-        _args(1) = localeB.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = localeA
+        _args(1) = localeB
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(TranslationServer.Binds.compareLocales, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def standardizeLocale(locale: CString): CString =
+    def standardizeLocale(locale: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.standardizeLocale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAllLanguages(): PackedStringArray =
+    def getAllLanguages(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getAllLanguages, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getLanguageName(language: CString): CString =
+    def getLanguageName(language: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
+        _args(0) = language
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getLanguageName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAllScripts(): PackedStringArray =
+    def getAllScripts(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getAllScripts, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getScriptName(script: CString): CString =
+    def getScriptName(script: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = script.ptr
+        _args(0) = script
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getScriptName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getAllCountries(): PackedStringArray =
+    def getAllCountries(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getAllCountries, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getCountryName(country: CString): CString =
+    def getCountryName(country: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = country.ptr
+        _args(0) = country
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getCountryName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getLocaleName(locale: CString): CString =
+    def getLocaleName(locale: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getLocaleName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def translate(message: CString): CString =
+    def translate(message: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.translate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def translatePlural(message: CString, pluralMessage: CString, n: Int): CString =
+    def translatePlural(message: CString, pluralMessage: CString, n: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = message.ptr
-        _args(1) = pluralMessage.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = n.toLong
+        _args(0) = message
+        _args(1) = pluralMessage
+        val _a2 = stackalloc[Long](); !_a2 = n.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.translatePlural, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addTranslation(translation: Translation): Unit =
+    def addTranslation(translation: Translation): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = translation.ptr
         GdxApi.ptrcall(TranslationServer.Binds.addTranslation, ptr, _args, null)
+}
 
-    def removeTranslation(translation: Translation): Unit =
+    def removeTranslation(translation: Translation): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = translation.ptr
         GdxApi.ptrcall(TranslationServer.Binds.removeTranslation, ptr, _args, null)
+}
 
-    def getTranslationObject(locale: CString): Translation =
+    def getTranslationObject(locale: CString): Translation = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = locale.ptr
+        _args(0) = locale
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getTranslationObject, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Translation(!_ret)
+}
 
-    def hasDomain(domain: CString): Boolean =
+    def hasDomain(domain: CString): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = domain.ptr
+        _args(0) = domain
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(TranslationServer.Binds.hasDomain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getOrAddDomain(domain: CString): TranslationDomain =
+    def getOrAddDomain(domain: CString): TranslationDomain = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = domain.ptr
+        _args(0) = domain
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getOrAddDomain, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new TranslationDomain(!_ret)
+}
 
-    def removeDomain(domain: CString): Unit =
+    def removeDomain(domain: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = domain.ptr
+        _args(0) = domain
         GdxApi.ptrcall(TranslationServer.Binds.removeDomain, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TranslationServer.Binds.clear, ptr, _args, null)
+}
 
-    def getLoadedLocales(): PackedStringArray =
+    def getLoadedLocales(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.getLoadedLocales, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def isPseudolocalizationEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(TranslationServer.Binds.isPseudolocalizationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPseudolocalizationEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(TranslationServer.Binds.setPseudolocalizationEnabled, ptr, _args, null)
-
-    def reloadPseudolocalization(): Unit =
+    def reloadPseudolocalization(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(TranslationServer.Binds.reloadPseudolocalization, ptr, _args, null)
+}
 
-    def pseudolocalize(message: CString): CString =
+    def pseudolocalize(message: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = message.ptr
+        _args(0) = message
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(TranslationServer.Binds.pseudolocalize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-    def pseudolocalizationEnabled: Ptr[Byte] = isPseudolocalizationEnabled()
-    def pseudolocalizationEnabled_=(v: Ptr[Byte]): Unit = setPseudolocalizationEnabled(v)
+}
+
+    def pseudolocalizationEnabled: Boolean = isPseudolocalizationEnabled()
+    def pseudolocalizationEnabled_=(v: Boolean): Unit = setPseudolocalizationEnabled(v)
+}
 
 object TranslationServer:
-    object Binds:
-        var setLocale: Ptr[Byte] = null
+object Binds {
+          var setLocale: Ptr[Byte] = null
         var getLocale: Ptr[Byte] = null
         var getToolLocale: Ptr[Byte] = null
         var compareLocales: Ptr[Byte] = null
@@ -197,13 +210,11 @@ object TranslationServer:
         var removeDomain: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
         var getLoadedLocales: Ptr[Byte] = null
-        var isPseudolocalizationEnabled: Ptr[Byte] = null
-        var setPseudolocalizationEnabled: Ptr[Byte] = null
         var reloadPseudolocalization: Ptr[Byte] = null
         var pseudolocalize: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setLocale = GdxApi.getMethodBind(c"TranslationServer", c"set_locale", 83702148L)
+  def loadBinds(): Unit = {
+                Binds.setLocale = GdxApi.getMethodBind(c"TranslationServer", c"set_locale", 83702148L)
             Binds.getLocale = GdxApi.getMethodBind(c"TranslationServer", c"get_locale", 201670096L)
             Binds.getToolLocale = GdxApi.getMethodBind(c"TranslationServer", c"get_tool_locale", 2841200299L)
             Binds.compareLocales = GdxApi.getMethodBind(c"TranslationServer", c"compare_locales", 2878152881L)
@@ -225,12 +236,13 @@ object TranslationServer:
             Binds.removeDomain = GdxApi.getMethodBind(c"TranslationServer", c"remove_domain", 3304788590L)
             Binds.clear = GdxApi.getMethodBind(c"TranslationServer", c"clear", 3218959716L)
             Binds.getLoadedLocales = GdxApi.getMethodBind(c"TranslationServer", c"get_loaded_locales", 1139954409L)
-            Binds.isPseudolocalizationEnabled = GdxApi.getMethodBind(c"TranslationServer", c"is_pseudolocalization_enabled", 36873697L)
-            Binds.setPseudolocalizationEnabled = GdxApi.getMethodBind(c"TranslationServer", c"set_pseudolocalization_enabled", 2586408642L)
             Binds.reloadPseudolocalization = GdxApi.getMethodBind(c"TranslationServer", c"reload_pseudolocalization", 3218959716L)
             Binds.pseudolocalize = GdxApi.getMethodBind(c"TranslationServer", c"pseudolocalize", 1965194235L)
+  }
+}
 
-    def apply(): TranslationServer =
-        val obj = new TranslationServer()
-        obj.ptr = GdxApi.constructObject(c"TranslationServer")
-        obj
+def apply(): TranslationServer = {
+  val obj = new TranslationServer()
+  obj.ptr = GdxApi.constructObject(c"TranslationServer")
+  obj
+}

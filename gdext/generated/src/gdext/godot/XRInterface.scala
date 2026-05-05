@@ -5,76 +5,72 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRInterface extends RefCounted
-
-    def getName(): CString =
+class XRInterface extends RefCounted {
+    def getName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCapabilities(): Int =
+    def getCapabilities(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XRInterface.Binds.getCapabilities, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isPrimary(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(XRInterface.Binds.isPrimary, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setPrimary(primary: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if primary then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(XRInterface.Binds.setPrimary, ptr, _args, null)
-
-    def isInitialized(): Boolean =
+    def isInitialized(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRInterface.Binds.isInitialized, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def initialize(): Boolean =
+    def initialize(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRInterface.Binds.initialize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def uninitialize(): Unit =
+    def uninitialize(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(XRInterface.Binds.uninitialize, ptr, _args, null)
+}
 
-    def getSystemInfo(): Dictionary =
+    def getSystemInfo(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getSystemInfo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def getTrackingStatus(): Int =
+    def getTrackingStatus(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XRInterface.Binds.getTrackingStatus, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getRenderTargetSize(): Vector2 =
+    def getRenderTargetSize(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getRenderTargetSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getViewCount(): Int =
+    def getViewCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XRInterface.Binds.getViewCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def triggerHapticPulse(actionName: CString, trackerName: CString, frequency: Double, amplitude: Double, durationSec: Double, delaySec: Double): Unit =
+    def triggerHapticPulse(actionName: CString, trackerName: CString, frequency: Double, amplitude: Double, durationSec: Double, delaySec: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
-        _args(0) = actionName.ptr
-        _args(1) = trackerName.ptr
+        _args(0) = actionName
+        _args(1) = trackerName
         val _a2 = stackalloc[Double](); !_a2 = frequency
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _a3 = stackalloc[Double](); !_a3 = amplitude
@@ -84,85 +80,70 @@ class XRInterface extends RefCounted
         val _a5 = stackalloc[Double](); !_a5 = delaySec
         _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(XRInterface.Binds.triggerHapticPulse, ptr, _args, null)
+}
 
-    def supportsPlayAreaMode(mode: Int): Boolean =
+    def supportsPlayAreaMode(mode: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRInterface.Binds.supportsPlayAreaMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPlayAreaMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(XRInterface.Binds.getPlayAreaMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setPlayAreaMode(mode: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(XRInterface.Binds.setPlayAreaMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getPlayArea(): PackedVector3Array =
+    def getPlayArea(): PackedVector3Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getPlayArea, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedVector3Array(!_ret)
+}
 
-    def getAnchorDetectionIsEnabled(): Boolean =
+    def getCameraFeedId(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(XRInterface.Binds.getAnchorDetectionIsEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAnchorDetectionIsEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(XRInterface.Binds.setAnchorDetectionIsEnabled, ptr, _args, null)
-
-    def getCameraFeedId(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(XRInterface.Binds.getCameraFeedId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isPassthroughSupported(): Boolean =
+    def isPassthroughSupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRInterface.Binds.isPassthroughSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isPassthroughEnabled(): Boolean =
+    def isPassthroughEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRInterface.Binds.isPassthroughEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def startPassthrough(): Boolean =
+    def startPassthrough(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(XRInterface.Binds.startPassthrough, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def stopPassthrough(): Unit =
+    def stopPassthrough(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(XRInterface.Binds.stopPassthrough, ptr, _args, null)
+}
 
-    def getTransformForView(view: Int, camTransform: Transform3D): Transform3D =
+    def getTransformForView(view: Int, camTransform: Transform3D): Transform3D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = view.toLong
+        val _a0 = stackalloc[Long](); !_a0 = view.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = camTransform.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getTransformForView, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def getProjectionForView(view: Int, aspect: Double, near: Double, far: Double): Projection =
+    def getProjectionForView(view: Int, aspect: Double, near: Double, far: Double): Projection = {
         val _args = stackalloc[Ptr[Byte]](4)
-        val _a0 = stackalloc[CLong](); !_a0 = view.toLong
+        val _a0 = stackalloc[Long](); !_a0 = view.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Double](); !_a1 = aspect
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
@@ -173,40 +154,29 @@ class XRInterface extends RefCounted
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getProjectionForView, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Projection(!_ret)
+}
 
-    def getSupportedEnvironmentBlendModes(): Array =
+    def getSupportedEnvironmentBlendModes(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRInterface.Binds.getSupportedEnvironmentBlendModes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setEnvironmentBlendMode(mode: Int): Boolean =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(XRInterface.Binds.setEnvironmentBlendMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getEnvironmentBlendMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(XRInterface.Binds.getEnvironmentBlendMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def interfaceIsPrimary: Ptr[Byte] = isPrimary()
-    def interfaceIsPrimary_=(v: Ptr[Byte]): Unit = setPrimary(v)
-    def xrPlayAreaMode: Ptr[Byte] = getPlayAreaMode()
-    def xrPlayAreaMode_=(v: Ptr[Byte]): Unit = setPlayAreaMode(v)
-    def environmentBlendMode: Ptr[Byte] = getEnvironmentBlendMode()
-    def environmentBlendMode_=(v: Ptr[Byte]): Unit = setEnvironmentBlendMode(v)
-    def arIsAnchorDetectionEnabled: Ptr[Byte] = getAnchorDetectionIsEnabled()
-    def arIsAnchorDetectionEnabled_=(v: Ptr[Byte]): Unit = setAnchorDetectionIsEnabled(v)
+    def interfaceIsPrimary: Boolean = isPrimary()
+    def interfaceIsPrimary_=(v: Boolean): Unit = setPrimary(v)
+    def xrPlayAreaMode: Int = getPlayAreaMode()
+    def xrPlayAreaMode_=(v: Int): Unit = setPlayAreaMode(v)
+    def environmentBlendMode: Int = getEnvironmentBlendMode()
+    def environmentBlendMode_=(v: Int): Unit = setEnvironmentBlendMode(v)
+    def arIsAnchorDetectionEnabled: Boolean = getAnchorDetectionIsEnabled()
+    def arIsAnchorDetectionEnabled_=(v: Boolean): Unit = setAnchorDetectionIsEnabled(v)
+}
 
 object XRInterface:
-    object Binds:
-        var getName: Ptr[Byte] = null
+object Binds {
+          var getName: Ptr[Byte] = null
         var getCapabilities: Ptr[Byte] = null
-        var isPrimary: Ptr[Byte] = null
-        var setPrimary: Ptr[Byte] = null
         var isInitialized: Ptr[Byte] = null
         var initialize: Ptr[Byte] = null
         var uninitialize: Ptr[Byte] = null
@@ -216,11 +186,7 @@ object XRInterface:
         var getViewCount: Ptr[Byte] = null
         var triggerHapticPulse: Ptr[Byte] = null
         var supportsPlayAreaMode: Ptr[Byte] = null
-        var getPlayAreaMode: Ptr[Byte] = null
-        var setPlayAreaMode: Ptr[Byte] = null
         var getPlayArea: Ptr[Byte] = null
-        var getAnchorDetectionIsEnabled: Ptr[Byte] = null
-        var setAnchorDetectionIsEnabled: Ptr[Byte] = null
         var getCameraFeedId: Ptr[Byte] = null
         var isPassthroughSupported: Ptr[Byte] = null
         var isPassthroughEnabled: Ptr[Byte] = null
@@ -229,14 +195,10 @@ object XRInterface:
         var getTransformForView: Ptr[Byte] = null
         var getProjectionForView: Ptr[Byte] = null
         var getSupportedEnvironmentBlendModes: Ptr[Byte] = null
-        var setEnvironmentBlendMode: Ptr[Byte] = null
-        var getEnvironmentBlendMode: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getName = GdxApi.getMethodBind(c"XRInterface", c"get_name", 2002593661L)
+  def loadBinds(): Unit = {
+                Binds.getName = GdxApi.getMethodBind(c"XRInterface", c"get_name", 2002593661L)
             Binds.getCapabilities = GdxApi.getMethodBind(c"XRInterface", c"get_capabilities", 3905245786L)
-            Binds.isPrimary = GdxApi.getMethodBind(c"XRInterface", c"is_primary", 2240911060L)
-            Binds.setPrimary = GdxApi.getMethodBind(c"XRInterface", c"set_primary", 2586408642L)
             Binds.isInitialized = GdxApi.getMethodBind(c"XRInterface", c"is_initialized", 36873697L)
             Binds.initialize = GdxApi.getMethodBind(c"XRInterface", c"initialize", 2240911060L)
             Binds.uninitialize = GdxApi.getMethodBind(c"XRInterface", c"uninitialize", 3218959716L)
@@ -246,11 +208,7 @@ object XRInterface:
             Binds.getViewCount = GdxApi.getMethodBind(c"XRInterface", c"get_view_count", 2455072627L)
             Binds.triggerHapticPulse = GdxApi.getMethodBind(c"XRInterface", c"trigger_haptic_pulse", 3752640163L)
             Binds.supportsPlayAreaMode = GdxApi.getMethodBind(c"XRInterface", c"supports_play_area_mode", 3429955281L)
-            Binds.getPlayAreaMode = GdxApi.getMethodBind(c"XRInterface", c"get_play_area_mode", 1615132885L)
-            Binds.setPlayAreaMode = GdxApi.getMethodBind(c"XRInterface", c"set_play_area_mode", 3429955281L)
             Binds.getPlayArea = GdxApi.getMethodBind(c"XRInterface", c"get_play_area", 497664490L)
-            Binds.getAnchorDetectionIsEnabled = GdxApi.getMethodBind(c"XRInterface", c"get_anchor_detection_is_enabled", 36873697L)
-            Binds.setAnchorDetectionIsEnabled = GdxApi.getMethodBind(c"XRInterface", c"set_anchor_detection_is_enabled", 2586408642L)
             Binds.getCameraFeedId = GdxApi.getMethodBind(c"XRInterface", c"get_camera_feed_id", 2455072627L)
             Binds.isPassthroughSupported = GdxApi.getMethodBind(c"XRInterface", c"is_passthrough_supported", 2240911060L)
             Binds.isPassthroughEnabled = GdxApi.getMethodBind(c"XRInterface", c"is_passthrough_enabled", 2240911060L)
@@ -259,5 +217,5 @@ object XRInterface:
             Binds.getTransformForView = GdxApi.getMethodBind(c"XRInterface", c"get_transform_for_view", 518934792L)
             Binds.getProjectionForView = GdxApi.getMethodBind(c"XRInterface", c"get_projection_for_view", 3766090294L)
             Binds.getSupportedEnvironmentBlendModes = GdxApi.getMethodBind(c"XRInterface", c"get_supported_environment_blend_modes", 2915620761L)
-            Binds.setEnvironmentBlendMode = GdxApi.getMethodBind(c"XRInterface", c"set_environment_blend_mode", 551152418L)
-            Binds.getEnvironmentBlendMode = GdxApi.getMethodBind(c"XRInterface", c"get_environment_blend_mode", 1984334071L)
+  }
+}

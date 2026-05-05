@@ -5,62 +5,69 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RenderSceneData extends Object
-
-    def getCamTransform(): Transform3D =
+class RenderSceneData extends Object {
+    def getCamTransform(): Transform3D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneData.Binds.getCamTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform3D(!_ret)
+}
 
-    def getCamProjection(): Projection =
+    def getCamProjection(): Projection = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneData.Binds.getCamProjection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Projection(!_ret)
+}
 
-    def getViewCount(): Int =
+    def getViewCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RenderSceneData.Binds.getViewCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getViewEyeOffset(view: Int): Vector3 =
+    def getViewEyeOffset(view: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = view.toLong
+        val _a0 = stackalloc[Long](); !_a0 = view.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneData.Binds.getViewEyeOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def getViewProjection(view: Int): Projection =
+    def getViewProjection(view: Int): Projection = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = view.toLong
+        val _a0 = stackalloc[Long](); !_a0 = view.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneData.Binds.getViewProjection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Projection(!_ret)
+}
 
-    def getUniformBuffer(): RID =
+    def getUniformBuffer(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RenderSceneData.Binds.getUniformBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
-
+}
+}
 
 object RenderSceneData:
-    object Binds:
-        var getCamTransform: Ptr[Byte] = null
+object Binds {
+          var getCamTransform: Ptr[Byte] = null
         var getCamProjection: Ptr[Byte] = null
         var getViewCount: Ptr[Byte] = null
         var getViewEyeOffset: Ptr[Byte] = null
         var getViewProjection: Ptr[Byte] = null
         var getUniformBuffer: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getCamTransform = GdxApi.getMethodBind(c"RenderSceneData", c"get_cam_transform", 3229777777L)
+  def loadBinds(): Unit = {
+                Binds.getCamTransform = GdxApi.getMethodBind(c"RenderSceneData", c"get_cam_transform", 3229777777L)
             Binds.getCamProjection = GdxApi.getMethodBind(c"RenderSceneData", c"get_cam_projection", 2910717950L)
             Binds.getViewCount = GdxApi.getMethodBind(c"RenderSceneData", c"get_view_count", 3905245786L)
             Binds.getViewEyeOffset = GdxApi.getMethodBind(c"RenderSceneData", c"get_view_eye_offset", 711720468L)
             Binds.getViewProjection = GdxApi.getMethodBind(c"RenderSceneData", c"get_view_projection", 3179846605L)
             Binds.getUniformBuffer = GdxApi.getMethodBind(c"RenderSceneData", c"get_uniform_buffer", 2944877500L)
+  }
+}

@@ -5,17 +5,17 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Noise extends Resource
-
-    def getNoise1d(x: Float): Float =
+class Noise extends Resource {
+    def getNoise1d(x: Float): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = x.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Noise.Binds.getNoise1d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getNoise2d(x: Float, y: Float): Float =
+    def getNoise2d(x: Float, y: Float): Float = {
         val _args = stackalloc[Ptr[Byte]](2)
         val _a0 = stackalloc[Double](); !_a0 = x.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -24,15 +24,17 @@ class Noise extends Resource
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Noise.Binds.getNoise2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getNoise2dv(v: Vector2): Float =
+    def getNoise2dv(v: Vector2): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = v.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Noise.Binds.getNoise2dv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getNoise3d(x: Float, y: Float, z: Float): Float =
+    def getNoise3d(x: Float, y: Float, z: Float): Float = {
         val _args = stackalloc[Ptr[Byte]](3)
         val _a0 = stackalloc[Double](); !_a0 = x.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -43,62 +45,68 @@ class Noise extends Resource
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Noise.Binds.getNoise3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getNoise3dv(v: Vector3): Float =
+    def getNoise3dv(v: Vector3): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = v.ptr
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(Noise.Binds.getNoise3dv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getImage(width: Int, height: Int): Image =
+    def getImage(width: Int, height: Int): Image = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Noise.Binds.getImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def getSeamlessImage(width: Int, height: Int): Image =
+    def getSeamlessImage(width: Int, height: Int): Image = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Noise.Binds.getSeamlessImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def getImage3d(width: Int, height: Int, depth: Int): Ptr[Byte] =
+    def getImage3d(width: Int, height: Int, depth: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = depth.toLong
+        val _a2 = stackalloc[Long](); !_a2 = depth.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Noise.Binds.getImage3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getSeamlessImage3d(width: Int, height: Int, depth: Int): Ptr[Byte] =
+    def getSeamlessImage3d(width: Int, height: Int, depth: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = depth.toLong
+        val _a2 = stackalloc[Long](); !_a2 = depth.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Noise.Binds.getSeamlessImage3d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object Noise:
-    object Binds:
-        var getNoise1d: Ptr[Byte] = null
+object Binds {
+          var getNoise1d: Ptr[Byte] = null
         var getNoise2d: Ptr[Byte] = null
         var getNoise2dv: Ptr[Byte] = null
         var getNoise3d: Ptr[Byte] = null
@@ -108,8 +116,8 @@ object Noise:
         var getImage3d: Ptr[Byte] = null
         var getSeamlessImage3d: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getNoise1d = GdxApi.getMethodBind(c"Noise", c"get_noise_1d", 3919130443L)
+  def loadBinds(): Unit = {
+                Binds.getNoise1d = GdxApi.getMethodBind(c"Noise", c"get_noise_1d", 3919130443L)
             Binds.getNoise2d = GdxApi.getMethodBind(c"Noise", c"get_noise_2d", 2753205203L)
             Binds.getNoise2dv = GdxApi.getMethodBind(c"Noise", c"get_noise_2dv", 2276447920L)
             Binds.getNoise3d = GdxApi.getMethodBind(c"Noise", c"get_noise_3d", 973811851L)
@@ -118,3 +126,5 @@ object Noise:
             Binds.getSeamlessImage = GdxApi.getMethodBind(c"Noise", c"get_seamless_image", 2770743602L)
             Binds.getImage3d = GdxApi.getMethodBind(c"Noise", c"get_image_3d", 3977814329L)
             Binds.getSeamlessImage3d = GdxApi.getMethodBind(c"Noise", c"get_seamless_image_3d", 451006340L)
+  }
+}

@@ -5,7 +5,4 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ImageFormatLoader extends RefCounted
-
-
-
+class ImageFormatLoader extends RefCounted {}

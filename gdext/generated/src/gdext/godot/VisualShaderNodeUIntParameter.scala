@@ -5,50 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeUIntParameter extends VisualShaderNodeParameter
-
-    def setDefaultValueEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeUIntParameter.Binds.setDefaultValueEnabled, ptr, _args, null)
-
-    def isDefaultValueEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(VisualShaderNodeUIntParameter.Binds.isDefaultValueEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDefaultValue(value: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = value.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(VisualShaderNodeUIntParameter.Binds.setDefaultValue, ptr, _args, null)
-
-    def getDefaultValue(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(VisualShaderNodeUIntParameter.Binds.getDefaultValue, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def defaultValueEnabled: Ptr[Byte] = isDefaultValueEnabled()
-    def defaultValueEnabled_=(v: Ptr[Byte]): Unit = setDefaultValueEnabled(v)
-    def defaultValue: Ptr[Byte] = getDefaultValue()
-    def defaultValue_=(v: Ptr[Byte]): Unit = setDefaultValue(v)
+class VisualShaderNodeUIntParameter extends VisualShaderNodeParameter {
+    def defaultValueEnabled: Boolean = isDefaultValueEnabled()
+    def defaultValueEnabled_=(v: Boolean): Unit = setDefaultValueEnabled(v)
+    def defaultValue: Int = getDefaultValue()
+    def defaultValue_=(v: Int): Unit = setDefaultValue(v)
+}
 
 object VisualShaderNodeUIntParameter:
-    object Binds:
-        var setDefaultValueEnabled: Ptr[Byte] = null
-        var isDefaultValueEnabled: Ptr[Byte] = null
-        var setDefaultValue: Ptr[Byte] = null
-        var getDefaultValue: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setDefaultValueEnabled = GdxApi.getMethodBind(c"VisualShaderNodeUIntParameter", c"set_default_value_enabled", 2586408642L)
-            Binds.isDefaultValueEnabled = GdxApi.getMethodBind(c"VisualShaderNodeUIntParameter", c"is_default_value_enabled", 36873697L)
-            Binds.setDefaultValue = GdxApi.getMethodBind(c"VisualShaderNodeUIntParameter", c"set_default_value", 1286410249L)
-            Binds.getDefaultValue = GdxApi.getMethodBind(c"VisualShaderNodeUIntParameter", c"get_default_value", 3905245786L)
-
-    def apply(): VisualShaderNodeUIntParameter =
-        val obj = new VisualShaderNodeUIntParameter()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeUIntParameter")
-        obj
+def apply(): VisualShaderNodeUIntParameter = {
+  val obj = new VisualShaderNodeUIntParameter()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeUIntParameter")
+  obj
+}

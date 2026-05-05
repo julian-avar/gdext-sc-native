@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorExportPlatformExtension extends EditorExportPlatform
+class EditorExportPlatformExtension extends EditorExportPlatform {
     def _getPresetFeatures(preset: EditorExportPreset): PackedStringArray = null
     def _isExecutable(path: CString): Boolean = false
     def _getExportOptions(): Ptr[Byte] = null
@@ -36,44 +36,52 @@ class EditorExportPlatformExtension extends EditorExportPlatform
     def _exportZipPatch(preset: EditorExportPreset, debug: Boolean, path: CString, patches: PackedStringArray, flags: Int): Int = null
     def _getPlatformFeatures(): PackedStringArray = null
     def _getDebugProtocol(): CString = null
-    def setConfigError(errorText: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = errorText.ptr
-        GdxApi.ptrcall(EditorExportPlatformExtension.Binds.setConfigError, ptr, _args, null)
 
-    def getConfigError(): CString =
+    def setConfigError(errorText: CString): Unit = {
+        val _args = stackalloc[Ptr[Byte]](1)
+        _args(0) = errorText
+        GdxApi.ptrcall(EditorExportPlatformExtension.Binds.setConfigError, ptr, _args, null)
+}
+
+    def getConfigError(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorExportPlatformExtension.Binds.getConfigError, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setConfigMissingTemplates(missingTemplates: Boolean): Unit =
+    def setConfigMissingTemplates(missingTemplates: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if missingTemplates then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorExportPlatformExtension.Binds.setConfigMissingTemplates, ptr, _args, null)
+}
 
-    def getConfigMissingTemplates(): Boolean =
+    def getConfigMissingTemplates(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(EditorExportPlatformExtension.Binds.getConfigMissingTemplates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object EditorExportPlatformExtension:
-    object Binds:
-        var setConfigError: Ptr[Byte] = null
+object Binds {
+          var setConfigError: Ptr[Byte] = null
         var getConfigError: Ptr[Byte] = null
         var setConfigMissingTemplates: Ptr[Byte] = null
         var getConfigMissingTemplates: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setConfigError = GdxApi.getMethodBind(c"EditorExportPlatformExtension", c"set_config_error", 3089850668L)
+  def loadBinds(): Unit = {
+                Binds.setConfigError = GdxApi.getMethodBind(c"EditorExportPlatformExtension", c"set_config_error", 3089850668L)
             Binds.getConfigError = GdxApi.getMethodBind(c"EditorExportPlatformExtension", c"get_config_error", 201670096L)
             Binds.setConfigMissingTemplates = GdxApi.getMethodBind(c"EditorExportPlatformExtension", c"set_config_missing_templates", 1695273946L)
             Binds.getConfigMissingTemplates = GdxApi.getMethodBind(c"EditorExportPlatformExtension", c"get_config_missing_templates", 36873697L)
+  }
+}
 
-    def apply(): EditorExportPlatformExtension =
-        val obj = new EditorExportPlatformExtension()
-        obj.ptr = GdxApi.constructObject(c"EditorExportPlatformExtension")
-        obj
+def apply(): EditorExportPlatformExtension = {
+  val obj = new EditorExportPlatformExtension()
+  obj.ptr = GdxApi.constructObject(c"EditorExportPlatformExtension")
+  obj
+}

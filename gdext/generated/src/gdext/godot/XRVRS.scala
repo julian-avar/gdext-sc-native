@@ -5,77 +5,35 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class XRVRS extends Object
-
-    def getVrsMinRadius(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(XRVRS.Binds.getVrsMinRadius, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVrsMinRadius(radius: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = radius.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(XRVRS.Binds.setVrsMinRadius, ptr, _args, null)
-
-    def getVrsStrength(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(XRVRS.Binds.getVrsStrength, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVrsStrength(strength: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = strength.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(XRVRS.Binds.setVrsStrength, ptr, _args, null)
-
-    def getVrsRenderRegion(): Rect2i =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(XRVRS.Binds.getVrsRenderRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Rect2i(!_ret)
-
-    def setVrsRenderRegion(renderRegion: Rect2i): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = renderRegion.ptr
-        GdxApi.ptrcall(XRVRS.Binds.setVrsRenderRegion, ptr, _args, null)
-
-    def makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID =
+class XRVRS extends Object {
+    def makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = targetSize.ptr
         _args(1) = eyeFoci.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(XRVRS.Binds.makeVrsTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
-    def vrsMinRadius: Ptr[Byte] = getVrsMinRadius()
-    def vrsMinRadius_=(v: Ptr[Byte]): Unit = setVrsMinRadius(v)
-    def vrsStrength: Ptr[Byte] = getVrsStrength()
-    def vrsStrength_=(v: Ptr[Byte]): Unit = setVrsStrength(v)
-    def vrsRenderRegion: Ptr[Byte] = getVrsRenderRegion()
-    def vrsRenderRegion_=(v: Ptr[Byte]): Unit = setVrsRenderRegion(v)
+}
+
+    def vrsMinRadius: Float = getVrsMinRadius()
+    def vrsMinRadius_=(v: Float): Unit = setVrsMinRadius(v)
+    def vrsStrength: Float = getVrsStrength()
+    def vrsStrength_=(v: Float): Unit = setVrsStrength(v)
+    def vrsRenderRegion: Rect2i = getVrsRenderRegion()
+    def vrsRenderRegion_=(v: Rect2i): Unit = setVrsRenderRegion(v)
+}
 
 object XRVRS:
-    object Binds:
-        var getVrsMinRadius: Ptr[Byte] = null
-        var setVrsMinRadius: Ptr[Byte] = null
-        var getVrsStrength: Ptr[Byte] = null
-        var setVrsStrength: Ptr[Byte] = null
-        var getVrsRenderRegion: Ptr[Byte] = null
-        var setVrsRenderRegion: Ptr[Byte] = null
-        var makeVrsTexture: Ptr[Byte] = null
+object Binds {
+          var makeVrsTexture: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getVrsMinRadius = GdxApi.getMethodBind(c"XRVRS", c"get_vrs_min_radius", 1740695150L)
-            Binds.setVrsMinRadius = GdxApi.getMethodBind(c"XRVRS", c"set_vrs_min_radius", 373806689L)
-            Binds.getVrsStrength = GdxApi.getMethodBind(c"XRVRS", c"get_vrs_strength", 1740695150L)
-            Binds.setVrsStrength = GdxApi.getMethodBind(c"XRVRS", c"set_vrs_strength", 373806689L)
-            Binds.getVrsRenderRegion = GdxApi.getMethodBind(c"XRVRS", c"get_vrs_render_region", 410525958L)
-            Binds.setVrsRenderRegion = GdxApi.getMethodBind(c"XRVRS", c"set_vrs_render_region", 1763793166L)
-            Binds.makeVrsTexture = GdxApi.getMethodBind(c"XRVRS", c"make_vrs_texture", 3647044786L)
+  def loadBinds(): Unit = {
+                Binds.makeVrsTexture = GdxApi.getMethodBind(c"XRVRS", c"make_vrs_texture", 3647044786L)
+  }
+}
 
-    def apply(): XRVRS =
-        val obj = new XRVRS()
-        obj.ptr = GdxApi.constructObject(c"XRVRS")
-        obj
+def apply(): XRVRS = {
+  val obj = new XRVRS()
+  obj.ptr = GdxApi.constructObject(c"XRVRS")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class FBXDocument extends GLTFDocument
-
-
-
+class FBXDocument extends GLTFDocument {}
 
 object FBXDocument:
-    def apply(): FBXDocument =
-        val obj = new FBXDocument()
-        obj.ptr = GdxApi.constructObject(c"FBXDocument")
-        obj
+def apply(): FBXDocument = {
+  val obj = new FBXDocument()
+  obj.ptr = GdxApi.constructObject(c"FBXDocument")
+  obj
+}

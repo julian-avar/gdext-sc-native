@@ -5,286 +5,338 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Image extends Resource
-
-    def getWidth(): Int =
+class Image extends Resource {
+    def getWidth(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.getWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getHeight(): Int =
+    def getHeight(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.getHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSize(): Vector2i =
+    def getSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.getSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def hasMipmaps(): Boolean =
+    def hasMipmaps(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Image.Binds.hasMipmaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getFormat(): Int =
+    def getFormat(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.getFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getData(): PackedByteArray =
+    def getData(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.getData, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def getDataSize(): Long =
+    def getDataSize(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.getDataSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def convert(format: Int): Unit =
+    def convert(format: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = format.ptr
+        val _a0 = stackalloc[Long](); !_a0 = format.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Image.Binds.convert, ptr, _args, null)
+}
 
-    def getMipmapCount(): Int =
+    def getMipmapCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.getMipmapCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getMipmapOffset(mipmap: Int): Long =
+    def getMipmapOffset(mipmap: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = mipmap.toLong
+        val _a0 = stackalloc[Long](); !_a0 = mipmap.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.getMipmapOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def resizeToPo2(): Unit =
+    def resizeToPo2(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.resizeToPo2, ptr, _args, null)
+}
 
-    def resize(width: Int, height: Int): Unit =
+    def resize(width: Int, height: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Image.Binds.resize, ptr, _args, null)
+}
 
-    def shrinkX2(): Unit =
+    def shrinkX2(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.shrinkX2, ptr, _args, null)
+}
 
-    def crop(width: Int, height: Int): Unit =
+    def crop(width: Int, height: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Image.Binds.crop, ptr, _args, null)
+}
 
-    def flipX(): Unit =
+    def flipX(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.flipX, ptr, _args, null)
+}
 
-    def flipY(): Unit =
+    def flipY(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.flipY, ptr, _args, null)
+}
 
-    def generateMipmaps(): Int =
+    def generateMipmaps(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.generateMipmaps, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clearMipmaps(): Unit =
+    def clearMipmaps(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.clearMipmaps, ptr, _args, null)
+}
 
-    def setData(width: Int, height: Int, useMipmaps: Boolean, format: Int, data: PackedByteArray): Unit =
+    def setData(width: Int, height: Int, useMipmaps: Boolean, format: Int, data: PackedByteArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
-        val _a0 = stackalloc[CLong](); !_a0 = width.toLong
+        val _a0 = stackalloc[Long](); !_a0 = width.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = height.toLong
+        val _a1 = stackalloc[Long](); !_a1 = height.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if useMipmaps then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        _args(3) = format.ptr
+        val _a3 = stackalloc[Long](); !_a3 = format.toLong
+        _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         _args(4) = data.ptr
         GdxApi.ptrcall(Image.Binds.setData, ptr, _args, null)
+}
 
-    def isEmpty(): Boolean =
+    def isEmpty(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Image.Binds.isEmpty, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def load(path: CString): Int =
+    def load(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.load, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def savePng(path: CString): Int =
+    def savePng(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.savePng, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def savePngToBuffer(): PackedByteArray =
+    def savePngToBuffer(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.savePngToBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def saveJpg(path: CString): Int =
+    def saveJpg(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.saveJpg, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveJpgToBuffer(): PackedByteArray =
+    def saveJpgToBuffer(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.saveJpgToBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def saveExr(path: CString): Int =
+    def saveExr(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.saveExr, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveExrToBuffer(): PackedByteArray =
+    def saveExrToBuffer(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.saveExrToBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def saveDds(path: CString): Int =
+    def saveDds(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.saveDds, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveDdsToBuffer(): PackedByteArray =
+    def saveDdsToBuffer(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.saveDdsToBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def saveWebp(path: CString): Int =
+    def saveWebp(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.saveWebp, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def saveWebpToBuffer(): PackedByteArray =
+    def saveWebpToBuffer(): PackedByteArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.saveWebpToBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedByteArray(!_ret)
+}
 
-    def detectAlpha(): Int =
+    def detectAlpha(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.detectAlpha, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isInvisible(): Boolean =
+    def isInvisible(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Image.Binds.isInvisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def detectUsedChannels(): Int =
+    def detectUsedChannels(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.detectUsedChannels, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def compress(mode: Int): Int =
+    def compress(mode: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.compress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def compressFromChannels(mode: Int, channels: Int): Int =
+    def compressFromChannels(mode: Int, channels: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = mode.ptr
-        _args(1) = channels.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _a1 = stackalloc[Long](); !_a1 = channels.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.compressFromChannels, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def decompress(): Int =
+    def decompress(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.decompress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def isCompressed(): Boolean =
+    def isCompressed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Image.Binds.isCompressed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def rotate90(direction: Int): Unit =
+    def rotate90(direction: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
+        val _a0 = stackalloc[Long](); !_a0 = direction.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Image.Binds.rotate90, ptr, _args, null)
+}
 
-    def rotate180(): Unit =
+    def rotate180(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.rotate180, ptr, _args, null)
+}
 
-    def fixAlphaEdges(): Unit =
+    def fixAlphaEdges(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.fixAlphaEdges, ptr, _args, null)
+}
 
-    def premultiplyAlpha(): Unit =
+    def premultiplyAlpha(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.premultiplyAlpha, ptr, _args, null)
+}
 
-    def srgbToLinear(): Unit =
+    def srgbToLinear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.srgbToLinear, ptr, _args, null)
+}
 
-    def linearToSrgb(): Unit =
+    def linearToSrgb(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.linearToSrgb, ptr, _args, null)
+}
 
-    def normalMapToXy(): Unit =
+    def normalMapToXy(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.normalMapToXy, ptr, _args, null)
+}
 
-    def rgbeToSrgb(): Image =
+    def rgbeToSrgb(): Image = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.rgbeToSrgb, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def bumpMapToNormalMap(): Unit =
+    def bumpMapToNormalMap(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Image.Binds.bumpMapToNormalMap, ptr, _args, null)
+}
 
-    def computeImageMetrics(comparedImage: Image, useLuma: Boolean): Dictionary =
+    def computeImageMetrics(comparedImage: Image, useLuma: Boolean): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = comparedImage.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if useLuma then 1.toByte else 0.toByte
@@ -292,99 +344,113 @@ class Image extends Resource
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.computeImageMetrics, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def blitRect(src: Image, srcRect: Rect2i, dst: Vector2i): Unit =
+    def blitRect(src: Image, srcRect: Rect2i, dst: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = src.ptr
         _args(1) = srcRect.ptr
         _args(2) = dst.ptr
         GdxApi.ptrcall(Image.Binds.blitRect, ptr, _args, null)
+}
 
-    def blitRectMask(src: Image, mask: Image, srcRect: Rect2i, dst: Vector2i): Unit =
+    def blitRectMask(src: Image, mask: Image, srcRect: Rect2i, dst: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = src.ptr
         _args(1) = mask.ptr
         _args(2) = srcRect.ptr
         _args(3) = dst.ptr
         GdxApi.ptrcall(Image.Binds.blitRectMask, ptr, _args, null)
+}
 
-    def blendRect(src: Image, srcRect: Rect2i, dst: Vector2i): Unit =
+    def blendRect(src: Image, srcRect: Rect2i, dst: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = src.ptr
         _args(1) = srcRect.ptr
         _args(2) = dst.ptr
         GdxApi.ptrcall(Image.Binds.blendRect, ptr, _args, null)
+}
 
-    def blendRectMask(src: Image, mask: Image, srcRect: Rect2i, dst: Vector2i): Unit =
+    def blendRectMask(src: Image, mask: Image, srcRect: Rect2i, dst: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = src.ptr
         _args(1) = mask.ptr
         _args(2) = srcRect.ptr
         _args(3) = dst.ptr
         GdxApi.ptrcall(Image.Binds.blendRectMask, ptr, _args, null)
+}
 
-    def fill(color: Color): Unit =
+    def fill(color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = color.ptr
         GdxApi.ptrcall(Image.Binds.fill, ptr, _args, null)
+}
 
-    def fillRect(rect: Rect2i, color: Color): Unit =
+    def fillRect(rect: Rect2i, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rect.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(Image.Binds.fillRect, ptr, _args, null)
+}
 
-    def getUsedRect(): Rect2i =
+    def getUsedRect(): Rect2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.getUsedRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def getRegion(region: Rect2i): Image =
+    def getRegion(region: Rect2i): Image = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.getRegion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def copyFrom(src: Image): Unit =
+    def copyFrom(src: Image): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = src.ptr
         GdxApi.ptrcall(Image.Binds.copyFrom, ptr, _args, null)
+}
 
-    def getPixelv(point: Vector2i): Color =
+    def getPixelv(point: Vector2i): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = point.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.getPixelv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getPixel(x: Int, y: Int): Color =
+    def getPixel(x: Int, y: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = x.toLong
+        val _a0 = stackalloc[Long](); !_a0 = x.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = y.toLong
+        val _a1 = stackalloc[Long](); !_a1 = y.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(Image.Binds.getPixel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setPixelv(point: Vector2i, color: Color): Unit =
+    def setPixelv(point: Vector2i, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = point.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(Image.Binds.setPixelv, ptr, _args, null)
+}
 
-    def setPixel(x: Int, y: Int, color: Color): Unit =
+    def setPixel(x: Int, y: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = x.toLong
+        val _a0 = stackalloc[Long](); !_a0 = x.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = y.toLong
+        val _a1 = stackalloc[Long](); !_a1 = y.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = color.ptr
         GdxApi.ptrcall(Image.Binds.setPixel, ptr, _args, null)
+}
 
-    def adjustBcs(brightness: Float, contrast: Float, saturation: Float): Unit =
+    def adjustBcs(brightness: Float, contrast: Float, saturation: Float): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         val _a0 = stackalloc[Double](); !_a0 = brightness.toDouble
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -393,75 +459,87 @@ class Image extends Resource
         val _a2 = stackalloc[Double](); !_a2 = saturation.toDouble
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(Image.Binds.adjustBcs, ptr, _args, null)
+}
 
-    def loadPngFromBuffer(buffer: PackedByteArray): Int =
+    def loadPngFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadPngFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadJpgFromBuffer(buffer: PackedByteArray): Int =
+    def loadJpgFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadJpgFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadWebpFromBuffer(buffer: PackedByteArray): Int =
+    def loadWebpFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadWebpFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadTgaFromBuffer(buffer: PackedByteArray): Int =
+    def loadTgaFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadTgaFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadBmpFromBuffer(buffer: PackedByteArray): Int =
+    def loadBmpFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadBmpFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadKtxFromBuffer(buffer: PackedByteArray): Int =
+    def loadKtxFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadKtxFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadDdsFromBuffer(buffer: PackedByteArray): Int =
+    def loadDdsFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadDdsFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadSvgFromBuffer(buffer: PackedByteArray): Int =
+    def loadSvgFromBuffer(buffer: PackedByteArray): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = buffer.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadSvgFromBuffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def loadSvgFromString(svgStr: CString): Int =
+    def loadSvgFromString(svgStr: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = svgStr.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = svgStr
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(Image.Binds.loadSvgFromString, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
+
     def data: Ptr[Byte] = _getData()
     def data_=(v: Ptr[Byte]): Unit = _setData(v)
+}
 
 object Image:
-    object Binds:
-        var getWidth: Ptr[Byte] = null
+object Binds {
+          var getWidth: Ptr[Byte] = null
         var getHeight: Ptr[Byte] = null
         var getSize: Ptr[Byte] = null
         var hasMipmaps: Ptr[Byte] = null
@@ -533,8 +611,8 @@ object Image:
         var loadSvgFromBuffer: Ptr[Byte] = null
         var loadSvgFromString: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getWidth = GdxApi.getMethodBind(c"Image", c"get_width", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getWidth = GdxApi.getMethodBind(c"Image", c"get_width", 3905245786L)
             Binds.getHeight = GdxApi.getMethodBind(c"Image", c"get_height", 3905245786L)
             Binds.getSize = GdxApi.getMethodBind(c"Image", c"get_size", 3690982128L)
             Binds.hasMipmaps = GdxApi.getMethodBind(c"Image", c"has_mipmaps", 36873697L)
@@ -605,8 +683,11 @@ object Image:
             Binds.loadDdsFromBuffer = GdxApi.getMethodBind(c"Image", c"load_dds_from_buffer", 680677267L)
             Binds.loadSvgFromBuffer = GdxApi.getMethodBind(c"Image", c"load_svg_from_buffer", 311853421L)
             Binds.loadSvgFromString = GdxApi.getMethodBind(c"Image", c"load_svg_from_string", 3254053600L)
+  }
+}
 
-    def apply(): Image =
-        val obj = new Image()
-        obj.ptr = GdxApi.constructObject(c"Image")
-        obj
+def apply(): Image = {
+  val obj = new Image()
+  obj.ptr = GdxApi.constructObject(c"Image")
+  obj
+}

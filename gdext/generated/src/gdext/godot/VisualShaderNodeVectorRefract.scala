@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeVectorRefract extends VisualShaderNodeVectorBase
-
-
-
+class VisualShaderNodeVectorRefract extends VisualShaderNodeVectorBase {}
 
 object VisualShaderNodeVectorRefract:
-    def apply(): VisualShaderNodeVectorRefract =
-        val obj = new VisualShaderNodeVectorRefract()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVectorRefract")
-        obj
+def apply(): VisualShaderNodeVectorRefract = {
+  val obj = new VisualShaderNodeVectorRefract()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeVectorRefract")
+  obj
+}

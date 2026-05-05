@@ -5,862 +5,596 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RichTextLabel extends Control
-
-    def getParsedText(): CString =
+class RichTextLabel extends Control {
+    def getParsedText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.getParsedText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addText(text: CString): Unit =
+    def addText(text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
+        _args(0) = text
         GdxApi.ptrcall(RichTextLabel.Binds.addText, ptr, _args, null)
+}
 
-    def setText(text: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = text.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setText, ptr, _args, null)
-
-    def addHr(): Unit =
+    def addHr(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.addHr, ptr, _args, null)
+}
 
-    def addImage(image: Texture2D): Unit =
+    def addImage(image: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = image.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.addImage, ptr, _args, null)
+}
 
-    def updateImage(key: Ptr[Byte], mask: Int, image: Texture2D): Unit =
+    def updateImage(key: Ptr[Byte], mask: Int, image: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = key.ptr
-        _args(1) = mask.ptr
+        _args(0) = key
+        val _a1 = stackalloc[Long](); !_a1 = mask.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = image.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.updateImage, ptr, _args, null)
+}
 
-    def newline(): Unit =
+    def newline(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.newline, ptr, _args, null)
+}
 
-    def removeParagraph(paragraph: Int): Boolean =
+    def removeParagraph(paragraph: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = paragraph.toLong
+        val _a0 = stackalloc[Long](); !_a0 = paragraph.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RichTextLabel.Binds.removeParagraph, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def invalidateParagraph(paragraph: Int): Boolean =
+    def invalidateParagraph(paragraph: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = paragraph.toLong
+        val _a0 = stackalloc[Long](); !_a0 = paragraph.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RichTextLabel.Binds.invalidateParagraph, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def pushFont(font: Font): Unit =
+    def pushFont(font: Font): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = font.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.pushFont, ptr, _args, null)
+}
 
-    def pushFontSize(fontSize: Int): Unit =
+    def pushFontSize(fontSize: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = fontSize.toLong
+        val _a0 = stackalloc[Long](); !_a0 = fontSize.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushFontSize, ptr, _args, null)
+}
 
-    def pushNormal(): Unit =
+    def pushNormal(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushNormal, ptr, _args, null)
+}
 
-    def pushBold(): Unit =
+    def pushBold(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushBold, ptr, _args, null)
+}
 
-    def pushBoldItalics(): Unit =
+    def pushBoldItalics(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushBoldItalics, ptr, _args, null)
+}
 
-    def pushItalics(): Unit =
+    def pushItalics(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushItalics, ptr, _args, null)
+}
 
-    def pushMono(): Unit =
+    def pushMono(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushMono, ptr, _args, null)
+}
 
-    def pushColor(color: Color): Unit =
+    def pushColor(color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = color.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.pushColor, ptr, _args, null)
+}
 
-    def pushOutlineSize(outlineSize: Int): Unit =
+    def pushOutlineSize(outlineSize: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = outlineSize.toLong
+        val _a0 = stackalloc[Long](); !_a0 = outlineSize.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushOutlineSize, ptr, _args, null)
+}
 
-    def pushOutlineColor(color: Color): Unit =
+    def pushOutlineColor(color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = color.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.pushOutlineColor, ptr, _args, null)
+}
 
-    def pushParagraph(alignment: Int): Unit =
+    def pushParagraph(alignment: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
+        val _a0 = stackalloc[Long](); !_a0 = alignment.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushParagraph, ptr, _args, null)
+}
 
-    def pushIndent(level: Int): Unit =
+    def pushIndent(level: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = level.toLong
+        val _a0 = stackalloc[Long](); !_a0 = level.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushIndent, ptr, _args, null)
+}
 
-    def pushList(level: Int, `type`: Int, capitalize: Boolean): Unit =
+    def pushList(level: Int, `type`: Int, capitalize: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = level.toLong
+        val _a0 = stackalloc[Long](); !_a0 = level.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = `type`.ptr
+        val _a1 = stackalloc[Long](); !_a1 = `type`.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if capitalize then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushList, ptr, _args, null)
+}
 
-    def pushMeta(data: Ptr[Byte]): Unit =
+    def pushMeta(data: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = data.ptr
+        _args(0) = data
         GdxApi.ptrcall(RichTextLabel.Binds.pushMeta, ptr, _args, null)
+}
 
-    def pushHint(description: CString): Unit =
+    def pushHint(description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = description.ptr
+        _args(0) = description
         GdxApi.ptrcall(RichTextLabel.Binds.pushHint, ptr, _args, null)
+}
 
-    def pushLanguage(language: CString): Unit =
+    def pushLanguage(language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
+        _args(0) = language
         GdxApi.ptrcall(RichTextLabel.Binds.pushLanguage, ptr, _args, null)
+}
 
-    def pushUnderline(): Unit =
+    def pushUnderline(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushUnderline, ptr, _args, null)
+}
 
-    def pushStrikethrough(): Unit =
+    def pushStrikethrough(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushStrikethrough, ptr, _args, null)
+}
 
-    def pushTable(columns: Int): Unit =
+    def pushTable(columns: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = columns.toLong
+        val _a0 = stackalloc[Long](); !_a0 = columns.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushTable, ptr, _args, null)
+}
 
-    def pushDropcap(string: CString, font: Font, size: Int): Unit =
+    def pushDropcap(string: CString, font: Font, size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = string.ptr
+        _args(0) = string
         _args(1) = font.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = size.toLong
+        val _a2 = stackalloc[Long](); !_a2 = size.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushDropcap, ptr, _args, null)
+}
 
-    def setTableColumnExpand(column: Int, expand: Boolean): Unit =
+    def setTableColumnExpand(column: Int, expand: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if expand then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.setTableColumnExpand, ptr, _args, null)
+}
 
-    def setTableColumnName(column: Int, name: CString): Unit =
+    def setTableColumnName(column: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = column.toLong
+        val _a0 = stackalloc[Long](); !_a0 = column.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(RichTextLabel.Binds.setTableColumnName, ptr, _args, null)
+}
 
-    def setCellRowBackgroundColor(oddRowBg: Color, evenRowBg: Color): Unit =
+    def setCellRowBackgroundColor(oddRowBg: Color, evenRowBg: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = oddRowBg.ptr
         _args(1) = evenRowBg.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.setCellRowBackgroundColor, ptr, _args, null)
+}
 
-    def setCellBorderColor(color: Color): Unit =
+    def setCellBorderColor(color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = color.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.setCellBorderColor, ptr, _args, null)
+}
 
-    def setCellSizeOverride(minSize: Vector2, maxSize: Vector2): Unit =
+    def setCellSizeOverride(minSize: Vector2, maxSize: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = minSize.ptr
         _args(1) = maxSize.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.setCellSizeOverride, ptr, _args, null)
+}
 
-    def setCellPadding(padding: Rect2): Unit =
+    def setCellPadding(padding: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = padding.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.setCellPadding, ptr, _args, null)
+}
 
-    def pushCell(): Unit =
+    def pushCell(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushCell, ptr, _args, null)
+}
 
-    def pushFgcolor(fgcolor: Color): Unit =
+    def pushFgcolor(fgcolor: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = fgcolor.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.pushFgcolor, ptr, _args, null)
+}
 
-    def pushBgcolor(bgcolor: Color): Unit =
+    def pushBgcolor(bgcolor: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = bgcolor.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.pushBgcolor, ptr, _args, null)
+}
 
-    def pushCustomfx(effect: RichTextEffect, env: Dictionary): Unit =
+    def pushCustomfx(effect: RichTextEffect, env: Dictionary): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = effect.ptr
         _args(1) = env.ptr
         GdxApi.ptrcall(RichTextLabel.Binds.pushCustomfx, ptr, _args, null)
+}
 
-    def pushContext(): Unit =
+    def pushContext(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pushContext, ptr, _args, null)
+}
 
-    def popContext(): Unit =
+    def popContext(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.popContext, ptr, _args, null)
+}
 
-    def pop(): Unit =
+    def pop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.pop, ptr, _args, null)
+}
 
-    def popAll(): Unit =
+    def popAll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.popAll, ptr, _args, null)
+}
 
-    def clear(): Unit =
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.clear, ptr, _args, null)
+}
 
-    def setStructuredTextBidiOverride(parser: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = parser.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setStructuredTextBidiOverride, ptr, _args, null)
-
-    def getStructuredTextBidiOverride(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getStructuredTextBidiOverride, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setStructuredTextBidiOverrideOptions(args: Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = args.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setStructuredTextBidiOverrideOptions, ptr, _args, null)
-
-    def getStructuredTextBidiOverrideOptions(): Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getStructuredTextBidiOverrideOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTextDirection(direction: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = direction.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setTextDirection, ptr, _args, null)
-
-    def getTextDirection(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getTextDirection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setLanguage(language: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setLanguage, ptr, _args, null)
-
-    def getLanguage(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setHorizontalAlignment(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setHorizontalAlignment, ptr, _args, null)
-
-    def getHorizontalAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getHorizontalAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVerticalAlignment(alignment: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = alignment.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setVerticalAlignment, ptr, _args, null)
-
-    def getVerticalAlignment(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getVerticalAlignment, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setJustificationFlags(justificationFlags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = justificationFlags.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setJustificationFlags, ptr, _args, null)
-
-    def getJustificationFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getJustificationFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTabStops(tabStops: PackedFloat32Array): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = tabStops.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setTabStops, ptr, _args, null)
-
-    def getTabStops(): PackedFloat32Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getTabStops, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedFloat32Array(!_ret)
-
-    def setAutowrapMode(autowrapMode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = autowrapMode.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setAutowrapMode, ptr, _args, null)
-
-    def getAutowrapMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getAutowrapMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setAutowrapTrimFlags(autowrapTrimFlags: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = autowrapTrimFlags.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setAutowrapTrimFlags, ptr, _args, null)
-
-    def getAutowrapTrimFlags(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getAutowrapTrimFlags, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setMetaUnderline(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setMetaUnderline, ptr, _args, null)
-
-    def isMetaUnderlined(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isMetaUnderlined, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setHintUnderline(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setHintUnderline, ptr, _args, null)
-
-    def isHintUnderlined(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isHintUnderlined, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setScrollActive(active: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setScrollActive, ptr, _args, null)
-
-    def isScrollActive(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isScrollActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setScrollFollowVisibleCharacters(follow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if follow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setScrollFollowVisibleCharacters, ptr, _args, null)
-
-    def isScrollFollowingVisibleCharacters(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isScrollFollowingVisibleCharacters, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setScrollFollow(follow: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if follow then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setScrollFollow, ptr, _args, null)
-
-    def isScrollFollowing(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isScrollFollowing, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getVScrollBar(): VScrollBar =
+    def getVScrollBar(): VScrollBar = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.getVScrollBar, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VScrollBar(!_ret)
+}
 
-    def scrollToLine(line: Int): Unit =
+    def scrollToLine(line: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.scrollToLine, ptr, _args, null)
+}
 
-    def scrollToParagraph(paragraph: Int): Unit =
+    def scrollToParagraph(paragraph: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = paragraph.toLong
+        val _a0 = stackalloc[Long](); !_a0 = paragraph.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.scrollToParagraph, ptr, _args, null)
+}
 
-    def scrollToSelection(): Unit =
+    def scrollToSelection(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.scrollToSelection, ptr, _args, null)
+}
 
-    def setTabSize(spaces: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = spaces.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setTabSize, ptr, _args, null)
-
-    def getTabSize(): Int =
+    def getSelectionFrom(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getTabSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setFitContent(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setFitContent, ptr, _args, null)
-
-    def isFitContentEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isFitContentEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setSelectionEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setSelectionEnabled, ptr, _args, null)
-
-    def isSelectionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isSelectionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setContextMenuEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setContextMenuEnabled, ptr, _args, null)
-
-    def isContextMenuEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isContextMenuEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setShortcutKeysEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setShortcutKeysEnabled, ptr, _args, null)
-
-    def isShortcutKeysEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isShortcutKeysEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDeselectOnFocusLossEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setDeselectOnFocusLossEnabled, ptr, _args, null)
-
-    def isDeselectOnFocusLossEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isDeselectOnFocusLossEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDragAndDropSelectionEnabled(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setDragAndDropSelectionEnabled, ptr, _args, null)
-
-    def isDragAndDropSelectionEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isDragAndDropSelectionEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getSelectionFrom(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getSelectionFrom, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionTo(): Int =
+    def getSelectionTo(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getSelectionTo, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSelectionLineOffset(): Float =
+    def getSelectionLineOffset(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RichTextLabel.Binds.getSelectionLineOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def selectAll(): Unit =
+    def selectAll(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.selectAll, ptr, _args, null)
+}
 
-    def getSelectedText(): CString =
+    def getSelectedText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.getSelectedText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def deselect(): Unit =
+    def deselect(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.deselect, ptr, _args, null)
+}
 
-    def parseBbcode(bbcode: CString): Unit =
+    def parseBbcode(bbcode: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bbcode.ptr
+        _args(0) = bbcode
         GdxApi.ptrcall(RichTextLabel.Binds.parseBbcode, ptr, _args, null)
+}
 
-    def appendText(bbcode: CString): Unit =
+    def appendText(bbcode: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = bbcode.ptr
+        _args(0) = bbcode
         GdxApi.ptrcall(RichTextLabel.Binds.appendText, ptr, _args, null)
+}
 
-    def getText(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def isReady(): Boolean =
+    def isReady(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RichTextLabel.Binds.isReady, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isFinished(): Boolean =
+    def isFinished(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RichTextLabel.Binds.isFinished, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setThreaded(threaded: Boolean): Unit =
+    def getCharacterLine(character: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if threaded then 1.toByte else 0.toByte
+        val _a0 = stackalloc[Long](); !_a0 = character.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setThreaded, ptr, _args, null)
-
-    def isThreaded(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isThreaded, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setProgressBarDelay(delayMs: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = delayMs.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setProgressBarDelay, ptr, _args, null)
-
-    def getProgressBarDelay(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getProgressBarDelay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVisibleCharacters(amount: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = amount.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setVisibleCharacters, ptr, _args, null)
-
-    def getVisibleCharacters(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getVisibleCharacters, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getVisibleCharactersBehavior(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getVisibleCharactersBehavior, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVisibleCharactersBehavior(behavior: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = behavior.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setVisibleCharactersBehavior, ptr, _args, null)
-
-    def setVisibleRatio(ratio: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = ratio.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setVisibleRatio, ptr, _args, null)
-
-    def getVisibleRatio(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getVisibleRatio, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def getCharacterLine(character: Int): Int =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = character.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getCharacterLine, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCharacterParagraph(character: Int): Int =
+    def getCharacterParagraph(character: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = character.toLong
+        val _a0 = stackalloc[Long](); !_a0 = character.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getCharacterParagraph, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getTotalCharacterCount(): Int =
+    def getTotalCharacterCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getTotalCharacterCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setUseBbcode(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(RichTextLabel.Binds.setUseBbcode, ptr, _args, null)
-
-    def isUsingBbcode(): Boolean =
+    def getLineCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(RichTextLabel.Binds.isUsingBbcode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def getLineCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getLineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineRange(line: Int): Vector2i =
+    def getLineRange(line: Int): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.getLineRange, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def getVisibleLineCount(): Int =
+    def getVisibleLineCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getVisibleLineCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getParagraphCount(): Int =
+    def getParagraphCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getParagraphCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVisibleParagraphCount(): Int =
+    def getVisibleParagraphCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getVisibleParagraphCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getContentHeight(): Int =
+    def getContentHeight(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getContentHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getContentWidth(): Int =
+    def getContentWidth(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getContentWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineHeight(line: Int): Int =
+    def getLineHeight(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getLineHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getLineWidth(line: Int): Int =
+    def getLineWidth(line: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RichTextLabel.Binds.getLineWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getVisibleContentRect(): Rect2i =
+    def getVisibleContentRect(): Rect2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.getVisibleContentRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def getLineOffset(line: Int): Float =
+    def getLineOffset(line: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = line.toLong
+        val _a0 = stackalloc[Long](); !_a0 = line.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RichTextLabel.Binds.getLineOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def getParagraphOffset(paragraph: Int): Float =
+    def getParagraphOffset(paragraph: Int): Float = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = paragraph.toLong
+        val _a0 = stackalloc[Long](); !_a0 = paragraph.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(RichTextLabel.Binds.getParagraphOffset, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def parseExpressionsForValues(expressions: PackedStringArray): Dictionary =
+    def parseExpressionsForValues(expressions: PackedStringArray): Dictionary = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = expressions.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.parseExpressionsForValues, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def setEffects(effects: Array): Unit =
+    def installEffect(effect: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = effects.ptr
-        GdxApi.ptrcall(RichTextLabel.Binds.setEffects, ptr, _args, null)
-
-    def getEffects(): Array =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(RichTextLabel.Binds.getEffects, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def installEffect(effect: Ptr[Byte]): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = effect.ptr
+        _args(0) = effect
         GdxApi.ptrcall(RichTextLabel.Binds.installEffect, ptr, _args, null)
+}
 
-    def reloadEffects(): Unit =
+    def reloadEffects(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RichTextLabel.Binds.reloadEffects, ptr, _args, null)
+}
 
-    def getMenu(): PopupMenu =
+    def getMenu(): PopupMenu = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RichTextLabel.Binds.getMenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PopupMenu(!_ret)
+}
 
-    def isMenuVisible(): Boolean =
+    def isMenuVisible(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RichTextLabel.Binds.isMenuVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def menuOption(option: Int): Unit =
+    def menuOption(option: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(RichTextLabel.Binds.menuOption, ptr, _args, null)
-    def bbcodeEnabled: Ptr[Byte] = isUsingBbcode()
-    def bbcodeEnabled_=(v: Ptr[Byte]): Unit = setUseBbcode(v)
-    def text: Ptr[Byte] = getText()
-    def text_=(v: Ptr[Byte]): Unit = setText(v)
-    def fitContent: Ptr[Byte] = isFitContentEnabled()
-    def fitContent_=(v: Ptr[Byte]): Unit = setFitContent(v)
-    def scrollActive: Ptr[Byte] = isScrollActive()
-    def scrollActive_=(v: Ptr[Byte]): Unit = setScrollActive(v)
-    def scrollFollowing: Ptr[Byte] = isScrollFollowing()
-    def scrollFollowing_=(v: Ptr[Byte]): Unit = setScrollFollow(v)
-    def scrollFollowingVisibleCharacters: Ptr[Byte] = isScrollFollowingVisibleCharacters()
-    def scrollFollowingVisibleCharacters_=(v: Ptr[Byte]): Unit = setScrollFollowVisibleCharacters(v)
-    def autowrapMode: Ptr[Byte] = getAutowrapMode()
-    def autowrapMode_=(v: Ptr[Byte]): Unit = setAutowrapMode(v)
-    def autowrapTrimFlags: Ptr[Byte] = getAutowrapTrimFlags()
-    def autowrapTrimFlags_=(v: Ptr[Byte]): Unit = setAutowrapTrimFlags(v)
-    def tabSize: Ptr[Byte] = getTabSize()
-    def tabSize_=(v: Ptr[Byte]): Unit = setTabSize(v)
-    def contextMenuEnabled: Ptr[Byte] = isContextMenuEnabled()
-    def contextMenuEnabled_=(v: Ptr[Byte]): Unit = setContextMenuEnabled(v)
-    def shortcutKeysEnabled: Ptr[Byte] = isShortcutKeysEnabled()
-    def shortcutKeysEnabled_=(v: Ptr[Byte]): Unit = setShortcutKeysEnabled(v)
-    def horizontalAlignment: Ptr[Byte] = getHorizontalAlignment()
-    def horizontalAlignment_=(v: Ptr[Byte]): Unit = setHorizontalAlignment(v)
-    def verticalAlignment: Ptr[Byte] = getVerticalAlignment()
-    def verticalAlignment_=(v: Ptr[Byte]): Unit = setVerticalAlignment(v)
-    def justificationFlags: Ptr[Byte] = getJustificationFlags()
-    def justificationFlags_=(v: Ptr[Byte]): Unit = setJustificationFlags(v)
-    def tabStops: Ptr[Byte] = getTabStops()
-    def tabStops_=(v: Ptr[Byte]): Unit = setTabStops(v)
+}
+
+    def bbcodeEnabled: Boolean = isUsingBbcode()
+    def bbcodeEnabled_=(v: Boolean): Unit = setUseBbcode(v)
+    def text: CString = getText()
+    def text_=(v: CString): Unit = setText(v)
+    def fitContent: Boolean = isFitContentEnabled()
+    def fitContent_=(v: Boolean): Unit = setFitContent(v)
+    def scrollActive: Boolean = isScrollActive()
+    def scrollActive_=(v: Boolean): Unit = setScrollActive(v)
+    def scrollFollowing: Boolean = isScrollFollowing()
+    def scrollFollowing_=(v: Boolean): Unit = setScrollFollow(v)
+    def scrollFollowingVisibleCharacters: Boolean = isScrollFollowingVisibleCharacters()
+    def scrollFollowingVisibleCharacters_=(v: Boolean): Unit = setScrollFollowVisibleCharacters(v)
+    def autowrapMode: Int = getAutowrapMode()
+    def autowrapMode_=(v: Int): Unit = setAutowrapMode(v)
+    def autowrapTrimFlags: Int = getAutowrapTrimFlags()
+    def autowrapTrimFlags_=(v: Int): Unit = setAutowrapTrimFlags(v)
+    def tabSize: Int = getTabSize()
+    def tabSize_=(v: Int): Unit = setTabSize(v)
+    def contextMenuEnabled: Boolean = isContextMenuEnabled()
+    def contextMenuEnabled_=(v: Boolean): Unit = setContextMenuEnabled(v)
+    def shortcutKeysEnabled: Boolean = isShortcutKeysEnabled()
+    def shortcutKeysEnabled_=(v: Boolean): Unit = setShortcutKeysEnabled(v)
+    def horizontalAlignment: Int = getHorizontalAlignment()
+    def horizontalAlignment_=(v: Int): Unit = setHorizontalAlignment(v)
+    def verticalAlignment: Int = getVerticalAlignment()
+    def verticalAlignment_=(v: Int): Unit = setVerticalAlignment(v)
+    def justificationFlags: Int = getJustificationFlags()
+    def justificationFlags_=(v: Int): Unit = setJustificationFlags(v)
+    def tabStops: PackedFloat32Array = getTabStops()
+    def tabStops_=(v: PackedFloat32Array): Unit = setTabStops(v)
     def customEffects: Ptr[Byte] = getEffects()
     def customEffects_=(v: Ptr[Byte]): Unit = setEffects(v)
-    def metaUnderlined: Ptr[Byte] = isMetaUnderlined()
-    def metaUnderlined_=(v: Ptr[Byte]): Unit = setMetaUnderline(v)
-    def hintUnderlined: Ptr[Byte] = isHintUnderlined()
-    def hintUnderlined_=(v: Ptr[Byte]): Unit = setHintUnderline(v)
-    def threaded: Ptr[Byte] = isThreaded()
-    def threaded_=(v: Ptr[Byte]): Unit = setThreaded(v)
-    def progressBarDelay: Ptr[Byte] = getProgressBarDelay()
-    def progressBarDelay_=(v: Ptr[Byte]): Unit = setProgressBarDelay(v)
-    def selectionEnabled: Ptr[Byte] = isSelectionEnabled()
-    def selectionEnabled_=(v: Ptr[Byte]): Unit = setSelectionEnabled(v)
-    def deselectOnFocusLossEnabled: Ptr[Byte] = isDeselectOnFocusLossEnabled()
-    def deselectOnFocusLossEnabled_=(v: Ptr[Byte]): Unit = setDeselectOnFocusLossEnabled(v)
-    def dragAndDropSelectionEnabled: Ptr[Byte] = isDragAndDropSelectionEnabled()
-    def dragAndDropSelectionEnabled_=(v: Ptr[Byte]): Unit = setDragAndDropSelectionEnabled(v)
-    def visibleCharacters: Ptr[Byte] = getVisibleCharacters()
-    def visibleCharacters_=(v: Ptr[Byte]): Unit = setVisibleCharacters(v)
-    def visibleCharactersBehavior: Ptr[Byte] = getVisibleCharactersBehavior()
-    def visibleCharactersBehavior_=(v: Ptr[Byte]): Unit = setVisibleCharactersBehavior(v)
-    def visibleRatio: Ptr[Byte] = getVisibleRatio()
-    def visibleRatio_=(v: Ptr[Byte]): Unit = setVisibleRatio(v)
-    def textDirection: Ptr[Byte] = getTextDirection()
-    def textDirection_=(v: Ptr[Byte]): Unit = setTextDirection(v)
-    def language: Ptr[Byte] = getLanguage()
-    def language_=(v: Ptr[Byte]): Unit = setLanguage(v)
-    def structuredTextBidiOverride: Ptr[Byte] = getStructuredTextBidiOverride()
-    def structuredTextBidiOverride_=(v: Ptr[Byte]): Unit = setStructuredTextBidiOverride(v)
+    def metaUnderlined: Boolean = isMetaUnderlined()
+    def metaUnderlined_=(v: Boolean): Unit = setMetaUnderline(v)
+    def hintUnderlined: Boolean = isHintUnderlined()
+    def hintUnderlined_=(v: Boolean): Unit = setHintUnderline(v)
+    def threaded: Boolean = isThreaded()
+    def threaded_=(v: Boolean): Unit = setThreaded(v)
+    def progressBarDelay: Int = getProgressBarDelay()
+    def progressBarDelay_=(v: Int): Unit = setProgressBarDelay(v)
+    def selectionEnabled: Boolean = isSelectionEnabled()
+    def selectionEnabled_=(v: Boolean): Unit = setSelectionEnabled(v)
+    def deselectOnFocusLossEnabled: Boolean = isDeselectOnFocusLossEnabled()
+    def deselectOnFocusLossEnabled_=(v: Boolean): Unit = setDeselectOnFocusLossEnabled(v)
+    def dragAndDropSelectionEnabled: Boolean = isDragAndDropSelectionEnabled()
+    def dragAndDropSelectionEnabled_=(v: Boolean): Unit = setDragAndDropSelectionEnabled(v)
+    def visibleCharacters: Int = getVisibleCharacters()
+    def visibleCharacters_=(v: Int): Unit = setVisibleCharacters(v)
+    def visibleCharactersBehavior: Int = getVisibleCharactersBehavior()
+    def visibleCharactersBehavior_=(v: Int): Unit = setVisibleCharactersBehavior(v)
+    def visibleRatio: Float = getVisibleRatio()
+    def visibleRatio_=(v: Float): Unit = setVisibleRatio(v)
+    def textDirection: Int = getTextDirection()
+    def textDirection_=(v: Int): Unit = setTextDirection(v)
+    def language: CString = getLanguage()
+    def language_=(v: CString): Unit = setLanguage(v)
+    def structuredTextBidiOverride: Int = getStructuredTextBidiOverride()
+    def structuredTextBidiOverride_=(v: Int): Unit = setStructuredTextBidiOverride(v)
     def structuredTextBidiOverrideOptions: Ptr[Byte] = getStructuredTextBidiOverrideOptions()
     def structuredTextBidiOverrideOptions_=(v: Ptr[Byte]): Unit = setStructuredTextBidiOverrideOptions(v)
+}
 
 object RichTextLabel:
-    object Binds:
-        var getParsedText: Ptr[Byte] = null
+object Binds {
+          var getParsedText: Ptr[Byte] = null
         var addText: Ptr[Byte] = null
-        var setText: Ptr[Byte] = null
         var addHr: Ptr[Byte] = null
         var addImage: Ptr[Byte] = null
         var updateImage: Ptr[Byte] = null
@@ -902,54 +636,10 @@ object RichTextLabel:
         var pop: Ptr[Byte] = null
         var popAll: Ptr[Byte] = null
         var clear: Ptr[Byte] = null
-        var setStructuredTextBidiOverride: Ptr[Byte] = null
-        var getStructuredTextBidiOverride: Ptr[Byte] = null
-        var setStructuredTextBidiOverrideOptions: Ptr[Byte] = null
-        var getStructuredTextBidiOverrideOptions: Ptr[Byte] = null
-        var setTextDirection: Ptr[Byte] = null
-        var getTextDirection: Ptr[Byte] = null
-        var setLanguage: Ptr[Byte] = null
-        var getLanguage: Ptr[Byte] = null
-        var setHorizontalAlignment: Ptr[Byte] = null
-        var getHorizontalAlignment: Ptr[Byte] = null
-        var setVerticalAlignment: Ptr[Byte] = null
-        var getVerticalAlignment: Ptr[Byte] = null
-        var setJustificationFlags: Ptr[Byte] = null
-        var getJustificationFlags: Ptr[Byte] = null
-        var setTabStops: Ptr[Byte] = null
-        var getTabStops: Ptr[Byte] = null
-        var setAutowrapMode: Ptr[Byte] = null
-        var getAutowrapMode: Ptr[Byte] = null
-        var setAutowrapTrimFlags: Ptr[Byte] = null
-        var getAutowrapTrimFlags: Ptr[Byte] = null
-        var setMetaUnderline: Ptr[Byte] = null
-        var isMetaUnderlined: Ptr[Byte] = null
-        var setHintUnderline: Ptr[Byte] = null
-        var isHintUnderlined: Ptr[Byte] = null
-        var setScrollActive: Ptr[Byte] = null
-        var isScrollActive: Ptr[Byte] = null
-        var setScrollFollowVisibleCharacters: Ptr[Byte] = null
-        var isScrollFollowingVisibleCharacters: Ptr[Byte] = null
-        var setScrollFollow: Ptr[Byte] = null
-        var isScrollFollowing: Ptr[Byte] = null
         var getVScrollBar: Ptr[Byte] = null
         var scrollToLine: Ptr[Byte] = null
         var scrollToParagraph: Ptr[Byte] = null
         var scrollToSelection: Ptr[Byte] = null
-        var setTabSize: Ptr[Byte] = null
-        var getTabSize: Ptr[Byte] = null
-        var setFitContent: Ptr[Byte] = null
-        var isFitContentEnabled: Ptr[Byte] = null
-        var setSelectionEnabled: Ptr[Byte] = null
-        var isSelectionEnabled: Ptr[Byte] = null
-        var setContextMenuEnabled: Ptr[Byte] = null
-        var isContextMenuEnabled: Ptr[Byte] = null
-        var setShortcutKeysEnabled: Ptr[Byte] = null
-        var isShortcutKeysEnabled: Ptr[Byte] = null
-        var setDeselectOnFocusLossEnabled: Ptr[Byte] = null
-        var isDeselectOnFocusLossEnabled: Ptr[Byte] = null
-        var setDragAndDropSelectionEnabled: Ptr[Byte] = null
-        var isDragAndDropSelectionEnabled: Ptr[Byte] = null
         var getSelectionFrom: Ptr[Byte] = null
         var getSelectionTo: Ptr[Byte] = null
         var getSelectionLineOffset: Ptr[Byte] = null
@@ -958,24 +648,11 @@ object RichTextLabel:
         var deselect: Ptr[Byte] = null
         var parseBbcode: Ptr[Byte] = null
         var appendText: Ptr[Byte] = null
-        var getText: Ptr[Byte] = null
         var isReady: Ptr[Byte] = null
         var isFinished: Ptr[Byte] = null
-        var setThreaded: Ptr[Byte] = null
-        var isThreaded: Ptr[Byte] = null
-        var setProgressBarDelay: Ptr[Byte] = null
-        var getProgressBarDelay: Ptr[Byte] = null
-        var setVisibleCharacters: Ptr[Byte] = null
-        var getVisibleCharacters: Ptr[Byte] = null
-        var getVisibleCharactersBehavior: Ptr[Byte] = null
-        var setVisibleCharactersBehavior: Ptr[Byte] = null
-        var setVisibleRatio: Ptr[Byte] = null
-        var getVisibleRatio: Ptr[Byte] = null
         var getCharacterLine: Ptr[Byte] = null
         var getCharacterParagraph: Ptr[Byte] = null
         var getTotalCharacterCount: Ptr[Byte] = null
-        var setUseBbcode: Ptr[Byte] = null
-        var isUsingBbcode: Ptr[Byte] = null
         var getLineCount: Ptr[Byte] = null
         var getLineRange: Ptr[Byte] = null
         var getVisibleLineCount: Ptr[Byte] = null
@@ -989,18 +666,15 @@ object RichTextLabel:
         var getLineOffset: Ptr[Byte] = null
         var getParagraphOffset: Ptr[Byte] = null
         var parseExpressionsForValues: Ptr[Byte] = null
-        var setEffects: Ptr[Byte] = null
-        var getEffects: Ptr[Byte] = null
         var installEffect: Ptr[Byte] = null
         var reloadEffects: Ptr[Byte] = null
         var getMenu: Ptr[Byte] = null
         var isMenuVisible: Ptr[Byte] = null
         var menuOption: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getParsedText = GdxApi.getMethodBind(c"RichTextLabel", c"get_parsed_text", 201670096L)
+  def loadBinds(): Unit = {
+                Binds.getParsedText = GdxApi.getMethodBind(c"RichTextLabel", c"get_parsed_text", 201670096L)
             Binds.addText = GdxApi.getMethodBind(c"RichTextLabel", c"add_text", 83702148L)
-            Binds.setText = GdxApi.getMethodBind(c"RichTextLabel", c"set_text", 83702148L)
             Binds.addHr = GdxApi.getMethodBind(c"RichTextLabel", c"add_hr", 16816895L)
             Binds.addImage = GdxApi.getMethodBind(c"RichTextLabel", c"add_image", 1390915033L)
             Binds.updateImage = GdxApi.getMethodBind(c"RichTextLabel", c"update_image", 6389170L)
@@ -1042,54 +716,10 @@ object RichTextLabel:
             Binds.pop = GdxApi.getMethodBind(c"RichTextLabel", c"pop", 3218959716L)
             Binds.popAll = GdxApi.getMethodBind(c"RichTextLabel", c"pop_all", 3218959716L)
             Binds.clear = GdxApi.getMethodBind(c"RichTextLabel", c"clear", 3218959716L)
-            Binds.setStructuredTextBidiOverride = GdxApi.getMethodBind(c"RichTextLabel", c"set_structured_text_bidi_override", 55961453L)
-            Binds.getStructuredTextBidiOverride = GdxApi.getMethodBind(c"RichTextLabel", c"get_structured_text_bidi_override", 3385126229L)
-            Binds.setStructuredTextBidiOverrideOptions = GdxApi.getMethodBind(c"RichTextLabel", c"set_structured_text_bidi_override_options", 381264803L)
-            Binds.getStructuredTextBidiOverrideOptions = GdxApi.getMethodBind(c"RichTextLabel", c"get_structured_text_bidi_override_options", 3995934104L)
-            Binds.setTextDirection = GdxApi.getMethodBind(c"RichTextLabel", c"set_text_direction", 119160795L)
-            Binds.getTextDirection = GdxApi.getMethodBind(c"RichTextLabel", c"get_text_direction", 797257663L)
-            Binds.setLanguage = GdxApi.getMethodBind(c"RichTextLabel", c"set_language", 83702148L)
-            Binds.getLanguage = GdxApi.getMethodBind(c"RichTextLabel", c"get_language", 201670096L)
-            Binds.setHorizontalAlignment = GdxApi.getMethodBind(c"RichTextLabel", c"set_horizontal_alignment", 2312603777L)
-            Binds.getHorizontalAlignment = GdxApi.getMethodBind(c"RichTextLabel", c"get_horizontal_alignment", 341400642L)
-            Binds.setVerticalAlignment = GdxApi.getMethodBind(c"RichTextLabel", c"set_vertical_alignment", 1796458609L)
-            Binds.getVerticalAlignment = GdxApi.getMethodBind(c"RichTextLabel", c"get_vertical_alignment", 3274884059L)
-            Binds.setJustificationFlags = GdxApi.getMethodBind(c"RichTextLabel", c"set_justification_flags", 2877345813L)
-            Binds.getJustificationFlags = GdxApi.getMethodBind(c"RichTextLabel", c"get_justification_flags", 1583363614L)
-            Binds.setTabStops = GdxApi.getMethodBind(c"RichTextLabel", c"set_tab_stops", 2899603908L)
-            Binds.getTabStops = GdxApi.getMethodBind(c"RichTextLabel", c"get_tab_stops", 675695659L)
-            Binds.setAutowrapMode = GdxApi.getMethodBind(c"RichTextLabel", c"set_autowrap_mode", 3289138044L)
-            Binds.getAutowrapMode = GdxApi.getMethodBind(c"RichTextLabel", c"get_autowrap_mode", 1549071663L)
-            Binds.setAutowrapTrimFlags = GdxApi.getMethodBind(c"RichTextLabel", c"set_autowrap_trim_flags", 2809697122L)
-            Binds.getAutowrapTrimFlags = GdxApi.getMethodBind(c"RichTextLabel", c"get_autowrap_trim_flags", 2340632602L)
-            Binds.setMetaUnderline = GdxApi.getMethodBind(c"RichTextLabel", c"set_meta_underline", 2586408642L)
-            Binds.isMetaUnderlined = GdxApi.getMethodBind(c"RichTextLabel", c"is_meta_underlined", 36873697L)
-            Binds.setHintUnderline = GdxApi.getMethodBind(c"RichTextLabel", c"set_hint_underline", 2586408642L)
-            Binds.isHintUnderlined = GdxApi.getMethodBind(c"RichTextLabel", c"is_hint_underlined", 36873697L)
-            Binds.setScrollActive = GdxApi.getMethodBind(c"RichTextLabel", c"set_scroll_active", 2586408642L)
-            Binds.isScrollActive = GdxApi.getMethodBind(c"RichTextLabel", c"is_scroll_active", 36873697L)
-            Binds.setScrollFollowVisibleCharacters = GdxApi.getMethodBind(c"RichTextLabel", c"set_scroll_follow_visible_characters", 2586408642L)
-            Binds.isScrollFollowingVisibleCharacters = GdxApi.getMethodBind(c"RichTextLabel", c"is_scroll_following_visible_characters", 36873697L)
-            Binds.setScrollFollow = GdxApi.getMethodBind(c"RichTextLabel", c"set_scroll_follow", 2586408642L)
-            Binds.isScrollFollowing = GdxApi.getMethodBind(c"RichTextLabel", c"is_scroll_following", 36873697L)
             Binds.getVScrollBar = GdxApi.getMethodBind(c"RichTextLabel", c"get_v_scroll_bar", 2630340773L)
             Binds.scrollToLine = GdxApi.getMethodBind(c"RichTextLabel", c"scroll_to_line", 1286410249L)
             Binds.scrollToParagraph = GdxApi.getMethodBind(c"RichTextLabel", c"scroll_to_paragraph", 1286410249L)
             Binds.scrollToSelection = GdxApi.getMethodBind(c"RichTextLabel", c"scroll_to_selection", 3218959716L)
-            Binds.setTabSize = GdxApi.getMethodBind(c"RichTextLabel", c"set_tab_size", 1286410249L)
-            Binds.getTabSize = GdxApi.getMethodBind(c"RichTextLabel", c"get_tab_size", 3905245786L)
-            Binds.setFitContent = GdxApi.getMethodBind(c"RichTextLabel", c"set_fit_content", 2586408642L)
-            Binds.isFitContentEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"is_fit_content_enabled", 36873697L)
-            Binds.setSelectionEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"set_selection_enabled", 2586408642L)
-            Binds.isSelectionEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"is_selection_enabled", 36873697L)
-            Binds.setContextMenuEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"set_context_menu_enabled", 2586408642L)
-            Binds.isContextMenuEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"is_context_menu_enabled", 36873697L)
-            Binds.setShortcutKeysEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"set_shortcut_keys_enabled", 2586408642L)
-            Binds.isShortcutKeysEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"is_shortcut_keys_enabled", 36873697L)
-            Binds.setDeselectOnFocusLossEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"set_deselect_on_focus_loss_enabled", 2586408642L)
-            Binds.isDeselectOnFocusLossEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"is_deselect_on_focus_loss_enabled", 36873697L)
-            Binds.setDragAndDropSelectionEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"set_drag_and_drop_selection_enabled", 2586408642L)
-            Binds.isDragAndDropSelectionEnabled = GdxApi.getMethodBind(c"RichTextLabel", c"is_drag_and_drop_selection_enabled", 36873697L)
             Binds.getSelectionFrom = GdxApi.getMethodBind(c"RichTextLabel", c"get_selection_from", 3905245786L)
             Binds.getSelectionTo = GdxApi.getMethodBind(c"RichTextLabel", c"get_selection_to", 3905245786L)
             Binds.getSelectionLineOffset = GdxApi.getMethodBind(c"RichTextLabel", c"get_selection_line_offset", 1740695150L)
@@ -1098,24 +728,11 @@ object RichTextLabel:
             Binds.deselect = GdxApi.getMethodBind(c"RichTextLabel", c"deselect", 3218959716L)
             Binds.parseBbcode = GdxApi.getMethodBind(c"RichTextLabel", c"parse_bbcode", 83702148L)
             Binds.appendText = GdxApi.getMethodBind(c"RichTextLabel", c"append_text", 83702148L)
-            Binds.getText = GdxApi.getMethodBind(c"RichTextLabel", c"get_text", 201670096L)
             Binds.isReady = GdxApi.getMethodBind(c"RichTextLabel", c"is_ready", 36873697L)
             Binds.isFinished = GdxApi.getMethodBind(c"RichTextLabel", c"is_finished", 36873697L)
-            Binds.setThreaded = GdxApi.getMethodBind(c"RichTextLabel", c"set_threaded", 2586408642L)
-            Binds.isThreaded = GdxApi.getMethodBind(c"RichTextLabel", c"is_threaded", 36873697L)
-            Binds.setProgressBarDelay = GdxApi.getMethodBind(c"RichTextLabel", c"set_progress_bar_delay", 1286410249L)
-            Binds.getProgressBarDelay = GdxApi.getMethodBind(c"RichTextLabel", c"get_progress_bar_delay", 3905245786L)
-            Binds.setVisibleCharacters = GdxApi.getMethodBind(c"RichTextLabel", c"set_visible_characters", 1286410249L)
-            Binds.getVisibleCharacters = GdxApi.getMethodBind(c"RichTextLabel", c"get_visible_characters", 3905245786L)
-            Binds.getVisibleCharactersBehavior = GdxApi.getMethodBind(c"RichTextLabel", c"get_visible_characters_behavior", 258789322L)
-            Binds.setVisibleCharactersBehavior = GdxApi.getMethodBind(c"RichTextLabel", c"set_visible_characters_behavior", 3383839701L)
-            Binds.setVisibleRatio = GdxApi.getMethodBind(c"RichTextLabel", c"set_visible_ratio", 373806689L)
-            Binds.getVisibleRatio = GdxApi.getMethodBind(c"RichTextLabel", c"get_visible_ratio", 1740695150L)
             Binds.getCharacterLine = GdxApi.getMethodBind(c"RichTextLabel", c"get_character_line", 3744713108L)
             Binds.getCharacterParagraph = GdxApi.getMethodBind(c"RichTextLabel", c"get_character_paragraph", 3744713108L)
             Binds.getTotalCharacterCount = GdxApi.getMethodBind(c"RichTextLabel", c"get_total_character_count", 3905245786L)
-            Binds.setUseBbcode = GdxApi.getMethodBind(c"RichTextLabel", c"set_use_bbcode", 2586408642L)
-            Binds.isUsingBbcode = GdxApi.getMethodBind(c"RichTextLabel", c"is_using_bbcode", 36873697L)
             Binds.getLineCount = GdxApi.getMethodBind(c"RichTextLabel", c"get_line_count", 3905245786L)
             Binds.getLineRange = GdxApi.getMethodBind(c"RichTextLabel", c"get_line_range", 3665014314L)
             Binds.getVisibleLineCount = GdxApi.getMethodBind(c"RichTextLabel", c"get_visible_line_count", 3905245786L)
@@ -1129,15 +746,16 @@ object RichTextLabel:
             Binds.getLineOffset = GdxApi.getMethodBind(c"RichTextLabel", c"get_line_offset", 4025615559L)
             Binds.getParagraphOffset = GdxApi.getMethodBind(c"RichTextLabel", c"get_paragraph_offset", 4025615559L)
             Binds.parseExpressionsForValues = GdxApi.getMethodBind(c"RichTextLabel", c"parse_expressions_for_values", 1522900837L)
-            Binds.setEffects = GdxApi.getMethodBind(c"RichTextLabel", c"set_effects", 381264803L)
-            Binds.getEffects = GdxApi.getMethodBind(c"RichTextLabel", c"get_effects", 2915620761L)
             Binds.installEffect = GdxApi.getMethodBind(c"RichTextLabel", c"install_effect", 1114965689L)
             Binds.reloadEffects = GdxApi.getMethodBind(c"RichTextLabel", c"reload_effects", 3218959716L)
             Binds.getMenu = GdxApi.getMethodBind(c"RichTextLabel", c"get_menu", 229722558L)
             Binds.isMenuVisible = GdxApi.getMethodBind(c"RichTextLabel", c"is_menu_visible", 36873697L)
             Binds.menuOption = GdxApi.getMethodBind(c"RichTextLabel", c"menu_option", 1286410249L)
+  }
+}
 
-    def apply(): RichTextLabel =
-        val obj = new RichTextLabel()
-        obj.ptr = GdxApi.constructObject(c"RichTextLabel")
-        obj
+def apply(): RichTextLabel = {
+  val obj = new RichTextLabel()
+  obj.ptr = GdxApi.constructObject(c"RichTextLabel")
+  obj
+}

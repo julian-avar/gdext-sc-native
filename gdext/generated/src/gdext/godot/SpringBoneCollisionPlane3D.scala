@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SpringBoneCollisionPlane3D extends SpringBoneCollision3D
-
-
-
+class SpringBoneCollisionPlane3D extends SpringBoneCollision3D {}
 
 object SpringBoneCollisionPlane3D:
-    def apply(): SpringBoneCollisionPlane3D =
-        val obj = new SpringBoneCollisionPlane3D()
-        obj.ptr = GdxApi.constructObject(c"SpringBoneCollisionPlane3D")
-        obj
+def apply(): SpringBoneCollisionPlane3D = {
+  val obj = new SpringBoneCollisionPlane3D()
+  obj.ptr = GdxApi.constructObject(c"SpringBoneCollisionPlane3D")
+  obj
+}

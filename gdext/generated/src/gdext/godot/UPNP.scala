@@ -5,122 +5,99 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class UPNP extends RefCounted
-
-    def getDeviceCount(): Int =
+class UPNP extends RefCounted {
+    def getDeviceCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UPNP.Binds.getDeviceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getDevice(index: Int): UPNPDevice =
+    def getDevice(index: Int): UPNPDevice = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UPNP.Binds.getDevice, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new UPNPDevice(!_ret)
+}
 
-    def addDevice(device: UPNPDevice): Unit =
+    def addDevice(device: UPNPDevice): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = device.ptr
         GdxApi.ptrcall(UPNP.Binds.addDevice, ptr, _args, null)
+}
 
-    def setDevice(index: Int, device: UPNPDevice): Unit =
+    def setDevice(index: Int, device: UPNPDevice): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = device.ptr
         GdxApi.ptrcall(UPNP.Binds.setDevice, ptr, _args, null)
+}
 
-    def removeDevice(index: Int): Unit =
+    def removeDevice(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(UPNP.Binds.removeDevice, ptr, _args, null)
+}
 
-    def clearDevices(): Unit =
+    def clearDevices(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(UPNP.Binds.clearDevices, ptr, _args, null)
+}
 
-    def getGateway(): UPNPDevice =
+    def getGateway(): UPNPDevice = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UPNP.Binds.getGateway, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new UPNPDevice(!_ret)
+}
 
-    def discover(): Int =
+    def discover(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UPNP.Binds.discover, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def queryExternalAddress(): CString =
+    def queryExternalAddress(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(UPNP.Binds.queryExternalAddress, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addPortMapping(port: Int): Int =
+    def addPortMapping(port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
+        val _a0 = stackalloc[Long](); !_a0 = port.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UPNP.Binds.addPortMapping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def deletePortMapping(port: Int): Int =
+    def deletePortMapping(port: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
+        val _a0 = stackalloc[Long](); !_a0 = port.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(UPNP.Binds.deletePortMapping, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setDiscoverMulticastIf(mIf: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mIf.ptr
-        GdxApi.ptrcall(UPNP.Binds.setDiscoverMulticastIf, ptr, _args, null)
-
-    def getDiscoverMulticastIf(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(UPNP.Binds.getDiscoverMulticastIf, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setDiscoverLocalPort(port: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = port.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(UPNP.Binds.setDiscoverLocalPort, ptr, _args, null)
-
-    def getDiscoverLocalPort(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(UPNP.Binds.getDiscoverLocalPort, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDiscoverIpv6(ipv6: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ipv6 then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(UPNP.Binds.setDiscoverIpv6, ptr, _args, null)
-
-    def isDiscoverIpv6(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(UPNP.Binds.isDiscoverIpv6, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def discoverMulticastIf: Ptr[Byte] = getDiscoverMulticastIf()
-    def discoverMulticastIf_=(v: Ptr[Byte]): Unit = setDiscoverMulticastIf(v)
-    def discoverLocalPort: Ptr[Byte] = getDiscoverLocalPort()
-    def discoverLocalPort_=(v: Ptr[Byte]): Unit = setDiscoverLocalPort(v)
-    def discoverIpv6: Ptr[Byte] = isDiscoverIpv6()
-    def discoverIpv6_=(v: Ptr[Byte]): Unit = setDiscoverIpv6(v)
+    def discoverMulticastIf: CString = getDiscoverMulticastIf()
+    def discoverMulticastIf_=(v: CString): Unit = setDiscoverMulticastIf(v)
+    def discoverLocalPort: Int = getDiscoverLocalPort()
+    def discoverLocalPort_=(v: Int): Unit = setDiscoverLocalPort(v)
+    def discoverIpv6: Boolean = isDiscoverIpv6()
+    def discoverIpv6_=(v: Boolean): Unit = setDiscoverIpv6(v)
+}
 
 object UPNP:
-    object Binds:
-        var getDeviceCount: Ptr[Byte] = null
+object Binds {
+          var getDeviceCount: Ptr[Byte] = null
         var getDevice: Ptr[Byte] = null
         var addDevice: Ptr[Byte] = null
         var setDevice: Ptr[Byte] = null
@@ -131,15 +108,9 @@ object UPNP:
         var queryExternalAddress: Ptr[Byte] = null
         var addPortMapping: Ptr[Byte] = null
         var deletePortMapping: Ptr[Byte] = null
-        var setDiscoverMulticastIf: Ptr[Byte] = null
-        var getDiscoverMulticastIf: Ptr[Byte] = null
-        var setDiscoverLocalPort: Ptr[Byte] = null
-        var getDiscoverLocalPort: Ptr[Byte] = null
-        var setDiscoverIpv6: Ptr[Byte] = null
-        var isDiscoverIpv6: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getDeviceCount = GdxApi.getMethodBind(c"UPNP", c"get_device_count", 3905245786L)
+  def loadBinds(): Unit = {
+                Binds.getDeviceCount = GdxApi.getMethodBind(c"UPNP", c"get_device_count", 3905245786L)
             Binds.getDevice = GdxApi.getMethodBind(c"UPNP", c"get_device", 2193290270L)
             Binds.addDevice = GdxApi.getMethodBind(c"UPNP", c"add_device", 986715920L)
             Binds.setDevice = GdxApi.getMethodBind(c"UPNP", c"set_device", 3015133723L)
@@ -150,14 +121,11 @@ object UPNP:
             Binds.queryExternalAddress = GdxApi.getMethodBind(c"UPNP", c"query_external_address", 201670096L)
             Binds.addPortMapping = GdxApi.getMethodBind(c"UPNP", c"add_port_mapping", 818314583L)
             Binds.deletePortMapping = GdxApi.getMethodBind(c"UPNP", c"delete_port_mapping", 3444187325L)
-            Binds.setDiscoverMulticastIf = GdxApi.getMethodBind(c"UPNP", c"set_discover_multicast_if", 83702148L)
-            Binds.getDiscoverMulticastIf = GdxApi.getMethodBind(c"UPNP", c"get_discover_multicast_if", 201670096L)
-            Binds.setDiscoverLocalPort = GdxApi.getMethodBind(c"UPNP", c"set_discover_local_port", 1286410249L)
-            Binds.getDiscoverLocalPort = GdxApi.getMethodBind(c"UPNP", c"get_discover_local_port", 3905245786L)
-            Binds.setDiscoverIpv6 = GdxApi.getMethodBind(c"UPNP", c"set_discover_ipv6", 2586408642L)
-            Binds.isDiscoverIpv6 = GdxApi.getMethodBind(c"UPNP", c"is_discover_ipv6", 36873697L)
+  }
+}
 
-    def apply(): UPNP =
-        val obj = new UPNP()
-        obj.ptr = GdxApi.constructObject(c"UPNP")
-        obj
+def apply(): UPNP = {
+  val obj = new UPNP()
+  obj.ptr = GdxApi.constructObject(c"UPNP")
+  obj
+}

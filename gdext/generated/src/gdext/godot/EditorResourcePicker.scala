@@ -5,101 +5,47 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorResourcePicker extends HBoxContainer
+class EditorResourcePicker extends HBoxContainer {
     def _setCreateOptions(menuNode: Object): Unit = ()
     def _handleMenuSelected(id: Int): Boolean = false
-    def setBaseType(baseType: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = baseType.ptr
-        GdxApi.ptrcall(EditorResourcePicker.Binds.setBaseType, ptr, _args, null)
 
-    def getBaseType(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorResourcePicker.Binds.getBaseType, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getAllowedTypes(): PackedStringArray =
+    def getAllowedTypes(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorResourcePicker.Binds.getAllowedTypes, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def setEditedResource(resource: Resource): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = resource.ptr
-        GdxApi.ptrcall(EditorResourcePicker.Binds.setEditedResource, ptr, _args, null)
-
-    def getEditedResource(): Resource =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorResourcePicker.Binds.getEditedResource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Resource(!_ret)
-
-    def setToggleMode(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorResourcePicker.Binds.setToggleMode, ptr, _args, null)
-
-    def isToggleMode(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorResourcePicker.Binds.isToggleMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setTogglePressed(pressed: Boolean): Unit =
+    def setTogglePressed(pressed: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if pressed then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorResourcePicker.Binds.setTogglePressed, ptr, _args, null)
+}
 
-    def setEditable(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorResourcePicker.Binds.setEditable, ptr, _args, null)
-
-    def isEditable(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorResourcePicker.Binds.isEditable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-    def baseType: Ptr[Byte] = getBaseType()
-    def baseType_=(v: Ptr[Byte]): Unit = setBaseType(v)
-    def editedResource: Ptr[Byte] = getEditedResource()
-    def editedResource_=(v: Ptr[Byte]): Unit = setEditedResource(v)
-    def editable: Ptr[Byte] = isEditable()
-    def editable_=(v: Ptr[Byte]): Unit = setEditable(v)
-    def toggleMode: Ptr[Byte] = isToggleMode()
-    def toggleMode_=(v: Ptr[Byte]): Unit = setToggleMode(v)
+    def baseType: CString = getBaseType()
+    def baseType_=(v: CString): Unit = setBaseType(v)
+    def editedResource: Resource = getEditedResource()
+    def editedResource_=(v: Resource): Unit = setEditedResource(v)
+    def editable: Boolean = isEditable()
+    def editable_=(v: Boolean): Unit = setEditable(v)
+    def toggleMode: Boolean = isToggleMode()
+    def toggleMode_=(v: Boolean): Unit = setToggleMode(v)
+}
 
 object EditorResourcePicker:
-    object Binds:
-        var setBaseType: Ptr[Byte] = null
-        var getBaseType: Ptr[Byte] = null
-        var getAllowedTypes: Ptr[Byte] = null
-        var setEditedResource: Ptr[Byte] = null
-        var getEditedResource: Ptr[Byte] = null
-        var setToggleMode: Ptr[Byte] = null
-        var isToggleMode: Ptr[Byte] = null
+object Binds {
+          var getAllowedTypes: Ptr[Byte] = null
         var setTogglePressed: Ptr[Byte] = null
-        var setEditable: Ptr[Byte] = null
-        var isEditable: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setBaseType = GdxApi.getMethodBind(c"EditorResourcePicker", c"set_base_type", 83702148L)
-            Binds.getBaseType = GdxApi.getMethodBind(c"EditorResourcePicker", c"get_base_type", 201670096L)
-            Binds.getAllowedTypes = GdxApi.getMethodBind(c"EditorResourcePicker", c"get_allowed_types", 1139954409L)
-            Binds.setEditedResource = GdxApi.getMethodBind(c"EditorResourcePicker", c"set_edited_resource", 968641751L)
-            Binds.getEditedResource = GdxApi.getMethodBind(c"EditorResourcePicker", c"get_edited_resource", 2674603643L)
-            Binds.setToggleMode = GdxApi.getMethodBind(c"EditorResourcePicker", c"set_toggle_mode", 2586408642L)
-            Binds.isToggleMode = GdxApi.getMethodBind(c"EditorResourcePicker", c"is_toggle_mode", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getAllowedTypes = GdxApi.getMethodBind(c"EditorResourcePicker", c"get_allowed_types", 1139954409L)
             Binds.setTogglePressed = GdxApi.getMethodBind(c"EditorResourcePicker", c"set_toggle_pressed", 2586408642L)
-            Binds.setEditable = GdxApi.getMethodBind(c"EditorResourcePicker", c"set_editable", 2586408642L)
-            Binds.isEditable = GdxApi.getMethodBind(c"EditorResourcePicker", c"is_editable", 36873697L)
+  }
+}
 
-    def apply(): EditorResourcePicker =
-        val obj = new EditorResourcePicker()
-        obj.ptr = GdxApi.constructObject(c"EditorResourcePicker")
-        obj
+def apply(): EditorResourcePicker = {
+  val obj = new EditorResourcePicker()
+  obj.ptr = GdxApi.constructObject(c"EditorResourcePicker")
+  obj
+}

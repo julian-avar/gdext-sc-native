@@ -5,67 +5,18 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ReferenceRect extends Control
-
-    def getBorderColor(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ReferenceRect.Binds.getBorderColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setBorderColor(color: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = color.ptr
-        GdxApi.ptrcall(ReferenceRect.Binds.setBorderColor, ptr, _args, null)
-
-    def getBorderWidth(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ReferenceRect.Binds.getBorderWidth, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setBorderWidth(width: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = width.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ReferenceRect.Binds.setBorderWidth, ptr, _args, null)
-
-    def getEditorOnly(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(ReferenceRect.Binds.getEditorOnly, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setEditorOnly(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ReferenceRect.Binds.setEditorOnly, ptr, _args, null)
-    def borderColor: Ptr[Byte] = getBorderColor()
-    def borderColor_=(v: Ptr[Byte]): Unit = setBorderColor(v)
-    def borderWidth: Ptr[Byte] = getBorderWidth()
-    def borderWidth_=(v: Ptr[Byte]): Unit = setBorderWidth(v)
-    def editorOnly: Ptr[Byte] = getEditorOnly()
-    def editorOnly_=(v: Ptr[Byte]): Unit = setEditorOnly(v)
+class ReferenceRect extends Control {
+    def borderColor: Color = getBorderColor()
+    def borderColor_=(v: Color): Unit = setBorderColor(v)
+    def borderWidth: Float = getBorderWidth()
+    def borderWidth_=(v: Float): Unit = setBorderWidth(v)
+    def editorOnly: Boolean = getEditorOnly()
+    def editorOnly_=(v: Boolean): Unit = setEditorOnly(v)
+}
 
 object ReferenceRect:
-    object Binds:
-        var getBorderColor: Ptr[Byte] = null
-        var setBorderColor: Ptr[Byte] = null
-        var getBorderWidth: Ptr[Byte] = null
-        var setBorderWidth: Ptr[Byte] = null
-        var getEditorOnly: Ptr[Byte] = null
-        var setEditorOnly: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.getBorderColor = GdxApi.getMethodBind(c"ReferenceRect", c"get_border_color", 3444240500L)
-            Binds.setBorderColor = GdxApi.getMethodBind(c"ReferenceRect", c"set_border_color", 2920490490L)
-            Binds.getBorderWidth = GdxApi.getMethodBind(c"ReferenceRect", c"get_border_width", 1740695150L)
-            Binds.setBorderWidth = GdxApi.getMethodBind(c"ReferenceRect", c"set_border_width", 373806689L)
-            Binds.getEditorOnly = GdxApi.getMethodBind(c"ReferenceRect", c"get_editor_only", 36873697L)
-            Binds.setEditorOnly = GdxApi.getMethodBind(c"ReferenceRect", c"set_editor_only", 2586408642L)
-
-    def apply(): ReferenceRect =
-        val obj = new ReferenceRect()
-        obj.ptr = GdxApi.constructObject(c"ReferenceRect")
-        obj
+def apply(): ReferenceRect = {
+  val obj = new ReferenceRect()
+  obj.ptr = GdxApi.constructObject(c"ReferenceRect")
+  obj
+}

@@ -5,332 +5,201 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorFileDialog extends ConfirmationDialog
-
-    def clearFilters(): Unit =
+class EditorFileDialog extends ConfirmationDialog {
+    def clearFilters(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorFileDialog.Binds.clearFilters, ptr, _args, null)
+}
 
-    def addFilter(filter: CString): Unit =
+    def addFilter(filter: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
+        _args(0) = filter
         GdxApi.ptrcall(EditorFileDialog.Binds.addFilter, ptr, _args, null)
+}
 
-    def setFilters(filters: PackedStringArray): Unit =
+    def getOptionName(option: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filters.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setFilters, ptr, _args, null)
-
-    def getFilters(): PackedStringArray =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getFilters, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new PackedStringArray(!_ret)
-
-    def getOptionName(option: Int): CString =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getOptionName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getOptionValues(option: Int): PackedStringArray =
+    def getOptionValues(option: Int): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getOptionValues, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def getOptionDefault(option: Int): Int =
+    def getOptionDefault(option: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getOptionDefault, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setOptionName(option: Int, name: CString): Unit =
+    def setOptionName(option: Int, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(EditorFileDialog.Binds.setOptionName, ptr, _args, null)
+}
 
-    def setOptionValues(option: Int, values: PackedStringArray): Unit =
+    def setOptionValues(option: Int, values: PackedStringArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = values.ptr
         GdxApi.ptrcall(EditorFileDialog.Binds.setOptionValues, ptr, _args, null)
+}
 
-    def setOptionDefault(option: Int, defaultValueIndex: Int): Unit =
+    def setOptionDefault(option: Int, defaultValueIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = option.toLong
+        val _a0 = stackalloc[Long](); !_a0 = option.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = defaultValueIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = defaultValueIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorFileDialog.Binds.setOptionDefault, ptr, _args, null)
+}
 
-    def setOptionCount(count: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = count.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorFileDialog.Binds.setOptionCount, ptr, _args, null)
-
-    def getOptionCount(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getOptionCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def addOption(name: CString, values: PackedStringArray, defaultValueIndex: Int): Unit =
+    def addOption(name: CString, values: PackedStringArray, defaultValueIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = name.ptr
+        _args(0) = name
         _args(1) = values.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = defaultValueIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = defaultValueIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(EditorFileDialog.Binds.addOption, ptr, _args, null)
+}
 
-    def getSelectedOptions(): Dictionary =
+    def getSelectedOptions(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getSelectedOptions, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def clearFilenameFilter(): Unit =
+    def clearFilenameFilter(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorFileDialog.Binds.clearFilenameFilter, ptr, _args, null)
+}
 
-    def setFilenameFilter(filter: CString): Unit =
+    def setFilenameFilter(filter: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filter.ptr
+        _args(0) = filter
         GdxApi.ptrcall(EditorFileDialog.Binds.setFilenameFilter, ptr, _args, null)
+}
 
-    def getFilenameFilter(): CString =
+    def getFilenameFilter(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getFilenameFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getCurrentDir(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getCurrentDir, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getCurrentFile(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getCurrentFile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def getCurrentPath(): CString =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getCurrentPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setCurrentDir(dir: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = dir.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setCurrentDir, ptr, _args, null)
-
-    def setCurrentFile(file: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = file.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setCurrentFile, ptr, _args, null)
-
-    def setCurrentPath(path: CString): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setCurrentPath, ptr, _args, null)
-
-    def setFileMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setFileMode, ptr, _args, null)
-
-    def getFileMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getFileMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def getVbox(): VBoxContainer =
+    def getVbox(): VBoxContainer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getVbox, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new VBoxContainer(!_ret)
+}
 
-    def getLineEdit(): LineEdit =
+    def getLineEdit(): LineEdit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(EditorFileDialog.Binds.getLineEdit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new LineEdit(!_ret)
+}
 
-    def setAccess(access: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = access.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setAccess, ptr, _args, null)
-
-    def getAccess(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getAccess, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setShowHiddenFiles(show: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if show then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorFileDialog.Binds.setShowHiddenFiles, ptr, _args, null)
-
-    def isShowingHiddenFiles(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.isShowingHiddenFiles, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDisplayMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(EditorFileDialog.Binds.setDisplayMode, ptr, _args, null)
-
-    def getDisplayMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.getDisplayMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setDisableOverwriteWarning(disable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if disable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(EditorFileDialog.Binds.setDisableOverwriteWarning, ptr, _args, null)
-
-    def isOverwriteWarningDisabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(EditorFileDialog.Binds.isOverwriteWarningDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def addSideMenu(menu: Control): Unit =
+    def addSideMenu(menu: Control): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = menu.ptr
         GdxApi.ptrcall(EditorFileDialog.Binds.addSideMenu, ptr, _args, null)
+}
 
-    def popupFileDialog(): Unit =
+    def popupFileDialog(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorFileDialog.Binds.popupFileDialog, ptr, _args, null)
+}
 
-    def invalidate(): Unit =
+    def invalidate(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(EditorFileDialog.Binds.invalidate, ptr, _args, null)
-    def access: Ptr[Byte] = getAccess()
-    def access_=(v: Ptr[Byte]): Unit = setAccess(v)
-    def displayMode: Ptr[Byte] = getDisplayMode()
-    def displayMode_=(v: Ptr[Byte]): Unit = setDisplayMode(v)
-    def fileMode: Ptr[Byte] = getFileMode()
-    def fileMode_=(v: Ptr[Byte]): Unit = setFileMode(v)
-    def currentDir: Ptr[Byte] = getCurrentDir()
-    def currentDir_=(v: Ptr[Byte]): Unit = setCurrentDir(v)
-    def currentFile: Ptr[Byte] = getCurrentFile()
-    def currentFile_=(v: Ptr[Byte]): Unit = setCurrentFile(v)
-    def currentPath: Ptr[Byte] = getCurrentPath()
-    def currentPath_=(v: Ptr[Byte]): Unit = setCurrentPath(v)
-    def filters: Ptr[Byte] = getFilters()
-    def filters_=(v: Ptr[Byte]): Unit = setFilters(v)
-    def optionCount: Ptr[Byte] = getOptionCount()
-    def optionCount_=(v: Ptr[Byte]): Unit = setOptionCount(v)
-    def showHiddenFiles: Ptr[Byte] = isShowingHiddenFiles()
-    def showHiddenFiles_=(v: Ptr[Byte]): Unit = setShowHiddenFiles(v)
-    def disableOverwriteWarning: Ptr[Byte] = isOverwriteWarningDisabled()
-    def disableOverwriteWarning_=(v: Ptr[Byte]): Unit = setDisableOverwriteWarning(v)
+}
+
+    def access: Int = getAccess()
+    def access_=(v: Int): Unit = setAccess(v)
+    def displayMode: Int = getDisplayMode()
+    def displayMode_=(v: Int): Unit = setDisplayMode(v)
+    def fileMode: Int = getFileMode()
+    def fileMode_=(v: Int): Unit = setFileMode(v)
+    def currentDir: CString = getCurrentDir()
+    def currentDir_=(v: CString): Unit = setCurrentDir(v)
+    def currentFile: CString = getCurrentFile()
+    def currentFile_=(v: CString): Unit = setCurrentFile(v)
+    def currentPath: CString = getCurrentPath()
+    def currentPath_=(v: CString): Unit = setCurrentPath(v)
+    def filters: PackedStringArray = getFilters()
+    def filters_=(v: PackedStringArray): Unit = setFilters(v)
+    def optionCount: Int = getOptionCount()
+    def optionCount_=(v: Int): Unit = setOptionCount(v)
+    def showHiddenFiles: Boolean = isShowingHiddenFiles()
+    def showHiddenFiles_=(v: Boolean): Unit = setShowHiddenFiles(v)
+    def disableOverwriteWarning: Boolean = isOverwriteWarningDisabled()
+    def disableOverwriteWarning_=(v: Boolean): Unit = setDisableOverwriteWarning(v)
+}
 
 object EditorFileDialog:
-    object Binds:
-        var clearFilters: Ptr[Byte] = null
+object Binds {
+          var clearFilters: Ptr[Byte] = null
         var addFilter: Ptr[Byte] = null
-        var setFilters: Ptr[Byte] = null
-        var getFilters: Ptr[Byte] = null
         var getOptionName: Ptr[Byte] = null
         var getOptionValues: Ptr[Byte] = null
         var getOptionDefault: Ptr[Byte] = null
         var setOptionName: Ptr[Byte] = null
         var setOptionValues: Ptr[Byte] = null
         var setOptionDefault: Ptr[Byte] = null
-        var setOptionCount: Ptr[Byte] = null
-        var getOptionCount: Ptr[Byte] = null
         var addOption: Ptr[Byte] = null
         var getSelectedOptions: Ptr[Byte] = null
         var clearFilenameFilter: Ptr[Byte] = null
         var setFilenameFilter: Ptr[Byte] = null
         var getFilenameFilter: Ptr[Byte] = null
-        var getCurrentDir: Ptr[Byte] = null
-        var getCurrentFile: Ptr[Byte] = null
-        var getCurrentPath: Ptr[Byte] = null
-        var setCurrentDir: Ptr[Byte] = null
-        var setCurrentFile: Ptr[Byte] = null
-        var setCurrentPath: Ptr[Byte] = null
-        var setFileMode: Ptr[Byte] = null
-        var getFileMode: Ptr[Byte] = null
         var getVbox: Ptr[Byte] = null
         var getLineEdit: Ptr[Byte] = null
-        var setAccess: Ptr[Byte] = null
-        var getAccess: Ptr[Byte] = null
-        var setShowHiddenFiles: Ptr[Byte] = null
-        var isShowingHiddenFiles: Ptr[Byte] = null
-        var setDisplayMode: Ptr[Byte] = null
-        var getDisplayMode: Ptr[Byte] = null
-        var setDisableOverwriteWarning: Ptr[Byte] = null
-        var isOverwriteWarningDisabled: Ptr[Byte] = null
         var addSideMenu: Ptr[Byte] = null
         var popupFileDialog: Ptr[Byte] = null
         var invalidate: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.clearFilters = GdxApi.getMethodBind(c"EditorFileDialog", c"clear_filters", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.clearFilters = GdxApi.getMethodBind(c"EditorFileDialog", c"clear_filters", 3218959716L)
             Binds.addFilter = GdxApi.getMethodBind(c"EditorFileDialog", c"add_filter", 3388804757L)
-            Binds.setFilters = GdxApi.getMethodBind(c"EditorFileDialog", c"set_filters", 4015028928L)
-            Binds.getFilters = GdxApi.getMethodBind(c"EditorFileDialog", c"get_filters", 1139954409L)
             Binds.getOptionName = GdxApi.getMethodBind(c"EditorFileDialog", c"get_option_name", 844755477L)
             Binds.getOptionValues = GdxApi.getMethodBind(c"EditorFileDialog", c"get_option_values", 647634434L)
             Binds.getOptionDefault = GdxApi.getMethodBind(c"EditorFileDialog", c"get_option_default", 923996154L)
             Binds.setOptionName = GdxApi.getMethodBind(c"EditorFileDialog", c"set_option_name", 501894301L)
             Binds.setOptionValues = GdxApi.getMethodBind(c"EditorFileDialog", c"set_option_values", 3353661094L)
             Binds.setOptionDefault = GdxApi.getMethodBind(c"EditorFileDialog", c"set_option_default", 3937882851L)
-            Binds.setOptionCount = GdxApi.getMethodBind(c"EditorFileDialog", c"set_option_count", 1286410249L)
-            Binds.getOptionCount = GdxApi.getMethodBind(c"EditorFileDialog", c"get_option_count", 3905245786L)
             Binds.addOption = GdxApi.getMethodBind(c"EditorFileDialog", c"add_option", 149592325L)
             Binds.getSelectedOptions = GdxApi.getMethodBind(c"EditorFileDialog", c"get_selected_options", 3102165223L)
             Binds.clearFilenameFilter = GdxApi.getMethodBind(c"EditorFileDialog", c"clear_filename_filter", 3218959716L)
             Binds.setFilenameFilter = GdxApi.getMethodBind(c"EditorFileDialog", c"set_filename_filter", 83702148L)
             Binds.getFilenameFilter = GdxApi.getMethodBind(c"EditorFileDialog", c"get_filename_filter", 201670096L)
-            Binds.getCurrentDir = GdxApi.getMethodBind(c"EditorFileDialog", c"get_current_dir", 201670096L)
-            Binds.getCurrentFile = GdxApi.getMethodBind(c"EditorFileDialog", c"get_current_file", 201670096L)
-            Binds.getCurrentPath = GdxApi.getMethodBind(c"EditorFileDialog", c"get_current_path", 201670096L)
-            Binds.setCurrentDir = GdxApi.getMethodBind(c"EditorFileDialog", c"set_current_dir", 83702148L)
-            Binds.setCurrentFile = GdxApi.getMethodBind(c"EditorFileDialog", c"set_current_file", 83702148L)
-            Binds.setCurrentPath = GdxApi.getMethodBind(c"EditorFileDialog", c"set_current_path", 83702148L)
-            Binds.setFileMode = GdxApi.getMethodBind(c"EditorFileDialog", c"set_file_mode", 274150415L)
-            Binds.getFileMode = GdxApi.getMethodBind(c"EditorFileDialog", c"get_file_mode", 2681044145L)
             Binds.getVbox = GdxApi.getMethodBind(c"EditorFileDialog", c"get_vbox", 915758477L)
             Binds.getLineEdit = GdxApi.getMethodBind(c"EditorFileDialog", c"get_line_edit", 4071694264L)
-            Binds.setAccess = GdxApi.getMethodBind(c"EditorFileDialog", c"set_access", 3882893764L)
-            Binds.getAccess = GdxApi.getMethodBind(c"EditorFileDialog", c"get_access", 778734016L)
-            Binds.setShowHiddenFiles = GdxApi.getMethodBind(c"EditorFileDialog", c"set_show_hidden_files", 2586408642L)
-            Binds.isShowingHiddenFiles = GdxApi.getMethodBind(c"EditorFileDialog", c"is_showing_hidden_files", 36873697L)
-            Binds.setDisplayMode = GdxApi.getMethodBind(c"EditorFileDialog", c"set_display_mode", 3049004050L)
-            Binds.getDisplayMode = GdxApi.getMethodBind(c"EditorFileDialog", c"get_display_mode", 3517174669L)
-            Binds.setDisableOverwriteWarning = GdxApi.getMethodBind(c"EditorFileDialog", c"set_disable_overwrite_warning", 2586408642L)
-            Binds.isOverwriteWarningDisabled = GdxApi.getMethodBind(c"EditorFileDialog", c"is_overwrite_warning_disabled", 36873697L)
             Binds.addSideMenu = GdxApi.getMethodBind(c"EditorFileDialog", c"add_side_menu", 402368861L)
             Binds.popupFileDialog = GdxApi.getMethodBind(c"EditorFileDialog", c"popup_file_dialog", 3218959716L)
             Binds.invalidate = GdxApi.getMethodBind(c"EditorFileDialog", c"invalidate", 3218959716L)
+  }
+}
 
-    def apply(): EditorFileDialog =
-        val obj = new EditorFileDialog()
-        obj.ptr = GdxApi.constructObject(c"EditorFileDialog")
-        obj
+def apply(): EditorFileDialog = {
+  val obj = new EditorFileDialog()
+  obj.ptr = GdxApi.constructObject(c"EditorFileDialog")
+  obj
+}

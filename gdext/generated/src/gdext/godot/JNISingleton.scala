@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class JNISingleton extends Object
-
-
-
+class JNISingleton extends Object {}
 
 object JNISingleton:
-    def apply(): JNISingleton =
-        val obj = new JNISingleton()
-        obj.ptr = GdxApi.constructObject(c"JNISingleton")
-        obj
+def apply(): JNISingleton = {
+  val obj = new JNISingleton()
+  obj.ptr = GdxApi.constructObject(c"JNISingleton")
+  obj
+}

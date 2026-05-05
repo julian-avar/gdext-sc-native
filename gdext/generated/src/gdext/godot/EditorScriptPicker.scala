@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorScriptPicker extends EditorResourcePicker
-
-    def setScriptOwner(ownerNode: Node): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = ownerNode.ptr
-        GdxApi.ptrcall(EditorScriptPicker.Binds.setScriptOwner, ptr, _args, null)
-
-    def getScriptOwner(): Node =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(EditorScriptPicker.Binds.getScriptOwner, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Node(!_ret)
-    def scriptOwner: Ptr[Byte] = getScriptOwner()
-    def scriptOwner_=(v: Ptr[Byte]): Unit = setScriptOwner(v)
+class EditorScriptPicker extends EditorResourcePicker {
+    def scriptOwner: Node = getScriptOwner()
+    def scriptOwner_=(v: Node): Unit = setScriptOwner(v)
+}
 
 object EditorScriptPicker:
-    object Binds:
-        var setScriptOwner: Ptr[Byte] = null
-        var getScriptOwner: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setScriptOwner = GdxApi.getMethodBind(c"EditorScriptPicker", c"set_script_owner", 1078189570L)
-            Binds.getScriptOwner = GdxApi.getMethodBind(c"EditorScriptPicker", c"get_script_owner", 3160264692L)
-
-    def apply(): EditorScriptPicker =
-        val obj = new EditorScriptPicker()
-        obj.ptr = GdxApi.constructObject(c"EditorScriptPicker")
-        obj
+def apply(): EditorScriptPicker = {
+  val obj = new EditorScriptPicker()
+  obj.ptr = GdxApi.constructObject(c"EditorScriptPicker")
+  obj
+}

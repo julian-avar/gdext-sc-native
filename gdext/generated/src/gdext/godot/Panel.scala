@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Panel extends Control
-
-
-
+class Panel extends Control {}
 
 object Panel:
-    def apply(): Panel =
-        val obj = new Panel()
-        obj.ptr = GdxApi.constructObject(c"Panel")
-        obj
+def apply(): Panel = {
+  val obj = new Panel()
+  obj.ptr = GdxApi.constructObject(c"Panel")
+  obj
+}

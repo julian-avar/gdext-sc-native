@@ -5,78 +5,86 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WorkerThreadPool extends Object
-
-    def addTask(action: Callable): Long =
+class WorkerThreadPool extends Object {
+    def addTask(action: Callable): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = action.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.addTask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isTaskCompleted(taskId: Long): Boolean =
+    def isTaskCompleted(taskId: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = taskId
+        val _a0 = stackalloc[Long](); !_a0 = taskId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.isTaskCompleted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def waitForTaskCompletion(taskId: Long): Int =
+    def waitForTaskCompletion(taskId: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = taskId
+        val _a0 = stackalloc[Long](); !_a0 = taskId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.waitForTaskCompletion, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getCallerTaskId(): Long =
+    def getCallerTaskId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.getCallerTaskId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def addGroupTask(action: Callable, elements: Int): Long =
+    def addGroupTask(action: Callable, elements: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = action.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = elements.toLong
+        val _a1 = stackalloc[Long](); !_a1 = elements.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.addGroupTask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isGroupTaskCompleted(groupId: Long): Boolean =
+    def isGroupTaskCompleted(groupId: Long): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = groupId
+        val _a0 = stackalloc[Long](); !_a0 = groupId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.isGroupTaskCompleted, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getGroupProcessedElementCount(groupId: Long): Int =
+    def getGroupProcessedElementCount(groupId: Long): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = groupId
+        val _a0 = stackalloc[Long](); !_a0 = groupId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.getGroupProcessedElementCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def waitForGroupTaskCompletion(groupId: Long): Unit =
+    def waitForGroupTaskCompletion(groupId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = groupId
+        val _a0 = stackalloc[Long](); !_a0 = groupId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(WorkerThreadPool.Binds.waitForGroupTaskCompletion, ptr, _args, null)
+}
 
-    def getCallerGroupId(): Long =
+    def getCallerGroupId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WorkerThreadPool.Binds.getCallerGroupId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
-
+}
+}
 
 object WorkerThreadPool:
-    object Binds:
-        var addTask: Ptr[Byte] = null
+object Binds {
+          var addTask: Ptr[Byte] = null
         var isTaskCompleted: Ptr[Byte] = null
         var waitForTaskCompletion: Ptr[Byte] = null
         var getCallerTaskId: Ptr[Byte] = null
@@ -86,8 +94,8 @@ object WorkerThreadPool:
         var waitForGroupTaskCompletion: Ptr[Byte] = null
         var getCallerGroupId: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.addTask = GdxApi.getMethodBind(c"WorkerThreadPool", c"add_task", 3745067146L)
+  def loadBinds(): Unit = {
+                Binds.addTask = GdxApi.getMethodBind(c"WorkerThreadPool", c"add_task", 3745067146L)
             Binds.isTaskCompleted = GdxApi.getMethodBind(c"WorkerThreadPool", c"is_task_completed", 1116898809L)
             Binds.waitForTaskCompletion = GdxApi.getMethodBind(c"WorkerThreadPool", c"wait_for_task_completion", 844576869L)
             Binds.getCallerTaskId = GdxApi.getMethodBind(c"WorkerThreadPool", c"get_caller_task_id", 3905245786L)
@@ -96,3 +104,5 @@ object WorkerThreadPool:
             Binds.getGroupProcessedElementCount = GdxApi.getMethodBind(c"WorkerThreadPool", c"get_group_processed_element_count", 923996154L)
             Binds.waitForGroupTaskCompletion = GdxApi.getMethodBind(c"WorkerThreadPool", c"wait_for_group_task_completion", 1286410249L)
             Binds.getCallerGroupId = GdxApi.getMethodBind(c"WorkerThreadPool", c"get_caller_group_id", 3905245786L)
+  }
+}

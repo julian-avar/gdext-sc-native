@@ -5,150 +5,54 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Timer extends Node
-
-    def setWaitTime(timeSec: Double): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = timeSec
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Timer.Binds.setWaitTime, ptr, _args, null)
-
-    def getWaitTime(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Timer.Binds.getWaitTime, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setOneShot(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Timer.Binds.setOneShot, ptr, _args, null)
-
-    def isOneShot(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Timer.Binds.isOneShot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setAutostart(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Timer.Binds.setAutostart, ptr, _args, null)
-
-    def hasAutostart(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Timer.Binds.hasAutostart, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def start(): Unit =
+class Timer extends Node {
+    def start(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Timer.Binds.start, ptr, _args, null)
+}
 
-    def stop(): Unit =
+    def stop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Timer.Binds.stop, ptr, _args, null)
+}
 
-    def setPaused(paused: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if paused then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Timer.Binds.setPaused, ptr, _args, null)
-
-    def isPaused(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Timer.Binds.isPaused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setIgnoreTimeScale(ignore: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if ignore then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(Timer.Binds.setIgnoreTimeScale, ptr, _args, null)
-
-    def isIgnoringTimeScale(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(Timer.Binds.isIgnoringTimeScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isStopped(): Boolean =
+    def isStopped(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Timer.Binds.isStopped, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getTimeLeft(): Double =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(Timer.Binds.getTimeLeft, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret
-
-    def setTimerProcessCallback(callback: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = callback.ptr
-        GdxApi.ptrcall(Timer.Binds.setTimerProcessCallback, ptr, _args, null)
-
-    def getTimerProcessCallback(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(Timer.Binds.getTimerProcessCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def processCallback: Ptr[Byte] = getTimerProcessCallback()
-    def processCallback_=(v: Ptr[Byte]): Unit = setTimerProcessCallback(v)
-    def waitTime: Ptr[Byte] = getWaitTime()
-    def waitTime_=(v: Ptr[Byte]): Unit = setWaitTime(v)
-    def oneShot: Ptr[Byte] = isOneShot()
-    def oneShot_=(v: Ptr[Byte]): Unit = setOneShot(v)
-    def autostart: Ptr[Byte] = hasAutostart()
-    def autostart_=(v: Ptr[Byte]): Unit = setAutostart(v)
-    def paused: Ptr[Byte] = isPaused()
-    def paused_=(v: Ptr[Byte]): Unit = setPaused(v)
-    def ignoreTimeScale: Ptr[Byte] = isIgnoringTimeScale()
-    def ignoreTimeScale_=(v: Ptr[Byte]): Unit = setIgnoreTimeScale(v)
-    def timeLeft: Ptr[Byte] = getTimeLeft()
+    def processCallback: Int = getTimerProcessCallback()
+    def processCallback_=(v: Int): Unit = setTimerProcessCallback(v)
+    def waitTime: Double = getWaitTime()
+    def waitTime_=(v: Double): Unit = setWaitTime(v)
+    def oneShot: Boolean = isOneShot()
+    def oneShot_=(v: Boolean): Unit = setOneShot(v)
+    def autostart: Boolean = hasAutostart()
+    def autostart_=(v: Boolean): Unit = setAutostart(v)
+    def paused: Boolean = isPaused()
+    def paused_=(v: Boolean): Unit = setPaused(v)
+    def ignoreTimeScale: Boolean = isIgnoringTimeScale()
+    def ignoreTimeScale_=(v: Boolean): Unit = setIgnoreTimeScale(v)
+    def timeLeft: Double = getTimeLeft()
+}
 
 object Timer:
-    object Binds:
-        var setWaitTime: Ptr[Byte] = null
-        var getWaitTime: Ptr[Byte] = null
-        var setOneShot: Ptr[Byte] = null
-        var isOneShot: Ptr[Byte] = null
-        var setAutostart: Ptr[Byte] = null
-        var hasAutostart: Ptr[Byte] = null
-        var start: Ptr[Byte] = null
+object Binds {
+          var start: Ptr[Byte] = null
         var stop: Ptr[Byte] = null
-        var setPaused: Ptr[Byte] = null
-        var isPaused: Ptr[Byte] = null
-        var setIgnoreTimeScale: Ptr[Byte] = null
-        var isIgnoringTimeScale: Ptr[Byte] = null
         var isStopped: Ptr[Byte] = null
-        var getTimeLeft: Ptr[Byte] = null
-        var setTimerProcessCallback: Ptr[Byte] = null
-        var getTimerProcessCallback: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setWaitTime = GdxApi.getMethodBind(c"Timer", c"set_wait_time", 373806689L)
-            Binds.getWaitTime = GdxApi.getMethodBind(c"Timer", c"get_wait_time", 1740695150L)
-            Binds.setOneShot = GdxApi.getMethodBind(c"Timer", c"set_one_shot", 2586408642L)
-            Binds.isOneShot = GdxApi.getMethodBind(c"Timer", c"is_one_shot", 36873697L)
-            Binds.setAutostart = GdxApi.getMethodBind(c"Timer", c"set_autostart", 2586408642L)
-            Binds.hasAutostart = GdxApi.getMethodBind(c"Timer", c"has_autostart", 36873697L)
-            Binds.start = GdxApi.getMethodBind(c"Timer", c"start", 1392008558L)
+  def loadBinds(): Unit = {
+                Binds.start = GdxApi.getMethodBind(c"Timer", c"start", 1392008558L)
             Binds.stop = GdxApi.getMethodBind(c"Timer", c"stop", 3218959716L)
-            Binds.setPaused = GdxApi.getMethodBind(c"Timer", c"set_paused", 2586408642L)
-            Binds.isPaused = GdxApi.getMethodBind(c"Timer", c"is_paused", 36873697L)
-            Binds.setIgnoreTimeScale = GdxApi.getMethodBind(c"Timer", c"set_ignore_time_scale", 2586408642L)
-            Binds.isIgnoringTimeScale = GdxApi.getMethodBind(c"Timer", c"is_ignoring_time_scale", 2240911060L)
             Binds.isStopped = GdxApi.getMethodBind(c"Timer", c"is_stopped", 36873697L)
-            Binds.getTimeLeft = GdxApi.getMethodBind(c"Timer", c"get_time_left", 1740695150L)
-            Binds.setTimerProcessCallback = GdxApi.getMethodBind(c"Timer", c"set_timer_process_callback", 3469495063L)
-            Binds.getTimerProcessCallback = GdxApi.getMethodBind(c"Timer", c"get_timer_process_callback", 2672570227L)
+  }
+}
 
-    def apply(): Timer =
-        val obj = new Timer()
-        obj.ptr = GdxApi.constructObject(c"Timer")
-        obj
+def apply(): Timer = {
+  val obj = new Timer()
+  obj.ptr = GdxApi.constructObject(c"Timer")
+  obj
+}

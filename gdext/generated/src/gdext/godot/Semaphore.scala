@@ -5,35 +5,40 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Semaphore extends RefCounted
-
-    def wait(): Unit =
+class Semaphore extends RefCounted {
+    def wait(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Semaphore.Binds.wait, ptr, _args, null)
+}
 
-    def tryWait(): Boolean =
+    def tryWait(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(Semaphore.Binds.tryWait, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def post(): Unit =
+    def post(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(Semaphore.Binds.post, ptr, _args, null)
-
+}
+}
 
 object Semaphore:
-    object Binds:
-        var wait: Ptr[Byte] = null
+object Binds {
+          var wait: Ptr[Byte] = null
         var tryWait: Ptr[Byte] = null
         var post: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.wait = GdxApi.getMethodBind(c"Semaphore", c"wait", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.wait = GdxApi.getMethodBind(c"Semaphore", c"wait", 3218959716L)
             Binds.tryWait = GdxApi.getMethodBind(c"Semaphore", c"try_wait", 2240911060L)
             Binds.post = GdxApi.getMethodBind(c"Semaphore", c"post", 1667783136L)
+  }
+}
 
-    def apply(): Semaphore =
-        val obj = new Semaphore()
-        obj.ptr = GdxApi.constructObject(c"Semaphore")
-        obj
+def apply(): Semaphore = {
+  val obj = new Semaphore()
+  obj.ptr = GdxApi.constructObject(c"Semaphore")
+  obj
+}

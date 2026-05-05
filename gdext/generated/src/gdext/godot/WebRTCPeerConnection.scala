@@ -5,85 +5,95 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class WebRTCPeerConnection extends RefCounted
-
-    def initialize(): Int =
+class WebRTCPeerConnection extends RefCounted {
+    def initialize(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.initialize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def createDataChannel(label: CString): WebRTCDataChannel =
+    def createDataChannel(label: CString): WebRTCDataChannel = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = label.ptr
+        _args(0) = label
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.createDataChannel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new WebRTCDataChannel(!_ret)
+}
 
-    def createOffer(): Int =
+    def createOffer(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.createOffer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setLocalDescription(`type`: CString, sdp: CString): Int =
+    def setLocalDescription(`type`: CString, sdp: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        _args(1) = sdp.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = `type`
+        _args(1) = sdp
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.setLocalDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setRemoteDescription(`type`: CString, sdp: CString): Int =
+    def setRemoteDescription(`type`: CString, sdp: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = `type`.ptr
-        _args(1) = sdp.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = `type`
+        _args(1) = sdp
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.setRemoteDescription, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def addIceCandidate(media: CString, index: Int, name: CString): Int =
+    def addIceCandidate(media: CString, index: Int, name: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = media.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        _args(0) = media
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = name.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = name
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.addIceCandidate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def poll(): Int =
+    def poll(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.poll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def close(): Unit =
+    def close(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.close, ptr, _args, null)
+}
 
-    def getConnectionState(): Int =
+    def getConnectionState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.getConnectionState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getGatheringState(): Int =
+    def getGatheringState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.getGatheringState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getSignalingState(): Int =
+    def getSignalingState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(WebRTCPeerConnection.Binds.getSignalingState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object WebRTCPeerConnection:
-    object Binds:
-        var initialize: Ptr[Byte] = null
+object Binds {
+          var initialize: Ptr[Byte] = null
         var createDataChannel: Ptr[Byte] = null
         var createOffer: Ptr[Byte] = null
         var setLocalDescription: Ptr[Byte] = null
@@ -95,8 +105,8 @@ object WebRTCPeerConnection:
         var getGatheringState: Ptr[Byte] = null
         var getSignalingState: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.initialize = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"initialize", 2625064318L)
+  def loadBinds(): Unit = {
+                Binds.initialize = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"initialize", 2625064318L)
             Binds.createDataChannel = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"create_data_channel", 1288557393L)
             Binds.createOffer = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"create_offer", 166280745L)
             Binds.setLocalDescription = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"set_local_description", 852856452L)
@@ -107,8 +117,11 @@ object WebRTCPeerConnection:
             Binds.getConnectionState = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"get_connection_state", 2275710506L)
             Binds.getGatheringState = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"get_gathering_state", 4262591401L)
             Binds.getSignalingState = GdxApi.getMethodBind(c"WebRTCPeerConnection", c"get_signaling_state", 3342956226L)
+  }
+}
 
-    def apply(): WebRTCPeerConnection =
-        val obj = new WebRTCPeerConnection()
-        obj.ptr = GdxApi.constructObject(c"WebRTCPeerConnection")
-        obj
+def apply(): WebRTCPeerConnection = {
+  val obj = new WebRTCPeerConnection()
+  obj.ptr = GdxApi.constructObject(c"WebRTCPeerConnection")
+  obj
+}

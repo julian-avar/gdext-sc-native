@@ -5,189 +5,32 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ImporterMeshInstance3D extends Node3D
-
-    def setMesh(mesh: ImporterMesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mesh.ptr
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setMesh, ptr, _args, null)
-
-    def getMesh(): ImporterMesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getMesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new ImporterMesh(!_ret)
-
-    def setSkin(skin: Skin): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skin.ptr
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setSkin, ptr, _args, null)
-
-    def getSkin(): Skin =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getSkin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Skin(!_ret)
-
-    def setSkeletonPath(skeletonPath: NodePath): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = skeletonPath.ptr
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setSkeletonPath, ptr, _args, null)
-
-    def getSkeletonPath(): NodePath =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getSkeletonPath, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new NodePath(!_ret)
-
-    def setLayerMask(layerMask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layerMask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setLayerMask, ptr, _args, null)
-
-    def getLayerMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getLayerMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setCastShadowsSetting(shadowCastingSetting: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shadowCastingSetting.ptr
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setCastShadowsSetting, ptr, _args, null)
-
-    def getCastShadowsSetting(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getCastShadowsSetting, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVisibilityRangeEndMargin(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setVisibilityRangeEndMargin, ptr, _args, null)
-
-    def getVisibilityRangeEndMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getVisibilityRangeEndMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVisibilityRangeEnd(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setVisibilityRangeEnd, ptr, _args, null)
-
-    def getVisibilityRangeEnd(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getVisibilityRangeEnd, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVisibilityRangeBeginMargin(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setVisibilityRangeBeginMargin, ptr, _args, null)
-
-    def getVisibilityRangeBeginMargin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getVisibilityRangeBeginMargin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVisibilityRangeBegin(distance: Float): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Double](); !_a0 = distance.toDouble
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setVisibilityRangeBegin, ptr, _args, null)
-
-    def getVisibilityRangeBegin(): Float =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Double]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getVisibilityRangeBegin, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toFloat
-
-    def setVisibilityRangeFadeMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.setVisibilityRangeFadeMode, ptr, _args, null)
-
-    def getVisibilityRangeFadeMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(ImporterMeshInstance3D.Binds.getVisibilityRangeFadeMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def mesh: Ptr[Byte] = getMesh()
-    def mesh_=(v: Ptr[Byte]): Unit = setMesh(v)
-    def skin: Ptr[Byte] = getSkin()
-    def skin_=(v: Ptr[Byte]): Unit = setSkin(v)
-    def skeletonPath: Ptr[Byte] = getSkeletonPath()
-    def skeletonPath_=(v: Ptr[Byte]): Unit = setSkeletonPath(v)
-    def layerMask: Ptr[Byte] = getLayerMask()
-    def layerMask_=(v: Ptr[Byte]): Unit = setLayerMask(v)
-    def castShadow: Ptr[Byte] = getCastShadowsSetting()
-    def castShadow_=(v: Ptr[Byte]): Unit = setCastShadowsSetting(v)
-    def visibilityRangeBegin: Ptr[Byte] = getVisibilityRangeBegin()
-    def visibilityRangeBegin_=(v: Ptr[Byte]): Unit = setVisibilityRangeBegin(v)
-    def visibilityRangeBeginMargin: Ptr[Byte] = getVisibilityRangeBeginMargin()
-    def visibilityRangeBeginMargin_=(v: Ptr[Byte]): Unit = setVisibilityRangeBeginMargin(v)
-    def visibilityRangeEnd: Ptr[Byte] = getVisibilityRangeEnd()
-    def visibilityRangeEnd_=(v: Ptr[Byte]): Unit = setVisibilityRangeEnd(v)
-    def visibilityRangeEndMargin: Ptr[Byte] = getVisibilityRangeEndMargin()
-    def visibilityRangeEndMargin_=(v: Ptr[Byte]): Unit = setVisibilityRangeEndMargin(v)
-    def visibilityRangeFadeMode: Ptr[Byte] = getVisibilityRangeFadeMode()
-    def visibilityRangeFadeMode_=(v: Ptr[Byte]): Unit = setVisibilityRangeFadeMode(v)
+class ImporterMeshInstance3D extends Node3D {
+    def mesh: ImporterMesh = getMesh()
+    def mesh_=(v: ImporterMesh): Unit = setMesh(v)
+    def skin: Skin = getSkin()
+    def skin_=(v: Skin): Unit = setSkin(v)
+    def skeletonPath: NodePath = getSkeletonPath()
+    def skeletonPath_=(v: NodePath): Unit = setSkeletonPath(v)
+    def layerMask: Int = getLayerMask()
+    def layerMask_=(v: Int): Unit = setLayerMask(v)
+    def castShadow: Int = getCastShadowsSetting()
+    def castShadow_=(v: Int): Unit = setCastShadowsSetting(v)
+    def visibilityRangeBegin: Float = getVisibilityRangeBegin()
+    def visibilityRangeBegin_=(v: Float): Unit = setVisibilityRangeBegin(v)
+    def visibilityRangeBeginMargin: Float = getVisibilityRangeBeginMargin()
+    def visibilityRangeBeginMargin_=(v: Float): Unit = setVisibilityRangeBeginMargin(v)
+    def visibilityRangeEnd: Float = getVisibilityRangeEnd()
+    def visibilityRangeEnd_=(v: Float): Unit = setVisibilityRangeEnd(v)
+    def visibilityRangeEndMargin: Float = getVisibilityRangeEndMargin()
+    def visibilityRangeEndMargin_=(v: Float): Unit = setVisibilityRangeEndMargin(v)
+    def visibilityRangeFadeMode: Int = getVisibilityRangeFadeMode()
+    def visibilityRangeFadeMode_=(v: Int): Unit = setVisibilityRangeFadeMode(v)
+}
 
 object ImporterMeshInstance3D:
-    object Binds:
-        var setMesh: Ptr[Byte] = null
-        var getMesh: Ptr[Byte] = null
-        var setSkin: Ptr[Byte] = null
-        var getSkin: Ptr[Byte] = null
-        var setSkeletonPath: Ptr[Byte] = null
-        var getSkeletonPath: Ptr[Byte] = null
-        var setLayerMask: Ptr[Byte] = null
-        var getLayerMask: Ptr[Byte] = null
-        var setCastShadowsSetting: Ptr[Byte] = null
-        var getCastShadowsSetting: Ptr[Byte] = null
-        var setVisibilityRangeEndMargin: Ptr[Byte] = null
-        var getVisibilityRangeEndMargin: Ptr[Byte] = null
-        var setVisibilityRangeEnd: Ptr[Byte] = null
-        var getVisibilityRangeEnd: Ptr[Byte] = null
-        var setVisibilityRangeBeginMargin: Ptr[Byte] = null
-        var getVisibilityRangeBeginMargin: Ptr[Byte] = null
-        var setVisibilityRangeBegin: Ptr[Byte] = null
-        var getVisibilityRangeBegin: Ptr[Byte] = null
-        var setVisibilityRangeFadeMode: Ptr[Byte] = null
-        var getVisibilityRangeFadeMode: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMesh = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_mesh", 2255166972L)
-            Binds.getMesh = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_mesh", 3161779525L)
-            Binds.setSkin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_skin", 3971435618L)
-            Binds.getSkin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_skin", 2074563878L)
-            Binds.setSkeletonPath = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_skeleton_path", 1348162250L)
-            Binds.getSkeletonPath = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_skeleton_path", 4075236667L)
-            Binds.setLayerMask = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_layer_mask", 1286410249L)
-            Binds.getLayerMask = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_layer_mask", 3905245786L)
-            Binds.setCastShadowsSetting = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_cast_shadows_setting", 856677339L)
-            Binds.getCastShadowsSetting = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_cast_shadows_setting", 3383019359L)
-            Binds.setVisibilityRangeEndMargin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_visibility_range_end_margin", 373806689L)
-            Binds.getVisibilityRangeEndMargin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_visibility_range_end_margin", 1740695150L)
-            Binds.setVisibilityRangeEnd = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_visibility_range_end", 373806689L)
-            Binds.getVisibilityRangeEnd = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_visibility_range_end", 1740695150L)
-            Binds.setVisibilityRangeBeginMargin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_visibility_range_begin_margin", 373806689L)
-            Binds.getVisibilityRangeBeginMargin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_visibility_range_begin_margin", 1740695150L)
-            Binds.setVisibilityRangeBegin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_visibility_range_begin", 373806689L)
-            Binds.getVisibilityRangeBegin = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_visibility_range_begin", 1740695150L)
-            Binds.setVisibilityRangeFadeMode = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"set_visibility_range_fade_mode", 1440117808L)
-            Binds.getVisibilityRangeFadeMode = GdxApi.getMethodBind(c"ImporterMeshInstance3D", c"get_visibility_range_fade_mode", 2067221882L)
-
-    def apply(): ImporterMeshInstance3D =
-        val obj = new ImporterMeshInstance3D()
-        obj.ptr = GdxApi.constructObject(c"ImporterMeshInstance3D")
-        obj
+def apply(): ImporterMeshInstance3D = {
+  val obj = new ImporterMeshInstance3D()
+  obj.ptr = GdxApi.constructObject(c"ImporterMeshInstance3D")
+  obj
+}

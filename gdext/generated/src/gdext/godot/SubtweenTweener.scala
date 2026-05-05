@@ -5,25 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SubtweenTweener extends Tweener
-
-    def setDelay(delay: Double): SubtweenTweener =
+class SubtweenTweener extends Tweener {
+    def setDelay(delay: Double): SubtweenTweener = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Double](); !_a0 = delay
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(SubtweenTweener.Binds.setDelay, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new SubtweenTweener(!_ret)
-
+}
+}
 
 object SubtweenTweener:
-    object Binds:
-        var setDelay: Ptr[Byte] = null
+object Binds {
+          var setDelay: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.setDelay = GdxApi.getMethodBind(c"SubtweenTweener", c"set_delay", 449181780L)
+  def loadBinds(): Unit = {
+                Binds.setDelay = GdxApi.getMethodBind(c"SubtweenTweener", c"set_delay", 449181780L)
+  }
+}
 
-    def apply(): SubtweenTweener =
-        val obj = new SubtweenTweener()
-        obj.ptr = GdxApi.constructObject(c"SubtweenTweener")
-        obj
+def apply(): SubtweenTweener = {
+  val obj = new SubtweenTweener()
+  obj.ptr = GdxApi.constructObject(c"SubtweenTweener")
+  obj
+}

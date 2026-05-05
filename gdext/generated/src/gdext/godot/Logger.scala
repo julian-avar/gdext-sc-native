@@ -5,14 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class Logger extends RefCounted
+class Logger extends RefCounted {
     def _logError(function: CString, file: CString, line: Int, code: CString, rationale: CString, editorNotify: Boolean, errorType: Int, scriptBacktraces: Ptr[Byte]): Unit = ()
     def _logMessage(message: CString, error: Boolean): Unit = ()
-
-
+}
 
 object Logger:
-    def apply(): Logger =
-        val obj = new Logger()
-        obj.ptr = GdxApi.constructObject(c"Logger")
-        obj
+def apply(): Logger = {
+  val obj = new Logger()
+  obj.ptr = GdxApi.constructObject(c"Logger")
+  obj
+}

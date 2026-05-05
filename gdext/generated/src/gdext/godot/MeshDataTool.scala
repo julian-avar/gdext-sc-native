@@ -5,294 +5,331 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MeshDataTool extends RefCounted
-
-    def clear(): Unit =
+class MeshDataTool extends RefCounted {
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(MeshDataTool.Binds.clear, ptr, _args, null)
+}
 
-    def createFromSurface(mesh: ArrayMesh, surface: Int): Int =
+    def createFromSurface(mesh: ArrayMesh, surface: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = surface.toLong
+        val _a1 = stackalloc[Long](); !_a1 = surface.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.createFromSurface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def commitToSurface(mesh: ArrayMesh): Int =
+    def commitToSurface(mesh: ArrayMesh): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = mesh.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.commitToSurface, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFormat(): Long =
+    def getFormat(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getFormat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVertexCount(): Int =
+    def getVertexCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getEdgeCount(): Int =
+    def getEdgeCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getEdgeCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFaceCount(): Int =
+    def getFaceCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getFaceCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setVertex(idx: Int, vertex: Vector3): Unit =
+    def setVertex(idx: Int, vertex: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = vertex.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertex, ptr, _args, null)
+}
 
-    def getVertex(idx: Int): Vector3 =
+    def getVertex(idx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setVertexNormal(idx: Int, normal: Vector3): Unit =
+    def setVertexNormal(idx: Int, normal: Vector3): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = normal.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexNormal, ptr, _args, null)
+}
 
-    def getVertexNormal(idx: Int): Vector3 =
+    def getVertexNormal(idx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setVertexTangent(idx: Int, tangent: Plane): Unit =
+    def setVertexTangent(idx: Int, tangent: Plane): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = tangent.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexTangent, ptr, _args, null)
+}
 
-    def getVertexTangent(idx: Int): Plane =
+    def getVertexTangent(idx: Int): Plane = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexTangent, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Plane(!_ret)
+}
 
-    def setVertexUv(idx: Int, uv: Vector2): Unit =
+    def setVertexUv(idx: Int, uv: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = uv.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexUv, ptr, _args, null)
+}
 
-    def getVertexUv(idx: Int): Vector2 =
+    def getVertexUv(idx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexUv, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setVertexUv2(idx: Int, uv2: Vector2): Unit =
+    def setVertexUv2(idx: Int, uv2: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = uv2.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexUv2, ptr, _args, null)
+}
 
-    def getVertexUv2(idx: Int): Vector2 =
+    def getVertexUv2(idx: Int): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexUv2, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def setVertexColor(idx: Int, color: Color): Unit =
+    def setVertexColor(idx: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = color.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexColor, ptr, _args, null)
+}
 
-    def getVertexColor(idx: Int): Color =
+    def getVertexColor(idx: Int): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setVertexBones(idx: Int, bones: PackedInt32Array): Unit =
+    def setVertexBones(idx: Int, bones: PackedInt32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = bones.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexBones, ptr, _args, null)
+}
 
-    def getVertexBones(idx: Int): PackedInt32Array =
+    def getVertexBones(idx: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexBones, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def setVertexWeights(idx: Int, weights: PackedFloat32Array): Unit =
+    def setVertexWeights(idx: Int, weights: PackedFloat32Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = weights.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexWeights, ptr, _args, null)
+}
 
-    def getVertexWeights(idx: Int): PackedFloat32Array =
+    def getVertexWeights(idx: Int): PackedFloat32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexWeights, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedFloat32Array(!_ret)
+}
 
-    def setVertexMeta(idx: Int, meta: Ptr[Byte]): Unit =
+    def setVertexMeta(idx: Int, meta: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = meta.ptr
+        _args(1) = meta
         GdxApi.ptrcall(MeshDataTool.Binds.setVertexMeta, ptr, _args, null)
+}
 
-    def getVertexMeta(idx: Int): Ptr[Byte] =
+    def getVertexMeta(idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getVertexEdges(idx: Int): PackedInt32Array =
+    def getVertexEdges(idx: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexEdges, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getVertexFaces(idx: Int): PackedInt32Array =
+    def getVertexFaces(idx: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getVertexFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getEdgeVertex(idx: Int, vertex: Int): Int =
+    def getEdgeVertex(idx: Int, vertex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = vertex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = vertex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getEdgeVertex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getEdgeFaces(idx: Int): PackedInt32Array =
+    def getEdgeFaces(idx: Int): PackedInt32Array = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getEdgeFaces, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def setEdgeMeta(idx: Int, meta: Ptr[Byte]): Unit =
+    def setEdgeMeta(idx: Int, meta: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = meta.ptr
+        _args(1) = meta
         GdxApi.ptrcall(MeshDataTool.Binds.setEdgeMeta, ptr, _args, null)
+}
 
-    def getEdgeMeta(idx: Int): Ptr[Byte] =
+    def getEdgeMeta(idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getEdgeMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFaceVertex(idx: Int, vertex: Int): Int =
+    def getFaceVertex(idx: Int, vertex: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = vertex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = vertex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getFaceVertex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getFaceEdge(idx: Int, edge: Int): Int =
+    def getFaceEdge(idx: Int, edge: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = edge.toLong
+        val _a1 = stackalloc[Long](); !_a1 = edge.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(MeshDataTool.Binds.getFaceEdge, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def setFaceMeta(idx: Int, meta: Ptr[Byte]): Unit =
+    def setFaceMeta(idx: Int, meta: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = meta.ptr
+        _args(1) = meta
         GdxApi.ptrcall(MeshDataTool.Binds.setFaceMeta, ptr, _args, null)
+}
 
-    def getFaceMeta(idx: Int): Ptr[Byte] =
+    def getFaceMeta(idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getFaceMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getFaceNormal(idx: Int): Vector3 =
+    def getFaceNormal(idx: Int): Vector3 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getFaceNormal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3(!_ret)
+}
 
-    def setMaterial(material: Material): Unit =
+    def setMaterial(material: Material): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = material.ptr
         GdxApi.ptrcall(MeshDataTool.Binds.setMaterial, ptr, _args, null)
+}
 
-    def getMaterial(): Material =
+    def getMaterial(): Material = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(MeshDataTool.Binds.getMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Material(!_ret)
-
+}
+}
 
 object MeshDataTool:
-    object Binds:
-        var clear: Ptr[Byte] = null
+object Binds {
+          var clear: Ptr[Byte] = null
         var createFromSurface: Ptr[Byte] = null
         var commitToSurface: Ptr[Byte] = null
         var getFormat: Ptr[Byte] = null
@@ -331,8 +368,8 @@ object MeshDataTool:
         var setMaterial: Ptr[Byte] = null
         var getMaterial: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.clear = GdxApi.getMethodBind(c"MeshDataTool", c"clear", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.clear = GdxApi.getMethodBind(c"MeshDataTool", c"clear", 3218959716L)
             Binds.createFromSurface = GdxApi.getMethodBind(c"MeshDataTool", c"create_from_surface", 2727020678L)
             Binds.commitToSurface = GdxApi.getMethodBind(c"MeshDataTool", c"commit_to_surface", 2021686445L)
             Binds.getFormat = GdxApi.getMethodBind(c"MeshDataTool", c"get_format", 3905245786L)
@@ -370,8 +407,11 @@ object MeshDataTool:
             Binds.getFaceNormal = GdxApi.getMethodBind(c"MeshDataTool", c"get_face_normal", 711720468L)
             Binds.setMaterial = GdxApi.getMethodBind(c"MeshDataTool", c"set_material", 2757459619L)
             Binds.getMaterial = GdxApi.getMethodBind(c"MeshDataTool", c"get_material", 5934680L)
+  }
+}
 
-    def apply(): MeshDataTool =
-        val obj = new MeshDataTool()
-        obj.ptr = GdxApi.constructObject(c"MeshDataTool")
-        obj
+def apply(): MeshDataTool = {
+  val obj = new MeshDataTool()
+  obj.ptr = GdxApi.constructObject(c"MeshDataTool")
+  obj
+}

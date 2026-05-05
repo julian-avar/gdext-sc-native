@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ResourceFormatLoader extends RefCounted
+class ResourceFormatLoader extends RefCounted {
     def _getRecognizedExtensions(): PackedStringArray = null
     def _recognizePath(path: CString, `type`: CString): Boolean = false
     def _handlesType(`type`: CString): Boolean = false
@@ -17,11 +17,11 @@ class ResourceFormatLoader extends RefCounted
     def _exists(path: CString): Boolean = false
     def _getClassesUsed(path: CString): PackedStringArray = null
     def _load(path: CString, originalPath: CString, useSubThreads: Boolean, cacheMode: Int): Ptr[Byte] = null
-
-
+}
 
 object ResourceFormatLoader:
-    def apply(): ResourceFormatLoader =
-        val obj = new ResourceFormatLoader()
-        obj.ptr = GdxApi.constructObject(c"ResourceFormatLoader")
-        obj
+def apply(): ResourceFormatLoader = {
+  val obj = new ResourceFormatLoader()
+  obj.ptr = GdxApi.constructObject(c"ResourceFormatLoader")
+  obj
+}

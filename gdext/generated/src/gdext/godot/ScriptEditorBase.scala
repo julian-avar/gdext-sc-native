@@ -5,25 +5,28 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptEditorBase extends VBoxContainer
-
-    def getBaseEditor(): Control =
+class ScriptEditorBase extends VBoxContainer {
+    def getBaseEditor(): Control = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(ScriptEditorBase.Binds.getBaseEditor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Control(!_ret)
+}
 
-    def addSyntaxHighlighter(highlighter: EditorSyntaxHighlighter): Unit =
+    def addSyntaxHighlighter(highlighter: EditorSyntaxHighlighter): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = highlighter.ptr
         GdxApi.ptrcall(ScriptEditorBase.Binds.addSyntaxHighlighter, ptr, _args, null)
-
+}
+}
 
 object ScriptEditorBase:
-    object Binds:
-        var getBaseEditor: Ptr[Byte] = null
+object Binds {
+          var getBaseEditor: Ptr[Byte] = null
         var addSyntaxHighlighter: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getBaseEditor = GdxApi.getMethodBind(c"ScriptEditorBase", c"get_base_editor", 2783021301L)
+  def loadBinds(): Unit = {
+                Binds.getBaseEditor = GdxApi.getMethodBind(c"ScriptEditorBase", c"get_base_editor", 2783021301L)
             Binds.addSyntaxHighlighter = GdxApi.getMethodBind(c"ScriptEditorBase", c"add_syntax_highlighter", 1092774468L)
+  }
+}

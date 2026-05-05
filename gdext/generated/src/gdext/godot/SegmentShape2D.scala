@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class SegmentShape2D extends Shape2D
-
-    def setA(a: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = a.ptr
-        GdxApi.ptrcall(SegmentShape2D.Binds.setA, ptr, _args, null)
-
-    def getA(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SegmentShape2D.Binds.getA, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-
-    def setB(b: Vector2): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = b.ptr
-        GdxApi.ptrcall(SegmentShape2D.Binds.setB, ptr, _args, null)
-
-    def getB(): Vector2 =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(SegmentShape2D.Binds.getB, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Vector2(!_ret)
-    def a: Ptr[Byte] = getA()
-    def a_=(v: Ptr[Byte]): Unit = setA(v)
-    def b: Ptr[Byte] = getB()
-    def b_=(v: Ptr[Byte]): Unit = setB(v)
+class SegmentShape2D extends Shape2D {
+    def a: Vector2 = getA()
+    def a_=(v: Vector2): Unit = setA(v)
+    def b: Vector2 = getB()
+    def b_=(v: Vector2): Unit = setB(v)
+}
 
 object SegmentShape2D:
-    object Binds:
-        var setA: Ptr[Byte] = null
-        var getA: Ptr[Byte] = null
-        var setB: Ptr[Byte] = null
-        var getB: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setA = GdxApi.getMethodBind(c"SegmentShape2D", c"set_a", 743155724L)
-            Binds.getA = GdxApi.getMethodBind(c"SegmentShape2D", c"get_a", 3341600327L)
-            Binds.setB = GdxApi.getMethodBind(c"SegmentShape2D", c"set_b", 743155724L)
-            Binds.getB = GdxApi.getMethodBind(c"SegmentShape2D", c"get_b", 3341600327L)
-
-    def apply(): SegmentShape2D =
-        val obj = new SegmentShape2D()
-        obj.ptr = GdxApi.constructObject(c"SegmentShape2D")
-        obj
+def apply(): SegmentShape2D = {
+  val obj = new SegmentShape2D()
+  obj.ptr = GdxApi.constructObject(c"SegmentShape2D")
+  obj
+}

@@ -5,69 +5,77 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class RegEx extends RefCounted
-
-    def clear(): Unit =
+class RegEx extends RefCounted {
+    def clear(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(RegEx.Binds.clear, ptr, _args, null)
+}
 
-    def compile(pattern: CString): Int =
+    def compile(pattern: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = pattern.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = pattern
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RegEx.Binds.compile, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def search(subject: CString): RegExMatch =
+    def search(subject: CString): RegExMatch = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = subject.ptr
+        _args(0) = subject
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RegEx.Binds.search, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RegExMatch(!_ret)
+}
 
-    def searchAll(subject: CString): Ptr[Byte] =
+    def searchAll(subject: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = subject.ptr
+        _args(0) = subject
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RegEx.Binds.searchAll, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def sub(subject: CString, replacement: CString): CString =
+    def sub(subject: CString, replacement: CString): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = subject.ptr
-        _args(1) = replacement.ptr
+        _args(0) = subject
+        _args(1) = replacement
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RegEx.Binds.sub, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def isValid(): Boolean =
+    def isValid(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(RegEx.Binds.isValid, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getPattern(): CString =
+    def getPattern(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RegEx.Binds.getPattern, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getGroupCount(): Int =
+    def getGroupCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(RegEx.Binds.getGroupCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getNames(): PackedStringArray =
+    def getNames(): PackedStringArray = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(RegEx.Binds.getNames, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
-
+}
+}
 
 object RegEx:
-    object Binds:
-        var clear: Ptr[Byte] = null
+object Binds {
+          var clear: Ptr[Byte] = null
         var compile: Ptr[Byte] = null
         var search: Ptr[Byte] = null
         var searchAll: Ptr[Byte] = null
@@ -77,8 +85,8 @@ object RegEx:
         var getGroupCount: Ptr[Byte] = null
         var getNames: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.clear = GdxApi.getMethodBind(c"RegEx", c"clear", 3218959716L)
+  def loadBinds(): Unit = {
+                Binds.clear = GdxApi.getMethodBind(c"RegEx", c"clear", 3218959716L)
             Binds.compile = GdxApi.getMethodBind(c"RegEx", c"compile", 3565188097L)
             Binds.search = GdxApi.getMethodBind(c"RegEx", c"search", 3365977994L)
             Binds.searchAll = GdxApi.getMethodBind(c"RegEx", c"search_all", 849021363L)
@@ -87,8 +95,11 @@ object RegEx:
             Binds.getPattern = GdxApi.getMethodBind(c"RegEx", c"get_pattern", 201670096L)
             Binds.getGroupCount = GdxApi.getMethodBind(c"RegEx", c"get_group_count", 3905245786L)
             Binds.getNames = GdxApi.getMethodBind(c"RegEx", c"get_names", 1139954409L)
+  }
+}
 
-    def apply(): RegEx =
-        val obj = new RegEx()
-        obj.ptr = GdxApi.constructObject(c"RegEx")
-        obj
+def apply(): RegEx = {
+  val obj = new RegEx()
+  obj.ptr = GdxApi.constructObject(c"RegEx")
+  obj
+}

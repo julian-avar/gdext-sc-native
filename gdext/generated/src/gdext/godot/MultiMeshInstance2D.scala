@@ -5,48 +5,16 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class MultiMeshInstance2D extends Node2D
-
-    def setMultimesh(multimesh: MultiMesh): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = multimesh.ptr
-        GdxApi.ptrcall(MultiMeshInstance2D.Binds.setMultimesh, ptr, _args, null)
-
-    def getMultimesh(): MultiMesh =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MultiMeshInstance2D.Binds.getMultimesh, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new MultiMesh(!_ret)
-
-    def setTexture(texture: Texture2D): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(MultiMeshInstance2D.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): Texture2D =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(MultiMeshInstance2D.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Texture2D(!_ret)
-    def multimesh: Ptr[Byte] = getMultimesh()
-    def multimesh_=(v: Ptr[Byte]): Unit = setMultimesh(v)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
+class MultiMeshInstance2D extends Node2D {
+    def multimesh: MultiMesh = getMultimesh()
+    def multimesh_=(v: MultiMesh): Unit = setMultimesh(v)
+    def texture: Texture2D = getTexture()
+    def texture_=(v: Texture2D): Unit = setTexture(v)
+}
 
 object MultiMeshInstance2D:
-    object Binds:
-        var setMultimesh: Ptr[Byte] = null
-        var getMultimesh: Ptr[Byte] = null
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setMultimesh = GdxApi.getMethodBind(c"MultiMeshInstance2D", c"set_multimesh", 2246127404L)
-            Binds.getMultimesh = GdxApi.getMethodBind(c"MultiMeshInstance2D", c"get_multimesh", 1385450523L)
-            Binds.setTexture = GdxApi.getMethodBind(c"MultiMeshInstance2D", c"set_texture", 4051416890L)
-            Binds.getTexture = GdxApi.getMethodBind(c"MultiMeshInstance2D", c"get_texture", 3635182373L)
-
-    def apply(): MultiMeshInstance2D =
-        val obj = new MultiMeshInstance2D()
-        obj.ptr = GdxApi.constructObject(c"MultiMeshInstance2D")
-        obj
+def apply(): MultiMeshInstance2D = {
+  val obj = new MultiMeshInstance2D()
+  obj.ptr = GdxApi.constructObject(c"MultiMeshInstance2D")
+  obj
+}

@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class TextureCubemapArrayRD extends TextureLayeredRD
-
-
-
+class TextureCubemapArrayRD extends TextureLayeredRD {}
 
 object TextureCubemapArrayRD:
-    def apply(): TextureCubemapArrayRD =
-        val obj = new TextureCubemapArrayRD()
-        obj.ptr = GdxApi.constructObject(c"TextureCubemapArrayRD")
-        obj
+def apply(): TextureCubemapArrayRD = {
+  val obj = new TextureCubemapArrayRD()
+  obj.ptr = GdxApi.constructObject(c"TextureCubemapArrayRD")
+  obj
+}

@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptLanguageExtension extends ScriptLanguage
+class ScriptLanguageExtension extends ScriptLanguage {
     def _getName(): CString = null
     def _init(): Unit = ()
     def _getType(): CString = null
@@ -52,7 +52,7 @@ class ScriptLanguageExtension extends ScriptLanguage
     def _debugParseStackLevelExpression(level: Int, expression: CString, maxSubitems: Int, maxDepth: Int): CString = null
     def _debugGetCurrentStackInfo(): Ptr[Byte] = null
     def _reloadAllScripts(): Unit = ()
-    def _reloadScripts(scripts: Array, softReload: Boolean): Unit = ()
+    def _reloadScripts(scripts: Ptr[Byte], softReload: Boolean): Unit = ()
     def _reloadToolScript(script: Script, softReload: Boolean): Unit = ()
     def _getRecognizedExtensions(): PackedStringArray = null
     def _getPublicFunctions(): Ptr[Byte] = null
@@ -66,11 +66,11 @@ class ScriptLanguageExtension extends ScriptLanguage
     def _frame(): Unit = ()
     def _handlesGlobalClassType(`type`: CString): Boolean = false
     def _getGlobalClassName(path: CString): Dictionary = null
-
-
+}
 
 object ScriptLanguageExtension:
-    def apply(): ScriptLanguageExtension =
-        val obj = new ScriptLanguageExtension()
-        obj.ptr = GdxApi.constructObject(c"ScriptLanguageExtension")
-        obj
+def apply(): ScriptLanguageExtension = {
+  val obj = new ScriptLanguageExtension()
+  obj.ptr = GdxApi.constructObject(c"ScriptLanguageExtension")
+  obj
+}

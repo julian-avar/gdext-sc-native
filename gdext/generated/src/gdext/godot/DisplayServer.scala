@@ -5,1036 +5,1201 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class DisplayServer extends Object
-
-    def hasFeature(feature: Int): Boolean =
+class DisplayServer extends Object {
+    def hasFeature(feature: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = feature.ptr
+        val _a0 = stackalloc[Long](); !_a0 = feature.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.hasFeature, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getName(): CString =
+    def getName(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.getName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def helpSetSearchCallbacks(searchCallback: Callable, actionCallback: Callable): Unit =
+    def helpSetSearchCallbacks(searchCallback: Callable, actionCallback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = searchCallback.ptr
         _args(1) = actionCallback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.helpSetSearchCallbacks, ptr, _args, null)
+}
 
-    def globalMenuSetPopupCallbacks(menuRoot: CString, openCallback: Callable, closeCallback: Callable): Unit =
+    def globalMenuSetPopupCallbacks(menuRoot: CString, openCallback: Callable, closeCallback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
+        _args(0) = menuRoot
         _args(1) = openCallback.ptr
         _args(2) = closeCallback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetPopupCallbacks, ptr, _args, null)
+}
 
-    def globalMenuAddSubmenuItem(menuRoot: CString, label: CString, submenu: CString): Int =
+    def globalMenuAddSubmenuItem(menuRoot: CString, label: CString, submenu: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        _args(1) = label.ptr
-        _args(2) = submenu.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        _args(1) = label
+        _args(2) = submenu
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddSubmenuItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddItem(menuRoot: CString, label: CString): Int =
+    def globalMenuAddItem(menuRoot: CString, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        _args(1) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        _args(1) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddCheckItem(menuRoot: CString, label: CString): Int =
+    def globalMenuAddCheckItem(menuRoot: CString, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        _args(1) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        _args(1) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddIconItem(menuRoot: CString, icon: Texture2D, label: CString): Int =
+    def globalMenuAddIconItem(menuRoot: CString, icon: Texture2D, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
+        _args(0) = menuRoot
         _args(1) = icon.ptr
-        _args(2) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddIconItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddIconCheckItem(menuRoot: CString, icon: Texture2D, label: CString): Int =
+    def globalMenuAddIconCheckItem(menuRoot: CString, icon: Texture2D, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
+        _args(0) = menuRoot
         _args(1) = icon.ptr
-        _args(2) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddIconCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddRadioCheckItem(menuRoot: CString, label: CString): Int =
+    def globalMenuAddRadioCheckItem(menuRoot: CString, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        _args(1) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        _args(1) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddRadioCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddIconRadioCheckItem(menuRoot: CString, icon: Texture2D, label: CString): Int =
+    def globalMenuAddIconRadioCheckItem(menuRoot: CString, icon: Texture2D, label: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
+        _args(0) = menuRoot
         _args(1) = icon.ptr
-        _args(2) = label.ptr
-        val _ret = stackalloc[CLong]()
+        _args(2) = label
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddIconRadioCheckItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddMultistateItem(menuRoot: CString, label: CString, maxStates: Int, defaultState: Int): Int =
+    def globalMenuAddMultistateItem(menuRoot: CString, label: CString, maxStates: Int, defaultState: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = menuRoot.ptr
-        _args(1) = label.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = maxStates.toLong
+        _args(0) = menuRoot
+        _args(1) = label
+        val _a2 = stackalloc[Long](); !_a2 = maxStates.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
-        val _a3 = stackalloc[CLong](); !_a3 = defaultState.toLong
+        val _a3 = stackalloc[Long](); !_a3 = defaultState.toLong
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddMultistateItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuAddSeparator(menuRoot: CString): Int =
+    def globalMenuAddSeparator(menuRoot: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = menuRoot.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuAddSeparator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuGetItemIndexFromText(menuRoot: CString, text: CString): Int =
+    def globalMenuGetItemIndexFromText(menuRoot: CString, text: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        _args(1) = text.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        _args(1) = text
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemIndexFromText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuGetItemIndexFromTag(menuRoot: CString, tag: Ptr[Byte]): Int =
+    def globalMenuGetItemIndexFromTag(menuRoot: CString, tag: Ptr[Byte]): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        _args(1) = tag.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        _args(1) = tag
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemIndexFromTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuIsItemChecked(menuRoot: CString, idx: Int): Boolean =
+    def globalMenuIsItemChecked(menuRoot: CString, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuIsItemChecked, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def globalMenuIsItemCheckable(menuRoot: CString, idx: Int): Boolean =
+    def globalMenuIsItemCheckable(menuRoot: CString, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuIsItemCheckable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def globalMenuIsItemRadioCheckable(menuRoot: CString, idx: Int): Boolean =
+    def globalMenuIsItemRadioCheckable(menuRoot: CString, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuIsItemRadioCheckable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def globalMenuGetItemCallback(menuRoot: CString, idx: Int): Callable =
+    def globalMenuGetItemCallback(menuRoot: CString, idx: Int): Callable = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def globalMenuGetItemKeyCallback(menuRoot: CString, idx: Int): Callable =
+    def globalMenuGetItemKeyCallback(menuRoot: CString, idx: Int): Callable = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemKeyCallback, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Callable(!_ret)
+}
 
-    def globalMenuGetItemTag(menuRoot: CString, idx: Int): Ptr[Byte] =
+    def globalMenuGetItemTag(menuRoot: CString, idx: Int): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemTag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalMenuGetItemText(menuRoot: CString, idx: Int): CString =
+    def globalMenuGetItemText(menuRoot: CString, idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalMenuGetItemSubmenu(menuRoot: CString, idx: Int): CString =
+    def globalMenuGetItemSubmenu(menuRoot: CString, idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemSubmenu, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalMenuGetItemAccelerator(menuRoot: CString, idx: Int): Int =
+    def globalMenuGetItemAccelerator(menuRoot: CString, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemAccelerator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuIsItemDisabled(menuRoot: CString, idx: Int): Boolean =
+    def globalMenuIsItemDisabled(menuRoot: CString, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuIsItemDisabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def globalMenuIsItemHidden(menuRoot: CString, idx: Int): Boolean =
+    def globalMenuIsItemHidden(menuRoot: CString, idx: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuIsItemHidden, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def globalMenuGetItemTooltip(menuRoot: CString, idx: Int): CString =
+    def globalMenuGetItemTooltip(menuRoot: CString, idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemTooltip, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def globalMenuGetItemState(menuRoot: CString, idx: Int): Int =
+    def globalMenuGetItemState(menuRoot: CString, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuGetItemMaxStates(menuRoot: CString, idx: Int): Int =
+    def globalMenuGetItemMaxStates(menuRoot: CString, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemMaxStates, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuGetItemIcon(menuRoot: CString, idx: Int): Texture2D =
+    def globalMenuGetItemIcon(menuRoot: CString, idx: Int): Texture2D = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemIcon, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Texture2D(!_ret)
+}
 
-    def globalMenuGetItemIndentationLevel(menuRoot: CString, idx: Int): Int =
+    def globalMenuGetItemIndentationLevel(menuRoot: CString, idx: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemIndentationLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuSetItemChecked(menuRoot: CString, idx: Int, checked: Boolean): Unit =
+    def globalMenuSetItemChecked(menuRoot: CString, idx: Int, checked: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if checked then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemChecked, ptr, _args, null)
+}
 
-    def globalMenuSetItemCheckable(menuRoot: CString, idx: Int, checkable: Boolean): Unit =
+    def globalMenuSetItemCheckable(menuRoot: CString, idx: Int, checkable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if checkable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemCheckable, ptr, _args, null)
+}
 
-    def globalMenuSetItemRadioCheckable(menuRoot: CString, idx: Int, checkable: Boolean): Unit =
+    def globalMenuSetItemRadioCheckable(menuRoot: CString, idx: Int, checkable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if checkable then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemRadioCheckable, ptr, _args, null)
+}
 
-    def globalMenuSetItemCallback(menuRoot: CString, idx: Int, callback: Callable): Unit =
+    def globalMenuSetItemCallback(menuRoot: CString, idx: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemCallback, ptr, _args, null)
+}
 
-    def globalMenuSetItemHoverCallbacks(menuRoot: CString, idx: Int, callback: Callable): Unit =
+    def globalMenuSetItemHoverCallbacks(menuRoot: CString, idx: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemHoverCallbacks, ptr, _args, null)
+}
 
-    def globalMenuSetItemKeyCallback(menuRoot: CString, idx: Int, keyCallback: Callable): Unit =
+    def globalMenuSetItemKeyCallback(menuRoot: CString, idx: Int, keyCallback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = keyCallback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemKeyCallback, ptr, _args, null)
+}
 
-    def globalMenuSetItemTag(menuRoot: CString, idx: Int, tag: Ptr[Byte]): Unit =
+    def globalMenuSetItemTag(menuRoot: CString, idx: Int, tag: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = tag.ptr
+        _args(2) = tag
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemTag, ptr, _args, null)
+}
 
-    def globalMenuSetItemText(menuRoot: CString, idx: Int, text: CString): Unit =
+    def globalMenuSetItemText(menuRoot: CString, idx: Int, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemText, ptr, _args, null)
+}
 
-    def globalMenuSetItemSubmenu(menuRoot: CString, idx: Int, submenu: CString): Unit =
+    def globalMenuSetItemSubmenu(menuRoot: CString, idx: Int, submenu: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = submenu.ptr
+        _args(2) = submenu
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemSubmenu, ptr, _args, null)
+}
 
-    def globalMenuSetItemAccelerator(menuRoot: CString, idx: Int, keycode: Int): Unit =
+    def globalMenuSetItemAccelerator(menuRoot: CString, idx: Int, keycode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = keycode.ptr
+        val _a2 = stackalloc[Long](); !_a2 = keycode.toLong
+        _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemAccelerator, ptr, _args, null)
+}
 
-    def globalMenuSetItemDisabled(menuRoot: CString, idx: Int, disabled: Boolean): Unit =
+    def globalMenuSetItemDisabled(menuRoot: CString, idx: Int, disabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if disabled then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemDisabled, ptr, _args, null)
+}
 
-    def globalMenuSetItemHidden(menuRoot: CString, idx: Int, hidden: Boolean): Unit =
+    def globalMenuSetItemHidden(menuRoot: CString, idx: Int, hidden: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if hidden then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemHidden, ptr, _args, null)
+}
 
-    def globalMenuSetItemTooltip(menuRoot: CString, idx: Int, tooltip: CString): Unit =
+    def globalMenuSetItemTooltip(menuRoot: CString, idx: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = tooltip.ptr
+        _args(2) = tooltip
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemTooltip, ptr, _args, null)
+}
 
-    def globalMenuSetItemState(menuRoot: CString, idx: Int, state: Int): Unit =
+    def globalMenuSetItemState(menuRoot: CString, idx: Int, state: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = state.toLong
+        val _a2 = stackalloc[Long](); !_a2 = state.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemState, ptr, _args, null)
+}
 
-    def globalMenuSetItemMaxStates(menuRoot: CString, idx: Int, maxStates: Int): Unit =
+    def globalMenuSetItemMaxStates(menuRoot: CString, idx: Int, maxStates: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = maxStates.toLong
+        val _a2 = stackalloc[Long](); !_a2 = maxStates.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemMaxStates, ptr, _args, null)
+}
 
-    def globalMenuSetItemIcon(menuRoot: CString, idx: Int, icon: Texture2D): Unit =
+    def globalMenuSetItemIcon(menuRoot: CString, idx: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = icon.ptr
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemIcon, ptr, _args, null)
+}
 
-    def globalMenuSetItemIndentationLevel(menuRoot: CString, idx: Int, level: Int): Unit =
+    def globalMenuSetItemIndentationLevel(menuRoot: CString, idx: Int, level: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = level.toLong
+        val _a2 = stackalloc[Long](); !_a2 = level.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuSetItemIndentationLevel, ptr, _args, null)
+}
 
-    def globalMenuGetItemCount(menuRoot: CString): Int =
+    def globalMenuGetItemCount(menuRoot: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = menuRoot.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = menuRoot
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetItemCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def globalMenuRemoveItem(menuRoot: CString, idx: Int): Unit =
+    def globalMenuRemoveItem(menuRoot: CString, idx: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = menuRoot.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = idx.toLong
+        _args(0) = menuRoot
+        val _a1 = stackalloc[Long](); !_a1 = idx.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuRemoveItem, ptr, _args, null)
+}
 
-    def globalMenuClear(menuRoot: CString): Unit =
+    def globalMenuClear(menuRoot: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = menuRoot.ptr
+        _args(0) = menuRoot
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuClear, ptr, _args, null)
+}
 
-    def globalMenuGetSystemMenuRoots(): Dictionary =
+    def globalMenuGetSystemMenuRoots(): Dictionary = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.globalMenuGetSystemMenuRoots, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Dictionary(!_ret)
+}
 
-    def ttsIsSpeaking(): Boolean =
+    def ttsIsSpeaking(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.ttsIsSpeaking, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def ttsIsPaused(): Boolean =
+    def ttsIsPaused(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.ttsIsPaused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def ttsGetVoices(): Ptr[Byte] =
+    def ttsGetVoices(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.ttsGetVoices, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def ttsGetVoicesForLanguage(language: CString): PackedStringArray =
+    def ttsGetVoicesForLanguage(language: CString): PackedStringArray = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = language.ptr
+        _args(0) = language
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.ttsGetVoicesForLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedStringArray(!_ret)
+}
 
-    def ttsSpeak(text: CString, voice: CString): Unit =
+    def ttsSpeak(text: CString, voice: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = text.ptr
-        _args(1) = voice.ptr
+        _args(0) = text
+        _args(1) = voice
         GdxApi.ptrcall(DisplayServer.Binds.ttsSpeak, ptr, _args, null)
+}
 
-    def ttsPause(): Unit =
+    def ttsPause(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.ttsPause, ptr, _args, null)
+}
 
-    def ttsResume(): Unit =
+    def ttsResume(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.ttsResume, ptr, _args, null)
+}
 
-    def ttsStop(): Unit =
+    def ttsStop(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.ttsStop, ptr, _args, null)
+}
 
-    def ttsSetUtteranceCallback(event: Int, callable: Callable): Unit =
+    def ttsSetUtteranceCallback(event: Int, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = event.ptr
+        val _a0 = stackalloc[Long](); !_a0 = event.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = callable.ptr
         GdxApi.ptrcall(DisplayServer.Binds.ttsSetUtteranceCallback, ptr, _args, null)
+}
 
-    def isDarkModeSupported(): Boolean =
+    def isDarkModeSupported(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.isDarkModeSupported, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def isDarkMode(): Boolean =
+    def isDarkMode(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.isDarkMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getAccentColor(): Color =
+    def getAccentColor(): Color = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.getAccentColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def getBaseColor(): Color =
+    def getBaseColor(): Color = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.getBaseColor, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def setSystemThemeChangeCallback(callable: Callable): Unit =
+    def setSystemThemeChangeCallback(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(DisplayServer.Binds.setSystemThemeChangeCallback, ptr, _args, null)
+}
 
-    def mouseSetMode(mouseMode: Int): Unit =
+    def mouseSetMode(mouseMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mouseMode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mouseMode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.mouseSetMode, ptr, _args, null)
+}
 
-    def mouseGetMode(): Int =
+    def mouseGetMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.mouseGetMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def warpMouse(position: Vector2i): Unit =
+    def warpMouse(position: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(DisplayServer.Binds.warpMouse, ptr, _args, null)
+}
 
-    def mouseGetPosition(): Vector2i =
+    def mouseGetPosition(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.mouseGetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def mouseGetButtonState(): Int =
+    def mouseGetButtonState(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.mouseGetButtonState, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def clipboardSet(clipboard: CString): Unit =
+    def clipboardSet(clipboard: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = clipboard.ptr
+        _args(0) = clipboard
         GdxApi.ptrcall(DisplayServer.Binds.clipboardSet, ptr, _args, null)
+}
 
-    def clipboardGet(): CString =
+    def clipboardGet(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.clipboardGet, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def clipboardGetImage(): Image =
+    def clipboardGetImage(): Image = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.clipboardGetImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def clipboardHas(): Boolean =
+    def clipboardHas(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.clipboardHas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clipboardHasImage(): Boolean =
+    def clipboardHasImage(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.clipboardHasImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def clipboardSetPrimary(clipboardPrimary: CString): Unit =
+    def clipboardSetPrimary(clipboardPrimary: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = clipboardPrimary.ptr
+        _args(0) = clipboardPrimary
         GdxApi.ptrcall(DisplayServer.Binds.clipboardSetPrimary, ptr, _args, null)
+}
 
-    def clipboardGetPrimary(): CString =
+    def clipboardGetPrimary(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.clipboardGetPrimary, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDisplayCutouts(): Ptr[Byte] =
+    def getDisplayCutouts(): Ptr[Byte] = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.getDisplayCutouts, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def getDisplaySafeArea(): Rect2i =
+    def getDisplaySafeArea(): Rect2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.getDisplaySafeArea, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def getScreenCount(): Int =
+    def getScreenCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.getScreenCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getPrimaryScreen(): Int =
+    def getPrimaryScreen(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.getPrimaryScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getKeyboardFocusScreen(): Int =
+    def getKeyboardFocusScreen(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.getKeyboardFocusScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def getScreenFromRect(rect: Rect2): Int =
+    def getScreenFromRect(rect: Rect2): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rect.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.getScreenFromRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def screenGetPosition(): Vector2i =
+    def screenGetPosition(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def screenGetSize(): Vector2i =
+    def screenGetSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def screenGetUsableRect(): Rect2i =
+    def screenGetUsableRect(): Rect2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetUsableRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def screenGetDpi(): Int =
+    def screenGetDpi(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetDpi, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def screenGetScale(): Float =
+    def screenGetScale(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def isTouchscreenAvailable(): Boolean =
+    def isTouchscreenAvailable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.isTouchscreenAvailable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def screenGetMaxScale(): Float =
+    def screenGetMaxScale(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetMaxScale, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def screenGetRefreshRate(): Float =
+    def screenGetRefreshRate(): Float = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Double]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetRefreshRate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toFloat
+}
 
-    def screenGetPixel(position: Vector2i): Color =
+    def screenGetPixel(position: Vector2i): Color = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetPixel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Color(!_ret)
+}
 
-    def screenGetImage(): Image =
+    def screenGetImage(): Image = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetImage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def screenGetImageRect(rect: Rect2i): Image =
+    def screenGetImageRect(rect: Rect2i): Image = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = rect.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetImageRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Image(!_ret)
+}
 
-    def screenSetOrientation(orientation: Int): Unit =
+    def screenSetOrientation(orientation: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = orientation.ptr
+        val _a0 = stackalloc[Long](); !_a0 = orientation.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.screenSetOrientation, ptr, _args, null)
+}
 
-    def screenGetOrientation(): Int =
+    def screenGetOrientation(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.screenGetOrientation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def screenSetKeepOn(enable: Boolean): Unit =
+    def screenSetKeepOn(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.screenSetKeepOn, ptr, _args, null)
+}
 
-    def screenIsKeptOn(): Boolean =
+    def screenIsKeptOn(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.screenIsKeptOn, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def getWindowList(): PackedInt32Array =
+    def getWindowList(): PackedInt32Array = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.getWindowList, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new PackedInt32Array(!_ret)
+}
 
-    def getWindowAtScreenPosition(position: Vector2i): Int =
+    def getWindowAtScreenPosition(position: Vector2i): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.getWindowAtScreenPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def windowGetNativeHandle(handleType: Int): Long =
+    def windowGetNativeHandle(handleType: Int): Long = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = handleType.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = handleType.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetNativeHandle, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def windowGetActivePopup(): Int =
+    def windowGetActivePopup(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetActivePopup, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def windowSetPopupSafeRect(window: Int, rect: Rect2i): Unit =
+    def windowSetPopupSafeRect(window: Int, rect: Rect2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = window.toLong
+        val _a0 = stackalloc[Long](); !_a0 = window.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = rect.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetPopupSafeRect, ptr, _args, null)
+}
 
-    def windowGetPopupSafeRect(window: Int): Rect2i =
+    def windowGetPopupSafeRect(window: Int): Rect2i = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = window.toLong
+        val _a0 = stackalloc[Long](); !_a0 = window.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetPopupSafeRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2i(!_ret)
+}
 
-    def windowSetTitle(title: CString): Unit =
+    def windowSetTitle(title: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = title.ptr
+        _args(0) = title
         GdxApi.ptrcall(DisplayServer.Binds.windowSetTitle, ptr, _args, null)
+}
 
-    def windowGetTitleSize(title: CString): Vector2i =
+    def windowGetTitleSize(title: CString): Vector2i = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = title.ptr
+        _args(0) = title
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetTitleSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowSetMousePassthrough(region: PackedVector2Array): Unit =
+    def windowSetMousePassthrough(region: PackedVector2Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = region.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetMousePassthrough, ptr, _args, null)
+}
 
-    def windowGetCurrentScreen(): Int =
+    def windowGetCurrentScreen(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetCurrentScreen, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def windowSetCurrentScreen(screen: Int): Unit =
+    def windowSetCurrentScreen(screen: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = screen.toLong
+        val _a0 = stackalloc[Long](); !_a0 = screen.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetCurrentScreen, ptr, _args, null)
+}
 
-    def windowGetPosition(): Vector2i =
+    def windowGetPosition(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetPosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowGetPositionWithDecorations(): Vector2i =
+    def windowGetPositionWithDecorations(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetPositionWithDecorations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowSetPosition(position: Vector2i): Unit =
+    def windowSetPosition(position: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetPosition, ptr, _args, null)
+}
 
-    def windowGetSize(): Vector2i =
+    def windowGetSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowSetSize(size: Vector2i): Unit =
+    def windowSetSize(size: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = size.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetSize, ptr, _args, null)
+}
 
-    def windowSetRectChangedCallback(callback: Callable): Unit =
+    def windowSetRectChangedCallback(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetRectChangedCallback, ptr, _args, null)
+}
 
-    def windowSetWindowEventCallback(callback: Callable): Unit =
+    def windowSetWindowEventCallback(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetWindowEventCallback, ptr, _args, null)
+}
 
-    def windowSetInputEventCallback(callback: Callable): Unit =
+    def windowSetInputEventCallback(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetInputEventCallback, ptr, _args, null)
+}
 
-    def windowSetInputTextCallback(callback: Callable): Unit =
+    def windowSetInputTextCallback(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetInputTextCallback, ptr, _args, null)
+}
 
-    def windowSetDropFilesCallback(callback: Callable): Unit =
+    def windowSetDropFilesCallback(callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetDropFilesCallback, ptr, _args, null)
+}
 
-    def windowGetAttachedInstanceId(): Long =
+    def windowGetAttachedInstanceId(): Long = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetAttachedInstanceId, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def windowGetMaxSize(): Vector2i =
+    def windowGetMaxSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetMaxSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowSetMaxSize(maxSize: Vector2i): Unit =
+    def windowSetMaxSize(maxSize: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = maxSize.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetMaxSize, ptr, _args, null)
+}
 
-    def windowGetMinSize(): Vector2i =
+    def windowGetMinSize(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetMinSize, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowSetMinSize(minSize: Vector2i): Unit =
+    def windowSetMinSize(minSize: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = minSize.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetMinSize, ptr, _args, null)
+}
 
-    def windowGetSizeWithDecorations(): Vector2i =
+    def windowGetSizeWithDecorations(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetSizeWithDecorations, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def windowGetMode(): Int =
+    def windowGetMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def windowSetMode(mode: Int): Unit =
+    def windowSetMode(mode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = mode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetMode, ptr, _args, null)
+}
 
-    def windowSetFlag(flag: Int, enabled: Boolean): Unit =
+    def windowSetFlag(flag: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = flag.ptr
+        val _a0 = stackalloc[Long](); !_a0 = flag.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetFlag, ptr, _args, null)
+}
 
-    def windowGetFlag(flag: Int): Boolean =
+    def windowGetFlag(flag: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = flag.ptr
+        val _a0 = stackalloc[Long](); !_a0 = flag.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetFlag, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def windowSetWindowButtonsOffset(offset: Vector2i): Unit =
+    def windowSetWindowButtonsOffset(offset: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = offset.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetWindowButtonsOffset, ptr, _args, null)
+}
 
-    def windowGetSafeTitleMargins(): Vector3i =
+    def windowGetSafeTitleMargins(): Vector3i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetSafeTitleMargins, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector3i(!_ret)
+}
 
-    def windowRequestAttention(): Unit =
+    def windowRequestAttention(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.windowRequestAttention, ptr, _args, null)
+}
 
-    def windowMoveToForeground(): Unit =
+    def windowMoveToForeground(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.windowMoveToForeground, ptr, _args, null)
+}
 
-    def windowIsFocused(): Boolean =
+    def windowIsFocused(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.windowIsFocused, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def windowCanDraw(): Boolean =
+    def windowCanDraw(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.windowCanDraw, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def windowSetTransient(windowId: Int, parentWindowId: Int): Unit =
+    def windowSetTransient(windowId: Int, parentWindowId: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = windowId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = windowId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        val _a1 = stackalloc[CLong](); !_a1 = parentWindowId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = parentWindowId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetTransient, ptr, _args, null)
+}
 
-    def windowSetExclusive(windowId: Int, exclusive: Boolean): Unit =
+    def windowSetExclusive(windowId: Int, exclusive: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = windowId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = windowId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if exclusive then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetExclusive, ptr, _args, null)
+}
 
-    def windowSetImeActive(active: Boolean): Unit =
+    def windowSetImeActive(active: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if active then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetImeActive, ptr, _args, null)
+}
 
-    def windowSetImePosition(position: Vector2i): Unit =
+    def windowSetImePosition(position: Vector2i): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(DisplayServer.Binds.windowSetImePosition, ptr, _args, null)
+}
 
-    def windowSetVsyncMode(vsyncMode: Int): Unit =
+    def windowSetVsyncMode(vsyncMode: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = vsyncMode.ptr
+        val _a0 = stackalloc[Long](); !_a0 = vsyncMode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowSetVsyncMode, ptr, _args, null)
+}
 
-    def windowGetVsyncMode(): Int =
+    def windowGetVsyncMode(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.windowGetVsyncMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def windowIsMaximizeAllowed(): Boolean =
+    def windowIsMaximizeAllowed(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.windowIsMaximizeAllowed, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def windowMaximizeOnTitleDblClick(): Boolean =
+    def windowMaximizeOnTitleDblClick(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.windowMaximizeOnTitleDblClick, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def windowMinimizeOnTitleDblClick(): Boolean =
+    def windowMinimizeOnTitleDblClick(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.windowMinimizeOnTitleDblClick, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def windowStartDrag(): Unit =
+    def windowStartDrag(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.windowStartDrag, ptr, _args, null)
+}
 
-    def windowStartResize(edge: Int): Unit =
+    def windowStartResize(edge: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = edge.ptr
+        val _a0 = stackalloc[Long](); !_a0 = edge.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.windowStartResize, ptr, _args, null)
+}
 
-    def accessibilityShouldIncreaseContrast(): Int =
+    def accessibilityShouldIncreaseContrast(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityShouldIncreaseContrast, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def accessibilityShouldReduceAnimation(): Int =
+    def accessibilityShouldReduceAnimation(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityShouldReduceAnimation, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def accessibilityShouldReduceTransparency(): Int =
+    def accessibilityShouldReduceTransparency(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityShouldReduceTransparency, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def accessibilityScreenReaderActive(): Int =
+    def accessibilityScreenReaderActive(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityScreenReaderActive, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def accessibilityCreateElement(windowId: Int, role: Int): RID =
+    def accessibilityCreateElement(windowId: Int, role: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = windowId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = windowId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = role.ptr
+        val _a1 = stackalloc[Long](); !_a1 = role.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityCreateElement, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def accessibilityCreateSubElement(parentRid: RID, role: Int): RID =
+    def accessibilityCreateSubElement(parentRid: RID, role: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = parentRid.ptr
-        _args(1) = role.ptr
+        val _a1 = stackalloc[Long](); !_a1 = role.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityCreateSubElement, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def accessibilityCreateSubTextEditElements(parentRid: RID, shapedText: RID, minHeight: Float): RID =
+    def accessibilityCreateSubTextEditElements(parentRid: RID, shapedText: RID, minHeight: Float): RID = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = parentRid.ptr
         _args(1) = shapedText.ptr
@@ -1043,310 +1208,361 @@ class DisplayServer extends Object
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityCreateSubTextEditElements, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def accessibilityHasElement(id: RID): Boolean =
+    def accessibilityHasElement(id: RID): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = id.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityHasElement, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def accessibilityFreeElement(id: RID): Unit =
+    def accessibilityFreeElement(id: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = id.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityFreeElement, ptr, _args, null)
+}
 
-    def accessibilityElementSetMeta(id: RID, meta: Ptr[Byte]): Unit =
+    def accessibilityElementSetMeta(id: RID, meta: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = meta.ptr
+        _args(1) = meta
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityElementSetMeta, ptr, _args, null)
+}
 
-    def accessibilityElementGetMeta(id: RID): Ptr[Byte] =
+    def accessibilityElementGetMeta(id: RID): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = id.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityElementGetMeta, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def accessibilitySetWindowRect(windowId: Int, rectOut: Rect2, rectIn: Rect2): Unit =
+    def accessibilitySetWindowRect(windowId: Int, rectOut: Rect2, rectIn: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
-        val _a0 = stackalloc[CLong](); !_a0 = windowId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = windowId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = rectOut.ptr
         _args(2) = rectIn.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilitySetWindowRect, ptr, _args, null)
+}
 
-    def accessibilitySetWindowFocused(windowId: Int, focused: Boolean): Unit =
+    def accessibilitySetWindowFocused(windowId: Int, focused: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = windowId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = windowId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if focused then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilitySetWindowFocused, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetFocus(id: RID): Unit =
+    def accessibilityUpdateSetFocus(id: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = id.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetFocus, ptr, _args, null)
+}
 
-    def accessibilityGetWindowRoot(windowId: Int): RID =
+    def accessibilityGetWindowRoot(windowId: Int): RID = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = windowId.toLong
+        val _a0 = stackalloc[Long](); !_a0 = windowId.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityGetWindowRoot, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def accessibilityUpdateSetRole(id: RID, role: Int): Unit =
+    def accessibilityUpdateSetRole(id: RID, role: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = role.ptr
+        val _a1 = stackalloc[Long](); !_a1 = role.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetRole, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetName(id: RID, name: CString): Unit =
+    def accessibilityUpdateSetName(id: RID, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetName, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetExtraInfo(id: RID, name: CString): Unit =
+    def accessibilityUpdateSetExtraInfo(id: RID, name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = name.ptr
+        _args(1) = name
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetExtraInfo, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetDescription(id: RID, description: CString): Unit =
+    def accessibilityUpdateSetDescription(id: RID, description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = description.ptr
+        _args(1) = description
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetDescription, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetValue(id: RID, value: CString): Unit =
+    def accessibilityUpdateSetValue(id: RID, value: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = value.ptr
+        _args(1) = value
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetValue, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTooltip(id: RID, tooltip: CString): Unit =
+    def accessibilityUpdateSetTooltip(id: RID, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTooltip, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetBounds(id: RID, pRect: Rect2): Unit =
+    def accessibilityUpdateSetBounds(id: RID, pRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = pRect.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetBounds, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTransform(id: RID, transform: Transform2D): Unit =
+    def accessibilityUpdateSetTransform(id: RID, transform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = transform.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTransform, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddChild(id: RID, childId: RID): Unit =
+    def accessibilityUpdateAddChild(id: RID, childId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = childId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddChild, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddRelatedControls(id: RID, relatedId: RID): Unit =
+    def accessibilityUpdateAddRelatedControls(id: RID, relatedId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = relatedId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddRelatedControls, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddRelatedDetails(id: RID, relatedId: RID): Unit =
+    def accessibilityUpdateAddRelatedDetails(id: RID, relatedId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = relatedId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddRelatedDetails, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddRelatedDescribedBy(id: RID, relatedId: RID): Unit =
+    def accessibilityUpdateAddRelatedDescribedBy(id: RID, relatedId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = relatedId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddRelatedDescribedBy, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddRelatedFlowTo(id: RID, relatedId: RID): Unit =
+    def accessibilityUpdateAddRelatedFlowTo(id: RID, relatedId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = relatedId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddRelatedFlowTo, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddRelatedLabeledBy(id: RID, relatedId: RID): Unit =
+    def accessibilityUpdateAddRelatedLabeledBy(id: RID, relatedId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = relatedId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddRelatedLabeledBy, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddRelatedRadioGroup(id: RID, relatedId: RID): Unit =
+    def accessibilityUpdateAddRelatedRadioGroup(id: RID, relatedId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = relatedId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddRelatedRadioGroup, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetActiveDescendant(id: RID, otherId: RID): Unit =
+    def accessibilityUpdateSetActiveDescendant(id: RID, otherId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = otherId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetActiveDescendant, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetNextOnLine(id: RID, otherId: RID): Unit =
+    def accessibilityUpdateSetNextOnLine(id: RID, otherId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = otherId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetNextOnLine, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetPreviousOnLine(id: RID, otherId: RID): Unit =
+    def accessibilityUpdateSetPreviousOnLine(id: RID, otherId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = otherId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetPreviousOnLine, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetMemberOf(id: RID, groupId: RID): Unit =
+    def accessibilityUpdateSetMemberOf(id: RID, groupId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = groupId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetMemberOf, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetInPageLinkTarget(id: RID, otherId: RID): Unit =
+    def accessibilityUpdateSetInPageLinkTarget(id: RID, otherId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = otherId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetInPageLinkTarget, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetErrorMessage(id: RID, otherId: RID): Unit =
+    def accessibilityUpdateSetErrorMessage(id: RID, otherId: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = otherId.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetErrorMessage, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetLive(id: RID, live: Int): Unit =
+    def accessibilityUpdateSetLive(id: RID, live: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = live.ptr
+        val _a1 = stackalloc[Long](); !_a1 = live.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetLive, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddAction(id: RID, action: Int, callable: Callable): Unit =
+    def accessibilityUpdateAddAction(id: RID, action: Int, callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
-        _args(1) = action.ptr
+        val _a1 = stackalloc[Long](); !_a1 = action.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = callable.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddAction, ptr, _args, null)
+}
 
-    def accessibilityUpdateAddCustomAction(id: RID, actionId: Int, actionDescription: CString): Unit =
+    def accessibilityUpdateAddCustomAction(id: RID, actionId: Int, actionDescription: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = actionId.toLong
+        val _a1 = stackalloc[Long](); !_a1 = actionId.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        _args(2) = actionDescription.ptr
+        _args(2) = actionDescription
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateAddCustomAction, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTableRowCount(id: RID, count: Int): Unit =
+    def accessibilityUpdateSetTableRowCount(id: RID, count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = count.toLong
+        val _a1 = stackalloc[Long](); !_a1 = count.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTableRowCount, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTableColumnCount(id: RID, count: Int): Unit =
+    def accessibilityUpdateSetTableColumnCount(id: RID, count: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = count.toLong
+        val _a1 = stackalloc[Long](); !_a1 = count.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTableColumnCount, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTableRowIndex(id: RID, index: Int): Unit =
+    def accessibilityUpdateSetTableRowIndex(id: RID, index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTableRowIndex, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTableColumnIndex(id: RID, index: Int): Unit =
+    def accessibilityUpdateSetTableColumnIndex(id: RID, index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTableColumnIndex, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTableCellPosition(id: RID, rowIndex: Int, columnIndex: Int): Unit =
+    def accessibilityUpdateSetTableCellPosition(id: RID, rowIndex: Int, columnIndex: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = rowIndex.toLong
+        val _a1 = stackalloc[Long](); !_a1 = rowIndex.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = columnIndex.toLong
+        val _a2 = stackalloc[Long](); !_a2 = columnIndex.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTableCellPosition, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTableCellSpan(id: RID, rowSpan: Int, columnSpan: Int): Unit =
+    def accessibilityUpdateSetTableCellSpan(id: RID, rowSpan: Int, columnSpan: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = rowSpan.toLong
+        val _a1 = stackalloc[Long](); !_a1 = rowSpan.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
-        val _a2 = stackalloc[CLong](); !_a2 = columnSpan.toLong
+        val _a2 = stackalloc[Long](); !_a2 = columnSpan.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTableCellSpan, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetListItemCount(id: RID, size: Int): Unit =
+    def accessibilityUpdateSetListItemCount(id: RID, size: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = size.toLong
+        val _a1 = stackalloc[Long](); !_a1 = size.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetListItemCount, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetListItemIndex(id: RID, index: Int): Unit =
+    def accessibilityUpdateSetListItemIndex(id: RID, index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = index.toLong
+        val _a1 = stackalloc[Long](); !_a1 = index.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetListItemIndex, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetListItemLevel(id: RID, level: Int): Unit =
+    def accessibilityUpdateSetListItemLevel(id: RID, level: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        val _a1 = stackalloc[CLong](); !_a1 = level.toLong
+        val _a1 = stackalloc[Long](); !_a1 = level.toLong
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetListItemLevel, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetListItemSelected(id: RID, selected: Boolean): Unit =
+    def accessibilityUpdateSetListItemSelected(id: RID, selected: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if selected then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetListItemSelected, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetListItemExpanded(id: RID, expanded: Boolean): Unit =
+    def accessibilityUpdateSetListItemExpanded(id: RID, expanded: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if expanded then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetListItemExpanded, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetPopupType(id: RID, popup: Int): Unit =
+    def accessibilityUpdateSetPopupType(id: RID, popup: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = popup.ptr
+        val _a1 = stackalloc[Long](); !_a1 = popup.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetPopupType, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetChecked(id: RID, checekd: Boolean): Unit =
+    def accessibilityUpdateSetChecked(id: RID, checekd: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if checekd then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetChecked, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetNumValue(id: RID, position: Double): Unit =
+    def accessibilityUpdateSetNumValue(id: RID, position: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = position
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetNumValue, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetNumRange(id: RID, min: Double, max: Double): Unit =
+    def accessibilityUpdateSetNumRange(id: RID, min: Double, max: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = min
@@ -1354,29 +1570,33 @@ class DisplayServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = max
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetNumRange, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetNumStep(id: RID, step: Double): Unit =
+    def accessibilityUpdateSetNumStep(id: RID, step: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = step
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetNumStep, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetNumJump(id: RID, jump: Double): Unit =
+    def accessibilityUpdateSetNumJump(id: RID, jump: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = jump
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetNumJump, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetScrollX(id: RID, position: Double): Unit =
+    def accessibilityUpdateSetScrollX(id: RID, position: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = position
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetScrollX, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetScrollXRange(id: RID, min: Double, max: Double): Unit =
+    def accessibilityUpdateSetScrollXRange(id: RID, min: Double, max: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = min
@@ -1384,15 +1604,17 @@ class DisplayServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = max
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetScrollXRange, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetScrollY(id: RID, position: Double): Unit =
+    def accessibilityUpdateSetScrollY(id: RID, position: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = position
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetScrollY, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetScrollYRange(id: RID, min: Double, max: Double): Unit =
+    def accessibilityUpdateSetScrollYRange(id: RID, min: Double, max: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
         val _a1 = stackalloc[Double](); !_a1 = min
@@ -1400,8 +1622,9 @@ class DisplayServer extends Object
         val _a2 = stackalloc[Double](); !_a2 = max
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetScrollYRange, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTextDecorations(id: RID, underline: Boolean, strikethrough: Boolean, overline: Boolean): Unit =
+    def accessibilityUpdateSetTextDecorations(id: RID, underline: Boolean, strikethrough: Boolean, overline: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](4)
         _args(0) = id.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if underline then 1.toByte else 0.toByte
@@ -1411,405 +1634,473 @@ class DisplayServer extends Object
         val _a3 = stackalloc[Byte](); !_a3 = if overline then 1.toByte else 0.toByte
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTextDecorations, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTextAlign(id: RID, align: Int): Unit =
+    def accessibilityUpdateSetTextAlign(id: RID, align: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = align.ptr
+        val _a1 = stackalloc[Long](); !_a1 = align.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTextAlign, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTextSelection(id: RID, textStartId: RID, startChar: Int, textEndId: RID, endChar: Int): Unit =
+    def accessibilityUpdateSetTextSelection(id: RID, textStartId: RID, startChar: Int, textEndId: RID, endChar: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](5)
         _args(0) = id.ptr
         _args(1) = textStartId.ptr
-        val _a2 = stackalloc[CLong](); !_a2 = startChar.toLong
+        val _a2 = stackalloc[Long](); !_a2 = startChar.toLong
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         _args(3) = textEndId.ptr
-        val _a4 = stackalloc[CLong](); !_a4 = endChar.toLong
+        val _a4 = stackalloc[Long](); !_a4 = endChar.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTextSelection, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetFlag(id: RID, flag: Int, value: Boolean): Unit =
+    def accessibilityUpdateSetFlag(id: RID, flag: Int, value: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = id.ptr
-        _args(1) = flag.ptr
+        val _a1 = stackalloc[Long](); !_a1 = flag.toLong
+        _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         val _a2 = stackalloc[Byte](); !_a2 = if value then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetFlag, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetClassname(id: RID, classname: CString): Unit =
+    def accessibilityUpdateSetClassname(id: RID, classname: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = classname.ptr
+        _args(1) = classname
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetClassname, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetPlaceholder(id: RID, placeholder: CString): Unit =
+    def accessibilityUpdateSetPlaceholder(id: RID, placeholder: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = placeholder.ptr
+        _args(1) = placeholder
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetPlaceholder, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetLanguage(id: RID, language: CString): Unit =
+    def accessibilityUpdateSetLanguage(id: RID, language: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = language.ptr
+        _args(1) = language
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetLanguage, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetTextOrientation(id: RID, vertical: Boolean): Unit =
+    def accessibilityUpdateSetTextOrientation(id: RID, vertical: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if vertical then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetTextOrientation, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetListOrientation(id: RID, vertical: Boolean): Unit =
+    def accessibilityUpdateSetListOrientation(id: RID, vertical: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         val _a1 = stackalloc[Byte](); !_a1 = if vertical then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetListOrientation, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetShortcut(id: RID, shortcut: CString): Unit =
+    def accessibilityUpdateSetShortcut(id: RID, shortcut: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = shortcut.ptr
+        _args(1) = shortcut
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetShortcut, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetUrl(id: RID, url: CString): Unit =
+    def accessibilityUpdateSetUrl(id: RID, url: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = url.ptr
+        _args(1) = url
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetUrl, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetRoleDescription(id: RID, description: CString): Unit =
+    def accessibilityUpdateSetRoleDescription(id: RID, description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = description.ptr
+        _args(1) = description
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetRoleDescription, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetStateDescription(id: RID, description: CString): Unit =
+    def accessibilityUpdateSetStateDescription(id: RID, description: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
-        _args(1) = description.ptr
+        _args(1) = description
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetStateDescription, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetColorValue(id: RID, color: Color): Unit =
+    def accessibilityUpdateSetColorValue(id: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetColorValue, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetBackgroundColor(id: RID, color: Color): Unit =
+    def accessibilityUpdateSetBackgroundColor(id: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetBackgroundColor, ptr, _args, null)
+}
 
-    def accessibilityUpdateSetForegroundColor(id: RID, color: Color): Unit =
+    def accessibilityUpdateSetForegroundColor(id: RID, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = id.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(DisplayServer.Binds.accessibilityUpdateSetForegroundColor, ptr, _args, null)
+}
 
-    def imeGetSelection(): Vector2i =
+    def imeGetSelection(): Vector2i = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.imeGetSelection, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2i(!_ret)
+}
 
-    def imeGetText(): CString =
+    def imeGetText(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.imeGetText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def virtualKeyboardShow(existingText: CString): Unit =
+    def virtualKeyboardShow(existingText: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = existingText.ptr
+        _args(0) = existingText
         GdxApi.ptrcall(DisplayServer.Binds.virtualKeyboardShow, ptr, _args, null)
+}
 
-    def virtualKeyboardHide(): Unit =
+    def virtualKeyboardHide(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.virtualKeyboardHide, ptr, _args, null)
+}
 
-    def virtualKeyboardGetHeight(): Int =
+    def virtualKeyboardGetHeight(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.virtualKeyboardGetHeight, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def hasHardwareKeyboard(): Boolean =
+    def hasHardwareKeyboard(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.hasHardwareKeyboard, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setHardwareKeyboardConnectionChangeCallback(callable: Callable): Unit =
+    def setHardwareKeyboardConnectionChangeCallback(callable: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callable.ptr
         GdxApi.ptrcall(DisplayServer.Binds.setHardwareKeyboardConnectionChangeCallback, ptr, _args, null)
+}
 
-    def cursorSetShape(shape: Int): Unit =
+    def cursorSetShape(shape: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = shape.ptr
+        val _a0 = stackalloc[Long](); !_a0 = shape.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.cursorSetShape, ptr, _args, null)
+}
 
-    def cursorGetShape(): Int =
+    def cursorGetShape(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.cursorGetShape, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def cursorSetCustomImage(cursor: Resource): Unit =
+    def cursorSetCustomImage(cursor: Resource): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = cursor.ptr
         GdxApi.ptrcall(DisplayServer.Binds.cursorSetCustomImage, ptr, _args, null)
+}
 
-    def getSwapCancelOk(): Boolean =
+    def getSwapCancelOk(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.getSwapCancelOk, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def enableForStealingFocus(processId: Long): Unit =
+    def enableForStealingFocus(processId: Long): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = processId
+        val _a0 = stackalloc[Long](); !_a0 = processId
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.enableForStealingFocus, ptr, _args, null)
+}
 
-    def dialogShow(title: CString, description: CString, buttons: PackedStringArray, callback: Callable): Int =
+    def dialogShow(title: CString, description: CString, buttons: PackedStringArray, callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = title.ptr
-        _args(1) = description.ptr
+        _args(0) = title
+        _args(1) = description
         _args(2) = buttons.ptr
         _args(3) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.dialogShow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def dialogInputText(title: CString, description: CString, existingText: CString, callback: Callable): Int =
+    def dialogInputText(title: CString, description: CString, existingText: CString, callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](4)
-        _args(0) = title.ptr
-        _args(1) = description.ptr
-        _args(2) = existingText.ptr
+        _args(0) = title
+        _args(1) = description
+        _args(2) = existingText
         _args(3) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.dialogInputText, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fileDialogShow(title: CString, currentDirectory: CString, filename: CString, showHidden: Boolean, mode: Int, filters: PackedStringArray, callback: Callable): Int =
+    def fileDialogShow(title: CString, currentDirectory: CString, filename: CString, showHidden: Boolean, mode: Int, filters: PackedStringArray, callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](7)
-        _args(0) = title.ptr
-        _args(1) = currentDirectory.ptr
-        _args(2) = filename.ptr
+        _args(0) = title
+        _args(1) = currentDirectory
+        _args(2) = filename
         val _a3 = stackalloc[Byte](); !_a3 = if showHidden then 1.toByte else 0.toByte
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        _args(4) = mode.ptr
+        val _a4 = stackalloc[Long](); !_a4 = mode.toLong
+        _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         _args(5) = filters.ptr
         _args(6) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.fileDialogShow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def fileDialogWithOptionsShow(title: CString, currentDirectory: CString, root: CString, filename: CString, showHidden: Boolean, mode: Int, filters: PackedStringArray, options: Ptr[Byte], callback: Callable): Int =
+    def fileDialogWithOptionsShow(title: CString, currentDirectory: CString, root: CString, filename: CString, showHidden: Boolean, mode: Int, filters: PackedStringArray, options: Ptr[Byte], callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](9)
-        _args(0) = title.ptr
-        _args(1) = currentDirectory.ptr
-        _args(2) = root.ptr
-        _args(3) = filename.ptr
+        _args(0) = title
+        _args(1) = currentDirectory
+        _args(2) = root
+        _args(3) = filename
         val _a4 = stackalloc[Byte](); !_a4 = if showHidden then 1.toByte else 0.toByte
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
-        _args(5) = mode.ptr
+        val _a5 = stackalloc[Long](); !_a5 = mode.toLong
+        _args(5) = _a5.asInstanceOf[Ptr[Byte]]
         _args(6) = filters.ptr
-        _args(7) = options.ptr
+        _args(7) = options
         _args(8) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.fileDialogWithOptionsShow, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def beep(): Unit =
+    def beep(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.beep, ptr, _args, null)
+}
 
-    def keyboardGetLayoutCount(): Int =
+    def keyboardGetLayoutCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.keyboardGetLayoutCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def keyboardGetCurrentLayout(): Int =
+    def keyboardGetCurrentLayout(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.keyboardGetCurrentLayout, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def keyboardSetCurrentLayout(index: Int): Unit =
+    def keyboardSetCurrentLayout(index: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.keyboardSetCurrentLayout, ptr, _args, null)
+}
 
-    def keyboardGetLayoutLanguage(index: Int): CString =
+    def keyboardGetLayoutLanguage(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.keyboardGetLayoutLanguage, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def keyboardGetLayoutName(index: Int): CString =
+    def keyboardGetLayoutName(index: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = index.toLong
+        val _a0 = stackalloc[Long](); !_a0 = index.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.keyboardGetLayoutName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def keyboardGetKeycodeFromPhysical(keycode: Int): Int =
+    def keyboardGetKeycodeFromPhysical(keycode: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keycode.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = keycode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.keyboardGetKeycodeFromPhysical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def keyboardGetLabelFromPhysical(keycode: Int): Int =
+    def keyboardGetLabelFromPhysical(keycode: Int): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = keycode.ptr
-        val _ret = stackalloc[CLong]()
+        val _a0 = stackalloc[Long](); !_a0 = keycode.toLong
+        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.keyboardGetLabelFromPhysical, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def showEmojiAndSymbolPicker(): Unit =
+    def showEmojiAndSymbolPicker(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.showEmojiAndSymbolPicker, ptr, _args, null)
+}
 
-    def colorPicker(callback: Callable): Boolean =
+    def colorPicker(callback: Callable): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = callback.ptr
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.colorPicker, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def processEvents(): Unit =
+    def processEvents(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.processEvents, ptr, _args, null)
+}
 
-    def forceProcessAndDropEvents(): Unit =
+    def forceProcessAndDropEvents(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(DisplayServer.Binds.forceProcessAndDropEvents, ptr, _args, null)
+}
 
-    def setNativeIcon(filename: CString): Unit =
+    def setNativeIcon(filename: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = filename.ptr
+        _args(0) = filename
         GdxApi.ptrcall(DisplayServer.Binds.setNativeIcon, ptr, _args, null)
+}
 
-    def setIcon(image: Image): Unit =
+    def setIcon(image: Image): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = image.ptr
         GdxApi.ptrcall(DisplayServer.Binds.setIcon, ptr, _args, null)
+}
 
-    def createStatusIndicator(icon: Texture2D, tooltip: CString, callback: Callable): Int =
+    def createStatusIndicator(icon: Texture2D, tooltip: CString, callback: Callable): Int = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = icon.ptr
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         _args(2) = callback.ptr
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.createStatusIndicator, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def statusIndicatorSetIcon(id: Int, icon: Texture2D): Unit =
+    def statusIndicatorSetIcon(id: Int, icon: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = icon.ptr
         GdxApi.ptrcall(DisplayServer.Binds.statusIndicatorSetIcon, ptr, _args, null)
+}
 
-    def statusIndicatorSetTooltip(id: Int, tooltip: CString): Unit =
+    def statusIndicatorSetTooltip(id: Int, tooltip: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        _args(1) = tooltip.ptr
+        _args(1) = tooltip
         GdxApi.ptrcall(DisplayServer.Binds.statusIndicatorSetTooltip, ptr, _args, null)
+}
 
-    def statusIndicatorSetMenu(id: Int, menuRid: RID): Unit =
+    def statusIndicatorSetMenu(id: Int, menuRid: RID): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = menuRid.ptr
         GdxApi.ptrcall(DisplayServer.Binds.statusIndicatorSetMenu, ptr, _args, null)
+}
 
-    def statusIndicatorSetCallback(id: Int, callback: Callable): Unit =
+    def statusIndicatorSetCallback(id: Int, callback: Callable): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         _args(1) = callback.ptr
         GdxApi.ptrcall(DisplayServer.Binds.statusIndicatorSetCallback, ptr, _args, null)
+}
 
-    def statusIndicatorGetRect(id: Int): Rect2 =
+    def statusIndicatorGetRect(id: Int): Rect2 = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.statusIndicatorGetRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def deleteStatusIndicator(id: Int): Unit =
+    def deleteStatusIndicator(id: Int): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = id.toLong
+        val _a0 = stackalloc[Long](); !_a0 = id.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(DisplayServer.Binds.deleteStatusIndicator, ptr, _args, null)
+}
 
-    def tabletGetDriverCount(): Int =
+    def tabletGetDriverCount(): Int = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(DisplayServer.Binds.tabletGetDriverCount, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
+}
 
-    def tabletGetDriverName(idx: Int): CString =
+    def tabletGetDriverName(idx: Int): CString = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = idx.toLong
+        val _a0 = stackalloc[Long](); !_a0 = idx.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.tabletGetDriverName, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def tabletGetCurrentDriver(): CString =
+    def tabletGetCurrentDriver(): CString = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(DisplayServer.Binds.tabletGetCurrentDriver, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def tabletSetCurrentDriver(name: CString): Unit =
+    def tabletSetCurrentDriver(name: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         GdxApi.ptrcall(DisplayServer.Binds.tabletSetCurrentDriver, ptr, _args, null)
+}
 
-    def isWindowTransparencyAvailable(): Boolean =
+    def isWindowTransparencyAvailable(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.isWindowTransparencyAvailable, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def registerAdditionalOutput(`object`: Object): Unit =
+    def registerAdditionalOutput(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(DisplayServer.Binds.registerAdditionalOutput, ptr, _args, null)
+}
 
-    def unregisterAdditionalOutput(`object`: Object): Unit =
+    def unregisterAdditionalOutput(`object`: Object): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = `object`.ptr
         GdxApi.ptrcall(DisplayServer.Binds.unregisterAdditionalOutput, ptr, _args, null)
+}
 
-    def hasAdditionalOutputs(): Boolean =
+    def hasAdditionalOutputs(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(DisplayServer.Binds.hasAdditionalOutputs, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
-
+}
+}
 
 object DisplayServer:
-    object Binds:
-        var hasFeature: Ptr[Byte] = null
+object Binds {
+          var hasFeature: Ptr[Byte] = null
         var getName: Ptr[Byte] = null
         var helpSetSearchCallbacks: Ptr[Byte] = null
         var globalMenuSetPopupCallbacks: Ptr[Byte] = null
@@ -2078,8 +2369,8 @@ object DisplayServer:
         var unregisterAdditionalOutput: Ptr[Byte] = null
         var hasAdditionalOutputs: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.hasFeature = GdxApi.getMethodBind(c"DisplayServer", c"has_feature", 334065950L)
+  def loadBinds(): Unit = {
+                Binds.hasFeature = GdxApi.getMethodBind(c"DisplayServer", c"has_feature", 334065950L)
             Binds.getName = GdxApi.getMethodBind(c"DisplayServer", c"get_name", 201670096L)
             Binds.helpSetSearchCallbacks = GdxApi.getMethodBind(c"DisplayServer", c"help_set_search_callbacks", 1687350599L)
             Binds.globalMenuSetPopupCallbacks = GdxApi.getMethodBind(c"DisplayServer", c"global_menu_set_popup_callbacks", 3893727526L)
@@ -2347,3 +2638,5 @@ object DisplayServer:
             Binds.registerAdditionalOutput = GdxApi.getMethodBind(c"DisplayServer", c"register_additional_output", 3975164845L)
             Binds.unregisterAdditionalOutput = GdxApi.getMethodBind(c"DisplayServer", c"unregister_additional_output", 3975164845L)
             Binds.hasAdditionalOutputs = GdxApi.getMethodBind(c"DisplayServer", c"has_additional_outputs", 36873697L)
+  }
+}

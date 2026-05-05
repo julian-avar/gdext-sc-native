@@ -5,13 +5,11 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class OpenXRIPBindingModifier extends OpenXRBindingModifier
-
-
-
+class OpenXRIPBindingModifier extends OpenXRBindingModifier {}
 
 object OpenXRIPBindingModifier:
-    def apply(): OpenXRIPBindingModifier =
-        val obj = new OpenXRIPBindingModifier()
-        obj.ptr = GdxApi.constructObject(c"OpenXRIPBindingModifier")
-        obj
+def apply(): OpenXRIPBindingModifier = {
+  val obj = new OpenXRIPBindingModifier()
+  obj.ptr = GdxApi.constructObject(c"OpenXRIPBindingModifier")
+  obj
+}

@@ -5,32 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class AudioStreamPolyphonic extends AudioStream
-
-    def setPolyphony(voices: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = voices.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(AudioStreamPolyphonic.Binds.setPolyphony, ptr, _args, null)
-
-    def getPolyphony(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(AudioStreamPolyphonic.Binds.getPolyphony, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def polyphony: Ptr[Byte] = getPolyphony()
-    def polyphony_=(v: Ptr[Byte]): Unit = setPolyphony(v)
+class AudioStreamPolyphonic extends AudioStream {
+    def polyphony: Int = getPolyphony()
+    def polyphony_=(v: Int): Unit = setPolyphony(v)
+}
 
 object AudioStreamPolyphonic:
-    object Binds:
-        var setPolyphony: Ptr[Byte] = null
-        var getPolyphony: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setPolyphony = GdxApi.getMethodBind(c"AudioStreamPolyphonic", c"set_polyphony", 1286410249L)
-            Binds.getPolyphony = GdxApi.getMethodBind(c"AudioStreamPolyphonic", c"get_polyphony", 3905245786L)
-
-    def apply(): AudioStreamPolyphonic =
-        val obj = new AudioStreamPolyphonic()
-        obj.ptr = GdxApi.constructObject(c"AudioStreamPolyphonic")
-        obj
+def apply(): AudioStreamPolyphonic = {
+  val obj = new AudioStreamPolyphonic()
+  obj.ptr = GdxApi.constructObject(c"AudioStreamPolyphonic")
+  obj
+}

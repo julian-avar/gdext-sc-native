@@ -5,23 +5,26 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class ScriptCreateDialog extends ConfirmationDialog
-
-    def config(inherits: CString, path: CString): Unit =
+class ScriptCreateDialog extends ConfirmationDialog {
+    def config(inherits: CString, path: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = inherits.ptr
-        _args(1) = path.ptr
+        _args(0) = inherits
+        _args(1) = path
         GdxApi.ptrcall(ScriptCreateDialog.Binds.config, ptr, _args, null)
-
+}
+}
 
 object ScriptCreateDialog:
-    object Binds:
-        var config: Ptr[Byte] = null
+object Binds {
+          var config: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.config = GdxApi.getMethodBind(c"ScriptCreateDialog", c"config", 869314288L)
+  def loadBinds(): Unit = {
+                Binds.config = GdxApi.getMethodBind(c"ScriptCreateDialog", c"config", 869314288L)
+  }
+}
 
-    def apply(): ScriptCreateDialog =
-        val obj = new ScriptCreateDialog()
-        obj.ptr = GdxApi.constructObject(c"ScriptCreateDialog")
-        obj
+def apply(): ScriptCreateDialog = {
+  val obj = new ScriptCreateDialog()
+  obj.ptr = GdxApi.constructObject(c"ScriptCreateDialog")
+  obj
+}

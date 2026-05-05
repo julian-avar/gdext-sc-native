@@ -5,169 +5,74 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class CanvasItem extends Node
+class CanvasItem extends Node {
     def _draw(): Unit = ()
-    def getCanvasItem(): RID =
+
+    def getCanvasItem(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getCanvasItem, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def setVisible(visible: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if visible then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setVisible, ptr, _args, null)
-
-    def isVisible(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasItem.Binds.isVisible, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def isVisibleInTree(): Boolean =
+    def isVisibleInTree(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CanvasItem.Binds.isVisibleInTree, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def show(): Unit =
+    def show(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasItem.Binds.show, ptr, _args, null)
+}
 
-    def hide(): Unit =
+    def hide(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasItem.Binds.hide, ptr, _args, null)
+}
 
-    def queueRedraw(): Unit =
+    def queueRedraw(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasItem.Binds.queueRedraw, ptr, _args, null)
+}
 
-    def moveToFront(): Unit =
+    def moveToFront(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasItem.Binds.moveToFront, ptr, _args, null)
+}
 
-    def setAsTopLevel(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setAsTopLevel, ptr, _args, null)
-
-    def isSetAsTopLevel(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasItem.Binds.isSetAsTopLevel, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setLightMask(lightMask: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = lightMask.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setLightMask, ptr, _args, null)
-
-    def getLightMask(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasItem.Binds.getLightMask, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setModulate(modulate: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = modulate.ptr
-        GdxApi.ptrcall(CanvasItem.Binds.setModulate, ptr, _args, null)
-
-    def getModulate(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasItem.Binds.getModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setSelfModulate(selfModulate: Color): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = selfModulate.ptr
-        GdxApi.ptrcall(CanvasItem.Binds.setSelfModulate, ptr, _args, null)
-
-    def getSelfModulate(): Color =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasItem.Binds.getSelfModulate, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Color(!_ret)
-
-    def setZIndex(zIndex: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = zIndex.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setZIndex, ptr, _args, null)
-
-    def getZIndex(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasItem.Binds.getZIndex, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setZAsRelative(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setZAsRelative, ptr, _args, null)
-
-    def isZRelative(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasItem.Binds.isZRelative, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setYSortEnabled(enabled: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enabled then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setYSortEnabled, ptr, _args, null)
-
-    def isYSortEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasItem.Binds.isYSortEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setDrawBehindParent(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setDrawBehindParent, ptr, _args, null)
-
-    def isDrawBehindParentEnabled(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasItem.Binds.isDrawBehindParentEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def drawLine(from: Vector2, to: Vector2, color: Color): Unit =
+    def drawLine(from: Vector2, to: Vector2, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = from.ptr
         _args(1) = to.ptr
         _args(2) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawLine, ptr, _args, null)
+}
 
-    def drawDashedLine(from: Vector2, to: Vector2, color: Color): Unit =
+    def drawDashedLine(from: Vector2, to: Vector2, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = from.ptr
         _args(1) = to.ptr
         _args(2) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawDashedLine, ptr, _args, null)
+}
 
-    def drawPolyline(points: PackedVector2Array, color: Color): Unit =
+    def drawPolyline(points: PackedVector2Array, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawPolyline, ptr, _args, null)
+}
 
-    def drawPolylineColors(points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def drawPolylineColors(points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = colors.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawPolylineColors, ptr, _args, null)
+}
 
-    def drawArc(center: Vector2, radius: Float, startAngle: Float, endAngle: Float, pointCount: Int, color: Color): Unit =
+    def drawArc(center: Vector2, radius: Float, startAngle: Float, endAngle: Float, pointCount: Int, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](6)
         _args(0) = center.ptr
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
@@ -176,162 +81,186 @@ class CanvasItem extends Node
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         val _a3 = stackalloc[Double](); !_a3 = endAngle.toDouble
         _args(3) = _a3.asInstanceOf[Ptr[Byte]]
-        val _a4 = stackalloc[CLong](); !_a4 = pointCount.toLong
+        val _a4 = stackalloc[Long](); !_a4 = pointCount.toLong
         _args(4) = _a4.asInstanceOf[Ptr[Byte]]
         _args(5) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawArc, ptr, _args, null)
+}
 
-    def drawMultiline(points: PackedVector2Array, color: Color): Unit =
+    def drawMultiline(points: PackedVector2Array, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawMultiline, ptr, _args, null)
+}
 
-    def drawMultilineColors(points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def drawMultilineColors(points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = colors.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawMultilineColors, ptr, _args, null)
+}
 
-    def drawRect(rect: Rect2, color: Color): Unit =
+    def drawRect(rect: Rect2, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = rect.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawRect, ptr, _args, null)
+}
 
-    def drawCircle(position: Vector2, radius: Float, color: Color): Unit =
+    def drawCircle(position: Vector2, radius: Float, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = position.ptr
         val _a1 = stackalloc[Double](); !_a1 = radius.toDouble
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         _args(2) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawCircle, ptr, _args, null)
+}
 
-    def drawTexture(texture: Texture2D, position: Vector2): Unit =
+    def drawTexture(texture: Texture2D, position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = texture.ptr
         _args(1) = position.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawTexture, ptr, _args, null)
+}
 
-    def drawTextureRect(texture: Texture2D, rect: Rect2, tile: Boolean): Unit =
+    def drawTextureRect(texture: Texture2D, rect: Rect2, tile: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
         _args(1) = rect.ptr
         val _a2 = stackalloc[Byte](); !_a2 = if tile then 1.toByte else 0.toByte
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CanvasItem.Binds.drawTextureRect, ptr, _args, null)
+}
 
-    def drawTextureRectRegion(texture: Texture2D, rect: Rect2, srcRect: Rect2): Unit =
+    def drawTextureRectRegion(texture: Texture2D, rect: Rect2, srcRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
         _args(1) = rect.ptr
         _args(2) = srcRect.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawTextureRectRegion, ptr, _args, null)
+}
 
-    def drawMsdfTextureRectRegion(texture: Texture2D, rect: Rect2, srcRect: Rect2): Unit =
+    def drawMsdfTextureRectRegion(texture: Texture2D, rect: Rect2, srcRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
         _args(1) = rect.ptr
         _args(2) = srcRect.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawMsdfTextureRectRegion, ptr, _args, null)
+}
 
-    def drawLcdTextureRectRegion(texture: Texture2D, rect: Rect2, srcRect: Rect2): Unit =
+    def drawLcdTextureRectRegion(texture: Texture2D, rect: Rect2, srcRect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = texture.ptr
         _args(1) = rect.ptr
         _args(2) = srcRect.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawLcdTextureRectRegion, ptr, _args, null)
+}
 
-    def drawStyleBox(styleBox: StyleBox, rect: Rect2): Unit =
+    def drawStyleBox(styleBox: StyleBox, rect: Rect2): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = styleBox.ptr
         _args(1) = rect.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawStyleBox, ptr, _args, null)
+}
 
-    def drawPrimitive(points: PackedVector2Array, colors: PackedColorArray, uvs: PackedVector2Array): Unit =
+    def drawPrimitive(points: PackedVector2Array, colors: PackedColorArray, uvs: PackedVector2Array): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = points.ptr
         _args(1) = colors.ptr
         _args(2) = uvs.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawPrimitive, ptr, _args, null)
+}
 
-    def drawPolygon(points: PackedVector2Array, colors: PackedColorArray): Unit =
+    def drawPolygon(points: PackedVector2Array, colors: PackedColorArray): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = colors.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawPolygon, ptr, _args, null)
+}
 
-    def drawColoredPolygon(points: PackedVector2Array, color: Color): Unit =
+    def drawColoredPolygon(points: PackedVector2Array, color: Color): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = points.ptr
         _args(1) = color.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawColoredPolygon, ptr, _args, null)
+}
 
-    def drawString(font: Font, pos: Vector2, text: CString): Unit =
+    def drawString(font: Font, pos: Vector2, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
         _args(1) = pos.ptr
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(CanvasItem.Binds.drawString, ptr, _args, null)
+}
 
-    def drawMultilineString(font: Font, pos: Vector2, text: CString): Unit =
+    def drawMultilineString(font: Font, pos: Vector2, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
         _args(1) = pos.ptr
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(CanvasItem.Binds.drawMultilineString, ptr, _args, null)
+}
 
-    def drawStringOutline(font: Font, pos: Vector2, text: CString): Unit =
+    def drawStringOutline(font: Font, pos: Vector2, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
         _args(1) = pos.ptr
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(CanvasItem.Binds.drawStringOutline, ptr, _args, null)
+}
 
-    def drawMultilineStringOutline(font: Font, pos: Vector2, text: CString): Unit =
+    def drawMultilineStringOutline(font: Font, pos: Vector2, text: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
         _args(1) = pos.ptr
-        _args(2) = text.ptr
+        _args(2) = text
         GdxApi.ptrcall(CanvasItem.Binds.drawMultilineStringOutline, ptr, _args, null)
+}
 
-    def drawChar(font: Font, pos: Vector2, char: CString): Unit =
+    def drawChar(font: Font, pos: Vector2, char: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
         _args(1) = pos.ptr
-        _args(2) = char.ptr
+        _args(2) = char
         GdxApi.ptrcall(CanvasItem.Binds.drawChar, ptr, _args, null)
+}
 
-    def drawCharOutline(font: Font, pos: Vector2, char: CString): Unit =
+    def drawCharOutline(font: Font, pos: Vector2, char: CString): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         _args(0) = font.ptr
         _args(1) = pos.ptr
-        _args(2) = char.ptr
+        _args(2) = char
         GdxApi.ptrcall(CanvasItem.Binds.drawCharOutline, ptr, _args, null)
+}
 
-    def drawMesh(mesh: Mesh, texture: Texture2D): Unit =
+    def drawMesh(mesh: Mesh, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = mesh.ptr
         _args(1) = texture.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawMesh, ptr, _args, null)
+}
 
-    def drawMultimesh(multimesh: MultiMesh, texture: Texture2D): Unit =
+    def drawMultimesh(multimesh: MultiMesh, texture: Texture2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
         _args(0) = multimesh.ptr
         _args(1) = texture.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawMultimesh, ptr, _args, null)
+}
 
-    def drawSetTransform(position: Vector2): Unit =
+    def drawSetTransform(position: Vector2): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = position.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawSetTransform, ptr, _args, null)
+}
 
-    def drawSetTransformMatrix(xform: Transform2D): Unit =
+    def drawSetTransformMatrix(xform: Transform2D): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = xform.ptr
         GdxApi.ptrcall(CanvasItem.Binds.drawSetTransformMatrix, ptr, _args, null)
+}
 
-    def drawAnimationSlice(animationLength: Double, sliceBegin: Double, sliceEnd: Double): Unit =
+    def drawAnimationSlice(animationLength: Double, sliceBegin: Double, sliceEnd: Double): Unit = {
         val _args = stackalloc[Ptr[Byte]](3)
         val _a0 = stackalloc[Double](); !_a0 = animationLength
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
@@ -340,278 +269,219 @@ class CanvasItem extends Node
         val _a2 = stackalloc[Double](); !_a2 = sliceEnd
         _args(2) = _a2.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CanvasItem.Binds.drawAnimationSlice, ptr, _args, null)
+}
 
-    def drawEndAnimation(): Unit =
+    def drawEndAnimation(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasItem.Binds.drawEndAnimation, ptr, _args, null)
+}
 
-    def getTransform(): Transform2D =
+    def getTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getGlobalTransform(): Transform2D =
+    def getGlobalTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getGlobalTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getGlobalTransformWithCanvas(): Transform2D =
+    def getGlobalTransformWithCanvas(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getGlobalTransformWithCanvas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getViewportTransform(): Transform2D =
+    def getViewportTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getViewportTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getViewportRect(): Rect2 =
+    def getViewportRect(): Rect2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getViewportRect, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Rect2(!_ret)
+}
 
-    def getCanvasTransform(): Transform2D =
+    def getCanvasTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getCanvasTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getScreenTransform(): Transform2D =
+    def getScreenTransform(): Transform2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getScreenTransform, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Transform2D(!_ret)
+}
 
-    def getLocalMousePosition(): Vector2 =
+    def getLocalMousePosition(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getLocalMousePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getGlobalMousePosition(): Vector2 =
+    def getGlobalMousePosition(): Vector2 = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getGlobalMousePosition, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def getCanvas(): RID =
+    def getCanvas(): RID = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getCanvas, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new RID(!_ret)
+}
 
-    def getCanvasLayerNode(): CanvasLayer =
+    def getCanvasLayerNode(): CanvasLayer = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getCanvasLayerNode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new CanvasLayer(!_ret)
+}
 
-    def getWorld2d(): World2D =
+    def getWorld2d(): World2D = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getWorld2d, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new World2D(!_ret)
+}
 
-    def setMaterial(material: Material): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = material.ptr
-        GdxApi.ptrcall(CanvasItem.Binds.setMaterial, ptr, _args, null)
-
-    def getMaterial(): Material =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(CanvasItem.Binds.getMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new Material(!_ret)
-
-    def setInstanceShaderParameter(name: CString, value: Ptr[Byte]): Unit =
+    def setInstanceShaderParameter(name: CString, value: Ptr[Byte]): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        _args(0) = name.ptr
-        _args(1) = value.ptr
+        _args(0) = name
+        _args(1) = value
         GdxApi.ptrcall(CanvasItem.Binds.setInstanceShaderParameter, ptr, _args, null)
+}
 
-    def getInstanceShaderParameter(name: CString): Ptr[Byte] =
+    def getInstanceShaderParameter(name: CString): Ptr[Byte] = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = name.ptr
+        _args(0) = name
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.getInstanceShaderParameter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret
+}
 
-    def setUseParentMaterial(enable: Boolean): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setUseParentMaterial, ptr, _args, null)
-
-    def getUseParentMaterial(): Boolean =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Byte]()
-        GdxApi.ptrcall(CanvasItem.Binds.getUseParentMaterial, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        !_ret != 0.toByte
-
-    def setNotifyLocalTransform(enable: Boolean): Unit =
+    def setNotifyLocalTransform(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CanvasItem.Binds.setNotifyLocalTransform, ptr, _args, null)
+}
 
-    def isLocalTransformNotificationEnabled(): Boolean =
+    def isLocalTransformNotificationEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CanvasItem.Binds.isLocalTransformNotificationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setNotifyTransform(enable: Boolean): Unit =
+    def setNotifyTransform(enable: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](1)
         val _a0 = stackalloc[Byte](); !_a0 = if enable then 1.toByte else 0.toByte
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CanvasItem.Binds.setNotifyTransform, ptr, _args, null)
+}
 
-    def isTransformNotificationEnabled(): Boolean =
+    def isTransformNotificationEnabled(): Boolean = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CanvasItem.Binds.isTransformNotificationEnabled, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def forceUpdateTransform(): Unit =
+    def forceUpdateTransform(): Unit = {
         val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
         GdxApi.ptrcall(CanvasItem.Binds.forceUpdateTransform, ptr, _args, null)
+}
 
-    def makeCanvasPositionLocal(viewportPoint: Vector2): Vector2 =
+    def makeCanvasPositionLocal(viewportPoint: Vector2): Vector2 = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = viewportPoint.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.makeCanvasPositionLocal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new Vector2(!_ret)
+}
 
-    def makeInputLocal(event: InputEvent): InputEvent =
+    def makeInputLocal(event: InputEvent): InputEvent = {
         val _args = stackalloc[Ptr[Byte]](1)
         _args(0) = event.ptr
         val _ret = stackalloc[Ptr[Byte]]()
         GdxApi.ptrcall(CanvasItem.Binds.makeInputLocal, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         new InputEvent(!_ret)
+}
 
-    def setVisibilityLayer(layer: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
-        _args(0) = _a0.asInstanceOf[Ptr[Byte]]
-        GdxApi.ptrcall(CanvasItem.Binds.setVisibilityLayer, ptr, _args, null)
-
-    def getVisibilityLayer(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasItem.Binds.getVisibilityLayer, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setVisibilityLayerBit(layer: Int, enabled: Boolean): Unit =
+    def setVisibilityLayerBit(layer: Int, enabled: Boolean): Unit = {
         val _args = stackalloc[Ptr[Byte]](2)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _a1 = stackalloc[Byte](); !_a1 = if enabled then 1.toByte else 0.toByte
         _args(1) = _a1.asInstanceOf[Ptr[Byte]]
         GdxApi.ptrcall(CanvasItem.Binds.setVisibilityLayerBit, ptr, _args, null)
+}
 
-    def getVisibilityLayerBit(layer: Int): Boolean =
+    def getVisibilityLayerBit(layer: Int): Boolean = {
         val _args = stackalloc[Ptr[Byte]](1)
-        val _a0 = stackalloc[CLong](); !_a0 = layer.toLong
+        val _a0 = stackalloc[Long](); !_a0 = layer.toLong
         _args(0) = _a0.asInstanceOf[Ptr[Byte]]
         val _ret = stackalloc[Byte]()
         GdxApi.ptrcall(CanvasItem.Binds.getVisibilityLayerBit, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         !_ret != 0.toByte
+}
 
-    def setTextureFilter(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(CanvasItem.Binds.setTextureFilter, ptr, _args, null)
-
-    def getTextureFilter(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasItem.Binds.getTextureFilter, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setTextureRepeat(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(CanvasItem.Binds.setTextureRepeat, ptr, _args, null)
-
-    def getTextureRepeat(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasItem.Binds.getTextureRepeat, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-
-    def setClipChildrenMode(mode: Int): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = mode.ptr
-        GdxApi.ptrcall(CanvasItem.Binds.setClipChildrenMode, ptr, _args, null)
-
-    def getClipChildrenMode(): Int =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[CLong]()
-        GdxApi.ptrcall(CanvasItem.Binds.getClipChildrenMode, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        (!_ret).toInt
-    def visible: Ptr[Byte] = isVisible()
-    def visible_=(v: Ptr[Byte]): Unit = setVisible(v)
-    def modulate: Ptr[Byte] = getModulate()
-    def modulate_=(v: Ptr[Byte]): Unit = setModulate(v)
-    def selfModulate: Ptr[Byte] = getSelfModulate()
-    def selfModulate_=(v: Ptr[Byte]): Unit = setSelfModulate(v)
-    def showBehindParent: Ptr[Byte] = isDrawBehindParentEnabled()
-    def showBehindParent_=(v: Ptr[Byte]): Unit = setDrawBehindParent(v)
-    def topLevel: Ptr[Byte] = isSetAsTopLevel()
-    def topLevel_=(v: Ptr[Byte]): Unit = setAsTopLevel(v)
-    def clipChildren: Ptr[Byte] = getClipChildrenMode()
-    def clipChildren_=(v: Ptr[Byte]): Unit = setClipChildrenMode(v)
-    def lightMask: Ptr[Byte] = getLightMask()
-    def lightMask_=(v: Ptr[Byte]): Unit = setLightMask(v)
-    def visibilityLayer: Ptr[Byte] = getVisibilityLayer()
-    def visibilityLayer_=(v: Ptr[Byte]): Unit = setVisibilityLayer(v)
-    def zIndex: Ptr[Byte] = getZIndex()
-    def zIndex_=(v: Ptr[Byte]): Unit = setZIndex(v)
-    def zAsRelative: Ptr[Byte] = isZRelative()
-    def zAsRelative_=(v: Ptr[Byte]): Unit = setZAsRelative(v)
-    def ySortEnabled: Ptr[Byte] = isYSortEnabled()
-    def ySortEnabled_=(v: Ptr[Byte]): Unit = setYSortEnabled(v)
-    def textureFilter: Ptr[Byte] = getTextureFilter()
-    def textureFilter_=(v: Ptr[Byte]): Unit = setTextureFilter(v)
-    def textureRepeat: Ptr[Byte] = getTextureRepeat()
-    def textureRepeat_=(v: Ptr[Byte]): Unit = setTextureRepeat(v)
-    def material: Ptr[Byte] = getMaterial()
-    def material_=(v: Ptr[Byte]): Unit = setMaterial(v)
-    def useParentMaterial: Ptr[Byte] = getUseParentMaterial()
-    def useParentMaterial_=(v: Ptr[Byte]): Unit = setUseParentMaterial(v)
+    def visible: Boolean = isVisible()
+    def visible_=(v: Boolean): Unit = setVisible(v)
+    def modulate: Color = getModulate()
+    def modulate_=(v: Color): Unit = setModulate(v)
+    def selfModulate: Color = getSelfModulate()
+    def selfModulate_=(v: Color): Unit = setSelfModulate(v)
+    def showBehindParent: Boolean = isDrawBehindParentEnabled()
+    def showBehindParent_=(v: Boolean): Unit = setDrawBehindParent(v)
+    def topLevel: Boolean = isSetAsTopLevel()
+    def topLevel_=(v: Boolean): Unit = setAsTopLevel(v)
+    def clipChildren: Int = getClipChildrenMode()
+    def clipChildren_=(v: Int): Unit = setClipChildrenMode(v)
+    def lightMask: Int = getLightMask()
+    def lightMask_=(v: Int): Unit = setLightMask(v)
+    def visibilityLayer: Int = getVisibilityLayer()
+    def visibilityLayer_=(v: Int): Unit = setVisibilityLayer(v)
+    def zIndex: Int = getZIndex()
+    def zIndex_=(v: Int): Unit = setZIndex(v)
+    def zAsRelative: Boolean = isZRelative()
+    def zAsRelative_=(v: Boolean): Unit = setZAsRelative(v)
+    def ySortEnabled: Boolean = isYSortEnabled()
+    def ySortEnabled_=(v: Boolean): Unit = setYSortEnabled(v)
+    def textureFilter: Int = getTextureFilter()
+    def textureFilter_=(v: Int): Unit = setTextureFilter(v)
+    def textureRepeat: Int = getTextureRepeat()
+    def textureRepeat_=(v: Int): Unit = setTextureRepeat(v)
+    def material: Material = getMaterial()
+    def material_=(v: Material): Unit = setMaterial(v)
+    def useParentMaterial: Boolean = getUseParentMaterial()
+    def useParentMaterial_=(v: Boolean): Unit = setUseParentMaterial(v)
+}
 
 object CanvasItem:
-    object Binds:
-        var getCanvasItem: Ptr[Byte] = null
-        var setVisible: Ptr[Byte] = null
-        var isVisible: Ptr[Byte] = null
+object Binds {
+          var getCanvasItem: Ptr[Byte] = null
         var isVisibleInTree: Ptr[Byte] = null
         var show: Ptr[Byte] = null
         var hide: Ptr[Byte] = null
         var queueRedraw: Ptr[Byte] = null
         var moveToFront: Ptr[Byte] = null
-        var setAsTopLevel: Ptr[Byte] = null
-        var isSetAsTopLevel: Ptr[Byte] = null
-        var setLightMask: Ptr[Byte] = null
-        var getLightMask: Ptr[Byte] = null
-        var setModulate: Ptr[Byte] = null
-        var getModulate: Ptr[Byte] = null
-        var setSelfModulate: Ptr[Byte] = null
-        var getSelfModulate: Ptr[Byte] = null
-        var setZIndex: Ptr[Byte] = null
-        var getZIndex: Ptr[Byte] = null
-        var setZAsRelative: Ptr[Byte] = null
-        var isZRelative: Ptr[Byte] = null
-        var setYSortEnabled: Ptr[Byte] = null
-        var isYSortEnabled: Ptr[Byte] = null
-        var setDrawBehindParent: Ptr[Byte] = null
-        var isDrawBehindParentEnabled: Ptr[Byte] = null
         var drawLine: Ptr[Byte] = null
         var drawDashedLine: Ptr[Byte] = null
         var drawPolyline: Ptr[Byte] = null
@@ -654,12 +524,8 @@ object CanvasItem:
         var getCanvas: Ptr[Byte] = null
         var getCanvasLayerNode: Ptr[Byte] = null
         var getWorld2d: Ptr[Byte] = null
-        var setMaterial: Ptr[Byte] = null
-        var getMaterial: Ptr[Byte] = null
         var setInstanceShaderParameter: Ptr[Byte] = null
         var getInstanceShaderParameter: Ptr[Byte] = null
-        var setUseParentMaterial: Ptr[Byte] = null
-        var getUseParentMaterial: Ptr[Byte] = null
         var setNotifyLocalTransform: Ptr[Byte] = null
         var isLocalTransformNotificationEnabled: Ptr[Byte] = null
         var setNotifyTransform: Ptr[Byte] = null
@@ -667,42 +533,16 @@ object CanvasItem:
         var forceUpdateTransform: Ptr[Byte] = null
         var makeCanvasPositionLocal: Ptr[Byte] = null
         var makeInputLocal: Ptr[Byte] = null
-        var setVisibilityLayer: Ptr[Byte] = null
-        var getVisibilityLayer: Ptr[Byte] = null
         var setVisibilityLayerBit: Ptr[Byte] = null
         var getVisibilityLayerBit: Ptr[Byte] = null
-        var setTextureFilter: Ptr[Byte] = null
-        var getTextureFilter: Ptr[Byte] = null
-        var setTextureRepeat: Ptr[Byte] = null
-        var getTextureRepeat: Ptr[Byte] = null
-        var setClipChildrenMode: Ptr[Byte] = null
-        var getClipChildrenMode: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.getCanvasItem = GdxApi.getMethodBind(c"CanvasItem", c"get_canvas_item", 2944877500L)
-            Binds.setVisible = GdxApi.getMethodBind(c"CanvasItem", c"set_visible", 2586408642L)
-            Binds.isVisible = GdxApi.getMethodBind(c"CanvasItem", c"is_visible", 36873697L)
+  def loadBinds(): Unit = {
+                Binds.getCanvasItem = GdxApi.getMethodBind(c"CanvasItem", c"get_canvas_item", 2944877500L)
             Binds.isVisibleInTree = GdxApi.getMethodBind(c"CanvasItem", c"is_visible_in_tree", 36873697L)
             Binds.show = GdxApi.getMethodBind(c"CanvasItem", c"show", 3218959716L)
             Binds.hide = GdxApi.getMethodBind(c"CanvasItem", c"hide", 3218959716L)
             Binds.queueRedraw = GdxApi.getMethodBind(c"CanvasItem", c"queue_redraw", 3218959716L)
             Binds.moveToFront = GdxApi.getMethodBind(c"CanvasItem", c"move_to_front", 3218959716L)
-            Binds.setAsTopLevel = GdxApi.getMethodBind(c"CanvasItem", c"set_as_top_level", 2586408642L)
-            Binds.isSetAsTopLevel = GdxApi.getMethodBind(c"CanvasItem", c"is_set_as_top_level", 36873697L)
-            Binds.setLightMask = GdxApi.getMethodBind(c"CanvasItem", c"set_light_mask", 1286410249L)
-            Binds.getLightMask = GdxApi.getMethodBind(c"CanvasItem", c"get_light_mask", 3905245786L)
-            Binds.setModulate = GdxApi.getMethodBind(c"CanvasItem", c"set_modulate", 2920490490L)
-            Binds.getModulate = GdxApi.getMethodBind(c"CanvasItem", c"get_modulate", 3444240500L)
-            Binds.setSelfModulate = GdxApi.getMethodBind(c"CanvasItem", c"set_self_modulate", 2920490490L)
-            Binds.getSelfModulate = GdxApi.getMethodBind(c"CanvasItem", c"get_self_modulate", 3444240500L)
-            Binds.setZIndex = GdxApi.getMethodBind(c"CanvasItem", c"set_z_index", 1286410249L)
-            Binds.getZIndex = GdxApi.getMethodBind(c"CanvasItem", c"get_z_index", 3905245786L)
-            Binds.setZAsRelative = GdxApi.getMethodBind(c"CanvasItem", c"set_z_as_relative", 2586408642L)
-            Binds.isZRelative = GdxApi.getMethodBind(c"CanvasItem", c"is_z_relative", 36873697L)
-            Binds.setYSortEnabled = GdxApi.getMethodBind(c"CanvasItem", c"set_y_sort_enabled", 2586408642L)
-            Binds.isYSortEnabled = GdxApi.getMethodBind(c"CanvasItem", c"is_y_sort_enabled", 36873697L)
-            Binds.setDrawBehindParent = GdxApi.getMethodBind(c"CanvasItem", c"set_draw_behind_parent", 2586408642L)
-            Binds.isDrawBehindParentEnabled = GdxApi.getMethodBind(c"CanvasItem", c"is_draw_behind_parent_enabled", 36873697L)
             Binds.drawLine = GdxApi.getMethodBind(c"CanvasItem", c"draw_line", 1562330099L)
             Binds.drawDashedLine = GdxApi.getMethodBind(c"CanvasItem", c"draw_dashed_line", 3653831622L)
             Binds.drawPolyline = GdxApi.getMethodBind(c"CanvasItem", c"draw_polyline", 3797364428L)
@@ -745,12 +585,8 @@ object CanvasItem:
             Binds.getCanvas = GdxApi.getMethodBind(c"CanvasItem", c"get_canvas", 2944877500L)
             Binds.getCanvasLayerNode = GdxApi.getMethodBind(c"CanvasItem", c"get_canvas_layer_node", 2602762519L)
             Binds.getWorld2d = GdxApi.getMethodBind(c"CanvasItem", c"get_world_2d", 2339128592L)
-            Binds.setMaterial = GdxApi.getMethodBind(c"CanvasItem", c"set_material", 2757459619L)
-            Binds.getMaterial = GdxApi.getMethodBind(c"CanvasItem", c"get_material", 5934680L)
             Binds.setInstanceShaderParameter = GdxApi.getMethodBind(c"CanvasItem", c"set_instance_shader_parameter", 3776071444L)
             Binds.getInstanceShaderParameter = GdxApi.getMethodBind(c"CanvasItem", c"get_instance_shader_parameter", 2760726917L)
-            Binds.setUseParentMaterial = GdxApi.getMethodBind(c"CanvasItem", c"set_use_parent_material", 2586408642L)
-            Binds.getUseParentMaterial = GdxApi.getMethodBind(c"CanvasItem", c"get_use_parent_material", 36873697L)
             Binds.setNotifyLocalTransform = GdxApi.getMethodBind(c"CanvasItem", c"set_notify_local_transform", 2586408642L)
             Binds.isLocalTransformNotificationEnabled = GdxApi.getMethodBind(c"CanvasItem", c"is_local_transform_notification_enabled", 36873697L)
             Binds.setNotifyTransform = GdxApi.getMethodBind(c"CanvasItem", c"set_notify_transform", 2586408642L)
@@ -758,13 +594,7 @@ object CanvasItem:
             Binds.forceUpdateTransform = GdxApi.getMethodBind(c"CanvasItem", c"force_update_transform", 3218959716L)
             Binds.makeCanvasPositionLocal = GdxApi.getMethodBind(c"CanvasItem", c"make_canvas_position_local", 2656412154L)
             Binds.makeInputLocal = GdxApi.getMethodBind(c"CanvasItem", c"make_input_local", 811130057L)
-            Binds.setVisibilityLayer = GdxApi.getMethodBind(c"CanvasItem", c"set_visibility_layer", 1286410249L)
-            Binds.getVisibilityLayer = GdxApi.getMethodBind(c"CanvasItem", c"get_visibility_layer", 3905245786L)
             Binds.setVisibilityLayerBit = GdxApi.getMethodBind(c"CanvasItem", c"set_visibility_layer_bit", 300928843L)
             Binds.getVisibilityLayerBit = GdxApi.getMethodBind(c"CanvasItem", c"get_visibility_layer_bit", 1116898809L)
-            Binds.setTextureFilter = GdxApi.getMethodBind(c"CanvasItem", c"set_texture_filter", 1037999706L)
-            Binds.getTextureFilter = GdxApi.getMethodBind(c"CanvasItem", c"get_texture_filter", 121960042L)
-            Binds.setTextureRepeat = GdxApi.getMethodBind(c"CanvasItem", c"set_texture_repeat", 1716472974L)
-            Binds.getTextureRepeat = GdxApi.getMethodBind(c"CanvasItem", c"get_texture_repeat", 2667158319L)
-            Binds.setClipChildrenMode = GdxApi.getMethodBind(c"CanvasItem", c"set_clip_children_mode", 1319393776L)
-            Binds.getClipChildrenMode = GdxApi.getMethodBind(c"CanvasItem", c"get_clip_children_mode", 3581808349L)
+  }
+}

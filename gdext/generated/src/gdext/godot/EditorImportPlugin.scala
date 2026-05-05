@@ -5,7 +5,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class EditorImportPlugin extends ResourceImporter
+class EditorImportPlugin extends ResourceImporter {
     def _getImporterName(): CString = null
     def _getVisibleName(): CString = null
     def _getPresetCount(): Int = 0
@@ -20,22 +20,27 @@ class EditorImportPlugin extends ResourceImporter
     def _getOptionVisibility(path: CString, optionName: CString, options: Dictionary): Boolean = false
     def _import(sourceFile: CString, savePath: CString, options: Dictionary, platformVariants: Ptr[Byte], genFiles: Ptr[Byte]): Int = null
     def _canImportThreaded(): Boolean = false
-    def appendImportExternalResource(path: CString): Int =
+
+    def appendImportExternalResource(path: CString): Int = {
         val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = path.ptr
-        val _ret = stackalloc[CLong]()
+        _args(0) = path
+        val _ret = stackalloc[Long]()
         GdxApi.ptrcall(EditorImportPlugin.Binds.appendImportExternalResource, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
         (!_ret).toInt
-
+}
+}
 
 object EditorImportPlugin:
-    object Binds:
-        var appendImportExternalResource: Ptr[Byte] = null
+object Binds {
+          var appendImportExternalResource: Ptr[Byte] = null
 
-        def loadBinds(): Unit =
-            Binds.appendImportExternalResource = GdxApi.getMethodBind(c"EditorImportPlugin", c"append_import_external_resource", 320493106L)
+  def loadBinds(): Unit = {
+                Binds.appendImportExternalResource = GdxApi.getMethodBind(c"EditorImportPlugin", c"append_import_external_resource", 320493106L)
+  }
+}
 
-    def apply(): EditorImportPlugin =
-        val obj = new EditorImportPlugin()
-        obj.ptr = GdxApi.constructObject(c"EditorImportPlugin")
-        obj
+def apply(): EditorImportPlugin = {
+  val obj = new EditorImportPlugin()
+  obj.ptr = GdxApi.constructObject(c"EditorImportPlugin")
+  obj
+}

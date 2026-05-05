@@ -5,31 +5,14 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import gdext.GdxApi
 
-class VisualShaderNodeCurveXYZTexture extends VisualShaderNodeResizableBase
-
-    def setTexture(texture: CurveXYZTexture): Unit =
-        val _args = stackalloc[Ptr[Byte]](1)
-        _args(0) = texture.ptr
-        GdxApi.ptrcall(VisualShaderNodeCurveXYZTexture.Binds.setTexture, ptr, _args, null)
-
-    def getTexture(): CurveXYZTexture =
-        val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]
-        val _ret = stackalloc[Ptr[Byte]]()
-        GdxApi.ptrcall(VisualShaderNodeCurveXYZTexture.Binds.getTexture, ptr, _args, _ret.asInstanceOf[Ptr[Byte]])
-        new CurveXYZTexture(!_ret)
-    def texture: Ptr[Byte] = getTexture()
-    def texture_=(v: Ptr[Byte]): Unit = setTexture(v)
+class VisualShaderNodeCurveXYZTexture extends VisualShaderNodeResizableBase {
+    def texture: CurveXYZTexture = getTexture()
+    def texture_=(v: CurveXYZTexture): Unit = setTexture(v)
+}
 
 object VisualShaderNodeCurveXYZTexture:
-    object Binds:
-        var setTexture: Ptr[Byte] = null
-        var getTexture: Ptr[Byte] = null
-
-        def loadBinds(): Unit =
-            Binds.setTexture = GdxApi.getMethodBind(c"VisualShaderNodeCurveXYZTexture", c"set_texture", 8031783L)
-            Binds.getTexture = GdxApi.getMethodBind(c"VisualShaderNodeCurveXYZTexture", c"get_texture", 1950275015L)
-
-    def apply(): VisualShaderNodeCurveXYZTexture =
-        val obj = new VisualShaderNodeCurveXYZTexture()
-        obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCurveXYZTexture")
-        obj
+def apply(): VisualShaderNodeCurveXYZTexture = {
+  val obj = new VisualShaderNodeCurveXYZTexture()
+  obj.ptr = GdxApi.constructObject(c"VisualShaderNodeCurveXYZTexture")
+  obj
+}
