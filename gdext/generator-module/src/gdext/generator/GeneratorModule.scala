@@ -3,20 +3,30 @@ package gdext.generator
 import mill.*
 
 trait GeneratorModule extends Module:
-    def extensionApiPath = Task.Source(moduleDir / "resources" / "4.5.0" / "gdextension_interface.json")
+    def interfaceApiPath = Task.Source(moduleDir / "resources" / "4.5.0" / "gdextension_interface.json")
+    def classApiPath     = Task.Source(moduleDir / "resources" / "4.5.0" / "extension_api.json")
 
     def generatedDir: os.Path = moduleDir / os.up / "generated" / "src" / "gdext" / "generated"
 
     def generate() = Task.Command {
-        println(s"Generating code from ${extensionApiPath().path}...")
+        val interfacePath = interfaceApiPath().path
+        val classPath     = classApiPath().path
+        println(s"Generating code from $interfacePath and $classPath...")
 
-        val jsonStr = os.read(extensionApiPath().path)
-        val json    = ujson.read(jsonStr)
+        val interfaceJson = ujson.read(os.read(interfacePath))
+        val types         = Parser.types(interfaceJson("types"))
+        val interfaces    = Parser.interfaces(interfaceJson("interface"))
 
-        val types      = Parser.types(json("types"))
-        val interfaces = Parser.interfaces(json("interface"))
+        val classJson = ujson.read(os.read(classPath))
+        val classes   = Parser.classes(classJson)
 
-        val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces)
+        println(s"  Found ${classes.size} classes with virtual methods")
+
+        val scalaFiles =
+            Generator.types(types.toVector) ++
+            Generator.interfaces(interfaces) ++
+            Generator.classVirtuals(classes) ++
+            Generator.generateWrappers(classes)
 
         val outDir = generatedDir
         os.makeDir.all(outDir)

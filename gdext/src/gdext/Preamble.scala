@@ -1,0 +1,3 @@
+package gdext
+
+object Preamble

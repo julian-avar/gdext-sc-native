@@ -86,6 +86,78 @@ object Parser:
             )
         }.toVector
 
+    // ── extension_api.json ────────────────────────────────────────────────────
+
+    /** Map an extension_api type string to ReturnType (for virtual stub generation). */
+    def toReturnType(typeName: String): Ast.ReturnType =
+        import Ast.ReturnType.*
+        typeName match
+            case "void"                            => Void
+            case "bool"                            => Bool
+            case "float"                           => Float
+            case "int"                             => Int
+            case "String"                          => GodotString
+            case "StringName"                      => StringName
+            case "PackedStringArray"               => PackedStringArray
+            case "Dictionary"                      => Dictionary
+            case t if t.startsWith("typedarray::") => Array
+            case "Array"                           => Array
+            case "Variant"                         => Variant
+            case "void*"                           => VoidPtr
+            case t if t.startsWith("enum::")       => Int
+            case t if t.startsWith("bitfield::")   => Int
+            case _                                 => Object
+        end match
+
+    def godotClasses(json: ujson.Value): Vector[Ast.GodotClass] =
+        json("classes").arr.map { cls =>
+            val rawMethods = cls.obj.get("methods")
+                .map(_.arr.toVector)
+                .getOrElse(Vector.empty)
+
+            val methods = rawMethods.map { m =>
+                val rv = m.obj.get("return_value")
+                Ast.GodotMethod(
+                  name           = m("name").str,
+                  hash           = m.obj.get("hash").map(_.num.toLong).getOrElse(0L),
+                  returnTypeName = rv.map(_("type").str).getOrElse("void"),
+                  returnMeta     = rv.flatMap(_.obj.get("meta").map(_.str)),
+                  args           = m.obj.get("arguments")
+                      .map(_.arr.toVector.map { a =>
+                          Ast.GodotArg(
+                            name       = a("name").str,
+                            typeName   = a("type").str,
+                            meta       = a.obj.get("meta").map(_.str),
+                            hasDefault = a.obj.contains("default_value")
+                          )
+                      })
+                      .getOrElse(Vector.empty),
+                  isStatic   = m("is_static").bool,
+                  isVirtual  = m("is_virtual").bool,
+                  isRequired = m.obj.get("is_required").exists(_.bool)
+                )
+            }
+
+            val properties = cls.obj.get("properties")
+                .map(_.arr.toVector.map { p =>
+                    Ast.GodotProperty(
+                      name   = p("name").str,
+                      getter = p("getter").str,
+                      setter = p.obj.get("setter").map(_.str).filter(_.nonEmpty)
+                    )
+                })
+                .getOrElse(Vector.empty)
+
+            Ast.GodotClass(
+              name           = cls("name").str,
+              inherits       = cls.obj.get("inherits").map(_.str),
+              isRefcounted   = cls("is_refcounted").bool,
+              isInstantiable = cls("is_instantiable").bool,
+              methods        = methods,
+              properties     = properties
+            )
+        }.toVector
+
     def typeName(toParseType: String): String =
         val baseTypeMap: Map[String, String] = Vector(
           ("void"     -> "CVoidPtr"),

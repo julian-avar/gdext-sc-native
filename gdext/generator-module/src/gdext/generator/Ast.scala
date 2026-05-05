@@ -38,4 +38,55 @@ object Ast:
         see: Vector[String],
         legacyTypeName: Option[String]
     )
+
+    // ── extension_api.json: full class model ──────────────────────────────────
+
+    /** Simplified return type used for virtual-stub code generation. */
+    enum ReturnType:
+        case Void
+        case Bool
+        case Int          // covers int32, int64, enum::*
+        case Float
+        case GodotString  // "String"
+        case StringName   // "StringName"
+        case PackedStringArray
+        case Dictionary
+        case Array        // typed or untyped arrays
+        case Object       // any Object / Script / ScriptLanguage subtype
+        case VoidPtr      // "void*"
+        case Variant
+    end ReturnType
+
+    case class GodotArg(
+        name: String,
+        typeName: String,
+        meta: Option[String],
+        hasDefault: Boolean
+    )
+
+    case class GodotMethod(
+        name: String,
+        hash: Long,
+        returnTypeName: String,
+        returnMeta: Option[String],
+        args: Vector[GodotArg],
+        isStatic: Boolean,
+        isVirtual: Boolean,
+        isRequired: Boolean   // only meaningful for virtuals
+    )
+
+    case class GodotProperty(
+        name: String,
+        getter: String,
+        setter: Option[String]
+    )
+
+    case class GodotClass(
+        name: String,
+        inherits: Option[String],
+        isRefcounted: Boolean,
+        isInstantiable: Boolean,
+        methods: Vector[GodotMethod],
+        properties: Vector[GodotProperty]
+    )
 end Ast

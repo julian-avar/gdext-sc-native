@@ -26,6 +26,8 @@ object gdext extends SharedModule:
     def releaseMode       = ReleaseMode.Debug
     def nativeBuildTarget = mill.scalanativelib.api.BuildTarget.LibraryDynamic
     def nativeBaseName    = "godot-scala-native"
+    // Include generated Godot wrappers produced by generator-module
+    def sources = Task { super.sources() ++ Seq(PathRef(moduleDir / "generated" / "src")) }
 
     def buildExtension() = Task.Command {
         val lib  = nativeLink()

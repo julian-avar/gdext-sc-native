@@ -6,16 +6,30 @@ object GeneratorMain:
             System.err.println("Usage: GeneratorMain <extensionApiPath> <outputDir>")
             sys.exit(1)
 
-        val apiPath = os.Path(args(0))
-        val outDir  = os.Path(args(1))
+        if args.length < 3 then
+            System.err.println("Usage: GeneratorMain <gdextension_interface.json> <extension_api.json> <outputDir>")
+            sys.exit(1)
 
-        println(s"Reading $apiPath...")
-        val json = ujson.read(os.read(apiPath))
+        val interfaceApiPath = os.Path(args(0))
+        val classApiPath     = os.Path(args(1))
+        val outDir           = os.Path(args(2))
 
-        val types      = Parser.types(json("types"))
-        val interfaces = Parser.interfaces(json("interface"))
+        println(s"Reading $interfaceApiPath...")
+        val interfaceJson = ujson.read(os.read(interfaceApiPath))
+        val types         = Parser.types(interfaceJson("types"))
+        val interfaces    = Parser.interfaces(interfaceJson("interface"))
 
-        val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces)
+        println(s"Reading $classApiPath...")
+        val classJson = ujson.read(os.read(classApiPath))
+        val classes   = Parser.classes(classJson)
+
+        println(s"  Found ${classes.size} classes with virtual methods")
+
+        val scalaFiles =
+            Generator.types(types.toVector) ++
+            Generator.interfaces(interfaces) ++
+            Generator.classVirtuals(classes) ++
+            Generator.generateWrappers(classes)
 
         os.makeDir.all(outDir)
 
