@@ -8,12 +8,27 @@ private[gdext] var gdxGetProcAddress: GetProcAddressFn = scala.compiletime.unini
 private[gdext] var gdxLibrary: Ptr[Byte]               = null
 
 // Stored so the GC never collects these closures while Godot holds raw pointers.
-private var _initCb: CFuncPtr2[Ptr[Byte], CInt, Unit]   = scala.compiletime.uninitialized
+private var _initCb:   CFuncPtr2[Ptr[Byte], CInt, Unit] = scala.compiletime.uninitialized
 private var _deinitCb: CFuncPtr2[Ptr[Byte], CInt, Unit] = scala.compiletime.uninitialized
 
+/** Library-side initialisation logic.
+  *
+  * Users must expose `godot_scala_init` themselves and call this from it:
+  *
+  * {{{
+  * object MyEntry:
+  *   @exported("godot_scala_init")
+  *   def godotScalaInit(
+  *       getProcAddress: GetProcAddressFn,
+  *       library: Ptr[Byte],
+  *       initPtr: Ptr[GdxInitStruct]
+  *   ): CUnsignedChar =
+  *     GdClassRegistry.register("SpinningCube", "Node3D", () => new SpinningCube())
+  *     GodotEntry.init(getProcAddress, library, initPtr)
+  * }}}
+  */
 object GodotEntry:
-    @exported("godot_scala_init")
-    def godotScalaInit(
+    def init(
         getProcAddress: GetProcAddressFn,
         library: Ptr[Byte],
         initPtr: Ptr[GdxInitStruct]
@@ -21,23 +36,21 @@ object GodotEntry:
         logger.log("Starting Scala-Native GDExtension.")
 
         gdxGetProcAddress = getProcAddress
-        gdxLibrary = library
+        gdxLibrary        = library
 
         GdxApi.initialize(getProcAddress)
 
-        // Build callbacks and keep references so they aren't GC'd.
         _initCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
             if level == GdxInitLevel.Scene then ClassRegistrar.register()
         }
         _deinitCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, _) => () }
 
-        // Fill in GDExtensionInitialization.
-        initPtr._1 = GdxInitLevel.Scene // minimum level
-        initPtr._2 = null               // userdata
+        initPtr._1 = GdxInitLevel.Scene
+        initPtr._2 = null
         initPtr._3 = CFuncPtr.toPtr(_initCb).asInstanceOf[Ptr[Byte]]
         initPtr._4 = CFuncPtr.toPtr(_deinitCb).asInstanceOf[Ptr[Byte]]
 
         logger.log("Initialization struct written; waiting for scene-level callback.")
-        1.toUByte // GDExtensionBool true = success
+        1.toUByte
     }
 end GodotEntry

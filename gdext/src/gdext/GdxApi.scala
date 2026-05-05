@@ -36,7 +36,8 @@ object GdxApi:
         args: Ptr[Ptr[Byte]],
         ret: Ptr[Byte]
     ): Unit =
-        ptrcallPtr(methodBind, instance, args, if args == null then 0.toInt else Int.MaxValue, ret, null)
+        val argCount: CInt = if args == null then 0 else Int.MaxValue
+        ptrcallPtr(methodBind, instance, args, argCount, ret, null)
 
     def constructObject(className: CString): Ptr[Byte] =
         constructObjectPtr(className)

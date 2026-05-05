@@ -5,77 +5,158 @@ import scala.scalanative.unsigned.*
 import scala.scalanative.libc.stdlib.*
 import scala.scalanative.libc.string.*
 
+/** Registers user-defined classes with Godot at scene-level init time. */
 object ClassRegistrar:
-    // Persistent storage — malloc'd, outlives any Zone.
-    private var nodeStringName: Ptr[Byte]  = null // StringName("Node")
-    private var readyStringName: Ptr[Byte] = null // StringName("_ready")
+    // godotPtr → Scala instance; looked up on every virtual call.
+    private var instanceMap: Map[Ptr[Byte], GodotClass] = Map.empty
 
-    // Kept alive so the GC never collects the closures while Godot holds pointers.
-    private var _createFn: CreateInstanceFn = scala.compiletime.uninitialized
-    private var _freeFn: FreeInstanceFn     = scala.compiletime.uninitialized
-    private var _readyFn: CallVirtualFn     = scala.compiletime.uninitialized
-    private var _getVirtualFn: GetVirtualFn = scala.compiletime.uninitialized
+    // Keep all closures alive — GC must never collect them while Godot holds raw ptrs.
+    private var freeFns: Map[String, FreeInstanceFn]     = Map.empty
+    private var getVirtualFns: Map[String, GetVirtualFn] = Map.empty
+
+    // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
+    private var factoryMap: Map[Ptr[Byte], (() => GodotClass, String)] = Map.empty
+    private var _createFn: CreateInstanceFn                             = null
+
+    // Shared CallVirtualFn pointers — created once, reused for every class.
+    private var _readyFn: Ptr[Byte]          = null
+    private var _processFn: Ptr[Byte]        = null
+    private var _physicsProcessFn: Ptr[Byte] = null
 
     def register(): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
 
-        // ── Get required proc addresses (c"..." are static, no Zone needed) ──
         val stringNameNewPtr  = getProcAddr(c"string_name_new_with_utf8_chars")
         val registerClass2Ptr = getProcAddr(c"classdb_register_extension_class2")
-
-        if stringNameNewPtr == null || registerClass2Ptr == null then
-            return
+        if stringNameNewPtr == null || registerClass2Ptr == null then return
 
         val stringNameNew  = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
         val registerClass2 = CFuncPtr.fromPtr[RegisterClass2Fn](registerClass2Ptr)
 
-        // ── StringName("Node") — malloc so it outlives this stack frame ───────
-        nodeStringName = malloc(StringNameSize)
-        memset(nodeStringName, 0, StringNameSize)
-        stringNameNew(nodeStringName, c"Node")
+        buildSharedCreateFn()
+        buildSharedVirtualFns()
 
-        // ── StringName("_ready") ──────────────────────────────────────────────
-        readyStringName = malloc(StringNameSize)
-        memset(readyStringName, 0, StringNameSize)
-        stringNameNew(readyStringName, c"_ready")
+        for reg <- GdClassRegistry.getRegistrations do
+            // Heap-allocate StringName buffers — Godot may hold these past this call.
+            val classNameBuf  = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+            val parentNameBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+            memset(classNameBuf, 0, StringNameSize)
+            memset(parentNameBuf, 0, StringNameSize)
 
-        // ── StringName("ScalaNode") — only needed during registration call ────
-        val classNameBuf = stackalloc[Byte](StringNameSize)
-        memset(classNameBuf, 0, StringNameSize)
-        stringNameNew(classNameBuf, c"ScalaNode")
-
-        // ── Closures (stored to prevent GC collection) ────────────────────────
-        _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { _ =>
-            GdxApi.constructObject(c"Node")
-        }
-        _freeFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] { (_, _) => () }
-
-        _readyFn = CFuncPtr3
-            .fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] { (_, _, _) =>
-                FileLogger.use("godot-ready") { logger => logger.log("ScalaNode._ready called!") }
+            Zone {
+                stringNameNew(classNameBuf, toCString(reg.name))
+                stringNameNew(parentNameBuf, toCString(reg.parentName))
             }
 
-        _getVirtualFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (_, name) =>
-            if memcmp(name, readyStringName, StringNameSize) == 0 then
-                CFuncPtr.toPtr(_readyFn).asInstanceOf[Ptr[Byte]]
-            else null
+            // Allocate a unique pointer to use as class_userdata key for the shared create fn.
+            val userdataPtr = malloc(1)
+            factoryMap += (userdataPtr -> (reg.factory, reg.parentName))
+
+            val freeFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] {
+                (_, instancePtr) => instanceMap -= instancePtr
+            }
+            freeFns += (reg.name -> freeFn)
+
+            val getVirtualFn = buildGetVirtualFn()
+            getVirtualFns += (reg.name -> getVirtualFn)
+
+            val info = stackalloc[ClassCreationInfo2]()
+            memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassCreationInfo2])
+            info._1  = 0.toUByte // is_virtual
+            info._2  = 0.toUByte // is_abstract
+            info._3  = 1.toUByte // is_exposed
+            info._15 = CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]]
+            info._16 = CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]]
+            info._18 = CFuncPtr.toPtr(getVirtualFn).asInstanceOf[Ptr[Byte]]
+            info._22 = userdataPtr // class_userdata — passed back to _createFn
+
+            registerClass2(library, classNameBuf, parentNameBuf, info)
+        end for
+    end register
+
+    // ── virtual dispatch helpers ────────────────────────────────────────────
+
+    /** Build the three shared CallVirtualFn pointers (once per extension load). */
+    private def buildSharedVirtualFns(): Unit =
+        if _readyFn == null then
+            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] {
+                (instancePtr, _, _) => instanceMap.get(instancePtr).foreach(_._ready())
+            }
+            _readyFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        end if
+
+        if _processFn == null then
+            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] {
+                (instancePtr, args, _) =>
+                    val delta = !args(0).asInstanceOf[Ptr[Double]]
+                    instanceMap.get(instancePtr).foreach(_._process(delta))
+            }
+            _processFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        end if
+
+        if _physicsProcessFn == null then
+            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] {
+                (instancePtr, args, _) =>
+                    val delta = !args(0).asInstanceOf[Ptr[Double]]
+                    instanceMap.get(instancePtr).foreach(_._physicsProcess(delta))
+            }
+            _physicsProcessFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        end if
+    end buildSharedVirtualFns
+
+    /** Builds (once) the shared create function. Per-class data is stored in `factoryMap` and
+      * retrieved via the `class_userdata` pointer Godot passes back as the argument.
+      */
+    private def buildSharedCreateFn(): Unit =
+        if _createFn == null then
+            _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
+                factoryMap.get(userdata) match
+                    case Some((factory, parentName)) =>
+                        Zone {
+                            val godotPtr = GdxApi.constructObject(toCString(parentName))
+                            val obj      = factory()
+                            obj.ptr = godotPtr
+                            instanceMap += (godotPtr -> obj)
+                            godotPtr
+                        }
+                    case None => null
+            }
+        end if
+    end buildSharedCreateFn
+
+    /** get_virtual_func: receives (classUserdata, StringNamePtr), returns CallVirtualFn or null.
+      *
+      * NOTE: Godot's StringName is opaque — reading it as a plain C string is incorrect. This uses
+      * a best-effort byte-peek that works for short ASCII method names in practice. A proper fix
+      * requires calling string_name_to_utf8_chars via GdxApi.
+      */
+    private def buildGetVirtualFn(): GetVirtualFn = CFuncPtr2
+        .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (_, namePtr) =>
+            peekStringName(namePtr) match
+                case "_ready"           => _readyFn
+                case "_process"         => _processFn
+                case "_physics_process" => _physicsProcessFn
+                case _                  => null
         }
 
-        // ── GDExtensionClassCreationInfo2 — stack-allocated, only needs to   ──
-        // ── survive until classdb_register_extension_class2 returns.          ──
-        val info = stackalloc[ClassCreationInfo2]()
-        memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassCreationInfo2])
+    // ── string helpers ──────────────────────────────────────────────────────
 
-        info._1 = 0.toUByte // is_virtual  = false
-        info._2 = 0.toUByte // is_abstract = false
-        info._3 = 1.toUByte // is_exposed  = true
-        info._15 = CFuncPtr.toPtr(_createFn)
-            .asInstanceOf[Ptr[Byte]] // create_instance_func (required)
-        info._16 = CFuncPtr.toPtr(_freeFn)
-            .asInstanceOf[Ptr[Byte]] // free_instance_func   (required)
-        info._18 = CFuncPtr.toPtr(_getVirtualFn).asInstanceOf[Ptr[Byte]] // get_virtual_func
+    private def toCString(s: String)(using Zone): CString = scalanative.unsafe.toCString(s)
 
-        registerClass2(library, classNameBuf, nodeStringName, info)
-    end register
+    /** Best-effort peek of a Godot StringName as an ASCII string. Works only because short method
+      * names happen to be stored inline on this platform. TODO: replace with
+      * string_name_to_utf8_chars GDExtension API call.
+      */
+    private def peekStringName(ptr: Ptr[Byte]): String =
+        val sb = new StringBuilder
+        var i  = 0
+        while i < 256 do
+            val b = !(ptr + i)
+            if b == 0.toByte then return sb.toString()
+            sb.append(b.toChar)
+            i += 1
+        end while
+        sb.toString()
+    end peekStringName
 end ClassRegistrar

@@ -155,7 +155,8 @@ object Generator:
         if scalaKeywords.contains(n) then s"`$n`" else n
 
     private def safeSetterName(n: String): String =
-        if scalaKeywords.contains(n) then s"`${n}_=`" else s"${n}_="
+        val base = if scalaKeywords.contains(n) then s"`$n`" else n
+        s"${base}_="
 
     private def toCamel(name: String): String =
         val leading = name.takeWhile(_ == '_')
@@ -278,12 +279,14 @@ object Generator:
             }.mkString("\n")
 
             val classDef = cls.inherits match
-                case Some(p) => s"class ${cls.name}(ptr: Ptr[Byte]) extends $p(ptr)"
-                case None    => s"class ${cls.name}(val ptr: Ptr[Byte])"
+                case Some(p) => s"class ${cls.name} extends $p"
+                case None    => s"class ${cls.name} extends gdext.GodotClass"
 
             val ctorDef = if cls.isInstantiable then
                 s"""    def apply(): ${cls.name} =
-                    |        new ${cls.name}(GdxApi.constructObject(c"${cls.name}"))""".stripMargin
+                    |        val obj = new ${cls.name}()
+                    |        obj.ptr = GdxApi.constructObject(c"${cls.name}")
+                    |        obj""".stripMargin
             else ""
 
             val bindsSection = if regular.nonEmpty then
