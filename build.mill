@@ -26,8 +26,15 @@ object gdext extends SharedModule:
     def releaseMode       = ReleaseMode.Debug
     def nativeBuildTarget = mill.scalanativelib.api.BuildTarget.LibraryDynamic
     def nativeBaseName    = "godot-scala-native"
-    // Include generated Godot wrappers produced by generator-module
-    def sources = Task { super.sources() ++ Seq(PathRef(moduleDir / "generated" / "src")) }
+
+    // Include generated Godot wrappers produced by generator-module.
+    // We use Task.Input to read the generated directory at execution time.
+    def generatedSources = Task.Input {
+        val dir = moduleDir / "generated" / "src"
+        if os.exists(dir) then Seq(PathRef(dir)) else Seq.empty
+    }
+
+    def sources = Task { super.sources() ++ generatedSources() }
 
     def buildExtension() = Task.Command {
         val lib  = nativeLink()
@@ -54,8 +61,9 @@ object gdext extends SharedModule:
         def mainClass      = Some("gdext.generator.GeneratorMain")
 
         def generate() = Task.Command {
-            val apiPath = moduleDir / "resources" / "4.5.0" / "gdextension_interface.json"
-            val outDir  = moduleDir / os.up / "generated" / "src" / "gdext" / "generated"
+            val interfacePath = moduleDir / "resources" / "4.5.0" / "gdextension_interface.json"
+            val classPath     = moduleDir / "resources" / "4.5.0" / "extension_api.json"
+            val outDir        = moduleDir / os.up / "generated" / "src"
             val cp      = runClasspath().map(_.path.toString).mkString(sys.props("path.separator"))
             val javaExe = sys.props("java.home") + "/bin/java"
             os.proc(
@@ -63,7 +71,8 @@ object gdext extends SharedModule:
               "-cp",
               cp,
               "gdext.generator.GeneratorMain",
-              apiPath.toString,
+              interfacePath.toString,
+              classPath.toString,
               outDir.toString
             ).call(stdout = os.Inherit, stderr = os.Inherit)
         }

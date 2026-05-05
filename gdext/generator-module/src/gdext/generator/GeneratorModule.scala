@@ -18,7 +18,7 @@ trait GeneratorModule extends Module:
         val interfaces    = Parser.interfaces(interfaceJson("interface"))
 
         val classJson = ujson.read(os.read(classPath))
-        val classes   = Parser.classes(classJson)
+        val classes   = Parser.godotClasses(classJson)
 
         println(s"  Found ${classes.size} classes with virtual methods")
 

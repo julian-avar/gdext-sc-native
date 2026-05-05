@@ -23,6 +23,8 @@ object GodotEntry:
         gdxGetProcAddress = getProcAddress
         gdxLibrary = library
 
+        GdxApi.initialize(getProcAddress)
+
         // Build callbacks and keep references so they aren't GC'd.
         _initCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
             if level == GdxInitLevel.Scene then ClassRegistrar.register()

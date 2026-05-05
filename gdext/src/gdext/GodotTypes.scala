@@ -5,13 +5,13 @@ import scala.scalanative.unsigned.*
 
 // ── Function pointer types ──────────────────────────────────────────────────
 
-type GetProcAddressFn  = CFuncPtr1[CString, Ptr[Byte]]
-type StringNameNewFn   = CFuncPtr2[Ptr[Byte], CString, Unit]
-type ConstructObjectFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
-type RegisterClass2Fn  = CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[ClassCreationInfo2], Unit]
-type CreateInstanceFn  = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
-type FreeInstanceFn    = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
-type GdxInitCallback   = CFuncPtr2[Ptr[Byte], CInt, Unit]
+type GetProcAddressFn = CFuncPtr1[CString, Ptr[Byte]]
+type StringNameNewFn  = CFuncPtr2[Ptr[Byte], CString, Unit]
+// type ConstructObjectFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
+type RegisterClass2Fn = CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[ClassCreationInfo2], Unit]
+type CreateInstanceFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
+type FreeInstanceFn   = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
+type GdxInitCallback  = CFuncPtr2[Ptr[Byte], CInt, Unit]
 // p_instance, p_args, r_ret
 type CallVirtualFn = CFuncPtr3[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit]
 // p_userdata, p_name (StringName*) → GDExtensionClassCallVirtual (or null)

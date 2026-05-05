@@ -21,9 +21,8 @@ object Generator:
                 |
                 |${contents.mkString}
                 |""".stripMargin
-            end content
 
-            ScalaFile(path = "types", name = name, content = content)
+            ScalaFile(path = "io/github/optical002/godot/codegen/gdextensioninterface/types", name = name, content = content)
         }.toVector
     end types
 
@@ -63,7 +62,7 @@ object Generator:
                 |  private def loadBatch${idx}(
                 |    result: Interface,
                 |    getProcAddr: GDExtensionInterfaceGetProcAddress
-                |  )(implicit zone: Zone): Unit = {
+                |  )(using zone: Zone): Unit = {
                 |      $loadAndAssign
                 |  }
                 |""".stripMargin
@@ -75,7 +74,6 @@ object Generator:
             |import scala.scalanative.unsafe.*
             |import scala.scalanative.unsigned.*
             |import scala.scalanative.unsigned.UInt.*
-            |import io.github.optical002.godot.types.*
             |import io.github.optical002.godot.codegen.gdextensioninterface.types.*
             |
             |$definitions
@@ -88,17 +86,17 @@ object Generator:
             |
             |  def load(
             |    getProcAddr: GDExtensionInterfaceGetProcAddress
-            |  ): Interface = Zone.acquire { implicit zone: Zone =>
+            |  ): Interface = Zone.acquire { (zone: Zone) ?=>
             |      val result = new Interface()
             |      ${batches.indices.map(i => s"loadBatch$i(result, getProcAddr)")
-                  .mkString("\n      ")}
+                          .mkString("\n      ")}
             |      result
             |  }
             |}
             |""".stripMargin
         end content
 
-        Vector(ScalaFile(path = "interface", name = "Interface", content = content))
+        Vector(ScalaFile(path = "io/github/optical002/godot/codegen/gdextensioninterface/codegen/types", name = "Interface", content = content))
     end interfaces
 
     // ── extension_api.json: virtual stubs + wrapper classes ──────────────────
@@ -140,13 +138,13 @@ object Generator:
                         |$entries
                         |    )
                         |""".stripMargin
-                Some(ScalaFile(content = content, path = "virtuals", name = s"${cls.name}Virtuals"))
+                Some(ScalaFile(content = content, path = "gdext/generated", name = s"${cls.name}Virtuals"))
         }
 
     // ── Wrapper class generation ──────────────────────────────────────────────
 
     private val scalaKeywords = Set(
-        "abstract", "case", "catch", "class", "def", "do", "else", "extends", "false",
+        "abstract", "case", "catch", "class", "def", "do", "else", "enum", "extends", "false",
         "final", "finally", "for", "if", "implicit", "import", "lazy", "match", "new",
         "null", "object", "override", "package", "private", "protected", "return",
         "sealed", "super", "this", "throw", "trait", "try", "true", "type", "val",
@@ -155,6 +153,9 @@ object Generator:
 
     private def safeName(n: String): String =
         if scalaKeywords.contains(n) then s"`$n`" else n
+
+    private def safeSetterName(n: String): String =
+        if scalaKeywords.contains(n) then s"`${n}_=`" else s"${n}_="
 
     private def toCamel(name: String): String =
         val leading = name.takeWhile(_ == '_')
@@ -174,7 +175,8 @@ object Generator:
             case t if t.startsWith("enum::")         => "Int"
             case t if t.startsWith("bitfield::")     => "Int"
             case "Variant" | "void*"                 => "Ptr[Byte]"
-            case t                                   => t
+            case t if t.endsWith("*")                => "Ptr[Byte]" // Generic pointer type
+            case t                                   => t // Assume it's a class name
 
     private def packArg(arg: Ast.GodotArg, i: Int): (String, String) =
         val param = safeName(toCamel(arg.name))
@@ -237,10 +239,10 @@ object Generator:
         val (rAlloc, rRead) = retSetup(m.returnTypeName, m.returnMeta)
         val retLine         = if rAlloc.nonEmpty then s"        $rAlloc\n" else ""
         val retPtr          = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
-        val callLine        = s"        GdxApi.ptrcall(${cls.name}.Binds.$name, ptr, _args, $retPtr)"
+        val callLine        = s"        GdxApi.ptrcall(${cls.name}.Binds.${safeName(name)}, ptr, _args, $retPtr)"
         val readLine        = if rRead.nonEmpty then s"\n        $rRead" else ""
 
-        s"    def $name($paramList): ${scalaType(m.returnTypeName, m.returnMeta)} =\n$argsBlock\n$retLine$callLine$readLine"
+        s"    def ${safeName(name)}($paramList): ${scalaType(m.returnTypeName, m.returnMeta)} =\n$argsBlock\n$retLine$callLine$readLine"
 
     private def generateVirtual(m: Ast.GodotMethod): String =
         val params  = m.args.map { a =>
@@ -251,7 +253,7 @@ object Generator:
             case "bool" => "false"
             case "int" | "float" => "0"
             case _ => "null"
-        s"    def ${toCamel(m.name)}($params): ${scalaType(m.returnTypeName, m.returnMeta)} = $default"
+        s"    def ${safeName(toCamel(m.name))}($params): ${scalaType(m.returnTypeName, m.returnMeta)} = $default"
 
     def generateWrappers(classes: Vector[Ast.GodotClass]): Vector[ScalaFile] =
         classes.map { cls =>
@@ -262,28 +264,37 @@ object Generator:
             val virtualSrc = virtuals.map(generateVirtual).mkString("\n")
             val propSrc    = cls.properties.map { p =>
                 val field  = toCamel(p.name)
-                val getter = s"    def $field: Ptr[Byte] = ${toCamel(p.getter)}()"
+                val getter = s"    def ${safeName(field)}: Ptr[Byte] = ${safeName(toCamel(p.getter))}()"
                 val setter = p.setter.map { s =>
-                    s"    def ${field}_=(v: Ptr[Byte]): Unit = ${toCamel(s)}(v)"
+                    s"    def ${safeSetterName(field)}(v: Ptr[Byte]): Unit = ${safeName(toCamel(s))}(v)"
                 }.getOrElse("")
                 if setter.nonEmpty then s"$getter\n$setter" else getter
             }.mkString("\n")
 
-            val bindsVars  = regular.map(m => s"        var ${toCamel(m.name)}: Ptr[Byte] = null").mkString("\n")
+            val bindsVars  = regular.map(m => s"        var ${safeName(toCamel(m.name))}: Ptr[Byte] = null").mkString("\n")
             val bindsLoads = regular.map { m =>
-                val sn = toCamel(m.name)
+                val sn = safeName(toCamel(m.name))
                 s"""            Binds.$sn = GdxApi.getMethodBind(c"${cls.name}", c"${m.name}", ${m.hash}L)"""
             }.mkString("\n")
 
             val classDef = cls.inherits match
-                case Some(p) => s"class ${cls.name}(ptr: Ptr[Byte]) extends $p(ptr):"
-                case None    => s"class ${cls.name}(val ptr: Ptr[Byte]):"
+                case Some(p) => s"class ${cls.name}(ptr: Ptr[Byte]) extends $p(ptr)"
+                case None    => s"class ${cls.name}(val ptr: Ptr[Byte])"
 
             val ctorDef = if cls.isInstantiable then
-                s"""|
-                    |    def apply(): ${cls.name} =
+                s"""    def apply(): ${cls.name} =
                     |        new ${cls.name}(GdxApi.constructObject(c"${cls.name}"))""".stripMargin
             else ""
+
+            val bindsSection = if regular.nonEmpty then
+                s"""    object Binds:
+                   |$bindsVars
+                   |
+                   |        def loadBinds(): Unit =
+                   |$bindsLoads""".stripMargin
+            else ""
+
+            val companionBody = Seq(bindsSection, ctorDef).filter(_.nonEmpty).mkString("\n\n")
 
             val content =
                 s"""|// Generated by gdext generator — do not edit.
@@ -297,17 +308,16 @@ object Generator:
                     |$virtualSrc
                     |$methodSrc
                     |$propSrc
-                    |
-                    |object ${cls.name}:
-                    |    object Binds:
-                    |$bindsVars
-                    |
-                    |    def loadBinds(): Unit =
-                    |$bindsLoads
-                    |$ctorDef
-                    |""".stripMargin
+                    |""".stripMargin +
+                (if companionBody.nonEmpty then
+                    s"""|
+                        |object ${cls.name}:
+                        |$companionBody
+                        |""".stripMargin
+                else "")
 
-            ScalaFile(content = content, path = "godot", name = cls.name)
+
+            ScalaFile(content = content, path = "gdext/godot", name = cls.name)
         }
     end generateWrappers
 

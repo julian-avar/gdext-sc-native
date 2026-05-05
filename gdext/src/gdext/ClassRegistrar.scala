@@ -11,27 +11,24 @@ object ClassRegistrar:
     private var readyStringName: Ptr[Byte] = null // StringName("_ready")
 
     // Kept alive so the GC never collects the closures while Godot holds pointers.
-    private var _createFn: CreateInstanceFn         = scala.compiletime.uninitialized
-    private var _freeFn: FreeInstanceFn             = scala.compiletime.uninitialized
-    private var _constructObject: ConstructObjectFn = scala.compiletime.uninitialized
-    private var _readyFn: CallVirtualFn             = scala.compiletime.uninitialized
-    private var _getVirtualFn: GetVirtualFn         = scala.compiletime.uninitialized
+    private var _createFn: CreateInstanceFn = scala.compiletime.uninitialized
+    private var _freeFn: FreeInstanceFn     = scala.compiletime.uninitialized
+    private var _readyFn: CallVirtualFn     = scala.compiletime.uninitialized
+    private var _getVirtualFn: GetVirtualFn = scala.compiletime.uninitialized
 
     def register(): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
 
         // ── Get required proc addresses (c"..." are static, no Zone needed) ──
-        val stringNameNewPtr   = getProcAddr(c"string_name_new_with_utf8_chars")
-        val registerClass2Ptr  = getProcAddr(c"classdb_register_extension_class2")
-        val constructObjectPtr = getProcAddr(c"classdb_construct_object")
+        val stringNameNewPtr  = getProcAddr(c"string_name_new_with_utf8_chars")
+        val registerClass2Ptr = getProcAddr(c"classdb_register_extension_class2")
 
-        if stringNameNewPtr == null || registerClass2Ptr == null || constructObjectPtr == null then
+        if stringNameNewPtr == null || registerClass2Ptr == null then
             return
 
         val stringNameNew  = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
         val registerClass2 = CFuncPtr.fromPtr[RegisterClass2Fn](registerClass2Ptr)
-        _constructObject = CFuncPtr.fromPtr[ConstructObjectFn](constructObjectPtr)
 
         // ── StringName("Node") — malloc so it outlives this stack frame ───────
         nodeStringName = malloc(StringNameSize)
@@ -50,7 +47,7 @@ object ClassRegistrar:
 
         // ── Closures (stored to prevent GC collection) ────────────────────────
         _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { _ =>
-            _constructObject(nodeStringName)
+            GdxApi.constructObject(c"Node")
         }
         _freeFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] { (_, _) => () }
 
