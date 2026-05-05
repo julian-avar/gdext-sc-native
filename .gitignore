@@ -17,6 +17,7 @@ out/
 # Generated code
 bindings/src/godot/
 !bindings/src/.gitkeep
+gdext/generated/
 
 # IDE
 .idea/
@@ -41,3 +42,4 @@ examples/*/.import/
 *.tmp
 *.bak
 *~
+.direnv/

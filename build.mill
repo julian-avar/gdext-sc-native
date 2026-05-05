@@ -14,13 +14,16 @@ object gdext extends SharedModule:
     def mvnDeps = Seq(Deps.osLib)
 
     // Include generated Godot wrappers produced by generator-module.
-    // We use Task.Input to read the generated directory at execution time.
-    def generatedSources = Task.Input {
-        val dir = moduleDir / "generated" / "src"
-        if os.exists(dir) then Seq(PathRef(dir)) else Seq.empty
+    def generatedSourceFiles = Task.Input {
+        val genDir = moduleDir / "generated" / "src"
+        if os.exists(genDir) then {
+          os.walk(genDir).filter(_.ext == "scala").map(PathRef(_)).toSeq
+        } else Seq.empty
     }
 
-    def sources = Task { super.sources() ++ generatedSources() }
+    override def allSources = Task {
+        super.allSources() ++ generatedSourceFiles()
+    }
 
     object `generator-module` extends ScalaModule, PublishModule:
         def millVersion = "1.1.2"
