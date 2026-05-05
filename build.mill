@@ -23,9 +23,10 @@ object gdext extends SharedModule:
     def sources = Task { super.sources() ++ generatedSources() }
 
     object `generator-module` extends ScalaModule, PublishModule:
+        def millVersion = "1.1.2"
+
         def scalaVersion   = "3.8.3"
         def jvmVersion     = "17"
-        def millVersion    = "1.1.2"
         def platformSuffix = s"_mill1"
         def mvnDeps        = Seq(mvn"com.lihaoyi::mill-libs:$millVersion")
         def mainClass      = Some("gdext.generator.GeneratorMain")
