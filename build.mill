@@ -1,4 +1,6 @@
 //| mill-version: 1.1.2-native
+//| mvnDeps:
+//| - com.goyeau::mill-scalafix::0.6.0
 package build
 
 import mill.*
@@ -8,8 +10,19 @@ import mill.scalanativelib.*
 import mill.scalalib.scalafmt.ScalafmtModule
 import mill.scalanativelib.api.{ReleaseMode, BuildTarget}
 
+import com.goyeau.mill.scalafix.ScalafixModule
+
 val defaultScalaVersion       = "3.8.3"
 val defaultScalaNativeVersion = "0.5.11"
+val defaultVersion            = "0.1.0"
+val defaultPomSettings        = PomSettings(
+  description = "GD Extension Scala",
+  organization = "julian_avar.gdext_sc",
+  url = "https://gitlab.com/julian-avar/gdext_sc",
+  licenses = Seq(License.MIT),
+  versionControl = VersionControl.gitlab("julian-avar", "gdext_sc"),
+  developers = Seq(Developer("julian-avar", "Julian Avar", "https://gitlab.com/julian-avar"))
+)
 
 object gdext extends SharedModule:
     def mvnDeps    = Seq(Deps.osLib)
@@ -18,7 +31,7 @@ object gdext extends SharedModule:
     object core extends SharedModule
 
     object generated extends SharedModule:
-        def moduleDeps = Seq(gdext)
+        def moduleDeps = Seq(gdext.core)
 
     object `generator-module` extends ScalaModule, PublishModule:
         def millVersion = "1.1.2"
@@ -55,22 +68,14 @@ object gdext extends SharedModule:
         }
 
         // Publishing Config
-        def publishVersion = "0.0.1"
-        def pomSettings    = PomSettings(
-          description = "Line Count Mill Plugin",
-          organization = "com.lihaoyi",
-          url = "https://github.com/julian-avar/myplugin",
-          licenses = Seq(License.MIT),
-          versionControl = VersionControl.github("julian-avar", "myplugin"),
-          developers =
-              Seq(Developer("julian-avar", "Julian Avar", "https://github.com/julian-avar"))
-        )
+        def publishVersion = defaultVersion
+        def pomSettings    = defaultPomSettings
     end `generator-module`
 end gdext
 
 /** User-facing extension module: links gdext + user classes into the final .so. */
 object example extends SharedModule:
-    def moduleDeps        = Seq(gdext, gdext.generated)
+    def moduleDeps        = Seq(gdext.core, gdext.generated)
     def releaseMode       = ReleaseMode.Debug
     def nativeBuildTarget = BuildTarget.LibraryDynamic
     def nativeBaseName    = "godot-scala-native"
@@ -95,7 +100,7 @@ object example extends SharedModule:
     }
 end example
 
-trait SharedModule extends ScalaNativeModule, ScalafmtModule:
+trait SharedModule extends ScalaNativeModule with ScalafixModule with ScalafmtModule:
     def scalaVersion       = defaultScalaVersion
     def scalaNativeVersion = defaultScalaNativeVersion
     def scalacOptions      = Seq("-explain", "-source:future", "-language:experimental.modularity")

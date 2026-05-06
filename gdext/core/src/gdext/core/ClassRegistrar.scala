@@ -15,8 +15,8 @@ object ClassRegistrar:
     private var getVirtualFns: Map[String, GetVirtualFn] = Map.empty
 
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
-    // The Ptr[Byte] value is the heap-allocated StringName buffer for the parent class.
-    private var factoryMap: Map[Ptr[Byte], (() => GodotClass, Ptr[Byte])] = Map.empty
+    // Tuple: (factory, parentNameBuf, classNameBuf) — both StringName buffers are heap-allocated.
+    private var factoryMap: Map[Ptr[Byte], (() => GodotClass, Ptr[Byte], Ptr[Byte])] = Map.empty
     private var _createFn: CreateInstanceFn                            = null
 
     // Shared CallVirtualFn pointers — created once, reused for every class.
@@ -31,12 +31,16 @@ object ClassRegistrar:
     private var _physicsProcessSN: Ptr[Byte] = null
 
     def register(): Unit =
+        println("[ClassRegistrar] register() called")
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
 
         val stringNameNewPtr  = getProcAddr(c"string_name_new_with_utf8_chars")
         val registerClass2Ptr = getProcAddr(c"classdb_register_extension_class2")
-        if stringNameNewPtr == null || registerClass2Ptr == null then return
+        println(s"[ClassRegistrar] stringNameNewPtr=$stringNameNewPtr registerClass2Ptr=$registerClass2Ptr")
+        if stringNameNewPtr == null || registerClass2Ptr == null then
+            println("[ClassRegistrar] ERROR: null proc address, aborting")
+            return
 
         val stringNameNew  = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
         val registerClass2 = CFuncPtr.fromPtr[RegisterClass2Fn](registerClass2Ptr)
@@ -59,10 +63,12 @@ object ClassRegistrar:
 
             // Allocate a unique pointer to use as class_userdata key for the shared create fn.
             val userdataPtr = malloc(1)
-            factoryMap += (userdataPtr -> (reg.factory, parentNameBuf))
+            factoryMap += (userdataPtr -> (reg.factory, parentNameBuf, classNameBuf))
 
             val freeFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] {
-                (_, instancePtr) => instanceMap -= instancePtr
+                (_, instancePtr) =>
+                    instanceMap -= instancePtr
+                    free(instancePtr)
             }
             freeFns += (reg.name -> freeFn)
 
@@ -79,8 +85,11 @@ object ClassRegistrar:
             info._18 = CFuncPtr.toPtr(getVirtualFn).asInstanceOf[Ptr[Byte]]
             info._22 = userdataPtr // class_userdata — passed back to _createFn
 
+            println(s"[ClassRegistrar] calling registerClass2 for ${reg.name}")
             registerClass2(library, classNameBuf, parentNameBuf, info)
+            println(s"[ClassRegistrar] registered ${reg.name}")
         end for
+        println("[ClassRegistrar] register() complete")
     end register
 
     // ── virtual dispatch helpers ────────────────────────────────────────────
@@ -119,14 +128,23 @@ object ClassRegistrar:
     private def buildSharedCreateFn(): Unit =
         if _createFn == null then
             _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
+                println(s"[ClassRegistrar] create_instance_func called, userdata=$userdata")
                 factoryMap.get(userdata) match
-                    case Some((factory, parentNameBuf)) =>
+                    case Some((factory, parentNameBuf, classNameBuf)) =>
                         val godotPtr = GdxApi.constructObject(parentNameBuf)
-                        val obj      = factory()
+                        println(s"[ClassRegistrar] constructed object godotPtr=$godotPtr")
+                        val obj = factory()
                         obj.ptr = godotPtr
-                        instanceMap += (godotPtr -> obj)
+                        // Allocate a stable per-instance binding pointer.
+                        // Godot stores this and passes it back as p_instance to virtual call fns.
+                        val instancePtr = malloc(1).asInstanceOf[Ptr[Byte]]
+                        instanceMap += (instancePtr -> obj)
+                        GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
+                        println(s"[ClassRegistrar] set instance binding instancePtr=$instancePtr")
                         godotPtr
-                    case None => null
+                    case None =>
+                        println(s"[ClassRegistrar] ERROR: no factory for userdata=$userdata")
+                        null
             }
         end if
     end buildSharedCreateFn
@@ -155,7 +173,9 @@ object ClassRegistrar:
     private def buildGetVirtualFn(): GetVirtualFn = CFuncPtr2
         .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (_, namePtr) =>
             val data = !(namePtr.asInstanceOf[Ptr[Long]])
-            if data == !(_readySN.asInstanceOf[Ptr[Long]]) then _readyFn
+            val readyData = !(_readySN.asInstanceOf[Ptr[Long]])
+            println(s"[ClassRegistrar] get_virtual_func: nameData=$data readySNData=$readyData")
+            if data == readyData then _readyFn
             else if data == !(_processSN.asInstanceOf[Ptr[Long]]) then _processFn
             else if data == !(_physicsProcessSN.asInstanceOf[Ptr[Long]]) then _physicsProcessFn
             else null

@@ -5,7 +5,6 @@ import gdext.generated.*
 
 @gdclass
 class ExampleSceneScala extends CenterContainer:
-    override def _ready(): Unit =
-        println("ExampleSceneScala._ready() called")
-        GdxApi.printString("Hello, Scala!")
+    override def _ready(): Unit                = GdxApi.printString("Hello, Scala!")
+    override def _process(delta: Double): Unit = GdxApi.printString(s"delta: $delta")
 end ExampleSceneScala
