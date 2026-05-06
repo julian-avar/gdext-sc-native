@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object SubViewportContainerVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_propagate_input_event", required = false, default = VirtualStub.returnFalse),
-    )
+object SubViewportContainerVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_propagate_input_event", required = false, default = VirtualStub.returnFalse)
+  )
+}

@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorFileSystemImportFormatSupportQueryVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_is_active", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_file_extensions", required = true, default = VirtualStub.emptyPackedStringArray),
-        VirtualEntry("_query", required = true, default = VirtualStub.returnFalse),
-    )
+object EditorFileSystemImportFormatSupportQueryVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_is_active", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_file_extensions", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry("_query", required = true, default = VirtualStub.returnFalse)
+  )
+}

@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object RenderDataExtensionVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_render_scene_buffers", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_get_render_scene_data", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_get_environment", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_get_camera_attributes", required = false, default = VirtualStub.nullObject),
-    )
+object RenderDataExtensionVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_render_scene_buffers", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_get_render_scene_data", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_get_environment", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_get_camera_attributes", required = false, default = VirtualStub.nullObject)
+  )
+}

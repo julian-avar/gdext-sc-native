@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object SkeletonModifier3DVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_process_modification_with_delta", required = false, default = VirtualStub.noop),
-        VirtualEntry("_process_modification", required = false, default = VirtualStub.noop),
-        VirtualEntry("_skeleton_changed", required = false, default = VirtualStub.noop),
-        VirtualEntry("_validate_bone_names", required = false, default = VirtualStub.noop),
-    )
+object SkeletonModifier3DVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_process_modification_with_delta", required = false, default = VirtualStub.noop),
+    VirtualEntry("_process_modification", required = false, default = VirtualStub.noop),
+    VirtualEntry("_skeleton_changed", required = false, default = VirtualStub.noop),
+    VirtualEntry("_validate_bone_names", required = false, default = VirtualStub.noop)
+  )
+}

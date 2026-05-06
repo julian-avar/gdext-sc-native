@@ -1,7 +1,7 @@
-package mygame
+package example
 
 import gdext.*
-import gdext.godot.*
+import gdext.generated.*
 
 @gdclass
 class SpinningCube extends Node3D:
@@ -9,7 +9,7 @@ class SpinningCube extends Node3D:
         val meshRender = MeshInstance3D()
         meshRender.mesh = BoxMesh()
         addChild(meshRender)
+    end _ready
 
-    override def _process(delta: Double): Unit =
-        rotateY(delta.toFloat)
+    override def _process(delta: Double): Unit = rotateY(delta.toFloat)
 end SpinningCube

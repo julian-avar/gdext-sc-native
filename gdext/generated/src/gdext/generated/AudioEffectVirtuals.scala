@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object AudioEffectVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_instantiate", required = true, default = VirtualStub.nullObject),
-    )
+object AudioEffectVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_instantiate", required = true, default = VirtualStub.nullObject)
+  )
+}

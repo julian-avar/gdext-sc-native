@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object VideoStreamVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_instantiate_playback", required = false, default = VirtualStub.nullObject),
-    )
+object VideoStreamVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_instantiate_playback", required = false, default = VirtualStub.nullObject)
+  )
+}

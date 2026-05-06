@@ -89,4 +89,6 @@ object Ast:
         methods: Vector[GodotMethod],
         properties: Vector[GodotProperty]
     )
+
+    case class BuiltinClass(name: String)
 end Ast

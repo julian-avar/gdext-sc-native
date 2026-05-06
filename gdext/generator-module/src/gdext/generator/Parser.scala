@@ -152,6 +152,15 @@ object Parser:
         )
     }.toVector
 
+    // Primitives already handled by scalaType / packArg / retSetup — no class needed.
+    private val skipBuiltins = Set("Nil", "bool", "int", "float", "String", "StringName", "Variant", "Array")
+
+    def builtinClasses(json: ujson.Value): Vector[Ast.BuiltinClass] =
+        json("builtin_classes").arr
+            .filterNot(c => skipBuiltins.contains(c("name").str))
+            .map(c => Ast.BuiltinClass(c("name").str))
+            .toVector
+
     def typeName(toParseType: String): String =
         val baseTypeMap: Map[String, String] = Map(
           "void"     -> "CVoidPtr",

@@ -3,12 +3,13 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorInspectorPluginVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_can_handle", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_parse_begin", required = false, default = VirtualStub.noop),
-        VirtualEntry("_parse_category", required = false, default = VirtualStub.noop),
-        VirtualEntry("_parse_group", required = false, default = VirtualStub.noop),
-        VirtualEntry("_parse_property", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_parse_end", required = false, default = VirtualStub.noop),
-    )
+object EditorInspectorPluginVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_can_handle", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_parse_begin", required = false, default = VirtualStub.noop),
+    VirtualEntry("_parse_category", required = false, default = VirtualStub.noop),
+    VirtualEntry("_parse_group", required = false, default = VirtualStub.noop),
+    VirtualEntry("_parse_property", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_parse_end", required = false, default = VirtualStub.noop)
+  )
+}

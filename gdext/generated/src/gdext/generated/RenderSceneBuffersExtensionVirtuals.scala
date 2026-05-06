@@ -3,11 +3,12 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object RenderSceneBuffersExtensionVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_configure", required = false, default = VirtualStub.noop),
-        VirtualEntry("_set_fsr_sharpness", required = false, default = VirtualStub.noop),
-        VirtualEntry("_set_texture_mipmap_bias", required = false, default = VirtualStub.noop),
-        VirtualEntry("_set_anisotropic_filtering_level", required = false, default = VirtualStub.noop),
-        VirtualEntry("_set_use_debanding", required = false, default = VirtualStub.noop),
-    )
+object RenderSceneBuffersExtensionVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_configure", required = false, default = VirtualStub.noop),
+    VirtualEntry("_set_fsr_sharpness", required = false, default = VirtualStub.noop),
+    VirtualEntry("_set_texture_mipmap_bias", required = false, default = VirtualStub.noop),
+    VirtualEntry("_set_anisotropic_filtering_level", required = false, default = VirtualStub.noop),
+    VirtualEntry("_set_use_debanding", required = false, default = VirtualStub.noop)
+  )
+}

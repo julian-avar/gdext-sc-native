@@ -3,24 +3,25 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object WebRTCDataChannelExtensionVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_packet", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_put_packet", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_available_packet_count", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_max_packet_size", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_poll", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_close", required = true, default = VirtualStub.noop),
-        VirtualEntry("_set_write_mode", required = true, default = VirtualStub.noop),
-        VirtualEntry("_get_write_mode", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_was_string_packet", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_ready_state", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_label", required = true, default = VirtualStub.emptyString),
-        VirtualEntry("_is_ordered", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_id", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_max_packet_life_time", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_max_retransmits", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_protocol", required = true, default = VirtualStub.emptyString),
-        VirtualEntry("_is_negotiated", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_buffered_amount", required = true, default = VirtualStub.returnZeroInt),
-    )
+object WebRTCDataChannelExtensionVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_packet", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_put_packet", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_available_packet_count", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_max_packet_size", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_poll", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_close", required = true, default = VirtualStub.noop),
+    VirtualEntry("_set_write_mode", required = true, default = VirtualStub.noop),
+    VirtualEntry("_get_write_mode", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_was_string_packet", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_ready_state", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_label", required = true, default = VirtualStub.emptyString),
+    VirtualEntry("_is_ordered", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_id", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_max_packet_life_time", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_max_retransmits", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_protocol", required = true, default = VirtualStub.emptyString),
+    VirtualEntry("_is_negotiated", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_buffered_amount", required = true, default = VirtualStub.returnZeroInt)
+  )
+}

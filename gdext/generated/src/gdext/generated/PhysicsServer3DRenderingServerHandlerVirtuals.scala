@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object PhysicsServer3DRenderingServerHandlerVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_set_vertex", required = true, default = VirtualStub.noop),
-        VirtualEntry("_set_normal", required = true, default = VirtualStub.noop),
-        VirtualEntry("_set_aabb", required = true, default = VirtualStub.noop),
-    )
+object PhysicsServer3DRenderingServerHandlerVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_set_vertex", required = true, default = VirtualStub.noop),
+    VirtualEntry("_set_normal", required = true, default = VirtualStub.noop),
+    VirtualEntry("_set_aabb", required = true, default = VirtualStub.noop)
+  )
+}

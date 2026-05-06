@@ -3,13 +3,14 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object TextureLayeredVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_format", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_layered_type", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_width", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_height", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_layers", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_has_mipmaps", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_layer_data", required = true, default = VirtualStub.nullObject),
-    )
+object TextureLayeredVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_format", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_layered_type", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_width", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_height", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_layers", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_has_mipmaps", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_layer_data", required = true, default = VirtualStub.nullObject)
+  )
+}

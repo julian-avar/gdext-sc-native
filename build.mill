@@ -5,7 +5,7 @@ import mill.*
 import mill.scalalib.*
 import mill.scalalib.publish.*
 import mill.scalanativelib.*
-import mill.scalanativelib.api.ReleaseMode
+import mill.scalanativelib.api.{ReleaseMode, BuildTarget}
 
 val defaultScalaVersion       = "3.8.3"
 val defaultScalaNativeVersion = "0.5.11"
@@ -13,17 +13,8 @@ val defaultScalaNativeVersion = "0.5.11"
 object gdext extends SharedModule:
     def mvnDeps = Seq(Deps.osLib)
 
-    // Include generated Godot wrappers produced by generator-module.
-    def generatedSourceFiles = Task.Input {
-        val genDir = moduleDir / "generated" / "src"
-        if os.exists(genDir) then {
-          os.walk(genDir).filter(_.ext == "scala").map(PathRef(_)).toSeq
-        } else Seq.empty
-    }
-
-    override def allSources = Task {
-        super.allSources() ++ generatedSourceFiles()
-    }
+    object generated extends SharedModule:
+        def moduleDeps = Seq(gdext)
 
     object `generator-module` extends ScalaModule, PublishModule:
         def millVersion = "1.1.2"
@@ -56,19 +47,20 @@ object gdext extends SharedModule:
         def pomSettings    = PomSettings(
           description = "Line Count Mill Plugin",
           organization = "com.lihaoyi",
-          url = "https://github.com/lihaoyi/myplugin",
+          url = "https://github.com/julian-avar/myplugin",
           licenses = Seq(License.MIT),
-          versionControl = VersionControl.github("lihaoyi", "myplugin"),
-          developers = Seq(Developer("lihaoyi", "Li Haoyi", "https://github.com/lihaoyi"))
+          versionControl = VersionControl.github("julian-avar", "myplugin"),
+          developers =
+              Seq(Developer("julian-avar", "Julian Avar", "https://github.com/julian-avar"))
         )
     end `generator-module`
 end gdext
 
 /** User-facing extension module: links gdext + user classes into the final .so. */
 object example extends SharedModule:
-    def moduleDeps        = Seq(gdext)
+    def moduleDeps        = Seq(gdext, gdext.generated)
     def releaseMode       = ReleaseMode.Debug
-    def nativeBuildTarget = mill.scalanativelib.api.BuildTarget.LibraryDynamic
+    def nativeBuildTarget = BuildTarget.LibraryDynamic
     def nativeBaseName    = "godot-scala-native"
 
     // Sources live directly in example/, not example/src/
@@ -94,7 +86,7 @@ end example
 trait SharedModule extends ScalaNativeModule:
     def scalaVersion       = defaultScalaVersion
     def scalaNativeVersion = defaultScalaNativeVersion
-    def scalacOptions      = Seq("-source:future", "-language:experimental.modularity")
+    def scalacOptions      = Seq("-explain", "-source:future", "-language:experimental.modularity")
 
     // Use the clang set in environment variables (default to clang/clang++)
     def nativeClang   = Task.Input { PathRef(os.Path(Task.env.getOrElse("CC", "clang"))) }

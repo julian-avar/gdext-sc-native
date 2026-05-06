@@ -4,5 +4,6 @@ default:
 
 run:
     # nix develop
-    mill gdext.buildExtension
-    godot4.5 example/project.godot
+    nix develop -c mill gdext.generator-module.generate
+    nix develop -c mill gdext.buildExtension
+    nix develop -c godot4.5 example/project.godot

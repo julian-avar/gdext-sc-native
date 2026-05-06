@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object AStar3DVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_filter_neighbor", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_estimate_cost", required = false, default = VirtualStub.returnZeroFloat),
-        VirtualEntry("_compute_cost", required = false, default = VirtualStub.returnZeroFloat),
-    )
+object AStar3DVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_filter_neighbor", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_estimate_cost", required = false, default = VirtualStub.returnZeroFloat),
+    VirtualEntry("_compute_cost", required = false, default = VirtualStub.returnZeroFloat)
+  )
+}

@@ -1,6 +1,8 @@
 package gdext.generator
 
 object GeneratorMain:
+    var debugMode = false
+
     def main(args: Array[String]): Unit =
         if args.length < 2 then
             System.err.println("Usage: GeneratorMain <extensionApiPath> <outputDir>")
@@ -25,11 +27,13 @@ object GeneratorMain:
         println(s"Reading $classApiPath...")
         val classJson = ujson.read(os.read(classApiPath))
         val classes   = Parser.godotClasses(classJson)
+        val builtins  = Parser.builtinClasses(classJson)
 
-        println(s"  Found ${classes.size} classes with virtual methods")
+        println(s"  Found ${classes.size} classes, ${builtins.size} builtin types")
 
         val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces) ++
-            Generator.classVirtuals(classes) ++ Generator.generateWrappers(classes)
+            Generator.generateBuiltins(builtins) ++ Generator.classVirtuals(classes) ++
+            Generator.generateWrappers(classes)
 
         os.makeDir.all(outDir)
 
@@ -37,7 +41,7 @@ object GeneratorMain:
             val filePath = file.path.split("/").foldLeft(outDir)(_ / _) / s"${file.name}.scala"
             os.makeDir.all(filePath / os.up)
             os.write.over(filePath, file.content)
-            println(s"  wrote ${file.path}/${file.name}.scala")
+            if debugMode then println(s"  wrote ${file.path}/${file.name}.scala")
         end for
 
         println(s"Done. Generated ${scalaFiles.size} files into $outDir")

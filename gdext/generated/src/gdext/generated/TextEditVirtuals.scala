@@ -3,12 +3,13 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object TextEditVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_handle_unicode_input", required = false, default = VirtualStub.noop),
-        VirtualEntry("_backspace", required = false, default = VirtualStub.noop),
-        VirtualEntry("_cut", required = false, default = VirtualStub.noop),
-        VirtualEntry("_copy", required = false, default = VirtualStub.noop),
-        VirtualEntry("_paste", required = false, default = VirtualStub.noop),
-        VirtualEntry("_paste_primary_clipboard", required = false, default = VirtualStub.noop),
-    )
+object TextEditVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_handle_unicode_input", required = false, default = VirtualStub.noop),
+    VirtualEntry("_backspace", required = false, default = VirtualStub.noop),
+    VirtualEntry("_cut", required = false, default = VirtualStub.noop),
+    VirtualEntry("_copy", required = false, default = VirtualStub.noop),
+    VirtualEntry("_paste", required = false, default = VirtualStub.noop),
+    VirtualEntry("_paste_primary_clipboard", required = false, default = VirtualStub.noop)
+  )
+}

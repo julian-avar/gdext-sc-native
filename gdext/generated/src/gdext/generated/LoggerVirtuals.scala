@@ -3,8 +3,9 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object LoggerVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_log_error", required = false, default = VirtualStub.noop),
-        VirtualEntry("_log_message", required = false, default = VirtualStub.noop),
-    )
+object LoggerVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_log_error", required = false, default = VirtualStub.noop),
+    VirtualEntry("_log_message", required = false, default = VirtualStub.noop)
+  )
+}

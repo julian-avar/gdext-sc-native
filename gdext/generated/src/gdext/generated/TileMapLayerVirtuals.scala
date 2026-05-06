@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object TileMapLayerVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_use_tile_data_runtime_update", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_tile_data_runtime_update", required = false, default = VirtualStub.noop),
-        VirtualEntry("_update_cells", required = false, default = VirtualStub.noop),
-    )
+object TileMapLayerVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_use_tile_data_runtime_update", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_tile_data_runtime_update", required = false, default = VirtualStub.noop),
+    VirtualEntry("_update_cells", required = false, default = VirtualStub.noop)
+  )
+}

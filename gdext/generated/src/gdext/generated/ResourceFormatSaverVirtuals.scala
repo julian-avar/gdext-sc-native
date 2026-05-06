@@ -3,11 +3,12 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object ResourceFormatSaverVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_save", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_set_uid", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_recognize", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_recognized_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
-        VirtualEntry("_recognize_path", required = false, default = VirtualStub.returnFalse),
-    )
+object ResourceFormatSaverVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_save", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_set_uid", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_recognize", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_recognized_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry("_recognize_path", required = false, default = VirtualStub.returnFalse)
+  )
+}

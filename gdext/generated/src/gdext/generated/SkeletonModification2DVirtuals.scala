@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object SkeletonModification2DVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_execute", required = false, default = VirtualStub.noop),
-        VirtualEntry("_setup_modification", required = false, default = VirtualStub.noop),
-        VirtualEntry("_draw_editor_gizmo", required = false, default = VirtualStub.noop),
-    )
+object SkeletonModification2DVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_execute", required = false, default = VirtualStub.noop),
+    VirtualEntry("_setup_modification", required = false, default = VirtualStub.noop),
+    VirtualEntry("_draw_editor_gizmo", required = false, default = VirtualStub.noop)
+  )
+}

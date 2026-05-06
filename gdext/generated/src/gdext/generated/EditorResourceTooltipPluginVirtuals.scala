@@ -3,8 +3,9 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorResourceTooltipPluginVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_handles", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_make_tooltip_for_path", required = false, default = VirtualStub.nullObject),
-    )
+object EditorResourceTooltipPluginVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_handles", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_make_tooltip_for_path", required = false, default = VirtualStub.nullObject)
+  )
+}

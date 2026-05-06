@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object RigidBody3DVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_integrate_forces", required = false, default = VirtualStub.noop),
-    )
+object RigidBody3DVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_integrate_forces", required = false, default = VirtualStub.noop)
+  )
+}

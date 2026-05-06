@@ -3,11 +3,12 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object CollisionObject2DVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_input_event", required = false, default = VirtualStub.noop),
-        VirtualEntry("_mouse_enter", required = false, default = VirtualStub.noop),
-        VirtualEntry("_mouse_exit", required = false, default = VirtualStub.noop),
-        VirtualEntry("_mouse_shape_enter", required = false, default = VirtualStub.noop),
-        VirtualEntry("_mouse_shape_exit", required = false, default = VirtualStub.noop),
-    )
+object CollisionObject2DVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_input_event", required = false, default = VirtualStub.noop),
+    VirtualEntry("_mouse_enter", required = false, default = VirtualStub.noop),
+    VirtualEntry("_mouse_exit", required = false, default = VirtualStub.noop),
+    VirtualEntry("_mouse_shape_enter", required = false, default = VirtualStub.noop),
+    VirtualEntry("_mouse_shape_exit", required = false, default = VirtualStub.noop)
+  )
+}

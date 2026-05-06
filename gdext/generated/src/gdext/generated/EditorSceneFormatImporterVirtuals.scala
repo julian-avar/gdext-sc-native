@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorSceneFormatImporterVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
-        VirtualEntry("_import_scene", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_get_import_options", required = false, default = VirtualStub.noop),
-        VirtualEntry("_get_option_visibility", required = false, default = VirtualStub.nilVariant),
-    )
+object EditorSceneFormatImporterVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry("_import_scene", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_get_import_options", required = false, default = VirtualStub.noop),
+    VirtualEntry("_get_option_visibility", required = false, default = VirtualStub.nilVariant)
+  )
+}

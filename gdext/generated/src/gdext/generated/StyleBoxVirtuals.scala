@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object StyleBoxVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_draw", required = true, default = VirtualStub.noop),
-        VirtualEntry("_get_draw_rect", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_get_minimum_size", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_test_mask", required = false, default = VirtualStub.returnFalse),
-    )
+object StyleBoxVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_draw", required = true, default = VirtualStub.noop),
+    VirtualEntry("_get_draw_rect", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_get_minimum_size", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_test_mask", required = false, default = VirtualStub.returnFalse)
+  )
+}

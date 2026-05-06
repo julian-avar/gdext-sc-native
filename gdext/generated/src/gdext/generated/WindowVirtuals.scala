@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object WindowVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_contents_minimum_size", required = false, default = VirtualStub.nullObject),
-    )
+object WindowVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_contents_minimum_size", required = false, default = VirtualStub.nullObject)
+  )
+}

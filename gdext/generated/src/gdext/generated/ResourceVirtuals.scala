@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object ResourceVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_setup_local_to_scene", required = false, default = VirtualStub.noop),
-        VirtualEntry("_get_rid", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_reset_state", required = false, default = VirtualStub.noop),
-        VirtualEntry("_set_path_cache", required = false, default = VirtualStub.noop),
-    )
+object ResourceVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_setup_local_to_scene", required = false, default = VirtualStub.noop),
+    VirtualEntry("_get_rid", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_reset_state", required = false, default = VirtualStub.noop),
+    VirtualEntry("_set_path_cache", required = false, default = VirtualStub.noop)
+  )
+}

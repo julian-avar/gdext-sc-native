@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object VisualInstance3DVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_aabb", required = false, default = VirtualStub.nullObject),
-    )
+object VisualInstance3DVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_aabb", required = false, default = VirtualStub.nullObject)
+  )
+}

@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object GraphEditVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_is_in_input_hotzone", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_is_in_output_hotzone", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_get_connection_line", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_is_node_hover_valid", required = false, default = VirtualStub.returnFalse),
-    )
+object GraphEditVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_is_in_input_hotzone", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_is_in_output_hotzone", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_get_connection_line", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_is_node_hover_valid", required = false, default = VirtualStub.returnFalse)
+  )
+}

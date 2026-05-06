@@ -3,11 +3,12 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object StreamPeerExtensionVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_data", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_partial_data", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_put_data", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_put_partial_data", required = false, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_available_bytes", required = true, default = VirtualStub.returnZeroInt),
-    )
+object StreamPeerExtensionVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_data", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_partial_data", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_put_data", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_put_partial_data", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_available_bytes", required = true, default = VirtualStub.returnZeroInt)
+  )
+}

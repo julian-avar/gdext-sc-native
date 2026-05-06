@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EngineProfilerVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_toggle", required = false, default = VirtualStub.noop),
-        VirtualEntry("_add_frame", required = false, default = VirtualStub.noop),
-        VirtualEntry("_tick", required = false, default = VirtualStub.noop),
-    )
+object EngineProfilerVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_toggle", required = false, default = VirtualStub.noop),
+    VirtualEntry("_add_frame", required = false, default = VirtualStub.noop),
+    VirtualEntry("_tick", required = false, default = VirtualStub.noop)
+  )
+}

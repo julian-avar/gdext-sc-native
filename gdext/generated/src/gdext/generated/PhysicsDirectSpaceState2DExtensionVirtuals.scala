@@ -3,12 +3,13 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object PhysicsDirectSpaceState2DExtensionVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_intersect_ray", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_intersect_point", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_intersect_shape", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_cast_motion", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_collide_shape", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_rest_info", required = true, default = VirtualStub.returnFalse),
-    )
+object PhysicsDirectSpaceState2DExtensionVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_intersect_ray", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_intersect_point", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_intersect_shape", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_cast_motion", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_collide_shape", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_rest_info", required = true, default = VirtualStub.returnFalse)
+  )
+}

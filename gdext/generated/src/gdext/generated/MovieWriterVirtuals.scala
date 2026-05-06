@@ -3,12 +3,13 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object MovieWriterVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_audio_mix_rate", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_audio_speaker_mode", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_handles_file", required = true, default = VirtualStub.returnFalse),
-        VirtualEntry("_write_begin", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_write_frame", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_write_end", required = true, default = VirtualStub.noop),
-    )
+object MovieWriterVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_audio_mix_rate", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_audio_speaker_mode", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_handles_file", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry("_write_begin", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_write_frame", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_write_end", required = true, default = VirtualStub.noop)
+  )
+}

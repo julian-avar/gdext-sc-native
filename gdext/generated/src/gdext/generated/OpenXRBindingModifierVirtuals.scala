@@ -3,8 +3,9 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object OpenXRBindingModifierVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_description", required = true, default = VirtualStub.emptyString),
-        VirtualEntry("_get_ip_modification", required = true, default = VirtualStub.nullObject),
-    )
+object OpenXRBindingModifierVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_description", required = true, default = VirtualStub.emptyString),
+    VirtualEntry("_get_ip_modification", required = true, default = VirtualStub.nullObject)
+  )
+}

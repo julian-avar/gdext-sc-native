@@ -3,17 +3,18 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object WebRTCPeerConnectionExtensionVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_connection_state", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_gathering_state", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_get_signaling_state", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_initialize", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_create_data_channel", required = true, default = VirtualStub.nullObject),
-        VirtualEntry("_create_offer", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_set_remote_description", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_set_local_description", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_add_ice_candidate", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_poll", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_close", required = true, default = VirtualStub.noop),
-    )
+object WebRTCPeerConnectionExtensionVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_connection_state", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_gathering_state", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_get_signaling_state", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_initialize", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_create_data_channel", required = true, default = VirtualStub.nullObject),
+    VirtualEntry("_create_offer", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_set_remote_description", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_set_local_description", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_add_ice_candidate", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_poll", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_close", required = true, default = VirtualStub.noop)
+  )
+}

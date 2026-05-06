@@ -3,8 +3,9 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object TranslationVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_plural_message", required = false, default = VirtualStub.emptyStringName),
-        VirtualEntry("_get_message", required = false, default = VirtualStub.emptyStringName),
-    )
+object TranslationVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_plural_message", required = false, default = VirtualStub.emptyStringName),
+    VirtualEntry("_get_message", required = false, default = VirtualStub.emptyStringName)
+  )
+}

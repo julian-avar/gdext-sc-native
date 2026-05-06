@@ -3,8 +3,9 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object CameraFeedVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_activate_feed", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_deactivate_feed", required = false, default = VirtualStub.noop),
-    )
+object CameraFeedVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_activate_feed", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_deactivate_feed", required = false, default = VirtualStub.noop)
+  )
+}

@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorScriptVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_run", required = true, default = VirtualStub.noop),
-    )
+object EditorScriptVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_run", required = true, default = VirtualStub.noop)
+  )
+}

@@ -15,7 +15,8 @@ object ClassRegistrar:
     private var getVirtualFns: Map[String, GetVirtualFn] = Map.empty
 
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
-    private var factoryMap: Map[Ptr[Byte], (() => GodotClass, String)] = Map.empty
+    // The Ptr[Byte] value is the heap-allocated StringName buffer for the parent class.
+    private var factoryMap: Map[Ptr[Byte], (() => GodotClass, Ptr[Byte])] = Map.empty
     private var _createFn: CreateInstanceFn                            = null
 
     // Shared CallVirtualFn pointers — created once, reused for every class.
@@ -51,7 +52,7 @@ object ClassRegistrar:
 
             // Allocate a unique pointer to use as class_userdata key for the shared create fn.
             val userdataPtr = malloc(1)
-            factoryMap += (userdataPtr -> (reg.factory, reg.parentName))
+            factoryMap += (userdataPtr -> (reg.factory, parentNameBuf))
 
             val freeFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] {
                 (_, instancePtr) => instanceMap -= instancePtr
@@ -112,13 +113,12 @@ object ClassRegistrar:
         if _createFn == null then
             _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
                 factoryMap.get(userdata) match
-                    case Some((factory, parentName)) => Zone {
-                            val godotPtr = GdxApi.constructObject(toCString(parentName))
-                            val obj      = factory()
-                            obj.ptr = godotPtr
-                            instanceMap += (godotPtr -> obj)
-                            godotPtr
-                        }
+                    case Some((factory, parentNameBuf)) =>
+                        val godotPtr = GdxApi.constructObject(parentNameBuf)
+                        val obj      = factory()
+                        obj.ptr = godotPtr
+                        instanceMap += (godotPtr -> obj)
+                        godotPtr
                     case None => null
             }
         end if

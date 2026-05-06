@@ -3,8 +3,9 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object BaseButtonVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_pressed", required = false, default = VirtualStub.noop),
-        VirtualEntry("_toggled", required = false, default = VirtualStub.noop),
-    )
+object BaseButtonVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_pressed", required = false, default = VirtualStub.noop),
+    VirtualEntry("_toggled", required = false, default = VirtualStub.noop)
+  )
+}

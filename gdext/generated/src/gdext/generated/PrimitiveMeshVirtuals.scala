@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object PrimitiveMeshVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_create_mesh_array", required = false, default = VirtualStub.emptyArray),
-    )
+object PrimitiveMeshVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_create_mesh_array", required = false, default = VirtualStub.emptyArray)
+  )
+}

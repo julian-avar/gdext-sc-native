@@ -3,9 +3,10 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorResourceConversionPluginVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_converts_to", required = false, default = VirtualStub.emptyString),
-        VirtualEntry("_handles", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_convert", required = false, default = VirtualStub.nullObject),
-    )
+object EditorResourceConversionPluginVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_converts_to", required = false, default = VirtualStub.emptyString),
+    VirtualEntry("_handles", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_convert", required = false, default = VirtualStub.nullObject)
+  )
+}

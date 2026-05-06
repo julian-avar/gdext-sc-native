@@ -3,11 +3,12 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object EditorResourcePreviewGeneratorVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_handles", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_generate", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_generate_from_path", required = false, default = VirtualStub.nullObject),
-        VirtualEntry("_generate_small_preview_automatically", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_can_generate_small_preview", required = false, default = VirtualStub.returnFalse),
-    )
+object EditorResourcePreviewGeneratorVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_handles", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_generate", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_generate_from_path", required = false, default = VirtualStub.nullObject),
+    VirtualEntry("_generate_small_preview_automatically", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_can_generate_small_preview", required = false, default = VirtualStub.returnFalse)
+  )
+}

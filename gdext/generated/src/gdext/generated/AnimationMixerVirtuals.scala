@@ -3,7 +3,8 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object AnimationMixerVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_post_process_key_value", required = false, default = VirtualStub.nilVariant),
-    )
+object AnimationMixerVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_post_process_key_value", required = false, default = VirtualStub.nilVariant)
+  )
+}

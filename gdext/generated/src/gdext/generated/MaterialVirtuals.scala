@@ -3,10 +3,11 @@ package gdext.generated
 
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
-object MaterialVirtuals:
-    val entries: Vector[VirtualEntry] = Vector(
-        VirtualEntry("_get_shader_rid", required = true, default = VirtualStub.nullObject),
-        VirtualEntry("_get_shader_mode", required = true, default = VirtualStub.returnZeroInt),
-        VirtualEntry("_can_do_next_pass", required = false, default = VirtualStub.returnFalse),
-        VirtualEntry("_can_use_render_priority", required = false, default = VirtualStub.returnFalse),
-    )
+object MaterialVirtuals {
+  val entries: Vector[VirtualEntry] = Vector(
+    VirtualEntry("_get_shader_rid", required = true, default = VirtualStub.nullObject),
+    VirtualEntry("_get_shader_mode", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry("_can_do_next_pass", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry("_can_use_render_priority", required = false, default = VirtualStub.returnFalse)
+  )
+}
