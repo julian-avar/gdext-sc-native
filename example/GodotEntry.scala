@@ -15,8 +15,10 @@ object GodotEntry:
         library: Ptr[Byte],
         initPtr: Ptr[GdxInitStruct]
     ): CUnsignedChar =
+        println("Registering ExampleSceneScala")
         GdClassRegistry
             .register("ExampleSceneScala", "CenterContainer", () => new ExampleSceneScala())
+        println("Registered ExampleSceneScala")
         gdext.GodotEntry.init(getProcAddress, library, initPtr)
     end godotScalaInit
 end GodotEntry

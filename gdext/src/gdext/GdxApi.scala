@@ -11,17 +11,15 @@ type PtrcallFn       =
     CFuncPtr6[MethodBindPtr, Ptr[Byte], Ptr[Ptr[Byte]], CInt, Ptr[Byte], Ptr[Byte], Unit]
 type ConstructObjectFn = CFuncPtr1[CString, Ptr[Byte]]
 
-private type StringNameDestroyFn = CFuncPtr1[Ptr[Byte], Unit]
-private type GetUtilityFnPtrFn   = CFuncPtr2[Ptr[Byte], Long, Ptr[Byte]]
-private type UtilityCallFn       = CFuncPtr3[Ptr[Byte], Ptr[Ptr[Byte]], CInt, Unit]
+private type GetUtilityFnPtrFn = CFuncPtr2[Ptr[Byte], Long, Ptr[Byte]]
+private type UtilityCallFn     = CFuncPtr3[Ptr[Byte], Ptr[Ptr[Byte]], CInt, Unit]
 
 object GdxApi:
-    private var getMethodBindPtr: GetMethodBindFn                 = scala.compiletime.uninitialized
-    private var ptrcallPtr: PtrcallFn                             = scala.compiletime.uninitialized
-    private var constructObjectPtr: ConstructObjectFn             = scala.compiletime.uninitialized
-    private var getUtilFnPtr: GetUtilityFnPtrFn                   = scala.compiletime.uninitialized
-    private var stringNameNewPtr: StringNameNewFn                 = scala.compiletime.uninitialized
-    private var stringNameDestroyPtr: StringNameDestroyFn = scala.compiletime.uninitialized
+    private var getMethodBindPtr: GetMethodBindFn     = scala.compiletime.uninitialized
+    private var ptrcallPtr: PtrcallFn                 = scala.compiletime.uninitialized
+    private var constructObjectPtr: ConstructObjectFn = scala.compiletime.uninitialized
+    private var getUtilFnPtr: GetUtilityFnPtrFn       = scala.compiletime.uninitialized
+    private var stringNameNewPtr: StringNameNewFn     = scala.compiletime.uninitialized
 
     private[gdext] def initialize(getProcAddr: GetProcAddressFn): Unit =
         val getMethodBindAddr   = getProcAddr(c"classdb_get_method_bind")
@@ -29,7 +27,6 @@ object GdxApi:
         val constructObjectAddr = getProcAddr(c"classdb_construct_object")
         val getUtilFnAddr       = getProcAddr(c"variant_get_ptr_utility_function")
         val snNewAddr           = getProcAddr(c"string_name_new_with_utf8_chars")
-        val snDestroyAddr       = getProcAddr(c"string_name_destroy")
 
         if getMethodBindAddr != null then
             getMethodBindPtr = CFuncPtr.fromPtr[GetMethodBindFn](getMethodBindAddr)
@@ -39,8 +36,6 @@ object GdxApi:
         if getUtilFnAddr != null then
             getUtilFnPtr = CFuncPtr.fromPtr[GetUtilityFnPtrFn](getUtilFnAddr)
         if snNewAddr != null then stringNameNewPtr = CFuncPtr.fromPtr[StringNameNewFn](snNewAddr)
-        if snDestroyAddr != null then
-            stringNameDestroyPtr = CFuncPtr.fromPtr[StringNameDestroyFn](snDestroyAddr)
     end initialize
 
     def getMethodBind(className: CString, methodName: CString, hash: Long): MethodBindPtr =
@@ -66,7 +61,6 @@ object GdxApi:
         memset(snBuf, 0, StringNameSize)
         stringNameNewPtr(snBuf, name)
         val fn = getUtilFnPtr(snBuf, hash)
-        stringNameDestroyPtr(snBuf)
         free(snBuf)
         fn
     end getUtilityFunctionPtr
@@ -81,4 +75,38 @@ object GdxApi:
         val callFn = CFuncPtr.fromPtr[UtilityCallFn](fn)
         callFn.apply(ret, args, argCount)
     end callUtilityFunction
+
+    /** Prints a string to Godot's output using the print utility function. */
+    def printString(s: String): Unit =
+        println(s"GdxApi.printString called with: $s")
+        // Convert Scala string to CString (null-terminated UTF-8 bytes)
+        val sBytes        = s.getBytes("UTF-8")
+        val cstrStackSize = sBytes.length + 1 // +1 for null terminator
+        val cstr          = stackalloc[Byte](cstrStackSize)
+        // Copy string bytes and add null terminator
+        Array.copy(sBytes, 0, cstr, 0, sBytes.length)
+        cstr(sBytes.length) = 0.toByte // null terminator
+
+        // Convert CString to Godot Variant (String) - duplicate logic from UtilityFunctions.strToVar
+        // generated.strToVar(cstr, _ret)
+        val _args = stackalloc[Ptr[Byte]](1)
+        _args(0) = cstr
+        val _ret = stackalloc[Ptr[Byte]]()
+        GdxApi.callUtilityFunction(
+          getUtilityFunctionPtr(c"str_to_var", 1891498491L),
+          _args,
+          1,
+          _ret.asInstanceOf[Ptr[Byte]]
+        )
+        val variant = !_ret
+
+        // Prepare arguments for vararg function: array of Variant pointers, null-terminated
+        val args = stackalloc[Ptr[Byte]](2) // 1 for the variant, 1 for null terminator
+        args(0) = variant
+        args(1) = null.asInstanceOf[Ptr[Byte]]
+
+        // Call Godot's print utility function (vararg, so argCount = -1)
+        callUtilityFunction(getUtilityFunctionPtr(c"print", 2648703342L), args, -1, null)
+        println("Finished GdxApi.printString call")
+    end printString
 end GdxApi
