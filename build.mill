@@ -5,6 +5,7 @@ import mill.*
 import mill.scalalib.*
 import mill.scalalib.publish.*
 import mill.scalanativelib.*
+import mill.scalalib.scalafmt.ScalafmtModule
 import mill.scalanativelib.api.{ReleaseMode, BuildTarget}
 
 val defaultScalaVersion       = "3.8.3"
@@ -40,6 +41,14 @@ object gdext extends SharedModule:
               classPath.toString,
               outDir.toString
             ).call(stdout = os.Inherit, stderr = os.Inherit)
+
+            // Format all generated Scala files with scalafmt
+            val cfgPath = moduleDir / os.up / os.up / ".scalafmt.conf"
+            if os.exists(cfgPath) then
+                val genFiles = os.walk(outDir).filter(_.ext == "scala").map(mill.PathRef(_))
+                mill.scalalib.scalafmt.ScalafmtWorkerModule.worker()
+                    .reformat(genFiles, mill.PathRef(cfgPath))
+            end if
         }
 
         // Publishing Config
@@ -83,7 +92,7 @@ object example extends SharedModule:
     }
 end example
 
-trait SharedModule extends ScalaNativeModule:
+trait SharedModule extends ScalaNativeModule, ScalafmtModule:
     def scalaVersion       = defaultScalaVersion
     def scalaNativeVersion = defaultScalaNativeVersion
     def scalacOptions      = Seq("-explain", "-source:future", "-language:experimental.modularity")

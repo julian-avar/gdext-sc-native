@@ -6,7 +6,11 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 object EditorSyntaxHighlighterVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_get_name", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_supported_languages", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_supported_languages",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_create", required = false, default = VirtualStub.nullObject)
   )
 }

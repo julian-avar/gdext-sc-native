@@ -6,11 +6,23 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 object EditorPluginVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_forward_canvas_gui_input", required = false, default = VirtualStub.returnFalse),
-    VirtualEntry("_forward_canvas_draw_over_viewport", required = false, default = VirtualStub.noop),
-    VirtualEntry("_forward_canvas_force_draw_over_viewport", required = false, default = VirtualStub.noop),
+    VirtualEntry(
+      "_forward_canvas_draw_over_viewport",
+      required = false,
+      default = VirtualStub.noop
+    ),
+    VirtualEntry(
+      "_forward_canvas_force_draw_over_viewport",
+      required = false,
+      default = VirtualStub.noop
+    ),
     VirtualEntry("_forward_3d_gui_input", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_forward_3d_draw_over_viewport", required = false, default = VirtualStub.noop),
-    VirtualEntry("_forward_3d_force_draw_over_viewport", required = false, default = VirtualStub.noop),
+    VirtualEntry(
+      "_forward_3d_force_draw_over_viewport",
+      required = false,
+      default = VirtualStub.noop
+    ),
     VirtualEntry("_get_plugin_name", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_plugin_icon", required = false, default = VirtualStub.nullObject),
     VirtualEntry("_has_main_screen", required = false, default = VirtualStub.returnFalse),
@@ -23,7 +35,11 @@ object EditorPluginVirtuals {
     VirtualEntry("_get_unsaved_status", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_save_external_data", required = false, default = VirtualStub.noop),
     VirtualEntry("_apply_changes", required = false, default = VirtualStub.noop),
-    VirtualEntry("_get_breakpoints", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_breakpoints",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_set_window_layout", required = false, default = VirtualStub.noop),
     VirtualEntry("_get_window_layout", required = false, default = VirtualStub.noop),
     VirtualEntry("_build", required = false, default = VirtualStub.returnFalse),

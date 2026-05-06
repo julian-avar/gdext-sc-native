@@ -15,7 +15,8 @@ object GodotEntry:
         library: Ptr[Byte],
         initPtr: Ptr[GdxInitStruct]
     ): CUnsignedChar =
-        GdClassRegistry.register("SpinningCube", "Node3D", () => new SpinningCube())
+        GdClassRegistry
+            .register("ExampleSceneScala", "CenterContainer", () => new ExampleSceneScala())
         gdext.GodotEntry.init(getProcAddress, library, initPtr)
     end godotScalaInit
 end GodotEntry

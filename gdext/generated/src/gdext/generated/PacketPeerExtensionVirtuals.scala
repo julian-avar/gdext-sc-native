@@ -7,7 +7,11 @@ object PacketPeerExtensionVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_get_packet", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_put_packet", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_available_packet_count", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_get_available_packet_count",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_get_max_packet_size", required = true, default = VirtualStub.returnZeroInt)
   )
 }

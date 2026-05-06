@@ -6,6 +6,10 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 object AudioStreamPlaybackResampledVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_mix_resampled", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_stream_sampling_rate", required = true, default = VirtualStub.returnZeroFloat)
+    VirtualEntry(
+      "_get_stream_sampling_rate",
+      required = true,
+      default = VirtualStub.returnZeroFloat
+    )
   )
 }

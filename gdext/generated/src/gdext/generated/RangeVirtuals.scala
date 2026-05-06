@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object RangeVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_value_changed", required = false, default = VirtualStub.noop)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_value_changed", required = false, default = VirtualStub.noop))
 }

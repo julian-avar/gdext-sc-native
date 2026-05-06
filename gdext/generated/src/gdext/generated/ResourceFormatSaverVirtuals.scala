@@ -8,7 +8,11 @@ object ResourceFormatSaverVirtuals {
     VirtualEntry("_save", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_set_uid", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_recognize", required = false, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_recognized_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_recognized_extensions",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_recognize_path", required = false, default = VirtualStub.returnFalse)
   )
 }

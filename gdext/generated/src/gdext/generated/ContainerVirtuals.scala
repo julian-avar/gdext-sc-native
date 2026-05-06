@@ -5,7 +5,15 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object ContainerVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_get_allowed_size_flags_horizontal", required = false, default = VirtualStub.nullObject),
-    VirtualEntry("_get_allowed_size_flags_vertical", required = false, default = VirtualStub.nullObject)
+    VirtualEntry(
+      "_get_allowed_size_flags_horizontal",
+      required = false,
+      default = VirtualStub.nullObject
+    ),
+    VirtualEntry(
+      "_get_allowed_size_flags_vertical",
+      required = false,
+      default = VirtualStub.nullObject
+    )
   )
 }

@@ -10,12 +10,24 @@ object NodeVirtuals {
     VirtualEntry("_enter_tree", required = false, default = VirtualStub.noop),
     VirtualEntry("_exit_tree", required = false, default = VirtualStub.noop),
     VirtualEntry("_ready", required = false, default = VirtualStub.noop),
-    VirtualEntry("_get_configuration_warnings", required = false, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_accessibility_configuration_warnings", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_configuration_warnings",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_accessibility_configuration_warnings",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_input", required = false, default = VirtualStub.noop),
     VirtualEntry("_shortcut_input", required = false, default = VirtualStub.noop),
     VirtualEntry("_unhandled_input", required = false, default = VirtualStub.noop),
     VirtualEntry("_unhandled_key_input", required = false, default = VirtualStub.noop),
-    VirtualEntry("_get_focused_accessibility_element", required = false, default = VirtualStub.nullObject)
+    VirtualEntry(
+      "_get_focused_accessibility_element",
+      required = false,
+      default = VirtualStub.nullObject
+    )
   )
 }

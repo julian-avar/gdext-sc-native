@@ -15,6 +15,6 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="demo"
-run/main_scene="res://test.tscn"
+run/main_scene="res://example_scene_scala.tscn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"

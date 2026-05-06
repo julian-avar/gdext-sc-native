@@ -7,6 +7,10 @@ object CodeEditVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_confirm_code_completion", required = false, default = VirtualStub.noop),
     VirtualEntry("_request_code_completion", required = false, default = VirtualStub.noop),
-    VirtualEntry("_filter_code_completion_candidates", required = false, default = VirtualStub.emptyArray)
+    VirtualEntry(
+      "_filter_code_completion_candidates",
+      required = false,
+      default = VirtualStub.emptyArray
+    )
   )
 }

@@ -4,7 +4,9 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object ResourceImporterVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_get_build_dependencies", required = false, default = VirtualStub.emptyPackedStringArray)
-  )
+  val entries: Vector[VirtualEntry] = Vector(VirtualEntry(
+    "_get_build_dependencies",
+    required = false,
+    default = VirtualStub.emptyPackedStringArray
+  ))
 }

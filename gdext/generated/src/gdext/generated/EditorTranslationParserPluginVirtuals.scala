@@ -6,6 +6,10 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 object EditorTranslationParserPluginVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_parse_file", required = false, default = VirtualStub.emptyArray),
-    VirtualEntry("_get_recognized_extensions", required = false, default = VirtualStub.emptyPackedStringArray)
+    VirtualEntry(
+      "_get_recognized_extensions",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    )
   )
 }

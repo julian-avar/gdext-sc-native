@@ -20,7 +20,11 @@ object PhysicsDirectBodyState3DExtensionVirtuals {
     VirtualEntry("_get_angular_velocity", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_set_transform", required = true, default = VirtualStub.noop),
     VirtualEntry("_get_transform", required = true, default = VirtualStub.nullObject),
-    VirtualEntry("_get_velocity_at_local_position", required = true, default = VirtualStub.nullObject),
+    VirtualEntry(
+      "_get_velocity_at_local_position",
+      required = true,
+      default = VirtualStub.nullObject
+    ),
     VirtualEntry("_apply_central_impulse", required = true, default = VirtualStub.noop),
     VirtualEntry("_apply_impulse", required = true, default = VirtualStub.noop),
     VirtualEntry("_apply_torque_impulse", required = true, default = VirtualStub.noop),
@@ -45,13 +49,29 @@ object PhysicsDirectBodyState3DExtensionVirtuals {
     VirtualEntry("_get_contact_local_normal", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_get_contact_impulse", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_get_contact_local_shape", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_contact_local_velocity_at_position", required = true, default = VirtualStub.nullObject),
+    VirtualEntry(
+      "_get_contact_local_velocity_at_position",
+      required = true,
+      default = VirtualStub.nullObject
+    ),
     VirtualEntry("_get_contact_collider", required = true, default = VirtualStub.nullObject),
-    VirtualEntry("_get_contact_collider_position", required = true, default = VirtualStub.nullObject),
+    VirtualEntry(
+      "_get_contact_collider_position",
+      required = true,
+      default = VirtualStub.nullObject
+    ),
     VirtualEntry("_get_contact_collider_id", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_contact_collider_object", required = true, default = VirtualStub.nullObject),
-    VirtualEntry("_get_contact_collider_shape", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_contact_collider_velocity_at_position", required = true, default = VirtualStub.nullObject),
+    VirtualEntry(
+      "_get_contact_collider_shape",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_get_contact_collider_velocity_at_position",
+      required = true,
+      default = VirtualStub.nullObject
+    ),
     VirtualEntry("_get_step", required = true, default = VirtualStub.returnZeroFloat),
     VirtualEntry("_integrate_forces", required = true, default = VirtualStub.noop),
     VirtualEntry("_get_space_state", required = true, default = VirtualStub.nullObject)

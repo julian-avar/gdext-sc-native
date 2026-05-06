@@ -15,3 +15,14 @@ import scala.annotation.StaticAnnotation
   * }}}
   */
 class gdclass extends StaticAnnotation
+
+class `export`     extends StaticAnnotation
+class export_range extends StaticAnnotation
+
+class onready extends StaticAnnotation
+
+class icon extends StaticAnnotation
+
+class static_unload extends StaticAnnotation
+
+class tool extends StaticAnnotation

@@ -7,7 +7,11 @@ object MultiplayerPeerExtensionVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_get_packet", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_put_packet", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_available_packet_count", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_get_available_packet_count",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_get_max_packet_size", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_packet_script", required = false, default = VirtualStub.nullObject),
     VirtualEntry("_put_packet_script", required = false, default = VirtualStub.returnZeroInt),
@@ -25,7 +29,11 @@ object MultiplayerPeerExtensionVirtuals {
     VirtualEntry("_disconnect_peer", required = true, default = VirtualStub.noop),
     VirtualEntry("_get_unique_id", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_set_refuse_new_connections", required = false, default = VirtualStub.noop),
-    VirtualEntry("_is_refusing_new_connections", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry(
+      "_is_refusing_new_connections",
+      required = false,
+      default = VirtualStub.returnFalse
+    ),
     VirtualEntry("_is_server_relay_supported", required = false, default = VirtualStub.returnFalse),
     VirtualEntry("_get_connection_status", required = true, default = VirtualStub.returnZeroInt)
   )

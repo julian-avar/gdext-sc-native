@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object CanvasItemVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_draw", required = false, default = VirtualStub.noop)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_draw", required = false, default = VirtualStub.noop))
 }

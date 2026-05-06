@@ -8,7 +8,11 @@ object AnimationNodeVirtuals {
     VirtualEntry("_get_child_nodes", required = false, default = VirtualStub.emptyDictionary),
     VirtualEntry("_get_parameter_list", required = false, default = VirtualStub.emptyArray),
     VirtualEntry("_get_child_by_name", required = false, default = VirtualStub.nullObject),
-    VirtualEntry("_get_parameter_default_value", required = false, default = VirtualStub.nilVariant),
+    VirtualEntry(
+      "_get_parameter_default_value",
+      required = false,
+      default = VirtualStub.nilVariant
+    ),
     VirtualEntry("_is_parameter_read_only", required = false, default = VirtualStub.returnFalse),
     VirtualEntry("_process", required = false, default = VirtualStub.returnZeroFloat),
     VirtualEntry("_get_caption", required = false, default = VirtualStub.emptyString),

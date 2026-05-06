@@ -11,6 +11,10 @@ object PhysicsDirectSpaceState3DExtensionVirtuals {
     VirtualEntry("_cast_motion", required = true, default = VirtualStub.returnFalse),
     VirtualEntry("_collide_shape", required = true, default = VirtualStub.returnFalse),
     VirtualEntry("_rest_info", required = true, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_closest_point_to_object_volume", required = true, default = VirtualStub.nullObject)
+    VirtualEntry(
+      "_get_closest_point_to_object_volume",
+      required = true,
+      default = VirtualStub.nullObject
+    )
   )
 }

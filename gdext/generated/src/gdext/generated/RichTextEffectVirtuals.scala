@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object RichTextEffectVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_process_custom_fx", required = false, default = VirtualStub.returnFalse)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_process_custom_fx", required = false, default = VirtualStub.returnFalse))
 }

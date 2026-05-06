@@ -5,11 +5,23 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object EditorExportPlatformExtensionVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_get_preset_features", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_preset_features",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_is_executable", required = false, default = VirtualStub.returnFalse),
     VirtualEntry("_get_export_options", required = false, default = VirtualStub.emptyArray),
-    VirtualEntry("_should_update_export_options", required = false, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_export_option_visibility", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry(
+      "_should_update_export_options",
+      required = false,
+      default = VirtualStub.returnFalse
+    ),
+    VirtualEntry(
+      "_get_export_option_visibility",
+      required = false,
+      default = VirtualStub.returnFalse
+    ),
     VirtualEntry("_get_export_option_warning", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_os_name", required = true, default = VirtualStub.emptyString),
     VirtualEntry("_get_name", required = true, default = VirtualStub.emptyString),
@@ -25,15 +37,31 @@ object EditorExportPlatformExtensionVirtuals {
     VirtualEntry("_run", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_run_icon", required = false, default = VirtualStub.nullObject),
     VirtualEntry("_can_export", required = false, default = VirtualStub.returnFalse),
-    VirtualEntry("_has_valid_export_configuration", required = true, default = VirtualStub.returnFalse),
-    VirtualEntry("_has_valid_project_configuration", required = true, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_binary_extensions", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_has_valid_export_configuration",
+      required = true,
+      default = VirtualStub.returnFalse
+    ),
+    VirtualEntry(
+      "_has_valid_project_configuration",
+      required = true,
+      default = VirtualStub.returnFalse
+    ),
+    VirtualEntry(
+      "_get_binary_extensions",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_export_project", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_export_pack", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_export_zip", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_export_pack_patch", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_export_zip_patch", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_platform_features", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_platform_features",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_get_debug_protocol", required = false, default = VirtualStub.emptyString)
   )
 }

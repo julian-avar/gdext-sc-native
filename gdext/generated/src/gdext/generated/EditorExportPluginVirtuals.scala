@@ -12,23 +12,71 @@ object EditorExportPluginVirtuals {
     VirtualEntry("_customize_resource", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_begin_customize_scenes", required = false, default = VirtualStub.returnFalse),
     VirtualEntry("_customize_scene", required = true, default = VirtualStub.nullObject),
-    VirtualEntry("_get_customization_configuration_hash", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_get_customization_configuration_hash",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_end_customize_scenes", required = false, default = VirtualStub.noop),
     VirtualEntry("_end_customize_resources", required = false, default = VirtualStub.noop),
     VirtualEntry("_get_export_options", required = false, default = VirtualStub.emptyArray),
-    VirtualEntry("_get_export_options_overrides", required = false, default = VirtualStub.emptyDictionary),
-    VirtualEntry("_should_update_export_options", required = false, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_export_option_visibility", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry(
+      "_get_export_options_overrides",
+      required = false,
+      default = VirtualStub.emptyDictionary
+    ),
+    VirtualEntry(
+      "_should_update_export_options",
+      required = false,
+      default = VirtualStub.returnFalse
+    ),
+    VirtualEntry(
+      "_get_export_option_visibility",
+      required = false,
+      default = VirtualStub.returnFalse
+    ),
     VirtualEntry("_get_export_option_warning", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_export_features", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_export_features",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_get_name", required = true, default = VirtualStub.emptyString),
     VirtualEntry("_supports_platform", required = false, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_android_dependencies", required = false, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_android_dependencies_maven_repos", required = false, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_android_libraries", required = false, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_android_manifest_activity_element_contents", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_android_manifest_application_element_contents", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_android_manifest_element_contents", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_update_android_prebuilt_manifest", required = false, default = VirtualStub.nullObject)
+    VirtualEntry(
+      "_get_android_dependencies",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_android_dependencies_maven_repos",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_android_libraries",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_android_manifest_activity_element_contents",
+      required = false,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_get_android_manifest_application_element_contents",
+      required = false,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_get_android_manifest_element_contents",
+      required = false,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_update_android_prebuilt_manifest",
+      required = false,
+      default = VirtualStub.nullObject
+    )
   )
 }

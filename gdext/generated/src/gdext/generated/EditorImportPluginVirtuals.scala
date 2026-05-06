@@ -9,7 +9,11 @@ object EditorImportPluginVirtuals {
     VirtualEntry("_get_visible_name", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_preset_count", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_preset_name", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_recognized_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_recognized_extensions",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_get_import_options", required = false, default = VirtualStub.emptyArray),
     VirtualEntry("_get_save_extension", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_resource_type", required = false, default = VirtualStub.emptyString),

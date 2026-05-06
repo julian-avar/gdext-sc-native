@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object GraphNodeVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_draw_port", required = false, default = VirtualStub.noop)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_draw_port", required = false, default = VirtualStub.noop))
 }

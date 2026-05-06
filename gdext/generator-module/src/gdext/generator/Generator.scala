@@ -304,7 +304,7 @@ object Generator:
                 ("val _ret = stackalloc[Ptr[Byte]]()", read)
     end retSetup
 
-    private def generateMethod(cls: Ast.GodotClass, m: Ast.GodotMethod, indent: Int): String =
+    private def generateMethod(cls: Ast.GodotClass, m: Ast.GodotMethod, indent: Int, isStatic: Boolean = false): String =
         val name      = toCamel(m.name)
         val reqArgs   = m.args.filterNot(_.hasDefault)
         val paramList = reqArgs.zipWithIndex.map { (a, _) =>
@@ -323,7 +323,8 @@ object Generator:
 
         val (rAlloc, rRead) = retSetup(m.returnTypeName, m.returnMeta)
         val retPtr          = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
-        val callLine = s"GdxApi.ptrcall(${cls.name}.Binds.${safeName(name)}, ptr, _args, $retPtr)"
+        val selfArg  = if isStatic then "null" else "ptr"
+        val callLine = s"GdxApi.ptrcall(${cls.name}.Binds.${safeName(name)}, $selfArg, _args, $retPtr)"
 
         val bodyLines = setupLines ++ (if rAlloc.nonEmpty then Seq(rAlloc) else Seq.empty) ++
             Seq(callLine) ++ (if rRead.nonEmpty then Seq(rRead) else Seq.empty)
@@ -361,12 +362,16 @@ object Generator:
     end generateVirtual
 
     def generateWrappers(classes: Vector[Ast.GodotClass]): Vector[ScalaFile] = classes.map { cls =>
-        val regular = cls.methods.filter { m =>
+        val instanceMethods = cls.methods.filter { m =>
             !m.isVirtual && !m.isStatic && !jvmMethodConflicts.contains(toCamel(m.name))
+        }
+        val staticMethods = cls.methods.filter { m =>
+            !m.isVirtual && m.isStatic && !jvmMethodConflicts.contains(toCamel(m.name))
         }
         val virtuals = cls.methods.filter(_.isVirtual)
 
-        val methodSrc  = regular.map(generateMethod(cls, _, 4))
+        val methodSrc  = instanceMethods.map(generateMethod(cls, _, 4))
+        val staticSrc = staticMethods.map(m => generateMethod(cls, m, 4, isStatic = true))
         val virtualSrc = virtuals.flatMap(generateVirtual)
         val propSrc    = cls.properties.flatMap { p =>
             // Only generate property shorthand when the getter is a zero-arg, non-virtual,
@@ -393,9 +398,10 @@ object Generator:
             }
         }
 
-        val bindsVars = regular.map(m => s"var ${safeName(toCamel(m.name))}: Ptr[Byte] = null")
+        val allMethods = instanceMethods ++ staticMethods
+        val bindsVars = allMethods.map(m => s"var ${safeName(toCamel(m.name))}: Ptr[Byte] = null")
 
-        val bindsLoads = regular.map { m =>
+        val bindsLoads = allMethods.map { m =>
             val sn = safeName(toCamel(m.name))
             s"""Binds.$sn = GdxApi.getMethodBind(c"${cls.name}", c"${m.name}", ${m.hash}L)"""
         }
@@ -414,7 +420,7 @@ object Generator:
                 |}""".stripMargin else ""
 
         val bindsSection =
-            if regular.nonEmpty then s"""object Binds {
+            if allMethods.nonEmpty then s"""object Binds {
             |  ${bindsVars.mkString("\n  ")}
             |
             |  def loadBinds(): Unit = {
@@ -422,7 +428,10 @@ object Generator:
             |  }
             |}""".stripMargin else ""
 
-        val companionBody = Seq(bindsSection, ctorDef).filter(_.nonEmpty)
+        val staticSection = if (staticSrc.nonEmpty)
+            staticSrc.map("  " + _).mkString("\n\n") else ""
+
+        val companionBody = Seq(bindsSection, ctorDef, staticSection).filter(_.nonEmpty)
 
         val bodyParts = Seq(
           virtualSrc.mkString("\n"),
@@ -453,6 +462,74 @@ object Generator:
         ScalaFile(content = content, path = "gdext/generated", name = cls.name)
     }
     end generateWrappers
+
+    // ── Utility Functions (global functions like print) ──────────────────
+
+    def generateUtilityFunctions(utilities: Vector[Parser.UtilityFunction]): Vector[ScalaFile] =
+        val methods = utilities.map { fn =>
+            val name      = toCamel(fn.name)
+            val reqArgs   = if fn.isVararg then Vector.empty else fn.arguments.filterNot(_.hasDefault)
+            val paramList = if fn.isVararg then
+                s"args: Ptr[Ptr[Byte]]"
+            else
+                reqArgs.zipWithIndex.map { (a, _) =>
+                    s"${safeName(toCamel(a.name))}: ${scalaType(a.typeName, a.meta)}"
+                }.mkString(", ")
+
+            val setupLines: Seq[String] =
+                if fn.isVararg then Seq(s"val _args = args")
+                else if reqArgs.isEmpty then Seq("val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]")
+                else
+                    val packed = reqArgs.zipWithIndex.map { (a, i) => packArg(a, i) }
+                    s"val _args = stackalloc[Ptr[Byte]](${reqArgs.size})" +:
+                        packed.zipWithIndex.flatMap { case ((setup, expr), i) =>
+                            val set = s"_args($i) = $expr"
+                            if setup.nonEmpty then Seq(setup, set) else Seq(set)
+                        }
+
+            val (rAlloc, rRead) = retSetup(fn.returnTypeName, None)
+            val retPtr   = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
+            val argCount = if fn.isVararg then "-1" else reqArgs.size.toString
+            val callLine = s"GdxApi.callUtilityFunction(Binds.${safeName(name)}, _args, $argCount, $retPtr)"
+
+            val bodyLines = setupLines ++ (if rAlloc.nonEmpty then Seq(rAlloc) else Seq.empty) ++
+                Seq(callLine) ++ (if rRead.nonEmpty then Seq(rRead) else Seq.empty)
+
+            val body = bodyLines.mkString("\n    ")
+            s"  def ${safeName(name)}($paramList): ${if fn.returnTypeName == "void" then "Unit" else scalaType(fn.returnTypeName, None)} = {\n    ${body}\n  }"
+        }
+
+        val bindsVars = utilities.map { fn =>
+            s"var ${safeName(toCamel(fn.name))}: Ptr[Byte] = null"
+        }
+        val bindsLoads = utilities.map { fn =>
+            val sn = safeName(toCamel(fn.name))
+            s"""$sn = GdxApi.getUtilityFunctionPtr(c"${fn.name}", ${fn.hash}L)"""
+        }
+
+        val content =
+            s"""|// Generated by gdext generator — do not edit.
+                |package gdext.generated
+                |
+                |import scala.scalanative.unsafe.*
+                |import scala.scalanative.unsigned.*
+                |import gdext.GdxApi
+                |
+                |object UtilityFunctions {
+                |  object Binds {
+                |    ${bindsVars.mkString("\n    ")}
+                |
+                |    def loadBinds(): Unit = {
+                |      ${bindsLoads.mkString("\n      ")}
+                |    }
+                |  }
+                |
+                |  ${methods.mkString("\n\n  ")}
+                |}
+                |""".stripMargin
+
+        Vector(ScalaFile(content = content, path = "gdext/generated", name = "UtilityFunctions"))
+    end generateUtilityFunctions
 
     // ---
 

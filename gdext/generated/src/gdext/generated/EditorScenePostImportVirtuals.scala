@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object EditorScenePostImportVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_post_import", required = false, default = VirtualStub.nullObject)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_post_import", required = false, default = VirtualStub.nullObject))
 }

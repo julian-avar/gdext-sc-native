@@ -5,7 +5,11 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object SyntaxHighlighterVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_get_line_syntax_highlighting", required = false, default = VirtualStub.emptyDictionary),
+    VirtualEntry(
+      "_get_line_syntax_highlighting",
+      required = false,
+      default = VirtualStub.emptyDictionary
+    ),
     VirtualEntry("_clear_highlighting_cache", required = false, default = VirtualStub.noop),
     VirtualEntry("_update_cache", required = false, default = VirtualStub.noop)
   )

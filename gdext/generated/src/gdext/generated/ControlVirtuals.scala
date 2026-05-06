@@ -13,8 +13,16 @@ object ControlVirtuals {
     VirtualEntry("_can_drop_data", required = false, default = VirtualStub.returnFalse),
     VirtualEntry("_drop_data", required = false, default = VirtualStub.noop),
     VirtualEntry("_make_custom_tooltip", required = false, default = VirtualStub.nullObject),
-    VirtualEntry("_accessibility_get_contextual_info", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_accessibility_container_name", required = false, default = VirtualStub.emptyString),
+    VirtualEntry(
+      "_accessibility_get_contextual_info",
+      required = false,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_get_accessibility_container_name",
+      required = false,
+      default = VirtualStub.emptyString
+    ),
     VirtualEntry("_gui_input", required = false, default = VirtualStub.noop)
   )
 }

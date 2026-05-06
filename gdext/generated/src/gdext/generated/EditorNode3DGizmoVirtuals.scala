@@ -13,7 +13,11 @@ object EditorNode3DGizmoVirtuals {
     VirtualEntry("_set_handle", required = false, default = VirtualStub.noop),
     VirtualEntry("_commit_handle", required = false, default = VirtualStub.noop),
     VirtualEntry("_subgizmos_intersect_ray", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_subgizmos_intersect_frustum", required = false, default = VirtualStub.nullObject),
+    VirtualEntry(
+      "_subgizmos_intersect_frustum",
+      required = false,
+      default = VirtualStub.nullObject
+    ),
     VirtualEntry("_set_subgizmo_transform", required = false, default = VirtualStub.noop),
     VirtualEntry("_get_subgizmo_transform", required = false, default = VirtualStub.nullObject),
     VirtualEntry("_commit_subgizmos", required = false, default = VirtualStub.noop)

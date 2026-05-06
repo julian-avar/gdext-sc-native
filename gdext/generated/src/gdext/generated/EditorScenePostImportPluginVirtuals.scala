@@ -6,8 +6,16 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 object EditorScenePostImportPluginVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
     VirtualEntry("_get_internal_import_options", required = false, default = VirtualStub.noop),
-    VirtualEntry("_get_internal_option_visibility", required = false, default = VirtualStub.nilVariant),
-    VirtualEntry("_get_internal_option_update_view_required", required = false, default = VirtualStub.nilVariant),
+    VirtualEntry(
+      "_get_internal_option_visibility",
+      required = false,
+      default = VirtualStub.nilVariant
+    ),
+    VirtualEntry(
+      "_get_internal_option_update_view_required",
+      required = false,
+      default = VirtualStub.nilVariant
+    ),
     VirtualEntry("_internal_process", required = false, default = VirtualStub.noop),
     VirtualEntry("_get_import_options", required = false, default = VirtualStub.noop),
     VirtualEntry("_get_option_visibility", required = false, default = VirtualStub.nilVariant),

@@ -12,15 +12,27 @@ object VisualShaderNodeCustomVirtuals {
     VirtualEntry("_get_input_port_count", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_input_port_type", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_input_port_name", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_input_port_default_value", required = false, default = VirtualStub.nilVariant),
+    VirtualEntry(
+      "_get_input_port_default_value",
+      required = false,
+      default = VirtualStub.nilVariant
+    ),
     VirtualEntry("_get_default_input_port", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_output_port_count", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_output_port_type", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_output_port_name", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_property_count", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_property_name", required = false, default = VirtualStub.emptyString),
-    VirtualEntry("_get_property_default_index", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_get_property_options", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_property_default_index",
+      required = false,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_get_property_options",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_get_code", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_func_code", required = false, default = VirtualStub.emptyString),
     VirtualEntry("_get_global_code", required = false, default = VirtualStub.emptyString),

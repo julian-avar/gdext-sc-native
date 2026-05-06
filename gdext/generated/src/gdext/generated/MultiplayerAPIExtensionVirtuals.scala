@@ -12,7 +12,15 @@ object MultiplayerAPIExtensionVirtuals {
     VirtualEntry("_get_peer_ids", required = false, default = VirtualStub.nullObject),
     VirtualEntry("_rpc", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_remote_sender_id", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_object_configuration_add", required = false, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_object_configuration_remove", required = false, default = VirtualStub.returnZeroInt)
+    VirtualEntry(
+      "_object_configuration_add",
+      required = false,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_object_configuration_remove",
+      required = false,
+      default = VirtualStub.returnZeroInt
+    )
   )
 }

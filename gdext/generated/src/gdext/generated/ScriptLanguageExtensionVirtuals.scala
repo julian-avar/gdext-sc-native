@@ -10,11 +10,27 @@ object ScriptLanguageExtensionVirtuals {
     VirtualEntry("_get_type", required = true, default = VirtualStub.emptyString),
     VirtualEntry("_get_extension", required = true, default = VirtualStub.emptyString),
     VirtualEntry("_finish", required = true, default = VirtualStub.noop),
-    VirtualEntry("_get_reserved_words", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_reserved_words",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_is_control_flow_keyword", required = true, default = VirtualStub.returnFalse),
-    VirtualEntry("_get_comment_delimiters", required = true, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_doc_comment_delimiters", required = false, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_string_delimiters", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_comment_delimiters",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_doc_comment_delimiters",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_string_delimiters",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_make_template", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_get_built_in_templates", required = true, default = VirtualStub.emptyArray),
     VirtualEntry("_is_using_templates", required = true, default = VirtualStub.returnFalse),
@@ -30,7 +46,11 @@ object ScriptLanguageExtensionVirtuals {
     VirtualEntry("_can_make_function", required = true, default = VirtualStub.returnFalse),
     VirtualEntry("_open_in_external_editor", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_overrides_external_editor", required = true, default = VirtualStub.returnFalse),
-    VirtualEntry("_preferred_file_name_casing", required = false, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_preferred_file_name_casing",
+      required = false,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_complete_code", required = true, default = VirtualStub.emptyDictionary),
     VirtualEntry("_lookup_code", required = true, default = VirtualStub.emptyDictionary),
     VirtualEntry("_auto_indent_code", required = true, default = VirtualStub.emptyString),
@@ -40,27 +60,71 @@ object ScriptLanguageExtensionVirtuals {
     VirtualEntry("_thread_enter", required = true, default = VirtualStub.noop),
     VirtualEntry("_thread_exit", required = true, default = VirtualStub.noop),
     VirtualEntry("_debug_get_error", required = true, default = VirtualStub.emptyString),
-    VirtualEntry("_debug_get_stack_level_count", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_debug_get_stack_level_line", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_debug_get_stack_level_function", required = true, default = VirtualStub.emptyString),
-    VirtualEntry("_debug_get_stack_level_source", required = true, default = VirtualStub.emptyString),
-    VirtualEntry("_debug_get_stack_level_locals", required = true, default = VirtualStub.emptyDictionary),
-    VirtualEntry("_debug_get_stack_level_members", required = true, default = VirtualStub.emptyDictionary),
-    VirtualEntry("_debug_get_stack_level_instance", required = true, default = VirtualStub.nullVoidPtr),
+    VirtualEntry(
+      "_debug_get_stack_level_count",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_debug_get_stack_level_line",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_debug_get_stack_level_function",
+      required = true,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_debug_get_stack_level_source",
+      required = true,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_debug_get_stack_level_locals",
+      required = true,
+      default = VirtualStub.emptyDictionary
+    ),
+    VirtualEntry(
+      "_debug_get_stack_level_members",
+      required = true,
+      default = VirtualStub.emptyDictionary
+    ),
+    VirtualEntry(
+      "_debug_get_stack_level_instance",
+      required = true,
+      default = VirtualStub.nullVoidPtr
+    ),
     VirtualEntry("_debug_get_globals", required = true, default = VirtualStub.emptyDictionary),
-    VirtualEntry("_debug_parse_stack_level_expression", required = true, default = VirtualStub.emptyString),
-    VirtualEntry("_debug_get_current_stack_info", required = true, default = VirtualStub.emptyArray),
+    VirtualEntry(
+      "_debug_parse_stack_level_expression",
+      required = true,
+      default = VirtualStub.emptyString
+    ),
+    VirtualEntry(
+      "_debug_get_current_stack_info",
+      required = true,
+      default = VirtualStub.emptyArray
+    ),
     VirtualEntry("_reload_all_scripts", required = true, default = VirtualStub.noop),
     VirtualEntry("_reload_scripts", required = true, default = VirtualStub.noop),
     VirtualEntry("_reload_tool_script", required = true, default = VirtualStub.noop),
-    VirtualEntry("_get_recognized_extensions", required = true, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_recognized_extensions",
+      required = true,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_get_public_functions", required = true, default = VirtualStub.emptyArray),
     VirtualEntry("_get_public_constants", required = true, default = VirtualStub.emptyDictionary),
     VirtualEntry("_get_public_annotations", required = true, default = VirtualStub.emptyArray),
     VirtualEntry("_profiling_start", required = true, default = VirtualStub.noop),
     VirtualEntry("_profiling_stop", required = true, default = VirtualStub.noop),
     VirtualEntry("_profiling_set_save_native_calls", required = true, default = VirtualStub.noop),
-    VirtualEntry("_profiling_get_accumulated_data", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_profiling_get_accumulated_data",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_profiling_get_frame_data", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_frame", required = true, default = VirtualStub.noop),
     VirtualEntry("_handles_global_class_type", required = true, default = VirtualStub.returnFalse),

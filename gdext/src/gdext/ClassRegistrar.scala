@@ -24,6 +24,12 @@ object ClassRegistrar:
     private var _processFn: Ptr[Byte]        = null
     private var _physicsProcessFn: Ptr[Byte] = null
 
+    // Pre-interned StringName buffers for virtual method dispatch.
+    // Godot interns StringNames: equal names share the same _Data* pointer at offset 0.
+    private var _readySN:          Ptr[Byte] = null
+    private var _processSN:        Ptr[Byte] = null
+    private var _physicsProcessSN: Ptr[Byte] = null
+
     def register(): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
@@ -37,6 +43,7 @@ object ClassRegistrar:
 
         buildSharedCreateFn()
         buildSharedVirtualFns()
+        initVirtualStringNames(stringNameNew)
 
         for reg <- GdClassRegistry.getRegistrations do
             // Heap-allocate StringName buffers — Godot may hold these past this call.
@@ -124,38 +131,37 @@ object ClassRegistrar:
         end if
     end buildSharedCreateFn
 
+    /** Allocate persistent StringName buffers for the known virtual method names.
+      * Called once after string_name_new_with_utf8_chars is resolved.
+      */
+    private def initVirtualStringNames(stringNameNew: StringNameNewFn): Unit =
+        if _readySN != null then return
+        def alloc(name: CString): Ptr[Byte] =
+            val buf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+            memset(buf, 0, StringNameSize)
+            stringNameNew(buf, name)
+            buf
+        _readySN          = alloc(c"_ready")
+        _processSN        = alloc(c"_process")
+        _physicsProcessSN = alloc(c"_physics_process")
+    end initVirtualStringNames
+
     /** get_virtual_func: receives (classUserdata, StringNamePtr), returns CallVirtualFn or null.
       *
-      * NOTE: Godot's StringName is opaque — reading it as a plain C string is incorrect. This uses
-      * a best-effort byte-peek that works for short ASCII method names in practice. A proper fix
-      * requires calling string_name_to_utf8_chars via GdxApi.
+      * StringNames are interned by Godot: the first pointer-sized word of the struct is a _Data*
+      * that is shared among all StringNames with equal content. We compare that word against
+      * pre-created StringName buffers to identify the method without any string conversion API.
       */
     private def buildGetVirtualFn(): GetVirtualFn = CFuncPtr2
         .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (_, namePtr) =>
-            peekStringName(namePtr) match
-                case "_ready"           => _readyFn
-                case "_process"         => _processFn
-                case "_physics_process" => _physicsProcessFn
-                case _                  => null
+            val data = !(namePtr.asInstanceOf[Ptr[Long]])
+            if data == !(_readySN.asInstanceOf[Ptr[Long]]) then _readyFn
+            else if data == !(_processSN.asInstanceOf[Ptr[Long]]) then _processFn
+            else if data == !(_physicsProcessSN.asInstanceOf[Ptr[Long]]) then _physicsProcessFn
+            else null
         }
 
     // ── string helpers ──────────────────────────────────────────────────────
 
     private def toCString(s: String)(using Zone): CString = scalanative.unsafe.toCString(s)
-
-    /** Best-effort peek of a Godot StringName as an ASCII string. Works only because short method
-      * names happen to be stored inline on this platform. TODO: replace with
-      * string_name_to_utf8_chars GDExtension API call.
-      */
-    private def peekStringName(ptr: Ptr[Byte]): String =
-        val sb = new StringBuilder
-        var i  = 0
-        while i < 256 do
-            val b = !(ptr + i)
-            if b == 0.toByte then return sb.toString()
-            sb.append(b.toChar)
-            i += 1
-        end while
-        sb.toString()
-    end peekStringName
 end ClassRegistrar

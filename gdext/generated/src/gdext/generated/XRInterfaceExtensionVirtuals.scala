@@ -27,11 +27,23 @@ object XRInterfaceExtensionVirtuals {
     VirtualEntry("_pre_draw_viewport", required = false, default = VirtualStub.returnFalse),
     VirtualEntry("_post_draw_viewport", required = false, default = VirtualStub.noop),
     VirtualEntry("_end_frame", required = false, default = VirtualStub.noop),
-    VirtualEntry("_get_suggested_tracker_names", required = false, default = VirtualStub.emptyPackedStringArray),
-    VirtualEntry("_get_suggested_pose_names", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_suggested_tracker_names",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
+    VirtualEntry(
+      "_get_suggested_pose_names",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_get_tracking_status", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_trigger_haptic_pulse", required = false, default = VirtualStub.noop),
-    VirtualEntry("_get_anchor_detection_is_enabled", required = false, default = VirtualStub.returnFalse),
+    VirtualEntry(
+      "_get_anchor_detection_is_enabled",
+      required = false,
+      default = VirtualStub.returnFalse
+    ),
     VirtualEntry("_set_anchor_detection_is_enabled", required = false, default = VirtualStub.noop),
     VirtualEntry("_get_camera_feed_id", required = false, default = VirtualStub.returnZeroInt),
     VirtualEntry("_get_color_texture", required = false, default = VirtualStub.nullObject),

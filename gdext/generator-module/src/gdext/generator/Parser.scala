@@ -1,5 +1,7 @@
 package gdext.generator
 
+import Ast.GodotArg
+
 object Parser:
     object Extractors:
         def description(innerJson: ujson.Value): Option[String] = innerJson.obj.get("description")
@@ -154,6 +156,34 @@ object Parser:
 
     // Primitives already handled by scalaType / packArg / retSetup — no class needed.
     private val skipBuiltins = Set("Nil", "bool", "int", "float", "String", "StringName", "Variant", "Array")
+
+    // ── Utility Functions ────────────────────────────────────────────────────
+
+    case class UtilityFunction(
+        name: String,
+        isVararg: Boolean,
+        hash: Long,
+        arguments: Vector[GodotArg],
+        returnTypeName: String
+    )
+
+    def utilityFunctions(json: ujson.Value): Vector[UtilityFunction] =
+        json("utility_functions").arr.map { fn =>
+            UtilityFunction(
+              name = fn("name").str,
+              isVararg = fn.obj.get("is_vararg").exists(_.bool),
+              hash = fn.obj.get("hash").map(_.num.toLong).getOrElse(0L),
+              arguments = fn.obj.get("arguments").map(_.arr.toVector.map { a =>
+                  GodotArg(
+                    name = a("name").str,
+                    typeName = a("type").str,
+                    meta = a.obj.get("meta").map(_.str),
+                    hasDefault = a.obj.contains("default_value")
+                  )
+              }).getOrElse(Vector.empty),
+              returnTypeName = fn.obj.get("return_type").map(_.str).getOrElse("void")
+            )
+        }.toVector
 
     def builtinClasses(json: ujson.Value): Vector[Ast.BuiltinClass] =
         json("builtin_classes").arr

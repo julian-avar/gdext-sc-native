@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object CompositorEffectVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_render_callback", required = false, default = VirtualStub.noop)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_render_callback", required = false, default = VirtualStub.noop))
 }

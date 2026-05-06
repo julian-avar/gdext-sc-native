@@ -5,7 +5,11 @@ import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object ImageFormatLoaderExtensionVirtuals {
   val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_get_recognized_extensions", required = false, default = VirtualStub.emptyPackedStringArray),
+    VirtualEntry(
+      "_get_recognized_extensions",
+      required = false,
+      default = VirtualStub.emptyPackedStringArray
+    ),
     VirtualEntry("_load_image", required = false, default = VirtualStub.returnZeroInt)
   )
 }

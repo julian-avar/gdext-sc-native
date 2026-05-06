@@ -4,7 +4,6 @@ package gdext.generated
 import gdext.virtual.{VirtualEntry, VirtualStub}
 
 object EditorContextMenuPluginVirtuals {
-  val entries: Vector[VirtualEntry] = Vector(
-    VirtualEntry("_popup_menu", required = false, default = VirtualStub.noop)
-  )
+  val entries: Vector[VirtualEntry] =
+    Vector(VirtualEntry("_popup_menu", required = false, default = VirtualStub.noop))
 }

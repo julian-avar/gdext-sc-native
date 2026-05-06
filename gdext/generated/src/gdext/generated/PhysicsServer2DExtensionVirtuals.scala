@@ -12,12 +12,20 @@ object PhysicsServer2DExtensionVirtuals {
     VirtualEntry("_rectangle_shape_create", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_capsule_shape_create", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_convex_polygon_shape_create", required = true, default = VirtualStub.nullObject),
-    VirtualEntry("_concave_polygon_shape_create", required = true, default = VirtualStub.nullObject),
+    VirtualEntry(
+      "_concave_polygon_shape_create",
+      required = true,
+      default = VirtualStub.nullObject
+    ),
     VirtualEntry("_shape_set_data", required = true, default = VirtualStub.noop),
     VirtualEntry("_shape_set_custom_solver_bias", required = true, default = VirtualStub.noop),
     VirtualEntry("_shape_get_type", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_shape_get_data", required = true, default = VirtualStub.nilVariant),
-    VirtualEntry("_shape_get_custom_solver_bias", required = true, default = VirtualStub.returnZeroFloat),
+    VirtualEntry(
+      "_shape_get_custom_solver_bias",
+      required = true,
+      default = VirtualStub.returnZeroFloat
+    ),
     VirtualEntry("_shape_collide", required = true, default = VirtualStub.returnFalse),
     VirtualEntry("_space_create", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_space_set_active", required = true, default = VirtualStub.noop),
@@ -41,9 +49,17 @@ object PhysicsServer2DExtensionVirtuals {
     VirtualEntry("_area_remove_shape", required = true, default = VirtualStub.noop),
     VirtualEntry("_area_clear_shapes", required = true, default = VirtualStub.noop),
     VirtualEntry("_area_attach_object_instance_id", required = true, default = VirtualStub.noop),
-    VirtualEntry("_area_get_object_instance_id", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_area_get_object_instance_id",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_area_attach_canvas_instance_id", required = true, default = VirtualStub.noop),
-    VirtualEntry("_area_get_canvas_instance_id", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_area_get_canvas_instance_id",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_area_set_param", required = true, default = VirtualStub.noop),
     VirtualEntry("_area_set_transform", required = true, default = VirtualStub.noop),
     VirtualEntry("_area_get_param", required = true, default = VirtualStub.nilVariant),
@@ -68,21 +84,45 @@ object PhysicsServer2DExtensionVirtuals {
     VirtualEntry("_body_get_shape", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_body_get_shape_transform", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_body_set_shape_disabled", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_set_shape_as_one_way_collision", required = true, default = VirtualStub.noop),
+    VirtualEntry(
+      "_body_set_shape_as_one_way_collision",
+      required = true,
+      default = VirtualStub.noop
+    ),
     VirtualEntry("_body_remove_shape", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_clear_shapes", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_attach_object_instance_id", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_object_instance_id", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_body_get_object_instance_id",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_body_attach_canvas_instance_id", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_canvas_instance_id", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_body_set_continuous_collision_detection_mode", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_continuous_collision_detection_mode", required = true, default = VirtualStub.returnZeroInt),
+    VirtualEntry(
+      "_body_get_canvas_instance_id",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_body_set_continuous_collision_detection_mode",
+      required = true,
+      default = VirtualStub.noop
+    ),
+    VirtualEntry(
+      "_body_get_continuous_collision_detection_mode",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
     VirtualEntry("_body_set_collision_layer", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_get_collision_layer", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_body_set_collision_mask", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_get_collision_mask", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_body_set_collision_priority", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_collision_priority", required = true, default = VirtualStub.returnZeroFloat),
+    VirtualEntry(
+      "_body_get_collision_priority",
+      required = true,
+      default = VirtualStub.returnZeroFloat
+    ),
     VirtualEntry("_body_set_param", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_get_param", required = true, default = VirtualStub.nilVariant),
     VirtualEntry("_body_reset_mass_properties", required = true, default = VirtualStub.noop),
@@ -100,19 +140,47 @@ object PhysicsServer2DExtensionVirtuals {
     VirtualEntry("_body_set_constant_force", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_get_constant_force", required = true, default = VirtualStub.nullObject),
     VirtualEntry("_body_set_constant_torque", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_constant_torque", required = true, default = VirtualStub.returnZeroFloat),
+    VirtualEntry(
+      "_body_get_constant_torque",
+      required = true,
+      default = VirtualStub.returnZeroFloat
+    ),
     VirtualEntry("_body_set_axis_velocity", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_add_collision_exception", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_remove_collision_exception", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_collision_exceptions", required = true, default = VirtualStub.emptyArray),
+    VirtualEntry(
+      "_body_get_collision_exceptions",
+      required = true,
+      default = VirtualStub.emptyArray
+    ),
     VirtualEntry("_body_set_max_contacts_reported", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_max_contacts_reported", required = true, default = VirtualStub.returnZeroInt),
-    VirtualEntry("_body_set_contacts_reported_depth_threshold", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_get_contacts_reported_depth_threshold", required = true, default = VirtualStub.returnZeroFloat),
+    VirtualEntry(
+      "_body_get_max_contacts_reported",
+      required = true,
+      default = VirtualStub.returnZeroInt
+    ),
+    VirtualEntry(
+      "_body_set_contacts_reported_depth_threshold",
+      required = true,
+      default = VirtualStub.noop
+    ),
+    VirtualEntry(
+      "_body_get_contacts_reported_depth_threshold",
+      required = true,
+      default = VirtualStub.returnZeroFloat
+    ),
     VirtualEntry("_body_set_omit_force_integration", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_is_omitting_force_integration", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry(
+      "_body_is_omitting_force_integration",
+      required = true,
+      default = VirtualStub.returnFalse
+    ),
     VirtualEntry("_body_set_state_sync_callback", required = true, default = VirtualStub.noop),
-    VirtualEntry("_body_set_force_integration_callback", required = true, default = VirtualStub.noop),
+    VirtualEntry(
+      "_body_set_force_integration_callback",
+      required = true,
+      default = VirtualStub.noop
+    ),
     VirtualEntry("_body_collide_shape", required = true, default = VirtualStub.returnFalse),
     VirtualEntry("_body_set_pickable", required = true, default = VirtualStub.noop),
     VirtualEntry("_body_get_direct_state", required = true, default = VirtualStub.nullObject),
@@ -121,8 +189,16 @@ object PhysicsServer2DExtensionVirtuals {
     VirtualEntry("_joint_clear", required = true, default = VirtualStub.noop),
     VirtualEntry("_joint_set_param", required = true, default = VirtualStub.noop),
     VirtualEntry("_joint_get_param", required = true, default = VirtualStub.returnZeroFloat),
-    VirtualEntry("_joint_disable_collisions_between_bodies", required = true, default = VirtualStub.noop),
-    VirtualEntry("_joint_is_disabled_collisions_between_bodies", required = true, default = VirtualStub.returnFalse),
+    VirtualEntry(
+      "_joint_disable_collisions_between_bodies",
+      required = true,
+      default = VirtualStub.noop
+    ),
+    VirtualEntry(
+      "_joint_is_disabled_collisions_between_bodies",
+      required = true,
+      default = VirtualStub.returnFalse
+    ),
     VirtualEntry("_joint_make_pin", required = true, default = VirtualStub.noop),
     VirtualEntry("_joint_make_groove", required = true, default = VirtualStub.noop),
     VirtualEntry("_joint_make_damped_spring", required = true, default = VirtualStub.noop),
@@ -131,7 +207,11 @@ object PhysicsServer2DExtensionVirtuals {
     VirtualEntry("_pin_joint_set_param", required = true, default = VirtualStub.noop),
     VirtualEntry("_pin_joint_get_param", required = true, default = VirtualStub.returnZeroFloat),
     VirtualEntry("_damped_spring_joint_set_param", required = true, default = VirtualStub.noop),
-    VirtualEntry("_damped_spring_joint_get_param", required = true, default = VirtualStub.returnZeroFloat),
+    VirtualEntry(
+      "_damped_spring_joint_get_param",
+      required = true,
+      default = VirtualStub.returnZeroFloat
+    ),
     VirtualEntry("_joint_get_type", required = true, default = VirtualStub.returnZeroInt),
     VirtualEntry("_free_rid", required = true, default = VirtualStub.noop),
     VirtualEntry("_set_active", required = true, default = VirtualStub.noop),
