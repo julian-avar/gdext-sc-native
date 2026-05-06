@@ -12,7 +12,10 @@ val defaultScalaVersion       = "3.8.3"
 val defaultScalaNativeVersion = "0.5.11"
 
 object gdext extends SharedModule:
-    def mvnDeps = Seq(Deps.osLib)
+    def mvnDeps    = Seq(Deps.osLib)
+    def moduleDeps = Seq(core)
+
+    object core extends SharedModule
 
     object generated extends SharedModule:
         def moduleDeps = Seq(gdext)
