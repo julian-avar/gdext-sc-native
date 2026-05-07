@@ -181,9 +181,12 @@ object GdxApi:
         callableCreatePtr(callableBuf, info)
         println("[connectSignal] callable created")
 
-        val args = stackalloc[Ptr[Byte]](2)
+        val flagsBuf = stackalloc[Int]()
+        !flagsBuf = 0
+        val args = stackalloc[Ptr[Byte]](3)
         args(0) = snBuf
         args(1) = callableBuf
+        args(2) = flagsBuf.asInstanceOf[Ptr[Byte]]
         val retBuf = stackalloc[Long]()
         println("[connectSignal] calling ptrcall")
         ptrcallPtr(connectMethodBind, obj, args, retBuf.asInstanceOf[Ptr[Byte]])

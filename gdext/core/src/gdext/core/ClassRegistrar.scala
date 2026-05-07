@@ -11,24 +11,41 @@ object ClassRegistrar:
     private var instanceMap: Map[Ptr[Byte], GodotObject] = Map.empty
 
     // Keep all closures alive — GC must never collect them while Godot holds raw ptrs.
-    private var freeFns: Map[String, FreeInstanceFn]     = Map.empty
-    private var getVirtualFns: Map[String, GetVirtualFn] = Map.empty
+    private var freeFns: Map[String, FreeInstanceFn] = Map.empty
 
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
-    // Tuple: (factory, parentNameBuf, classNameBuf) — both StringName buffers are heap-allocated.
     private var factoryMap: Map[Ptr[Byte], (() => GodotObject, Ptr[Byte], Ptr[Byte])] = Map.empty
     private var _createFn: CreateInstanceFn                                           = null
 
-    // Shared CallVirtualFn pointers — created once, reused for every class.
-    private var _readyFn: Ptr[Byte]          = null
-    private var _processFn: Ptr[Byte]        = null
-    private var _physicsProcessFn: Ptr[Byte] = null
+    // ── virtual dispatch (fields 19 + 20 of ClassCreationInfo2) ────────────────
+    //
+    // Scala Native forbids CFuncPtr lambdas from closing over local / parameter state.
+    // We work around this by using two SHARED CFuncPtrs backed entirely by singleton maps:
+    //
+    //   field 19  get_virtual_call_data_func(classUserdata, namePtr) → Ptr[Byte]
+    //     Looks up virtualTables[classUserdata] and returns a pre-allocated Ptr[Int]
+    //     containing the dispatchId for that virtual, or null if not overridden.
+    //
+    //   field 20  call_virtual_with_data_func(instancePtr, _, callData, args, ret)
+    //     Reads the dispatchId from callData, looks up the Scala dispatch fn in
+    //     dispatchFns, and calls it with the GodotObject from instanceMap.
+    //
+    // Both functions reference only singleton fields → no local-capture restriction.
 
-    // Pre-interned StringName buffers for virtual method dispatch.
-    // Godot interns StringNames: equal names share the same _Data* pointer at offset 0.
-    private var _readySN: Ptr[Byte]          = null
-    private var _processSN: Ptr[Byte]        = null
-    private var _physicsProcessSN: Ptr[Byte] = null
+    // userdataPtr → Array[(internedNameData, callDataBuf)]
+    // callDataBuf: heap-allocated Ptr[Int] holding the dispatchId (pre-allocated at
+    // registration time, never freed — Godot may hold a reference for the extension lifetime).
+    private var virtualTables: Map[Ptr[Byte], Array[(Long, Ptr[Byte])]] = Map.empty
+
+    // dispatchId → Scala dispatch function (GodotObject, args, ret) => Unit
+    private val dispatchFns = scala.collection.mutable
+        .Map[Int, (GodotObject, Ptr[Ptr[Byte]], Ptr[Byte]) => Unit]()
+    private var dispatchNextId = 0
+
+    // The two shared virtual-dispatch CFuncPtrs.  Stored in singleton fields so the GC
+    // never collects them while Godot holds the native function pointers.
+    private var _getCallDataFn: Ptr[Byte]  = null
+    private var _callWithDataFn: Ptr[Byte] = null
 
     def register(): Unit =
         println("[ClassRegistrar] register() called")
@@ -49,7 +66,6 @@ object ClassRegistrar:
 
         buildSharedCreateFn()
         buildSharedVirtualFns()
-        initVirtualStringNames(stringNameNew)
 
         for reg <- GdClassRegistry.getRegistrations do
             // Heap-allocate StringName buffers — Godot may hold these past this call.
@@ -63,7 +79,7 @@ object ClassRegistrar:
                 stringNameNew(parentNameBuf, toCString(reg.parentName))
             }
 
-            // Allocate a unique pointer to use as class_userdata key for the shared create fn.
+            // Allocate a unique pointer for class_userdata — doubles as the virtualTables key.
             val userdataPtr = malloc(1)
             factoryMap += (userdataPtr -> (reg.factory, parentNameBuf, classNameBuf))
 
@@ -74,18 +90,32 @@ object ClassRegistrar:
                 }
             freeFns += (reg.name -> freeFn)
 
-            val getVirtualFn = buildGetVirtualFn()
-            getVirtualFns += (reg.name -> getVirtualFn)
+            buildVirtualTable(reg.virtuals, stringNameNew, userdataPtr)
 
             val info = stackalloc[ClassCreationInfo2]()
             memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassCreationInfo2])
             info._1 = 0.toUByte // is_virtual
             info._2 = 0.toUByte // is_abstract
             info._3 = 1.toUByte // is_exposed
+            info._4 = null      // set_func              (future: @export properties)
+            info._5 = null      // get_func              (future: @export properties)
+            info._6 = null      // get_property_list_func
+            info._7 = null      // free_property_list_func
+            info._8 = null      // property_can_revert_func
+            info._9 = null      // property_get_revert_func
+            info._10 = null     // validate_property_func
+            info._11 = null     // notification_func
+            info._12 = null     // to_string_func
+            info._13 = null     // reference_func        (future: RefCounted safety)
+            info._14 = null     // unreference_func      (future: RefCounted safety)
             info._15 = CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]]
             info._16 = CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]]
-            info._18 = CFuncPtr.toPtr(getVirtualFn).asInstanceOf[Ptr[Byte]]
-            info._22 = userdataPtr // class_userdata — passed back to _createFn
+            info._17 = null // recreate_instance_func
+            info._18 = null // get_virtual_func      (using 19+20 instead)
+            info._19 = _getCallDataFn
+            info._20 = _callWithDataFn
+            info._21 = null        // get_rid_func
+            info._22 = userdataPtr // class_userdata — key for virtualTables lookup
 
             println(s"[ClassRegistrar] calling registerClass2 for ${reg.name}")
             registerClass2(library, classNameBuf, parentNameBuf, info)
@@ -96,37 +126,72 @@ object ClassRegistrar:
 
     // ── virtual dispatch helpers ────────────────────────────────────────────
 
-    /** Build the three shared CallVirtualFn pointers (once per extension load). */
+    /** Intern each virtual's StringName, store the dispatch fn in the global registry, and
+      * pre-allocate a Ptr[Int] callDataBuf per entry. Stored in `virtualTables` keyed by
+      * `userdataPtr` so the shared CFuncPtrs can find it without any local captures.
+      */
+    private def buildVirtualTable(
+        virtuals: Vector[gdext.core.virtual.VirtualEntry],
+        stringNameNew: StringNameNewFn,
+        userdataPtr: Ptr[Byte]
+    ): Unit =
+        val table = virtuals.map { entry =>
+            val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+            memset(snBuf, 0, StringNameSize)
+            Zone { stringNameNew(snBuf, toCString(entry.name)) }
+            val internData = !(snBuf.asInstanceOf[Ptr[Long]])
+
+            // Register the Scala dispatch fn; store its ID in a heap buffer for Godot.
+            val id = dispatchNextId; dispatchNextId += 1
+            dispatchFns(id) = entry.dispatch
+            val callDataBuf = malloc(4).asInstanceOf[Ptr[Int]]
+            !callDataBuf = id
+
+            (internData, callDataBuf.asInstanceOf[Ptr[Byte]])
+        }.toArray
+        virtualTables += (userdataPtr -> table)
+    end buildVirtualTable
+
+    /** Build the two shared virtual-dispatch CFuncPtrs (once per extension load).
+      *
+      * These are assigned to ClassCreationInfo2 fields 19 and 20 for every registered class. They
+      * only reference singleton fields, satisfying Scala Native's no-local-capture rule.
+      */
     private def buildSharedVirtualFns(): Unit =
-        if _readyFn == null then
-            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] {
-                (instancePtr, _, _) => instanceMap.get(instancePtr).foreach(_._ready())
-            }
-            _readyFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        if _getCallDataFn == null then
+            val fn = CFuncPtr2
+                .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (classUserdata, namePtr) =>
+                    val nameData = !(namePtr.asInstanceOf[Ptr[Long]])
+                    virtualTables.get(classUserdata) match
+                        case Some(table) =>
+                            var i                = 0
+                            var found: Ptr[Byte] = null
+                            while i < table.length && found == null do
+                                if table(i)._1 == nameData then found = table(i)._2
+                                i += 1
+                            found
+                        case None => null
+                    end match
+                }
+            _getCallDataFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
         end if
 
-        if _processFn == null then
-            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] {
-                (instancePtr, args, _) =>
-                    val delta = !args(0).asInstanceOf[Ptr[Double]]
-                    instanceMap.get(instancePtr).foreach(_._process(delta))
-            }
-            _processFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
-        end if
-
-        if _physicsProcessFn == null then
-            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit] {
-                (instancePtr, args, _) =>
-                    val delta = !args(0).asInstanceOf[Ptr[Double]]
-                    instanceMap.get(instancePtr).foreach(_._physicsProcess(delta))
-            }
-            _physicsProcessFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        if _callWithDataFn == null then
+            val fn = CFuncPtr5
+                .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Ptr[
+                  Byte
+                ], Unit] { (instancePtr, _, callData, args, ret) =>
+                    val id = !callData.asInstanceOf[Ptr[Int]]
+                    dispatchFns.get(id).foreach { dispatch =>
+                        instanceMap.get(instancePtr).foreach(dispatch(_, args, ret))
+                    }
+                }
+            _callWithDataFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
         end if
     end buildSharedVirtualFns
 
-    /** Builds (once) the shared create function. Per-class data is stored in `factoryMap` and
-      * retrieved via the `class_userdata` pointer Godot passes back as the argument.
-      */
+    // ── create / free ───────────────────────────────────────────────────────
+
     private def buildSharedCreateFn(): Unit =
         if _createFn == null then
             _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
@@ -137,8 +202,6 @@ object ClassRegistrar:
                         println(s"[ClassRegistrar] constructed object godotPtr=$godotPtr")
                         val obj = factory()
                         obj.ptr = godotPtr
-                        // Allocate a stable per-instance binding pointer.
-                        // Godot stores this and passes it back as p_instance to virtual call fns.
                         val instancePtr = malloc(1).asInstanceOf[Ptr[Byte]]
                         instanceMap += (instancePtr -> obj)
                         GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
@@ -151,40 +214,6 @@ object ClassRegistrar:
             }
         end if
     end buildSharedCreateFn
-
-    /** Allocate persistent StringName buffers for the known virtual method names. Called once after
-      * string_name_new_with_utf8_chars is resolved.
-      */
-    private def initVirtualStringNames(stringNameNew: StringNameNewFn): Unit =
-        if _readySN != null then return
-        def alloc(name: CString): Ptr[Byte] =
-            val buf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
-            memset(buf, 0, StringNameSize)
-            stringNameNew(buf, name)
-            buf
-        end alloc
-        _readySN = alloc(c"_ready")
-        _processSN = alloc(c"_process")
-        _physicsProcessSN = alloc(c"_physics_process")
-    end initVirtualStringNames
-
-    /** get_virtual_func: receives (classUserdata, StringNamePtr), returns CallVirtualFn or null.
-      *
-      * StringNames are interned by Godot: the first pointer-sized word of the struct is a _Data*
-      * that is shared among all StringNames with equal content. We compare that word against
-      * pre-created StringName buffers to identify the method without any string conversion API.
-      */
-    private def buildGetVirtualFn(): GetVirtualFn = CFuncPtr2
-        .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (_, namePtr) =>
-            val data      = !(namePtr.asInstanceOf[Ptr[Long]])
-            val readyData = !(_readySN.asInstanceOf[Ptr[Long]])
-            println(s"[ClassRegistrar] get_virtual_func: nameData=$data readySNData=$readyData")
-            if data == readyData then _readyFn
-            else if data == !(_processSN.asInstanceOf[Ptr[Long]]) then _processFn
-            else if data == !(_physicsProcessSN.asInstanceOf[Ptr[Long]]) then _physicsProcessFn
-            else null
-            end if
-        }
 
     // ── string helpers ──────────────────────────────────────────────────────
 

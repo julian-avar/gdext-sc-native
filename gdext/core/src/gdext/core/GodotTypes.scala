@@ -16,6 +16,11 @@ type GdxInitCallback  = CFuncPtr2[Ptr[Byte], CInt, Unit]
 type CallVirtualFn = CFuncPtr3[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit]
 // p_userdata, p_name (StringName*) → GDExtensionClassCallVirtual (or null)
 type GetVirtualFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Ptr[Byte]]
+// (p_userdata, p_name) → call_data ptr (returned to call_virtual_with_data_func)
+type GetVirtualCallDataFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Ptr[Byte]]
+// (p_instance, p_name, p_call_data, p_args, r_ret)
+type CallVirtualWithDataFn =
+    CFuncPtr5[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], Unit]
 
 // ── GDExtensionInitialization ───────────────────────────────────────────────
 // C layout (x86_64):

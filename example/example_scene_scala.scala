@@ -1,6 +1,6 @@
 package example
 
-import gdext.*
+import gdext.core.*
 import gdext.generated.*
 import scala.scalanative.unsafe.*
 

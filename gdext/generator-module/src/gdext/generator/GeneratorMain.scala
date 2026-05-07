@@ -38,7 +38,8 @@ object GeneratorMain:
         val valueBuiltins: Set[String] = builtins.filter(_.members.nonEmpty).map(_.name).toSet
 
         val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces) ++
-            Generator.generateBuiltins(builtins) ++ Generator.classVirtuals(classes) ++
+            Generator.generateBuiltins(builtins) ++
+            Generator.classVirtuals(classes, valueBuiltins) ++
             Generator.generateWrappers(classes, valueBuiltins) ++
             Generator.generateUtilityFunctions(utilities, valueBuiltins)
 
