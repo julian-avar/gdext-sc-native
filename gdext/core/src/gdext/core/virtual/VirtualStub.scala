@@ -1,4 +1,4 @@
-package gdext.virtual
+package gdext.core.virtual
 
 import scala.scalanative.unsafe.*
 

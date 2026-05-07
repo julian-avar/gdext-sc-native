@@ -43,7 +43,6 @@ object Generator:
     end types
 
     def interfaces(interfaces: Vector[Ast.Interface]): Vector[ScalaFile] =
-
         val content =
             def getInterfaceName(fromName: String) =
                 s"GDExtensionInterface${fromName.split("_").map(_.capitalize).mkString}"
@@ -351,6 +350,18 @@ object Generator:
         case t if valueBuiltins.contains(t) => s"Ptr[$t]"
         case t                              => t
 
+    /** Like scalaType but for method parameter positions. String/StringName are exposed as Scala
+      * String for ergonomics; the generated method body handles the CString conversion and Godot
+      * String buffer packing.
+      */
+    private def paramScalaType(
+        godotType: String,
+        meta: Option[String],
+        valueBuiltins: Set[String] = Set.empty
+    ): String = godotType match
+        case "String" | "StringName" => "String"
+        case other                   => scalaType(other, meta, valueBuiltins)
+
     private def packArg(
         arg: Ast.GodotArg,
         i: Int,
@@ -380,9 +391,23 @@ object Generator:
                   s"val $slot = stackalloc[Long](); !$slot = $param.toLong",
                   s"$slot.asInstanceOf[Ptr[Byte]]"
                 )
-            case "String" | "StringName" | "Variant" | "void*" | "Array" => ("", param)
-            case t if t.startsWith("typedarray::")                       => ("", param)
-            case t if t.endsWith("*")                                    => ("", param)
+            case "String" =>
+                // param: String — convert to Godot String (8-byte managed buffer) for ptrcall.
+                // Requires Zone (implicit z) to be in scope for toCString.
+                val slot = s"_a$i"
+                (
+                  s"val $slot = stackalloc[Byte](8); GdxApi.initGodotString($slot, toCString($param))",
+                  slot
+                )
+            case "StringName" =>
+                val slot = s"_a$i"
+                (
+                  s"val $slot = stackalloc[Byte](8); GdxApi.initStringName($slot, toCString($param))",
+                  slot
+                )
+            case "Variant" | "void*" | "Array"     => ("", param)
+            case t if t.startsWith("typedarray::") => ("", param)
+            case t if t.endsWith("*")              => ("", param)
             // Value builtins are Ptr[T] — already a pointer, just cast to Ptr[Byte].
             case t if valueBuiltins.contains(t) => ("", s"$param.asInstanceOf[Ptr[Byte]]")
             case _                              => ("", s"$param.ptr")
@@ -425,7 +450,7 @@ object Generator:
         val name      = toCamel(m.name)
         val reqArgs   = m.args.filterNot(_.hasDefault)
         val paramList = reqArgs.zipWithIndex.map { (a, _) =>
-            s"${safeName(toCamel(a.name))}: ${scalaType(a.typeName, a.meta, valueBuiltins)}"
+            s"${safeName(toCamel(a.name))}: ${paramScalaType(a.typeName, a.meta, valueBuiltins)}"
         }
         val packed = reqArgs.zipWithIndex.map { (a, i) => packArg(a, i, valueBuiltins) }
 
@@ -447,12 +472,11 @@ object Generator:
         val bodyLines = setupLines ++ (if rAlloc.nonEmpty then Seq(rAlloc) else Seq.empty) ++
             Seq(callLine) ++ (if rRead.nonEmpty then Seq(rRead) else Seq.empty)
 
-        val body = bodyLines.map((" " * indent) + _).mkString("\n")
-        s"def ${safeName(name)}(${paramList.mkString(", ")}): ${scalaType(
-              m.returnTypeName,
-              m.returnMeta,
-              valueBuiltins
-            )} = {\n${body}\n  }"
+        val needsZone = reqArgs.exists(a => a.typeName == "String" || a.typeName == "StringName")
+        val body      = bodyLines.map((" " * indent) + _).mkString("\n")
+        val retType   = scalaType(m.returnTypeName, m.returnMeta, valueBuiltins)
+        val methodSig = s"def ${safeName(name)}(${paramList.mkString(", ")}): $retType"
+        if needsZone then s"$methodSig = Zone {\n${body}\n  }" else s"$methodSig = {\n${body}\n  }"
     end generateMethod
 
     // Returns None if the virtual must be skipped (incompatible GodotObject override).
@@ -472,7 +496,7 @@ object Generator:
             case Some((expectedRet, _)) if expectedRet != retType => return None
             case _                                                => ""
         val params = m.args.map { a =>
-            s"${safeName(toCamel(a.name))}: ${scalaType(a.typeName, a.meta, valueBuiltins)}"
+            s"${safeName(toCamel(a.name))}: ${paramScalaType(a.typeName, a.meta, valueBuiltins)}"
         }.mkString(", ")
         val default = m.returnTypeName match
             case "void"                                                    => "()"
@@ -516,7 +540,7 @@ object Generator:
                         m.args.count(!_.hasDefault) == 1
                     }.map { sm =>
                         val setterParamType =
-                            scalaType(sm.args.head.typeName, sm.args.head.meta, valueBuiltins)
+                            paramScalaType(sm.args.head.typeName, sm.args.head.meta, valueBuiltins)
                         s"def ${safeSetterName(field)}(v: $setterParamType): Unit = ${safeName(
                               toCamel(sName)
                             )}(v)"
@@ -604,9 +628,7 @@ object Generator:
                 if fn.isVararg then s"args: Ptr[Ptr[Byte]]"
                 else
                     reqArgs.zipWithIndex.map { (a, _) =>
-                        s"${safeName(
-                              toCamel(a.name)
-                            )}: ${scalaType(a.typeName, a.meta, valueBuiltins)}"
+                        s"${safeName(toCamel(a.name))}: ${paramScalaType(a.typeName, a.meta, valueBuiltins)}"
                     }.mkString(", ")
 
             val setupLines: Seq[String] =
@@ -629,11 +651,15 @@ object Generator:
             val bodyLines = setupLines ++ (if rAlloc.nonEmpty then Seq(rAlloc) else Seq.empty) ++
                 Seq(callLine) ++ (if rRead.nonEmpty then Seq(rRead) else Seq.empty)
 
+            val needsZone = !fn.isVararg && reqArgs.exists(a =>
+                a.typeName == "String" || a.typeName == "StringName"
+            )
+            val retType = if fn.returnTypeName == "void" then "Unit"
+                          else scalaType(fn.returnTypeName, None, valueBuiltins)
             val body = bodyLines.mkString("\n    ")
-            s"  def ${safeName(name)}($paramList): ${
-                    if fn.returnTypeName == "void" then "Unit"
-                    else scalaType(fn.returnTypeName, None, valueBuiltins)
-                } = {\n    ${body}\n  }"
+            val sig  = s"  def ${safeName(name)}($paramList): $retType"
+            if needsZone then s"$sig = Zone {\n    $body\n  }"
+            else s"$sig = {\n    $body\n  }"
         }
 
         val bindsVars = utilities.map { fn =>

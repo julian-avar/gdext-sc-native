@@ -1,4 +1,4 @@
-package gdext
+package gdext.core
 
 import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
@@ -17,7 +17,7 @@ object ClassRegistrar:
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
     // Tuple: (factory, parentNameBuf, classNameBuf) — both StringName buffers are heap-allocated.
     private var factoryMap: Map[Ptr[Byte], (() => GodotObject, Ptr[Byte], Ptr[Byte])] = Map.empty
-    private var _createFn: CreateInstanceFn                            = null
+    private var _createFn: CreateInstanceFn                                           = null
 
     // Shared CallVirtualFn pointers — created once, reused for every class.
     private var _readyFn: Ptr[Byte]          = null
@@ -26,8 +26,8 @@ object ClassRegistrar:
 
     // Pre-interned StringName buffers for virtual method dispatch.
     // Godot interns StringNames: equal names share the same _Data* pointer at offset 0.
-    private var _readySN:          Ptr[Byte] = null
-    private var _processSN:        Ptr[Byte] = null
+    private var _readySN: Ptr[Byte]          = null
+    private var _processSN: Ptr[Byte]        = null
     private var _physicsProcessSN: Ptr[Byte] = null
 
     def register(): Unit =
@@ -37,7 +37,9 @@ object ClassRegistrar:
 
         val stringNameNewPtr  = getProcAddr(c"string_name_new_with_utf8_chars")
         val registerClass2Ptr = getProcAddr(c"classdb_register_extension_class2")
-        println(s"[ClassRegistrar] stringNameNewPtr=$stringNameNewPtr registerClass2Ptr=$registerClass2Ptr")
+        println(
+          s"[ClassRegistrar] stringNameNewPtr=$stringNameNewPtr registerClass2Ptr=$registerClass2Ptr"
+        )
         if stringNameNewPtr == null || registerClass2Ptr == null then
             println("[ClassRegistrar] ERROR: null proc address, aborting")
             return
@@ -65,11 +67,11 @@ object ClassRegistrar:
             val userdataPtr = malloc(1)
             factoryMap += (userdataPtr -> (reg.factory, parentNameBuf, classNameBuf))
 
-            val freeFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] {
-                (_, instancePtr) =>
+            val freeFn = CFuncPtr2
+                .fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] { (_, instancePtr) =>
                     instanceMap -= instancePtr
                     free(instancePtr)
-            }
+                }
             freeFns += (reg.name -> freeFn)
 
             val getVirtualFn = buildGetVirtualFn()
@@ -145,12 +147,13 @@ object ClassRegistrar:
                     case None =>
                         println(s"[ClassRegistrar] ERROR: no factory for userdata=$userdata")
                         null
+                end match
             }
         end if
     end buildSharedCreateFn
 
-    /** Allocate persistent StringName buffers for the known virtual method names.
-      * Called once after string_name_new_with_utf8_chars is resolved.
+    /** Allocate persistent StringName buffers for the known virtual method names. Called once after
+      * string_name_new_with_utf8_chars is resolved.
       */
     private def initVirtualStringNames(stringNameNew: StringNameNewFn): Unit =
         if _readySN != null then return
@@ -159,8 +162,9 @@ object ClassRegistrar:
             memset(buf, 0, StringNameSize)
             stringNameNew(buf, name)
             buf
-        _readySN          = alloc(c"_ready")
-        _processSN        = alloc(c"_process")
+        end alloc
+        _readySN = alloc(c"_ready")
+        _processSN = alloc(c"_process")
         _physicsProcessSN = alloc(c"_physics_process")
     end initVirtualStringNames
 
@@ -172,13 +176,14 @@ object ClassRegistrar:
       */
     private def buildGetVirtualFn(): GetVirtualFn = CFuncPtr2
         .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (_, namePtr) =>
-            val data = !(namePtr.asInstanceOf[Ptr[Long]])
+            val data      = !(namePtr.asInstanceOf[Ptr[Long]])
             val readyData = !(_readySN.asInstanceOf[Ptr[Long]])
             println(s"[ClassRegistrar] get_virtual_func: nameData=$data readySNData=$readyData")
             if data == readyData then _readyFn
             else if data == !(_processSN.asInstanceOf[Ptr[Long]]) then _processFn
             else if data == !(_physicsProcessSN.asInstanceOf[Ptr[Long]]) then _physicsProcessFn
             else null
+            end if
         }
 
     // ── string helpers ──────────────────────────────────────────────────────

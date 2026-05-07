@@ -1,5 +1,5 @@
 // format: off
-package gdext.types
+package gdext.core.types
 
 import scala.scalanative.unsafe.*
 

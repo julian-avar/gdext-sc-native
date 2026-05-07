@@ -1,7 +1,6 @@
 default:
     just --list
 
-
 run:
     # nix develop
     nix develop -c mill gdext.generator-module.generate

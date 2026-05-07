@@ -1,4 +1,4 @@
-package gdext
+package gdext.core
 
 import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
@@ -27,6 +27,29 @@ private type VariantDestroyFn   = CFuncPtr1[Ptr[Byte], Unit]
 private type ObjectSetInstanceFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
 // callable_custom_create2(r_callable, p_info)
 private type CallableCreateFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
+
+/** Stable registry mapping Int IDs to Scala closures, dispatched via a single static trampoline.
+  *
+  * Closures are kept alive by the map (GC root) and the Int ID is stored in a malloc'd 4-byte
+  * buffer passed as callable userdata to Godot. Because Scala Native's immix GC is non-moving,
+  * references inside closures (including `this`) remain valid indefinitely.
+  *
+  * Note: registered callbacks are never removed — disconnect support is future work.
+  */
+object CallbackRegistry:
+    private val callbacks = scala.collection.mutable.Map[Int, () => Unit]()
+    private var nextId    = 0
+    private[gdext] def register(cb: () => Unit): Int =
+        val id = nextId; nextId += 1; callbacks(id) = cb; id
+
+    /** Single static trampoline — reads callback ID from userdata, dispatches to the closure. */
+    val trampoline: CallableCallFn = CFuncPtr5
+        .fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[Byte], Unit] {
+            (userdata, _, _, _, _) =>
+                val id = !userdata.asInstanceOf[Ptr[Int]]
+                callbacks.get(id).foreach(_.apply())
+        }
+end CallbackRegistry
 
 object GdxApi:
     private var getMethodBindPtr: GetMethodBindFn        = scala.compiletime.uninitialized
@@ -123,13 +146,6 @@ object GdxApi:
 
     /** Connects a Godot signal to a Scala function via `callable_custom_create2`.
       *
-      * `callFn` must remain alive (held by a field) for the lifetime of the connection.
-      * GDExtensionCallableCustomInfo2 layout (11 × 8-byte fields, all zero except token and
-      * call_func): offset 0: callable_userdata offset 8: token (gdxLibrary) offset 16: object_id
-      * offset 24: call_func offsets 32–80: optional callbacks (null = unused)
-      */
-    /** Connects a Godot signal to a Scala function via `callable_custom_create2`.
-      *
       * `callFn` must remain alive (held by a field) for the lifetime of the connection. `userdata`
       * is passed as the first argument to `callFn` on every invocation.
       * GDExtensionCallableCustomInfo2 layout (11 × 8-byte fields, zero except token/call_func):
@@ -142,9 +158,14 @@ object GdxApi:
         callFn: CallableCallFn,
         userdata: Ptr[Byte] = null
     ): Unit =
+        println(
+          s"[connectSignal] obj=$obj connectMethodBind=$connectMethodBind gdxLibrary=$gdxLibrary"
+        )
         val snBuf = stackalloc[Byte](StringNameSize)
         memset(snBuf, 0, StringNameSize)
+        println("[connectSignal] calling stringNameNewPtr")
         stringNameNewPtr(snBuf, signalCStr)
+        println("[connectSignal] stringName created")
 
         val info = stackalloc[Byte](88.toUSize)
         memset(info, 0, 88.toUSize)
@@ -152,15 +173,21 @@ object GdxApi:
         infoPtrs(0) = userdata
         infoPtrs(1) = gdxLibrary
         infoPtrs(3) = CFuncPtr.toPtr(callFn).asInstanceOf[Ptr[Byte]]
+        println(s"[connectSignal] info: userdata=$userdata token=$gdxLibrary callFn=${infoPtrs(3)}")
 
         val callableBuf = stackalloc[Byte](16)
         memset(callableBuf, 0, 16.toUSize)
+        println("[connectSignal] calling callableCreatePtr")
         callableCreatePtr(callableBuf, info)
+        println("[connectSignal] callable created")
 
         val args = stackalloc[Ptr[Byte]](2)
         args(0) = snBuf
         args(1) = callableBuf
-        ptrcallPtr(connectMethodBind, obj, args, null)
+        val retBuf = stackalloc[Long]()
+        println("[connectSignal] calling ptrcall")
+        ptrcallPtr(connectMethodBind, obj, args, retBuf.asInstanceOf[Ptr[Byte]])
+        println("[connectSignal] ptrcall done")
     end connectSignal
 
     /** Look up a Godot utility function pointer by name and hash. Heap-allocates a StringName
@@ -188,6 +215,11 @@ object GdxApi:
 
     /** Initialize a Godot String in a caller-provided 8-byte buffer from a CString. */
     def initGodotString(buf: Ptr[Byte], s: CString): Unit = stringNewFn(buf, s)
+
+    /** Initialize a Godot StringName in a caller-provided 8-byte buffer from a CString. */
+    def initStringName(buf: Ptr[Byte], s: CString): Unit =
+        memset(buf, 0, StringNameSize)
+        stringNameNewPtr(buf, s)
 
     /** Destroy a Godot String (releases the internal reference). */
     def destroyGodotString(buf: Ptr[Byte]): Unit = if strDestructorPtr != null then

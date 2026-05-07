@@ -1,4 +1,4 @@
-package gdext
+package gdext.core
 
 /** Registry populated by the user's entry point before ClassRegistrar.register() runs. */
 object GdClassRegistry:

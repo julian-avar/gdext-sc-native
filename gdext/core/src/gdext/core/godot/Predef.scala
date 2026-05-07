@@ -1,3 +1,3 @@
-package gdext.godot
+package gdext.core.godot
 
 object Predef

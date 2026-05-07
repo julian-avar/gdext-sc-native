@@ -1,4 +1,4 @@
-package gdext
+package gdext.core
 
 import scala.annotation.StaticAnnotation
 

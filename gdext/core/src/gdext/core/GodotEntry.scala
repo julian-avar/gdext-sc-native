@@ -1,4 +1,4 @@
-package gdext
+package gdext.core
 
 import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
