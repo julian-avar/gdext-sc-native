@@ -8,8 +8,9 @@ private[gdext] var gdxGetProcAddress: GetProcAddressFn = scala.compiletime.unini
 private[gdext] var gdxLibrary: Ptr[Byte]               = null
 
 // Stored so the GC never collects these closures while Godot holds raw pointers.
-private var _initCb:   CFuncPtr2[Ptr[Byte], CInt, Unit] = scala.compiletime.uninitialized
+private var _initCb: CFuncPtr2[Ptr[Byte], CInt, Unit]   = scala.compiletime.uninitialized
 private var _deinitCb: CFuncPtr2[Ptr[Byte], CInt, Unit] = scala.compiletime.uninitialized
+private var _onSceneInit: () => Unit                    = null
 
 /** Library-side initialisation logic.
   *
@@ -31,17 +32,21 @@ object GodotEntry:
     def init(
         getProcAddress: GetProcAddressFn,
         library: Ptr[Byte],
-        initPtr: Ptr[GdxInitStruct]
+        initPtr: Ptr[GdxInitStruct],
+        onSceneInit: () => Unit = null
     ): CUnsignedChar = FileLogger.use("godot-init") { logger =>
         logger.log("Starting Scala-Native GDExtension.")
 
         gdxGetProcAddress = getProcAddress
-        gdxLibrary        = library
+        gdxLibrary = library
+        _onSceneInit = onSceneInit
 
         GdxApi.initialize(getProcAddress)
 
         _initCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
-            if level == GdxInitLevel.Scene then ClassRegistrar.register()
+            if level == GdxInitLevel.Scene then
+                ClassRegistrar.register()
+                if _onSceneInit != null then _onSceneInit()
         }
         _deinitCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, _) => () }
 

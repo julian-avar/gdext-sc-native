@@ -42,10 +42,27 @@ object gdext extends SharedModule:
         def mvnDeps        = Seq(mvn"com.lihaoyi::mill-libs:$millVersion")
         def mainClass      = Some("gdext.generator.GeneratorMain")
 
-        def generate() = Task.Command {
-            val interfacePath = moduleDir / "resources" / "4.5.0" / "gdextension_interface.json"
-            val classPath     = moduleDir / "resources" / "4.5.0" / "extension_api.json"
-            val outDir        = moduleDir / os.up / "generated" / "src"
+        def generate(version: String = "4.5.0") = Task.Command {
+            val apiSource =
+                if version == "main" then "extension_api.json"
+                else
+                    val parts      = version.split("\\.")
+                    val apiVersion = s"${parts(0)}-${parts(1)}"
+                    if apiVersion == "4-6" then "extension_api.json"
+                    else s"extension_api-$apiVersion.json"
+            val destDir       = moduleDir / "resources" / version
+            val interfacePath = destDir / "gdextension_interface.json"
+            val classPath     = destDir / "extension_api.json"
+            val apiSrcPath    = moduleDir / "resources" / "api" / apiSource
+            if !os.exists(interfacePath) then
+                println(s"Interface file $interfacePath not found.")
+            else if !os.exists(apiSrcPath) then
+                println(s"API file $apiSrcPath not found. Run downloadApi first.")
+            else
+                if !os.exists(classPath) then
+                    os.copy(apiSrcPath, classPath, replaceExisting = true)
+                end if
+            val outDir  = moduleDir / os.up / "generated" / "src"
             val cp      = runClasspath().map(_.path.toString).mkString(sys.props("path.separator"))
             val javaExe = sys.props("java.home") + "/bin/java"
             os.proc(
@@ -65,6 +82,24 @@ object gdext extends SharedModule:
                 mill.scalalib.scalafmt.ScalafmtWorkerModule.worker()
                     .reformat(genFiles, mill.PathRef(cfgPath))
             end if
+        }
+
+        def downloadApi() = Task.Command {
+            val apiDir = moduleDir / "resources" / "api"
+            os.makeDir.all(apiDir)
+            val files = List(
+              "extension_api-4-3.json",
+              "extension_api-4-4.json",
+              "extension_api-4-5.json",
+              "extension_api.json"
+            )
+            for file <- files do
+                val url =
+                    s"https://raw.githubusercontent.com/godotengine/godot-cpp/master/gdextension/$file"
+                println(s"Downloading $url to ${apiDir / file}")
+                os.proc("curl", "-f", "-o", (apiDir / file).toString, url).call()
+            end for
+            println("Downloaded all extension API files")
         }
 
         // Publishing Config

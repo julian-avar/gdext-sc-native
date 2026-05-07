@@ -155,7 +155,8 @@ object Parser:
     }.toVector
 
     // Primitives already handled by scalaType / packArg / retSetup — no class needed.
-    private val skipBuiltins = Set("Nil", "bool", "int", "float", "String", "StringName", "Variant", "Array")
+    private val skipBuiltins =
+        Set("Nil", "bool", "int", "float", "String", "StringName", "Variant", "Array")
 
     // ── Utility Functions ────────────────────────────────────────────────────
 
@@ -167,8 +168,8 @@ object Parser:
         returnTypeName: String
     )
 
-    def utilityFunctions(json: ujson.Value): Vector[UtilityFunction] =
-        json("utility_functions").arr.map { fn =>
+    def utilityFunctions(json: ujson.Value): Vector[UtilityFunction] = json("utility_functions").arr
+        .map { fn =>
             UtilityFunction(
               name = fn("name").str,
               isVararg = fn.obj.get("is_vararg").exists(_.bool),
@@ -186,10 +187,29 @@ object Parser:
         }.toVector
 
     def builtinClasses(json: ujson.Value): Vector[Ast.BuiltinClass] =
-        json("builtin_classes").arr
-            .filterNot(c => skipBuiltins.contains(c("name").str))
-            .map(c => Ast.BuiltinClass(c("name").str))
-            .toVector
+        // Use float_64 as the authoritative config (Linux/Windows x86-64).
+        val membersByName: Map[String, Vector[Ast.BuiltinMember]] = json(
+          "builtin_class_member_offsets"
+        ).arr.find(_("build_configuration").str == "float_64").map(_("classes").arr.map { cls =>
+            cls("name").str -> cls("members").arr.toVector.map { m =>
+                Ast.BuiltinMember(m("member").str, m("meta").str)
+            }
+        }.toMap).getOrElse(Map.empty)
+
+        val sizeByName: Map[String, Int] = json("builtin_class_sizes").arr
+            .find(_("build_configuration").str == "float_64").map(_("sizes").arr.map { s =>
+                s("name").str -> s("size").num.toInt
+            }.toMap).getOrElse(Map.empty)
+
+        json("builtin_classes").arr.filterNot(c => skipBuiltins.contains(c("name").str)).map { c =>
+            val name = c("name").str
+            Ast.BuiltinClass(
+              name = name,
+              size = sizeByName.getOrElse(name, 0),
+              members = membersByName.getOrElse(name, Vector.empty)
+            )
+        }.toVector
+    end builtinClasses
 
     def typeName(toParseType: String): String =
         val baseTypeMap: Map[String, String] = Map(

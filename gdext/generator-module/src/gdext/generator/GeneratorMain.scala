@@ -33,9 +33,14 @@ object GeneratorMain:
         println(s"  Found ${classes.size} classes, ${builtins.size} builtin types, ${utilities
                 .size} utility functions")
 
+        // Names of builtin types that are opaque CStruct value types (not heap classes).
+        // Class wrappers use Ptr[T] for these instead of T or new T(...).
+        val valueBuiltins: Set[String] = builtins.filter(_.members.nonEmpty).map(_.name).toSet
+
         val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces) ++
             Generator.generateBuiltins(builtins) ++ Generator.classVirtuals(classes) ++
-            Generator.generateWrappers(classes) ++ Generator.generateUtilityFunctions(utilities)
+            Generator.generateWrappers(classes, valueBuiltins) ++
+            Generator.generateUtilityFunctions(utilities, valueBuiltins)
 
         os.makeDir.all(outDir)
 

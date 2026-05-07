@@ -8,7 +8,7 @@ import scala.scalanative.libc.string.*
 /** Registers user-defined classes with Godot at scene-level init time. */
 object ClassRegistrar:
     // godotPtr → Scala instance; looked up on every virtual call.
-    private var instanceMap: Map[Ptr[Byte], GodotClass] = Map.empty
+    private var instanceMap: Map[Ptr[Byte], GodotObject] = Map.empty
 
     // Keep all closures alive — GC must never collect them while Godot holds raw ptrs.
     private var freeFns: Map[String, FreeInstanceFn]     = Map.empty
@@ -16,7 +16,7 @@ object ClassRegistrar:
 
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
     // Tuple: (factory, parentNameBuf, classNameBuf) — both StringName buffers are heap-allocated.
-    private var factoryMap: Map[Ptr[Byte], (() => GodotClass, Ptr[Byte], Ptr[Byte])] = Map.empty
+    private var factoryMap: Map[Ptr[Byte], (() => GodotObject, Ptr[Byte], Ptr[Byte])] = Map.empty
     private var _createFn: CreateInstanceFn                            = null
 
     // Shared CallVirtualFn pointers — created once, reused for every class.

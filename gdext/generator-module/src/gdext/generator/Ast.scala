@@ -45,24 +45,19 @@ object Ast:
     enum ReturnType:
         case Void
         case Bool
-        case Int          // covers int32, int64, enum::*
+        case Int // covers int32, int64, enum::*
         case Float
-        case GodotString  // "String"
-        case StringName   // "StringName"
+        case GodotString // "String"
+        case StringName  // "StringName"
         case PackedStringArray
         case Dictionary
-        case Array        // typed or untyped arrays
-        case Object       // any Object / Script / ScriptLanguage subtype
-        case VoidPtr      // "void*"
+        case Array   // typed or untyped arrays
+        case Object  // any Object / Script / ScriptLanguage subtype
+        case VoidPtr // "void*"
         case Variant
     end ReturnType
 
-    case class GodotArg(
-        name: String,
-        typeName: String,
-        meta: Option[String],
-        hasDefault: Boolean
-    )
+    case class GodotArg(name: String, typeName: String, meta: Option[String], hasDefault: Boolean)
 
     case class GodotMethod(
         name: String,
@@ -72,14 +67,10 @@ object Ast:
         args: Vector[GodotArg],
         isStatic: Boolean,
         isVirtual: Boolean,
-        isRequired: Boolean   // only meaningful for virtuals
+        isRequired: Boolean // only meaningful for virtuals
     )
 
-    case class GodotProperty(
-        name: String,
-        getter: String,
-        setter: Option[String]
-    )
+    case class GodotProperty(name: String, getter: String, setter: Option[String])
 
     case class GodotClass(
         name: String,
@@ -90,5 +81,14 @@ object Ast:
         properties: Vector[GodotProperty]
     )
 
-    case class BuiltinClass(name: String)
+    /** A single stored field of a builtin value type, taken from the float_64 offset table. */
+    case class BuiltinMember(name: String, meta: String)
+
+    /** A Godot builtin type.
+      *
+      * `members` comes from the `builtin_class_member_offsets` float_64 section, which is
+      * authoritative for the actual struct layout. It is empty for heap types (NodePath, RID,
+      * Callable, etc.) that have no direct field access.
+      */
+    case class BuiltinClass(name: String, size: Int, members: Vector[BuiltinMember])
 end Ast
