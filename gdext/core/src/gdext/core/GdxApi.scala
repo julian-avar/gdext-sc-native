@@ -45,7 +45,8 @@ object CallbackRegistry:
     /** Single static trampoline — reads callback ID from userdata, dispatches to the closure. */
     val trampoline: CallableCallFn = CFuncPtr5
         .fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[Byte], Unit] {
-            (userdata, _, _, _, _) =>
+            (userdata, _, _, _, rError) =>
+                if rError != null then !rError.asInstanceOf[Ptr[Int]] = 0 // GDEXTENSION_CALL_OK
                 val id = !userdata.asInstanceOf[Ptr[Int]]
                 callbacks.get(id).foreach(_.apply())
         }
@@ -79,23 +80,26 @@ object GdxApi:
         val ptrDtorGetAddr        = getProcAddr(c"variant_get_ptr_destructor")
         val vDestroyAddr          = getProcAddr(c"variant_destroy")
 
-        // format: off
-        if getMethodBindAddr != null     then getMethodBindPtr = CFuncPtr.fromPtr[GetMethodBindFn](getMethodBindAddr)
-        if ptrcallAddr != null           then ptrcallPtr = CFuncPtr.fromPtr[PtrcallFn](ptrcallAddr)
-        if constructObjectAddr != null   then constructObjectPtr = CFuncPtr.fromPtr[ConstructObjectFn](constructObjectAddr)
-        if objectSetInstanceAddr != null then objectSetInstanceFn = CFuncPtr.fromPtr[ObjectSetInstanceFn](objectSetInstanceAddr)
-        if callableCreateAddr != null    then callableCreatePtr = CFuncPtr.fromPtr[CallableCreateFn](callableCreateAddr)
-        if getUtilFnAddr != null         then getUtilFnPtr = CFuncPtr.fromPtr[GetUtilityFnPtrFn](getUtilFnAddr)
-        if snNewAddr != null             then stringNameNewPtr = CFuncPtr.fromPtr[StringNameNewFn](snNewAddr)
-        if strNewAddr != null            then stringNewFn = CFuncPtr.fromPtr[StringNewFn](strNewAddr)
+        if getMethodBindAddr != null then
+            getMethodBindPtr = CFuncPtr.fromPtr[GetMethodBindFn](getMethodBindAddr)
+        if ptrcallAddr != null then ptrcallPtr = CFuncPtr.fromPtr[PtrcallFn](ptrcallAddr)
+        if constructObjectAddr != null then
+            constructObjectPtr = CFuncPtr.fromPtr[ConstructObjectFn](constructObjectAddr)
+        if objectSetInstanceAddr != null then
+            objectSetInstanceFn = CFuncPtr.fromPtr[ObjectSetInstanceFn](objectSetInstanceAddr)
+        if callableCreateAddr != null then
+            callableCreatePtr = CFuncPtr.fromPtr[CallableCreateFn](callableCreateAddr)
+        if getUtilFnAddr != null then
+            getUtilFnPtr = CFuncPtr.fromPtr[GetUtilityFnPtrFn](getUtilFnAddr)
+        if snNewAddr != null then stringNameNewPtr = CFuncPtr.fromPtr[StringNameNewFn](snNewAddr)
+        if strNewAddr != null then stringNewFn = CFuncPtr.fromPtr[StringNewFn](strNewAddr)
         if vftCtorGetAddr != null then
             val vftCtor: GetVFTCtorFn = CFuncPtr.fromPtr[GetVFTCtorFn](vftCtorGetAddr)
             variantFromStrCtor = vftCtor(4.toUInt)
         if ptrDtorGetAddr != null then
             val ptrDtor: GetPtrDestructorFn = CFuncPtr.fromPtr[GetPtrDestructorFn](ptrDtorGetAddr)
             strDestructorPtr = ptrDtor(4.toUInt)
-        if vDestroyAddr != null          then variantDestroyPtr = vDestroyAddr
-        // format: on
+        if vDestroyAddr != null then variantDestroyPtr = vDestroyAddr
 
         // Cache the print utility function pointer (needs both functions loaded)
         if getUtilFnAddr != null && snNewAddr != null then
@@ -158,28 +162,20 @@ object GdxApi:
         callFn: CallableCallFn,
         userdata: Ptr[Byte] = null
     ): Unit =
-        println(
-          s"[connectSignal] obj=$obj connectMethodBind=$connectMethodBind gdxLibrary=$gdxLibrary"
-        )
         val snBuf = stackalloc[Byte](StringNameSize)
         memset(snBuf, 0, StringNameSize)
-        println("[connectSignal] calling stringNameNewPtr")
         stringNameNewPtr(snBuf, signalCStr)
-        println("[connectSignal] stringName created")
 
-        val info = stackalloc[Byte](88.toUSize)
+        val info     = stackalloc[Byte](88.toUSize)
         memset(info, 0, 88.toUSize)
         val infoPtrs = info.asInstanceOf[Ptr[Ptr[Byte]]]
         infoPtrs(0) = userdata
         infoPtrs(1) = gdxLibrary
         infoPtrs(3) = CFuncPtr.toPtr(callFn).asInstanceOf[Ptr[Byte]]
-        println(s"[connectSignal] info: userdata=$userdata token=$gdxLibrary callFn=${infoPtrs(3)}")
 
         val callableBuf = stackalloc[Byte](16)
         memset(callableBuf, 0, 16.toUSize)
-        println("[connectSignal] calling callableCreatePtr")
         callableCreatePtr(callableBuf, info)
-        println("[connectSignal] callable created")
 
         val flagsBuf = stackalloc[Int]()
         !flagsBuf = 0
@@ -188,9 +184,7 @@ object GdxApi:
         args(1) = callableBuf
         args(2) = flagsBuf.asInstanceOf[Ptr[Byte]]
         val retBuf = stackalloc[Long]()
-        println("[connectSignal] calling ptrcall")
         ptrcallPtr(connectMethodBind, obj, args, retBuf.asInstanceOf[Ptr[Byte]])
-        println("[connectSignal] ptrcall done")
     end connectSignal
 
     /** Look up a Godot utility function pointer by name and hash. Heap-allocates a StringName

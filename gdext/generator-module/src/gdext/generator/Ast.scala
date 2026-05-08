@@ -6,9 +6,10 @@ object Ast:
 
     type VarName         = String
     type TypeName        = String
-    type TypeDescription = (TypeName, Option[String]) // (type, maybe-description)
+    type TypeDescription =
+        (typeName: TypeName, descriptionOption: Option[String]) // (type, maybe-description)
 
-    type Arguments = Vector[(Option[VarName], TypeDescription)]
+    type Arguments = Vector[(varNameOption: Option[VarName], typeDescription: TypeDescription)]
 
     case class Type(
         name: String,

@@ -56,8 +56,3 @@ abstract class GodotObject:
         )
     }
 end GodotObject
-
-/** Backward-compatibility alias. Generated code and existing call sites still compile without
-  * regenerating. Will be removed once the generator emits `GodotObject` directly.
-  */
-type GodotClass = GodotObject

@@ -48,18 +48,12 @@ object ClassRegistrar:
     private var _callWithDataFn: Ptr[Byte] = null
 
     def register(): Unit =
-        println("[ClassRegistrar] register() called")
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
 
         val stringNameNewPtr  = getProcAddr(c"string_name_new_with_utf8_chars")
         val registerClass2Ptr = getProcAddr(c"classdb_register_extension_class2")
-        println(
-          s"[ClassRegistrar] stringNameNewPtr=$stringNameNewPtr registerClass2Ptr=$registerClass2Ptr"
-        )
-        if stringNameNewPtr == null || registerClass2Ptr == null then
-            println("[ClassRegistrar] ERROR: null proc address, aborting")
-            return
+        if stringNameNewPtr == null || registerClass2Ptr == null then return
 
         val stringNameNew  = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
         val registerClass2 = CFuncPtr.fromPtr[RegisterClass2Fn](registerClass2Ptr)
@@ -117,11 +111,8 @@ object ClassRegistrar:
             info._21 = null        // get_rid_func
             info._22 = userdataPtr // class_userdata — key for virtualTables lookup
 
-            println(s"[ClassRegistrar] calling registerClass2 for ${reg.name}")
             registerClass2(library, classNameBuf, parentNameBuf, info)
-            println(s"[ClassRegistrar] registered ${reg.name}")
         end for
-        println("[ClassRegistrar] register() complete")
     end register
 
     // ── virtual dispatch helpers ────────────────────────────────────────────
@@ -195,21 +186,16 @@ object ClassRegistrar:
     private def buildSharedCreateFn(): Unit =
         if _createFn == null then
             _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
-                println(s"[ClassRegistrar] create_instance_func called, userdata=$userdata")
                 factoryMap.get(userdata) match
                     case Some((factory, parentNameBuf, classNameBuf)) =>
-                        val godotPtr = GdxApi.constructObject(parentNameBuf)
-                        println(s"[ClassRegistrar] constructed object godotPtr=$godotPtr")
-                        val obj = factory()
+                        val godotPtr    = GdxApi.constructObject(parentNameBuf)
+                        val obj         = factory()
                         obj.ptr = godotPtr
                         val instancePtr = malloc(1).asInstanceOf[Ptr[Byte]]
                         instanceMap += (instancePtr -> obj)
                         GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
-                        println(s"[ClassRegistrar] set instance binding instancePtr=$instancePtr")
                         godotPtr
-                    case None =>
-                        println(s"[ClassRegistrar] ERROR: no factory for userdata=$userdata")
-                        null
+                    case None => null
                 end match
             }
         end if

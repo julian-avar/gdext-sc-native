@@ -783,12 +783,12 @@ object Generator:
 
         // Generate argument types with inline parameter name comments
         val argumentTypesWithComments = arguments.zipWithIndex.map { (a, idx) =>
-            val paramName = a._1.filter(_.nonEmpty).getOrElse(s"_$idx")
-            val paramType = Parser.typeName(a._2._1)
+            val paramName = a.varNameOption.filter(_.nonEmpty).getOrElse(s"_$idx")
+            val paramType = Parser.typeName(a.typeDescription.typeName)
             s"$paramType, // $paramName"
         }
 
-        val returnType = returnValue.map(r => Parser.typeName(r._1)).getOrElse("Unit")
+        val returnType = returnValue.map(r => Parser.typeName(r.typeName)).getOrElse("Unit")
 
         s"""
         |$comment

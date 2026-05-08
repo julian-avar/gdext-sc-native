@@ -8,9 +8,9 @@ private[gdext] var gdxGetProcAddress: GetProcAddressFn = scala.compiletime.unini
 private[gdext] var gdxLibrary: Ptr[Byte]               = null
 
 // Stored so the GC never collects these closures while Godot holds raw pointers.
-private var _initCb: CFuncPtr2[Ptr[Byte], CInt, Unit]   = scala.compiletime.uninitialized
-private var _deinitCb: CFuncPtr2[Ptr[Byte], CInt, Unit] = scala.compiletime.uninitialized
-private var _onSceneInit: () => Unit                    = null
+private var initCallback: CFuncPtr2[Ptr[Byte], CInt, Unit]   = scala.compiletime.uninitialized
+private var deinitCallback: CFuncPtr2[Ptr[Byte], CInt, Unit] = scala.compiletime.uninitialized
+private var _onSceneInit: () => Unit                         = null
 
 /** Library-side initialisation logic.
   *
@@ -43,17 +43,17 @@ object GodotEntry:
 
         GdxApi.initialize(getProcAddress)
 
-        _initCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
+        initCallback = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
             if level == GdxInitLevel.Scene then
                 ClassRegistrar.register()
                 if _onSceneInit != null then _onSceneInit()
         }
-        _deinitCb = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, _) => () }
+        deinitCallback = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, _) => () }
 
         initPtr._1 = GdxInitLevel.Scene
         initPtr._2 = null
-        initPtr._3 = CFuncPtr.toPtr(_initCb).asInstanceOf[Ptr[Byte]]
-        initPtr._4 = CFuncPtr.toPtr(_deinitCb).asInstanceOf[Ptr[Byte]]
+        initPtr._3 = CFuncPtr.toPtr(initCallback).asInstanceOf[Ptr[Byte]]
+        initPtr._4 = CFuncPtr.toPtr(deinitCallback).asInstanceOf[Ptr[Byte]]
 
         logger.log("Initialization struct written; waiting for scene-level callback.")
         1.toUByte
