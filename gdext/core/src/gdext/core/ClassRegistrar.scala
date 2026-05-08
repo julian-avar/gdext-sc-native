@@ -24,7 +24,7 @@ object ClassRegistrar:
     //
     //   field 19  get_virtual_call_data_func(classUserdata, namePtr) → Ptr[Byte]
     //     Looks up virtualTables[classUserdata] and returns a pre-allocated Ptr[Int]
-    //     containing the dispatchId for that virtual, or null if not overridden.
+    //     containiCStruct25ng the dispatchId for that virtual, or null if not overridden.
     //
     //   field 20  call_virtual_with_data_func(instancePtr, _, callData, args, ret)
     //     Reads the dispatchId from callData, looks up the Scala dispatch fn in

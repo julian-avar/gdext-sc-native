@@ -7,10 +7,10 @@ import gdext.generated.*
 class ExampleSceneScala extends CenterContainer:
     var toggled = false
 
-    def _ready(): Unit =
+    override def _ready(): Unit =
         GdxApi.printString("Hello, Scala!")
 
-        val btn = getNode("Button").as(new Button(_))
+        val btn = findChild("Button").as(new Button(_))
 
         btn.connect("pressed"): () =>
             toggled = !toggled
