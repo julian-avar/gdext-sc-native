@@ -4,6 +4,7 @@ import gdext.core.*
 import scala.scalanative.unsafe.*
 import gdext.generated.CenterContainerVirtuals
 import gdext.generated.CharacterBody2DVirtuals
+import gdext.generated.InputMap
 import example.rigid_body_example.PlayerSc
 
 /** GDExtension entry point — owned by the user project, not the library.
@@ -29,6 +30,9 @@ object GodotEntry:
           () => new PlayerSc(),
           CharacterBody2DVirtuals.entries
         )
-        gdext.core.GodotEntry.init(getProcAddress, library, initPtr)
+        gdext.core.GodotEntry.init(getProcAddress, library, initPtr, () => {
+            val inputMap = new InputMap(GdxApi.getSingleton(c"InputMap"))
+            inputMap.loadFromProjectSettings()
+        })
     end godotScalaInit
 end GodotEntry
