@@ -16,6 +16,9 @@ class PlayerSc extends CharacterBody2D:
 
     private def getInput(): Unit =
         val dir = Input.getVector("player_b_left", "player_b_right", "player_b_up", "player_b_down")
-        this.velocity = dir.*(speed.toFloat)
+        val vel = stackalloc[Vector2]()
+        vel.x = dir.x * speed.toFloat
+        vel.y = dir.y * speed.toFloat
+        this.velocity = vel
     end getInput
 end PlayerSc
