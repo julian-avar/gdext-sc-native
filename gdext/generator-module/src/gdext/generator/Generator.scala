@@ -507,6 +507,58 @@ object Generator:
         end match
     end packArg
 
+    /** Pack an optional argument using its declared default value for ptrcall.
+      *
+      * GDExtension ptrcall always reads ALL arguments regardless of defaults, so we must pass a
+      * valid buffer even for optional params the caller didn't supply.
+      */
+    private def packDefaultArg(
+        arg: Ast.GodotArg,
+        i: Int,
+        valueBuiltins: Set[String] = Set.empty
+    ): (String, String) =
+        val slot    = s"_a$i"
+        val default = arg.defaultValue.getOrElse("null")
+        arg.typeName match
+            case "bool" =>
+                val bVal = if default == "true" then "1.toByte" else "0.toByte"
+                (
+                  s"val $slot = stackalloc[Byte](); !$slot = $bVal",
+                  s"$slot.asInstanceOf[Ptr[Byte]]"
+                )
+            case "int" =>
+                val lVal = scala.util.Try(default.toLong).getOrElse(0L)
+                (
+                  s"val $slot = stackalloc[Long](); !$slot = ${lVal}L",
+                  s"$slot.asInstanceOf[Ptr[Byte]]"
+                )
+            case t if t.startsWith("enum::") || t.startsWith("bitfield::") =>
+                val lVal = scala.util.Try(default.toLong).getOrElse(0L)
+                (
+                  s"val $slot = stackalloc[Long](); !$slot = ${lVal}L",
+                  s"$slot.asInstanceOf[Ptr[Byte]]"
+                )
+            case "float" =>
+                val dVal = scala.util.Try(default.toDouble).getOrElse(0.0)
+                (
+                  s"val $slot = stackalloc[Double](); !$slot = $dVal",
+                  s"$slot.asInstanceOf[Ptr[Byte]]"
+                )
+            case "String" =>
+                (s"val $slot = stackalloc[Byte](8); GdxApi.initGodotString($slot, c\"\")", s"$slot")
+            case "StringName" =>
+                (s"val $slot = stackalloc[Byte](8); GdxApi.initStringName($slot, c\"\")", s"$slot")
+            case _ if default == "null" =>
+                (
+                  s"val $slot = stackalloc[Ptr[Byte]](); !$slot = null",
+                  s"$slot.asInstanceOf[Ptr[Byte]]"
+                )
+            case _ =>
+                // Zero-initialized 24-byte fallback for complex builtin defaults (Color, Rect2, etc.)
+                (s"val $slot = stackalloc[Byte](24)", s"$slot")
+        end match
+    end packDefaultArg
+
     private def retSetup(
         godotType: String,
         meta: Option[String],
@@ -523,14 +575,15 @@ object Generator:
             ("val _ret = stackalloc[Double]()", read)
         case t if t.startsWith("enum::") || t.startsWith("bitfield::") =>
             ("val _ret = stackalloc[Long]()", "(!_ret).toInt")
-        // Value builtins: Godot writes the struct directly into the buffer we provide.
-        // The caller receives a Ptr[T] pointing to that buffer.
-        case t if valueBuiltins.contains(t) => (s"val _ret = stackalloc[$t]()", "_ret")
-        case t                              =>
+        // Value builtins: heap-allocate the return buffer so the pointer stays valid after return.
+        // stackalloc would produce a dangling pointer once the method's stack frame is freed.
+        case t if valueBuiltins.contains(t) =>
+            (s"val _ret = malloc(sizeof[$t]).asInstanceOf[Ptr[$t]]", "_ret")
+        case t =>
             val read = t match
                 case "String" | "StringName" | "Variant" | "void*" | "Array" => "!_ret"
                 case t2 if t2.startsWith("typedarray::")                     => "!_ret"
-                case t2 if refcountedTypes.contains(t2) =>
+                case t2 if refcountedTypes.contains(t2)                      =>
                     s"""{ val _r = new $t2(!_ret); if _r.ptr != null then _r.reference(); _r }"""
                 case t2 => s"new $t2(!_ret)"
             ("val _ret = stackalloc[Ptr[Byte]]()", read)
@@ -544,26 +597,35 @@ object Generator:
         valueBuiltins: Set[String] = Set.empty,
         refcountedTypes: Set[String] = Set.empty
     ): String =
-        val name      = toCamel(m.name)
-        val reqArgs   = m.args.filterNot(_.hasDefault)
+        val name    = toCamel(m.name)
+        val reqArgs = m.args.filterNot(_.hasDefault)
+        val optArgs = m.args.filter(_.hasDefault)
+
         val paramList = reqArgs.zipWithIndex.map { (a, _) =>
             s"${safeName(toCamel(a.name))}: ${paramScalaType(a.typeName, a.meta, valueBuiltins)}"
         }
-        val packed = reqArgs.zipWithIndex.map { (a, i) => packArg(a, i, valueBuiltins) }
+        // Required args occupy slots 0..reqArgs.size-1; optional args follow with their defaults.
+        // GDExtension ptrcall reads ALL argument slots regardless of defaults.
+        val reqPacked = reqArgs.zipWithIndex.map { (a, i) => packArg(a, i, valueBuiltins) }
+        val optPacked = optArgs.zipWithIndex.map { (a, i) =>
+            packDefaultArg(a, reqArgs.size + i, valueBuiltins)
+        }
+        val allPacked = reqPacked ++ optPacked
 
         val setupLines: Seq[String] =
-            if reqArgs.isEmpty then Seq("val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]")
+            if m.args.isEmpty then Seq("val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]")
             else
-                s"val _args = stackalloc[Ptr[Byte]](${reqArgs.size})" +:
-                    packed.zipWithIndex.flatMap { case ((setup, expr), i) =>
+                s"val _args = stackalloc[Ptr[Byte]](${m.args.size})" +:
+                    allPacked.zipWithIndex.flatMap { case ((setup, expr), i) =>
                         val set = s"_args($i) = $expr"
                         if setup.nonEmpty then Seq(setup, set) else Seq(set)
                     }
 
-        val (rAlloc, rRead) = retSetup(m.returnTypeName, m.returnMeta, valueBuiltins, refcountedTypes)
-        val retPtr          = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
-        val selfArg         = if isStatic then "null" else "ptr"
-        val callLine        =
+        val (rAlloc, rRead) =
+            retSetup(m.returnTypeName, m.returnMeta, valueBuiltins, refcountedTypes)
+        val retPtr   = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
+        val selfArg  = if isStatic then "null" else "ptr"
+        val callLine =
             s"GdxApi.ptrcall(${cls.name}.Binds.${safeName(name)}, $selfArg, _args, $retPtr)"
 
         val bodyLines = setupLines ++ (if rAlloc.nonEmpty then Seq(rAlloc) else Seq.empty) ++
@@ -617,10 +679,23 @@ object Generator:
         }
         val virtuals = cls.methods.filter(_.isVirtual)
 
-        val methodSrc = instanceMethods
-            .map(generateMethod(cls, _, 4, valueBuiltins = valueBuiltins, refcountedTypes = refcountedTypes))
-        val staticSrc = staticMethods
-            .map(m => generateMethod(cls, m, 4, isStatic = true, valueBuiltins = valueBuiltins, refcountedTypes = refcountedTypes))
+        val methodSrc = instanceMethods.map(generateMethod(
+          cls,
+          _,
+          4,
+          valueBuiltins = valueBuiltins,
+          refcountedTypes = refcountedTypes
+        ))
+        val staticSrc = staticMethods.map(m =>
+            generateMethod(
+              cls,
+              m,
+              4,
+              isStatic = true,
+              valueBuiltins = valueBuiltins,
+              refcountedTypes = refcountedTypes
+            )
+        )
         val virtualSrc = virtuals.flatMap(generateVirtual(_, valueBuiltins))
         val propSrc    = cls.properties.flatMap { p =>
             // Only generate property shorthand when the getter is a zero-arg, non-virtual,
@@ -696,6 +771,7 @@ object Generator:
                 |
                 |import scala.scalanative.unsafe.*
                 |import scala.scalanative.unsigned.*
+                |import scala.scalanative.libc.stdlib.malloc
                 |import gdext.core.{GdxApi, GodotObject}
                 |
                 |$classDef ${
@@ -722,6 +798,8 @@ object Generator:
         val methods = utilities.map { fn =>
             val name    = toCamel(fn.name)
             val reqArgs = if fn.isVararg then Vector.empty else fn.arguments.filterNot(_.hasDefault)
+            val optArgs = if fn.isVararg then Vector.empty else fn.arguments.filter(_.hasDefault)
+            val allArgs = if fn.isVararg then Vector.empty else fn.arguments
             val paramList =
                 if fn.isVararg then s"args: Ptr[Ptr[Byte]]"
                 else
@@ -733,18 +811,23 @@ object Generator:
 
             val setupLines: Seq[String] =
                 if fn.isVararg then Seq(s"val _args = args")
-                else if reqArgs.isEmpty then Seq("val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]")
+                else if allArgs.isEmpty then Seq("val _args = null.asInstanceOf[Ptr[Ptr[Byte]]]")
                 else
-                    val packed = reqArgs.zipWithIndex.map { (a, i) => packArg(a, i, valueBuiltins) }
-                    s"val _args = stackalloc[Ptr[Byte]](${reqArgs.size})" +:
-                        packed.zipWithIndex.flatMap { case ((setup, expr), i) =>
+                    val reqPacked = reqArgs.zipWithIndex.map { (a, i) =>
+                        packArg(a, i, valueBuiltins)
+                    }
+                    val optPacked = optArgs.zipWithIndex.map { (a, i) =>
+                        packDefaultArg(a, reqArgs.size + i, valueBuiltins)
+                    }
+                    s"val _args = stackalloc[Ptr[Byte]](${allArgs.size})" +:
+                        (reqPacked ++ optPacked).zipWithIndex.flatMap { case ((setup, expr), i) =>
                             val set = s"_args($i) = $expr"
                             if setup.nonEmpty then Seq(setup, set) else Seq(set)
                         }
 
             val (rAlloc, rRead) = retSetup(fn.returnTypeName, None, valueBuiltins, refcountedTypes)
             val retPtr          = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
-            val argCount        = if fn.isVararg then "-1" else reqArgs.size.toString
+            val argCount        = if fn.isVararg then "-1" else allArgs.size.toString
             val callLine        =
                 s"GdxApi.callUtilityFunction(Binds.${safeName(name)}, _args, $argCount, $retPtr)"
 

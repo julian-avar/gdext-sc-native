@@ -127,7 +127,7 @@ object Parser:
                     name = a("name").str,
                     typeName = a("type").str,
                     meta = a.obj.get("meta").map(_.str),
-                    hasDefault = a.obj.contains("default_value")
+                    defaultValue = a.obj.get("default_value").map(_.str)
                   )
               }).getOrElse(Vector.empty),
               isStatic = m("is_static").bool,
@@ -179,7 +179,7 @@ object Parser:
                     name = a("name").str,
                     typeName = a("type").str,
                     meta = a.obj.get("meta").map(_.str),
-                    hasDefault = a.obj.contains("default_value")
+                    defaultValue = a.obj.get("default_value").map(_.str)
                   )
               }).getOrElse(Vector.empty),
               returnTypeName = fn.obj.get("return_type").map(_.str).getOrElse("void")

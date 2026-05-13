@@ -27,6 +27,7 @@ private type VariantDestroyFn   = CFuncPtr1[Ptr[Byte], Unit]
 private type ObjectSetInstanceFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
 // callable_custom_create2(r_callable, p_info)
 private type CallableCreateFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
+private type GetSingletonFn   = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 
 /** Stable registry mapping Int IDs to Scala closures, dispatched via a single static trampoline.
   *
@@ -66,8 +67,13 @@ object GdxApi:
     private var strDestructorPtr: Ptr[Byte]              = null
     private var variantDestroyPtr: Ptr[Byte]             = null
     private var cachedPrintFn: Ptr[Byte]                 = null
+    private var globalGetSingletonFn: GetSingletonFn     = scala.compiletime.uninitialized
 
     private[gdext] def initialize(getProcAddr: GetProcAddressFn): Unit =
+        val globalGetSingletonAddr = getProcAddr(c"global_get_singleton")
+        if globalGetSingletonAddr != null then
+            globalGetSingletonFn = CFuncPtr.fromPtr[GetSingletonFn](globalGetSingletonAddr)
+
         val getMethodBindAddr     = getProcAddr(c"classdb_get_method_bind")
         val ptrcallAddr           = getProcAddr(c"object_method_bind_ptrcall")
         val constructObjectAddr   = getProcAddr(c"classdb_construct_object")
@@ -166,7 +172,7 @@ object GdxApi:
         memset(snBuf, 0, StringNameSize)
         stringNameNewPtr(snBuf, signalCStr)
 
-        val info     = stackalloc[Byte](88.toUSize)
+        val info = stackalloc[Byte](88.toUSize)
         memset(info, 0, 88.toUSize)
         val infoPtrs = info.asInstanceOf[Ptr[Ptr[Byte]]]
         infoPtrs(0) = userdata
@@ -223,9 +229,33 @@ object GdxApi:
         val dtor = CFuncPtr.fromPtr[PtrDestructorFn](strDestructorPtr)
         dtor(buf)
 
-    /** Prints a string to Godot's output using the print utility function. */
-    def printString(s: String): Unit =
-        // Temporarily use println for testing
-        println(s)
-    end printString
+    /** Returns the singleton object pointer for a Godot singleton (e.g. Input, OS, Engine). */
+    def getSingleton(name: CString): Ptr[Byte] =
+        val snBuf = stackalloc[Byte](StringNameSize)
+        memset(snBuf, 0, StringNameSize)
+        stringNameNewPtr(snBuf, name)
+        globalGetSingletonFn(snBuf)
+    end getSingleton
+
+    /** Prints a string to Godot's Output panel using the engine's print utility function. */
+    def printString(s: String): Unit = Zone {
+        if cachedPrintFn == null then return
+        // Godot String is 8 bytes; build from CString then wrap in a Variant (24 bytes).
+        val strBuf = stackalloc[Byte](8)
+        memset(strBuf, 0, 8.toUSize)
+        initGodotString(strBuf, toCString(s))
+        val varBuf = stackalloc[Byte](24)
+        memset(varBuf, 0, 24.toUSize)
+        buildVariantFromString(variantFromStrCtor, varBuf, strBuf)
+        val argsArr = stackalloc[Ptr[Byte]](1)
+        argsArr(0) = varBuf
+        callUtilityFunction(cachedPrintFn, argsArr, 1, null)
+        destroyGodotString(strBuf)
+    }
+
+    // CFuncPtr calls must not be inlined inside Zone{} blocks under -source:future;
+    // wrap them in named methods called from Zone context instead.
+    private def buildVariantFromString(ctor: Ptr[Byte], dest: Ptr[Byte], src: Ptr[Byte]): Unit =
+        val fn = CFuncPtr.fromPtr[VFTCtorFn](ctor)
+        fn(dest, src)
 end GdxApi

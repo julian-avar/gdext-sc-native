@@ -3,6 +3,8 @@ package example
 import gdext.core.*
 import scala.scalanative.unsafe.*
 import gdext.generated.CenterContainerVirtuals
+import gdext.generated.CharacterBody2DVirtuals
+import example.rigid_body_example.PlayerSc
 
 /** GDExtension entry point — owned by the user project, not the library.
   *
@@ -20,6 +22,12 @@ object GodotEntry:
           "CenterContainer",
           () => new ExampleSceneScala(),
           CenterContainerVirtuals.entries
+        )
+        GdClassRegistry.register(
+          "PlayerSc",
+          "CharacterBody2D",
+          () => new PlayerSc(),
+          CharacterBody2DVirtuals.entries
         )
         gdext.core.GodotEntry.init(getProcAddress, library, initPtr)
     end godotScalaInit

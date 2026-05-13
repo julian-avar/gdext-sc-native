@@ -58,7 +58,14 @@ object Ast:
         case Variant
     end ReturnType
 
-    case class GodotArg(name: String, typeName: String, meta: Option[String], hasDefault: Boolean)
+    case class GodotArg(
+        name: String,
+        typeName: String,
+        meta: Option[String],
+        defaultValue: Option[String]
+    ):
+        def hasDefault: Boolean = defaultValue.isDefined
+    end GodotArg
 
     case class GodotMethod(
         name: String,

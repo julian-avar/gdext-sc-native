@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivaba"]
 size = Vector2(128, 128)
 
-[node name="PlayerSc" type="CharacterBody2D"]
+[node name="PlayerSc" type="PlayerSc"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_8lkq7")

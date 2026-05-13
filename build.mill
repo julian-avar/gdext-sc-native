@@ -53,7 +53,7 @@ end example
 
 object gdext extends SharedModule:
     def mvnDeps    = Seq(Deps.osLib)
-    def moduleDeps = Seq(core)
+    def moduleDeps = Seq(core, generated)
 
     object core extends SharedModule
 
