@@ -10,7 +10,7 @@ class PlayerSc extends CharacterBody2D:
     @`export`
     var speed = 400
 
-    override def _physicsProcess(_delta: Double): Unit =
+    override def _physicsProcess(delta: Double): Unit =
         getInput()
         moveAndSlide()
 

@@ -26,7 +26,7 @@ val defaultPomSettings        = PomSettings(
 
 /** User-facing extension module: links gdext + user classes into the final .so. */
 object example extends SharedModule:
-    def moduleDeps        = Seq(gdext.core, gdext.generated)
+    def moduleDeps        = Seq(gdext, gdext.core, gdext.generated)
     def releaseMode       = ReleaseMode.Debug
     def nativeBuildTarget = BuildTarget.LibraryDynamic
     def nativeBaseName    = "godot-scala-native"
