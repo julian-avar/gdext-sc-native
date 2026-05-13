@@ -85,6 +85,7 @@ object Ast:
         inherits: Option[String],
         isRefcounted: Boolean,
         isInstantiable: Boolean,
+        isSingleton: Boolean,
         methods: Vector[GodotMethod],
         properties: Vector[GodotProperty]
     )

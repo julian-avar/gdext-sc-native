@@ -25,10 +25,11 @@ object GeneratorMain:
         val interfaces    = Parser.interfaces(interfaceJson("interface"))
 
         println(s"Reading $classApiPath...")
-        val classJson = ujson.read(os.read(classApiPath))
-        val classes   = Parser.godotClasses(classJson)
-        val builtins  = Parser.builtinClasses(classJson)
-        val utilities = Parser.utilityFunctions(classJson)
+        val classJson      = ujson.read(os.read(classApiPath))
+        val singletonNames = Parser.singletonNames(classJson)
+        val classes        = Parser.godotClasses(classJson, singletonNames)
+        val builtins       = Parser.builtinClasses(classJson)
+        val utilities      = Parser.utilityFunctions(classJson)
 
         println(s"  Found ${classes.size} classes, ${builtins.size} builtin types, ${utilities
                 .size} utility functions")

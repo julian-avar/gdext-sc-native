@@ -112,7 +112,13 @@ object Parser:
         end match
     end toReturnType
 
-    def godotClasses(json: ujson.Value): Vector[Ast.GodotClass] = json("classes").arr.map { cls =>
+    def singletonNames(json: ujson.Value): Set[String] = json("singletons").arr.map(_("name").str)
+        .toSet
+
+    def godotClasses(
+        json: ujson.Value,
+        singletonNames: Set[String] = Set.empty
+    ): Vector[Ast.GodotClass] = json("classes").arr.map { cls =>
         val rawMethods = cls.obj.get("methods").map(_.arr.toVector).getOrElse(Vector.empty)
 
         val methods = rawMethods.map { m =>
@@ -144,11 +150,13 @@ object Parser:
             )
         }).getOrElse(Vector.empty)
 
+        val className = cls("name").str
         Ast.GodotClass(
-          name = cls("name").str,
+          name = className,
           inherits = cls.obj.get("inherits").map(_.str),
           isRefcounted = cls("is_refcounted").bool,
           isInstantiable = cls("is_instantiable").bool,
+          isSingleton = singletonNames.contains(className),
           methods = methods,
           properties = properties
         )

@@ -589,6 +589,23 @@ object Generator:
             ("val _ret = stackalloc[Ptr[Byte]]()", read)
     end retSetup
 
+    private def generateForwardingMethod(
+        cls: Ast.GodotClass,
+        m: Ast.GodotMethod,
+        valueBuiltins: Set[String] = Set.empty
+    ): String =
+        val name      = toCamel(m.name)
+        val reqArgs   = m.args.filterNot(_.hasDefault)
+        val paramList = reqArgs.map { a =>
+            s"${safeName(toCamel(a.name))}: ${paramScalaType(a.typeName, a.meta, valueBuiltins)}"
+        }
+        val argList = reqArgs.map(a => safeName(toCamel(a.name))).mkString(", ")
+        val retType = scalaType(m.returnTypeName, m.returnMeta, valueBuiltins)
+        s"def ${safeName(name)}(${paramList.mkString(", ")}): $retType = singleton.${safeName(
+              name
+            )}($argList)"
+    end generateForwardingMethod
+
     private def generateMethod(
         cls: Ast.GodotClass,
         m: Ast.GodotMethod,
@@ -755,7 +772,17 @@ object Generator:
         val staticSection =
             if staticSrc.nonEmpty then staticSrc.map("  " + _).mkString("\n\n") else ""
 
-        val companionBody = Seq(bindsSection, ctorDef, staticSection).filter(_.nonEmpty)
+        val singletonSection =
+            if !cls.isSingleton then ""
+            else
+                val forwardingMethods = instanceMethods
+                    .map(m => "  " + generateForwardingMethod(cls, m, valueBuiltins))
+                s"""lazy val singleton: ${cls.name} = new ${cls.name}(GdxApi.getSingleton(c"${cls
+                      .name}"))
+                   |${forwardingMethods.mkString("\n")}""".stripMargin
+
+        val companionBody = Seq(singletonSection, bindsSection, ctorDef, staticSection)
+            .filter(_.nonEmpty)
 
         val bodyParts = Seq(
           virtualSrc.mkString("\n"),
