@@ -24,6 +24,33 @@ val defaultPomSettings        = PomSettings(
   developers = Seq(Developer("julian-avar", "Julian Avar", "https://gitlab.com/julian-avar"))
 )
 
+/** User-facing extension module: links gdext + user classes into the final .so. */
+object example extends SharedModule:
+    def moduleDeps        = Seq(gdext.core, gdext.generated)
+    def releaseMode       = ReleaseMode.Debug
+    def nativeBuildTarget = BuildTarget.LibraryDynamic
+    def nativeBaseName    = "godot-scala-native"
+
+    // Sources live directly in example/, not example/src/
+    def sources = Task.Sources(moduleDir)
+
+    def buildExtension() = Task.Command {
+        val lib  = nativeLink()
+        val dest = moduleDir / "lib"
+        os.makeDir.all(dest)
+        os.copy(
+          lib.path,
+          dest / s"lib${nativeBaseName()}.so",
+          followLinks = true,
+          replaceExisting = true,
+          copyAttributes = false,
+          createFolders = true,
+          mergeFolders = false
+        )
+        println(s"Deployed to $dest")
+    }
+end example
+
 object gdext extends SharedModule:
     def mvnDeps    = Seq(Deps.osLib)
     def moduleDeps = Seq(core)
@@ -33,7 +60,7 @@ object gdext extends SharedModule:
     object generated extends SharedModule:
         def moduleDeps = Seq(gdext.core)
 
-    object `generator-module` extends ScalaModule, PublishModule:
+    object `generator-module` extends ScalaModule with PublishModule:
         def millVersion = "1.1.2"
 
         def scalaVersion   = "3.8.3"
@@ -41,6 +68,10 @@ object gdext extends SharedModule:
         def platformSuffix = s"_mill1"
         def mvnDeps        = Seq(mvn"com.lihaoyi::mill-libs:$millVersion")
         def mainClass      = Some("gdext.generator.GeneratorMain")
+
+        // Publishing Config
+        def publishVersion = defaultVersion
+        def pomSettings    = defaultPomSettings
 
         def generate(version: String = "4.5.0") = Task.Command {
             val apiSource =
@@ -54,14 +85,13 @@ object gdext extends SharedModule:
             val interfacePath = destDir / "gdextension_interface.json"
             val classPath     = destDir / "extension_api.json"
             val apiSrcPath    = moduleDir / "resources" / "api" / apiSource
-            if !os.exists(interfacePath) then
-                println(s"Interface file $interfacePath not found.")
+            if !os.exists(interfacePath) then println(s"Interface file $interfacePath not found.")
             else if !os.exists(apiSrcPath) then
                 println(s"API file $apiSrcPath not found. Run downloadApi first.")
             else
-                if !os.exists(classPath) then
-                    os.copy(apiSrcPath, classPath, replaceExisting = true)
+                if !os.exists(classPath) then os.copy(apiSrcPath, classPath, replaceExisting = true)
                 end if
+            end if
             val outDir  = moduleDir / os.up / "generated" / "src"
             val cp      = runClasspath().map(_.path.toString).mkString(sys.props("path.separator"))
             val javaExe = sys.props("java.home") + "/bin/java"
@@ -101,41 +131,11 @@ object gdext extends SharedModule:
             end for
             println("Downloaded all extension API files")
         }
-
-        // Publishing Config
-        def publishVersion = defaultVersion
-        def pomSettings    = defaultPomSettings
     end `generator-module`
 end gdext
 
-/** User-facing extension module: links gdext + user classes into the final .so. */
-object example extends SharedModule:
-    def moduleDeps        = Seq(gdext.core, gdext.generated)
-    def releaseMode       = ReleaseMode.Debug
-    def nativeBuildTarget = BuildTarget.LibraryDynamic
-    def nativeBaseName    = "godot-scala-native"
-
-    // Sources live directly in example/, not example/src/
-    def sources = Task.Sources(moduleDir)
-
-    def buildExtension() = Task.Command {
-        val lib  = nativeLink()
-        val dest = moduleDir / "lib"
-        os.makeDir.all(dest)
-        os.copy(
-          lib.path,
-          dest / s"lib${nativeBaseName()}.so",
-          followLinks = true,
-          replaceExisting = true,
-          copyAttributes = false,
-          createFolders = true,
-          mergeFolders = false
-        )
-        println(s"Deployed to $dest")
-    }
-end example
-
-trait SharedModule extends ScalaNativeModule with ScalafixModule with ScalafmtModule:
+trait SharedModule
+    extends ScalaNativeModule with ScalafixModule with ScalafmtModule with PublishModule:
     def scalaVersion       = defaultScalaVersion
     def scalaNativeVersion = defaultScalaNativeVersion
     def scalacOptions      = Seq("-explain", "-source:future", "-language:experimental.modularity")
@@ -143,6 +143,9 @@ trait SharedModule extends ScalaNativeModule with ScalafixModule with ScalafmtMo
     // Use the clang set in environment variables (default to clang/clang++)
     def nativeClang   = Task.Input { PathRef(os.Path(Task.env.getOrElse("CC", "clang"))) }
     def nativeClangPP = Task.Input { PathRef(os.Path(Task.env.getOrElse("CXX", "clang++"))) }
+
+    def publishVersion = defaultVersion
+    def pomSettings    = defaultPomSettings
 end SharedModule
 
 object Deps:

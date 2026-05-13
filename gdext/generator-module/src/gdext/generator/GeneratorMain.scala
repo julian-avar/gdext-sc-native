@@ -37,11 +37,14 @@ object GeneratorMain:
         // Class wrappers use Ptr[T] for these instead of T or new T(...).
         val valueBuiltins: Set[String] = builtins.filter(_.members.nonEmpty).map(_.name).toSet
 
+        // RefCounted types need reference() called on acquire to prevent Godot from freeing them.
+        val refcountedTypes: Set[String] = classes.filter(_.isRefcounted).map(_.name).toSet
+
         val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces) ++
             Generator.generateBuiltins(builtins) ++
             Generator.classVirtuals(classes, valueBuiltins) ++
-            Generator.generateWrappers(classes, valueBuiltins) ++
-            Generator.generateUtilityFunctions(utilities, valueBuiltins)
+            Generator.generateWrappers(classes, valueBuiltins, refcountedTypes) ++
+            Generator.generateUtilityFunctions(utilities, valueBuiltins, refcountedTypes)
 
         os.makeDir.all(outDir)
 

@@ -510,7 +510,8 @@ object Generator:
     private def retSetup(
         godotType: String,
         meta: Option[String],
-        valueBuiltins: Set[String] = Set.empty
+        valueBuiltins: Set[String] = Set.empty,
+        refcountedTypes: Set[String] = Set.empty
     ): (String, String) = godotType match
         case "void" => ("", "")
         case "bool" => ("val _ret = stackalloc[Byte]()", "!_ret != 0.toByte")
@@ -529,7 +530,9 @@ object Generator:
             val read = t match
                 case "String" | "StringName" | "Variant" | "void*" | "Array" => "!_ret"
                 case t2 if t2.startsWith("typedarray::")                     => "!_ret"
-                case t2                                                      => s"new $t2(!_ret)"
+                case t2 if refcountedTypes.contains(t2) =>
+                    s"""{ val _r = new $t2(!_ret); if _r.ptr != null then _r.reference(); _r }"""
+                case t2 => s"new $t2(!_ret)"
             ("val _ret = stackalloc[Ptr[Byte]]()", read)
     end retSetup
 
@@ -538,7 +541,8 @@ object Generator:
         m: Ast.GodotMethod,
         indent: Int,
         isStatic: Boolean = false,
-        valueBuiltins: Set[String] = Set.empty
+        valueBuiltins: Set[String] = Set.empty,
+        refcountedTypes: Set[String] = Set.empty
     ): String =
         val name      = toCamel(m.name)
         val reqArgs   = m.args.filterNot(_.hasDefault)
@@ -556,7 +560,7 @@ object Generator:
                         if setup.nonEmpty then Seq(setup, set) else Seq(set)
                     }
 
-        val (rAlloc, rRead) = retSetup(m.returnTypeName, m.returnMeta, valueBuiltins)
+        val (rAlloc, rRead) = retSetup(m.returnTypeName, m.returnMeta, valueBuiltins, refcountedTypes)
         val retPtr          = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
         val selfArg         = if isStatic then "null" else "ptr"
         val callLine        =
@@ -602,7 +606,8 @@ object Generator:
 
     def generateWrappers(
         classes: Vector[Ast.GodotClass],
-        valueBuiltins: Set[String] = Set.empty
+        valueBuiltins: Set[String] = Set.empty,
+        refcountedTypes: Set[String] = Set.empty
     ): Vector[ScalaFile] = classes.map { cls =>
         val instanceMethods = cls.methods.filter { m =>
             !m.isVirtual && !m.isStatic && !jvmMethodConflicts.contains(toCamel(m.name))
@@ -613,9 +618,9 @@ object Generator:
         val virtuals = cls.methods.filter(_.isVirtual)
 
         val methodSrc = instanceMethods
-            .map(generateMethod(cls, _, 4, valueBuiltins = valueBuiltins))
+            .map(generateMethod(cls, _, 4, valueBuiltins = valueBuiltins, refcountedTypes = refcountedTypes))
         val staticSrc = staticMethods
-            .map(m => generateMethod(cls, m, 4, isStatic = true, valueBuiltins = valueBuiltins))
+            .map(m => generateMethod(cls, m, 4, isStatic = true, valueBuiltins = valueBuiltins, refcountedTypes = refcountedTypes))
         val virtualSrc = virtuals.flatMap(generateVirtual(_, valueBuiltins))
         val propSrc    = cls.properties.flatMap { p =>
             // Only generate property shorthand when the getter is a zero-arg, non-virtual,
@@ -657,11 +662,15 @@ object Generator:
         val ptrInit = if cls.inherits.isEmpty then "ptr = _p\n" else ""
 
         val ctorDef =
-            if cls.isInstantiable then s"""def apply(): ${cls.name} = {
-                |  val obj = new ${cls.name}()
-                |  obj.ptr = GdxApi.constructObject(c"${cls.name}")
-                |  obj
-                |}""".stripMargin else ""
+            if cls.isInstantiable then
+                val refCall = if refcountedTypes.contains(cls.name) then "obj.reference()" else ""
+                s"""def apply(): ${cls.name} = {
+                    |  val obj = new ${cls.name}()
+                    |  obj.ptr = GdxApi.constructObject(c"${cls.name}")
+                    |  $refCall
+                    |  obj
+                    |}""".stripMargin.replaceAll("\n\\s*\n", "\n").trim
+            else ""
 
         val bindsSection =
             if allMethods.nonEmpty then s"""object Binds {
@@ -707,7 +716,8 @@ object Generator:
 
     def generateUtilityFunctions(
         utilities: Vector[Parser.UtilityFunction],
-        valueBuiltins: Set[String] = Set.empty
+        valueBuiltins: Set[String] = Set.empty,
+        refcountedTypes: Set[String] = Set.empty
     ): Vector[ScalaFile] =
         val methods = utilities.map { fn =>
             val name    = toCamel(fn.name)
@@ -732,7 +742,7 @@ object Generator:
                             if setup.nonEmpty then Seq(setup, set) else Seq(set)
                         }
 
-            val (rAlloc, rRead) = retSetup(fn.returnTypeName, None, valueBuiltins)
+            val (rAlloc, rRead) = retSetup(fn.returnTypeName, None, valueBuiltins, refcountedTypes)
             val retPtr          = if rAlloc.nonEmpty then "_ret.asInstanceOf[Ptr[Byte]]" else "null"
             val argCount        = if fn.isVararg then "-1" else reqArgs.size.toString
             val callLine        =
