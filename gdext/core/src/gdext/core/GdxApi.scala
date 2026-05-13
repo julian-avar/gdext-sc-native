@@ -68,6 +68,7 @@ object GdxApi:
     private var variantDestroyPtr: Ptr[Byte]             = null
     private var cachedPrintFn: Ptr[Byte]                 = null
     private var globalGetSingletonFn: GetSingletonFn     = scala.compiletime.uninitialized
+    private var registerPropertyFnAddr: Ptr[Byte]        = null
 
     private[gdext] def initialize(getProcAddr: GetProcAddressFn): Unit =
         val globalGetSingletonAddr = getProcAddr(c"global_get_singleton")
@@ -106,6 +107,8 @@ object GdxApi:
             val ptrDtor: GetPtrDestructorFn = CFuncPtr.fromPtr[GetPtrDestructorFn](ptrDtorGetAddr)
             strDestructorPtr = ptrDtor(4.toUInt)
         if vDestroyAddr != null then variantDestroyPtr = vDestroyAddr
+
+        registerPropertyFnAddr = getProcAddr(c"classdb_register_extension_class_property")
 
         // Cache the print utility function pointer (needs both functions loaded)
         if getUtilFnAddr != null && snNewAddr != null then
@@ -252,6 +255,42 @@ object GdxApi:
         callUtilityFunction(cachedPrintFn, argsArr, 1, null)
         destroyGodotString(strBuf)
     }
+
+    /** Registers a property on an extension class with Godot's ClassDB.
+      *
+      * Must be called AFTER `classdb_register_extension_class2` for the same class. The class's
+      * ClassCreationInfo2 must have set_func / get_func wired to handle this property name.
+      *
+      * `classNameSN` — heap-allocated StringName for the class (same buffer used at registration).
+      * `nameSN` — heap-allocated StringName for the property name. `variantType` — one of the
+      * `VariantType` constants.
+      */
+    def registerProperty(
+        library: Ptr[Byte],
+        classNameSN: Ptr[Byte],
+        nameSN: Ptr[Byte],
+        variantType: Int
+    ): Unit =
+        if registerPropertyFnAddr == null then return
+        val fn           = CFuncPtr.fromPtr[RegisterPropertyFn](registerPropertyFnAddr)
+        val info         = stackalloc[PropertyInfo]()
+        val emptyClassSN = stackalloc[Byte](StringNameSize) // class_name — must be non-null
+        val emptyHintStr = stackalloc[Byte](8)              // hint_string (Godot String, 8 bytes) — must be non-null
+        val emptySetter  = stackalloc[Byte](StringNameSize)
+        val emptyGetter  = stackalloc[Byte](StringNameSize)
+        memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo])
+        memset(emptyClassSN, 0, StringNameSize)
+        memset(emptyHintStr, 0, 8.toUSize)
+        memset(emptySetter, 0, StringNameSize)
+        memset(emptyGetter, 0, StringNameSize)
+        info._1 = variantType.toUInt // type
+        info._2 = nameSN             // name
+        info._3 = emptyClassSN       // class_name → zeroed StringName (not a null ptr)
+        // _4 hint: stays 0 = PROPERTY_HINT_NONE
+        info._5 = emptyHintStr       // hint_string → zeroed String (not a null ptr)
+        info._6 = 6.toUInt           // usage: PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
+        fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]], emptySetter, emptyGetter)
+    end registerProperty
 
     // CFuncPtr calls must not be inlined inside Zone{} blocks under -source:future;
     // wrap them in named methods called from Zone context instead.

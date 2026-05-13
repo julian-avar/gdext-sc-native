@@ -16,8 +16,9 @@ object GdClassRegistry:
         name: String,
         parentName: String,
         factory: () => GodotObject,
-        virtuals: Vector[VirtualEntry] = Vector.empty
-    ): Unit = registrations += GdClassRegistration(name, parentName, factory, virtuals)
+        virtuals: Vector[VirtualEntry] = Vector.empty,
+        properties: List[PropertyDescriptor] = List.empty
+    ): Unit = registrations += GdClassRegistration(name, parentName, factory, virtuals, properties)
 
     def getRegistrations: List[GdClassRegistration] = registrations.toList
     def clear(): Unit                               = registrations.clear()
@@ -27,5 +28,6 @@ private[gdext] case class GdClassRegistration(
     name: String,
     parentName: String,
     factory: () => GodotObject,
-    virtuals: Vector[VirtualEntry]
+    virtuals: Vector[VirtualEntry],
+    properties: List[PropertyDescriptor]
 )

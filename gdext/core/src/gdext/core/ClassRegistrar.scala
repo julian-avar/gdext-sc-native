@@ -47,6 +47,21 @@ object ClassRegistrar:
     private var _getCallDataFn: Ptr[Byte]  = null
     private var _callWithDataFn: Ptr[Byte] = null
 
+    // ── property dispatch (fields 4 + 5 of ClassCreationInfo2) ──────────────
+    //
+    // Same singleton-map pattern as virtual dispatch.
+    //
+    //   field 4  set_func(instancePtr, namePtr, valueVariantPtr) → Bool
+    //   field 5  get_func(instancePtr, namePtr, retVariantPtr)   → Bool
+    //
+    // instanceClassMap: instancePtr → userdataPtr (lets set/get look up the class's property table)
+    // propertyTables:   userdataPtr → Array[(internedName, PropertyDescriptor)]
+
+    private var instanceClassMap: Map[Ptr[Byte], Ptr[Byte]]                       = Map.empty
+    private var propertyTables: Map[Ptr[Byte], Array[(Long, PropertyDescriptor)]] = Map.empty
+    private var _setFn: Ptr[Byte]                                                 = null
+    private var _getFn: Ptr[Byte]                                                 = null
+
     def register(): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
@@ -60,6 +75,7 @@ object ClassRegistrar:
 
         buildSharedCreateFn()
         buildSharedVirtualFns()
+        buildSharedPropertyFns()
 
         for reg <- GdClassRegistry.getRegistrations do
             // Heap-allocate StringName buffers — Godot may hold these past this call.
@@ -80,28 +96,31 @@ object ClassRegistrar:
             val freeFn = CFuncPtr2
                 .fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] { (_, instancePtr) =>
                     instanceMap -= instancePtr
+                    instanceClassMap -= instancePtr
                     free(instancePtr)
                 }
             freeFns += (reg.name -> freeFn)
 
             buildVirtualTable(reg.virtuals, stringNameNew, userdataPtr)
+            val propInternTable =
+                buildPropertyInternTable(reg.properties, stringNameNew, userdataPtr)
 
             val info = stackalloc[ClassCreationInfo2]()
             memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassCreationInfo2])
-            info._1 = 0.toUByte // is_virtual
-            info._2 = 0.toUByte // is_abstract
-            info._3 = 1.toUByte // is_exposed
-            info._4 = null      // set_func              (future: @export properties)
-            info._5 = null      // get_func              (future: @export properties)
-            info._6 = null      // get_property_list_func
-            info._7 = null      // free_property_list_func
-            info._8 = null      // property_can_revert_func
-            info._9 = null      // property_get_revert_func
-            info._10 = null     // validate_property_func
-            info._11 = null     // notification_func
-            info._12 = null     // to_string_func
-            info._13 = null     // reference_func        (future: RefCounted safety)
-            info._14 = null     // unreference_func      (future: RefCounted safety)
+            info._1 = 0.toUByte                                        // is_virtual
+            info._2 = 0.toUByte                                        // is_abstract
+            info._3 = 1.toUByte                                        // is_exposed
+            info._4 = if reg.properties.nonEmpty then _setFn else null // set_func
+            info._5 = if reg.properties.nonEmpty then _getFn else null // get_func
+            info._6 = null                                             // get_property_list_func
+            info._7 = null                                             // free_property_list_func
+            info._8 = null                                             // property_can_revert_func
+            info._9 = null                                             // property_get_revert_func
+            info._10 = null                                            // validate_property_func
+            info._11 = null                                            // notification_func
+            info._12 = null                                            // to_string_func
+            info._13 = null // reference_func        (future: RefCounted safety)
+            info._14 = null // unreference_func      (future: RefCounted safety)
             info._15 = CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]]
             info._16 = CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]]
             info._17 = null // recreate_instance_func
@@ -109,9 +128,13 @@ object ClassRegistrar:
             info._19 = _getCallDataFn
             info._20 = _callWithDataFn
             info._21 = null        // get_rid_func
-            info._22 = userdataPtr // class_userdata — key for virtualTables lookup
+            info._22 = userdataPtr // class_userdata — key for virtualTables / propertyTables
 
             registerClass2(library, classNameBuf, parentNameBuf, info)
+
+            // Must be called AFTER registerClass2; Godot copies PropertyInfo on this call.
+            for (_, prop, nameSN) <- propInternTable do
+                GdxApi.registerProperty(gdxLibrary, classNameBuf, nameSN, prop.variantType)
         end for
     end register
 
@@ -188,11 +211,12 @@ object ClassRegistrar:
             _createFn = CFuncPtr1.fromScalaFunction[Ptr[Byte], Ptr[Byte]] { userdata =>
                 factoryMap.get(userdata) match
                     case Some((factory, parentNameBuf, classNameBuf)) =>
-                        val godotPtr    = GdxApi.constructObject(parentNameBuf)
-                        val obj         = factory()
+                        val godotPtr = GdxApi.constructObject(parentNameBuf)
+                        val obj      = factory()
                         obj.ptr = godotPtr
-                        val instancePtr = malloc(1).asInstanceOf[Ptr[Byte]]
-                        instanceMap += (instancePtr -> obj)
+                        val instancePtr      = malloc(1).asInstanceOf[Ptr[Byte]]
+                        instanceMap += (instancePtr      -> obj)
+                        instanceClassMap += (instancePtr -> userdata)
                         GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
                         godotPtr
                     case None => null
@@ -200,6 +224,80 @@ object ClassRegistrar:
             }
         end if
     end buildSharedCreateFn
+
+    // ── property dispatch helpers ───────────────────────────────────────────
+
+    /** Build the two shared property CFuncPtrs (once per extension load).
+      *
+      * Assigned to ClassCreationInfo2 fields 4 and 5 for every class that has exported properties.
+      */
+    private def buildSharedPropertyFns(): Unit =
+        if _setFn == null then
+            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte], UByte] {
+                (instancePtr, namePtr, valuePtr) =>
+                    val nameData = !(namePtr.asInstanceOf[Ptr[Long]])
+                    var found    = false
+                    instanceClassMap.get(instancePtr).foreach { userdataPtr =>
+                        propertyTables.get(userdataPtr).foreach { table =>
+                            instanceMap.get(instancePtr).foreach { obj =>
+                                var i = 0
+                                while i < table.length && !found do
+                                    if table(i)._1 == nameData then
+                                        table(i)._2.setter(obj, valuePtr)
+                                        found = true
+                                    i += 1
+                                end while
+                            }
+                        }
+                    }
+                    (if found then 1 else 0).toUByte
+            }
+            _setFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        end if
+
+        if _getFn == null then
+            val fn = CFuncPtr3.fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte], UByte] {
+                (instancePtr, namePtr, retPtr) =>
+                    val nameData = !(namePtr.asInstanceOf[Ptr[Long]])
+                    var found    = false
+                    instanceClassMap.get(instancePtr).foreach { userdataPtr =>
+                        propertyTables.get(userdataPtr).foreach { table =>
+                            instanceMap.get(instancePtr).foreach { obj =>
+                                var i = 0
+                                while i < table.length && !found do
+                                    if table(i)._1 == nameData then
+                                        table(i)._2.getter(obj, retPtr)
+                                        found = true
+                                    i += 1
+                                end while
+                            }
+                        }
+                    }
+                    (if found then 1 else 0).toUByte
+            }
+            _getFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        end if
+    end buildSharedPropertyFns
+
+    /** Intern each property's StringName, register in `propertyTables`, and return a table row
+      * `(internData, descriptor, nameSN buf)` so the caller can later pass `nameSN` to
+      * `GdxApi.registerProperty` after `registerClass2`.
+      */
+    private def buildPropertyInternTable(
+        props: List[PropertyDescriptor],
+        stringNameNew: StringNameNewFn,
+        userdataPtr: Ptr[Byte]
+    ): Array[(Long, PropertyDescriptor, Ptr[Byte])] =
+        val table = props.map { prop =>
+            val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+            memset(snBuf, 0, StringNameSize)
+            Zone { stringNameNew(snBuf, toCString(prop.name)) }
+            val internData = !(snBuf.asInstanceOf[Ptr[Long]])
+            (internData, prop, snBuf)
+        }.toArray
+        propertyTables += (userdataPtr -> table.map(t => (t._1, t._2)))
+        table
+    end buildPropertyInternTable
 
     // ── string helpers ──────────────────────────────────────────────────────
 

@@ -6,6 +6,9 @@ import gdext.generated.CenterContainerVirtuals
 import gdext.generated.CharacterBody2DVirtuals
 import gdext.generated.InputMap
 import example.rigid_body_example.PlayerSc
+import gdext.core.VariantType
+import gdext.core.Variant
+import gdext.core.PropertyDescriptor
 
 /** GDExtension entry point — owned by the user project, not the library.
   *
@@ -28,11 +31,21 @@ object GodotEntry:
           "PlayerSc",
           "CharacterBody2D",
           () => new PlayerSc(),
-          CharacterBody2DVirtuals.entries
+          CharacterBody2DVirtuals.entries,
+          properties = List(PropertyDescriptor(
+            name = "speed",
+            variantType = VariantType.Int,
+            getter = (obj, ret) => Variant.writeInt(ret, obj.asInstanceOf[PlayerSc].speed.toLong),
+            setter = (obj, v) => obj.asInstanceOf[PlayerSc].speed = Variant.readInt(v).toInt
+          ))
         )
-        gdext.core.GodotEntry.init(getProcAddress, library, initPtr, () => {
-            val inputMap = new InputMap(GdxApi.getSingleton(c"InputMap"))
-            inputMap.loadFromProjectSettings()
-        })
+        gdext.core.GodotEntry.init(
+          getProcAddress,
+          library,
+          initPtr,
+          () =>
+              val inputMap = new InputMap(GdxApi.getSingleton(c"InputMap"))
+              inputMap.loadFromProjectSettings()
+        )
     end godotScalaInit
 end GodotEntry

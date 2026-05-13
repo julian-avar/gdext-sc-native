@@ -9,6 +9,7 @@
 position = Vector2(378, 281)
 
 [node name="PlayerSc" parent="." instance=ExtResource("2_jf4t6")]
+speed = 800
 position = Vector2(869, 270)
 
 [node name="Camera2D" type="Camera2D" parent="."]

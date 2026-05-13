@@ -96,3 +96,28 @@ given Tag[ClassCreationInfo2] = Tag
     ]
 
 val StringNameSize: CSize = 8.toUSize
+
+// ── GDExtensionPropertyInfo ────────────────────────────────────────────────
+// C layout (x86_64):
+//   +0  uint32  type          (GDExtensionVariantType)
+//   +4  [4 pad]
+//   +8  void*   name          (StringName*)
+//   +16 void*   class_name    (StringName*)
+//   +24 uint32  hint
+//   +28 [4 pad]
+//   +32 void*   hint_string   (String*)
+//   +40 uint32  usage
+//   +44 [4 pad] (struct total: 48 bytes)
+
+type PropertyInfo =
+    CStruct6[CUnsignedInt, Ptr[Byte], Ptr[Byte], CUnsignedInt, Ptr[Byte], CUnsignedInt]
+
+given Tag[PropertyInfo] = Tag
+    .materializeCStruct6Tag[CUnsignedInt, Ptr[Byte], Ptr[Byte], CUnsignedInt, Ptr[
+      Byte
+    ], CUnsignedInt]
+
+// (instance, name, value/ret) → GDExtensionBool
+type PropertyCallbackFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], UByte]
+// (library, class_name, info, setter_name, getter_name)
+type RegisterPropertyFn = CFuncPtr5[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
