@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cls0204v3oyj0"]
 
-[ext_resource type="Script" uid="uid://b2o4cd73bbdev" path="res://example_scene_gdscript.gd" id="1_m6b75"]
+[ext_resource type="Script" uid="uid://b2o4cd73bbdev" path="res://control_ui_example/example_scene_gdscript.gd" id="1_m6b75"]
 
 [node name="ExampleSceneGdscript" type="CenterContainer"]
 anchors_preset = 15

@@ -1,4 +1,4 @@
-package example
+package example.control_ui_example
 
 import gdext.core.*
 import gdext.generated.*
