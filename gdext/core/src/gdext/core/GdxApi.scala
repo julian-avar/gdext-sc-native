@@ -22,7 +22,11 @@ private type GetVFTCtorFn       = CFuncPtr1[CUnsignedInt, Ptr[Byte]]
 private type VFTCtorFn          = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
 private type GetPtrDestructorFn = CFuncPtr1[CUnsignedInt, Ptr[Byte]]
 private type PtrDestructorFn    = CFuncPtr1[Ptr[Byte], Unit]
-private type VariantDestroyFn   = CFuncPtr1[Ptr[Byte], Unit]
+// variant_get_ptr_constructor(type, index) → constructor fn
+private type GetPtrCtorFn = CFuncPtr2[CUnsignedInt, CInt, Ptr[Byte]]
+// NodePath ptr constructor: (dest, args) → Unit
+private type NodePathCtorFn   = CFuncPtr2[Ptr[Byte], Ptr[Ptr[Byte]], Unit]
+private type VariantDestroyFn = CFuncPtr1[Ptr[Byte], Unit]
 // p_o, p_classname (StringName*), p_instance
 private type ObjectSetInstanceFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
 // callable_custom_create2(r_callable, p_info)
@@ -65,6 +69,8 @@ object GdxApi:
     private var stringNewFn: StringNewFn                 = scala.compiletime.uninitialized
     private var variantFromStrCtor: Ptr[Byte]            = null
     private var strDestructorPtr: Ptr[Byte]              = null
+    private var nodepathFromStrCtorPtr: Ptr[Byte]        = null
+    private var nodepathDestructorPtr: Ptr[Byte]         = null
     private var variantDestroyPtr: Ptr[Byte]             = null
     private var cachedPrintFn: Ptr[Byte]                 = null
     private var globalGetSingletonFn: GetSingletonFn     = scala.compiletime.uninitialized
@@ -105,8 +111,15 @@ object GdxApi:
             variantFromStrCtor = vftCtor(4.toUInt)
         if ptrDtorGetAddr != null then
             val ptrDtor: GetPtrDestructorFn = CFuncPtr.fromPtr[GetPtrDestructorFn](ptrDtorGetAddr)
-            strDestructorPtr = ptrDtor(4.toUInt)
+            strDestructorPtr = ptrDtor(4.toUInt)       // String destructor
+            nodepathDestructorPtr = ptrDtor(22.toUInt) // NodePath destructor
+        end if
         if vDestroyAddr != null then variantDestroyPtr = vDestroyAddr
+
+        val ptrCtorGetAddr = getProcAddr(c"variant_get_ptr_constructor")
+        if ptrCtorGetAddr != null then
+            val ptrCtorGet = CFuncPtr.fromPtr[GetPtrCtorFn](ptrCtorGetAddr)
+            nodepathFromStrCtorPtr = ptrCtorGet(22.toUInt, 2) // NodePath(from: String), index 2
 
         registerPropertyFnAddr = getProcAddr(c"classdb_register_extension_class_property")
 
@@ -275,7 +288,8 @@ object GdxApi:
         val fn           = CFuncPtr.fromPtr[RegisterPropertyFn](registerPropertyFnAddr)
         val info         = stackalloc[PropertyInfo]()
         val emptyClassSN = stackalloc[Byte](StringNameSize) // class_name — must be non-null
-        val emptyHintStr = stackalloc[Byte](8)              // hint_string (Godot String, 8 bytes) — must be non-null
+        val emptyHintStr =
+            stackalloc[Byte](8) // hint_string (Godot String, 8 bytes) — must be non-null
         val emptySetter  = stackalloc[Byte](StringNameSize)
         val emptyGetter  = stackalloc[Byte](StringNameSize)
         memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo])
@@ -287,13 +301,33 @@ object GdxApi:
         info._2 = nameSN             // name
         info._3 = emptyClassSN       // class_name → zeroed StringName (not a null ptr)
         // _4 hint: stays 0 = PROPERTY_HINT_NONE
-        info._5 = emptyHintStr       // hint_string → zeroed String (not a null ptr)
-        info._6 = 6.toUInt           // usage: PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
+        info._5 = emptyHintStr // hint_string → zeroed String (not a null ptr)
+        info._6 = 6.toUInt     // usage: PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
         fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]], emptySetter, emptyGetter)
     end registerProperty
 
+    /** Initialize a Godot NodePath in a caller-provided 8-byte buffer from a Godot String buffer.
+      */
+    def initNodePath(buf: Ptr[Byte], strBuf: Ptr[Byte]): Unit =
+        if nodepathFromStrCtorPtr == null then return
+        val args = stackalloc[Ptr[Byte]](1)
+        args(0) = strBuf
+        callNodePathCtor(nodepathFromStrCtorPtr, buf, args)
+    end initNodePath
+
+    /** Destroy a Godot NodePath (releases the internal reference). */
+    def destroyNodePath(buf: Ptr[Byte]): Unit =
+        if nodepathDestructorPtr == null then return
+        val dtor = CFuncPtr.fromPtr[PtrDestructorFn](nodepathDestructorPtr)
+        dtor(buf)
+    end destroyNodePath
+
     // CFuncPtr calls must not be inlined inside Zone{} blocks under -source:future;
     // wrap them in named methods called from Zone context instead.
+    private def callNodePathCtor(ctor: Ptr[Byte], dest: Ptr[Byte], args: Ptr[Ptr[Byte]]): Unit =
+        val fn = CFuncPtr.fromPtr[NodePathCtorFn](ctor)
+        fn(dest, args)
+
     private def buildVariantFromString(ctor: Ptr[Byte], dest: Ptr[Byte], src: Ptr[Byte]): Unit =
         val fn = CFuncPtr.fromPtr[VFTCtorFn](ctor)
         fn(dest, src)

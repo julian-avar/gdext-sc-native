@@ -17,10 +17,10 @@ val defaultScalaNativeVersion = "0.5.11"
 val defaultVersion            = "0.1.0"
 val defaultPomSettings        = PomSettings(
   description = "GD Extension Scala",
-  organization = "julian_avar.gdext_sc",
-  url = "https://gitlab.com/julian-avar/gdext_sc",
+  organization = "julian_avar.gdext-sc-native",
+  url = "https://gitlab.com/julian-avar/gdext-sc-native",
   licenses = Seq(License.`GPL-3.0`),
-  versionControl = VersionControl.gitlab("julian-avar", "gdext_sc"),
+  versionControl = VersionControl.gitlab("julian-avar", "gdext-sc-native"),
   developers = Seq(Developer("julian-avar", "Julian Avar", "https://gitlab.com/julian-avar"))
 )
 
