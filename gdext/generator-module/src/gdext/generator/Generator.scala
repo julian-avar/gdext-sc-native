@@ -183,19 +183,43 @@ object Generator:
                 end if
             }.mkString("\n    ")
 
+        // Generate componentwise arithmetic for homogeneous all-primitive types (e.g. Vector2, Color).
+        def mathExtensions(name: String, members: Vector[Ast.BuiltinMember]): String =
+            val metas = members.map(_.meta).distinct
+            if !members.forall(m => isPrimitiveMeta(m.meta)) || metas.length != 1 then return ""
+            val tp          = metaToScalaType(metas.head)
+            val fields      = members.map(m => safeName(m.name))
+            val mapBody     = fields.map(f => s"result.$f = f(v.$f)").mkString("; ")
+            val combineBody = fields.map(f => s"result.$f = f(v.$f, o.$f)").mkString("; ")
+            s"""|    inline def map(f: $tp => $tp): Ptr[$name] =
+                |      val result = stackalloc[$name](); $mapBody; result
+                |    inline def combine(o: Ptr[$name])(f: ($tp, $tp) => $tp): Ptr[$name] =
+                |      val result = stackalloc[$name](); $combineBody; result
+                |    inline def *(scalar: $tp): Ptr[$name] = v.map(_ * scalar)
+                |    inline def *(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ * _)
+                |    inline def /(scalar: $tp): Ptr[$name] = v.map(_ / scalar)
+                |    inline def /(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ / _)
+                |    inline def +(scalar: $tp): Ptr[$name] = v.map(_ + scalar)
+                |    inline def +(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ + _)
+                |    inline def -(scalar: $tp): Ptr[$name] = v.map(_ - scalar)
+                |    inline def -(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ - _)""".stripMargin
+        end mathExtensions
+
         val valueDefs = valueTypes.map { b =>
-            val cstruct  = cstructTypeName(b.members)
-            val tag      = tagGiven(b.name, b.members)
-            val ctor     = applyCtor(b.name, b.members)
-            val exts     = fieldExtensions(b.members)
-            val ctorLine = if ctor.nonEmpty then s"\n  $ctor\n" else ""
+            val cstruct   = cstructTypeName(b.members)
+            val tag       = tagGiven(b.name, b.members)
+            val ctor      = applyCtor(b.name, b.members)
+            val exts      = fieldExtensions(b.members)
+            val mathExts  = mathExtensions(b.name, b.members)
+            val ctorLine  = if ctor.nonEmpty then s"\n  $ctor\n" else ""
+            val mathBlock = if mathExts.nonEmpty then s"\n$mathExts" else ""
             s"""/** Godot value type. Use stackalloc[${b.name}]() or ${b
                   .name}(...) to create instances. */
                |opaque type ${b.name} = $cstruct
                |object ${b.name}:
                |  $tag
                |$ctorLine  extension (v: Ptr[${b.name}])
-               |    $exts
+               |    $exts$mathBlock
                |""".stripMargin
         }.mkString("\n")
 

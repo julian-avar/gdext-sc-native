@@ -2,7 +2,6 @@ package example.rigid_body_example
 
 import gdext.core.*
 import gdext.godot.*
-import gdext.godot.Predef.*
 import gdext.generated.*
 
 @gdclass
