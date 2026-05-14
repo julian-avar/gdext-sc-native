@@ -101,11 +101,11 @@ object Generator:
             |  def load(
             |    getProcAddr: GDExtensionInterfaceGetProcAddress
             |  ): Interface = Zone.acquire { (zone: Zone) =>
-            |      given Zone = zone
-            |      val result = new Interface()
-            |      ${batches.indices.map(i => s"loadBatch$i(result, getProcAddr)").map("      " + _)
+            |    given Zone = zone
+            |    val result = new Interface()
+            |    ${batches.indices.map(i => s"loadBatch$i(result, getProcAddr)").map("    " + _)
                   .mkString("\n")}
-            |      result
+            |    result
             |  }
             |}
             |""".stripMargin
@@ -170,56 +170,69 @@ object Generator:
                 }.mkString("; ")
                 s"inline def apply($params): Ptr[$name] = { val p = stackalloc[$name](); $sets; p }"
 
-        def fieldExtensions(members: Vector[Ast.BuiltinMember]): String = members.zipWithIndex
-            .map { (m, i) =>
+        // One entry per field accessor/setter; no leading indent.
+        def fieldExtensionMethods(members: Vector[Ast.BuiltinMember]): Vector[String] =
+            members.zipWithIndex.flatMap { (m, i) =>
                 val idx = i + 1
                 val fn  = safeName(m.name)
                 val tp  = metaToScalaType(m.meta)
                 if isPrimitiveMeta(m.meta) then
-                    s"inline def $fn: $tp = v._$idx\n    inline def ${fn}_=(value: $tp): Unit = v._$idx = value"
+                    Vector(
+                      s"inline def $fn: $tp = v._$idx",
+                      s"inline def ${fn}_=(value: $tp): Unit = v._$idx = value"
+                    )
                 else
                     // Nested value type — return Ptr so the caller can mutate in place.
-                    s"inline def $fn: Ptr[$tp] = v.at$idx"
-                end if
-            }.mkString("\n    ")
+                    Vector(s"inline def $fn: Ptr[$tp] = v.at$idx")
+            }
+        end fieldExtensionMethods
 
-        // Generate componentwise arithmetic for homogeneous all-primitive types (e.g. Vector2, Color).
-        def mathExtensions(name: String, members: Vector[Ast.BuiltinMember]): String =
+        // One entry per arithmetic operator; no leading indent.
+        // Ptr already has +/- for pointer arithmetic accepting integral types,
+        // so scalar +/- on Int/Long component vectors would never be selected.
+        def mathExtensionMethods(name: String, members: Vector[Ast.BuiltinMember]): Vector[String] =
             val metas = members.map(_.meta).distinct
-            if !members.forall(m => isPrimitiveMeta(m.meta)) || metas.length != 1 then return ""
+            if !members.forall(m => isPrimitiveMeta(m.meta)) || metas.length != 1 then
+                return Vector.empty
             val tp          = metaToScalaType(metas.head)
             val fields      = members.map(m => safeName(m.name))
             val mapBody     = fields.map(f => s"result.$f = f(v.$f)").mkString("; ")
             val combineBody = fields.map(f => s"result.$f = f(v.$f, o.$f)").mkString("; ")
-            s"""|    inline def map(f: $tp => $tp): Ptr[$name] =
-                |      val result = stackalloc[$name](); $mapBody; result
-                |    inline def combine(o: Ptr[$name])(f: ($tp, $tp) => $tp): Ptr[$name] =
-                |      val result = stackalloc[$name](); $combineBody; result
-                |    inline def *(scalar: $tp): Ptr[$name] = v.map(_ * scalar)
-                |    inline def *(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ * _)
-                |    inline def /(scalar: $tp): Ptr[$name] = v.map(_ / scalar)
-                |    inline def /(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ / _)
-                |    inline def +(scalar: $tp): Ptr[$name] = v.map(_ + scalar)
-                |    inline def +(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ + _)
-                |    inline def -(scalar: $tp): Ptr[$name] = v.map(_ - scalar)
-                |    inline def -(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ - _)""".stripMargin
-        end mathExtensions
+            val isIntegral  = tp == "Int" || tp == "Long"
+            Vector(
+              s"inline def map(f: $tp => $tp): Ptr[$name] =\n      val result = stackalloc[$name](); $mapBody; result",
+              s"inline def combine(o: Ptr[$name])(f: ($tp, $tp) => $tp): Ptr[$name] =\n      val result = stackalloc[$name](); $combineBody; result",
+              s"inline def *(scalar: $tp): Ptr[$name] = v.map(_ * scalar)",
+              s"inline def *(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ * _)",
+              s"inline def /(scalar: $tp): Ptr[$name] = v.map(_ / scalar)",
+              s"inline def /(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ / _)"
+            ) ++ (if isIntegral then Vector.empty
+                  else
+                      Vector(
+                        s"inline def +(scalar: $tp): Ptr[$name] = v.map(_ + scalar)",
+                        s"inline def -(scalar: $tp): Ptr[$name] = v.map(_ - scalar)"
+                      )) ++ Vector(
+              s"inline def +(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ + _)",
+              s"inline def -(o: Ptr[$name]): Ptr[$name] = v.combine(o)(_ - _)"
+            )
+        end mathExtensionMethods
 
         val valueDefs = valueTypes.map { b =>
-            val cstruct   = cstructTypeName(b.members)
-            val tag       = tagGiven(b.name, b.members)
-            val ctor      = applyCtor(b.name, b.members)
-            val exts      = fieldExtensions(b.members)
-            val mathExts  = mathExtensions(b.name, b.members)
-            val ctorLine  = if ctor.nonEmpty then s"\n  $ctor\n" else ""
-            val mathBlock = if mathExts.nonEmpty then s"\n$mathExts" else ""
+            val cstruct  = cstructTypeName(b.members)
+            val tag      = tagGiven(b.name, b.members)
+            val ctor     = applyCtor(b.name, b.members)
+            val ctorPart = if ctor.nonEmpty then s"\n  $ctor" else ""
+            val methods  = fieldExtensionMethods(b.members) ++ mathExtensionMethods(b.name, b.members)
+            // Prefix each method with 4 spaces (2 indent levels × indent.main=2 of generated files).
+            // Joined with bare \n so no extra indent leaks from the separator.
+            // The template's |  adds 2 spaces to the extension keyword line only.
+            val extBlock = s"extension (v: Ptr[${b.name}])\n${methods.map("    " + _).mkString("\n")}"
             s"""/** Godot value type. Use stackalloc[${b.name}]() or ${b
                   .name}(...) to create instances. */
                |opaque type ${b.name} = $cstruct
                |object ${b.name}:
-               |  $tag
-               |$ctorLine  extension (v: Ptr[${b.name}])
-               |    $exts$mathBlock
+               |  $tag$ctorPart
+               |  $extBlock
                |""".stripMargin
         }.mkString("\n")
 
@@ -383,47 +396,9 @@ object Generator:
 
     // ── Wrapper class generation ──────────────────────────────────────────────
 
-    private val scalaKeywords = Set(
-      "abstract",
-      "case",
-      "catch",
-      "class",
-      "def",
-      "do",
-      "else",
-      "enum",
-      "extends",
-      "false",
-      "final",
-      "finally",
-      "for",
-      "if",
-      "implicit",
-      "import",
-      "lazy",
-      "match",
-      "new",
-      "null",
-      "object",
-      "override",
-      "package",
-      "private",
-      "protected",
-      "return",
-      "sealed",
-      "super",
-      "this",
-      "throw",
-      "trait",
-      "try",
-      "true",
-      "type",
-      "val",
-      "var",
-      "while",
-      "with",
-      "yield"
-    )
+    // format: off
+    private val scalaKeywords = Set("abstract", "case", "catch", "class", "def", "do", "else", "enum", "extends", "false", "final", "finally", "for", "if", "implicit", "import", "lazy", "match", "new", "null", "object", "override", "package", "private", "protected", "return", "sealed", "super", "this", "throw", "trait", "try", "true", "type", "val", "var", "while", "with", "yield")
+    // format: on
 
     // GodotObject declares these; generated virtuals must add `override` only when
     // both return type and arity match exactly. Value = (returnType, arity).

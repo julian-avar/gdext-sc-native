@@ -19,7 +19,7 @@ val defaultPomSettings        = PomSettings(
   description = "GD Extension Scala",
   organization = "julian_avar.gdext_sc",
   url = "https://gitlab.com/julian-avar/gdext_sc",
-  licenses = Seq(License.MIT),
+  licenses = Seq(License.`GPL-3.0`),
   versionControl = VersionControl.gitlab("julian-avar", "gdext_sc"),
   developers = Seq(Developer("julian-avar", "Julian Avar", "https://gitlab.com/julian-avar"))
 )
