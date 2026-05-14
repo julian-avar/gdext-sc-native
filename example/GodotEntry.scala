@@ -6,6 +6,7 @@ import gdext.generated.CenterContainerVirtuals
 import gdext.generated.CharacterBody2DVirtuals
 import gdext.generated.InputMap
 import example.rigid_body_example.PlayerSc
+import example.control_ui_example.ExampleSceneScala
 import gdext.core.VariantType
 import gdext.core.Variant
 import gdext.core.PropertyDescriptor
