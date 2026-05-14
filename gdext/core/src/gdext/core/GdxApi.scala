@@ -24,6 +24,12 @@ private type GetPtrDestructorFn = CFuncPtr1[CUnsignedInt, Ptr[Byte]]
 private type PtrDestructorFn    = CFuncPtr1[Ptr[Byte], Unit]
 // variant_get_ptr_constructor(type, index) → constructor fn
 private type GetPtrCtorFn = CFuncPtr2[CUnsignedInt, CInt, Ptr[Byte]]
+// ptr constructor fn: (dest, args) → Unit  (args = null for default ctor)
+private type PtrTypeCtorFn = CFuncPtr2[Ptr[Byte], Ptr[Ptr[Byte]], Unit]
+// variant_get_ptr_builtin_method(type, name, hash) → method fn
+private type GetPtrBuiltinMethodFn = CFuncPtr3[CUnsignedInt, Ptr[Byte], Long, Ptr[Byte]]
+// builtin method fn: (base, args, ret, arg_count) → Unit
+private type BuiltinMethodFn = CFuncPtr4[Ptr[Byte], Ptr[Ptr[Byte]], Ptr[Byte], CInt, Unit]
 // NodePath ptr constructor: (dest, args) → Unit
 private type NodePathCtorFn   = CFuncPtr2[Ptr[Byte], Ptr[Ptr[Byte]], Unit]
 private type VariantDestroyFn = CFuncPtr1[Ptr[Byte], Unit]
@@ -76,6 +82,8 @@ object GdxApi:
     private var globalGetSingletonFn: GetSingletonFn     = scala.compiletime.uninitialized
     private var registerPropertyFnAddr: Ptr[Byte]        = null
     private var registerMethodFnAddr: Ptr[Byte]          = null
+    private var pktStrArrayCtorPtr: Ptr[Byte]            = null
+    private var pktStrArrayPushBackPtr: Ptr[Byte]        = null
 
     private[gdext] def initialize(getProcAddr: GetProcAddressFn): Unit =
         val globalGetSingletonAddr = getProcAddr(c"global_get_singleton")
@@ -121,6 +129,17 @@ object GdxApi:
         if ptrCtorGetAddr != null then
             val ptrCtorGet = CFuncPtr.fromPtr[GetPtrCtorFn](ptrCtorGetAddr)
             nodepathFromStrCtorPtr = ptrCtorGet(22.toUInt, 2) // NodePath(from: String), index 2
+            pktStrArrayCtorPtr = ptrCtorGet(34.toUInt, 0)     // PackedStringArray() default ctor
+        end if
+
+        val ptrBuiltinMethodAddr = getProcAddr(c"variant_get_ptr_builtin_method")
+        if ptrBuiltinMethodAddr != null && snNewAddr != null then
+            val getBM  = CFuncPtr.fromPtr[GetPtrBuiltinMethodFn](ptrBuiltinMethodAddr)
+            val snBuf  = stackalloc[Byte](StringNameSize)
+            memset(snBuf, 0, StringNameSize)
+            stringNameNewPtr(snBuf, c"push_back")
+            pktStrArrayPushBackPtr = getBM(34.toUInt, snBuf, 816187996L)
+        end if
 
         registerPropertyFnAddr = getProcAddr(c"classdb_register_extension_class_property")
         registerMethodFnAddr = getProcAddr(c"classdb_register_extension_class_method")
@@ -328,14 +347,35 @@ object GdxApi:
         val fn   = CFuncPtr.fromPtr[RegisterMethodFn](registerMethodFnAddr)
         val info = stackalloc[ClassMethodInfo]()
         memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassMethodInfo])
-        info._1 = nameSN          // name
-        info._2 = methodUserdata  // method_userdata → passed to call_func as first arg
-        info._3 = callFn          // call_func
-        info._4 = null            // ptrcall_func (unused)
-        info._5 = 1.toUInt        // method_flags: GDEXTENSION_METHOD_FLAG_NORMAL
-        info._6 = 0.toUByte       // has_return_value: false
+        info._1 = nameSN         // name
+        info._2 = methodUserdata // method_userdata → passed to call_func as first arg
+        info._3 = callFn         // call_func
+        info._4 = null           // ptrcall_func (unused)
+        info._5 = 1.toUInt       // method_flags: GDEXTENSION_METHOD_FLAG_NORMAL
+        info._6 = 0.toUByte      // has_return_value: false
         fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]])
     end registerMethod
+
+    /** Initialize an empty PackedStringArray in a caller-provided buffer (16 bytes on float_64). */
+    def initPackedStringArray(buf: Ptr[Byte]): Unit =
+        if pktStrArrayCtorPtr == null then return
+        val ctor = CFuncPtr.fromPtr[PtrTypeCtorFn](pktStrArrayCtorPtr)
+        ctor(buf, null)
+
+    /** Append a CString value to an already-initialized PackedStringArray. */
+    def packedStringArrayAppendCString(arr: Ptr[Byte], s: CString): Unit =
+        if pktStrArrayPushBackPtr == null then return
+        val strBuf = stackalloc[Byte](8) // Godot String (8 bytes on float_64)
+        memset(strBuf, 0, 8.toUSize)
+        stringNewFn(strBuf, s)
+        val args   = stackalloc[Ptr[Byte]](1)
+        args(0) = strBuf
+        val retBuf = stackalloc[Byte](8) // bool return value (discarded)
+        val fn = CFuncPtr.fromPtr[BuiltinMethodFn](pktStrArrayPushBackPtr)
+        fn(arr, args, retBuf, 1)
+        if strDestructorPtr != null then
+            val dtor = CFuncPtr.fromPtr[PtrDestructorFn](strDestructorPtr)
+            dtor(strBuf)
 
     /** Initialize a Godot NodePath in a caller-provided 8-byte buffer from a Godot String buffer.
       */

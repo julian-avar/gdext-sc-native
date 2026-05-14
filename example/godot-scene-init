@@ -1,0 +1,6 @@
+[20:24:35.494] [main] scene init: start
+[20:24:35.495] [main] scene init: inputMap loaded
+[20:24:35.495] [main] scene init: StringName ready
+[20:24:35.495] [main] scene init: constructObject done, ptr=Ptr@5609e0f0fd70
+[20:24:35.496] [main] scene init: langInstance set
+[20:24:35.502] [main] scene init: registerScriptLanguage done
