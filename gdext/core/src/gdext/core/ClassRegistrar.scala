@@ -4,6 +4,7 @@ import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
 import scala.scalanative.libc.stdlib.*
 import scala.scalanative.libc.string.*
+import gdext.core.method.MethodEntry
 
 /** Registers user-defined classes with Godot at scene-level init time. */
 object ClassRegistrar:
@@ -62,6 +63,19 @@ object ClassRegistrar:
     private var _setFn: Ptr[Byte]                                                 = null
     private var _getFn: Ptr[Byte]                                                 = null
 
+    // ── method dispatch (classdb_register_extension_class_method) ────────────
+    //
+    // Same singleton-map pattern as virtual dispatch.
+    //
+    //   call_func(methodUserdata, instancePtr, args, argCount, rReturn, rError)
+    //     methodUserdata is a pre-allocated Ptr[Int] holding the dispatchId,
+    //     so the shared CFuncPtr can find the Scala dispatch fn without captures.
+
+    private val methodDispatchFns =
+        scala.collection.mutable.Map[Int, (GodotObject, Ptr[Ptr[Byte]], Long) => Unit]()
+    private var methodDispatchNextId = 0
+    private var _methodCallFn: Ptr[Byte] = null
+
     def register(): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
@@ -76,6 +90,7 @@ object ClassRegistrar:
         buildSharedCreateFn()
         buildSharedVirtualFns()
         buildSharedPropertyFns()
+        buildSharedMethodCallFn()
 
         for reg <- GdClassRegistry.getRegistrations do
             // Heap-allocate StringName buffers — Godot may hold these past this call.
@@ -135,6 +150,8 @@ object ClassRegistrar:
             // Must be called AFTER registerClass2; Godot copies PropertyInfo on this call.
             for (_, prop, nameSN) <- propInternTable do
                 GdxApi.registerProperty(gdxLibrary, classNameBuf, nameSN, prop.variantType)
+
+            buildMethodTable(reg.methods, stringNameNew, classNameBuf)
         end for
     end register
 
@@ -298,6 +315,52 @@ object ClassRegistrar:
         propertyTables += (userdataPtr -> table.map(t => (t._1, t._2)))
         table
     end buildPropertyInternTable
+
+    // ── method dispatch helpers ─────────────────────────────────────────────
+
+    private def buildSharedMethodCallFn(): Unit =
+        if _methodCallFn == null then
+            val fn = CFuncPtr6
+                .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[
+                  Byte
+                ], Unit] { (methodUserdata, instancePtr, args, argCount, _, _) =>
+                    val id = !methodUserdata.asInstanceOf[Ptr[Int]]
+                    methodDispatchFns.get(id).foreach { dispatch =>
+                        instanceMap.get(instancePtr).foreach(dispatch(_, args, argCount))
+                    }
+                }
+            _methodCallFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
+        end if
+    end buildSharedMethodCallFn
+
+    /** Register each method with Godot's ClassDB and store its dispatch fn.
+      *
+      * StringName buffers are heap-allocated (never freed) because Godot may retain pointers to
+      * them after the registration call returns.
+      */
+    private def buildMethodTable(
+        methods: List[MethodEntry],
+        stringNameNew: StringNameNewFn,
+        classNameBuf: Ptr[Byte]
+    ): Unit =
+        for method <- methods do
+            val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+            memset(snBuf, 0, StringNameSize)
+            Zone { stringNameNew(snBuf, toCString(method.name)) }
+
+            val id = methodDispatchNextId; methodDispatchNextId += 1
+            methodDispatchFns(id) = method.dispatch
+            val callDataBuf = malloc(4).asInstanceOf[Ptr[Int]]
+            !callDataBuf = id
+
+            GdxApi.registerMethod(
+              gdxLibrary,
+              classNameBuf,
+              snBuf,
+              callDataBuf.asInstanceOf[Ptr[Byte]],
+              _methodCallFn
+            )
+    end buildMethodTable
 
     // ── string helpers ──────────────────────────────────────────────────────
 

@@ -75,6 +75,7 @@ object GdxApi:
     private var cachedPrintFn: Ptr[Byte]                 = null
     private var globalGetSingletonFn: GetSingletonFn     = scala.compiletime.uninitialized
     private var registerPropertyFnAddr: Ptr[Byte]        = null
+    private var registerMethodFnAddr: Ptr[Byte]          = null
 
     private[gdext] def initialize(getProcAddr: GetProcAddressFn): Unit =
         val globalGetSingletonAddr = getProcAddr(c"global_get_singleton")
@@ -122,6 +123,7 @@ object GdxApi:
             nodepathFromStrCtorPtr = ptrCtorGet(22.toUInt, 2) // NodePath(from: String), index 2
 
         registerPropertyFnAddr = getProcAddr(c"classdb_register_extension_class_property")
+        registerMethodFnAddr = getProcAddr(c"classdb_register_extension_class_method")
 
         // Cache the print utility function pointer (needs both functions loaded)
         if getUtilFnAddr != null && snNewAddr != null then
@@ -305,6 +307,35 @@ object GdxApi:
         info._6 = 6.toUInt     // usage: PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
         fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]], emptySetter, emptyGetter)
     end registerProperty
+
+    /** Registers a callable method on an extension class with Godot's ClassDB.
+      *
+      * Must be called AFTER `classdb_register_extension_class2` for the same class.
+      *
+      * `classNameSN` — heap-allocated StringName for the class. `nameSN` — heap-allocated
+      * StringName for the method. `methodUserdata` — pointer passed back to `callFn` as its first
+      * argument (used to identify which Scala dispatch function to invoke). `callFn` — the shared
+      * CFuncPtr that dispatches the call.
+      */
+    def registerMethod(
+        library: Ptr[Byte],
+        classNameSN: Ptr[Byte],
+        nameSN: Ptr[Byte],
+        methodUserdata: Ptr[Byte],
+        callFn: Ptr[Byte]
+    ): Unit =
+        if registerMethodFnAddr == null then return
+        val fn   = CFuncPtr.fromPtr[RegisterMethodFn](registerMethodFnAddr)
+        val info = stackalloc[ClassMethodInfo]()
+        memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassMethodInfo])
+        info._1 = nameSN          // name
+        info._2 = methodUserdata  // method_userdata → passed to call_func as first arg
+        info._3 = callFn          // call_func
+        info._4 = null            // ptrcall_func (unused)
+        info._5 = 1.toUInt        // method_flags: GDEXTENSION_METHOD_FLAG_NORMAL
+        info._6 = 0.toUByte       // has_return_value: false
+        fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]])
+    end registerMethod
 
     /** Initialize a Godot NodePath in a caller-provided 8-byte buffer from a Godot String buffer.
       */

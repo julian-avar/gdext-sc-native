@@ -10,6 +10,7 @@ import example.control_ui_example.ExampleSceneScala
 import gdext.core.VariantType
 import gdext.core.Variant
 import gdext.core.PropertyDescriptor
+import gdext.core.method.MethodEntry
 
 /** GDExtension entry point — owned by the user project, not the library.
   *
@@ -26,7 +27,11 @@ object GodotEntry:
           "ExampleSceneScala",
           "CenterContainer",
           () => new ExampleSceneScala(),
-          CenterContainerVirtuals.entries
+          CenterContainerVirtuals.entries,
+          methods = List(MethodEntry(
+            "_on_button_pressed",
+            (obj, _, _) => obj.asInstanceOf[ExampleSceneScala]._onButtonPressed()
+          ))
         )
         GdClassRegistry.register(
           "PlayerSc",

@@ -1,6 +1,7 @@
 package gdext.core
 
 import gdext.core.virtual.VirtualEntry
+import gdext.core.method.MethodEntry
 
 /** Registry populated by the user's entry point before ClassRegistrar.register() runs. */
 object GdClassRegistry:
@@ -17,8 +18,10 @@ object GdClassRegistry:
         parentName: String,
         factory: () => GodotObject,
         virtuals: Vector[VirtualEntry] = Vector.empty,
-        properties: List[PropertyDescriptor] = List.empty
-    ): Unit = registrations += GdClassRegistration(name, parentName, factory, virtuals, properties)
+        properties: List[PropertyDescriptor] = List.empty,
+        methods: List[MethodEntry] = List.empty
+    ): Unit = registrations +=
+        GdClassRegistration(name, parentName, factory, virtuals, properties, methods)
 
     def getRegistrations: List[GdClassRegistration] = registrations.toList
     def clear(): Unit                               = registrations.clear()
@@ -29,5 +32,6 @@ private[gdext] case class GdClassRegistration(
     parentName: String,
     factory: () => GodotObject,
     virtuals: Vector[VirtualEntry],
-    properties: List[PropertyDescriptor]
+    properties: List[PropertyDescriptor],
+    methods: List[MethodEntry]
 )

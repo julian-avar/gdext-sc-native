@@ -121,3 +121,47 @@ given Tag[PropertyInfo] = Tag
 type PropertyCallbackFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], UByte]
 // (library, class_name, info, setter_name, getter_name)
 type RegisterPropertyFn = CFuncPtr5[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
+
+// ── GDExtensionClassMethodInfo ─────────────────────────────────────────────
+// C layout (x86_64):
+//   +0  Ptr[Byte]     name
+//   +8  Ptr[Byte]     method_userdata
+//   +16 Ptr[Byte]     call_func
+//   +24 Ptr[Byte]     ptrcall_func
+//   +32 uint32        method_flags
+//   +36 uint8         has_return_value
+//   +40 Ptr[Byte]     return_value_info  (3 bytes padding at +37)
+//   +48 uint32        return_value_metadata
+//   +52 uint32        argument_count
+//   +56 Ptr[Byte]     arguments_info
+//   +64 Ptr[Byte]     arguments_metadata
+//   +72 uint32        default_argument_count
+//   +80 Ptr[Byte]     default_arguments  (4 bytes padding at +76)
+//   Total: 88 bytes
+
+type ClassMethodInfo = CStruct13[
+  Ptr[Byte],    // 1  name
+  Ptr[Byte],    // 2  method_userdata
+  Ptr[Byte],    // 3  call_func
+  Ptr[Byte],    // 4  ptrcall_func
+  CUnsignedInt, // 5  method_flags
+  UByte,        // 6  has_return_value
+  Ptr[Byte],    // 7  return_value_info
+  CUnsignedInt, // 8  return_value_metadata
+  CUnsignedInt, // 9  argument_count
+  Ptr[Byte],    // 10 arguments_info
+  Ptr[Byte],    // 11 arguments_metadata
+  CUnsignedInt, // 12 default_argument_count
+  Ptr[Byte]     // 13 default_arguments
+]
+
+given Tag[ClassMethodInfo] = Tag
+    .materializeCStruct13Tag[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], CUnsignedInt, UByte, Ptr[
+      Byte
+    ], CUnsignedInt, CUnsignedInt, Ptr[Byte], Ptr[Byte], CUnsignedInt, Ptr[Byte]]
+
+// (method_userdata, p_instance, p_args, p_arg_count, r_return, r_error)
+type MethodCallFn =
+    CFuncPtr6[Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[Byte], Unit]
+// (library, class_name, method_info)
+type RegisterMethodFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
