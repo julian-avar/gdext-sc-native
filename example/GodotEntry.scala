@@ -10,7 +10,7 @@ import gdext.generated.InputMap
 import gdext.generated.Engine
 import example.rigid_body_example.PlayerSc
 import example.control_ui_example.ExampleSceneScala
-import example.scripting.{ScalaScript, ScalaScriptLanguage, ScalaScriptLanguageSupport}
+import gdext.scala.{ScalaScript, ScalaScriptLanguage, ScalaScriptLanguageSupport}
 import gdext.core.VariantType
 import gdext.core.Variant
 import gdext.core.PropertyDescriptor
