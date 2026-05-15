@@ -66,8 +66,8 @@ object gdext extends SharedModule:
         def scalaVersion   = "3.8.3"
         def jvmVersion     = "17"
         def platformSuffix = s"_mill1"
-        def mvnDeps        = Seq(mvn"com.lihaoyi::mill-libs:$millVersion")
-        def mainClass      = Some("gdext.generator.GeneratorMain")
+        def mvnDeps   = Seq(mvn"com.lihaoyi::mill-libs:$millVersion", Deps.scalameta, Deps.trees)
+        def mainClass = Some("gdext.generator.GeneratorMain")
 
         // Publishing Config
         def publishVersion = defaultVersion
@@ -152,4 +152,7 @@ object Deps:
     val upickle = mvn"com.lihaoyi::upickle::4.4.2"
     val pprint  = mvn"com.lihaoyi::pprint::0.9.6"
     val osLib   = mvn"com.lihaoyi::os-lib::0.11.8"
+
+    val scalameta = mvn"org.scalameta::scalameta:4.17.0"
+    val trees     = mvn"org.scalameta::trees:4.17.0"
 end Deps
