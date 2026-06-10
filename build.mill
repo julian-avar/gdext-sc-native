@@ -25,31 +25,11 @@ val defaultPomSettings        = PomSettings(
 )
 
 /** User-facing extension module: links gdext + user classes into the final .so. */
-object example extends SharedModule:
-    def moduleDeps        = Seq(gdext, gdext.core, gdext.generated)
-    def releaseMode       = ReleaseMode.Debug
-    def nativeBuildTarget = BuildTarget.LibraryDynamic
-    def nativeBaseName    = "godot-scala-native"
-
-    // Sources live directly in example/, not example/src/
-    def sources = Task.Sources(moduleDir)
-
-    def buildExtension() = Task.Command {
-        val lib  = nativeLink()
-        val dest = moduleDir / "lib"
-        os.makeDir.all(dest)
-        os.copy(
-          lib.path,
-          dest / s"lib${nativeBaseName()}.so",
-          followLinks = true,
-          replaceExisting = true,
-          copyAttributes = false,
-          createFolders = true,
-          mergeFolders = false
-        )
-        println(s"Deployed to $dest")
-    }
-end example
+object examples extends Module:
+    object rigid_body   extends Example
+    object control_ui   extends Example
+    object scala_script extends Example
+end examples
 
 object gdext extends SharedModule:
     def mvnDeps    = Seq(Deps.osLib)
@@ -59,8 +39,11 @@ object gdext extends SharedModule:
 
     object generated extends SharedModule:
         def moduleDeps = Seq(gdext.core)
+        // Generated code uses past syntax since its generated using scalameta's trees.
+        def scalacOptions = super.scalacOptions().toSet.removedAll(Set("-source:future")).toSeq
+    end generated
 
-    object `generator-module` extends ScalaModule with PublishModule:
+    object generator extends ScalaModule with PublishModule:
         def millVersion = "1.1.2"
 
         def scalaVersion   = "3.8.3"
@@ -131,7 +114,7 @@ object gdext extends SharedModule:
             end for
             println("Downloaded all extension API files")
         }
-    end `generator-module`
+    end generator
 end gdext
 
 trait SharedModule
@@ -147,6 +130,32 @@ trait SharedModule
     def publishVersion = defaultVersion
     def pomSettings    = defaultPomSettings
 end SharedModule
+
+trait Example extends SharedModule:
+    def moduleDeps        = Seq(gdext, gdext.core, gdext.generated)
+    def releaseMode       = ReleaseMode.Debug
+    def nativeBuildTarget = BuildTarget.LibraryDynamic
+    def nativeBaseName    = "godot-scala-native"
+
+    // Sources live directly in example/, not example/src/
+    def sources = Task.Sources(moduleDir)
+
+    def buildExtension() = Task.Command {
+        val lib  = nativeLink()
+        val dest = moduleDir / "lib"
+        os.makeDir.all(dest)
+        os.copy(
+          lib.path,
+          dest / s"lib${nativeBaseName()}.so",
+          followLinks = true,
+          replaceExisting = true,
+          copyAttributes = false,
+          createFolders = true,
+          mergeFolders = false
+        )
+        println(s"Deployed to $dest")
+    }
+end Example
 
 object Deps:
     val upickle = mvn"com.lihaoyi::upickle::4.4.2"
