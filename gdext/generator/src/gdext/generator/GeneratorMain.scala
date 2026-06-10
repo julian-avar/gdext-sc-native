@@ -29,10 +29,11 @@ object GeneratorMain:
         val singletonNames = Parser.singletonNames(classJson)
         val classes        = Parser.godotClasses(classJson, singletonNames)
         val builtins       = Parser.builtinClasses(classJson)
-        val utilities      = Parser.utilityFunctions(classJson)
+        val utilities  = Parser.utilityFunctions(classJson)
+        val globalEnums = Parser.globalEnums(classJson)
 
         println(s"  Found ${classes.size} classes, ${builtins.size} builtin types, ${utilities
-                .size} utility functions")
+                .size} utility functions, ${globalEnums.size} global enums")
 
         // Names of builtin types that are opaque CStruct value types (not heap classes).
         // Class wrappers use Ptr[T] for these instead of T or new T(...).
@@ -45,7 +46,9 @@ object GeneratorMain:
             Generator.generateBuiltins(builtins) ++
             Generator.classVirtuals(classes, valueBuiltins) ++
             Generator.generateWrappers(classes, valueBuiltins, refcountedTypes) ++
-            Generator.generateUtilityFunctions(utilities, valueBuiltins, refcountedTypes)
+            Generator.generateUtilityFunctions(utilities, valueBuiltins, refcountedTypes) ++
+            Generator.generateGlobalScope(utilities, globalEnums)
+        end scalaFiles
 
         os.makeDir.all(outDir)
 

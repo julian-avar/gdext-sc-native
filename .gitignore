@@ -1,10 +1,9 @@
 # Mill
-out/
-.mill-version
+/out/
+/.mill-version
 
 # Scala
 *.class
-*.log
 *.tasty
 
 # Scala Native
@@ -20,26 +19,27 @@ bindings/src/godot/
 gdext/generated/
 
 # IDE
-.idea/
-.vscode/
-.bsp/
-.metals/
-.bloop/
-metals.sbt
-project/metals.sbt
+/.idea/
+/.vscode/
+/.bsp/
+/.metals/
+/.bloop/
+/metals.sbt
+/project/metals.sbt
 
 # OS
 .DS_Store
 Thumbs.db
 
 # Godot
-examples/*/extension/bin/
-examples/*/.godot/
-examples/*/.import/
+/examples/*/extension/bin/
+/examples/*/.godot/
+/examples/*/.import/
 *.import
 
 # Temporary files
+*.log
 *.tmp
 *.bak
 *~
-.direnv/
+/.direnv/

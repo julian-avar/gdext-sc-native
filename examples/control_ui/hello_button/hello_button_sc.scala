@@ -10,14 +10,14 @@ class ExampleSceneScala extends CenterContainer:
     @onready
     lazy val btn = $"Button".as(new Button(_))
 
-    override def _ready(): Unit = GdxApi.printString("Hello, Scala!")
+    override def _ready(): Unit = print("Hello, Scala!")
 
     def _onButtonPressed(): Unit =
-        GdxApi.printString("_onButtonPressed called")
+        print("_onButtonPressed called")
         toggled = !toggled
         val tint = if toggled then 0.3f else 1f
-        GdxApi.printString("before modulate")
+        print("before modulate")
         btn.modulate = Color(1f, tint, tint, 1f)
-        GdxApi.printString("after modulate")
+        print("after modulate")
     end _onButtonPressed
 end ExampleSceneScala

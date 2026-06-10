@@ -199,6 +199,22 @@ object Parser:
             )
         }.toVector
 
+    case class GlobalEnum(
+        name: String,
+        isBitfield: Boolean,
+        values: Vector[(name: String, value: Long)]
+    ):
+        def scalaName: String = name.replace(".", "")
+
+    def globalEnums(json: ujson.Value): Vector[GlobalEnum] =
+        json("global_enums").arr.map { e =>
+            GlobalEnum(
+              name = e("name").str,
+              isBitfield = e.obj.get("is_bitfield").exists(_.bool),
+              values = e("values").arr.map(v => (v("name").str, v("value").num.toLong)).toVector
+            )
+        }.toVector
+
     def builtinClasses(json: ujson.Value): Vector[Ast.BuiltinClass] =
         // Use float_64 as the authoritative config (Linux/Windows x86-64).
         val membersByName: Map[String, Vector[Ast.BuiltinMember]] = json(

@@ -399,6 +399,11 @@ object GdxApi:
         val fn = CFuncPtr.fromPtr[NodePathCtorFn](ctor)
         fn(dest, args)
 
+    /** Initialize a 24-byte Variant buffer from an 8-byte Godot String buffer.
+      * `dest` must be zeroed; `src` must be a valid Godot String (from [[initGodotString]]). */
+    def buildStringVariant(dest: Ptr[Byte], src: Ptr[Byte]): Unit =
+        buildVariantFromString(variantFromStrCtor, dest, src)
+
     private def buildVariantFromString(ctor: Ptr[Byte], dest: Ptr[Byte], src: Ptr[Byte]): Unit =
         val fn = CFuncPtr.fromPtr[VFTCtorFn](ctor)
         fn(dest, src)

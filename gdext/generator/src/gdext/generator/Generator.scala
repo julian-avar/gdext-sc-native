@@ -82,6 +82,16 @@ object Generator:
       name = "UtilityFunctions"
     ))
 
+    def generateGlobalScope(
+        utilities: Vector[Parser.UtilityFunction],
+        enums: Vector[Parser.GlobalEnum]
+    ): Vector[ScalaFile] =
+        Vector(ScalaFile(
+          content = TreesGenerator.GlobalScopeGen.globalScopeSource(utilities, enums),
+          path = "gdext/generated",
+          name = "GlobalScope"
+        ))
+
     def functionDefinition(comment: String, name: String, function: Ast.Kind.Function): String =
         TreesGenerator.functionDefinitionStr(comment, name, function)
 

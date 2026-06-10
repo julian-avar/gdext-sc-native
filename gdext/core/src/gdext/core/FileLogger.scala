@@ -30,9 +30,10 @@ object FileLogger:
         // Backup previous log file
         val sourceFile = new File(logFileName)
         if sourceFile.exists() then
-            val backupFileName = logFileName + "-prev"
-            val source         = Paths.get(logFileName)
-            val dest           = Paths.get(backupFileName)
+            val backupFileName = logFileName.split('.').head + "-prev" + "." +
+                logFileName.split('.').tail.mkString(".")
+            val source = Paths.get(logFileName)
+            val dest   = Paths.get(backupFileName)
             Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING)
         end if
 

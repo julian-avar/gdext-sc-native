@@ -1,11 +1,13 @@
+# Prepend with `nix develop -c` if not already in a nix shell
 default:
     just --list
 
-run:
-    # nix develop
-    nix develop -c mill gdext.generator-module.generate
-    nix develop -c mill example.buildExtension
-    nix develop -c godot4.5 example/project.godot
+# `example` being any module under `examples/`
+run example:
+    mill gdext.generator.generate
+
+    mill examples.{{ example }}.buildExtension
+    godot4.5 examples/{{ example }}/project.godot
 
 lint:
-    nix develop -c mill mill.scalalib.scalafmt
+    mill mill.scalalib.scalafmt

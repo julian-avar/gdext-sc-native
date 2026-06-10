@@ -34,7 +34,7 @@ object GodotEntry:
         library: Ptr[Byte],
         initPtr: Ptr[GdxInitStruct],
         onSceneInit: () => Unit = null
-    ): CUnsignedChar = FileLogger.use("godot-init") { logger =>
+    ): CUnsignedChar = FileLogger.use("godot-init.log") { logger =>
         logger.log("Starting Scala-Native GDExtension.")
 
         gdxGetProcAddress = getProcAddress
