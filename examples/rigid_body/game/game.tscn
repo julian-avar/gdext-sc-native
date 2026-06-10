@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dioihhe5ib2tw"]
+
+[ext_resource type="PackedScene" uid="uid://xbhbmd1riuha" path="res://player/player_gd.tscn" id="1_sb74m"]
+[ext_resource type="PackedScene" uid="uid://dp3tboaf3cswi" path="res://player/player_sc.tscn" id="2_jf4t6"]
+
+[node name="ExampleGame" type="Node2D" unique_id=1371035968]
+
+[node name="PlayerGd" parent="." unique_id=982881932 instance=ExtResource("1_sb74m")]
+position = Vector2(378, 281)
+
+[node name="PlayerSc" parent="." unique_id=879384084 instance=ExtResource("2_jf4t6")]
+speed = 800
+position = Vector2(869, 270)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1215438228]
+position = Vector2(580, 328)

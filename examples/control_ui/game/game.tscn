@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c32wk4qiqcsxy"]
+
+[ext_resource type="PackedScene" uid="uid://cls0204v3oyj0" path="res://hello_button/hello_button_gd.tscn" id="1_vasa2"]
+[ext_resource type="PackedScene" uid="uid://0lncvsf57v1m" path="res://hello_button/hello_button_sc.tscn" id="2_h7iqs"]
+
+[node name="Game" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HelloButtonGd" parent="HBoxContainer" instance=ExtResource("1_vasa2")]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="HelloButtonSc" parent="HBoxContainer" instance=ExtResource("2_h7iqs")]
+layout_mode = 2
