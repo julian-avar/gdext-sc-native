@@ -1,13 +1,10 @@
 package examples.rigid_body
 
 import gdext.core.*
-import gdext.godot.*
 import gdext.generated.*
 
-@gdclass
-class PlayerSc extends CharacterBody2D:
-    @`export`
-    var speed = 400
+@gdclass class PlayerSc extends CharacterBody2D:
+    @gdexport var speed = 400
 
     override def _physicsProcess(delta: Double): Unit =
         getInput()

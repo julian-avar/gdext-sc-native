@@ -1,5 +1,9 @@
 # GDExtension for Scala
 
+## Using the project
+
+TBD
+
 ## Building the project
 
 Make sure you have Nix installed, then run `nix develop` to enter the development environment. `.envrc` is included in case `direnv` is available. That should take care of the environment which includes:

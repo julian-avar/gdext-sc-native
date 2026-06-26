@@ -1,0 +1,7 @@
+[gd_scene load_steps=0 format=3 uid="uid://bvfh83nxql0cr"]
+
+[node name="ShowcaseSc" type="ShowcaseSc"]
+damage = 25
+crit_chance = 0.3
+rarity = 2
+notes = "Rare item. Drops from elite enemies."

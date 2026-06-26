@@ -11,6 +11,6 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
 	toggled = !toggled
 	
-	var btn := get_node("Button")
+	var btn := $Button
 	var tint = 0.3 if toggled else 1.0
 	btn.modulate = Color(1, tint, tint, 1)

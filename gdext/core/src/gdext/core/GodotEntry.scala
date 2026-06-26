@@ -48,7 +48,9 @@ object GodotEntry:
                 ClassRegistrar.register()
                 if _onSceneInit != null then _onSceneInit()
         }
-        deinitCallback = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, _) => () }
+        deinitCallback = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
+            if level == GdxInitLevel.Scene then ClassRegistrar.unregisterAll()
+        }
 
         initPtr._1 = GdxInitLevel.Scene
         initPtr._2 = null

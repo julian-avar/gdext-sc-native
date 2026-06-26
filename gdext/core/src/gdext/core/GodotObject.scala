@@ -23,15 +23,15 @@ abstract class GodotObject:
     def _process(delta: Double): Unit        = ()
     def _physicsProcess(delta: Double): Unit = ()
 
-    /** Unsafe downcast — rewraps `ptr` using the provided factory.
+    /** Unsafe downcast — rewraps `ptr` as T via GodotClass[T].wrap.
       *
       * No runtime type check is performed. Use when you know the actual Godot class of the node.
       * {{{
-      * val btn = findChild("Button").as(new Button(_))
-      * btn.setModulate(Color(1f, 0.5f, 0.5f, 1f))  // Button inherits CanvasItem.setModulate
+      * val btn = $"Button".as[Button]
+      * btn.setModulate(Color(1f, 0.5f, 0.5f, 1f))
       * }}}
       */
-    def as[T](factory: Ptr[Byte] => T): T = factory(ptr)
+    def as[T <: GodotObject](using gc: GodotClass[T]): T = gc.wrap(ptr)
 
     /** Connect a Godot signal to a Scala closure.
       *

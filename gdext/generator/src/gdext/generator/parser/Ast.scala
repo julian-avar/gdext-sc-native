@@ -1,4 +1,4 @@
-package gdext.generator
+package gdext.generator.parser
 
 sealed trait Ast
 object Ast:
@@ -108,4 +108,20 @@ object Ast:
       * Callable, etc.) that have no direct field access.
       */
     case class BuiltinClass(name: String, size: Int, members: Vector[BuiltinMember])
+
+    case class UtilityFunction(
+        name: String,
+        isVararg: Boolean,
+        hash: Long,
+        arguments: Vector[GodotArg],
+        returnTypeName: String
+    )
+
+    case class GlobalEnum(
+        name: String,
+        isBitfield: Boolean,
+        values: Vector[(name: String, value: Long)]
+    ):
+        def scalaName: String = name.replace(".", "")
+    end GlobalEnum
 end Ast

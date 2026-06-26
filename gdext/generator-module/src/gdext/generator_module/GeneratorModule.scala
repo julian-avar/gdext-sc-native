@@ -1,4 +1,4 @@
-package gdext.generator
+package gdext.generator_module
 
 import mill.*
 

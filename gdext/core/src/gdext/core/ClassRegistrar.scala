@@ -17,6 +17,7 @@ object ClassRegistrar:
     // Shared create function — one CFuncPtr for all classes; per-class data via class_userdata.
     private var factoryMap: Map[Ptr[Byte], (() => GodotObject, Ptr[Byte], Ptr[Byte])] = Map.empty
     private var _createFn: CreateInstanceFn                                           = null
+    private var _recreateFn: RecreateInstanceFn                                       = null
 
     // ── virtual dispatch (fields 19 + 20 of ClassCreationInfo2) ────────────────
     //
@@ -71,23 +72,58 @@ object ClassRegistrar:
     //     methodUserdata is a pre-allocated Ptr[Int] holding the dispatchId,
     //     so the shared CFuncPtr can find the Scala dispatch fn without captures.
 
-    private val methodDispatchFns =
-        scala.collection.mutable.Map[Int, (GodotObject, Ptr[Ptr[Byte]], Long) => Unit]()
-    private var methodDispatchNextId = 0
+    private val methodDispatchFns = scala.collection.mutable
+        .Map[Int, (GodotObject, Ptr[Ptr[Byte]], Long, Ptr[Byte]) => Unit]()
+    private var methodDispatchNextId     = 0
     private var _methodCallFn: Ptr[Byte] = null
+
+    // Class name StringName buffers in registration order. Prepended so the list is in
+    // reverse order — iteration gives children-first, which is the correct unregistration order.
+    private var registeredClassNameBufs: List[Ptr[Byte]] = Nil
+
+    /** Unregister all extension classes from Godot's ClassDB, then reset dispatch state.
+      *
+      * Must be called from `deinitialize(SCENE)` to enable clean hot-reload. Unregisters in
+      * reverse registration order so child classes are removed before their parents.
+      */
+    def unregisterAll(): Unit =
+        // Only unregister classes still present in ClassDB. On hot-reload Godot may have
+        // already torn down a class (race between old-image deinit and new-image init).
+        // Calling unregister on an absent class is safe but triggers a Godot warning.
+        for buf <- registeredClassNameBufs do
+            if GdxApi.getClassTag(buf) != null then GdxApi.unregisterClass(gdxLibrary, buf)
+        registeredClassNameBufs = Nil
+        // Reset dispatch tables so register() can safely run again on the next init.
+        instanceMap = Map.empty
+        instanceClassMap = Map.empty
+        factoryMap = Map.empty
+        virtualTables = Map.empty
+        propertyTables = Map.empty
+        freeFns = Map.empty
+        dispatchFns.clear()
+        dispatchNextId = 0
+        methodDispatchFns.clear()
+        methodDispatchNextId = 0
+        _createFn = null
+        _recreateFn = null
+        _getCallDataFn = null
+        _callWithDataFn = null
+        _setFn = null
+        _getFn = null
+        _methodCallFn = null
+    end unregisterAll
 
     def register(): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
 
-        val stringNameNewPtr  = getProcAddr(c"string_name_new_with_utf8_chars")
-        val registerClass2Ptr = getProcAddr(c"classdb_register_extension_class2")
-        if stringNameNewPtr == null || registerClass2Ptr == null then return
+        val stringNameNewPtr = getProcAddr(c"string_name_new_with_utf8_chars")
+        if stringNameNewPtr == null then return
 
-        val stringNameNew  = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
-        val registerClass2 = CFuncPtr.fromPtr[RegisterClass2Fn](registerClass2Ptr)
+        val stringNameNew = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
 
         buildSharedCreateFn()
+        buildSharedRecreateFn()
         buildSharedVirtualFns()
         buildSharedPropertyFns()
         buildSharedMethodCallFn()
@@ -117,41 +153,53 @@ object ClassRegistrar:
             freeFns += (reg.name -> freeFn)
 
             buildVirtualTable(reg.virtuals, stringNameNew, userdataPtr)
-            val propInternTable =
-                buildPropertyInternTable(reg.properties, stringNameNew, userdataPtr)
+            val hasProps = reg.properties.exists { case PropertyItem.Prop(_) => true; case _ => false }
+            val propSNMap = buildPropertyInternTable(reg.properties, stringNameNew, userdataPtr)
 
-            val info = stackalloc[ClassCreationInfo2]()
-            memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[ClassCreationInfo2])
-            info._1 = 0.toUByte                                        // is_virtual
-            info._2 = 0.toUByte                                        // is_abstract
-            info._3 = 1.toUByte                                        // is_exposed
-            info._4 = if reg.properties.nonEmpty then _setFn else null // set_func
-            info._5 = if reg.properties.nonEmpty then _getFn else null // get_func
-            info._6 = null                                             // get_property_list_func
-            info._7 = null                                             // free_property_list_func
-            info._8 = null                                             // property_can_revert_func
-            info._9 = null                                             // property_get_revert_func
-            info._10 = null                                            // validate_property_func
-            info._11 = null                                            // notification_func
-            info._12 = null                                            // to_string_func
-            info._13 = null // reference_func        (future: RefCounted safety)
-            info._14 = null // unreference_func      (future: RefCounted safety)
-            info._15 = CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]]
-            info._16 = CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]]
-            info._17 = null // recreate_instance_func
-            info._18 = null // get_virtual_func      (using 19+20 instead)
-            info._19 = _getCallDataFn
-            info._20 = _callWithDataFn
-            info._21 = null        // get_rid_func
-            info._22 = userdataPtr // class_userdata — key for virtualTables / propertyTables
+            // ── ClassCreationInfo3 (Godot 4.3+): adds is_runtime for hot-reload ──
+            // Heap-allocated so Godot can retain the pointer for the class lifetime.
+            // Layout (x86_64): 4 × UByte + 4 pad + 19 × Ptr (8 bytes each) = 160 bytes.
+            // Fields filled by fixed byte offset — avoids CStruct23 field-accessor issues.
+            val infoRaw = malloc(ClassInfo3Size)
+            memset(infoRaw, 0, ClassInfo3Size)
+            infoRaw(0) = 0.toByte // is_virtual
+            infoRaw(1) = 0.toByte // is_abstract
+            infoRaw(2) = 1.toByte // is_exposed
+            // is_runtime = true for Node subclasses (editor won't tick _ready/_process while editing);
+            // false for Resource/Object subclasses (real instances required in editor, not placeholders).
+            infoRaw(3) = (if reg.isRuntime then 1 else 0).toByte
+            // offset 4–7: implicit struct padding (no write needed, already zeroed)
+            setInfoPtr(infoRaw, 8,   if hasProps then _setFn else null)
+            setInfoPtr(infoRaw, 16,  if hasProps then _getFn else null)
+            // offsets 24–88: optional callbacks (null = not used, already zeroed)
+            setInfoPtr(infoRaw, 96,  CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]])
+            setInfoPtr(infoRaw, 104, CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]])
+            setInfoPtr(infoRaw, 112, CFuncPtr.toPtr(_recreateFn).asInstanceOf[Ptr[Byte]])
+            // offset 120: get_virtual_func (null — using call_data pattern at 128+136 instead)
+            setInfoPtr(infoRaw, 128, _getCallDataFn)
+            setInfoPtr(infoRaw, 136, _callWithDataFn)
+            // offset 144: get_rid_func (null)
+            setInfoPtr(infoRaw, 152, userdataPtr)
 
-            registerClass2(library, classNameBuf, parentNameBuf, info)
+            GdxApi.registerClass3(library, classNameBuf, parentNameBuf, infoRaw)
+            // Prepend so the list ends up in reverse registration order (children first).
+            registeredClassNameBufs = classNameBuf :: registeredClassNameBufs
 
-            // Must be called AFTER registerClass2; Godot copies PropertyInfo on this call.
-            for (_, prop, nameSN) <- propInternTable do
-                GdxApi.registerProperty(gdxLibrary, classNameBuf, nameSN, prop.variantType)
+            // Register property items in declaration order. Must be called AFTER registerClass3.
+            // Group/Subgroup/Category markers produce inspector section headers; Prop items
+            // register the actual property (Godot copies PropertyInfo on this call).
+            for item <- reg.properties do item match
+                case PropertyItem.Prop(desc) =>
+                    GdxApi.registerProperty(gdxLibrary, classNameBuf, propSNMap(desc.name), desc)
+                case PropertyItem.Group(name, prefix) =>
+                    GdxApi.registerPropertyGroup(gdxLibrary, classNameBuf, name, prefix)
+                case PropertyItem.Subgroup(name, prefix) =>
+                    GdxApi.registerPropertySubgroup(gdxLibrary, classNameBuf, name, prefix)
+                case PropertyItem.Category(name) =>
+                    GdxApi.registerPropertyCategory(gdxLibrary, classNameBuf, name)
 
             buildMethodTable(reg.methods, stringNameNew, classNameBuf)
+            buildSignalTable(reg.signals, stringNameNew, classNameBuf)
         end for
     end register
 
@@ -242,6 +290,30 @@ object ClassRegistrar:
         end if
     end buildSharedCreateFn
 
+    /** Build the shared recreate-instance CFuncPtr (once per extension load).
+      *
+      * Called by Godot during hot-reload for each scene node that had an extension instance. Creates
+      * a fresh Scala object, wires it to the existing Godot engine object, and returns the new
+      * instancePtr so Godot can resume virtual dispatch.
+      */
+    private def buildSharedRecreateFn(): Unit =
+        if _recreateFn == null then
+            _recreateFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] {
+                (userdata, godotPtr) =>
+                    factoryMap.get(userdata) match
+                        case Some((factory, _, classNameBuf)) =>
+                            val obj         = factory()
+                            obj.ptr         = godotPtr
+                            val instancePtr = malloc(1).asInstanceOf[Ptr[Byte]]
+                            instanceMap += (instancePtr      -> obj)
+                            instanceClassMap += (instancePtr -> userdata)
+                            GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
+                            instancePtr
+                        case None => null
+                    end match
+            }
+        end if
+
     // ── property dispatch helpers ───────────────────────────────────────────
 
     /** Build the two shared property CFuncPtrs (once per extension load).
@@ -296,24 +368,27 @@ object ClassRegistrar:
         end if
     end buildSharedPropertyFns
 
-    /** Intern each property's StringName, register in `propertyTables`, and return a table row
-      * `(internData, descriptor, nameSN buf)` so the caller can later pass `nameSN` to
-      * `GdxApi.registerProperty` after `registerClass2`.
+    /** Intern each Prop item's StringName, build the set/get dispatch table in `propertyTables`, and
+      * return a `propName → SN buffer` map so the caller can look up the SN buffer per property
+      * when iterating items in order for registration.
+      *
+      * Only `PropertyItem.Prop` items contribute to the dispatch table; marker items are ignored.
       */
     private def buildPropertyInternTable(
-        props: List[PropertyDescriptor],
+        items: List[PropertyItem],
         stringNameNew: StringNameNewFn,
         userdataPtr: Ptr[Byte]
-    ): Array[(Long, PropertyDescriptor, Ptr[Byte])] =
-        val table = props.map { prop =>
+    ): Map[String, Ptr[Byte]] =
+        val propItems = items.collect { case PropertyItem.Prop(d) => d }
+        val snMap = propItems.map { prop =>
             val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
             memset(snBuf, 0, StringNameSize)
             Zone { stringNameNew(snBuf, toCString(prop.name)) }
             val internData = !(snBuf.asInstanceOf[Ptr[Long]])
-            (internData, prop, snBuf)
-        }.toArray
-        propertyTables += (userdataPtr -> table.map(t => (t._1, t._2)))
-        table
+            (prop.name, snBuf, internData, prop)
+        }
+        propertyTables += (userdataPtr -> snMap.map(t => (t._3, t._4)).toArray)
+        snMap.map(t => (t._1, t._2)).toMap
     end buildPropertyInternTable
 
     // ── method dispatch helpers ─────────────────────────────────────────────
@@ -323,10 +398,10 @@ object ClassRegistrar:
             val fn = CFuncPtr6
                 .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[
                   Byte
-                ], Unit] { (methodUserdata, instancePtr, args, argCount, _, _) =>
+                ], Unit] { (methodUserdata, instancePtr, args, argCount, rReturn, _rError) =>
                     val id = !methodUserdata.asInstanceOf[Ptr[Int]]
                     methodDispatchFns.get(id).foreach { dispatch =>
-                        instanceMap.get(instancePtr).foreach(dispatch(_, args, argCount))
+                        instanceMap.get(instancePtr).foreach(dispatch(_, args, argCount, rReturn))
                     }
                 }
             _methodCallFn = CFuncPtr.toPtr(fn).asInstanceOf[Ptr[Byte]]
@@ -342,25 +417,86 @@ object ClassRegistrar:
         methods: List[MethodEntry],
         stringNameNew: StringNameNewFn,
         classNameBuf: Ptr[Byte]
-    ): Unit =
-        for method <- methods do
-            val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
-            memset(snBuf, 0, StringNameSize)
-            Zone { stringNameNew(snBuf, toCString(method.name)) }
+    ): Unit = for method <- methods do
+        val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+        memset(snBuf, 0, StringNameSize)
+        Zone { stringNameNew(snBuf, toCString(method.name)) }
 
-            val id = methodDispatchNextId; methodDispatchNextId += 1
-            methodDispatchFns(id) = method.dispatch
-            val callDataBuf = malloc(4).asInstanceOf[Ptr[Int]]
-            !callDataBuf = id
+        val id = methodDispatchNextId; methodDispatchNextId += 1
+        methodDispatchFns(id) = method.dispatch
+        val callDataBuf = malloc(4).asInstanceOf[Ptr[Int]]
+        !callDataBuf = id
 
-            GdxApi.registerMethod(
+        GdxApi.registerMethod(
+          gdxLibrary,
+          classNameBuf,
+          snBuf,
+          callDataBuf.asInstanceOf[Ptr[Byte]],
+          _methodCallFn,
+          method.hasReturnValue,
+          method.returnVariantType,
+          method.argumentCount
+        )
+    end buildMethodTable
+
+    // ── ClassCreationInfo3 helpers ──────────────────────────────────────────
+
+    // ClassCreationInfo3: 4 × UByte (4 bytes) + 4 pad + 19 × Ptr (8 bytes) = 160 bytes
+    private val ClassInfo3Size: CSize = 160.toUSize
+
+    // Write a Ptr[Byte] at a byte offset into the raw struct buffer.
+    @inline private def setInfoPtr(base: Ptr[Byte], offset: Int, value: Ptr[Byte]): Unit =
+        !(base + offset).asInstanceOf[Ptr[Ptr[Byte]]] = value
+
+    // ── signal registration ─────────────────────────────────────────────────
+
+    private def buildSignalTable(
+        signals: List[SignalDescriptor],
+        stringNameNew: StringNameNewFn,
+        classNameBuf: Ptr[Byte]
+    ): Unit = for signal <- signals do
+        val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+        memset(snBuf, 0, StringNameSize)
+        Zone { stringNameNew(snBuf, toCString(signal.name)) }
+
+        if signal.params.isEmpty then
+            GdxApi.registerSignal(gdxLibrary, classNameBuf, snBuf)
+        else
+            // Heap-allocate a PropertyInfo array for the signal's typed parameters.
+            // Godot retains this pointer for the class lifetime — never freed intentionally.
+            val count   = signal.params.size
+            val infoArr = malloc(sizeof[PropertyInfo] * count.toUSize)
+                .asInstanceOf[Ptr[PropertyInfo]]
+            memset(infoArr.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo] * count.toUSize)
+
+            for (param, i) <- signal.params.zipWithIndex do
+                val elem = infoArr + i
+                elem._1 = param.variantType.toUInt
+
+                val nameSN = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+                memset(nameSN, 0, StringNameSize)
+                Zone { stringNameNew(nameSN, toCString(param.name)) }
+                elem._2 = nameSN
+
+                val clsSN = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
+                memset(clsSN, 0, StringNameSize)
+                if param.className.nonEmpty then
+                    Zone { stringNameNew(clsSN, toCString(param.className)) }
+                elem._3 = clsSN
+
+                elem._4 = 0.toUInt                      // hint = None
+                val emptyStr = malloc(8).asInstanceOf[Ptr[Byte]]
+                memset(emptyStr, 0, 8.toUSize)
+                elem._5 = emptyStr                      // hint_string = ""
+                elem._6 = PropertyUsage.Default.toUInt  // = 6
+
+            GdxApi.registerSignal(
               gdxLibrary,
               classNameBuf,
               snBuf,
-              callDataBuf.asInstanceOf[Ptr[Byte]],
-              _methodCallFn
+              infoArr.asInstanceOf[Ptr[Byte]],
+              count.toLong
             )
-    end buildMethodTable
 
     // ── string helpers ──────────────────────────────────────────────────────
 

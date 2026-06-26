@@ -3,21 +3,18 @@ package example.control_ui_example
 import gdext.core.*
 import gdext.generated.*
 
-@gdclass
-class ExampleSceneScala extends CenterContainer:
+@gdclass class HelloButtonSc extends CenterContainer:
     var toggled = false
 
-    @onready
-    lazy val btn = $"Button".as(new Button(_))
+    @onready lazy val btn = $"Button".as[Button]
 
     override def _ready(): Unit = print("Hello, Scala!")
 
-    def _onButtonPressed(): Unit =
-        print("_onButtonPressed called")
+    @func def _onButtonPressed(): Unit =
         toggled = !toggled
+
+        // val btn = $"Button"
         val tint = if toggled then 0.3f else 1f
-        print("before modulate")
         btn.modulate = Color(1f, tint, tint, 1f)
-        print("after modulate")
     end _onButtonPressed
-end ExampleSceneScala
+end HelloButtonSc

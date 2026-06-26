@@ -2,6 +2,7 @@ package gdext.core
 
 import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
+import gdext.core.types.{CStruct23, Tags as ExtraStructTags}
 
 // ── Function pointer types ──────────────────────────────────────────────────
 
@@ -9,6 +10,12 @@ type GetProcAddressFn = CFuncPtr1[CString, Ptr[Byte]]
 type StringNameNewFn  = CFuncPtr2[Ptr[Byte], CString, Unit]
 // type ConstructObjectFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 type RegisterClass2Fn = CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[ClassCreationInfo2], Unit]
+// info is passed as raw Ptr[Byte] — struct filled by byte offset in ClassRegistrar
+type RegisterClass3Fn = CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
+// (classUserdata, godotObjectPtr) → instancePtr; called on hot-reload to re-bind instances
+type RecreateInstanceFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Ptr[Byte]]
+// classdb_get_class_tag(classNameSN) → Ptr (non-null = class is registered in ClassDB)
+type GetClassTagFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 type CreateInstanceFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 type FreeInstanceFn   = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
 type GdxInitCallback  = CFuncPtr2[Ptr[Byte], CInt, Unit]
@@ -71,6 +78,64 @@ type ClassCreationInfo2 = CStruct22[
 
 given Tag[ClassCreationInfo2] = Tag
     .materializeCStruct22Tag[
+      UByte,
+      UByte,
+      UByte,
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte],
+      Ptr[Byte]
+    ]
+
+// ── GDExtensionClassCreationInfo3 (Godot 4.3+) ────────────────────────────
+// Adds `is_runtime` at field 4 (all subsequent fields shift by one).
+// Function pointer signatures are unchanged vs info2.
+// Used with classdb_register_extension_class3.
+
+type ClassCreationInfo3 = CStruct23[
+  UByte,     // 1  is_virtual
+  UByte,     // 2  is_abstract
+  UByte,     // 3  is_exposed
+  UByte,     // 4  is_runtime          ← NEW: 1 for normal game scripts
+  Ptr[Byte], // 5  set_func
+  Ptr[Byte], // 6  get_func
+  Ptr[Byte], // 7  get_property_list_func
+  Ptr[Byte], // 8  free_property_list_func
+  Ptr[Byte], // 9  property_can_revert_func
+  Ptr[Byte], // 10 property_get_revert_func
+  Ptr[Byte], // 11 validate_property_func
+  Ptr[Byte], // 12 notification_func
+  Ptr[Byte], // 13 to_string_func
+  Ptr[Byte], // 14 reference_func
+  Ptr[Byte], // 15 unreference_func
+  Ptr[Byte], // 16 create_instance_func ← required
+  Ptr[Byte], // 17 free_instance_func   ← required
+  Ptr[Byte], // 18 recreate_instance_func ← for hot-reload
+  Ptr[Byte], // 19 get_virtual_func
+  Ptr[Byte], // 20 get_virtual_call_data_func
+  Ptr[Byte], // 21 call_virtual_with_data_func
+  Ptr[Byte], // 22 get_rid_func
+  Ptr[Byte]  // 23 class_userdata
+]
+
+given Tag[ClassCreationInfo3] = ExtraStructTags
+    .materializeCStruct23Tag[
+      UByte,
       UByte,
       UByte,
       UByte,

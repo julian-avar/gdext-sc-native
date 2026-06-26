@@ -1,6 +1,7 @@
-package gdext.generator
+package gdext.generator.parser
 
 import Ast.GodotArg
+import gdext.generator.parser.Ast
 
 object Parser:
     object Extractors:
@@ -173,17 +174,9 @@ object Parser:
 
     // ── Utility Functions ────────────────────────────────────────────────────
 
-    case class UtilityFunction(
-        name: String,
-        isVararg: Boolean,
-        hash: Long,
-        arguments: Vector[GodotArg],
-        returnTypeName: String
-    )
-
-    def utilityFunctions(json: ujson.Value): Vector[UtilityFunction] = json("utility_functions").arr
-        .map { fn =>
-            UtilityFunction(
+    def utilityFunctions(json: ujson.Value): Vector[Ast.UtilityFunction] = json("utility_functions")
+        .arr.map { fn =>
+            Ast.UtilityFunction(
               name = fn("name").str,
               isVararg = fn.obj.get("is_vararg").exists(_.bool),
               hash = fn.obj.get("hash").map(_.num.toLong).getOrElse(0L),
@@ -199,21 +192,13 @@ object Parser:
             )
         }.toVector
 
-    case class GlobalEnum(
-        name: String,
-        isBitfield: Boolean,
-        values: Vector[(name: String, value: Long)]
-    ):
-        def scalaName: String = name.replace(".", "")
-
-    def globalEnums(json: ujson.Value): Vector[GlobalEnum] =
-        json("global_enums").arr.map { e =>
-            GlobalEnum(
-              name = e("name").str,
-              isBitfield = e.obj.get("is_bitfield").exists(_.bool),
-              values = e("values").arr.map(v => (v("name").str, v("value").num.toLong)).toVector
-            )
-        }.toVector
+    def globalEnums(json: ujson.Value): Vector[Ast.GlobalEnum] = json("global_enums").arr.map { e =>
+        Ast.GlobalEnum(
+          name = e("name").str,
+          isBitfield = e.obj.get("is_bitfield").exists(_.bool),
+          values = e("values").arr.map(v => (v("name").str, v("value").num.toLong)).toVector
+        )
+    }.toVector
 
     def builtinClasses(json: ujson.Value): Vector[Ast.BuiltinClass] =
         // Use float_64 as the authoritative config (Linux/Windows x86-64).
@@ -269,6 +254,7 @@ object Parser:
                     s"Ptr[${baseTypeMap.get(rawType).getOrElse(rawType)}]"
                 end if
             else toParseType
+        end ptrOrRaw
         baseTypeMap.get(toParseType).getOrElse(ptrOrRaw)
     end typeName
 end Parser

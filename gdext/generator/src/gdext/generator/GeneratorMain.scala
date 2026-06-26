@@ -1,13 +1,7 @@
 package gdext.generator
 
 object GeneratorMain:
-    var verboseMode = false
-
     def main(args: Array[String]): Unit =
-        if args.length < 2 then
-            System.err.println("Usage: GeneratorMain <extensionApiPath> <outputDir>")
-            sys.exit(1)
-
         if args.length < 3 then
             System.err.println(
               "Usage: GeneratorMain <gdextension_interface.json> <extension_api.json> <outputDir>"
@@ -21,34 +15,28 @@ object GeneratorMain:
 
         println(s"Reading $interfaceApiPath...")
         val interfaceJson = ujson.read(os.read(interfaceApiPath))
-        val types         = Parser.types(interfaceJson("types"))
-        val interfaces    = Parser.interfaces(interfaceJson("interface"))
+        val types         = parser.Parser.types(interfaceJson("types"))
+        val interfaces    = parser.Parser.interfaces(interfaceJson("interface"))
 
         println(s"Reading $classApiPath...")
         val classJson      = ujson.read(os.read(classApiPath))
-        val singletonNames = Parser.singletonNames(classJson)
-        val classes        = Parser.godotClasses(classJson, singletonNames)
-        val builtins       = Parser.builtinClasses(classJson)
-        val utilities  = Parser.utilityFunctions(classJson)
-        val globalEnums = Parser.globalEnums(classJson)
+        val singletonNames = parser.Parser.singletonNames(classJson)
+        val classes        = parser.Parser.godotClasses(classJson, singletonNames)
+        val builtins       = parser.Parser.builtinClasses(classJson)
+        val utilities      = parser.Parser.utilityFunctions(classJson)
+        val globalEnums    = parser.Parser.globalEnums(classJson)
 
-        println(s"  Found ${classes.size} classes, ${builtins.size} builtin types, ${utilities
+        println(s"  Found ${classes.size} classes, ${builtins.size} builtin types, " + s"${utilities
                 .size} utility functions, ${globalEnums.size} global enums")
 
-        // Names of builtin types that are opaque CStruct value types (not heap classes).
-        // Class wrappers use Ptr[T] for these instead of T or new T(...).
-        val valueBuiltins: Set[String] = builtins.filter(_.members.nonEmpty).map(_.name).toSet
-
-        // RefCounted types need reference() called on acquire to prevent Godot from freeing them.
+        val valueBuiltins: Set[String]   = builtins.filter(_.members.nonEmpty).map(_.name).toSet
         val refcountedTypes: Set[String] = classes.filter(_.isRefcounted).map(_.name).toSet
 
         val scalaFiles = Generator.types(types.toVector) ++ Generator.interfaces(interfaces) ++
-            Generator.generateBuiltins(builtins) ++
-            Generator.classVirtuals(classes, valueBuiltins) ++
-            Generator.generateWrappers(classes, valueBuiltins, refcountedTypes) ++
-            Generator.generateUtilityFunctions(utilities, valueBuiltins, refcountedTypes) ++
-            Generator.generateGlobalScope(utilities, globalEnums)
-        end scalaFiles
+            Generator.builtins(builtins) ++ Generator.virtuals(classes, valueBuiltins) ++
+            Generator.wrappers(classes, valueBuiltins, refcountedTypes) ++
+            Generator.utilities(utilities, valueBuiltins, refcountedTypes) ++
+            Generator.globalScope(utilities, globalEnums)
 
         os.makeDir.all(outDir)
 
@@ -56,7 +44,6 @@ object GeneratorMain:
             val filePath = file.path.split("/").foldLeft(outDir)(_ / _) / s"${file.name}.scala"
             os.makeDir.all(filePath / os.up)
             os.write.over(filePath, file.content)
-            if verboseMode then println(s"  wrote ${file.path}/${file.name}.scala")
         end for
 
         println(s"Done. Generated ${scalaFiles.size} files into $outDir")
