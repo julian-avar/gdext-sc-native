@@ -39,42 +39,73 @@ private type VariantDestroyFn = CFuncPtr1[Ptr[Byte], Unit]
 private type ObjectSetInstanceFn = CFuncPtr3[Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]
 // callable_custom_create2(r_callable, p_info)
 private type CallableCreateFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
-private type GetSingletonFn         = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
+private type GetSingletonFn   = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 // classdb_unregister_extension_class(library, classNameSN)
-private type UnregisterClassFn   = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
+private type UnregisterClassFn  = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
+private type EditorPluginFn     = CFuncPtr1[Ptr[Byte], Unit]
+// packed_xxx_array_operator_index: (p_self, p_index) → interior pointer to element
+private[gdext] type PackedArrayIndexFn = CFuncPtr2[Ptr[Byte], Long, Ptr[Byte]]
 // classdb_register_extension_class_signal(library, class_name, signal_name, arg_info, arg_count)
-private type RegisterSignalFn    = CFuncPtr5[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Long, Unit]
+private type RegisterSignalFn = CFuncPtr5[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Long, Unit]
 // object_method_bind_call(method_bind, instance, args: Ptr[Variant*], arg_count, ret_variant, error)
-private type MethodBindCallFn    = CFuncPtr6[Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[Byte], Unit]
+private type MethodBindCallFn =
+    CFuncPtr6[Ptr[Byte], Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[Byte], Unit]
 private type ObjectCastToFn        = CFuncPtr2[Ptr[Byte], Ptr[Byte], Ptr[Byte]]
 private type ObjectGetInstanceIdFn = CFuncPtr1[Ptr[Byte], Long]
 private type ObjectDestroyFn       = CFuncPtr1[Ptr[Byte], Unit]
 
-/** Stable registry mapping Int IDs to Scala closures, dispatched via a single static trampoline.
+/** Type-erased callback dispatched by the shared trampoline.
   *
-  * Closures are kept alive by the map (GC root) and the Int ID is stored in a malloc'd 4-byte
+  * Subclasses unmarshal Variant arguments and invoke the user-supplied Scala closure.
+  */
+private[gdext] sealed trait AnyCallback:
+    def call(args: Ptr[Ptr[Byte]], argc: Long): Unit
+
+private final class Callback0(fn: () => Unit) extends AnyCallback:
+    def call(args: Ptr[Ptr[Byte]], argc: Long): Unit = fn()
+
+private final class Callback1[A](fn: A => Unit, fv: FromVariant[A]) extends AnyCallback:
+    def call(args: Ptr[Ptr[Byte]], argc: Long): Unit = if argc >= 1 then fn(fv.read(args(0)))
+
+private final class Callback2[A, B](fn: (A, B) => Unit, fa: FromVariant[A], fb: FromVariant[B])
+    extends AnyCallback:
+    def call(args: Ptr[Ptr[Byte]], argc: Long): Unit =
+        if argc >= 2 then fn(fa.read(args(0)), fb.read(args(1)))
+end Callback2
+
+private final class Callback3[A, B, C](
+    fn: (A, B, C) => Unit,
+    fa: FromVariant[A],
+    fb: FromVariant[B],
+    fc: FromVariant[C]
+) extends AnyCallback:
+    def call(args: Ptr[Ptr[Byte]], argc: Long): Unit =
+        if argc >= 3 then fn(fa.read(args(0)), fb.read(args(1)), fc.read(args(2)))
+end Callback3
+
+/** Stable registry mapping Int IDs to typed callbacks, dispatched via a single static trampoline.
+  *
+  * Callbacks are kept alive by the map (GC root) and the Int ID is stored in a malloc'd 4-byte
   * buffer passed as callable userdata to Godot. Because Scala Native's immix GC is non-moving,
   * references inside closures (including `this`) remain valid indefinitely.
-  *
-  * Note: registered callbacks are never removed — disconnect support is future work.
   */
-object CallbackRegistry:
-    private val callbacks = scala.collection.mutable.Map[Int, () => Unit]()
+private[gdext] object CallbackRegistry:
+    private val callbacks = scala.collection.mutable.Map[Int, AnyCallback]()
     private var nextId    = 0
-    private[gdext] def register(cb: () => Unit): Int =
+    private[gdext] def register(cb: AnyCallback): Int =
         val id = nextId; nextId += 1; callbacks(id) = cb; id
 
-    /** Single static trampoline — reads callback ID from userdata, dispatches to the closure. */
+    /** Single static trampoline — reads callback ID from userdata, dispatches to the callback. */
     val trampoline: CallableCallFn = CFuncPtr5
         .fromScalaFunction[Ptr[Byte], Ptr[Ptr[Byte]], Long, Ptr[Byte], Ptr[Byte], Unit] {
-            (userdata, _, _, _, rError) =>
-                if rError != null then !rError.asInstanceOf[Ptr[Int]] = 0 // GDEXTENSION_CALL_OK
+            (userdata, args, argc, _, rError) =>
+                if rError != null then !rError.asInstanceOf[Ptr[Int]] = 0
                 val id = !userdata.asInstanceOf[Ptr[Int]]
-                callbacks.get(id).foreach(_.apply())
+                callbacks.get(id).foreach(_.call(args, argc))
         }
 end CallbackRegistry
 
-object GdxApi:
+private[gdext] object GdxApi:
     private var getMethodBindPtr: GetMethodBindFn        = scala.compiletime.uninitialized
     private[gdext] var ptrcallPtr: PtrcallFn             = scala.compiletime.uninitialized
     private var constructObjectPtr: ConstructObjectFn    = scala.compiletime.uninitialized
@@ -92,6 +123,7 @@ object GdxApi:
     private var nodepathDestructorPtr: Ptr[Byte]         = null
     private var variantDestroyPtr: Ptr[Byte]             = null
     private var cachedPrintFn: Ptr[Byte]                 = null
+    private var cachedPrinterrFn: Ptr[Byte]              = null
     private var globalGetSingletonFn: GetSingletonFn     = scala.compiletime.uninitialized
     private var registerPropertyFnAddr: Ptr[Byte]        = null
     private var registerMethodFnAddr: Ptr[Byte]          = null
@@ -99,33 +131,60 @@ object GdxApi:
     private var pktStrArrayCtorPtr: Ptr[Byte]            = null
     private var pktStrArrayPushBackPtr: Ptr[Byte]        = null
     // Array (TYPE_ARRAY = 28) builtin method pointers
-    private[gdext] var arrayDefaultCtorPtr: Ptr[Byte]   = null
-    private[gdext] var arraySizeFnPtr: Ptr[Byte]        = null
-    private[gdext] var arrayGetFnPtr: Ptr[Byte]         = null
-    private[gdext] var arraySetFnPtr: Ptr[Byte]         = null
-    private[gdext] var arrayPushBackFnPtr: Ptr[Byte]    = null
-    private[gdext] var arrayClearFnPtr: Ptr[Byte]       = null
+    private[gdext] var arrayDefaultCtorPtr: Ptr[Byte] = null
+    private[gdext] var arraySizeFnPtr: Ptr[Byte]      = null
+    private[gdext] var arrayGetFnPtr: Ptr[Byte]       = null
+    private[gdext] var arraySetFnPtr: Ptr[Byte]       = null
+    private[gdext] var arrayPushBackFnPtr: Ptr[Byte]  = null
+    private[gdext] var arrayClearFnPtr: Ptr[Byte]     = null
+    private[gdext] var arrayHasFnPtr: Ptr[Byte]       = null
+    private[gdext] var arrayFindFnPtr: Ptr[Byte]      = null
+    private[gdext] var arrayInsertFnPtr: Ptr[Byte]    = null
+    private[gdext] var arrayRemoveAtFnPtr: Ptr[Byte]  = null
+    private[gdext] var arraySortFnPtr: Ptr[Byte]      = null
+    private[gdext] var arrayEraseFnPtr: Ptr[Byte]     = null
     // Dictionary (TYPE_DICTIONARY = 27) builtin method pointers
-    private[gdext] var dictDefaultCtorPtr: Ptr[Byte]    = null
-    private[gdext] var dictSizeFnPtr: Ptr[Byte]         = null
-    private[gdext] var dictHasFnPtr: Ptr[Byte]          = null
-    private[gdext] var dictGetFnPtr: Ptr[Byte]          = null
-    private[gdext] var dictSetFnPtr: Ptr[Byte]          = null
-    private[gdext] var dictEraseFnPtr: Ptr[Byte]        = null
-    private[gdext] var dictClearFnPtr: Ptr[Byte]        = null
-    private var registerSignalFnPtr: RegisterSignalFn    = scala.compiletime.uninitialized
-    private var methodBindCallPtr: MethodBindCallFn      = scala.compiletime.uninitialized
-    private[gdext] var emitSignalMethodBind: Ptr[Byte]   = null
-    private var variantFromSnCtor: Ptr[Byte]             = null
-    private var registerPropertyGroupFnAddr: Ptr[Byte]    = null
-    private var registerPropertySubgroupFnAddr: Ptr[Byte] = null
-    private var registerClass3FnPtr: RegisterClass3Fn        = scala.compiletime.uninitialized
-    private var getClassTagFnPtr: GetClassTagFn               = scala.compiletime.uninitialized
-    private var objectCastToFnPtr: ObjectCastToFn             = scala.compiletime.uninitialized
+    private[gdext] var dictDefaultCtorPtr: Ptr[Byte]            = null
+    private[gdext] var dictSizeFnPtr: Ptr[Byte]                 = null
+    private[gdext] var dictHasFnPtr: Ptr[Byte]                  = null
+    private[gdext] var dictGetFnPtr: Ptr[Byte]                  = null
+    private[gdext] var dictSetFnPtr: Ptr[Byte]                  = null
+    private[gdext] var dictEraseFnPtr: Ptr[Byte]                = null
+    private[gdext] var dictClearFnPtr: Ptr[Byte]                = null
+    private[gdext] var dictKeysFnPtr: Ptr[Byte]                 = null
+    private[gdext] var dictValuesFnPtr: Ptr[Byte]               = null
+    private var registerSignalFnPtr: RegisterSignalFn           = scala.compiletime.uninitialized
+    private var methodBindCallPtr: MethodBindCallFn             = scala.compiletime.uninitialized
+    private[gdext] var emitSignalMethodBind: Ptr[Byte]          = null
+    private[gdext] var disconnectMethodBind: Ptr[Byte]          = null
+    private var variantFromSnCtor: Ptr[Byte]                    = null
+    private var registerPropertyGroupFnAddr: Ptr[Byte]          = null
+    private var registerPropertySubgroupFnAddr: Ptr[Byte]       = null
+    private var registerClass3FnPtr: RegisterClass3Fn           = scala.compiletime.uninitialized
+    private var getClassTagFnPtr: GetClassTagFn                 = scala.compiletime.uninitialized
+    private var objectCastToFnPtr: ObjectCastToFn               = scala.compiletime.uninitialized
     private var objectGetInstanceIdFnPtr: ObjectGetInstanceIdFn = scala.compiletime.uninitialized
-    private var objectDestroyFnPtr: ObjectDestroyFn           = scala.compiletime.uninitialized
-    private[gdext] var initRefMethodBind: Ptr[Byte]           = null
-    private[gdext] var unreferenceMethodBind: Ptr[Byte]       = null
+    private var objectDestroyFnPtr: ObjectDestroyFn             = scala.compiletime.uninitialized
+    private[gdext] var initRefMethodBind: Ptr[Byte]             = null
+    private[gdext] var unreferenceMethodBind: Ptr[Byte]         = null
+    private var editorAddPluginFnPtr: EditorPluginFn            = scala.compiletime.uninitialized
+    private var editorRemovePluginFnPtr: EditorPluginFn         = scala.compiletime.uninitialized
+    // Packed array operator_index (const) — (p_self, p_index) → interior element pointer
+    private[gdext] var packedByteArrayIndexFn: PackedArrayIndexFn    = null
+    private[gdext] var packedInt32ArrayIndexFn: PackedArrayIndexFn   = null
+    private[gdext] var packedInt64ArrayIndexFn: PackedArrayIndexFn   = null
+    private[gdext] var packedFloat32ArrayIndexFn: PackedArrayIndexFn = null
+    private[gdext] var packedFloat64ArrayIndexFn: PackedArrayIndexFn = null
+    private[gdext] var packedStringArrayIndexFn: PackedArrayIndexFn  = null
+    private[gdext] var packedVector2ArrayIndexFn: PackedArrayIndexFn = null
+    private[gdext] var packedVector3ArrayIndexFn: PackedArrayIndexFn = null
+    private[gdext] var packedVector4ArrayIndexFn: PackedArrayIndexFn = null
+    private[gdext] var packedColorArrayIndexFn: PackedArrayIndexFn   = null
+    // Packed array size builtin methods (variant_get_ptr_builtin_method), indexed by variant type ID
+    // Type IDs: 29=Byte,30=Int32,31=Int64,32=Float32,33=Float64,34=String,35=Vec2,36=Vec3,37=Color,38=Vec4
+    private[gdext] val packedSizeFns = new Array[Ptr[Byte]](39)
+    // Packed array destructors, indexed by variant type ID
+    private[gdext] val packedDtors   = new Array[Ptr[Byte]](39)
 
     private[gdext] def initialize(getProcAddr: GetProcAddressFn): Unit =
         val globalGetSingletonAddr = getProcAddr(c"global_get_singleton")
@@ -176,9 +235,9 @@ object GdxApi:
         if ptrCtorGetAddr != null then
             val ptrCtorGet = CFuncPtr.fromPtr[GetPtrCtorFn](ptrCtorGetAddr)
             nodepathFromStrCtorPtr = ptrCtorGet(22.toUInt, 2) // NodePath(from: String), index 2
-            pktStrArrayCtorPtr     = ptrCtorGet(34.toUInt, 0) // PackedStringArray() default ctor
-            arrayDefaultCtorPtr    = ptrCtorGet(28.toUInt, 0) // Array() default ctor
-            dictDefaultCtorPtr     = ptrCtorGet(27.toUInt, 0) // Dictionary() default ctor
+            pktStrArrayCtorPtr = ptrCtorGet(34.toUInt, 0)     // PackedStringArray() default ctor
+            arrayDefaultCtorPtr = ptrCtorGet(28.toUInt, 0)    // Array() default ctor
+            dictDefaultCtorPtr = ptrCtorGet(27.toUInt, 0)     // Dictionary() default ctor
         end if
 
         val ptrBuiltinMethodAddr = getProcAddr(c"variant_get_ptr_builtin_method")
@@ -194,61 +253,86 @@ object GdxApi:
 
             // Array (type 28) methods — hashes from Godot 4.x extension_api.json
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"size")
-            arraySizeFnPtr     = getBM(28.toUInt, snBuf, 3173160232L)
+            arraySizeFnPtr = getBM(28.toUInt, snBuf, 3173160232L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"get")
-            arrayGetFnPtr      = getBM(28.toUInt, snBuf, 708700221L)
+            arrayGetFnPtr = getBM(28.toUInt, snBuf, 708700221L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"set")
-            arraySetFnPtr      = getBM(28.toUInt, snBuf, 3798478031L)
+            arraySetFnPtr = getBM(28.toUInt, snBuf, 3798478031L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"push_back")
             arrayPushBackFnPtr = getBM(28.toUInt, snBuf, 3316032543L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"clear")
-            arrayClearFnPtr    = getBM(28.toUInt, snBuf, 3218959716L)
+            arrayClearFnPtr = getBM(28.toUInt, snBuf, 3218959716L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"has")
+            arrayHasFnPtr = getBM(28.toUInt, snBuf, 3680194679L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"find")
+            arrayFindFnPtr = getBM(28.toUInt, snBuf, 2336346817L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"insert")
+            arrayInsertFnPtr = getBM(28.toUInt, snBuf, 3176316662L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"remove_at")
+            arrayRemoveAtFnPtr = getBM(28.toUInt, snBuf, 2823966027L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"sort")
+            arraySortFnPtr = getBM(28.toUInt, snBuf, 3218959716L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"erase")
+            arrayEraseFnPtr = getBM(28.toUInt, snBuf, 3316032543L)
 
             // Dictionary (type 27) methods
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"size")
-            dictSizeFnPtr  = getBM(27.toUInt, snBuf, 3173160232L)
+            dictSizeFnPtr = getBM(27.toUInt, snBuf, 3173160232L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"has")
-            dictHasFnPtr   = getBM(27.toUInt, snBuf, 3680194679L)
+            dictHasFnPtr = getBM(27.toUInt, snBuf, 3680194679L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"get")
-            dictGetFnPtr   = getBM(27.toUInt, snBuf, 2205440559L)
+            dictGetFnPtr = getBM(27.toUInt, snBuf, 2205440559L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"set")
-            dictSetFnPtr   = getBM(27.toUInt, snBuf, 2175348267L)
+            dictSetFnPtr = getBM(27.toUInt, snBuf, 2175348267L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"erase")
             dictEraseFnPtr = getBM(27.toUInt, snBuf, 1776646889L)
             memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"clear")
             dictClearFnPtr = getBM(27.toUInt, snBuf, 3218959716L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"keys")
+            dictKeysFnPtr = getBM(27.toUInt, snBuf, 4144163970L)
+            memset(snBuf, 0, StringNameSize); stringNameNewPtr(snBuf, c"values")
+            dictValuesFnPtr = getBM(27.toUInt, snBuf, 4144163970L)
         end if
 
-        registerPropertyFnAddr        = getProcAddr(c"classdb_register_extension_class_property")
-        registerPropertyGroupFnAddr   = getProcAddr(c"classdb_register_extension_class_property_group")
-        registerPropertySubgroupFnAddr = getProcAddr(c"classdb_register_extension_class_property_subgroup")
+        registerPropertyFnAddr = getProcAddr(c"classdb_register_extension_class_property")
+        registerPropertyGroupFnAddr =
+            getProcAddr(c"classdb_register_extension_class_property_group")
+        registerPropertySubgroupFnAddr =
+            getProcAddr(c"classdb_register_extension_class_property_subgroup")
         registerMethodFnAddr = getProcAddr(c"classdb_register_extension_class_method")
         val unregisterClassAddr = getProcAddr(c"classdb_unregister_extension_class")
         if unregisterClassAddr != null then
             unregisterClassFnPtr = CFuncPtr.fromPtr[UnregisterClassFn](unregisterClassAddr)
 
-        // Cache the print utility function pointer (needs both functions loaded)
+        // Cache print / printerr utility function pointers
         if getUtilFnAddr != null && snNewAddr != null then
             val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
             memset(snBuf, 0, StringNameSize)
             stringNameNewPtr(snBuf, c"print")
             cachedPrintFn = getUtilFnPtr(snBuf, 2648703342L)
+            memset(snBuf, 0, StringNameSize)
+            stringNameNewPtr(snBuf, c"printerr")
+            cachedPrinterrFn = getUtilFnPtr(snBuf, 2648703342L)
             free(snBuf)
         end if
 
         // Cache Object::connect and Object::emit_signal method binds
         if getMethodBindAddr != null && snNewAddr != null then
-            val objSN    = stackalloc[Byte](StringNameSize)
-            val connSN   = stackalloc[Byte](StringNameSize)
-            val emitSN   = stackalloc[Byte](StringNameSize)
+            val objSN  = stackalloc[Byte](StringNameSize)
+            val connSN = stackalloc[Byte](StringNameSize)
+            val emitSN = stackalloc[Byte](StringNameSize)
             memset(objSN, 0, StringNameSize)
             memset(connSN, 0, StringNameSize)
             memset(emitSN, 0, StringNameSize)
             stringNameNewPtr(objSN, c"Object")
             stringNameNewPtr(connSN, c"connect")
             stringNameNewPtr(emitSN, c"emit_signal")
-            connectMethodBind    = getMethodBindPtr(objSN, connSN, 1518946055L)
+            val discSN = stackalloc[Byte](StringNameSize)
+            memset(discSN, 0, StringNameSize)
+            stringNameNewPtr(discSN, c"disconnect")
+            connectMethodBind = getMethodBindPtr(objSN, connSN, 1518946055L)
             emitSignalMethodBind = getMethodBindPtr(objSN, emitSN, 4047867050L)
+            disconnectMethodBind = getMethodBindPtr(objSN, discSN, 1874754934L)
         end if
 
         val objectCastToAddr = getProcAddr(c"object_cast_to")
@@ -257,7 +341,8 @@ object GdxApi:
 
         val objectGetInstanceIdAddr = getProcAddr(c"object_get_instance_id")
         if objectGetInstanceIdAddr != null then
-            objectGetInstanceIdFnPtr = CFuncPtr.fromPtr[ObjectGetInstanceIdFn](objectGetInstanceIdAddr)
+            objectGetInstanceIdFnPtr = CFuncPtr
+                .fromPtr[ObjectGetInstanceIdFn](objectGetInstanceIdAddr)
 
         val objectDestroyAddr = getProcAddr(c"object_destroy")
         if objectDestroyAddr != null then
@@ -274,8 +359,9 @@ object GdxApi:
             stringNameNewPtr(rcSN, c"RefCounted")
             stringNameNewPtr(irSN, c"init_ref")
             stringNameNewPtr(unrSN, c"unreference")
-            initRefMethodBind     = getMethodBindPtr(rcSN, irSN, 2240911060L)
+            initRefMethodBind = getMethodBindPtr(rcSN, irSN, 2240911060L)
             unreferenceMethodBind = getMethodBindPtr(rcSN, unrSN, 2240911060L)
+        end if
 
         val registerClass3Addr = getProcAddr(c"classdb_register_extension_class3")
         if registerClass3Addr != null then
@@ -297,6 +383,44 @@ object GdxApi:
         if vftCtorGetAddr != null then
             val vftCtor = CFuncPtr.fromPtr[GetVFTCtorFn](vftCtorGetAddr)
             variantFromSnCtor = vftCtor(21.toUInt)
+
+        val editorAddPluginAddr = getProcAddr(c"editor_add_plugin")
+        if editorAddPluginAddr != null then
+            editorAddPluginFnPtr = CFuncPtr.fromPtr[EditorPluginFn](editorAddPluginAddr)
+        val editorRemovePluginAddr = getProcAddr(c"editor_remove_plugin")
+        if editorRemovePluginAddr != null then
+            editorRemovePluginFnPtr = CFuncPtr.fromPtr[EditorPluginFn](editorRemovePluginAddr)
+
+        def loadIndexFn(name: CString): PackedArrayIndexFn =
+            val addr = getProcAddr(name)
+            if addr == null then null else CFuncPtr.fromPtr[PackedArrayIndexFn](addr)
+        packedByteArrayIndexFn    = loadIndexFn(c"packed_byte_array_operator_index_const")
+        packedInt32ArrayIndexFn   = loadIndexFn(c"packed_int32_array_operator_index_const")
+        packedInt64ArrayIndexFn   = loadIndexFn(c"packed_int64_array_operator_index_const")
+        packedFloat32ArrayIndexFn = loadIndexFn(c"packed_float32_array_operator_index_const")
+        packedFloat64ArrayIndexFn = loadIndexFn(c"packed_float64_array_operator_index_const")
+        packedStringArrayIndexFn  = loadIndexFn(c"packed_string_array_operator_index_const")
+        packedVector2ArrayIndexFn = loadIndexFn(c"packed_vector2_array_operator_index_const")
+        packedVector3ArrayIndexFn = loadIndexFn(c"packed_vector3_array_operator_index_const")
+        packedVector4ArrayIndexFn = loadIndexFn(c"packed_vector4_array_operator_index_const")
+        packedColorArrayIndexFn   = loadIndexFn(c"packed_color_array_operator_index_const")
+
+        if ptrBuiltinMethodAddr != null && snNewAddr != null then
+            val getBM = CFuncPtr.fromPtr[GetPtrBuiltinMethodFn](ptrBuiltinMethodAddr)
+            val snBuf2 = stackalloc[Byte](StringNameSize)
+            // Size method — same hash for all packed array types
+            val packedTypeIds = Array(29, 30, 31, 32, 33, 34, 35, 36, 37, 38)
+            for typeId <- packedTypeIds do
+                memset(snBuf2, 0, StringNameSize)
+                stringNameNewPtr(snBuf2, c"size")
+                packedSizeFns(typeId) = getBM(typeId.toUInt, snBuf2, 3173160232L)
+        end if
+        if ptrDtorGetAddr != null then
+            val ptrDtor = CFuncPtr.fromPtr[GetPtrDestructorFn](ptrDtorGetAddr)
+            val packedTypeIds = Array(29, 30, 31, 32, 33, 34, 35, 36, 37, 38)
+            for typeId <- packedTypeIds do
+                packedDtors(typeId) = ptrDtor(typeId.toUInt)
+        end if
     end initialize
 
     def getMethodBind(className: CString, methodName: CString, hash: Long): MethodBindPtr =
@@ -329,6 +453,25 @@ object GdxApi:
       * offset 0: callable_userdata offset 8: token (gdxLibrary) offset 16: object_id offset 24:
       * call_func offsets 32–80: optional callbacks (null = unused)
       */
+    /** Build a custom Callable in `dest` (must be 16 zeroed bytes).
+      *
+      * The Callable routes invocations through `CallbackRegistry.trampoline`. The `userdata`
+      * pointer is passed to the trampoline on every call — it typically points to a heap-allocated
+      * `Int` holding a `CallbackRegistry` ID.
+      *
+      * Used by `connectSignal` (stack-allocated dest) and by `Callable.lambda` factories
+      * (heap-allocated dest, caller owns the memory).
+      */
+    private[gdext] def buildCallable(dest: Ptr[Byte], userdata: Ptr[Byte]): Unit =
+        val info = stackalloc[Byte](88.toUSize)
+        memset(info, 0, 88.toUSize)
+        val infoPtrs = info.asInstanceOf[Ptr[Ptr[Byte]]]
+        infoPtrs(0) = userdata
+        infoPtrs(1) = gdxLibrary
+        infoPtrs(3) = CFuncPtr.toPtr(CallbackRegistry.trampoline).asInstanceOf[Ptr[Byte]]
+        callableCreatePtr(dest, info)
+    end buildCallable
+
     def connectSignal(
         obj: Ptr[Byte],
         signalCStr: CString,
@@ -339,15 +482,15 @@ object GdxApi:
         memset(snBuf, 0, StringNameSize)
         stringNameNewPtr(snBuf, signalCStr)
 
+        val callableBuf = stackalloc[Byte](16)
+        memset(callableBuf, 0, 16.toUSize)
+        // connectSignal uses a custom callFn (not the standard trampoline) so we build it inline.
         val info = stackalloc[Byte](88.toUSize)
         memset(info, 0, 88.toUSize)
         val infoPtrs = info.asInstanceOf[Ptr[Ptr[Byte]]]
         infoPtrs(0) = userdata
         infoPtrs(1) = gdxLibrary
         infoPtrs(3) = CFuncPtr.toPtr(callFn).asInstanceOf[Ptr[Byte]]
-
-        val callableBuf = stackalloc[Byte](16)
-        memset(callableBuf, 0, 16.toUSize)
         callableCreatePtr(callableBuf, info)
 
         val flagsBuf = stackalloc[Int]()
@@ -433,10 +576,9 @@ object GdxApi:
         globalGetSingletonFn(snBuf)
     end getSingleton
 
-    /** Prints a string to Godot's Output panel using the engine's print utility function. */
+    /** Prints a string to Godot's Output panel using the engine's `print` utility function. */
     def printString(s: String): Unit = Zone {
         if cachedPrintFn == null then return
-        // Godot String is 8 bytes; build from CString then wrap in a Variant (24 bytes).
         val strBuf = stackalloc[Byte](8)
         memset(strBuf, 0, 8.toUSize)
         initGodotString(strBuf, toCString(s))
@@ -446,6 +588,21 @@ object GdxApi:
         val argsArr = stackalloc[Ptr[Byte]](1)
         argsArr(0) = varBuf
         callUtilityFunction(cachedPrintFn, argsArr, 1, null)
+        destroyGodotString(strBuf)
+    }
+
+    /** Prints an error string to Godot's Output panel using the engine's `printerr` utility. */
+    def printErrString(s: String): Unit = Zone {
+        if cachedPrinterrFn == null then return
+        val strBuf = stackalloc[Byte](8)
+        memset(strBuf, 0, 8.toUSize)
+        initGodotString(strBuf, toCString(s))
+        val varBuf = stackalloc[Byte](24)
+        memset(varBuf, 0, 24.toUSize)
+        buildVariantFromString(variantFromStrCtor, varBuf, strBuf)
+        val argsArr = stackalloc[Ptr[Byte]](1)
+        argsArr(0) = varBuf
+        callUtilityFunction(cachedPrinterrFn, argsArr, 1, null)
         destroyGodotString(strBuf)
     }
 
@@ -484,12 +641,11 @@ object GdxApi:
             memset(propClassSN, 0, StringNameSize)
             stringNameNewPtr(propClassSN, toCString(prop.propClassName))
             info._3 = propClassSN
-        else
-            info._3 = emptyClassSN
+        else info._3 = emptyClassSN
+        end if
         info._4 = prop.hint.toUInt
         // hint_string: a Godot String (8 bytes)
-        if prop.hintString.nonEmpty then
-            initGodotString(hintStrBuf, toCString(prop.hintString))
+        if prop.hintString.nonEmpty then initGodotString(hintStrBuf, toCString(prop.hintString))
         info._5 = hintStrBuf
         info._6 = prop.usage.toUInt
         fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]], emptySetter, emptyGetter)
@@ -509,6 +665,7 @@ object GdxApi:
     ): Unit =
         if registerClass3FnPtr == null then return
         registerClass3FnPtr(library, classNameSN, parentNameSN, infoRaw)
+    end registerClass3
 
     /** Returns a non-null pointer iff `classNameSN` is currently registered in ClassDB.
       *
@@ -516,8 +673,7 @@ object GdxApi:
       * `.so` load and this init pass is a hot-reload, not a fresh start.
       */
     def getClassTag(classNameSN: Ptr[Byte]): Ptr[Byte] =
-        if getClassTagFnPtr == null then null
-        else getClassTagFnPtr(classNameSN)
+        if getClassTagFnPtr == null then null else getClassTagFnPtr(classNameSN)
 
     /** Register an inspector group header on an already-registered extension class. */
     def registerPropertyGroup(
@@ -528,7 +684,7 @@ object GdxApi:
     ): Unit = Zone {
         if registerPropertyGroupFnAddr == null then return
         // CFuncPtr4[library, className_SN, groupName_GString, prefix_GString, Unit]
-        val fn      = CFuncPtr.fromPtr[CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]](
+        val fn = CFuncPtr.fromPtr[CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]](
           registerPropertyGroupFnAddr
         )
         val nameBuf = stackalloc[Byte](8)
@@ -550,7 +706,7 @@ object GdxApi:
         prefix: String
     ): Unit = Zone {
         if registerPropertySubgroupFnAddr == null then return
-        val fn      = CFuncPtr.fromPtr[CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]](
+        val fn = CFuncPtr.fromPtr[CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Unit]](
           registerPropertySubgroupFnAddr
         )
         val nameBuf = stackalloc[Byte](8)
@@ -565,30 +721,27 @@ object GdxApi:
     }
 
     /** Register an inspector category header via a fake NIL property with USAGE_CATEGORY. */
-    def registerPropertyCategory(
-        library: Ptr[Byte],
-        classNameSN: Ptr[Byte],
-        name: String
-    ): Unit = Zone {
-        if registerPropertyFnAddr == null then return
-        val fn         = CFuncPtr.fromPtr[RegisterPropertyFn](registerPropertyFnAddr)
-        val nameSN     = stackalloc[Byte](StringNameSize)
-        val emptySN    = stackalloc[Byte](StringNameSize)
-        val hintStrBuf = stackalloc[Byte](8)
-        val info       = stackalloc[PropertyInfo]()
-        memset(nameSN, 0, StringNameSize)
-        memset(emptySN, 0, StringNameSize)
-        memset(hintStrBuf, 0, 8.toUSize)
-        memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo])
-        stringNameNewPtr(nameSN, toCString(name))
-        info._1 = 0.toUInt                      // type = NIL
-        info._2 = nameSN
-        info._3 = emptySN                       // class_name = empty
-        info._4 = 0.toUInt                      // hint = None
-        info._5 = hintStrBuf                    // hint_string = ""
-        info._6 = PropertyUsage.Category.toUInt // USAGE_CATEGORY = 128
-        fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]], emptySN, emptySN)
-    }
+    def registerPropertyCategory(library: Ptr[Byte], classNameSN: Ptr[Byte], name: String): Unit =
+        Zone {
+            if registerPropertyFnAddr == null then return
+            val fn         = CFuncPtr.fromPtr[RegisterPropertyFn](registerPropertyFnAddr)
+            val nameSN     = stackalloc[Byte](StringNameSize)
+            val emptySN    = stackalloc[Byte](StringNameSize)
+            val hintStrBuf = stackalloc[Byte](8)
+            val info       = stackalloc[PropertyInfo]()
+            memset(nameSN, 0, StringNameSize)
+            memset(emptySN, 0, StringNameSize)
+            memset(hintStrBuf, 0, 8.toUSize)
+            memset(info.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo])
+            stringNameNewPtr(nameSN, toCString(name))
+            info._1 = 0.toUInt // type = NIL
+            info._2 = nameSN
+            info._3 = emptySN                       // class_name = empty
+            info._4 = 0.toUInt                      // hint = None
+            info._5 = hintStrBuf                    // hint_string = ""
+            info._6 = PropertyUsage.Category.toUInt // USAGE_CATEGORY = 128
+            fn(library, classNameSN, info.asInstanceOf[Ptr[Byte]], emptySN, emptySN)
+        }
 
     /** Register a signal on an already-registered extension class.
       *
@@ -605,18 +758,103 @@ object GdxApi:
     ): Unit =
         if registerSignalFnPtr == null then return
         registerSignalFnPtr(library, classNameSN, signalNameSN, paramInfos, paramCount)
+    end registerSignal
 
-    /** Emit a signal by name from a Godot object.
-      *
-      * Builds a StringName Variant for `signalName` and calls `Object::emit_signal` via ptrcall.
-      * For extension class signals with no arguments this is sufficient. Typed signal payloads
-      * will be added in a later phase.
-      */
+    /** Emit a no-arg signal by name via ptrcall. */
     def emitSignal(objectPtr: Ptr[Byte], signalName: String): Unit =
         if emitSignalMethodBind == null then return
         val args = stackalloc[Ptr[Byte]](1)
         args(0) = StringNames.cached(signalName)
         ptrcallPtr(emitSignalMethodBind, objectPtr, args, null)
+    end emitSignal
+
+    /** Build a 24-byte StringName Variant in `dest` from a cached StringName handle. */
+    private def buildSnVariant(dest: Ptr[Byte], signalName: String): Unit =
+        if variantFromSnCtor == null then return
+        val fn = CFuncPtr.fromPtr[VFTCtorFn](variantFromSnCtor)
+        fn(dest, StringNames.cached(signalName))
+    end buildSnVariant
+
+    /** Emit a signal with 1 typed Variant arg using method_bind_call (handles varargs). */
+    private[gdext] def emitSignalArgs1(
+        objectPtr: Ptr[Byte],
+        signalName: String,
+        a0: Ptr[Byte]
+    ): Unit =
+        if methodBindCallPtr == null || emitSignalMethodBind == null then return
+        val snVar  = stackalloc[Byte](24)
+        val args   = stackalloc[Ptr[Byte]](2)
+        val retVar = stackalloc[Byte](24)
+        val errBuf = stackalloc[Byte](12)
+        memset(snVar, 0, 24.toUSize); memset(retVar, 0, 24.toUSize); memset(errBuf, 0, 12.toUSize)
+        buildSnVariant(snVar, signalName)
+        args(0) = snVar; args(1) = a0
+        methodBindCallPtr(emitSignalMethodBind, objectPtr, args, 2L, retVar, errBuf)
+    end emitSignalArgs1
+
+    /** Emit a signal with 2 typed Variant args using method_bind_call. */
+    private[gdext] def emitSignalArgs2(
+        objectPtr: Ptr[Byte],
+        signalName: String,
+        a0: Ptr[Byte],
+        a1: Ptr[Byte]
+    ): Unit =
+        if methodBindCallPtr == null || emitSignalMethodBind == null then return
+        val snVar  = stackalloc[Byte](24)
+        val args   = stackalloc[Ptr[Byte]](3)
+        val retVar = stackalloc[Byte](24)
+        val errBuf = stackalloc[Byte](12)
+        memset(snVar, 0, 24.toUSize); memset(retVar, 0, 24.toUSize); memset(errBuf, 0, 12.toUSize)
+        buildSnVariant(snVar, signalName)
+        args(0) = snVar; args(1) = a0; args(2) = a1
+        methodBindCallPtr(emitSignalMethodBind, objectPtr, args, 3L, retVar, errBuf)
+    end emitSignalArgs2
+
+    /** Emit a signal with 3 typed Variant args using method_bind_call. */
+    private[gdext] def emitSignalArgs3(
+        objectPtr: Ptr[Byte],
+        signalName: String,
+        a0: Ptr[Byte],
+        a1: Ptr[Byte],
+        a2: Ptr[Byte]
+    ): Unit =
+        if methodBindCallPtr == null || emitSignalMethodBind == null then return
+        val snVar  = stackalloc[Byte](24)
+        val args   = stackalloc[Ptr[Byte]](4)
+        val retVar = stackalloc[Byte](24)
+        val errBuf = stackalloc[Byte](12)
+        memset(snVar, 0, 24.toUSize); memset(retVar, 0, 24.toUSize); memset(errBuf, 0, 12.toUSize)
+        buildSnVariant(snVar, signalName)
+        args(0) = snVar; args(1) = a0; args(2) = a1; args(3) = a2
+        methodBindCallPtr(emitSignalMethodBind, objectPtr, args, 4L, retVar, errBuf)
+    end emitSignalArgs3
+
+    /** Disconnect a signal by reconstructing the Callable from the original userdata pointer.
+      *
+      * Godot compares custom callables by (callable_userdata, token) when equal_func is null. Using
+      * the same udBuf and gdxLibrary as the original connect call produces a Callable that Godot
+      * treats as equal, enabling correct disconnection.
+      */
+    private[gdext] def disconnectSignal(
+        obj: Ptr[Byte],
+        signalName: String,
+        udBuf: Ptr[Byte]
+    ): Unit =
+        if disconnectMethodBind == null then return
+        val info = stackalloc[Byte](88.toUSize)
+        memset(info, 0, 88.toUSize)
+        val infoPtrs = info.asInstanceOf[Ptr[Ptr[Byte]]]
+        infoPtrs(0) = udBuf
+        infoPtrs(1) = gdxLibrary
+        infoPtrs(3) = CFuncPtr.toPtr(CallbackRegistry.trampoline).asInstanceOf[Ptr[Byte]]
+        val callableBuf = stackalloc[Byte](16)
+        memset(callableBuf, 0, 16.toUSize)
+        callableCreatePtr(callableBuf, info)
+        val args = stackalloc[Ptr[Byte]](2)
+        args(0) = StringNames.cached(signalName)
+        args(1) = callableBuf
+        ptrcallPtr(disconnectMethodBind, obj, args, null)
+    end disconnectSignal
 
     /** Registers a callable method on an extension class with Godot's ClassDB.
       *
@@ -657,10 +895,10 @@ object GdxApi:
             val retInfo = malloc(sizeof[PropertyInfo]).asInstanceOf[Ptr[PropertyInfo]]
             memset(retInfo.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo])
             retInfo._1 = returnVariantType.toUInt
-            retInfo._2 = emptySN   // name  — must be a valid StringName, not null
-            retInfo._3 = emptySN   // class_name
-            retInfo._5 = emptyStr  // hint_string — empty Godot String buffer
-            retInfo._6 = 6.toUInt  // usage = Default
+            retInfo._2 = emptySN  // name  — must be a valid StringName, not null
+            retInfo._3 = emptySN  // class_name
+            retInfo._5 = emptyStr // hint_string — empty Godot String buffer
+            retInfo._6 = 6.toUInt // usage = Default
             info._7 = retInfo.asInstanceOf[Ptr[Byte]]
         end if
 
@@ -671,12 +909,17 @@ object GdxApi:
             // since we don't yet carry per-arg type info through MethodEntry.
             val argsInfo = malloc(sizeof[PropertyInfo] * argumentCount.toUSize)
                 .asInstanceOf[Ptr[PropertyInfo]]
-            memset(argsInfo.asInstanceOf[Ptr[Byte]], 0, sizeof[PropertyInfo] * argumentCount.toUSize)
+            memset(
+              argsInfo.asInstanceOf[Ptr[Byte]],
+              0,
+              sizeof[PropertyInfo] * argumentCount.toUSize
+            )
             for i <- 0 until argumentCount do
-                (argsInfo + i)._2 = emptySN   // name — must not be null
-                (argsInfo + i)._3 = emptySN   // class_name
-                (argsInfo + i)._5 = emptyStr  // hint_string
-                (argsInfo + i)._6 = 6.toUInt  // usage
+                (argsInfo + i)._2 = emptySN  // name — must not be null
+                (argsInfo + i)._3 = emptySN  // class_name
+                (argsInfo + i)._5 = emptyStr // hint_string
+                (argsInfo + i)._6 = 6.toUInt // usage
+            end for
             info._10 = argsInfo.asInstanceOf[Ptr[Byte]]
 
             // arguments_metadata: zeroed = GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE
@@ -753,15 +996,25 @@ object GdxApi:
 
     /** Cast an object pointer to a different class, returning null if the cast fails. */
     def objectCastTo(obj: Ptr[Byte], classTag: Ptr[Byte]): Ptr[Byte] =
-        if objectCastToFnPtr == null then null
-        else objectCastToFnPtr(obj, classTag)
+        if objectCastToFnPtr == null then null else objectCastToFnPtr(obj, classTag)
 
     /** Return the engine instance ID for an object (0 for null). */
     def objectGetInstanceId(obj: Ptr[Byte]): Long =
-        if objectGetInstanceIdFnPtr == null then 0L
-        else objectGetInstanceIdFnPtr(obj)
+        if objectGetInstanceIdFnPtr == null then 0L else objectGetInstanceIdFnPtr(obj)
 
     /** Destroy a manually-managed (non-RefCounted) object. */
     def objectDestroy(obj: Ptr[Byte]): Unit =
         if objectDestroyFnPtr != null then objectDestroyFnPtr(obj)
+
+    /** Activate an EditorPlugin class that was registered at Editor level. Equivalent to adding it
+      * to `editor_plugins` in project.godot.
+      */
+    def editorAddPlugin(classNameSN: Ptr[Byte]): Unit =
+        if editorAddPluginFnPtr != null then editorAddPluginFnPtr(classNameSN)
+
+    /** Deactivate a previously activated EditorPlugin. Must be called before unregistering the
+      * class.
+      */
+    def editorRemovePlugin(classNameSN: Ptr[Byte]): Unit =
+        if editorRemovePluginFnPtr != null then editorRemovePluginFnPtr(classNameSN)
 end GdxApi

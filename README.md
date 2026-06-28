@@ -1,5 +1,11 @@
 # GDExtension for Scala
 
+State: Amoeba
+
+Complete API breakeage should be expected
+
+AI allowed.
+
 ## Using the project
 
 TBD

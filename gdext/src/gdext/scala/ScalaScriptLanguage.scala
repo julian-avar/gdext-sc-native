@@ -30,7 +30,8 @@ class ScalaScriptLanguage(_p: Ptr[Byte] = null) extends ScriptLanguageExtension(
     override def _supportsDocumentation(): Boolean = false
 
     override def _createScript(): gdext.generated.Object =
-        summon[GodotClass[gdext.generated.Object]].wrap(GdxApi.constructObject(ensureScalaScriptSN()))
+        summon[GodotClass[gdext.generated.Object]]
+            .wrap(GdxApi.constructObject(ensureScalaScriptSN()))
 end ScalaScriptLanguage
 
 object ScalaScriptLanguage:

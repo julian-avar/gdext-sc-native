@@ -2,16 +2,17 @@ package gdext.core
 
 import scala.scalanative.unsafe.*
 import scala.scalanative.unsigned.*
+import gdext.generated.RID
 
-trait PtrArg[A]:
+private[gdext] trait PtrArg[A]:
     def size: CSize
     def write(a: A, buf: Ptr[Byte]): Unit
 
-trait PtrRet[R]:
+private[gdext] trait PtrRet[R]:
     def size: CSize
     def read(buf: Ptr[Byte]): R
 
-object PtrArg:
+private[gdext] object PtrArg:
     given PtrArg[Boolean]:
         def size                              = 1.toUSize
         def write(a: Boolean, buf: Ptr[Byte]) = !buf = if a then 1.toByte else 0.toByte
@@ -35,11 +36,20 @@ object PtrArg:
     // For raw pointer passthrough — stores the pointer value, not a copy of the data.
     // Used by generated code for Variant / void* / Array args.
     given PtrArg[Ptr[Byte]]:
-        def size                              = 8.toUSize
+        def size                                = 8.toUSize
         def write(a: Ptr[Byte], buf: Ptr[Byte]) = !buf.asInstanceOf[Ptr[Ptr[Byte]]] = a
+
+    given PtrArg[RID]:
+        def size                                = 8.toUSize
+        def write(a: RID, buf: Ptr[Byte]): Unit =
+            import scala.scalanative.libc.string.{memcpy, memset}
+            if a != null && a.ptr != null then memcpy(buf, a.ptr, 8.toUSize)
+            else memset(buf, 0, 8.toUSize)
+        end write
+    end given
 end PtrArg
 
-object PtrRet:
+private[gdext] object PtrRet:
     given PtrRet[Boolean]:
         def size                 = 1.toUSize
         def read(buf: Ptr[Byte]) = !buf != 0.toByte
@@ -59,10 +69,21 @@ object PtrRet:
     given PtrRet[Double]:
         def size                 = 8.toUSize
         def read(buf: Ptr[Byte]) = !buf.asInstanceOf[Ptr[Double]]
+
+    given PtrRet[RID]:
+        def size                      = 8.toUSize
+        def read(buf: Ptr[Byte]): RID =
+            import scala.scalanative.libc.stdlib.malloc
+            import scala.scalanative.libc.string.memcpy
+            val heap = malloc(8.toUSize)
+            memcpy(heap, buf, 8.toUSize)
+            new RID(heap)
+        end read
+    end given
 end PtrRet
 
-// Fixed-arity ptrcall dispatchers. NOT inline — inlining these crashes dotty.
-object Ptrcall:
+/** // Fixed-arity ptrcall dispatchers. NOT inline — inlining these crashes dotty. */
+private[gdext] object Ptrcall:
     private inline def noArgs: Ptr[Ptr[Byte]] = null.asInstanceOf[Ptr[Ptr[Byte]]]
     private inline def noRet: Ptr[Byte]       = null.asInstanceOf[Ptr[Byte]]
 

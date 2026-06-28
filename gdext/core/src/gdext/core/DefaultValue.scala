@@ -1,9 +1,10 @@
 package gdext.core
 
 import scala.scalanative.unsafe.*
+import gdext.generated.RID
 
-/** Provides a sensible zero/empty value for a type, used when Godot needs to construct an
-  * extension class instance without arguments.
+/** Provides a sensible zero/empty value for a type, used when Godot needs to construct an extension
+  * class instance without arguments.
   *
   * The macro summons `DefaultValue[A]` for each constructor parameter that has no explicit Scala
   * default. Givens are provided for primitives, object references, `Option`, `Tres[T]`, `Tscn[T]`,
@@ -37,13 +38,21 @@ object DefaultValue:
         new DefaultValue[Gd[T]]:
             def default = Gd.nullOf[T]
 
-    given defaultOption: [A] => DefaultValue[Option[A]] =
-        new DefaultValue[Option[A]]:
-            def default = None
+    given defaultOption: [A] => DefaultValue[Option[A]] = new DefaultValue[Option[A]]:
+        def default = None
 
     // DefaultValue for Tres[T] and Tscn[T] live in their companion objects (opaque type scoping).
 
     given defaultRequired: [A] => (inner: DefaultValue[A]) => DefaultValue[Required[A]] =
         new DefaultValue[Required[A]]:
             def default = Required(inner.default)
+
+    given DefaultValue[RID] = new DefaultValue[RID]:
+        def default: RID =
+            import scala.scalanative.libc.stdlib.malloc
+            import scala.scalanative.unsafe.*
+            val buf = malloc(sizeof[Long])
+            !(buf.asInstanceOf[Ptr[Long]]) = 0L
+            new RID(buf)
+        end default
 end DefaultValue

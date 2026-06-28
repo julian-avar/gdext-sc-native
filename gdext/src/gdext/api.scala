@@ -18,6 +18,7 @@ object api:
     export gdext.core.gdclass
     export gdext.core.gdexport
     export gdext.core.func
+    export gdext.core.gdenum
 
     // ── Registration ─────────────────────────────────────────────────────────
     export gdext.core.Register
@@ -32,10 +33,22 @@ object api:
     export gdext.core.ToVariant
     export gdext.core.FromVariant
 
+    // ── Signal handles ────────────────────────────────────────────────────────
+    export gdext.core.{Signal0, Signal1, Signal2, Signal3, ConnectionToken}
+
+    // ── Callable lambda factories ─────────────────────────────────────────────
+    export gdext.core.CallableLambda
+
+    // ── Godot output + typed null ─────────────────────────────────────────────
+    export gdext.godot.{print, println, printerr, nullOf, Log}
+
+    // Note: `Zone` and `alloc` come from `scala.scalanative.unsafe.*`.
+    // Add that import alongside `gdext.api.*` when working with value-type engine methods.
+
+    // ── Editor integration ────────────────────────────────────────────────────
+    export gdext.editor.ScalaEditorPlugin
+
     // ── Entry point helpers ───────────────────────────────────────────────────
-    // Re-exports the top-level GodotEntry (which includes ScalaScript registration).
-    // Use `gdext.GodotEntry.init(...)` by FQN in entry files to avoid the local
-    // `object GodotEntry` shadowing this re-export.
     export gdext.GodotEntry
 
     type GetProcAddressFn = gdext.core.GetProcAddressFn

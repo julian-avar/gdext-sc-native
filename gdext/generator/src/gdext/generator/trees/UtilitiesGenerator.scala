@@ -75,6 +75,7 @@ class UtilitiesGenerator(using dialect: Dialect):
           List(
             "import scala.scalanative.unsafe.*",
             "import scala.scalanative.unsigned.*",
+            "import scala.scalanative.libc.stdlib.malloc",
             "import gdext.core.GdxApi"
           ),
           List(utilitiesObj)

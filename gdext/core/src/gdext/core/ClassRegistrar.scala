@@ -7,9 +7,17 @@ import scala.scalanative.libc.string.*
 import gdext.core.method.MethodEntry
 
 /** Registers user-defined classes with Godot at scene-level init time. */
-object ClassRegistrar:
-    // godotPtr → Scala instance; looked up on every virtual call.
+private[gdext] object ClassRegistrar:
+    // instancePtr → Scala instance; looked up on every virtual/property/method dispatch.
     private var instanceMap: Map[Ptr[Byte], GodotObject] = Map.empty
+
+    // godotPtr (engine object pointer) → Scala instance.
+    // Populated in create/recreate; evicted in free.  Lets GodotClass.wrap return the
+    // canonical Scala instance rather than a fresh empty wrapper.
+    private var godotPtrMap: Map[Ptr[Byte], GodotObject] = Map.empty
+
+    // instancePtr → godotPtr; needed so the free callback can evict the godotPtrMap entry.
+    private var instanceToGodotPtr: Map[Ptr[Byte], Ptr[Byte]] = Map.empty
 
     // Keep all closures alive — GC must never collect them while Godot holds raw ptrs.
     private var freeFns: Map[String, FreeInstanceFn] = Map.empty
@@ -77,43 +85,56 @@ object ClassRegistrar:
     private var methodDispatchNextId     = 0
     private var _methodCallFn: Ptr[Byte] = null
 
-    // Class name StringName buffers in registration order. Prepended so the list is in
-    // reverse order — iteration gives children-first, which is the correct unregistration order.
-    private var registeredClassNameBufs: List[Ptr[Byte]] = Nil
+    // (classNameBuf, initLevel) in reverse registration order — children-first for unregistration.
+    private var registeredClassBufs: List[(Ptr[Byte], Int)] = Nil
 
-    /** Unregister all extension classes from Godot's ClassDB, then reset dispatch state.
+    // classNameBufs of auto-activated EditorPlugin subclasses; removed on deinit(Editor).
+    private var editorPluginBufs: List[Ptr[Byte]] = Nil
+
+    /** Unregister extension classes from Godot's ClassDB for the given init level.
       *
-      * Must be called from `deinitialize(SCENE)` to enable clean hot-reload. Unregisters in
-      * reverse registration order so child classes are removed before their parents.
+      * Call from `deinitialize(level)`. Only unregisters classes registered at that level. Resets
+      * dispatch state after all classes have been removed (at Scene level).
       */
-    def unregisterAll(): Unit =
-        // Only unregister classes still present in ClassDB. On hot-reload Godot may have
-        // already torn down a class (race between old-image deinit and new-image init).
-        // Calling unregister on an absent class is safe but triggers a Godot warning.
-        for buf <- registeredClassNameBufs do
+    def unregisterAll(level: Int = GdxInitLevel.Scene): Unit =
+        // Remove editor plugins before unregistering their classes — Godot requires this ordering.
+        if level == GdxInitLevel.Editor then
+            for buf <- editorPluginBufs do GdxApi.editorRemovePlugin(buf)
+            editorPluginBufs = Nil
+        end if
+        val (toRemove, toKeep) = registeredClassBufs.partition(_._2 == level)
+        for (buf, _) <- toRemove do
+            // Only unregister classes still present in ClassDB — on hot-reload Godot may have
+            // already torn down a class (race between old-image deinit and new-image init).
             if GdxApi.getClassTag(buf) != null then GdxApi.unregisterClass(gdxLibrary, buf)
-        registeredClassNameBufs = Nil
-        // Reset dispatch tables so register() can safely run again on the next init.
-        instanceMap = Map.empty
-        instanceClassMap = Map.empty
-        factoryMap = Map.empty
-        virtualTables = Map.empty
-        propertyTables = Map.empty
-        freeFns = Map.empty
-        dispatchFns.clear()
-        dispatchNextId = 0
-        methodDispatchFns.clear()
-        methodDispatchNextId = 0
-        _createFn = null
-        _recreateFn = null
-        _getCallDataFn = null
-        _callWithDataFn = null
-        _setFn = null
-        _getFn = null
-        _methodCallFn = null
+        end for
+        registeredClassBufs = toKeep
+        // Reset dispatch state once all classes are gone.
+        if registeredClassBufs.isEmpty then
+            instanceMap = Map.empty
+            godotPtrMap = Map.empty
+            instanceToGodotPtr = Map.empty
+            instanceClassMap = Map.empty
+            factoryMap = Map.empty
+            virtualTables = Map.empty
+            propertyTables = Map.empty
+            freeFns = Map.empty
+            editorPluginBufs = Nil
+            dispatchFns.clear()
+            dispatchNextId = 0
+            methodDispatchFns.clear()
+            methodDispatchNextId = 0
+            _createFn = null
+            _recreateFn = null
+            _getCallDataFn = null
+            _callWithDataFn = null
+            _setFn = null
+            _getFn = null
+            _methodCallFn = null
+        end if
     end unregisterAll
 
-    def register(): Unit =
+    def register(level: Int = GdxInitLevel.Scene): Unit =
         val getProcAddr = gdxGetProcAddress
         val library     = gdxLibrary
 
@@ -122,13 +143,14 @@ object ClassRegistrar:
 
         val stringNameNew = CFuncPtr.fromPtr[StringNameNewFn](stringNameNewPtr)
 
+        // Shared CFuncPtrs are built once; safe to call again on subsequent levels.
         buildSharedCreateFn()
         buildSharedRecreateFn()
         buildSharedVirtualFns()
         buildSharedPropertyFns()
         buildSharedMethodCallFn()
 
-        for reg <- GdClassRegistry.getRegistrations do
+        for reg <- GdClassRegistry.getRegistrations if reg.initLevel == level do
             // Heap-allocate StringName buffers — Godot may hold these past this call.
             val classNameBuf  = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
             val parentNameBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
@@ -146,6 +168,9 @@ object ClassRegistrar:
 
             val freeFn = CFuncPtr2
                 .fromScalaFunction[Ptr[Byte], Ptr[Byte], Unit] { (_, instancePtr) =>
+                    instanceToGodotPtr.get(instancePtr)
+                        .foreach { godotPtr => godotPtrMap -= godotPtr }
+                    instanceToGodotPtr -= instancePtr
                     instanceMap -= instancePtr
                     instanceClassMap -= instancePtr
                     free(instancePtr)
@@ -153,7 +178,8 @@ object ClassRegistrar:
             freeFns += (reg.name -> freeFn)
 
             buildVirtualTable(reg.virtuals, stringNameNew, userdataPtr)
-            val hasProps = reg.properties.exists { case PropertyItem.Prop(_) => true; case _ => false }
+            val hasProps = reg.properties
+                .exists { case PropertyItem.Prop(_) => true; case _ => false }
             val propSNMap = buildPropertyInternTable(reg.properties, stringNameNew, userdataPtr)
 
             // ── ClassCreationInfo3 (Godot 4.3+): adds is_runtime for hot-reload ──
@@ -169,10 +195,10 @@ object ClassRegistrar:
             // false for Resource/Object subclasses (real instances required in editor, not placeholders).
             infoRaw(3) = (if reg.isRuntime then 1 else 0).toByte
             // offset 4–7: implicit struct padding (no write needed, already zeroed)
-            setInfoPtr(infoRaw, 8,   if hasProps then _setFn else null)
-            setInfoPtr(infoRaw, 16,  if hasProps then _getFn else null)
+            setInfoPtr(infoRaw, 8, if hasProps then _setFn else null)
+            setInfoPtr(infoRaw, 16, if hasProps then _getFn else null)
             // offsets 24–88: optional callbacks (null = not used, already zeroed)
-            setInfoPtr(infoRaw, 96,  CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]])
+            setInfoPtr(infoRaw, 96, CFuncPtr.toPtr(_createFn).asInstanceOf[Ptr[Byte]])
             setInfoPtr(infoRaw, 104, CFuncPtr.toPtr(freeFn).asInstanceOf[Ptr[Byte]])
             setInfoPtr(infoRaw, 112, CFuncPtr.toPtr(_recreateFn).asInstanceOf[Ptr[Byte]])
             // offset 120: get_virtual_func (null — using call_data pattern at 128+136 instead)
@@ -183,20 +209,29 @@ object ClassRegistrar:
 
             GdxApi.registerClass3(library, classNameBuf, parentNameBuf, infoRaw)
             // Prepend so the list ends up in reverse registration order (children first).
-            registeredClassNameBufs = classNameBuf :: registeredClassNameBufs
+            registeredClassBufs = (classNameBuf, reg.initLevel) :: registeredClassBufs
+
+            // Auto-activate EditorPlugin subclasses so the user doesn't need a project.godot entry.
+            // Checked against direct parent only — covers 99% of use cases.
+            if reg.initLevel == GdxInitLevel.Editor && reg.parentName == "EditorPlugin" then
+                GdxApi.editorAddPlugin(classNameBuf)
+                editorPluginBufs = classNameBuf :: editorPluginBufs
+            end if
 
             // Register property items in declaration order. Must be called AFTER registerClass3.
             // Group/Subgroup/Category markers produce inspector section headers; Prop items
             // register the actual property (Godot copies PropertyInfo on this call).
-            for item <- reg.properties do item match
-                case PropertyItem.Prop(desc) =>
-                    GdxApi.registerProperty(gdxLibrary, classNameBuf, propSNMap(desc.name), desc)
-                case PropertyItem.Group(name, prefix) =>
-                    GdxApi.registerPropertyGroup(gdxLibrary, classNameBuf, name, prefix)
-                case PropertyItem.Subgroup(name, prefix) =>
-                    GdxApi.registerPropertySubgroup(gdxLibrary, classNameBuf, name, prefix)
-                case PropertyItem.Category(name) =>
-                    GdxApi.registerPropertyCategory(gdxLibrary, classNameBuf, name)
+            for item <- reg.properties do
+                item match
+                    case PropertyItem.Prop(desc) => GdxApi
+                            .registerProperty(gdxLibrary, classNameBuf, propSNMap(desc.name), desc)
+                    case PropertyItem.Group(name, prefix) => GdxApi
+                            .registerPropertyGroup(gdxLibrary, classNameBuf, name, prefix)
+                    case PropertyItem.Subgroup(name, prefix) => GdxApi
+                            .registerPropertySubgroup(gdxLibrary, classNameBuf, name, prefix)
+                    case PropertyItem.Category(name) => GdxApi
+                            .registerPropertyCategory(gdxLibrary, classNameBuf, name)
+            end for
 
             buildMethodTable(reg.methods, stringNameNew, classNameBuf)
             buildSignalTable(reg.signals, stringNameNew, classNameBuf)
@@ -279,9 +314,11 @@ object ClassRegistrar:
                         val godotPtr = GdxApi.constructObject(parentNameBuf)
                         val obj      = factory()
                         obj.ptr = godotPtr
-                        val instancePtr      = malloc(1).asInstanceOf[Ptr[Byte]]
-                        instanceMap += (instancePtr      -> obj)
-                        instanceClassMap += (instancePtr -> userdata)
+                        val instancePtr        = malloc(1).asInstanceOf[Ptr[Byte]]
+                        instanceMap += (instancePtr        -> obj)
+                        instanceClassMap += (instancePtr   -> userdata)
+                        godotPtrMap += (godotPtr           -> obj)
+                        instanceToGodotPtr += (instancePtr -> godotPtr)
                         GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
                         godotPtr
                     case None => null
@@ -292,27 +329,31 @@ object ClassRegistrar:
 
     /** Build the shared recreate-instance CFuncPtr (once per extension load).
       *
-      * Called by Godot during hot-reload for each scene node that had an extension instance. Creates
-      * a fresh Scala object, wires it to the existing Godot engine object, and returns the new
-      * instancePtr so Godot can resume virtual dispatch.
+      * Called by Godot during hot-reload for each scene node that had an extension instance.
+      * Creates a fresh Scala object, wires it to the existing Godot engine object, and returns the
+      * new instancePtr so Godot can resume virtual dispatch.
       */
     private def buildSharedRecreateFn(): Unit =
         if _recreateFn == null then
-            _recreateFn = CFuncPtr2.fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] {
-                (userdata, godotPtr) =>
+            _recreateFn = CFuncPtr2
+                .fromScalaFunction[Ptr[Byte], Ptr[Byte], Ptr[Byte]] { (userdata, godotPtr) =>
                     factoryMap.get(userdata) match
                         case Some((factory, _, classNameBuf)) =>
-                            val obj         = factory()
-                            obj.ptr         = godotPtr
-                            val instancePtr = malloc(1).asInstanceOf[Ptr[Byte]]
+                            val obj = factory()
+                            obj.ptr = godotPtr
+                            val instancePtr      = malloc(1).asInstanceOf[Ptr[Byte]]
                             instanceMap += (instancePtr      -> obj)
                             instanceClassMap += (instancePtr -> userdata)
+                            // Update the godotPtr mapping to the fresh Scala instance.
+                            godotPtrMap += (godotPtr           -> obj)
+                            instanceToGodotPtr += (instancePtr -> godotPtr)
                             GdxApi.setInstance(godotPtr, classNameBuf, instancePtr)
                             instancePtr
                         case None => null
                     end match
-            }
+                }
         end if
+    end buildSharedRecreateFn
 
     // ── property dispatch helpers ───────────────────────────────────────────
 
@@ -368,8 +409,8 @@ object ClassRegistrar:
         end if
     end buildSharedPropertyFns
 
-    /** Intern each Prop item's StringName, build the set/get dispatch table in `propertyTables`, and
-      * return a `propName → SN buffer` map so the caller can look up the SN buffer per property
+    /** Intern each Prop item's StringName, build the set/get dispatch table in `propertyTables`,
+      * and return a `propName → SN buffer` map so the caller can look up the SN buffer per property
       * when iterating items in order for registration.
       *
       * Only `PropertyItem.Prop` items contribute to the dispatch table; marker items are ignored.
@@ -380,7 +421,7 @@ object ClassRegistrar:
         userdataPtr: Ptr[Byte]
     ): Map[String, Ptr[Byte]] =
         val propItems = items.collect { case PropertyItem.Prop(d) => d }
-        val snMap = propItems.map { prop =>
+        val snMap     = propItems.map { prop =>
             val snBuf = malloc(StringNameSize).asInstanceOf[Ptr[Byte]]
             memset(snBuf, 0, StringNameSize)
             Zone { stringNameNew(snBuf, toCString(prop.name)) }
@@ -445,7 +486,8 @@ object ClassRegistrar:
     private val ClassInfo3Size: CSize = 160.toUSize
 
     // Write a Ptr[Byte] at a byte offset into the raw struct buffer.
-    @inline private def setInfoPtr(base: Ptr[Byte], offset: Int, value: Ptr[Byte]): Unit =
+    @inline
+    private def setInfoPtr(base: Ptr[Byte], offset: Int, value: Ptr[Byte]): Unit =
         !(base + offset).asInstanceOf[Ptr[Ptr[Byte]]] = value
 
     // ── signal registration ─────────────────────────────────────────────────
@@ -459,8 +501,7 @@ object ClassRegistrar:
         memset(snBuf, 0, StringNameSize)
         Zone { stringNameNew(snBuf, toCString(signal.name)) }
 
-        if signal.params.isEmpty then
-            GdxApi.registerSignal(gdxLibrary, classNameBuf, snBuf)
+        if signal.params.isEmpty then GdxApi.registerSignal(gdxLibrary, classNameBuf, snBuf)
         else
             // Heap-allocate a PropertyInfo array for the signal's typed parameters.
             // Godot retains this pointer for the class lifetime — never freed intentionally.
@@ -484,11 +525,12 @@ object ClassRegistrar:
                     Zone { stringNameNew(clsSN, toCString(param.className)) }
                 elem._3 = clsSN
 
-                elem._4 = 0.toUInt                      // hint = None
+                elem._4 = 0.toUInt // hint = None
                 val emptyStr = malloc(8).asInstanceOf[Ptr[Byte]]
                 memset(emptyStr, 0, 8.toUSize)
-                elem._5 = emptyStr                      // hint_string = ""
-                elem._6 = PropertyUsage.Default.toUInt  // = 6
+                elem._5 = emptyStr                     // hint_string = ""
+                elem._6 = PropertyUsage.Default.toUInt // = 6
+            end for
 
             GdxApi.registerSignal(
               gdxLibrary,
@@ -497,6 +539,15 @@ object ClassRegistrar:
               infoArr.asInstanceOf[Ptr[Byte]],
               count.toLong
             )
+        end if
+
+    /** Find the canonical Scala instance for a Godot engine object pointer.
+      *
+      * Returns the same Scala instance that was created when Godot called `create_instance_func`,
+      * so callers get the real live object with all its field state rather than a fresh empty
+      * wrapper. Returns `None` for engine objects that are not user-defined extension classes.
+      */
+    def instanceForGodotPtr(ptr: Ptr[Byte]): Option[GodotObject] = godotPtrMap.get(ptr)
 
     // ── string helpers ──────────────────────────────────────────────────────
 

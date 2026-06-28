@@ -15,7 +15,7 @@ type RegisterClass3Fn = CFuncPtr4[Ptr[Byte], Ptr[Byte], Ptr[Byte], Ptr[Byte], Un
 // (classUserdata, godotObjectPtr) → instancePtr; called on hot-reload to re-bind instances
 type RecreateInstanceFn = CFuncPtr2[Ptr[Byte], Ptr[Byte], Ptr[Byte]]
 // classdb_get_class_tag(classNameSN) → Ptr (non-null = class is registered in ClassDB)
-type GetClassTagFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
+type GetClassTagFn    = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 type CreateInstanceFn = CFuncPtr1[Ptr[Byte], Ptr[Byte]]
 type FreeInstanceFn   = CFuncPtr2[Ptr[Byte], Ptr[Byte], Unit]
 type GdxInitCallback  = CFuncPtr2[Ptr[Byte], CInt, Unit]

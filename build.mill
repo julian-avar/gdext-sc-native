@@ -14,17 +14,18 @@ import com.goyeau.mill.scalafix.ScalafixModule
 
 val defaultScalaVersion       = "3.8.3"
 val defaultScalaNativeVersion = "0.5.11"
-val defaultVersion            = "0.1.0"
+val defaultVersion            = "0.1.1"
 val defaultPomSettings        = PomSettings(
   description = "GD Extension Scala",
-  organization = "julian_avar.gdext-sc-native",
-  url = "https://gitlab.com/julian-avar/gdext-sc-native",
+  organization = "julian-avar.gdext_sc_native",
+  url = "https://gitlab.com/julian-avar/gdext_sc_native",
   licenses = Seq(License.`GPL-3.0`),
-  versionControl = VersionControl.gitlab("julian-avar", "gdext-sc-native"),
-  developers = Seq(Developer("julian-avar", "Julian Avar", "https://gitlab.com/julian-avar"))
+  versionControl = VersionControl.gitlab("", "gdext_sc_native"),
+  developers = Seq(Developer("bajopiano", "Julian Avar", "https://gitlab.com/julian-avar"))
 )
 
-/** User-facing extension module: links gdext + user classes into the final .so. */
+trait Example extends GodotScalaNativeModule
+
 object examples extends Module:
     object rigid_body       extends Example
     object control_ui       extends Example
@@ -36,12 +37,21 @@ object gdext extends SharedModule:
     def mvnDeps    = Seq(Deps.osLib)
     def moduleDeps = Seq(core, generated)
 
-    object core extends SharedModule
+    object core extends SharedModule:
+        // Primitive builtin handles (RID, NodePath, PackedXxx, etc.) live in generated.core
+        // so we can define their typeclasses (PtrArg, ToVariant, ...) here.
+        def moduleDeps = Seq(generated.core)
+    end core
 
     object generated extends SharedModule:
-        def moduleDeps = Seq(gdext.core)
+        def moduleDeps = Seq(core, gdext.core)
         // Generated code uses past syntax since its generated using scalameta's trees.
-        def scalacOptions = super.scalacOptions().toSet.removedAll(Set("-source:future")).toSeq
+        def scalacOptions = (super.scalacOptions().toSet - "-source:future").toSeq
+
+        /** Primitive handle stubs with no deps — compiled before gdext.core. */
+        object core extends SharedModule:
+            // Generated code uses past syntax since its generated using scalameta's trees.
+            def scalacOptions = (super.scalacOptions().toSet - "-source:future").toSeq
     end generated
 
     object generator extends ScalaModule with PublishModule:
@@ -132,7 +142,7 @@ trait SharedModule
     def pomSettings    = defaultPomSettings
 end SharedModule
 
-trait Example extends SharedModule:
+trait GodotScalaNativeModule extends SharedModule:
     def moduleDeps        = Seq(gdext, gdext.core, gdext.generated)
     def releaseMode       = ReleaseMode.Debug
     def nativeBuildTarget = BuildTarget.LibraryDynamic
@@ -155,12 +165,18 @@ trait Example extends SharedModule:
       * game source changes.
       */
     def generatedSources = Task {
-        val regFile   = Task.dest / "GeneratedRegistrations.scala"
-        val entryFile = Task.dest / "GeneratedEntry.scala"
-        val srcRoots  = sources().map(_.path).filter(os.exists)
+        val regFile     = Task.dest / "GeneratedRegistrations.scala"
+        val entryFile   = Task.dest / "GeneratedEntry.scala"
+        val signalsFile = Task.dest / "GeneratedSignalHandles.scala"
+        val srcRoots    = sources().map(_.path).filter(os.exists)
 
         val gdclassPattern = raw"(?s)@gdclass\s+class\s+(\w+)".r
         val pkgPattern     = raw"package\s+([\w.]+)".r
+        val signalPattern  = raw"@signal\s+case\s+class\s+(\w+)\s*\(([^)]*)\)".r
+
+        def toSnakeCase(s: String): String = s
+            .foldLeft("")((a, c) => if c.isUpper && a.nonEmpty then a + "_" + c.toLower else a + c.toLower)
+            .dropWhile(_ == '_')
 
         val allUserFiles = srcRoots.flatMap { root =>
             os.walk(root).filter(p => p.ext == "scala" && !p.last.startsWith("Generated"))
@@ -176,10 +192,67 @@ trait Example extends SharedModule:
             end if
         }
 
+        // Collect @signal case class definitions, associated to their enclosing @gdclass.
+        // (pkg, className, signalName, paramTypes)
+        val signalAssocs: Seq[(String, String, String, List[String])] =
+            allUserFiles.flatMap { file =>
+                val content = os.read(file)
+                if !content.contains("@signal") then Seq.empty
+                else
+                    val pkg     = pkgPattern.findFirstMatchIn(content).map(_.group(1)).getOrElse("")
+                    val classes = gdclassPattern.findAllMatchIn(content).toVector
+                    signalPattern.findAllMatchIn(content).toVector.flatMap { sm =>
+                        classes.filter(_.start < sm.start).lastOption.map { cm =>
+                            val paramsStr = sm.group(2).trim
+                            val types =
+                                if paramsStr.isEmpty then Nil
+                                else paramsStr.split(",").toList.map(_.split(":").last.trim)
+                            (pkg, cm.group(1), sm.group(1), types)
+                        }
+                    }
+                end if
+            }
+
         // Check whether any user file already defines the entry point.
         val userHasEntry = allUserFiles.exists(f => os.read(f).contains("@exported"))
 
         val out = collection.mutable.Buffer.empty[PathRef]
+
+        // Emit signal handle extension methods.
+        // Uses `def` (not lazy val) to avoid extension-doesn't-support-lazy-val limitation.
+        // Inside the @gdclass class, `signalName` calls the extension on `this` automatically.
+        if signalAssocs.nonEmpty then
+            val sigPkg = signalAssocs.head._1
+            val grouped = signalAssocs.groupBy(t => (t._1, t._2))
+            val blocks = grouped.toList.sortBy(_._1._2).map { case ((p, cls), sigs) =>
+                def signalDef(sigName: String, types: List[String]): String =
+                    val valName  = sigName.head.toLower.toString + sigName.tail
+                    val godotName = toSnakeCase(sigName)
+                    types match
+                        case Nil         => s"""  def $valName: Signal0 = Signal0(self, "$godotName")"""
+                        case List(a)     => s"""  def $valName: Signal1[$a] = Signal1(self, "$godotName")"""
+                        case List(a, b)  => s"""  def $valName: Signal2[$a, $b] = Signal2(self, "$godotName")"""
+                        case List(a,b,c) => s"""  def $valName: Signal3[$a, $b, $c] = Signal3(self, "$godotName")"""
+                        case _           => ""
+                val defs = sigs.map { case (_, _, sn, ts) => signalDef(sn, ts) }.filter(_.nonEmpty).mkString("\n")
+                if defs.nonEmpty then s"extension (self: $cls)\n$defs" else ""
+            }.filter(_.nonEmpty).mkString("\n\n")
+            if blocks.nonEmpty then
+                os.write.over(
+                  signalsFile,
+                  s"""// Generated by RegistrationScan — do not edit.
+                    |package $sigPkg
+                    |
+                    |import gdext.core.{Signal0, Signal1, Signal2, Signal3, GodotObject}
+                    |import gdext.core.{ToVariant, FromVariant, given}
+                    |import gdext.generated.{*, given}
+                    |
+                    |$blocks
+                    |""".stripMargin
+                )
+                out += PathRef(signalsFile)
+            end if
+        end if
 
         if found.nonEmpty then
             val pkg         = found.head._1
@@ -273,7 +346,7 @@ trait Example extends SharedModule:
         )
         println(s"Deployed to $dest")
     }
-end Example
+end GodotScalaNativeModule
 
 object Deps:
     val upickle = mvn"com.lihaoyi::upickle::4.4.2"

@@ -29,10 +29,11 @@ object ExportHint:
     /** Numeric slider: `"min,max"` or `"min,max,step"` or `"min,max,step,extra"`. */
     final case class range(min: Double, max: Double, step: Double = 0.0, suffix: String = "")
         extends ExportHint:
-        def hint = PropertyHint.Range
+        def hint       = PropertyHint.Range
         def hintString =
             val base = if step == 0.0 then s"$min,$max" else s"$min,$max,$step"
             if suffix.nonEmpty then s"$base,$suffix" else base
+    end range
 
     /** Comma-separated enum labels: `"North,South,East,West"`. */
     final case class `enum`(labels: String) extends ExportHint:

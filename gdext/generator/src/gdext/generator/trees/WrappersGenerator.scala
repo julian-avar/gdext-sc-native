@@ -43,38 +43,68 @@ class WrappersGenerator(using dialect: Dialect):
         val virtualDefs = virtuals.flatMap(buildVirtualStub(_, valueBuiltins))
 
         val propStats: List[Stat] = cls.properties.flatMap { p =>
-            cls.methods.find { m =>
+            val field = util.toCamel(p.name)
+            val getterStatOpt = cls.methods.find { m =>
                 m.name == p.getter && !m.isVirtual && !m.isStatic && m.args.forall(_.hasDefault)
             }.map { gm =>
-                val field     = util.toCamel(p.name)
-                val retType   = godotType(gm.returnTypeName, gm.returnMeta, valueBuiltins)
-                val getterDef = Defn.Def(
-                  Nil,
-                  Term.Name(field),
-                  Nil,
-                  Nil,
-                  Some(retType),
-                  Term.Apply(Term.Name(util.toCamel(p.getter)), Nil)
-                )
-                val setterDef = p.setter.flatMap { sName =>
-                    cls.methods.find { m =>
-                        m.name == sName && !m.isVirtual && !m.isStatic &&
-                        m.args.count(!_.hasDefault) == 1
-                    }.map { sm =>
-                        val spt =
-                            paramGodotType(sm.args.head.typeName, sm.args.head.meta, valueBuiltins)
-                        Defn.Def(
-                          Nil,
-                          Term.Name(s"${field}_="),
-                          Nil,
-                          List(List(Term.Param(Nil, Term.Name("v"), Some(spt), None))),
-                          Some(Type.Name("Unit")),
-                          Term.Apply(Term.Name(util.toCamel(sName)), List(Term.Name("v")))
-                        )
-                    }
+                val retType = godotType(gm.returnTypeName, gm.returnMeta, valueBuiltins)
+                if valueBuiltins.contains(gm.returnTypeName) then
+                    // Value-builtin getter: the named method requires `(using Zone)` which a
+                    // no-arg property accessor can't supply. Build the body with malloc instead
+                    // (leaks `T.byteSize` per call — acceptable for occasional property reads).
+                    // Use `getXxx()(using zone)` for tight-loop, zero-leak access.
+                    val (retAlloc, retName) = stackallocVBRetAlloc(gm.returnTypeName)
+                    val argsNull            = simpleValDef(
+                      "_args",
+                      asInstanceOfTerm(Lit.Null(), ptrPtrByte)
+                    )
+                    val callStat: Stat = Term.Apply(
+                      Term.Select(Term.Name("GdxApi"), Term.Name("ptrcall")),
+                      List(
+                        Term.Select(
+                          Term.Select(Term.Name(cls.name), Term.Name("Binds")),
+                          Term.Name(toCamel(p.getter))
+                        ),
+                        Term.Name("ptr"),
+                        Term.Name("_args"),
+                        asInstanceOfTerm(retName, ptrByte)
+                      )
+                    )
+                    Defn.Def(
+                      Nil,
+                      Term.Name(field),
+                      Nil,
+                      Nil,
+                      Some(retType),
+                      Term.Block(List(retAlloc, argsNull, callStat, retName))
+                    )
+                else
+                    Defn.Def(
+                      Nil,
+                      Term.Name(field),
+                      Nil,
+                      Nil,
+                      Some(retType),
+                      Term.Apply(Term.Name(util.toCamel(p.getter)), Nil)
+                    )
+            }
+            val setterStatOpt = p.setter.flatMap { sName =>
+                cls.methods.find { m =>
+                    m.name == sName && !m.isVirtual && !m.isStatic &&
+                    m.args.count(!_.hasDefault) == 1
+                }.map { sm =>
+                    val spt = paramGodotType(sm.args.head.typeName, sm.args.head.meta, valueBuiltins)
+                    Defn.Def(
+                      Nil,
+                      Term.Name(s"${field}_="),
+                      Nil,
+                      List(List(Term.Param(Nil, Term.Name("v"), Some(spt), None))),
+                      Some(Type.Name("Unit")),
+                      Term.Apply(Term.Name(util.toCamel(sName)), List(Term.Name("v")))
+                    )
                 }
-                List(getterDef) ++ setterDef.toList
-            }.getOrElse(Nil)
+            }
+            getterStatOpt.toList ++ setterStatOpt.toList
         }.toList
 
         val allMethods             = instanceMethods ++ staticMethods
@@ -153,7 +183,7 @@ class WrappersGenerator(using dialect: Dialect):
           Template(Nil, parentInits, Self(Name.Anonymous(), None), classStats)
         )
 
-        val classType        = Type.Apply(Type.Name("GodotClass"), List(Type.Name(cls.name)))
+        val classType             = Type.Apply(Type.Name("GodotClass"), List(Type.Name(cls.name)))
         val godotClassGiven: Stat = buildGivenAlias(
           classType,
           Term.NewAnonymous(Template(

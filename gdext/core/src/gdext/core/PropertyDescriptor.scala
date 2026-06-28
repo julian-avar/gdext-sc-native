@@ -65,35 +65,45 @@ object PropertyUsage:
 end PropertyUsage
 
 object VariantType:
-    val Nil        = 0
-    val Bool       = 1
-    val Int        = 2
-    val Float      = 3
-    val String     = 4
-    val Vector2    = 5
-    val Vector2i   = 6
-    val Rect2      = 7
-    val Rect2i     = 8
-    val Vector3    = 9
-    val Vector3i   = 10
+    val Nil         = 0
+    val Bool        = 1
+    val Int         = 2
+    val Float       = 3
+    val String      = 4
+    val Vector2     = 5
+    val Vector2i    = 6
+    val Rect2       = 7
+    val Rect2i      = 8
+    val Vector3     = 9
+    val Vector3i    = 10
     val Transform2D = 11
-    val Vector4    = 12
-    val Vector4i   = 13
-    val Plane      = 14
-    val Quaternion = 15
-    val AABB       = 16
-    val Basis      = 17
+    val Vector4     = 12
+    val Vector4i    = 13
+    val Plane       = 14
+    val Quaternion  = 15
+    val AABB        = 16
+    val Basis       = 17
     val Transform3D = 18
-    val Projection = 19
-    val Color      = 20
-    val StringName = 21
-    val NodePath   = 22
-    val RID        = 23
-    val Object     = 24
-    val Callable   = 25
-    val Signal     = 26
-    val Dictionary = 27
-    val Array      = 28
+    val Projection  = 19
+    val Color       = 20
+    val StringName  = 21
+    val NodePath    = 22
+    val RID         = 23
+    val Object      = 24
+    val Callable    = 25
+    val Signal      = 26
+    val Dictionary         = 27
+    val Array              = 28
+    val PackedByteArray    = 29
+    val PackedInt32Array   = 30
+    val PackedInt64Array   = 31
+    val PackedFloat32Array = 32
+    val PackedFloat64Array = 33
+    val PackedStringArray  = 34
+    val PackedVector2Array = 35
+    val PackedVector3Array = 36
+    val PackedColorArray   = 37
+    val PackedVector4Array = 38
 end VariantType
 
 /** Helpers for reading and writing Godot Variant values (24-byte structs).
@@ -144,11 +154,12 @@ object Variant:
         import scala.scalanative.libc.string.memcpy
         !(dest.asInstanceOf[Ptr[Int]]) = typeCode
         memcpy(dest + 8, value.asInstanceOf[Ptr[Byte]], sizeof[T])
+    end writeBuiltin
 
     /** Read a Godot value-type struct out of a 24-byte Variant buffer.
       *
-      * Heap-allocates a new T, copies `sizeof[T]` bytes from the Variant's data section. The
-      * caller owns the returned pointer.
+      * Heap-allocates a new T, copies `sizeof[T]` bytes from the Variant's data section. The caller
+      * owns the returned pointer.
       */
     def readBuiltin[T](src: Ptr[Byte])(using Tag[T]): Ptr[T] =
         import scala.scalanative.libc.stdlib.malloc
@@ -156,4 +167,5 @@ object Variant:
         val dest = malloc(sizeof[T]).asInstanceOf[Ptr[T]]
         memcpy(dest.asInstanceOf[Ptr[Byte]], src + 8, sizeof[T])
         dest
+    end readBuiltin
 end Variant

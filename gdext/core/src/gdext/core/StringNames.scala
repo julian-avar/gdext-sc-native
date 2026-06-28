@@ -14,7 +14,7 @@ import scala.scalanative.libc.string.*
   * Must only be called after GdxApi.initialize() has run (i.e. from SCENE level init onwards, never
   * from Core/Servers init).
   */
-object StringNames:
+private[gdext] object StringNames:
     private val cache = scala.collection.mutable.HashMap.empty[String, Ptr[Byte]]
 
     def cached(name: String): Ptr[Byte] = cache.getOrElseUpdate(

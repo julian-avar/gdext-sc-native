@@ -2,17 +2,9 @@ package gdext.core
 
 import scala.annotation.StaticAnnotation
 
-/** Marks a class as a Godot extension class.
-  *
-  * The annotation is currently documentation-only. Registration is explicit in the user's entry
-  * point. Future: a Mill plugin will auto-generate the registration calls.
-  *
-  * Example:
-  * {{{
-  * @gdclass
-  * class SpinningCube extends Node3D:
-  *   override def _ready(): Unit = ...
-  * }}}
+/** Marks a class as a Godot extension class. Signal handles are auto-generated as extension
+  * methods by the `GodotScalaNativeModule` scanner — one `def signalName: SignalN[...]` per
+  * `@signal case class`, emitted into `GeneratedSignalHandles.scala` in `generatedSources`.
   */
 class gdclass extends StaticAnnotation
 
@@ -31,24 +23,24 @@ class func extends StaticAnnotation
   */
 class gdexport(val hint: ExportHint = ExportHint.none) extends StaticAnnotation
 
-class `export`              extends StaticAnnotation
-class export_range          extends StaticAnnotation
-class export_enum           extends StaticAnnotation
-class export_flags          extends StaticAnnotation
-class export_file           extends StaticAnnotation
-class export_dir            extends StaticAnnotation
-class export_global_file    extends StaticAnnotation
-class export_global_dir     extends StaticAnnotation
-class export_multiline      extends StaticAnnotation
-class export_placeholder    extends StaticAnnotation
-class export_color_no_alpha extends StaticAnnotation
-class export_node_path      extends StaticAnnotation
+class `export`                                                   extends StaticAnnotation
+class export_range                                               extends StaticAnnotation
+class export_enum                                                extends StaticAnnotation
+class export_flags                                               extends StaticAnnotation
+class export_file                                                extends StaticAnnotation
+class export_dir                                                 extends StaticAnnotation
+class export_global_file                                         extends StaticAnnotation
+class export_global_dir                                          extends StaticAnnotation
+class export_multiline                                           extends StaticAnnotation
+class export_placeholder                                         extends StaticAnnotation
+class export_color_no_alpha                                      extends StaticAnnotation
+class export_node_path                                           extends StaticAnnotation
 class export_group(val name: String, val prefix: String = "")    extends StaticAnnotation
 class export_subgroup(val name: String, val prefix: String = "") extends StaticAnnotation
 class export_category(val name: String)                          extends StaticAnnotation
-class export_storage        extends StaticAnnotation
-class export_custom         extends StaticAnnotation
-class export_tool_button    extends StaticAnnotation
+class export_storage                                             extends StaticAnnotation
+class export_custom                                              extends StaticAnnotation
+class export_tool_button                                         extends StaticAnnotation
 
 class onready extends StaticAnnotation
 
@@ -63,6 +55,19 @@ class onready extends StaticAnnotation
   * Emit via `emitSignal("died")` on the containing object.
   */
 class signal extends StaticAnnotation
+
+/** Marks a parameterless Scala 3 enum as a Godot enum for `@gdexport` fields.
+  *
+  * Only annotated enums are exported; non-annotated enums stay private to Scala.
+  * {{{
+  * @gdenum
+  * enum MoveState:
+  *   case Idle, Walking, Running, Jumping, Dead
+  *
+  * @gdexport var state: MoveState = MoveState.Idle
+  * }}}
+  */
+class gdenum extends StaticAnnotation
 
 class rpc extends StaticAnnotation
 

@@ -45,14 +45,18 @@ object GodotEntry:
 
         initCallback = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
             if level == GdxInitLevel.Scene then
-                ClassRegistrar.register()
+                ClassRegistrar.register(GdxInitLevel.Scene)
                 if _onSceneInit != null then _onSceneInit()
+            else if level == GdxInitLevel.Editor then ClassRegistrar.register(GdxInitLevel.Editor)
         }
         deinitCallback = CFuncPtr2.fromScalaFunction[Ptr[Byte], CInt, Unit] { (_, level) =>
-            if level == GdxInitLevel.Scene then ClassRegistrar.unregisterAll()
+            if level == GdxInitLevel.Editor then ClassRegistrar.unregisterAll(GdxInitLevel.Editor)
+            else if level == GdxInitLevel.Scene then
+                ClassRegistrar.unregisterAll(GdxInitLevel.Scene)
         }
 
-        initPtr._1 = GdxInitLevel.Scene
+        // Request Editor-level init so @tool classes are also registered.
+        initPtr._1 = GdxInitLevel.Editor
         initPtr._2 = null
         initPtr._3 = CFuncPtr.toPtr(initCallback).asInstanceOf[Ptr[Byte]]
         initPtr._4 = CFuncPtr.toPtr(deinitCallback).asInstanceOf[Ptr[Byte]]

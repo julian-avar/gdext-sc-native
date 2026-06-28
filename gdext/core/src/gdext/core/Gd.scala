@@ -4,8 +4,8 @@ import scala.scalanative.unsafe.*
 
 /** Typed reference to a Godot engine object.
   *
-  * Carries the raw handle and the `GodotClass[T]` evidence needed to manage lifetime and cast.
-  * Two lifetime regimes, selected by `GodotClass[T].isRefCounted`:
+  * Carries the raw handle and the `GodotClass[T]` evidence needed to manage lifetime and cast. Two
+  * lifetime regimes, selected by `GodotClass[T].isRefCounted`:
   *
   *   - **Manually-managed** (Object/Node subtree): the object lives until freed. Call [[free]] to
   *     destroy it via `object_destroy`. Nodes added to the scene tree are owned by their parent —
@@ -22,7 +22,7 @@ import scala.scalanative.unsafe.*
 final class Gd[T <: GodotObject] private[core] (
     private[core] val handle: Ptr[Byte],
     private[core] val cls: GodotClass[T]
-):
+) extends AutoCloseable:
     /** The raw engine object pointer. Null when [[isNull]]. */
     def objectPtr: Ptr[Byte] = handle
 
@@ -38,9 +38,7 @@ final class Gd[T <: GodotObject] private[core] (
         else cls.wrap(handle)
 
     /** Stable engine instance ID (0 when null). */
-    def instanceId: Long =
-        if isNull then 0L
-        else GdxApi.objectGetInstanceId(handle)
+    def instanceId: Long = if isNull then 0L else GdxApi.objectGetInstanceId(handle)
 
     /** Safe downcast to `U`. Returns a null `Gd[U]` if the object is not a `U`. */
     def cast[U <: GodotObject](using target: GodotClass[U]): Gd[U] =
@@ -57,11 +55,15 @@ final class Gd[T <: GodotObject] private[core] (
     def unref(): Unit =
         if !isNull && cls.isRefCounted then Gd.callRefMethod(GdxApi.unreferenceMethodBind, handle)
 
+    /** Implement `AutoCloseable` so `Using(gd) { ... }` works for RefCounted resources. Delegates
+      * to [[unref]] (no-op for non-RefCounted or null).
+      */
+    def close(): Unit = unref()
+
     def toOpt: Option[Gd[T]] = if isNull then None else Some(this)
 
     override def toString: String =
-        if isNull then s"Gd[${cls.className}](null)"
-        else s"Gd[${cls.className}]#$instanceId"
+        if isNull then s"Gd[${cls.className}](null)" else s"Gd[${cls.className}]#$instanceId"
 end Gd
 
 object Gd:
@@ -80,6 +82,7 @@ object Gd:
         val handle = GdxApi.constructObject(StringNames.cached(cls.className).asInstanceOf[CString])
         if cls.isRefCounted && handle != null then callRefMethod(GdxApi.initRefMethodBind, handle)
         new Gd[T](handle, cls)
+    end newInstance
 
     private[core] def callRefMethod(methodBind: Ptr[Byte], handle: Ptr[Byte]): Unit =
         if methodBind != null then Ptrcall.callVoid0(methodBind, handle)
