@@ -1,0 +1,22 @@
+package build
+
+import mill.*, scalalib.*
+import mill.meta.MillBuildRootModule
+import mill.api.BuildCtx
+
+import millbuild.*
+
+object `package` extends MillBuildRootModule:
+    def moduleDeps = Seq(`generator-module-mill-plugin`)
+    def mvnDeps    = Seq(Deps.millScalafixPlugin, Deps.millLibsScalanativelib)
+
+    object `generator-module-mill-plugin` extends ScalaModule with PublishModule:
+        def scalaVersion = Config.scalaVersion
+        def mvnDeps      = Seq(Deps.millLibs, Deps.scalameta, Deps.trees)
+        def sources      = Task
+            .Sources(BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "src")
+
+        def publishVersion = Config.version
+        def pomSettings    = Config.pomSettings
+    end `generator-module-mill-plugin`
+end `package`

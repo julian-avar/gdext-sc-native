@@ -3,6 +3,8 @@
 Godot 4.x GDExtension binding for Scala Native. Targets C# parity for the scripting surface.
 API is unstable — breaking changes expected.
 
+State: **Amoeba** — core architecture is solid, examples may not compile cleanly yet.
+
 ---
 
 ## Extension Classes
@@ -40,6 +42,10 @@ Override any Godot virtual method — the macro auto-detects overrides and regis
 
 All lifecycle virtuals from the generated `{Class}Virtuals` stubs are detected automatically.
 No explicit virtual registration call needed.
+
+**Note:** virtual methods do not carry `(using Zone)` on their signatures anymore —
+the dispatch trampoline wraps each call in a `Zone`, so any zone-requiring method called
+from within a virtual override works automatically.
 
 ---
 
@@ -120,9 +126,9 @@ Export Scala methods so GDScript, GDExtension, and the engine can call them:
 @gdclass class Enemy extends CharacterBody2D:
   @func def takeDamage(amount: Int): Unit = health -= amount
   @func def getHealth(): Int = health
-  @func def getOffset(): Vector2 = getPosition()          // math type return
+  @func def getOffset(): Vector2 = Zone { getPosition() }
   @func def scaleDamage(factor: Double): Double = damage * factor
-  @func def onBodyEntered(body: PhysicsBody2D): Unit = () // engine object param
+  @func def onBodyEntered(body: PhysicsBody2D): Unit = ()
 ```
 
 - `@func` — registers the method in ClassDB; callable from GDScript and via `call()`
@@ -130,6 +136,8 @@ Export Scala methods so GDScript, GDExtension, and the engine can call them:
 - Supports `Int`, `Long`, `Float`, `Double`, `Bool`, `String`, `Vector2/3/4`, `Color`,
   `Rect2`, `Transform2D/3D`, `AABB`, `Quaternion`, `Plane`, `Projection`,
   `Gd[T]`, direct `T <: GodotObject`, `RID`
+- Methods returning value types (Vector2, Color, etc.) need a `Zone { }` block;
+  see [Zones](#zones) below
 
 ---
 
@@ -149,15 +157,24 @@ Signal signatures appear in the **Node → Signals dock** in the editor.
 
 ### Emitting signals
 
+The generated signal handles are **extension methods** on the containing class.
+The handle name is the camelCase form of the snake_cased Godot signal name:
+
 ```scala
-// Via auto-generated typed handle (preferred)
+// Correct: use the generated typed handle on `this`
 this.moved.emitSignal(velocity.x, velocity.y)
 this.died.emitSignal()
 this.healthChanged.emitSignal(oldHp, newHp)
 ```
 
-Signal handles are generated as extension methods on the class.
-Convention: capitalize the case class (`Moved`), lowercase the handle (`moved`).
+Generated handle pattern:
+```scala
+// GeneratedSignalHandles.scala emits:
+extension (self: PlayerSc)
+  def moved:          Signal2[Float, Float] = Signal2(self, "moved")
+  def died:           Signal0              = Signal0(self, "died")
+  def healthChanged:  Signal2[Int, Int]    = Signal2(self, "health_changed")
+```
 
 ### Connecting signals
 
@@ -174,10 +191,10 @@ disconnect(token)
 disconnect(token2)
 ```
 
-### `Signal0/1/2/3` handles
+### Typed signal handles
 
 ```scala
-val sig: Signal2[Float, Float] = player.moved   // auto-generated
+val sig: Signal2[Float, Float] = player.moved
 sig.emitSignal(dx, dy)
 val tok = sig.connect { (dx, dy) => updateHud(dx, dy) }
 ```
@@ -198,6 +215,7 @@ resource.unref()      // RefCounted — drop reference
 
 - Two lifetime modes: **manually-managed** (Node/Object → `free()`) and
   **RefCounted** (Resource → `unref()`; implements `AutoCloseable`)
+- `Gd.newInstance[T]` calls `init_ref` automatically for RefCounted classes
 - `instanceId` — stable Godot object ID
 - `cast[U]` — typed downcast via `object_cast_to`
 - `nullOf[T]` — null sentinel for nullable `T <: GodotObject` vars
@@ -206,10 +224,25 @@ resource.unref()      // RefCounted — drop reference
 var target: Player = nullOf   // preferred over null
 ```
 
+### Property Setters (Generated Setters)
+
+All generated engine wrappers include Scala `_=` setters for properties:
+
+```scala
+velocity = dir * speed.toFloat       // calls velocity_=(Vector2)
+position = Vector2(x, y)             // calls position_=(Vector2)
+modulate = Color(1f, tint, tint, 1f) // calls modulate_=(Color)
+tintColor = Color(r, g, b, 1f)       // direct assignment on var
+```
+
+The **getter** side may require manual scoping: for example, `position` returns a
+stack-allocated copy, and `getPosition()` requires `(using Zone)`. Use the explicit
+setter/getter methods when the `_=` setter pattern doesn't fit.
+
 ### Math / Builtin Value Types
 
-All 16 Godot builtin value types are available as Scala Native structs with full
-operator support generated from the Godot API:
+All 16 Godot builtin value types are available as Scala Native opaque type aliases
+over `CStruct` pointers, with operators generated from the Godot API:
 
 `Vector2`, `Vector3`, `Vector4`, `Vector2i`, `Vector3i`, `Vector4i`,
 `Color`, `Rect2`, `Rect2i`, `Transform2D`, `Transform3D`, `AABB`,
@@ -218,22 +251,45 @@ operator support generated from the Godot API:
 ```scala
 val dir = Vector2(1f, 0f)
 val scaled = dir * speed.toFloat
-val clamped = speed.clamp(0f, 800f)
+val sum = dir + Vector2(otherX, otherY)
 ```
 
-**Zone convention**: Methods that *return* a value builtin require a `Zone` in scope
-(memory is stack-allocated in the zone, not heap-leaked):
+**Operators available:** `+`, `-`, `*`, `/` (scalar and component-wise).
+**Accessors:** `x`, `y`, `z`, `w`, `r`, `g`, `b`, `a` (where applicable).
+
+**Missing (planned):** named constants (`ZERO`, `ONE`, `UP`, `DOWN`, `LEFT`, `RIGHT`),
+convenience methods (`distanceTo`, `length`, `lengthSquared`, `normalized`, `dot`,
+`cross`, `lerp`, `clamp`, `abs`, `sign`, `angle`, `rotated`, `reflect`).
+These will be added as extension methods in an upcoming generator update.
+
+### Zones
+
+Value-type builtins (`Vector2`, `Vector3`, `Color`, etc.) are opaque pointer types
+wrapping native C structs. When calling generated engine methods that **return** a
+value builtin, you may need to wrap the call in a `Zone { }` block or use the
+`stackalloc`-based getter:
 
 ```scala
-Zone {
-  val dir = Input.getVector("left", "right", "up", "down")
-  velocity = dir * speed.toFloat
-}
+// Some methods require explicit Zone:
+val pos = Zone { getPosition() }
+val dir = Zone { Input.getVector("left", "right", "up", "down") }
+
+// The convenience getter (e.g., `.position`) returns a stack-allocated copy
+// that is valid for the current frame. Use it directly in expressions:
+velocity = dir * speed.toFloat  // both sides are Vector2, no Zone needed
 ```
 
-Property setters for value builtins work normally. Use explicit setter methods
-(`setVelocity(v)`, `setPosition(v)`) — assignment sugar (`obj.velocity = v`) is
-not available for value-type properties due to the Zone requirement.
+**Every virtual method dispatch creates a Zone automatically**, so inside any
+lifecycle override you can call zone-requiring methods directly without a manual
+`Zone { }` block:
+
+```scala
+@gdclass class PlayerSc extends CharacterBody2D:
+    override def _physicsProcess(delta: Double): Unit =
+        val dir = Input.getVector("left", "right", "up", "down")
+        velocity = dir * speed.toFloat
+        moveAndSlide()
+```
 
 ### `RID`
 
@@ -263,6 +319,10 @@ Supports: `size`, `isEmpty`, `apply(i)`, `update(i, v)`, `append`, `clear`,
 
 Full `ToVariant`/`FromVariant`/`ExportType`/`DefaultValue` typeclasses.
 
+**Lifetime:** `GdArray` does not currently manage the internal Godot Array refcount.
+Call `.destroy()` on local temporaries to release the Godot handle. Treat exported
+arrays as extension-lifetime handles.
+
 ### `GdDict[K, V]` — typed Godot Dictionary
 
 ```scala
@@ -277,6 +337,9 @@ val ks: GdArray[String] = scores.keys()
 
 Supports: `size`, `isEmpty`, `has`, `get`, `apply`, `update`, `erase`, `clear`,
 `keys`, `values`, `foreach`, `contains`.
+
+**Lifetime:** same as `GdArray` — call `.destroy()` on locals, or let exported
+dicts live for the extension lifetime.
 
 ### Packed Arrays
 
@@ -307,6 +370,49 @@ val seq: Seq[Float] = arr.toSeq
 
 ---
 
+## Memory Model
+
+Two independent ownership systems run in parallel. Understanding both is required for
+correct resource management.
+
+```
+Scala GC (Immix)                Godot refcount
+────────────────────            ─────────────────────
+GodotObject (Scala wrapper)     native engine object
+  var ptr: Ptr[Byte] ─────────→   refcount ≥ 1
+  (tracked by GC)                 (tracked by Godot)
+```
+
+**Scala GC:** manages Scala wrapper objects — `GodotObject` subclasses, closures,
+collections. The Immix GC is **non-moving**: raw pointers held by Godot callbacks
+into Scala memory (e.g. `CallbackRegistry` entries, instance maps) are guaranteed
+to remain valid. You never `free` a Scala object.
+
+**Godot refcount (Node subtree):** Godot owns nodes via the scene tree. Your Scala
+wrapper holds a raw pointer. Call `free()` only for nodes you created and did
+**not** add to the tree.
+
+**Godot refcount (RefCounted subtree — Resource, AudioStream, Texture, etc.):**
+
+```scala
+// Acquire: Gd.newInstance[T] calls init_ref automatically
+val res: Gd[Resource] = Gd.newInstance[Resource]
+
+// Release: call unref() or use AutoCloseable
+res.unref()
+
+// Or with Using for scoped lifetime
+Using(Gd.newInstance[Resource]) { res =>
+  sprite.setTexture(res.get)
+}
+```
+
+**Note:** generated engine methods that return `RefCounted` subtypes automatically call
+`reference()` on the returned object (via `retSetup` in the generator). No manual
+`.reference()` needed.
+
+---
+
 ## Callables
 
 Wrap Scala lambdas as Godot `Callable`:
@@ -319,8 +425,11 @@ val cb2 = CallableLambda { println("timer fired") }
 timer.connect("timeout", cb2)
 ```
 
-Use `connect[A](signal)(f)` for typed signal connections instead when possible —
+Use `connect[A](signal)(f)` for typed signal connections when possible —
 `CallableLambda` is for engine APIs that expect a raw `Callable` argument.
+
+Supports 0–3 argument lambdas (0–3 arity). For 4+ args, connect directly via
+`callbackRegistry` APIs (advanced).
 
 ---
 
@@ -339,19 +448,154 @@ Extension classes support Godot's **hot-reload** without restarting the editor:
 
 ## Editor Integration
 
+### `EditorPlugin`
+
+`@gdclass @tool class MyPlugin extends EditorPlugin` is auto-activated — the runtime
+calls `editor_add_plugin` on registration and `editor_remove_plugin` on deinit
+automatically.
+
 ```scala
 @gdclass @tool class MyPlugin extends EditorPlugin:
-  override def _enterTree(): Unit = println("plugin activated")
-  override def _exitTree(): Unit  = println("plugin deactivated")
+    override def _enterTree(): Unit =
+        addToolMenuItem("My Action", CallableLambda { doSomething() })
+        println("plugin activated")
+
+    override def _exitTree(): Unit =
+        removeToolMenuItem("My Action")
 ```
 
-- `@tool` combined with `EditorPlugin` subclass — auto-calls `editor_add_plugin`
-  on registration and `editor_remove_plugin` on deinit
-- Register inspector plugins, custom gizmos, or editor UI via the full `EditorPlugin` API
+### Custom class icon
+
+```scala
+@gdclass @tool @icon("res://icons/my_plugin.svg") class MyPlugin extends EditorPlugin:
+    ...
+```
+
+### `EditorInspectorPlugin`
+
+Extend the Godot inspector to add custom controls for your resource types:
+
+```scala
+@gdclass @tool class MyInspector extends EditorInspectorPlugin:
+    override def _canHandle(obj: GodotObject): Boolean =
+        obj.isInstanceOf[MyResource]
+
+    override def _parseBegin(obj: GodotObject): Unit =
+        addCustomControl(Label("My custom inspector UI"))
+
+    override def _parseProperty(
+        obj: GodotObject, tpe: Int, name: String,
+        hintType: Int, hintString: String, usageFlags: Int, wide: Boolean
+    ): Boolean =
+        false // return true to suppress the default inspector row for this property
+```
+
+Register it from the owning `EditorPlugin`:
+
+```scala
+@gdclass @tool class MyPlugin extends EditorPlugin:
+    var inspector: Gd[MyInspector] = Gd.nullOf
+
+    override def _enterTree(): Unit =
+        inspector = Gd.newInstance[MyInspector]
+        addInspectorPlugin(inspector.get)
+
+    override def _exitTree(): Unit =
+        removeInspectorPlugin(inspector.get)
+        inspector.unref()
+```
+
+### `EditorNode3DGizmoPlugin`
+
+Add custom 3D gizmos for your spatial node types:
+
+```scala
+@gdclass @tool class MyGizmoPlugin extends EditorNode3DGizmoPlugin:
+    override def _getGizmoName(): String = "MyGizmo"
+    override def _hasGizmo(node: Node3D): Boolean = node.isInstanceOf[MyNode3D]
+    override def _createGizmo(node: Node3D): EditorNode3DGizmo = ???
+
+@gdclass @tool class MyPlugin extends EditorPlugin:
+    var gizmoPlugin: Gd[MyGizmoPlugin] = Gd.nullOf
+    override def _enterTree(): Unit =
+        gizmoPlugin = Gd.newInstance[MyGizmoPlugin]
+        addNode3dGizmoPlugin(gizmoPlugin.get)
+    override def _exitTree(): Unit =
+        removeNode3dGizmoPlugin(gizmoPlugin.get)
+        gizmoPlugin.unref()
+```
+
+### `EditorImportPlugin`
+
+Custom asset importers:
+
+```scala
+@gdclass @tool class MyImporter extends EditorImportPlugin:
+    override def _getImporterName(): String = "my.importer"
+    override def _getVisibleName(): String  = "My Format"
+    override def _getRecognizedExtensions(): PackedStringArray = ???
+    override def _getResourceType(): String = "Mesh"
+    override def _import(
+        sourceFile: String, savePath: String,
+        options: GdDict[String, Ptr[Byte]],
+        platformVariants: GdArray[String],
+        genFiles: GdArray[String]
+    ): Int = Error.OK.ordinal
+```
+
+### `EditorScript`
+
+Run one-shot scripts from the editor (Script → Run):
+
+```scala
+@gdclass @tool class MyScript extends EditorScript:
+    override def _run(): Unit =
+        println("running!")
+        addRootNode(Node())
+```
+
+### Available editor plugin base classes
+
+All of these can be extended with `@gdclass @tool`:
+
+`EditorPlugin`, `EditorInspectorPlugin`, `EditorImportPlugin`, `EditorNode3DGizmoPlugin`,
+`EditorExportPlugin`, `EditorDebuggerPlugin`, `EditorSyntaxHighlighter`,
+`EditorTranslationParserPlugin`, `EditorContextMenuPlugin`, `EditorResourceConversionPlugin`,
+`EditorVCSInterface`, `EditorScenePostImportPlugin`, `EditorScript`
 
 ---
 
 ## DX / Utilities
+
+### `@onready`
+
+Annotate a `lazy val` to express that it must be initialized after the node enters the
+scene tree. The macro enforces `lazy val` at compile time; the field initializes on first
+access (always safe in or after `_ready`).
+
+```scala
+@gdclass class PlayerHud extends CanvasLayer:
+  @onready lazy val healthBar: ProgressBar = getNode[ProgressBar]("HealthBar")
+  @onready lazy val label: Label           = getNode[Label]("Label")
+
+  override def _ready(): Unit =
+    healthBar.setMaxValue(100)
+    label.setText("Ready!")
+```
+
+### `$"path"` — Node path shorthand
+
+The `$` interpolator is generated as an extension on `StringContext` when a `Node`-derived
+class is in scope:
+
+```scala
+@gdclass class HelloButtonSc extends CenterContainer:
+  @onready lazy val btn = $"Button".as[Button]
+
+  override def _ready(): Unit = btn.setModulate(Color(1f, 0.5f, 0.5f, 1f))
+```
+
+Requires `import gdext.api.*` (which brings `GodotObject.as[T]` into scope).
 
 ### Output
 
@@ -377,11 +621,13 @@ All levels route to Godot's Output panel with a prefix tag.
 
 ### ResourceLoader
 
+Typed convenience around `ResourceLoader.load`:
+
 ```scala
-val tex: Gd[Texture2D] = ResourceLoader.loadAs[Texture2D]("res://icon.png")
+val tex: Gd[Texture2D] = ResourceLoader.singleton.load("res://icon.png")
 ```
 
-Typed convenience wrapper around `ResourceLoader.load`.
+**Planned:** `ResourceLoader.loadAs[T]` convenience wrapper.
 
 ### Null sentinel
 
@@ -416,15 +662,103 @@ and emits Scala sources for the full engine surface:
 - **`just run <example>`** — generate, compile, link, launch Godot in one command
 - **Metals / IntelliJ** — full LSP support on framework and example sources
 - **`Register.auto` scanner** — build-time scalameta source generator discovers all
-  `@gdclass` types and emits `GeneratedRegistrations.scala` automatically
+  `@gdclass` types and emits `GeneratedRegistrations.scala` automatically.
+  Also emits `GeneratedSignalHandles.scala`, `GeneratedGodotClasses.scala`,
+  `GeneratedEntry.scala`.
+- **Mill plugin** — planned; each example ships a `package.mill` showing the intended setup
+
+---
+
+## API Layers
+
+The binding is designed around two layers:
+
+**High-level (current):** macro-driven, annotation-based API for game developers.
+`@gdclass`, `@gdexport`, `@func`, `@signal` handle all boilerplate.
+Full C# scripting parity is the target.
+
+**Low-level (planned):** direct FFI without macro overhead for library authors and
+performance-critical code. Manual class registration, Variant construction/destruction,
+`classdb_get_method_bind` / `object_method_bind_ptrcall` exposed directly.
 
 ---
 
 ## Known Limitations
 
-- **Property assignment sugar for value builtins is unavailable**: use `setVelocity(v)` not `velocity = v` — Zone memory makes the setter-as-assignment pattern unsound.
-- **GdArray / GdDict lifetime**: the internal Godot Array/Dictionary refcount is not managed; treat them as extension-lifetime handles or call `destroy()` explicitly for temporaries.
-- **`GodotClass[T]` given is manual**: each `@gdclass` file must include `given GodotClass[T] = GodotClass.derived[T]` (auto-generation planned).
-- **Registration ordering**: classes are currently registered in scan order; `class Child extends Parent` where both are user classes requires `Parent` to appear before `Child` in `GeneratedRegistrations.scala`.
-- **ScalaDoc on engine classes**: descriptions from `extension_api.json` are not yet forwarded to generated wrappers.
-- **No published plugin**: users clone the repo; a published Mill plugin is planned.
+
+- **`GdArray` / `GdDict` lifetime:** the internal Godot Array/Dictionary refcount is
+  not managed; call `.destroy()` on local temporaries, or treat as extension-lifetime
+  handles for exported properties.
+- **`FromVariant` for `GdArray`/`GdDict`** heap-allocates 8 bytes per read (bounded leak).
+- **Builtin value type conveniences:** named constants (`Vector2.ZERO`, `Vector3.UP`,
+  etc.) and methods (`distanceTo`, `length`, `normalized`, `dot`, `cross`, `lerp`)
+  are not yet generated. Only operators (`+`, `-`, `*`, `/`) and field accessors exist.
+- **Signal arity limit:** `Signal0`–`Signal8` exist; beyond 8 is not yet supported.
+- **`@async`/`@await` wiring:** annotations are defined but not yet implemented.
+- **`@globalClass` wiring:** annotation is defined but not yet implemented.
+- **`@rpc` wiring:** annotation is defined but not yet implemented.
+- **`ResourceLoader.loadAs[T]`:** documented convenience wrapper is not yet implemented;
+  use `ResourceLoader.singleton.load(...)` directly.
+- **Registration ordering:** classes are registered in scan order; `class Child extends Parent`
+  where both are user classes requires `Parent` to appear before `Child` in
+  `GeneratedRegistrations.scala`.
+- **ScalaDoc on engine classes:** descriptions from `extension_api.json` are not yet
+  forwarded to generated wrappers.
+- **No published plugin:** users clone the repo; a Mill plugin is in progress.
+- **`GdxApiV47` is a stub:** version-specific API loading for post-4.7 features is
+  not yet implemented (icon registration works via hardcoded pointer in `GdxApi.initialize`).
+- **Examples may not compile:** the example projects exercise the API but may have
+  fallen out of sync with the active codebase. File issues if something doesn't build.
+
+---
+
+## Roadmap
+
+### Phase 1 — Bug Fixes & Stability (immediate)
+
+- [x] `StringName` type with full typeclasses
+- [x] `NodePath` type with full typeclasses
+- [x] `GdArray`/`GdDict` `destroy()` explicit destructor
+- [x] `@icon` wired through to `classdb_register_extension_class_icon`
+- [x] `ExportHint.flags` — bitfield export hint, `ExportHint.toolButton`
+- [x] Typed `GdArray` export hint (`PROPERTY_HINT_ARRAY_TYPE`)
+- [x] Fix examples to compile: signal emit pattern, `GdArray()` (was `GdArray.empty`),
+      `Double` (was `Float`) for `_process`, `emitSignal` (was `emit`), `Vector2` math
+- [x] Add `Vector2/3/4` extension methods (constants, `distanceTo`, `length`,
+      `normalized`, `dot`, `cross`, `lerp`, `clamp`, `abs`, `sign`)
+- [x] Auto-`reference()` for RefCounted engine returns (generator fix)
+- [ ] `FromVariant` leak mitigation for `GdArray`/`GdDict`
+- [ ] `ResourceLoader.loadAs[T]` convenience wrapper
+- [x] `GdArray.empty[A]` companion method
+
+### Phase 2 — Memory Model Overhaul (next)
+
+- [ ] Deferred `unreference()` for RefCounted objects (adopt SwiftGodot pattern:
+      queue via `Callable.callDeferred()`)
+- [ ] Phantom-reference / `Cleaner`-based auto-`unref` for `Gd[T]`
+- [ ] Proper `GdArray`/`GdDict` refcount management (internal `reference()`/`unreference()`)
+- [ ] Fix `AutoCloseable` for non-RefCounted: `close()` calls `free()` universally
+
+### Phase 3 — C# Parity Features (medium term)
+
+- [ ] `@rpc` wiring — multiplayer RPC registration
+- [ ] `@globalClass` wiring — global scope registration
+- [ ] `@async` / `@await` wiring — scheduler implementation
+- [ ] Property assignment sugar for value types (investigate macro desugar)
+- [ ] Signal arity > 8 via `Tuple`-based generic signal
+- [ ] `callDeferred` ergonomics: typed wrapper
+- [ ] `ExportHint.placeholder` — placeholder text in inspector
+
+### Phase 4 — Low-Level API & Plugin (long term)
+
+- [ ] Zone ergonomics for low-level API
+- [ ] Expose raw FFI: `GdxApi` as user-facing API, manual class registration
+- [ ] Published Mill plugin (`package.mill`)
+- [ ] ScalaDoc forwarding from `extension_api.json`
+
+### Phase 5 — Quality of Life (ongoing)
+
+- [ ] Editor plugin infrastructure — verify all base classes
+- [ ] Documentation accuracy sweep
+- [ ] Regression test suite
+- [ ] Benchmarks for hot-path dispatch

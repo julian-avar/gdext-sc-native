@@ -1,7 +1,7 @@
 package examples.rigid_body
 
-import gdext.core.*
-import gdext.generated.*
+import com.`julian-avar`.gdext.core.*
+import com.`julian-avar`.gdext.generated.*
 import scala.scalanative.unsafe.Zone
 
 @gdclass class PlayerSc extends CharacterBody2D:
@@ -15,8 +15,9 @@ import scala.scalanative.unsafe.Zone
         moveAndSlide()
         this.moved.emitSignal(velocity.x, velocity.y)  // extension on PlayerSc, `Moved` is the case class
 
-    private def getInput(): Unit = Zone {
-        val dir = Input.getVector("player_b_left", "player_b_right", "player_b_up", "player_b_down")
-        velocity = dir * speed.toFloat
-    }
+    private def getInput(): Unit =
+        Zone {
+            val dir = Input.getVector("player_b_left", "player_b_right", "player_b_up", "player_b_down")
+            velocity = dir * speed.toFloat
+        }
 end PlayerSc

@@ -1,5 +1,5 @@
 # Mill
-/out/
+out/
 /.mill-version
 
 # Scala
@@ -14,9 +14,7 @@
 *.a
 
 # Generated code
-bindings/src/godot/
-!bindings/src/.gitkeep
-gdext/generated/
+generated/**/*.scala
 
 # IDE
 /.idea/

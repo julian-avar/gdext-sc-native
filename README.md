@@ -10,7 +10,13 @@ AI allowed.
 
 TBD
 
+## Project layout
+
+See [`docs/00-architecture-overview.md`](docs/00-architecture-overview.md) for the module map (with Rust gdext analogues) and data-flow diagrams, and [`gdext/README.md`](gdext/README.md) for the build pipeline and per-module known issues.
+
 ## Building the project
+
+Edit flake.nix to match the godot version you're trying to use.
 
 Make sure you have Nix installed, then run `nix develop` to enter the development environment. `.envrc` is included in case `direnv` is available. That should take care of the environment which includes:
 

@@ -1,358 +1,86 @@
-//| mill-version: 1.1.6-native
-//| mvnDeps:
-//| - com.goyeau::mill-scalafix::0.6.0
 package build
 
 import mill.*
+import mill.api.BuildCtx
 import mill.scalalib.*
 import mill.scalalib.publish.*
 import mill.scalanativelib.*
 import mill.scalalib.scalafmt.ScalafmtModule
-import mill.scalanativelib.api.{ReleaseMode, BuildTarget}
 
 import com.goyeau.mill.scalafix.ScalafixModule
+import com.`julian-avar`.gdext.godotscalanativelib.{
+    FFIGeneratorModule, APIGeneratorModule, CoreGeneratorModule
+}
 
-val defaultScalaVersion       = "3.8.3"
-val defaultScalaNativeVersion = "0.5.11"
-val defaultVersion            = "0.1.1"
-val defaultPomSettings        = PomSettings(
-  description = "GD Extension Scala",
-  organization = "julian-avar.gdext_sc_native",
-  url = "https://gitlab.com/julian-avar/gdext_sc_native",
-  licenses = Seq(License.`GPL-3.0`),
-  versionControl = VersionControl.gitlab("", "gdext_sc_native"),
-  developers = Seq(Developer("bajopiano", "Julian Avar", "https://gitlab.com/julian-avar"))
-)
+import millbuild.{Config, Deps}
 
-trait Example extends GodotScalaNativeModule
+trait GdextModule extends SharedNativeModule with Cross.Module[String]:
+    def artifactName = "gdext"
+    def moduleDeps   = Seq(gdext.api(crossValue), gdext.core(crossValue))
 
-object examples extends Module:
-    object rigid_body       extends Example
-    object control_ui       extends Example
-    object scala_script     extends Example
-    object feature_showcase extends Example
-end examples
+object gdext extends Cross[GdextModule](Config.godotVersions):
+    object api      extends Cross[ApiModule](Config.godotVersions)
+    trait ApiModule extends SharedNativeModule with APIGeneratorModule with Cross.Module[String]:
+        def mvnDeps      = Seq(Deps.osLib)
+        def moduleDeps   = Seq(ffi(crossValue), core(crossValue))
+        def godotVersion = Task { crossValue }
+        def millVersion  = Task { Config.millVersion }
+        def resourcesDir =
+            Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
+        def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
+    end ApiModule
 
-object gdext extends SharedModule:
-    def mvnDeps    = Seq(Deps.osLib)
-    def moduleDeps = Seq(core, generated)
+    /** foreign function interface */
+    object ffi      extends Cross[FfiModule](Config.godotVersions)
+    trait FfiModule extends SharedNativeModule with FFIGeneratorModule with Cross.Module[String]:
+        def godotVersion = Task { crossValue }
+        def millVersion  = Task { Config.millVersion }
+        def resourcesDir =
+            Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
+        def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
+    end FfiModule
 
-    object core extends SharedModule:
-        // Primitive builtin handles (RID, NodePath, PackedXxx, etc.) live in generated.core
-        // so we can define their typeclasses (PtrArg, ToVariant, ...) here.
-        def moduleDeps = Seq(generated.core)
-    end core
+    object core      extends Cross[CoreModule](Config.godotVersions)
+    trait CoreModule extends SharedNativeModule with CoreGeneratorModule with Cross.Module[String]:
+        def moduleDeps   = Seq(ffi(crossValue))
+        def godotVersion = Task { crossValue }
+        def millVersion  = Task { Config.millVersion }
+        def resourcesDir =
+            Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
+        def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
+    end CoreModule
 
-    object generated extends SharedModule:
-        def moduleDeps = Seq(core, gdext.core)
-        // Generated code uses past syntax since its generated using scalameta's trees.
-        def scalacOptions = (super.scalacOptions().toSet - "-source:future").toSeq
+    // object `generator-module-mill-plugin` extends SharedModule:
+    //     def mvnDeps = Seq(Deps.millLibs, Deps.scalameta, Deps.trees)
 
-        /** Primitive handle stubs with no deps — compiled before gdext.core. */
-        object core extends SharedModule:
-            // Generated code uses past syntax since its generated using scalameta's trees.
-            def scalacOptions = (super.scalacOptions().toSet - "-source:future").toSeq
-    end generated
-
-    object generator extends ScalaModule with PublishModule:
-        def millVersion = "1.1.2"
-
-        def scalaVersion   = "3.8.3"
-        def jvmVersion     = "17"
-        def platformSuffix = s"_mill1"
-        def mvnDeps   = Seq(mvn"com.lihaoyi::mill-libs:$millVersion", Deps.scalameta, Deps.trees)
-        def mainClass = Some("gdext.generator.GeneratorMain")
-
-        // Publishing Config
-        def publishVersion = defaultVersion
-        def pomSettings    = defaultPomSettings
-
-        def generate(version: String = "4.5.0") = Task.Command {
-            val apiSource =
-                if version == "main" then "extension_api.json"
-                else
-                    val parts      = version.split("\\.")
-                    val apiVersion = s"${parts(0)}-${parts(1)}"
-                    if apiVersion == "4-6" then "extension_api.json"
-                    else s"extension_api-$apiVersion.json"
-            val destDir       = moduleDir / "resources" / version
-            val interfacePath = destDir / "gdextension_interface.json"
-            val classPath     = destDir / "extension_api.json"
-            val apiSrcPath    = moduleDir / "resources" / "api" / apiSource
-            if !os.exists(interfacePath) then println(s"Interface file $interfacePath not found.")
-            else if !os.exists(apiSrcPath) then
-                println(s"API file $apiSrcPath not found. Run downloadApi first.")
-            else
-                if !os.exists(classPath) then os.copy(apiSrcPath, classPath, replaceExisting = true)
-                end if
-            end if
-            val outDir  = moduleDir / os.up / "generated" / "src"
-            val cp      = runClasspath().map(_.path.toString).mkString(sys.props("path.separator"))
-            val javaExe = sys.props("java.home") + "/bin/java"
-            os.proc(
-              javaExe,
-              "-cp",
-              cp,
-              "gdext.generator.GeneratorMain",
-              interfacePath.toString,
-              classPath.toString,
-              outDir.toString
-            ).call(stdout = os.Inherit, stderr = os.Inherit)
-
-            // Format all generated Scala files with scalafmt
-            val cfgPath = moduleDir / os.up / os.up / ".scalafmt.conf"
-            if os.exists(cfgPath) then
-                val genFiles = os.walk(outDir).filter(_.ext == "scala").map(mill.PathRef(_))
-                mill.scalalib.scalafmt.ScalafmtWorkerModule.worker()
-                    .reformat(genFiles, mill.PathRef(cfgPath))
-            end if
-        }
-
-        def downloadApi() = Task.Command {
-            val apiDir = moduleDir / "resources" / "api"
-            os.makeDir.all(apiDir)
-            val files = List(
-              "extension_api-4-3.json",
-              "extension_api-4-4.json",
-              "extension_api-4-5.json",
-              "extension_api.json"
-            )
-            for file <- files do
-                val url =
-                    s"https://raw.githubusercontent.com/godotengine/godot-cpp/master/gdextension/$file"
-                println(s"Downloading $url to ${apiDir / file}")
-                os.proc("curl", "-f", "-o", (apiDir / file).toString, url).call()
-            end for
-            println("Downloaded all extension API files")
-        }
-    end generator
+    object `mill-plugin` extends SharedMillPluginModule:
+        def artifactName = "gdext-mill-plugin"
+        def mvnDeps      = Seq(Deps.millLibs, Deps.millLibsScalanativelib)
 end gdext
 
-trait SharedModule
-    extends ScalaNativeModule with ScalafixModule with ScalafmtModule with PublishModule:
-    def scalaVersion       = defaultScalaVersion
-    def scalaNativeVersion = defaultScalaNativeVersion
-    def scalacOptions      = Seq("-explain", "-source:future")
+trait SharedPublishedModule extends PublishModule:
+    def publishVersion = Config.version
+    def pomSettings    = Config.pomSettings
 
+trait SharedModule
+    extends ScalaModule with ScalafixModule with ScalafmtModule with SharedPublishedModule:
+    def scalaVersion  = Config.scalaVersion
+    def scalacOptions = Seq(
+      "-explain",
+      "-Wconf:msg=Implicit parameters should be provided with a `using` clause:s",
+      "-Wconf:msg=will be encoded on the classpath:s",
+      // "-rewrite",
+      // "-source:3.8"
+    )
+end SharedModule
+
+trait SharedMillPluginModule extends SharedModule:
+    def millVersion    = Config.millVersion
+    def platformSuffix = "_mill1"
+
+trait SharedNativeModule extends SharedModule with ScalaNativeModule:
+    def scalaNativeVersion = Config.scalaNativeVersion
     // Use the clang set in environment variables (default to clang/clang++)
     def nativeClang   = Task.Input { PathRef(os.Path(Task.env.getOrElse("CC", "clang"))) }
     def nativeClangPP = Task.Input { PathRef(os.Path(Task.env.getOrElse("CXX", "clang++"))) }
-
-    def publishVersion = defaultVersion
-    def pomSettings    = defaultPomSettings
-end SharedModule
-
-trait GodotScalaNativeModule extends SharedModule:
-    def moduleDeps        = Seq(gdext, gdext.core, gdext.generated)
-    def releaseMode       = ReleaseMode.Debug
-    def nativeBuildTarget = BuildTarget.LibraryDynamic
-    def nativeBaseName    = "godot-scala-native"
-
-    // Sources live directly in example/, not example/src/
-    def sources = Task.Sources(moduleDir)
-
-    /** Scans sources and generates registration + entry boilerplate.
-      *
-      * Emits up to two files into Task.dest:
-      *
-      *   - `GeneratedRegistrations.scala` — `registerAll()` calling `Register.auto[X]()` for each
-      *     `@gdclass` class found. Only emitted when at least one such class exists.
-      *   - `GeneratedEntry.scala` — the `@exported("godot_scala_init")` entry function. Only
-      *     emitted when no user source file already defines `@exported` (i.e. the user has no
-      *     custom entry). Calls `registerAll()` then `gdext.GodotEntry.init(...)`.
-      *
-      * A source fingerprint (content hash) is embedded in each header so Zinc recompiles when any
-      * game source changes.
-      */
-    def generatedSources = Task {
-        val regFile     = Task.dest / "GeneratedRegistrations.scala"
-        val entryFile   = Task.dest / "GeneratedEntry.scala"
-        val signalsFile = Task.dest / "GeneratedSignalHandles.scala"
-        val srcRoots    = sources().map(_.path).filter(os.exists)
-
-        val gdclassPattern = raw"(?s)@gdclass\s+class\s+(\w+)".r
-        val pkgPattern     = raw"package\s+([\w.]+)".r
-        val signalPattern  = raw"@signal\s+case\s+class\s+(\w+)\s*\(([^)]*)\)".r
-
-        def toSnakeCase(s: String): String = s
-            .foldLeft("")((a, c) => if c.isUpper && a.nonEmpty then a + "_" + c.toLower else a + c.toLower)
-            .dropWhile(_ == '_')
-
-        val allUserFiles = srcRoots.flatMap { root =>
-            os.walk(root).filter(p => p.ext == "scala" && !p.last.startsWith("Generated"))
-        }
-
-        // Collect (package, className) for every @gdclass class.
-        val found: Seq[(String, String)] = allUserFiles.flatMap { file =>
-            val content = os.read(file)
-            if !content.contains("@gdclass") then Seq.empty
-            else
-                val pkg = pkgPattern.findFirstMatchIn(content).map(_.group(1)).getOrElse("")
-                gdclassPattern.findAllMatchIn(content).map(m => (pkg, m.group(1))).toSeq
-            end if
-        }
-
-        // Collect @signal case class definitions, associated to their enclosing @gdclass.
-        // (pkg, className, signalName, paramTypes)
-        val signalAssocs: Seq[(String, String, String, List[String])] =
-            allUserFiles.flatMap { file =>
-                val content = os.read(file)
-                if !content.contains("@signal") then Seq.empty
-                else
-                    val pkg     = pkgPattern.findFirstMatchIn(content).map(_.group(1)).getOrElse("")
-                    val classes = gdclassPattern.findAllMatchIn(content).toVector
-                    signalPattern.findAllMatchIn(content).toVector.flatMap { sm =>
-                        classes.filter(_.start < sm.start).lastOption.map { cm =>
-                            val paramsStr = sm.group(2).trim
-                            val types =
-                                if paramsStr.isEmpty then Nil
-                                else paramsStr.split(",").toList.map(_.split(":").last.trim)
-                            (pkg, cm.group(1), sm.group(1), types)
-                        }
-                    }
-                end if
-            }
-
-        // Check whether any user file already defines the entry point.
-        val userHasEntry = allUserFiles.exists(f => os.read(f).contains("@exported"))
-
-        val out = collection.mutable.Buffer.empty[PathRef]
-
-        // Emit signal handle extension methods.
-        // Uses `def` (not lazy val) to avoid extension-doesn't-support-lazy-val limitation.
-        // Inside the @gdclass class, `signalName` calls the extension on `this` automatically.
-        if signalAssocs.nonEmpty then
-            val sigPkg = signalAssocs.head._1
-            val grouped = signalAssocs.groupBy(t => (t._1, t._2))
-            val blocks = grouped.toList.sortBy(_._1._2).map { case ((p, cls), sigs) =>
-                def signalDef(sigName: String, types: List[String]): String =
-                    val valName  = sigName.head.toLower.toString + sigName.tail
-                    val godotName = toSnakeCase(sigName)
-                    types match
-                        case Nil         => s"""  def $valName: Signal0 = Signal0(self, "$godotName")"""
-                        case List(a)     => s"""  def $valName: Signal1[$a] = Signal1(self, "$godotName")"""
-                        case List(a, b)  => s"""  def $valName: Signal2[$a, $b] = Signal2(self, "$godotName")"""
-                        case List(a,b,c) => s"""  def $valName: Signal3[$a, $b, $c] = Signal3(self, "$godotName")"""
-                        case _           => ""
-                val defs = sigs.map { case (_, _, sn, ts) => signalDef(sn, ts) }.filter(_.nonEmpty).mkString("\n")
-                if defs.nonEmpty then s"extension (self: $cls)\n$defs" else ""
-            }.filter(_.nonEmpty).mkString("\n\n")
-            if blocks.nonEmpty then
-                os.write.over(
-                  signalsFile,
-                  s"""// Generated by RegistrationScan — do not edit.
-                    |package $sigPkg
-                    |
-                    |import gdext.core.{Signal0, Signal1, Signal2, Signal3, GodotObject}
-                    |import gdext.core.{ToVariant, FromVariant, given}
-                    |import gdext.generated.{*, given}
-                    |
-                    |$blocks
-                    |""".stripMargin
-                )
-                out += PathRef(signalsFile)
-            end if
-        end if
-
-        if found.nonEmpty then
-            val pkg         = found.head._1
-            val fingerprint = found.map { case (p, c) => s"$p.$c" }.mkString(",").hashCode
-                .toHexString
-            val calls = found.map { case (p, c) =>
-                val fqn = if p.nonEmpty then s"$p.$c" else c
-                s"        Register.auto[$fqn]()"
-            }.mkString("\n")
-            os.write.over(
-              regFile,
-              s"""// Generated by RegistrationScan — do not edit. Fingerprint: $fingerprint
-                |package $pkg
-                |
-                |import gdext.core.Register
-                |import gdext.generated.{*, given}
-                |
-                |object GeneratedRegistrations:
-                |    def registerAll(): Unit =
-                |$calls
-                |""".stripMargin
-            )
-            out += PathRef(regFile)
-
-            if !userHasEntry then
-                os.write.over(
-                  entryFile,
-                  s"""// Generated by RegistrationScan — do not edit. Fingerprint: $fingerprint
-                    |package $pkg
-                    |
-                    |import gdext.core.*
-                    |import _root_.scala.scalanative.unsafe.*
-                    |
-                    |object GeneratedEntry:
-                    |    @exported("godot_scala_init")
-                    |    def godotScalaInit(
-                    |        getProcAddress: GetProcAddressFn,
-                    |        library:        Ptr[Byte],
-                    |        initPtr:        Ptr[GdxInitStruct]
-                    |    ): CUnsignedChar =
-                    |        GeneratedRegistrations.registerAll()
-                    |        gdext.GodotEntry.init(getProcAddress, library, initPtr)
-                    |    end godotScalaInit
-                    |end GeneratedEntry
-                    |""".stripMargin
-                )
-                out += PathRef(entryFile)
-            end if
-        else if !userHasEntry then
-            // No @gdclass classes but no user entry either — emit a bare entry.
-            // Derive the package from the module directory path (last two segments).
-            val pkg = moduleDir.segments.toSeq.takeRight(2).mkString(".")
-            os.write.over(
-              entryFile,
-              s"""// Generated by RegistrationScan — do not edit.
-                |package $pkg
-                |
-                |import gdext.core.*
-                |import _root_.scala.scalanative.unsafe.*
-                |
-                |object GeneratedEntry:
-                |    @exported("godot_scala_init")
-                |    def godotScalaInit(
-                |        getProcAddress: GetProcAddressFn,
-                |        library:        Ptr[Byte],
-                |        initPtr:        Ptr[GdxInitStruct]
-                |    ): CUnsignedChar =
-                |        gdext.GodotEntry.init(getProcAddress, library, initPtr)
-                |    end godotScalaInit
-                |end GeneratedEntry
-                |""".stripMargin
-            )
-            out += PathRef(entryFile)
-        end if
-
-        out.toSeq
-    }
-
-    def buildExtension() = Task.Command {
-        val lib  = nativeLink()
-        val dest = moduleDir / "lib"
-        os.makeDir.all(dest)
-        os.copy(
-          lib.path,
-          dest / s"lib${nativeBaseName()}.so",
-          followLinks = true,
-          replaceExisting = true,
-          copyAttributes = false,
-          createFolders = true,
-          mergeFolders = false
-        )
-        println(s"Deployed to $dest")
-    }
-end GodotScalaNativeModule
-
-object Deps:
-    val upickle = mvn"com.lihaoyi::upickle::4.4.2"
-    val pprint  = mvn"com.lihaoyi::pprint::0.9.6"
-    val osLib   = mvn"com.lihaoyi::os-lib::0.11.8"
-
-    val scalameta = mvn"org.scalameta::scalameta:4.17.0"
-    val trees     = mvn"org.scalameta::trees:4.17.0"
-end Deps
+end SharedNativeModule

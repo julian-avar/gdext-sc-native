@@ -12,3 +12,4 @@ layout_mode = 2
 text = "Hello, Scala!"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+
