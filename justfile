@@ -17,6 +17,14 @@ run example godot="4.7.0": (publishLocal godot)
     cd examples/{{ example }} && ./mill buildExtension
     godot4 examples/{{ example }}/project.godot
 
+# Build the Scaladoc site for `module` (api, core, or ffi) and open it in a browser
+# `godot` controls which Godot API version's generated sources get documented (4.5.0, 4.6.1, 4.7.0, ...)
+docs module="api" godot="4.7.0":
+    ./mill gdext.{{ module }}.{{ replace(godot, ".", "_") }}.docJar
+    rm -rf /tmp/gdext-{{ module }}-docs
+    unzip -q -o out/gdext/{{ module }}/{{ godot }}/docJar.dest/out.jar -d /tmp/gdext-{{ module }}-docs
+    xdg-open /tmp/gdext-{{ module }}-docs/index.html
+
 lint:
     ./mill mill.scalalib.scalafmt
 

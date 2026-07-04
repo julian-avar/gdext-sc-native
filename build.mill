@@ -67,10 +67,26 @@ trait SharedModule
     def scalaVersion  = Config.scalaVersion
     def scalacOptions = Seq(
       "-explain",
+      "-Wconf:msg=julian-avar.*will be encoded on the classpath:s",
       // "-Wconf:msg=Implicit parameters should be provided with a `using` clause:s",
       // "-rewrite",
       // "-source:3.8"
     )
+
+    // Not published anywhere yet -- this just gets `docJar` (required by Sonatype Central
+    // alongside the sources jar) producing a real, populated site once descriptions start
+    // flowing in from the generator, instead of an empty shell.
+    def scalaDocOptions = Task {
+        super.scalaDocOptions() ++ Seq(
+          "-project-version",
+          Config.version,
+          "-source-links:" +
+              s"${BuildCtx.workspaceRoot}=${Config.pomSettings
+                      .url}/src/branch/main€{FILE_PATH}.€{FILE_EXT}#L€{FILE_LINE}",
+          "-siteroot",
+          (BuildCtx.workspaceRoot / "docs").toString
+        )
+    }
 end SharedModule
 
 trait SharedMillPluginModule extends SharedModule:

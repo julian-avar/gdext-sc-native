@@ -36,6 +36,7 @@ object Deps:
 
     val scalameta              = mvn"org.scalameta::scalameta:${Versions.scalameta}"
     val trees                  = mvn"org.scalameta::trees:4.17.0"
+    val scalaXml               = mvn"org.scala-lang.modules::scala-xml:2.3.0"
     val millLibs               = mvn"com.lihaoyi::mill-libs:${Versions.mill}"
     val millLibsScalanativelib = mvn"com.lihaoyi::mill-libs-scalanativelib:${Versions.mill}"
     val millScalafixPlugin = mvn"com.goyeau::mill-scalafix::0.6.0"

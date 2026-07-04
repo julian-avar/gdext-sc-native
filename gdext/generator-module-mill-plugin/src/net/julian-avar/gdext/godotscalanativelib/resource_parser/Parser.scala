@@ -123,14 +123,18 @@ object Parser:
 
     def godotClasses(
         json: ujson.Value,
-        singletonNames: Set[String] = Set.empty
+        singletonNames: Set[String] = Set.empty,
+        docClasses: Map[String, DocParser.DocClass] = Map.empty
     ): Vector[Ast.GodotClass] = json("classes").arr.map { cls =>
         val rawMethods = cls.obj.get("methods").map(_.arr.toVector).getOrElse(Vector.empty)
+        val className  = cls("name").str
+        val doc        = docClasses.get(className)
 
         val methods = rawMethods.map { m =>
-            val rv = m.obj.get("return_value")
+            val rv       = m.obj.get("return_value")
+            val nameJson = m("name").str
             Ast.GodotMethod(
-              name = m("name").str,
+              name = nameJson,
               hash = m.obj.get("hash").map(_.num.toLong).getOrElse(0L),
               returnTypeName = rv.map(_("type").str).getOrElse("void"),
               returnMeta = rv.flatMap(_.obj.get("meta").map(_.str)),
@@ -144,19 +148,21 @@ object Parser:
               }).getOrElse(Vector.empty),
               isStatic = m("is_static").bool,
               isVirtual = m("is_virtual").bool,
-              isRequired = m.obj.get("is_required").exists(_.bool)
+              isRequired = m.obj.get("is_required").exists(_.bool),
+              description = doc.flatMap(_.methods.get(nameJson))
             )
         }
 
         val properties = cls.obj.get("properties").map(_.arr.toVector.map { p =>
+            val propName = p("name").str
             Ast.GodotProperty(
-              name = p("name").str,
+              name = propName,
               getter = p("getter").str,
-              setter = p.obj.get("setter").map(_.str).filter(_.nonEmpty)
+              setter = p.obj.get("setter").map(_.str).filter(_.nonEmpty),
+              description = doc.flatMap(_.properties.get(propName))
             )
         }).getOrElse(Vector.empty)
 
-        val className = cls("name").str
         Ast.GodotClass(
           name = className,
           inherits = cls.obj.get("inherits").map(_.str),
@@ -164,7 +170,9 @@ object Parser:
           isInstantiable = cls("is_instantiable").bool,
           isSingleton = singletonNames.contains(className),
           methods = methods,
-          properties = properties
+          properties = properties,
+          briefDescription = doc.flatMap(_.briefDescription),
+          description = doc.flatMap(_.description)
         )
     }.toVector
 
@@ -174,10 +182,21 @@ object Parser:
 
     // ── Utility Functions ────────────────────────────────────────────────────
 
-    def utilityFunctions(json: ujson.Value): Vector[Ast.UtilityFunction] = json("utility_functions")
-        .arr.map { fn =>
+    /** Utility functions and global enum values are documented together under Godot's special
+      * `@GlobalScope` doc entry, not their own per-class file.
+      */
+    private def globalScopeDoc(docClasses: Map[String, DocParser.DocClass]): Option[DocParser.DocClass] =
+        docClasses.get("@GlobalScope")
+
+    def utilityFunctions(
+        json: ujson.Value,
+        docClasses: Map[String, DocParser.DocClass] = Map.empty
+    ): Vector[Ast.UtilityFunction] =
+        val doc = globalScopeDoc(docClasses)
+        json("utility_functions").arr.map { fn =>
+            val fnName = fn("name").str
             Ast.UtilityFunction(
-              name = fn("name").str,
+              name = fnName,
               isVararg = fn.obj.get("is_vararg").exists(_.bool),
               hash = fn.obj.get("hash").map(_.num.toLong).getOrElse(0L),
               arguments = fn.obj.get("arguments").map(_.arr.toVector.map { a =>
@@ -188,19 +207,33 @@ object Parser:
                     defaultValue = a.obj.get("default_value").map(_.str)
                   )
               }).getOrElse(Vector.empty),
-              returnTypeName = fn.obj.get("return_type").map(_.str).getOrElse("void")
+              returnTypeName = fn.obj.get("return_type").map(_.str).getOrElse("void"),
+              description = doc.flatMap(_.methods.get(fnName))
             )
         }.toVector
+    end utilityFunctions
 
-    def globalEnums(json: ujson.Value): Vector[Ast.GlobalEnum] = json("global_enums").arr.map { e =>
-        Ast.GlobalEnum(
-          name = e("name").str,
-          isBitfield = e.obj.get("is_bitfield").exists(_.bool),
-          values = e("values").arr.map(v => (v("name").str, v("value").num.toLong)).toVector
-        )
-    }.toVector
+    def globalEnums(
+        json: ujson.Value,
+        docClasses: Map[String, DocParser.DocClass] = Map.empty
+    ): Vector[Ast.GlobalEnum] =
+        val doc = globalScopeDoc(docClasses)
+        json("global_enums").arr.map { e =>
+            Ast.GlobalEnum(
+              name = e("name").str,
+              isBitfield = e.obj.get("is_bitfield").exists(_.bool),
+              values = e("values").arr.map { v =>
+                  val valueName = v("name").str
+                  (valueName, v("value").num.toLong, doc.flatMap(_.constants.get(valueName)))
+              }.toVector
+            )
+        }.toVector
+    end globalEnums
 
-    def builtinClasses(json: ujson.Value): Vector[Ast.BuiltinClass] =
+    def builtinClasses(
+        json: ujson.Value,
+        docClasses: Map[String, DocParser.DocClass] = Map.empty
+    ): Vector[Ast.BuiltinClass] =
         // Use float_64 as the authoritative config (Linux/Windows x86-64).
         val membersByName: Map[String, Vector[Ast.BuiltinMember]] = json(
           "builtin_class_member_offsets"
@@ -217,12 +250,15 @@ object Parser:
 
         json("builtin_classes").arr.filterNot(c => skipBuiltins.contains(c("name").str)).map { c =>
             val name = c("name").str
+            val doc  = docClasses.get(name)
 
             val constants = c.obj.get("constants").map(_.arr.toVector.map { const =>
+                val constName = const("name").str
                 Ast.BuiltinConstant(
-                  name = const("name").str,
+                  name = constName,
                   value = const("value").str,
-                  resultType = const("type").str
+                  resultType = const("type").str,
+                  description = doc.flatMap(_.constants.get(constName))
                 )
             }).getOrElse(Vector.empty)
 
@@ -247,7 +283,9 @@ object Parser:
               size = sizeByName.getOrElse(name, 0),
               members = membersByName.getOrElse(name, Vector.empty),
               constants = constants,
-              methods = methods
+              methods = methods,
+              briefDescription = doc.flatMap(_.briefDescription),
+              description = doc.flatMap(_.description)
             )
         }.toVector
     end builtinClasses

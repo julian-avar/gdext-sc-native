@@ -28,6 +28,71 @@ def formatComment(description: Option[String], deprecated: Option[Ast.Deprecated
 
 def formatComment(`type`: Ast.Type): String = formatComment(`type`.description, `type`.deprecated)
 
+/** Godot's doc XML splits a class's prose into a short `brief_description` and a longer
+  * `description`; this joins the two (paragraph-separated) into the single description text
+  * `formatComment` expects.
+  */
+def combineDescriptions(brief: Option[String], description: Option[String]): Option[String] =
+    (brief, description) match
+        case (Some(b), Some(d)) => Some(s"$b\n\n$d")
+        case (Some(b), None)    => Some(b)
+        case (None, Some(d))    => Some(d)
+        case (None, None)       => None
+
+/** Attaches `comment` (a `formatComment`-built Scaladoc string) to `stat` as a genuine leading
+  * comment. Scalameta's structural pretty-printer for programmatically-built trees doesn't emit
+  * comments, but a tree built from `.parse` keeps its original tokens -- including the comment --
+  * so round-tripping the printed statement through the parser is how this codebase attaches one.
+  *
+  * Note this only survives if `stat.syntax` is the terminal print call: once `stat` becomes a
+  * child of another freshly-built tree (e.g. placed in a `Template`/`Pkg` that itself gets
+  * `.syntax`-ed), scalameta reprints it structurally and the comment is lost again. Use
+  * `injectComments` on the final printed file text instead when that's the case.
+  */
+def withComment(comment: String, stat: Stat)(using Dialect): Stat =
+    if comment.nonEmpty then s"$comment\n${stat.syntax}".parse[Stat].get else stat
+
+/** Splices each `(marker, comment)` pair's Scaladoc comment into already-printed source text,
+  * immediately before the line containing `marker`'s occurrence, matching that line's
+  * indentation. This is the mechanism generators must use to attach comments to members of a
+  * class/object/package, since scalameta's printer only preserves comments on the exact tree
+  * passed to `.syntax` (see `withComment`) -- once members are assembled into an enclosing
+  * `Template`/`Pkg` and printed as a whole, any comment attached to an individual member is lost.
+  *
+  * A search cursor is tracked per distinct marker string (not globally), advancing past each match
+  * it consumes. This only matters when the same marker string repeats (e.g. a constant named
+  * `ZERO` defined on several builtin types in one file) -- callers must then list those markers in
+  * the same order they appear in `content` so each one claims the right occurrence; a marker string
+  * used only once is unaffected either way.
+  */
+def injectComments(content: String, markers: List[(String, String)]): String =
+    val searchFrom = scala.collection.mutable.Map.empty[String, Int].withDefaultValue(0)
+    val insertions = markers.flatMap { (marker, comment) =>
+        if comment.isEmpty then None
+        else
+            val idx = content.indexOf(marker, searchFrom(marker))
+            if idx < 0 then None
+            else
+                searchFrom(marker) = idx + marker.length
+                val lineStart     = content.lastIndexOf('\n', idx) + 1
+                val indent        = content.substring(lineStart).takeWhile(_ == ' ')
+                val commentBlock  = comment.linesIterator.map(l => s"$indent$l").mkString("\n")
+                Some(lineStart -> s"$commentBlock\n")
+    }
+    insertions.sortBy(-_._1).foldLeft(content) { case (acc, (pos, text)) =>
+        acc.substring(0, pos) + text + acc.substring(pos)
+    }
+end injectComments
+
+/** The `injectComments` marker for a `def` built by this file's generators: parameterless defs
+  * (property getters) print without parens (`def name: T = ...`), everything else with at least
+  * one (possibly empty) parameter list (`def name(...): T = ...`).
+  */
+def defMarker(stat: Stat): Option[String] = stat match
+    case Defn.Def(_, Term.Name(name), _, paramss, _, _) =>
+        Some(if paramss.isEmpty then s"def $name:" else s"def $name(")
+    case _ => None
+
 def isPrimitiveMeta(meta: String): Boolean = meta match
     case "float" | "int32" | "int64" | "double" => true
     case _                                      => false
@@ -824,7 +889,11 @@ end buildForwardingMethod
 // ── File builders ─────────────────────────────────────────────────────────
 
 def pkgStat(pkgPath: String): Stat =
-    val parts = pkgPath.split("\\.")
+    // `pkgPath` segments may already be backtick-quoted (e.g. "net.`julian-avar`.gdext") since
+    // that's also how they're written directly into import/reference text elsewhere in this file.
+    // Term.Name wants the bare identifier -- scalameta re-quotes it on print if needed -- so
+    // passing the quoted form through unstripped double-quotes it (`` `julian-avar` ``).
+    val parts = pkgPath.split("\\.").map(_.stripPrefix("`").stripSuffix("`"))
     val ref   = parts.tail.foldLeft[Term.Ref](Term.Name(parts.head)) { (acc, p) =>
         Term.Select(acc, Term.Name(p))
     }

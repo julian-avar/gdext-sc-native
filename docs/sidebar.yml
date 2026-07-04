@@ -1,0 +1,30 @@
+index: index.md
+subsection:
+  - title: Architecture Overview
+    page: 00-architecture-overview.md
+  - title: Two Parallel Ownership Systems
+    page: 01-two-ownership-systems.md
+  - title: "Gd[T] Lifecycle"
+    page: 02-gd-lifecycle.md
+  - title: Variant Lifecycle
+    page: 03-variant-lifecycle.md
+  - title: GdArray / GdDict Refcounting
+    page: 04-gdarray-gddict-refcounting.md
+  - title: Zone System
+    page: 05-zone-system.md
+  - title: CallbackRegistry, Signal Connection, and ConnectionToken
+    page: 06-callback-signal-connection.md
+  - title: Class Registration Lifecycle
+    page: 07-class-registration-lifecycle.md
+  - title: Hot-Reload Lifecycle
+    page: 08-hot-reload.md
+  - title: PackedArrays
+    page: 09-packed-arrays.md
+  - title: Memory Management Overview
+    page: 10-memory-overview.md
+  - title: Generated Engine Class Wrappers
+    page: 11-generated-engine-class-wrappers.md
+  - title: Generated Value Types
+    page: 12-generated-value-types.md
+  - title: Generated Virtual Dispatch Tables
+    page: 13-generated-virtual-dispatch.md

@@ -8,25 +8,19 @@ AI allowed.
 
 ## Using the project
 
-On the root folder add a `build.mill` file that should look like this.
+On the root folder of your Godot project, add a `build.mill.yaml` file that should look like this:
 
-```scala
-//| mill-version: 1.1.2
-//| mvnDeps:
-//| - net.`julian-avar`::gdext-mill-plugin::0.1.0
-
-package build
-
-import mill.*
-import mill.scalalib.*
-import net.`julian-avar`.gdext.godotscalanativelib.*
-
-object `package` extends GodotScalaNativeModule:
-    def godotVersion       = "4.7.0"
-    def scalaVersion       = "3.8.4"
-    def scalaNativeVersion = "0.5.11"
-    def mvnDeps            = Seq(mvn"net.`julian-avar`::gdext::0.1.0")
-end `package`
+```yaml
+mill-version: 1.1.2
+mill-build:
+  mvnDeps:
+  - net.julian-avar::gdext-mill-plugin::0.1.0
+extends: net.julian-avar.gdext.godotscalanativelib.GodotScalaNativeModule
+godotVersion: 4.7.0
+scalaVersion: 3.8.4
+scalaNativeVersion: 0.5.11
+mvnDeps:
+- net.julian-avar::gdext::0.1.0
 ```
 
 ## Building the project

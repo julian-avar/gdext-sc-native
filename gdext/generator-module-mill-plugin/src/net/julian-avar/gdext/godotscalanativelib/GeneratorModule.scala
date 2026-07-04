@@ -170,6 +170,51 @@ trait GeneratorModule extends ScalaModule:
         end if
     }
 
+    /** Godot release tags drop the trailing `.0` for the first patch of a minor (e.g. `4.7.0` ->
+      * `4.7-stable`, but `4.6.1` -> `4.6.1-stable`).
+      */
+    private def godotTag(version: String): String =
+        val parts   = version.split("\\.")
+        val trimmed = if parts.length == 3 && parts(2) == "0" then s"${parts(0)}.${parts(1)}"
+        else version
+        s"$trimmed-stable"
+    end godotTag
+
+    /** Vendors the XML files under Godot's `doc/classes` directory (the source of all
+      * class/method/property prose) for `godotVersion()` into
+      * `resourcesDir()/<version>/doc_classes/`, checked into git alongside
+      * `extension_api.json`/`gdextension_interface.json`. Uses a blobless, sparse-checkout clone so
+      * only `doc/classes` is actually fetched, not the whole engine source tree.
+      */
+    def vendorDocClasses() = Task.Command {
+        val tag      = godotTag(godotVersion())
+        val destDir  = resourcesDir() / godotVersion() / "doc_classes"
+        val cloneDir = Task.dest / "godot-doc-src"
+
+        println(s"Cloning godotengine/godot @ $tag (doc/classes only)...")
+        os.proc(
+          "git",
+          "clone",
+          "--no-checkout",
+          "--depth",
+          "1",
+          "--filter=blob:none",
+          "--branch",
+          tag,
+          "https://github.com/godotengine/godot.git",
+          cloneDir
+        ).call(stdout = os.Inherit, stderr = os.Inherit)
+        os.proc("git", "sparse-checkout", "init", "--cone").call(cwd = cloneDir)
+        os.proc("git", "sparse-checkout", "set", "doc/classes").call(cwd = cloneDir)
+        os.proc("git", "checkout", tag).call(cwd = cloneDir, stdout = os.Inherit, stderr = os.Inherit)
+
+        os.makeDir.all(destDir)
+        val xmlFiles = os.list(cloneDir / "doc" / "classes").filter(_.ext == "xml")
+        for f <- xmlFiles do os.copy.over(f, destDir / f.last)
+
+        println(s"Vendored ${xmlFiles.size} doc/classes files into $destDir")
+    }
+
     def diffInterface(versionA: String = "4.6.1", versionB: String = "4.7.0") = Task.Command {
         def read(version: String) = BuildCtx.withFilesystemCheckerDisabled {
             val path = resourcesDir() / version / "gdextension_interface.json"

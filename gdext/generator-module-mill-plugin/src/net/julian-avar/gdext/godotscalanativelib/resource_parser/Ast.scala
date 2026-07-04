@@ -83,10 +83,16 @@ object Ast:
         args: Vector[GodotArg],
         isStatic: Boolean,
         isVirtual: Boolean,
-        isRequired: Boolean // only meaningful for virtuals
+        isRequired: Boolean, // only meaningful for virtuals
+        description: Option[String] = None
     )
 
-    case class GodotProperty(name: String, getter: String, setter: Option[String])
+    case class GodotProperty(
+        name: String,
+        getter: String,
+        setter: Option[String],
+        description: Option[String] = None
+    )
 
     case class GodotClass(
         name: String,
@@ -95,14 +101,21 @@ object Ast:
         isInstantiable: Boolean,
         isSingleton: Boolean,
         methods: Vector[GodotMethod],
-        properties: Vector[GodotProperty]
+        properties: Vector[GodotProperty],
+        briefDescription: Option[String] = None,
+        description: Option[String] = None
     )
 
     /** A single stored field of a builtin value type, taken from the float_64 offset table. */
     case class BuiltinMember(name: String, meta: String)
 
     /** A constant defined on a builtin type. `value` is a string like "Vector2(0, 0)". */
-    case class BuiltinConstant(name: String, value: String, resultType: String)
+    case class BuiltinConstant(
+        name: String,
+        value: String,
+        resultType: String,
+        description: Option[String] = None
+    )
 
     /** A method defined on a builtin type, parsed from extension_api.json builtin_classes. */
     case class BuiltinMethod(
@@ -123,7 +136,9 @@ object Ast:
         size: Int,
         members: Vector[BuiltinMember],
         constants: Vector[BuiltinConstant],
-        methods: Vector[BuiltinMethod]
+        methods: Vector[BuiltinMethod],
+        briefDescription: Option[String] = None,
+        description: Option[String] = None
     )
 
     case class UtilityFunction(
@@ -131,13 +146,14 @@ object Ast:
         isVararg: Boolean,
         hash: Long,
         arguments: Vector[GodotArg],
-        returnTypeName: String
+        returnTypeName: String,
+        description: Option[String] = None
     )
 
     case class GlobalEnum(
         name: String,
         isBitfield: Boolean,
-        values: Vector[(name: String, value: Long)]
+        values: Vector[(name: String, value: Long, description: Option[String])]
     ):
         def scalaName: String = name.replace(".", "")
     end GlobalEnum

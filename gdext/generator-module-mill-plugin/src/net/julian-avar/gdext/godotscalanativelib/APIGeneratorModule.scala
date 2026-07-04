@@ -40,13 +40,21 @@ trait APIGeneratorModule extends GeneratorModule:
             val types         = resource_parser.Parser.types(interfaceJson("types"))
             val interfaces    = resource_parser.Parser.interfaces(interfaceJson("interface"))
 
+            val docClassesDir = resourcesDir / "doc_classes"
+            val docClasses    = resource_parser.DocParser.parse(docClassesDir)
+            if docClasses.isEmpty then
+                println(s"  warning: no vendored docs at $docClassesDir — descriptions will be " +
+                    s"empty (run `vendorDocClasses` first)")
+            else println(s"  Found docs for ${docClasses.size} classes")
+
             println(s"Reading ${`extension_api.json`}...")
             val classJson      = ujson.read(os.read(`extension_api.json`))
             val singletonNames = resource_parser.Parser.singletonNames(classJson)
-            val classes        = resource_parser.Parser.godotClasses(classJson, singletonNames)
-            val builtins       = resource_parser.Parser.builtinClasses(classJson)
-            val utilities      = resource_parser.Parser.utilityFunctions(classJson)
-            val globalEnums    = resource_parser.Parser.globalEnums(classJson)
+            val classes        =
+                resource_parser.Parser.godotClasses(classJson, singletonNames, docClasses)
+            val builtins       = resource_parser.Parser.builtinClasses(classJson, docClasses)
+            val utilities      = resource_parser.Parser.utilityFunctions(classJson, docClasses)
+            val globalEnums    = resource_parser.Parser.globalEnums(classJson, docClasses)
 
             println(s"  Found ${classes.size} classes, ${builtins
                     .size} builtin types, " + s"${utilities.size} utility functions, ${globalEnums

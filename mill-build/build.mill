@@ -12,9 +12,10 @@ object `package` extends MillBuildRootModule:
 
     object `generator-module-mill-plugin` extends ScalaModule with PublishModule:
         def scalaVersion  = Config.scalaVersion
-        def mvnDeps       = Seq(Deps.millLibs, Deps.scalameta, Deps.trees)
+        def mvnDeps       = Seq(Deps.millLibs, Deps.scalameta, Deps.trees, Deps.scalaXml)
         def sources       = Task
             .Sources(BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "src")
+        def scalacOptions = Seq("-Wconf:msg=julian-avar.*will be encoded on the classpath:s")
 
         def publishVersion = Config.version
         def pomSettings    = Config.pomSettings
