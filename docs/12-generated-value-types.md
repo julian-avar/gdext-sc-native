@@ -165,7 +165,7 @@ opaque 8-16 byte handles that Godot's C API manages by pointer, but they are not
 ## Files
 
 - `gdext.api`'s `GodotBuiltins.scala` — all 16 value types (600 lines), produced at compile time (not checked into `src/`)
-- `gdext/core/src/com/julian-avar/gdext/core/generated/NodePath.scala` — heap type, emitted at compile time by `CoreGeneratorModule`
-- `gdext/core/src/com/julian-avar/gdext/core/generated/StringName.scala` — heap type, emitted at compile time by `CoreGeneratorModule`
-- `gdext/core/src/com/julian-avar/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`
+- `gdext/core/src/com/julianavar/gdext/core/generated/NodePath.scala` — heap type, emitted at compile time by `CoreGeneratorModule`
+- `gdext/core/src/com/julianavar/gdext/core/generated/StringName.scala` — heap type, emitted at compile time by `CoreGeneratorModule`
+- `gdext/core/src/com/julianavar/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`
 - `BuiltinExtensions.scala` (constants, `distanceTo`, etc.) is **not yet implemented** — see `FEATURES.md#known-limitations`

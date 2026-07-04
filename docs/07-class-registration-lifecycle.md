@@ -137,8 +137,8 @@ it. Only the 1-byte `instancePtr` sentinel (malloc'd in `create_instance_func`) 
 
 ## Files
 
-- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — all maps, create/recreate/free, virtual/property/method dispatch
-- `gdext/core/src/com/julian-avar/gdext/core/GdClassRegistry.scala` — `GdClassRegistration` case class, `ListBuffer`
-- `gdext/core/src/com/julian-avar/gdext/core/Register.scala` — `Register.auto[T]` macro
-- `gdext/core/src/com/julian-avar/gdext/core/GodotEntry.scala` — `init` function, init/deinit callbacks
+- `gdext/core/src/com/julianavar/gdext/core/ClassRegistrar.scala` — all maps, create/recreate/free, virtual/property/method dispatch
+- `gdext/core/src/com/julianavar/gdext/core/GdClassRegistry.scala` — `GdClassRegistration` case class, `ListBuffer`
+- `gdext/core/src/com/julianavar/gdext/core/Register.scala` — `Register.auto[T]` macro
+- `gdext/core/src/com/julianavar/gdext/core/GodotEntry.scala` — `init` function, init/deinit callbacks
 - `build.mill` — `generatedSources` task (build-time scanner)

@@ -65,7 +65,7 @@ at compile time rather than checked in.
 **Known issues** (from [`FEATURES.md`](../FEATURES.md#known-limitations)):
 - `GdArray`/`GdDict` don't manage the internal Godot Array/Dictionary refcount — call `.destroy()` on locals, or treat exported collections as extension-lifetime handles.
 - `FromVariant` for `GdArray`/`GdDict` heap-allocates 8 bytes per read (bounded leak).
-- `GdxApiV47` (`core/src/com/julian-avar/gdext/core/v47/GdxApiV47.scala`) is a stub — version-specific API loading for post-4.7 features isn't implemented; icon registration works via a hardcoded pointer in `GdxApi.initialize` instead.
+- `GdxApiV47` (`core/src/com/julianavar/gdext/core/v47/GdxApiV47.scala`) is a stub — version-specific API loading for post-4.7 features isn't implemented; icon registration works via a hardcoded pointer in `GdxApi.initialize` instead.
 - Signal arity is capped at `Signal0`–`Signal8`.
 
 ### [`api`](api/README.md) — generated api layer + facade

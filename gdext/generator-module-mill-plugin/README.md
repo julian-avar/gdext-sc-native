@@ -2,7 +2,7 @@
 
 A library of Mill traits — not a standalone CLI tool — that supply the `generatedSources` task
 each cross-version `gdext.ffi`/`gdext.core`/`gdext.api` module mixes in. Package:
-`com.\`julian-avar\`.gdext.godotscalanativelib`.
+`com.\`julianavar\`.gdext.godotscalanativelib`.
 
 - **`GeneratorModule`** (`GeneratorModule.scala`) — shared base trait: resolves per-version
   resource paths, asserts required `gdextension_interface.json`/`extension_api.json` exist,
@@ -10,7 +10,7 @@ each cross-version `gdext.ffi`/`gdext.core`/`gdext.api` module mixes in. Package
   `writeFiles(files, root)` for turning a `Vector[ScalaFile]` into files under a Mill `Task.dest`.
 - **`FFIGeneratorModule`** (`FFIGeneratorModule.scala`) — mixed into `gdext.ffi`. Reads
   `gdextension_interface.json` only and emits the raw C-ABI surface (see
-  [`ffi/README.md`](src/com/julian-avar/gdext/godotscalanativelib/ffi/README.md)).
+  [`ffi/README.md`](src/com/julianavar/gdext/godotscalanativelib/ffi/README.md)).
 - **`CoreGeneratorModule`** (`CoreGeneratorModule.scala`) — mixed into `gdext.core`. Emits the
   core-layer generated files (heap builtins, packed arrays, string names) that need `gdext.core`
   types.

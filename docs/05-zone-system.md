@@ -86,6 +86,6 @@ flowchart LR
 
 ## Files
 
-- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — virtual dispatch trampoline creates Zone
-- `gdext/core/src/com/julian-avar/gdext/core/Ptrcall.scala` — `stackalloc` used for ptrcall args/ret buffers
-- `gdext/core/src/com/julian-avar/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`
+- `gdext/core/src/com/julianavar/gdext/core/ClassRegistrar.scala` — virtual dispatch trampoline creates Zone
+- `gdext/core/src/com/julianavar/gdext/core/Ptrcall.scala` — `stackalloc` used for ptrcall args/ret buffers
+- `gdext/core/src/com/julianavar/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`

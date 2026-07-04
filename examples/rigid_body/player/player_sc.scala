@@ -1,7 +1,7 @@
 package examples.rigid_body
 
-import com.`julian-avar`.gdext.core.*
-import com.`julian-avar`.gdext.generated.*
+import com.julianavar.gdext.core.*
+import com.julianavar.gdext.generated.*
 import scala.scalanative.unsafe.Zone
 
 @gdclass class PlayerSc extends CharacterBody2D:

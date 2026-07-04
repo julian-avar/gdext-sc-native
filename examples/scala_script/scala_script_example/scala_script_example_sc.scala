@@ -1,7 +1,7 @@
 package example.scala_script
 
-import com.`julian-avar`.gdext.api.*
-import com.`julian-avar`.gdext.generated.*
+import com.julianavar.gdext.api.*
+import com.julianavar.gdext.generated.*
 
 /** Minimal Scala example node.
   *

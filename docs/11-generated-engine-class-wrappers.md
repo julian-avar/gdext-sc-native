@@ -337,7 +337,7 @@ function returns. But storing it in a field or across frames is UB.
 ## Files
 
 - `gdext.api`'s `classes/*.scala` — 1 036 class wrappers, produced at compile time (not checked into `src/`)
-- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/api/generators/WrappersGenerator.scala` — generates them
-- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/utils.scala` — shared helpers (dispatch, type mapping)
-- `gdext/core/src/com/julian-avar/gdext/core/Ptrcall.scala` — typed ptrcall dispatchers
-- `gdext/core/src/com/julian-avar/gdext/core/GdxApi.scala` — `getMethodBind`, `ptrcall`, `constructObject`
+- `gdext/generator-module-mill-plugin/src/com/julianavar/gdext/godotscalanativelib/api/generators/WrappersGenerator.scala` — generates them
+- `gdext/generator-module-mill-plugin/src/com/julianavar/gdext/godotscalanativelib/utils.scala` — shared helpers (dispatch, type mapping)
+- `gdext/core/src/com/julianavar/gdext/core/Ptrcall.scala` — typed ptrcall dispatchers
+- `gdext/core/src/com/julianavar/gdext/core/GdxApi.scala` — `getMethodBind`, `ptrcall`, `constructObject`

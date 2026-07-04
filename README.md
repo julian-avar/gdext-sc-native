@@ -8,11 +8,26 @@ AI allowed.
 
 ## Using the project
 
-TBD
+On the root folder add a `build.mill` file that should look like this.
 
-## Project layout
+```scala
+//| mill-version: 1.1.2
+//| mvnDeps:
+//| - com.julianavar::gdext-mill-plugin::0.1.0
 
-See [`docs/00-architecture-overview.md`](docs/00-architecture-overview.md) for the module map (with Rust gdext analogues) and data-flow diagrams, and [`gdext/README.md`](gdext/README.md) for the build pipeline and per-module known issues.
+package build
+
+import mill.*
+import mill.scalalib.*
+import com.julianavar.gdext.godotscalanativelib.*
+
+object `package` extends GodotScalaNativeModule:
+    def godotVersion       = "4.7.0"
+    def scalaVersion       = "3.8.4"
+    def scalaNativeVersion = "0.5.11"
+    def mvnDeps            = Seq(mvn"com.julianavar::gdext::0.1.0")
+end `package`
+```
 
 ## Building the project
 
@@ -21,7 +36,7 @@ Edit flake.nix to match the godot version you're trying to use.
 Make sure you have Nix installed, then run `nix develop` to enter the development environment. `.envrc` is included in case `direnv` is available. That should take care of the environment which includes:
 
 - Mill
-  - Scala 3.8.3
+  - Scala 3.8.4
 - JDK 21
 - GraalVM dependencies
 - LLVM

@@ -4,7 +4,7 @@ The core-layer runtime: hand-written Scala that sits directly on top of the FFI 
 
 This is where GDExtension's C-ABI is turned into a usable, GC-friendly Scala runtime — class registration, variant/refcounting machinery, the Zone allocation pattern, and the typeclasses generated code relies on.
 
-## Contents (`src/com/julian-avar/gdext/core/`)
+## Contents (`src/com/julianavar/gdext/core/`)
 
 - **Lifecycle & registration** — `GodotEntry.scala`, `ClassRegistrar.scala`, `GdClassRegistry.scala`, `Register.scala`, `annotations.scala`: extension entry point, `@gdclass`/`@gdexport` machinery, class/method/signal registration with the engine
 - **Object model** — `Gd.scala`, `GodotObject.scala`, `GodotClass.scala`: the `Gd[T]` handle type and base wrapper types for engine objects
@@ -17,7 +17,7 @@ This is where GDExtension's C-ABI is turned into a usable, GC-friendly Scala run
 
 ## Generated code in this module
 
-`gdext.ffi` (see its own README) is a separate module this one depends on — it is not part of `core`'s sources. Within `core` itself, the `CoreGeneratorModule` trait (mixed into `gdext.core`, see [`generator-module-mill-plugin`](../generator-module-mill-plugin/README.md)) emits a handful of *core-layer* files at compile time (`PackedArrays.scala`, `StringName.scala`, `StringNames.scala`, `NodePath.scala` — heap builtins, packed arrays, string name constants) because they need access to `gdext.core` types that `gdext.ffi` can't depend on. They compile into `package com.`julian-avar`.gdext.core` alongside the hand-written code in `src/` but are not checked in — they land in Mill's `out/` task directory and are regenerated on every compile. See `CoreGeneratorModule.scala`.
+`gdext.ffi` (see its own README) is a separate module this one depends on — it is not part of `core`'s sources. Within `core` itself, the `CoreGeneratorModule` trait (mixed into `gdext.core`, see [`generator-module-mill-plugin`](../generator-module-mill-plugin/README.md)) emits a handful of *core-layer* files at compile time (`PackedArrays.scala`, `StringName.scala`, `StringNames.scala`, `NodePath.scala` — heap builtins, packed arrays, string name constants) because they need access to `gdext.core` types that `gdext.ffi` can't depend on. They compile into `package com.julianavar.gdext.core` alongside the hand-written code in `src/` but are not checked in — they land in Mill's `out/` task directory and are regenerated on every compile. See `CoreGeneratorModule.scala`.
 
 ## See also
 

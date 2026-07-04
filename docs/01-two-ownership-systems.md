@@ -78,8 +78,8 @@ flowchart LR
 
 ## Files
 
-- `gdext/core/src/com/julian-avar/gdext/core/Gd.scala` — `Gd[T]` handle type
-- `gdext/core/src/com/julian-avar/gdext/core/GodotObject.scala` — base class with `ptr` field
-- `gdext/core/src/com/julian-avar/gdext/core/GodotClass.scala` — `isRefCounted` flag
-- `gdext/core/src/com/julian-avar/gdext/core/GdClassRegistry.scala` — registration storage
-- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — `instanceMap`, `godotPtrMap`
+- `gdext/core/src/com/julianavar/gdext/core/Gd.scala` — `Gd[T]` handle type
+- `gdext/core/src/com/julianavar/gdext/core/GodotObject.scala` — base class with `ptr` field
+- `gdext/core/src/com/julianavar/gdext/core/GodotClass.scala` — `isRefCounted` flag
+- `gdext/core/src/com/julianavar/gdext/core/GdClassRegistry.scala` — registration storage
+- `gdext/core/src/com/julianavar/gdext/core/ClassRegistrar.scala` — `instanceMap`, `godotPtrMap`

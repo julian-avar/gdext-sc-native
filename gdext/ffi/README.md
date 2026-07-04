@@ -8,7 +8,7 @@ once per supported Godot version.
 Entirely generated: `gdext.ffi` mixes in the `FFIGeneratorModule` trait, which reads
 `gdextension_interface.json` only and produces these sources as a `generatedSources` Mill task on
 every compile — nothing under this module is checked into `src/`. See
-[`gdext/generator-module-mill-plugin/.../ffi/README.md`](../generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/ffi/README.md).
+[`gdext/generator-module-mill-plugin/.../ffi/README.md`](../generator-module-mill-plugin/src/com/julianavar/gdext/godotscalanativelib/ffi/README.md).
 
 ## Contents
 

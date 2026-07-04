@@ -16,7 +16,7 @@ object Config:
     val jvmVersion         = "21"
     val pomSettings        = PomSettings(
         description = "GD Extension Scala",
-        organization = "com.julian-avar",
+        organization = "com.julianavar",
         url = "https://codeberg.org/bajopiano/gdext-scala-native",
         licenses = Seq(License.`GPL-3.0`),
         versionControl = VersionControl.codeberg("bajopiano", "gdext-scala-native"),

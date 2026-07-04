@@ -8,7 +8,7 @@ import mill.scalanativelib.*
 import mill.scalalib.scalafmt.ScalafmtModule
 
 import com.goyeau.mill.scalafix.ScalafixModule
-import com.`julian-avar`.gdext.godotscalanativelib.{
+import com.julianavar.gdext.godotscalanativelib.{
     FFIGeneratorModule, APIGeneratorModule, CoreGeneratorModule
 }
 

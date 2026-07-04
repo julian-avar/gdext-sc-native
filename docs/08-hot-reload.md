@@ -115,6 +115,6 @@ if GdxApi.getClassTag(buf) != null then GdxApi.unregisterClass(gdxLibrary, buf)
 
 ## Files
 
-- `gdext/core/src/com/julian-avar/gdext/core/GodotEntry.scala` — init/deinit callbacks with level dispatch
-- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — `register(level)`, `unregisterAll(level)`, `recreateFn`
-- `gdext/core/src/com/julian-avar/gdext/core/Register.scala` — `isTool`, `isRuntime`, `initLevel` macro logic
+- `gdext/core/src/com/julianavar/gdext/core/GodotEntry.scala` — init/deinit callbacks with level dispatch
+- `gdext/core/src/com/julianavar/gdext/core/ClassRegistrar.scala` — `register(level)`, `unregisterAll(level)`, `recreateFn`
+- `gdext/core/src/com/julianavar/gdext/core/Register.scala` — `isTool`, `isRuntime`, `initLevel` macro logic

@@ -140,7 +140,7 @@ flowchart LR
 
 ## Files
 
-- `gdext/core/src/com/julian-avar/gdext/core/GdxApi.scala:182-185` — `CallbackRegistry` (map + nextId)
-- `gdext/core/src/com/julian-avar/gdext/core/GodotObject.scala` — `connect` overloads, `disconnect`, `ConnectionToken`
-- `gdext/core/src/com/julian-avar/gdext/core/SignalHandles.scala` — `Signal0` through `Signal8`
-- `gdext/core/src/com/julian-avar/gdext/core/Callables.scala` — `CallableLambda` factory
+- `gdext/core/src/com/julianavar/gdext/core/GdxApi.scala:182-185` — `CallbackRegistry` (map + nextId)
+- `gdext/core/src/com/julianavar/gdext/core/GodotObject.scala` — `connect` overloads, `disconnect`, `ConnectionToken`
+- `gdext/core/src/com/julianavar/gdext/core/SignalHandles.scala` — `Signal0` through `Signal8`
+- `gdext/core/src/com/julianavar/gdext/core/Callables.scala` — `CallableLambda` factory

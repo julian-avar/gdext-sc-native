@@ -90,6 +90,6 @@ flowchart LR
 
 ## Files
 
-- `gdext/core/src/com/julian-avar/gdext/core/GdxApi.scala:213` — `variantDestroyPtr` stored but never called
-- `gdext/core/src/com/julian-avar/gdext/core/PropertyDescriptor.scala:141-149` — `Variant.readString`
-- `gdext/core/src/com/julian-avar/gdext/core/VariantTypeclasses.scala` — `FromVariant` implementations
+- `gdext/core/src/com/julianavar/gdext/core/GdxApi.scala:213` — `variantDestroyPtr` stored but never called
+- `gdext/core/src/com/julianavar/gdext/core/PropertyDescriptor.scala:141-149` — `Variant.readString`
+- `gdext/core/src/com/julianavar/gdext/core/VariantTypeclasses.scala` — `FromVariant` implementations

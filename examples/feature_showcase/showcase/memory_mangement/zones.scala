@@ -1,7 +1,7 @@
 package example.feature_showcase.showcase.memory_mangement
 
-import com.`julian-avar`.gdext.core.*
-import com.`julian-avar`.gdext.generated.*
+import com.julianavar.gdext.core.*
+import com.julianavar.gdext.generated.*
 import scala.scalanative.unsafe.Zone
 
 /** Explicit Zone scopes for value-type returns

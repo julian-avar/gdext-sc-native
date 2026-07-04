@@ -16,7 +16,7 @@ engine class wrappers (`classes/`), virtual dispatch tables (`virtuals/`), built
 (`UtilityFunctions.scala`), and global enums/scope (`GlobalScope.scala`). Nothing generated is
 checked into `src/`.
 
-## Hand-written content (`src/com/julian-avar/gdext/api/`)
+## Hand-written content (`src/com/julianavar/gdext/api/`)
 
 - `api.scala` — the `gdext.api.*` re-export surface every `@gdclass` game file imports:
   annotations (`@gdclass`, `@gdexport`, `@func`, `@signal`, `@onready`, ...), `Register`,

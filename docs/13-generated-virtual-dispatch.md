@@ -138,8 +138,8 @@ correct virtual table.
 ## Files
 
 - `gdext.api`'s `virtuals/*Virtuals.scala` — 1 036 virtual tables, produced at compile time (not checked into `src/`)
-- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/api/generators/VirtualsGenerator.scala` — generates them
-- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/utils.scala` — shared tree-building helpers
-- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — `virtualTables`, `dispatchFns`, `buildVirtualTable`
-- `gdext/core/src/com/julian-avar/gdext/core/Register.scala` — `auto[T]` macro filtering virtuals
-- `gdext/core/src/com/julian-avar/gdext/core/virtual/VirtualEntry.scala` — case class
+- `gdext/generator-module-mill-plugin/src/com/julianavar/gdext/godotscalanativelib/api/generators/VirtualsGenerator.scala` — generates them
+- `gdext/generator-module-mill-plugin/src/com/julianavar/gdext/godotscalanativelib/utils.scala` — shared tree-building helpers
+- `gdext/core/src/com/julianavar/gdext/core/ClassRegistrar.scala` — `virtualTables`, `dispatchFns`, `buildVirtualTable`
+- `gdext/core/src/com/julianavar/gdext/core/Register.scala` — `auto[T]` macro filtering virtuals
+- `gdext/core/src/com/julianavar/gdext/core/virtual/VirtualEntry.scala` — case class
