@@ -26,7 +26,7 @@ class VirtualsGenerator(using dialect: Dialect):
         // at compile time, so the module must exist for every possible base class.
         classes.map { cls =>
             val virtuals = allVirtualsWithOwner(cls)
-            val entries  = virtualEntryTerms(virtuals, valueBuiltins)
+            val entries  = virtualEntryTerms(virtuals, valueBuiltins, byName)
             ScalaFile(
               content = virtualsSource(cls, entries),
               path = folder,
@@ -37,16 +37,22 @@ class VirtualsGenerator(using dialect: Dialect):
 
     private def virtualEntryTerms(
         virtuals: Vector[(Ast.GodotMethod, String)],
-        valueBuiltins: Set[String]
+        valueBuiltins: Set[String],
+        byName: Map[String, Ast.GodotClass]
     ): Vector[Term] = virtuals.flatMap { (m, defClass) =>
-        val camelName         = toCamel(m.name)
+        // Must match WrappersGenerator's resolution exactly, since this is the call-site name
+        // used by the dispatch lambda below -- both are pure functions of defClass's ancestry,
+        // computed the same way, so they agree without any shared mutable state.
+        val siblingNames = byName.get(defClass).map(allVisibleNonVirtualNames(_, byName))
+            .getOrElse(Set.empty)
+        val camelName         = resolveVirtualScalaName(m, siblingNames)
         val retType           = godotTypeStr(m.returnTypeName, m.returnMeta, valueBuiltins)
         val conflictsWithBase = godotClassVirtuals.get(camelName).exists(_._1 != retType)
         if conflictsWithBase then None
         else
-            val dispatch = buildDispatchLambda(m, defClass, valueBuiltins)
+            val dispatch = buildDispatchLambda(m, defClass, valueBuiltins, camelName)
             val entryStr = s"""VirtualEntry("${m.name}", required = ${m
-                    .isRequired}, dispatch = ${dispatch.syntax})"""
+                    .isRequired}, dispatch = ${dispatch.syntax}, scalaName = "${camelName}")"""
             Some(entryStr.parse[Term].get)
         end if
     }

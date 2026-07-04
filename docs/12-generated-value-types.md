@@ -1,8 +1,8 @@
 # Generated Value Types — Opaque Pointers Over C Structs
 
-All 16 Godot value-type builtins are generated in `GodotBuiltins.scala` as
-**opaque type aliases** over pointers to `CStructN` types. They exist only on the
-stack — no heap allocation, no GC tracking.
+All 16 Godot value-type builtins are generated at compile time (`BuiltinsGenerator`, part of
+`APIGeneratorModule`) into `gdext.api`'s `GodotBuiltins.scala` as **opaque type aliases** over
+pointers to `CStructN` types. They exist only on the stack — no heap allocation, no GC tracking.
 
 ## The 16 Types
 
@@ -164,8 +164,8 @@ opaque 8-16 byte handles that Godot's C API manages by pointer, but they are not
 
 ## Files
 
-- `gdext/generated/src/gdext/generated/GodotBuiltins.scala` — all 16 value types (600 lines)
-- `gdext/core/src/gdext/core/NodePath.scala` — hand-written heap type
-- `gdext/core/src/gdext/core/StringName.scala` — hand-written heap type
-- `gdext/core/src/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`
-- `gdext/core/src/gdext/core/BuiltinExtensions.scala` — extension methods (constants, distanceTo, etc.)
+- `gdext.api`'s `GodotBuiltins.scala` — all 16 value types (600 lines), produced at compile time (not checked into `src/`)
+- `gdext/core/src/com/julian-avar/gdext/core/generated/NodePath.scala` — heap type, emitted at compile time by `CoreGeneratorModule`
+- `gdext/core/src/com/julian-avar/gdext/core/generated/StringName.scala` — heap type, emitted at compile time by `CoreGeneratorModule`
+- `gdext/core/src/com/julian-avar/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`
+- `BuiltinExtensions.scala` (constants, `distanceTo`, etc.) is **not yet implemented** — see `FEATURES.md#known-limitations`

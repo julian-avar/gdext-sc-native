@@ -8,28 +8,37 @@ and the reason they exist — are the same: each layer should only know about th
 below it, so it's always clear which file is "raw FFI", which is "framework", which is
 "generated API", and which is "user-facing facade".
 
+`gdext.ffi`, `gdext.core`, and `gdext.api` are each a `Cross.Module[String]`, built once per
+supported Godot version (`4.5.0`, `4.6.1`, `4.7.0` today — see `Config.godotVersions`). Codegen for
+all three is wired directly into the build as Mill `generatedSources` tasks, so it reruns
+automatically whenever the corresponding module compiles — there is no manual "run the generator"
+step, and generated output is never checked into `src/`.
+
 ## Module map
 
 | Module | Package | Role | Rust gdext analogue |
 |---|---|---|---|
-| [`gdext.ffi`](../gdext/ffi/README.md) | `gdext.ffi` | Raw C-ABI bindings generated straight from `gdextension_interface.json`. Zero dependency on anything else in the binding. | `godot-ffi` |
-| [`gdext.core`](../gdext/core/README.md) | `gdext.core` | Hand-written framework on top of `ffi`: object model (`Gd[T]`, `GodotObject`), class registration, variant marshalling, Zones, signals. A few mechanically-generated files that need `gdext.core` types live in `core/src/gdext/core/generated/` — same package, separated into their own folder so they're visibly generator output. | `godot-core` (the hand-written parts: `obj`, `registry`, `meta`, `signal`, `init`) |
-| [`gdext.generated`](../gdext/generated/README.md) | `gdext.generated` | Generated idiomatic Scala for every Godot class, builtin, and utility function — what game code actually imports. | `godot-core` (the generated parts, produced via `build.rs` rather than a separate module) |
-| [`gdext.generator.ffi`](../gdext/generator/ffi/README.md) | `gdext.generator.ffi` | Build-time tool. Reads `gdextension_interface.json` only; emits `gdext.ffi` plus the core-layer generated files. | `godot-codegen` (the sys-facing half) |
-| [`gdext.generator`](../gdext/generator/README.md) | `gdext.generator` | Build-time tool. Reads both API JSONs; emits `gdext.generated`. | `godot-codegen` (the api-facing half) |
-| `gdext` (facade) | `gdext`, `gdext.editor`, `gdext.scala`, `gdext.godot` | The `gdext.api.*` re-export surface every game class imports, plus the editor-plugin base class and the `ScalaScript` language integration that lets `.scala` files be used as Godot scripts directly. | `godot` (the facade crate) |
+| [`gdext.ffi`](../gdext/ffi/README.md) | `com.\`julian-avar\`.gdext.ffi` | Raw C-ABI bindings generated straight from `gdextension_interface.json` via the `FFIGeneratorModule` trait. Zero dependency on anything else in the binding; entirely generated, nothing checked in. | `godot-ffi` |
+| [`gdext.core`](../gdext/core/README.md) | `com.\`julian-avar\`.gdext.core` | Hand-written framework on top of `ffi`: object model (`Gd[T]`, `GodotObject`), class registration, variant marshalling, Zones, signals. The `CoreGeneratorModule` trait additionally emits a few mechanically-generated files at compile time (heap builtins, packed array extensions, string-name cache) that need `gdext.core` types. | `godot-core` (the hand-written parts: `obj`, `registry`, `meta`, `signal`, `init`) |
+| [`gdext.api`](../gdext/api/README.md) | `com.\`julian-avar\`.gdext.api` | Generated idiomatic Scala for every Godot class, builtin, and utility function (via `APIGeneratorModule`), merged with the hand-written `gdext.api.*` facade every game class imports, plus the editor-plugin base class and the `ScalaScript` language integration that lets `.scala` files be used as Godot scripts directly. | `godot-core` (the generated parts, produced via `build.rs` rather than a separate module) + the `godot` facade crate |
+| [`gdext.generator-module-mill-plugin`](../gdext/generator-module-mill-plugin/README.md) | `com.\`julian-avar\`.gdext.godotscalanativelib` | Build-time only. Supplies the `FFIGeneratorModule`/`CoreGeneratorModule`/`APIGeneratorModule` traits mixed into `ffi`/`core`/`api` above; not a dependency of any runtime module. | `godot-codegen` |
+| `gdext` (top-level, per version) | — | Aggregates `api` + `core` (which pulls in `ffi` transitively) into the single dependency examples and user projects consume. | — |
+| `gdext.mill-plugin` (artifact `gdext-mill-plugin`) | `com.\`julian-avar\`.gdext.godotscalanativelib` | The published Mill plugin: supplies `GodotScalaNativeModule` (generated registration/entry-point scanning, `buildExtension`) to consumer `build.mill` files, e.g. every `examples/*` project. | — |
 
-`examples/*` and user projects depend on the facade module (`gdext`), which transitively pulls in
-`core`, `generated`, and `ffi`. Nothing outside `gdext.core` should need to import `gdext.ffi`
-directly — see [`gdext/src/gdext/lowlevel.scala`](../gdext/src/gdext/lowlevel.scala) for the one
-sanctioned escape hatch (library/plugin authors who need raw FFI access).
+`examples/*` and user projects depend on `gdext-mill-plugin` (for the build-time
+`GodotScalaNativeModule` trait) and `gdext` (for the runtime facade), resolved from `~/.ivy2/local`
+via `just publishLocal`. Nothing outside `gdext.core` should need to import `gdext.ffi` directly —
+see [`gdext/api/src/.../lowlevel.scala`](../gdext/api/src/com/julian-avar/gdext/api/lowlevel.scala)
+for the one sanctioned escape hatch (library/plugin authors who need raw FFI access).
 
 ## Build-time data flow
 
-The two generators are independent tools that both read Godot's API description JSON and write
-Scala source. `generator.ffi` must run before `generator` because the api-layer generator emits
-code that references `gdext.core` types, some of which (the heap builtins, packed array
-extensions, string-name cache) are themselves produced by `generator.ffi`.
+`FFIGeneratorModule`, `CoreGeneratorModule`, and `APIGeneratorModule` are independent Mill tasks
+that each read Godot's API description JSON for one Godot version and write Scala source trees
+into that task's own `out/` directory. `gdext.core`'s generated sources depend on `gdext.ffi`
+having compiled first (ordinary module dependency, not a manual ordering step), and
+`gdext.api`'s generator emits code that references `gdext.core` types, so `gdext.api` depends on
+both.
 
 ```mermaid
 flowchart LR
@@ -38,23 +47,26 @@ flowchart LR
         APIJSON["extension_api.json"]
     end
 
-    subgraph "generator.ffi (FfiGeneratorMain)"
-        FFIGEN["FfiGenerator, SysTypesGenerator,\nSysInterfaceGenerator, CStructExtGenerator"]
+    subgraph "gdext.ffi (FFIGeneratorModule)"
+        FFIGEN["GdxFfiGenerator, TypesGenerator,\nInterfaceGenerator, CStructExtGenerator"]
+    end
+
+    subgraph "gdext.core (CoreGeneratorModule)"
         COREGEN["HeapBuiltinGenerator, PackedArraysGenerator,\nStringNamesGenerator"]
     end
 
-    subgraph "generator (GeneratorMain)"
+    subgraph "gdext.api (APIGeneratorModule)"
         APIGEN["WrappersGenerator, VirtualsGenerator,\nBuiltinsGenerator, TypesGenerator,\nUtilitiesGenerator, GlobalScopeGenerator"]
     end
 
-    IFACE --> FFIGEN --> FFIOUT["gdext/ffi/src/\npackage com.`julian-avar`.gdext.ffi"]
-    IFACE --> COREGEN --> COREOUT["gdext/core/src/gdext/core/generated/\npackage com.`julian-avar`.gdext.core"]
+    IFACE --> FFIGEN --> FFIOUT["Mill out/ task dir\npackage com.`julian-avar`.gdext.ffi"]
+    IFACE --> COREGEN --> COREOUT["Mill out/ task dir\npackage com.`julian-avar`.gdext.core"]
     IFACE --> APIGEN
-    APIJSON --> APIGEN --> APIOUT["gdext/generated/src/\npackage com.`julian-avar`.gdext.generated"]
+    APIJSON --> APIGEN --> APIOUT["Mill out/ task dir\npackage com.`julian-avar`.gdext.api"]
 
-    FFIOUT -.compiled into.-> FFIMOD["gdext.ffi module"]
-    COREOUT -.compiled into.-> COREMOD["gdext.core module"]
-    APIOUT -.compiled into.-> APIMOD["gdext.generated module"]
+    FFIOUT -.compiled into.-> FFIMOD["gdext.ffi(version) module"]
+    COREOUT -.compiled into.-> COREMOD["gdext.core(version) module"]
+    APIOUT -.compiled into.-> APIMOD["gdext.api(version) module"]
 ```
 
 ## Runtime data flow
@@ -67,7 +79,7 @@ flowchart TB
     subgraph "Outbound: user code calls the engine"
         USER["User @gdclass code\n(e.g. node.moveAndSlide())"]
         FACADE["gdext.api facade\n(annotations, Register, Gd[T])"]
-        WRAP["gdext.generated wrapper\n(Node3D.moveAndSlide, idiomatic Scala)"]
+        WRAP["gdext.api generated wrapper\n(Node3D.moveAndSlide, idiomatic Scala)"]
         MARSHAL["gdext.core Ptrcall/VariantTypeclasses\n(marshals Scala values to Variant/ptr args)"]
         RAWFFI["gdext.ffi function pointer\n(GdxFfi.objectMethodBindCall, ...)"]
         ENGINE["Godot engine (C++)"]
@@ -78,16 +90,16 @@ flowchart TB
         ENGINE2["Godot engine fires a virtual\nmethod or signal"]
         CALLBACK["gdext.ffi extern callback\n(class_call_virtual, instance_create2 binding)"]
         DISPATCH["gdext.core dispatch trampoline\n(ClassRegistrar.godotPtrMap lookup,\nVirtualEntry.dispatch, wraps call in Zone)"]
-        VIRT["gdext.generated {Class}Virtuals trait\n(typed _ready/_process/... entries)"]
-        OVERRIDE["User's override\n(e.g. override def _ready(): Unit = ...)"]
+        VIRT["gdext.api {Class}Virtuals trait\n(typed _ready/_process/... entries)"]
+        OVERRIDE["User's override\n(e.g. override def ready(): Unit = ...)"]
         ENGINE2 --> CALLBACK --> DISPATCH --> VIRT --> OVERRIDE
     end
 ```
 
 Outbound calls flow strictly downward through the layers (facade → generated → core → ffi →
 engine); inbound calls flow strictly upward (ffi → core → generated → user). Neither direction
-ever skips a layer — e.g. `gdext.generated` wrappers never call `gdext.ffi` directly, they go
-through `gdext.core`'s marshalling and ptrcall helpers.
+ever skips a layer — e.g. `gdext.api` wrappers never call `gdext.ffi` directly, they go through
+`gdext.core`'s marshalling and ptrcall helpers.
 
 ## See also
 

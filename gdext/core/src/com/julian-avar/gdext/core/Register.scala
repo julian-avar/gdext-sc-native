@@ -91,12 +91,12 @@ object Register:
             ${ Apply(Select(New(Inferred(tpe)), ctorSym), ctorArgTerms).asExprOf[GodotObject] }
         }
 
-        // ── Virtuals ─────────────────────────────────────────────────────────
-        // Only strips the leading underscore when it was synthesized by an uppercase first
-        // character (e.g. "TakeDamage" -> "_take_damage" -> "take_damage"). Names that already
-        // start with an underscore in Scala source (e.g. "_ready", "_onButtonPressed" — matching
-        // Godot's virtual/callback naming convention) must keep it, or virtual-override detection
-        // and @func's registered Godot name silently drop the leading "_" and never match.
+        // camelToSnake converts a Scala camelCase name to Godot's snake_case convention. Only
+        // strips a leading underscore when it was synthesized by an uppercase first character
+        // (e.g. "TakeDamage" -> "_take_damage" -> "take_damage") — used for @func's registered
+        // Godot name (below) and @signal's registered Godot name. Not used for virtual-override
+        // detection: virtual overrides no longer carry a leading underscore on the Scala side
+        // (see below).
         def camelToSnake(name: String): String =
             val sb = new StringBuilder
             for c <- name do if c.isUpper then sb ++= "_" + c.toLower.toString else sb += c
@@ -104,8 +104,36 @@ object Register:
             if name.nonEmpty && name.head.isUpper then raw.dropWhile(_ == '_') else raw
         end camelToSnake
 
+        // ── Virtuals ─────────────────────────────────────────────────────────
+        // Godot's virtual/callback names are always "_" + snake_case (e.g. "_ready",
+        // "_physics_process") — this is the literal string baked into the generated
+        // {Base}Virtuals.entries as VirtualEntry.name, matched at runtime against Godot's
+        // ClassDB/virtual-call machinery, and must never change. The Scala-facing override is
+        // written WITHOUT the leading underscore (`override def ready()`) — except for the rare
+        // virtual whose stripped name would collide with a same-class or inherited regular method
+        // (e.g. CameraFeed's "_get_formats" vs its own "getFormats()"), a concrete AnyRef member,
+        // or a reserved Scala word. Those keep Godot's underscore-prefixed name instead (users
+        // write it as-is, e.g. `override def _getFormats()` -- a leading underscore is a valid
+        // plain Scala identifier, no escaping needed). Rather than re-deriving that per-class
+        // exception here, we match directly against each entry's own `scalaName`
+        // field (the generator already recorded the exact name it chose) instead of
+        // reconstructing a candidate Godot name.
+        //
+        // A method only counts as a virtual-override candidate if it also carries the `override`
+        // modifier. Every genuine virtual override requires `override` today regardless (every
+        // generated engine wrapper — and GodotObject itself — always provides a concrete no-op
+        // default for every virtual), so this doesn't restrict any legitimate usage. It does
+        // close an ambiguity that dropping the leading underscore would otherwise introduce: an
+        // ordinary same-named helper method (e.g. a user's own `def process(...)`) could
+        // otherwise be silently mistaken for a lifecycle override.
+        //
+        // "Paired" virtuals (e.g. `_getFormats`) also carry an extra `(using CanCallApi)`
+        // parameter list on the generated stub, gating direct calls from outside `gdext` — see
+        // CanCallApi. That's irrelevant here: matching is purely on `Symbol.name`, which an
+        // extra parameter list doesn't change.
         val userMethodNames: Set[String] = sym.declaredMethods
-            .filterNot(_.flags.is(Flags.Synthetic)).map(m => camelToSnake(m.name)).toSet
+            .filterNot(_.flags.is(Flags.Synthetic)).filter(_.flags.is(Flags.Override)).map(_.name)
+            .toSet
 
         val overriddenNamesExpr: Expr[Set[String]] = Expr(userMethodNames)
 
@@ -117,7 +145,7 @@ object Register:
         end virtualsExpr
 
         val filteredVirtualsExpr: Expr[Vector[VirtualEntry]] =
-            '{ $virtualsExpr.filter(e => $overriddenNamesExpr(e.name)) }
+            '{ $virtualsExpr.filter(e => $overriddenNamesExpr(e.scalaName)) }
 
         // ── Annotation type symbols ───────────────────────────────────────────
         val gdexportSym = TypeRepr.of[gdexport].typeSymbol

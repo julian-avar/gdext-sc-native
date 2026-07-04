@@ -7,13 +7,18 @@ import gdext.core.virtual.VirtualEntry
 import gdext.generated.*
 
 class ScalaScript(_p: Ptr[Byte] = null) extends ScriptExtension(_p):
-    override def _isValid(): Boolean                 = true
-    override def _canInstantiate(): Boolean          = false
-    override def _editorCanReloadFromFile(): Boolean = true
-    override def _hasSourceCode(): Boolean           = false
-    override def _reload(keepState: Boolean): Int    = 0
+    // These 3 keep Godot's underscore-prefixed name: ScriptExtension's ancestor
+    // Script already declares a real public canInstantiate()/hasSourceCode()/reload() method, so
+    // the generator falls back instead of colliding with it (see resolveVirtualScalaName in the
+    // generator). Being "paired" virtuals, they also require `(using CanCallApi)` — satisfied
+    // automatically here since this file lives inside the `gdext` package tree.
+    override def isValid(): Boolean                                 = true
+    override def _canInstantiate()(using CanCallApi): Boolean       = false
+    override def editorCanReloadFromFile(): Boolean                 = true
+    override def _hasSourceCode()(using CanCallApi): Boolean        = false
+    override def _reload(keepState: Boolean)(using CanCallApi): Int = 0
 
-    override def _getLanguage(): ScriptLanguage = ScalaScriptLanguageSupport.langInstance
+    override def getLanguage(): ScriptLanguage = ScalaScriptLanguageSupport.langInstance
 end ScalaScript
 
 object ScalaScript:

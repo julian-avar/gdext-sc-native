@@ -6,7 +6,6 @@ import mainargs.*
 import godotscalanativelib.resource_parser
 import godotscalanativelib.utils.ScalaFile
 
-
 given TokensReader.Simple[os.Path]:
     def shortName               = "path"
     def read(strs: Seq[String]) = Right(os.Path(strs.head, os.pwd))

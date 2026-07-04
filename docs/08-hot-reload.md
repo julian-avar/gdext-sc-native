@@ -15,7 +15,7 @@ sequenceDiagram
 
     Dev->>Godot: Edit source code
     Godot->>Old: Extension running
-    Dev->>Dev: mill examples.rigid_body.buildExtension
+    Dev->>Dev: cd examples/rigid_body && ./mill buildExtension
     Dev->>Godot: Replace libgodot-scala-native.so
     Godot->>New: Load new .so
     New->>New: godot_scala_init() called
@@ -115,6 +115,6 @@ if GdxApi.getClassTag(buf) != null then GdxApi.unregisterClass(gdxLibrary, buf)
 
 ## Files
 
-- `gdext/core/src/gdext/core/GodotEntry.scala` — init/deinit callbacks with level dispatch
-- `gdext/core/src/gdext/core/ClassRegistrar.scala` — `register(level)`, `unregisterAll(level)`, `recreateFn`
-- `gdext/core/src/gdext/core/Register.scala` — `isTool`, `isRuntime`, `initLevel` macro logic
+- `gdext/core/src/com/julian-avar/gdext/core/GodotEntry.scala` — init/deinit callbacks with level dispatch
+- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — `register(level)`, `unregisterAll(level)`, `recreateFn`
+- `gdext/core/src/com/julian-avar/gdext/core/Register.scala` — `isTool`, `isRuntime`, `initLevel` macro logic

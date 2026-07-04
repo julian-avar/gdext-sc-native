@@ -37,7 +37,7 @@ automatically by the dispatch trampoline:
 
 ```scala
 @gdclass class PlayerSc extends CharacterBody2D:
-    override def _physicsProcess(delta: Double): Unit =
+    override def physicsProcess(delta: Double): Unit =
         // Zone is already active — no manual Zone block needed:
         val dir = Input.getVector("left", "right", "up", "down")
         velocity = dir * speed.toFloat
@@ -86,6 +86,6 @@ flowchart LR
 
 ## Files
 
-- `gdext/core/src/gdext/core/ClassRegistrar.scala` — virtual dispatch trampoline creates Zone
-- `gdext/core/src/gdext/core/Ptrcall.scala` — `stackalloc` used for ptrcall args/ret buffers
-- `gdext/core/src/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`
+- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — virtual dispatch trampoline creates Zone
+- `gdext/core/src/com/julian-avar/gdext/core/Ptrcall.scala` — `stackalloc` used for ptrcall args/ret buffers
+- `gdext/core/src/com/julian-avar/gdext/core/PropertyDescriptor.scala` — `Variant.readBuiltin`/`writeBuiltin`

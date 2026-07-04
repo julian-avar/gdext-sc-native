@@ -29,7 +29,7 @@ import scala.scalanative.libc.stdlib.{malloc, free}
     // FORMAT_RGBA8 (Godot Image format constant = 5) → 4 bytes per pixel.
     private val scratch = malloc(W * H * 4).asInstanceOf[Ptr[Byte]]
 
-    override def _ready(): Unit =
+    override def ready(): Unit =
         // ── fill scratch with pseudo-random noise via pointer writes ──
         var i = 0
         while i < W * H * 4 do
@@ -55,7 +55,7 @@ import scala.scalanative.libc.stdlib.{malloc, free}
 
         val tex = ImageTexture.createFromImage(img)
         setTexture(tex)
-    end _ready
+    end ready
 
-    override def _exitTree(): Unit = free(scratch.asInstanceOf[Ptr[Byte]])
+    override def exitTree(): Unit = free(scratch.asInstanceOf[Ptr[Byte]])
 end ProceduralTextureExample

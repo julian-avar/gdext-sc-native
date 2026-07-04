@@ -83,5 +83,5 @@ target.unref()               // no-op
 
 ## Files
 
-- `gdext/core/src/gdext/core/Gd.scala` — `Gd[T]` class with `free()`, `unref()`, `close()`, `cast`
-- `gdext/core/src/gdext/core/GodotClass.scala` — `isRefCounted`, `wrap`, `derived` macro
+- `gdext/core/src/com/julian-avar/gdext/core/Gd.scala` — `Gd[T]` class with `free()`, `unref()`, `close()`, `cast`
+- `gdext/core/src/com/julian-avar/gdext/core/GodotClass.scala` — `isRefCounted`, `wrap`, `derived` macro

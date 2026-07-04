@@ -47,6 +47,117 @@ def toCamel(name: String): String =
     }.mkString
 end toCamel
 
+// Scala-facing name for a virtual override: like toCamel, but without the leading underscore
+// Godot's virtual-naming convention puts there. Godot's schema never puts a leading underscore
+// on a non-virtual method name, so this is only ever applied where m.isVirtual.
+def toCamelVirtual(name: String): String = toCamel(name).dropWhile(_ == '_')
+
+// Reserved Scala words: a virtual whose stripped name lands on one of these (only "_import",
+// from EditorImportPlugin, as of the currently bundled API versions) can't be a plain
+// identifier without backticks. Scala 3 soft/contextual keywords (given, enum, export, using,
+// ...) are NOT included here since they remain valid plain identifiers.
+val scalaHardKeywords: Set[String] = Set(
+  "abstract",
+  "case",
+  "catch",
+  "class",
+  "def",
+  "do",
+  "else",
+  "extends",
+  "false",
+  "final",
+  "finally",
+  "for",
+  "forSome",
+  "if",
+  "implicit",
+  "import",
+  "lazy",
+  "match",
+  "new",
+  "null",
+  "object",
+  "override",
+  "package",
+  "private",
+  "protected",
+  "return",
+  "sealed",
+  "super",
+  "this",
+  "throw",
+  "trait",
+  "try",
+  "true",
+  "type",
+  "val",
+  "var",
+  "while",
+  "with",
+  "yield",
+  "macro"
+)
+
+// Some Godot classes declare both a virtual hook and a same-named regular method (e.g.
+// CameraFeed's virtual "_get_formats" alongside its own public "getFormats()") -- stripping the
+// leading underscore from the virtual would collide with the regular method in the same
+// generated class body (or, transitively, an ancestor's/cause a subclass conflict). The virtual
+// also might collide with a concrete AnyRef member (e.g. MainLoop's "_finalize" vs.
+// AnyRef.finalize) or land on a reserved Scala word (EditorImportPlugin's "_import"). In these
+// (rare) cases, fall back to Godot's own underscore-prefixed name instead -- still a perfectly
+// valid plain Scala identifier, no escaping needed; user code overriding one of these writes it
+// as-is (e.g. `override def _getFormats()`), matching what `Register.auto` compares against.
+def resolveVirtualScalaName(m: Ast.GodotMethod, siblingNames: Set[String]): String =
+    val stripped = toCamelVirtual(m.name)
+    if siblingNames.contains(stripped) || jvmMethodConflicts.contains(stripped) ||
+        scalaHardKeywords.contains(stripped)
+    then toCamel(m.name)
+    else stripped
+    end if
+end resolveVirtualScalaName
+
+// Scala names of a class's own non-virtual, non-static methods -- i.e. exactly the set of
+// regular instance methods WrappersGenerator emits into the class body alongside virtual stubs.
+// Used to detect the CameraFeed-style same-class name collision above.
+def nonVirtualInstanceMethodNames(cls: Ast.GodotClass): Set[String] = cls.methods
+    .filter(m => !m.isVirtual && !m.isStatic && !jvmMethodConflicts.contains(toCamel(m.name)))
+    .map(m => toCamel(m.name)).toSet
+
+// Scala names of every non-virtual, non-static regular method visible on `cls` -- its own, plus
+// every ancestor's (transitively). A virtual declared on `cls` whose stripped name collides with
+// one of these can't be safely renamed: the colliding method is already public, so a `protected`
+// virtual stub of the same name would either duplicate it (same class) or illegally narrow its
+// visibility when overriding it (ancestor method, e.g. EditorExportPlatformExtension's virtual
+// "_get_os_name" vs. its ancestor EditorExportPlatform's own public "getOsName()"). Falling back
+// to the underscore-preserved name avoids the collision entirely; see `resolveVirtualScalaName`.
+// (The reverse direction -- a DESCENDANT declaring its own regular method with a name that
+// collides with an ancestor's virtual -- is handled separately, by marking that regular method
+// `override`, since widening protected-to-public on override is legal; see
+// `allInheritedVirtualScalaNames` and its use in `buildMethod`.)
+def allVisibleNonVirtualNames(
+    cls: Ast.GodotClass,
+    byName: Map[String, Ast.GodotClass]
+): Set[String] = nonVirtualInstanceMethodNames(cls) ++ cls.inherits.flatMap(byName.get)
+    .map(allVisibleNonVirtualNames(_, byName)).getOrElse(Set.empty)
+
+// Scala names of every virtual visible on `cls` via inheritance (i.e. declared on some ancestor,
+// not on `cls` itself -- Scala inheritance already brings those stubs in for free). Some engine
+// subclasses declare their own REGULAR method with the same base name as an ancestor's virtual
+// hook (e.g. AudioStream's virtual "_get_bpm" vs. AudioStreamMP3's own concrete "getBpm()") --
+// once the leading underscore is stripped, that subclass's regular method needs `override` to
+// legally shadow the inherited concrete no-op stub. This is unrelated to the same-class
+// (CameraFeed-style) collision handled by `resolveVirtualScalaName` above.
+def allInheritedVirtualScalaNames(
+    cls: Ast.GodotClass,
+    byName: Map[String, Ast.GodotClass]
+): Set[String] = cls.inherits.flatMap(byName.get) match
+    case None         => Set.empty
+    case Some(parent) =>
+        val parentOwn = parent.methods.filter(_.isVirtual)
+            .map(v => resolveVirtualScalaName(v, nonVirtualInstanceMethodNames(parent))).toSet
+        parentOwn ++ allInheritedVirtualScalaNames(parent, byName)
+
 val jvmMethodConflicts: Set[String] =
     Set("wait", "notify", "notifyAll", "toString", "hashCode", "finalize", "getClass")
 
@@ -68,7 +179,7 @@ def functionDefinition(comment: String, name: String, function: Ast.Kind.Functio
 // ── String utilities ──────────────────────────────────────────────────────
 
 val godotClassVirtuals: Map[String, (String, Int)] =
-    Map("_ready" -> ("Unit", 0), "_process" -> ("Unit", 1), "_physicsProcess" -> ("Unit", 1))
+    Map("ready" -> ("Unit", 0), "process" -> ("Unit", 1), "physicsProcess" -> ("Unit", 1))
 
 // ── Common tree helpers ───────────────────────────────────────────────────
 
@@ -224,11 +335,7 @@ def packArg(arg: Ast.GodotArg, i: Int, vb: Set[String] = Set.empty): (List[Stat]
     end match
 end packArg
 
-def packDefaultArg(
-    arg: Ast.GodotArg,
-    i: Int,
-    vb: Set[String] = Set.empty
-): (List[Stat], Term) =
+def packDefaultArg(arg: Ast.GodotArg, i: Int, vb: Set[String] = Set.empty): (List[Stat], Term) =
     val slotN   = s"_a$i"
     val slot    = Term.Name(slotN)
     val default = arg.defaultValue.getOrElse("null")
@@ -243,19 +350,11 @@ def packDefaultArg(
                 if default == "true" then Term.Select(Lit.Int(1), Term.Name("toByte"))
                 else Term.Select(Lit.Int(0), Term.Name("toByte"))
             stackAndAssign(Type.Name("Byte"), bVal)
-        case "int" => stackAndAssign(
-              Type.Name("Long"),
-              Lit.Long(Try(default.toLong).getOrElse(0L))
-            )
+        case "int" => stackAndAssign(Type.Name("Long"), Lit.Long(Try(default.toLong).getOrElse(0L)))
         case t if t.startsWith("enum::") || t.startsWith("bitfield::") =>
-            stackAndAssign(
-              Type.Name("Long"),
-              Lit.Long(Try(default.toLong).getOrElse(0L))
-            )
-        case "float" => stackAndAssign(
-              Type.Name("Double"),
-              Lit.Double(Try(default.toDouble).getOrElse(0.0))
-            )
+            stackAndAssign(Type.Name("Long"), Lit.Long(Try(default.toLong).getOrElse(0L)))
+        case "float" =>
+            stackAndAssign(Type.Name("Double"), Lit.Double(Try(default.toDouble).getOrElse(0.0)))
         case "String" =>
             val alloc = simpleValDef(slotN, stackallocTerm(Type.Name("Byte"), Some(8)))
             val init  = Term.Apply(
@@ -433,9 +532,10 @@ def godotParam(a: Ast.GodotArg, vb: Set[String]): Term.Param = Term
 def buildDispatchLambda(
     m: Ast.GodotMethod,
     definingClass: String,
-    valueBuiltins: Set[String]
+    valueBuiltins: Set[String],
+    scalaName: String
 ): Term =
-    val camelName = toCamel(m.name)
+    val camelName = scalaName
     val _obj      = Term.Name("_obj")
     val _args     = Term.Name("_args")
     val _ret      = Term.Name("_ret")
@@ -562,11 +662,7 @@ def isPrimRet(typeName: String): Boolean = typeName match
     case t if t.startsWith("enum::") || t.startsWith("bitfield::") => true
     case _                                                         => false
 
-def buildTypedCall(
-    cls: Ast.GodotClass,
-    m: Ast.GodotMethod,
-    isStatic: Boolean
-): Option[Term] =
+def buildTypedCall(cls: Ast.GodotClass, m: Ast.GodotMethod, isStatic: Boolean): Option[Term] =
     if m.args.exists(_.hasDefault) then return None // optional args need default packing
     if m.args.size > 6 then return None
     if !isPrimRet(m.returnTypeName) then return None
@@ -626,7 +722,8 @@ def buildMethod(
     isStatic: Boolean = false,
     valueBuiltins: Set[String] = Set.empty,
     refcountedTypes: Set[String] = Set.empty,
-    lowLevel: Boolean = true
+    lowLevel: Boolean = true,
+    inheritedVirtualNames: Set[String] = Set.empty
 ): Defn.Def =
     val name       = toCamel(m.name)
     val userParams = m.args.filterNot(_.hasDefault).map(godotParam(_, valueBuiltins)).toList
@@ -639,22 +736,40 @@ def buildMethod(
         if returnsVB && lowLevel then
             List(userParams, List(buildUsingParam("_zone", Type.Name("Zone"))))
         else List(userParams)
-    Defn.Def(Nil, Term.Name(name), Nil, paramLists, Some(retType), body)
+    // This regular method's name coincides with an ancestor's virtual hook once the leading
+    // underscore is stripped (e.g. AudioStreamMP3.getBpm() vs. AudioStream's "_get_bpm" virtual)
+    // -- it must be marked `override` to legally shadow that inherited concrete no-op stub.
+    val mods = if inheritedVirtualNames.contains(name) then List(Mod.Override()) else Nil
+    Defn.Def(mods, Term.Name(name), Nil, paramLists, Some(retType), body)
 end buildMethod
 
-def buildVirtualStub(m: Ast.GodotMethod, valueBuiltins: Set[String] = Set.empty): Option[Defn.Def] =
-    val camelName      = toCamel(m.name)
-    val retTypeStr     = godotTypeStr(m.returnTypeName, m.returnMeta, valueBuiltins)
-    val arity          = m.args.length
-    val protectedGdext = Mod.Protected(Name.Indeterminate("gdext"))
-    val mods           = godotClassVirtuals.get(camelName) match
+// A virtual is "paired" when its stripped name collides with an existing PUBLIC Godot method
+// (same class or ancestor) -- e.g. Control's "_get_minimum_size" vs. its own public
+// "getMinimumSize()". Only this case needs the `CanCallApi` gate: it's the one place a
+// caller could plausibly confuse the override point for the real public method. JVM-member and
+// reserved-word collisions (e.g. MainLoop's "_finalize", EditorImportPlugin's "_import") also
+// keep Godot's underscore-prefixed name, but have no public sibling to be confused with, so they
+// stay ungated -- same as pure-lifecycle virtuals.
+def buildVirtualStub(
+    m: Ast.GodotMethod,
+    valueBuiltins: Set[String] = Set.empty,
+    siblingNames: Set[String] = Set.empty
+): Option[Defn.Def] =
+    val stripped   = toCamelVirtual(m.name)
+    val isPaired   = siblingNames.contains(stripped)
+    val camelName  = resolveVirtualScalaName(m, siblingNames)
+    val retTypeStr = godotTypeStr(m.returnTypeName, m.returnMeta, valueBuiltins)
+    val arity      = m.args.length
+    val mods       = godotClassVirtuals.get(camelName) match
         case Some((expectedRet, expectedArity))
-            if expectedRet == retTypeStr && expectedArity == arity =>
-            List(Mod.Override(), protectedGdext)
+            if expectedRet == retTypeStr && expectedArity == arity => List(Mod.Override())
         case Some((expectedRet, _)) if expectedRet != retTypeStr => return None
-        case _                                                   => List(protectedGdext)
-    val params            = m.args.map(godotParam(_, valueBuiltins)).toList
-    val retType           = godotType(m.returnTypeName, m.returnMeta, valueBuiltins)
+        case _                                                   => Nil
+    val params     = m.args.map(godotParam(_, valueBuiltins)).toList
+    val retType    = godotType(m.returnTypeName, m.returnMeta, valueBuiltins)
+    val paramLists =
+        if isPaired then List(params, List(buildUsingParam("_ev", Type.Name("CanCallApi"))))
+        else List(params)
     val defaultBody: Term = m.returnTypeName match
         case "void"                                                    => Lit.Unit()
         case "bool"                                                    => Lit.Boolean(false)
@@ -664,7 +779,7 @@ def buildVirtualStub(m: Ast.GodotMethod, valueBuiltins: Set[String] = Set.empty)
             // Opaque value types (Vector2, Transform2D, AABB, etc.) don't accept null directly.
             Term.ApplyType(Term.Select(Lit.Null(), Term.Name("asInstanceOf")), List(retType))
         case _ => Lit.Null()
-    Some(Defn.Def(mods, Term.Name(camelName), Nil, List(params), Some(retType), defaultBody))
+    Some(Defn.Def(mods, Term.Name(camelName), Nil, paramLists, Some(retType), defaultBody))
 end buildVirtualStub
 
 /** Builds an allocation term + name for a value-builtin property getter.

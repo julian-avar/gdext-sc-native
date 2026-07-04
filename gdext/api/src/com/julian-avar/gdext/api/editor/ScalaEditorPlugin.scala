@@ -13,9 +13,9 @@ import gdext.generated.EditorPlugin
   * {{{
   * @gdclass @tool
   * class MyPlugin extends ScalaEditorPlugin:
-  *   override def _getPluginName(): String = "My Godot Scala Plugin"
-  *   override def _enterTree(): Unit = Log.info("Plugin ready")
-  *   override def _exitTree(): Unit  = Log.info("Plugin removed")
+  *   override def getPluginName(): String = "My Godot Scala Plugin"
+  *   override def enterTree(): Unit = Log.info("Plugin ready")
+  *   override def exitTree(): Unit  = Log.info("Plugin removed")
   * }}}
   *
   * Registration is automatic: `generatedSources` picks up the `@gdclass` annotation and emits
@@ -25,4 +25,4 @@ import gdext.generated.EditorPlugin
   * Godot runs `_enterTree` and `_exitTree` in the editor process.
   */
 abstract class ScalaEditorPlugin extends EditorPlugin:
-    override def _getPluginName(): String = "GodotScala"
+    override def getPluginName(): String = "GodotScala"

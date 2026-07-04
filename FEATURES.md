@@ -14,7 +14,7 @@ at compile time and emits all registration boilerplate.
 
 ```scala
 @gdclass class SpinningCube extends Node3D:
-    override def _ready(): Unit = println("Hello from Scala!")
+    override def ready(): Unit = println("Hello from Scala!")
 ```
 
 - `@gdclass` — marks the class; macro generates `GdClassRegistry.register(...)` automatically
@@ -31,13 +31,13 @@ Override any Godot virtual method — the macro auto-detects overrides and regis
 
 ```scala
 @gdclass class PlayerSc extends CharacterBody2D:
-    override def _ready(): Unit = println("ready")
-    override def _process(delta: Double): Unit = ()
-    override def _physicsProcess(delta: Double): Unit = moveAndSlide()
-    override def _input(event: InputEvent): Unit = ()
-    override def _unhandledInput(event: InputEvent): Unit = ()
-    override def _enterTree(): Unit = ()
-    override def _exitTree(): Unit = ()
+    override def ready(): Unit = println("ready")
+    override def process(delta: Double): Unit = ()
+    override def physicsProcess(delta: Double): Unit = moveAndSlide()
+    override def input(event: InputEvent): Unit = ()
+    override def unhandledInput(event: InputEvent): Unit = ()
+    override def enterTree(): Unit = ()
+    override def exitTree(): Unit = ()
 ```
 
 All lifecycle virtuals from the generated `{Class}Virtuals` stubs are detected automatically.
@@ -71,15 +71,15 @@ getter/setter trampolines and `PropertyInfo` registration automatically.
 ### Export Hints
 
 ```scala
-@gdexport(ExportHint.range(0, 100, 1))       var health: Int = 100
-@gdexport(ExportHint.range(0.0, 1.0, 0.01)) var opacity: Double = 1.0
-@gdexport(ExportHint.multiline)              var bio: String = ""
-@gdexport(ExportHint.colorNoAlpha)           var tint: Color = Color(1f,1f,1f,1f)
-@gdexport(ExportHint.file("*.png"))          var icon: String = ""
-@gdexport(ExportHint.dir)                    var saveDir: String = ""
-@gdexport(ExportHint.resourceType("Texture2D")) var tex: Tres[Texture2D] = Tres.empty
+@gdexport(ExportHint.range(0, 100, 1))            var health: Int = 100
+@gdexport(ExportHint.range(0.0, 1.0, 0.01))       var opacity: Double = 1.0
+@gdexport(ExportHint.multiline)                   var bio: String = ""
+@gdexport(ExportHint.colorNoAlpha)                var tint: Color = Color(1f,1f,1f,1f)
+@gdexport(ExportHint.file("*.png"))               var icon: String = ""
+@gdexport(ExportHint.dir)                         var saveDir: String = ""
+@gdexport(ExportHint.resourceType("Texture2D"))   var tex: Tres[Texture2D] = Tres.empty
 @gdexport(ExportHint.nodeType("CharacterBody2D")) var target: Gd[CharacterBody2D] = nullOf
-@gdexport(ExportHint.enum("A", "B", "C"))    var mode: Int = 0
+@gdexport(ExportHint.enum("A", "B", "C"))         var mode: Int = 0
 ```
 
 ### Inspector Sections
@@ -171,9 +171,9 @@ Generated handle pattern:
 ```scala
 // GeneratedSignalHandles.scala emits:
 extension (self: PlayerSc)
-  def moved:          Signal2[Float, Float] = Signal2(self, "moved")
-  def died:           Signal0              = Signal0(self, "died")
-  def healthChanged:  Signal2[Int, Int]    = Signal2(self, "health_changed")
+  def moved:         Signal2[Float, Float] = Signal2(self, "moved")
+  def died:          Signal0               = Signal0(self, "died")
+  def healthChanged: Signal2[Int, Int]     = Signal2(self, "health_changed")
 ```
 
 ### Connecting signals
@@ -285,7 +285,7 @@ lifecycle override you can call zone-requiring methods directly without a manual
 
 ```scala
 @gdclass class PlayerSc extends CharacterBody2D:
-    override def _physicsProcess(delta: Double): Unit =
+    override def physicsProcess(delta: Double): Unit =
         val dir = Input.getVector("left", "right", "up", "down")
         velocity = dir * speed.toFloat
         moveAndSlide()
@@ -456,11 +456,11 @@ automatically.
 
 ```scala
 @gdclass @tool class MyPlugin extends EditorPlugin:
-    override def _enterTree(): Unit =
+    override def enterTree(): Unit =
         addToolMenuItem("My Action", CallableLambda { doSomething() })
         println("plugin activated")
 
-    override def _exitTree(): Unit =
+    override def exitTree(): Unit =
         removeToolMenuItem("My Action")
 ```
 
@@ -477,13 +477,13 @@ Extend the Godot inspector to add custom controls for your resource types:
 
 ```scala
 @gdclass @tool class MyInspector extends EditorInspectorPlugin:
-    override def _canHandle(obj: GodotObject): Boolean =
+    override def canHandle(obj: GodotObject): Boolean =
         obj.isInstanceOf[MyResource]
 
-    override def _parseBegin(obj: GodotObject): Unit =
+    override def parseBegin(obj: GodotObject): Unit =
         addCustomControl(Label("My custom inspector UI"))
 
-    override def _parseProperty(
+    override def parseProperty(
         obj: GodotObject, tpe: Int, name: String,
         hintType: Int, hintString: String, usageFlags: Int, wide: Boolean
     ): Boolean =
@@ -496,11 +496,11 @@ Register it from the owning `EditorPlugin`:
 @gdclass @tool class MyPlugin extends EditorPlugin:
     var inspector: Gd[MyInspector] = Gd.nullOf
 
-    override def _enterTree(): Unit =
+    override def enterTree(): Unit =
         inspector = Gd.newInstance[MyInspector]
         addInspectorPlugin(inspector.get)
 
-    override def _exitTree(): Unit =
+    override def exitTree(): Unit =
         removeInspectorPlugin(inspector.get)
         inspector.unref()
 ```
@@ -511,16 +511,16 @@ Add custom 3D gizmos for your spatial node types:
 
 ```scala
 @gdclass @tool class MyGizmoPlugin extends EditorNode3DGizmoPlugin:
-    override def _getGizmoName(): String = "MyGizmo"
-    override def _hasGizmo(node: Node3D): Boolean = node.isInstanceOf[MyNode3D]
-    override def _createGizmo(node: Node3D): EditorNode3DGizmo = ???
+    override def getGizmoName(): String = "MyGizmo"
+    override def hasGizmo(node: Node3D): Boolean = node.isInstanceOf[MyNode3D]
+    override def createGizmo(node: Node3D): EditorNode3DGizmo = ???
 
 @gdclass @tool class MyPlugin extends EditorPlugin:
     var gizmoPlugin: Gd[MyGizmoPlugin] = Gd.nullOf
-    override def _enterTree(): Unit =
+    override def enterTree(): Unit =
         gizmoPlugin = Gd.newInstance[MyGizmoPlugin]
         addNode3dGizmoPlugin(gizmoPlugin.get)
-    override def _exitTree(): Unit =
+    override def exitTree(): Unit =
         removeNode3dGizmoPlugin(gizmoPlugin.get)
         gizmoPlugin.unref()
 ```
@@ -531,10 +531,12 @@ Custom asset importers:
 
 ```scala
 @gdclass @tool class MyImporter extends EditorImportPlugin:
-    override def _getImporterName(): String = "my.importer"
-    override def _getVisibleName(): String  = "My Format"
-    override def _getRecognizedExtensions(): PackedStringArray = ???
-    override def _getResourceType(): String = "Mesh"
+    override def getImporterName(): String = "my.importer"
+    override def getVisibleName(): String  = "My Format"
+    override def getRecognizedExtensions(): PackedStringArray = ???
+    override def getResourceType(): String = "Mesh"
+    // "import" is a reserved Scala word, so this virtual keeps Godot's underscore-prefixed name
+    // instead of colliding with it
     override def _import(
         sourceFile: String, savePath: String,
         options: GdDict[String, Ptr[Byte]],
@@ -549,7 +551,7 @@ Run one-shot scripts from the editor (Script → Run):
 
 ```scala
 @gdclass @tool class MyScript extends EditorScript:
-    override def _run(): Unit =
+    override def run(): Unit =
         println("running!")
         addRootNode(Node())
 ```
@@ -571,14 +573,14 @@ All of these can be extended with `@gdclass @tool`:
 
 Annotate a `lazy val` to express that it must be initialized after the node enters the
 scene tree. The macro enforces `lazy val` at compile time; the field initializes on first
-access (always safe in or after `_ready`).
+access (always safe in or after `ready`).
 
 ```scala
 @gdclass class PlayerHud extends CanvasLayer:
   @onready lazy val healthBar: ProgressBar = getNode[ProgressBar]("HealthBar")
   @onready lazy val label: Label           = getNode[Label]("Label")
 
-  override def _ready(): Unit =
+  override def ready(): Unit =
     healthBar.setMaxValue(100)
     label.setText("Ready!")
 ```
@@ -592,7 +594,7 @@ class is in scope:
 @gdclass class HelloButtonSc extends CenterContainer:
   @onready lazy val btn = $"Button".as[Button]
 
-  override def _ready(): Unit = btn.setModulate(Color(1f, 0.5f, 0.5f, 1f))
+  override def ready(): Unit = btn.setModulate(Color(1f, 0.5f, 0.5f, 1f))
 ```
 
 Requires `import gdext.api.*` (which brings `GodotObject.as[T]` into scope).
@@ -640,8 +642,12 @@ var boss: Enemy    = nullOf
 
 ## Code Generation
 
-The generator (`mill gdext.generator.generate`) reads Godot's `extension_api.json`
-and emits Scala sources for the full engine surface:
+Codegen is wired directly into the build: `gdext.ffi`, `gdext.core`, and `gdext.api` each mix in a
+generator trait (`FFIGeneratorModule`, `CoreGeneratorModule`, `APIGeneratorModule`) that overrides
+Mill's `generatedSources` task, reading `gdextension_interface.json` / `extension_api.json` for the
+module's target Godot version and emitting Scala sources on every compile — there's no separate
+generate command to run, and nothing is checked into `src/` as generated output. Together they
+produce the full engine surface:
 
 - **Engine class wrappers** — one file per class (~1 023 total), real Scala inheritance
 - **Builtin value types** — all 16 types with math operators and constructors
@@ -657,15 +663,22 @@ and emits Scala sources for the full engine surface:
 
 ## Build & Tooling
 
-- **Mill** build system (not sbt); module layout: `gdext.core`, `gdext.generated`, `gdext.generator`
-- **Nix flake** — pinned Godot 4.5/4.6, Scala 3.8.3, Scala Native 0.5.11, LLVM, Mill
-- **`just run <example>`** — generate, compile, link, launch Godot in one command
+- **Mill** build system (not sbt); module layout: `gdext.ffi`, `gdext.core`, `gdext.api` — each
+  cross-built once per supported Godot version (4.5.0, 4.6.1, 4.7.0) — plus the published
+  `gdext.mill-plugin` artifact and the `gdext.generator-module-mill-plugin` that supplies the
+  generator traits those cross modules mix in
+- **Nix flake** — pinned Godot 4.5/4.6/4.7, Scala 3.8.3, Scala Native 0.5.11, LLVM, Mill
+- **`just publishLocal`** — publishes `gdext` + `gdext-mill-plugin` to `~/.ivy2/local` for the
+  target Godot version
+- **`just run <example>`** — publishLocal, then build, link, and launch Godot for that example
 - **Metals / IntelliJ** — full LSP support on framework and example sources
 - **`Register.auto` scanner** — build-time scalameta source generator discovers all
   `@gdclass` types and emits `GeneratedRegistrations.scala` automatically.
   Also emits `GeneratedSignalHandles.scala`, `GeneratedGodotClasses.scala`,
   `GeneratedEntry.scala`.
-- **Mill plugin** — planned; each example ships a `package.mill` showing the intended setup
+- **Mill plugin** — `gdext-mill-plugin` is a real, publishable Mill plugin module; every
+  `examples/*` directory is a standalone Mill build (own `build.mill` + `./mill` wrapper) that
+  consumes it via `~/.ivy2/local`. Not yet published to a public repository.
 
 ---
 
@@ -704,7 +717,9 @@ performance-critical code. Manual class registration, Variant construction/destr
   `GeneratedRegistrations.scala`.
 - **ScalaDoc on engine classes:** descriptions from `extension_api.json` are not yet
   forwarded to generated wrappers.
-- **No published plugin:** users clone the repo; a Mill plugin is in progress.
+- **Mill plugin not published:** `gdext-mill-plugin` exists and is consumable via
+  `just publishLocal` / `~/.ivy2/local` (see the `examples/*` builds), but is not yet published
+  to a public Maven repository.
 - **`GdxApiV47` is a stub:** version-specific API loading for post-4.7 features is
   not yet implemented (icon registration works via hardcoded pointer in `GdxApi.initialize`).
 - **Examples may not compile:** the example projects exercise the API but may have
@@ -753,7 +768,9 @@ performance-critical code. Manual class registration, Variant construction/destr
 
 - [ ] Zone ergonomics for low-level API
 - [ ] Expose raw FFI: `GdxApi` as user-facing API, manual class registration
-- [ ] Published Mill plugin (`package.mill`)
+- [x] Mill plugin restructure — `gdext.ffi`/`gdext.core`/`gdext.api` cross-built per Godot
+      version, `gdext-mill-plugin` artifact, examples consume via `~/.ivy2/local`
+- [ ] Publish `gdext-mill-plugin` to a public Maven repository
 - [ ] ScalaDoc forwarding from `extension_api.json`
 
 ### Phase 5 — Quality of Life (ongoing)

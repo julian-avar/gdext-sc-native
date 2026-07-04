@@ -48,10 +48,9 @@ trait APIGeneratorModule extends GeneratorModule:
             val utilities      = resource_parser.Parser.utilityFunctions(classJson)
             val globalEnums    = resource_parser.Parser.globalEnums(classJson)
 
-            println(
-              s"  Found ${classes.size} classes, ${builtins.size} builtin types, " +
-                  s"${utilities.size} utility functions, ${globalEnums.size} global enums"
-            )
+            println(s"  Found ${classes.size} classes, ${builtins
+                    .size} builtin types, " + s"${utilities.size} utility functions, ${globalEnums
+                    .size} global enums")
 
             val valueBuiltins: Set[String]   = builtins.filter(_.members.nonEmpty).map(_.name).toSet
             val refcountedTypes: Set[String] = classes.filter(_.isRefcounted).map(_.name).toSet

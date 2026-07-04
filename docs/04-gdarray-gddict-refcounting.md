@@ -117,5 +117,5 @@ For an array of 1000 elements iterated once per frame at 60fps for 60 seconds:
 
 ## Files
 
-- `gdext/core/src/gdext/core/GdArray.scala` — `ToVariant`, `FromVariant`, `destroy`, `foreach`
-- `gdext/core/src/gdext/core/GdDict.scala` — `ToVariant`, `FromVariant`, `destroy`, `foreach`
+- `gdext/core/src/com/julian-avar/gdext/core/GdArray.scala` — `ToVariant`, `FromVariant`, `destroy`, `foreach`
+- `gdext/core/src/com/julian-avar/gdext/core/GdDict.scala` — `ToVariant`, `FromVariant`, `destroy`, `foreach`

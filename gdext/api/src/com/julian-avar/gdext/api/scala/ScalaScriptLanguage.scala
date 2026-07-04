@@ -23,16 +23,15 @@ class ScalaScriptLanguage(_p: Ptr[Byte] = null) extends ScriptLanguageExtension(
         scalaScriptSN
     end ensureScalaScriptSN
 
-    override def _hasNamedClasses(): Boolean       = false
-    override def _supportsBuiltinMode(): Boolean   = false
-    override def _canMakeFunction(): Boolean       = false
-    override def _isUsingTemplates(): Boolean      = false
-    override def _canInheritFromFile(): Boolean    = false
-    override def _supportsDocumentation(): Boolean = false
+    override def hasNamedClasses(): Boolean       = false
+    override def supportsBuiltinMode(): Boolean   = false
+    override def canMakeFunction(): Boolean       = false
+    override def isUsingTemplates(): Boolean      = false
+    override def canInheritFromFile(): Boolean    = false
+    override def supportsDocumentation(): Boolean = false
 
-    override def _createScript(): gdext.generated.Object =
-        summon[GodotClass[gdext.generated.Object]]
-            .wrap(GdxApi.constructObject(ensureScalaScriptSN()))
+    override def createScript(): gdext.generated.Object = summon[GodotClass[gdext.generated.Object]]
+        .wrap(GdxApi.constructObject(ensureScalaScriptSN()))
 end ScalaScriptLanguage
 
 object ScalaScriptLanguage:

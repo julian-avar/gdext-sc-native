@@ -20,7 +20,7 @@ import com.`julian-avar`.gdext.generated.*
 
     private var accumulator = 0.0f
 
-    override def _process(delta: Double): Unit = if active then
+    override def process(delta: Double): Unit = if active then
         accumulator += delta.toFloat * speed
         if accumulator >= 1.0f then
             count += 1

@@ -8,7 +8,7 @@ import com.`julian-avar`.gdext.generated.*
 
     @onready lazy val btn = $"Button".as[Button]
 
-    override def _ready(): Unit = print("Hello, Scala!")
+    override def ready(): Unit = print("Hello, Scala!")
 
     @func def _onButtonPressed(): Unit =
         toggled = !toggled

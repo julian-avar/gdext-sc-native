@@ -2,6 +2,7 @@ package example.feature_showcase
 
 import com.`julian-avar`.gdext.core.*
 import com.`julian-avar`.gdext.generated.*
+import example.feature_showcase.showcase.virtual_dispatch.FixedMinSizeBox
 import scala.scalanative.unsafe.*
 
 // ── Scala enum → Godot ENUM dropdown ─────────────────────────────────────────
@@ -48,8 +49,8 @@ enum Rarity:
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
 
-    override def _ready(): Unit =
-        print(s"ShowcaseSc._ready(): damage=$damage critChance=$critChance")
+    override def ready(): Unit =
+        print(s"ShowcaseSc.ready(): damage=$damage critChance=$critChance")
         print(s"  rarity ordinal: ${rarity.ordinal}")
         print(s"  tint: r=${tintColor.r} g=${tintColor.g} b=${tintColor.b}")
 
@@ -71,10 +72,28 @@ enum Rarity:
 
         // Emit the typed signal via the generated handle extension
         this.statsChanged.emitSignal(damage, critChance.toFloat)
-        print("ShowcaseSc ready.")
-    end _ready
 
-    override def _process(delta: Double): Unit = ()
+        // ── Paired virtual vs. public method — see virtual_dispatch/FixedMinSizeBox ──────────
+        // FixedMinSizeBox overrides `_getMinimumSize()` and `_getTooltip()` (Godot's own
+        // underscore-prefixed names, kept because they collide with Control's own public
+        // getMinimumSize()/getTooltip()). Calling the PUBLIC methods below proves each returns
+        // exactly what its override supplies — nobody ever calls `_getMinimumSize()` or
+        // `_getTooltip()` directly (both require `CanCallApi` evidence that's private to
+        // `gdext`, so it's a compile error, not just a naming convention), only the public
+        // getMinimumSize()/getTooltip().
+        Zone {
+            val box     = Gd.newInstance[FixedMinSizeBox]
+            val size    = box.get.getMinimumSize()
+            val tooltip = box.get.getTooltip()
+            print(s"FixedMinSizeBox.getMinimumSize() -> ${size.x} x ${size.y}")
+            print(s"FixedMinSizeBox.getTooltip() -> $tooltip")
+            box.free()
+        }
+
+        print("ShowcaseSc ready.")
+    end ready
+
+    override def process(delta: Double): Unit = ()
 
     // ── @func methods ─────────────────────────────────────────────────────────
 

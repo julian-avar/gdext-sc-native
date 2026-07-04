@@ -10,7 +10,7 @@ import scala.scalanative.unsafe.Zone
 
     @gdexport var speed = 400
 
-    override def _physicsProcess(delta: Double): Unit =
+    override def physicsProcess(delta: Double): Unit =
         getInput()
         moveAndSlide()
         this.moved.emitSignal(velocity.x, velocity.y)  // extension on PlayerSc, `Moved` is the case class

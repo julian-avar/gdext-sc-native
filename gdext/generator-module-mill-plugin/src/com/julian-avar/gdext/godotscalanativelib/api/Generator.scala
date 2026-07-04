@@ -10,10 +10,18 @@ trait Generator(using dialect: Dialect):
     def types(types: Vector[Ast.Type], folder: String): Vector[ScalaFile] = //
         generators.TypesGenerator().generate(types, folder)
 
-    def interfaces(interfaces: Vector[Ast.Interface], folder: String, file: String): Vector[ScalaFile] = //
+    def interfaces(
+        interfaces: Vector[Ast.Interface],
+        folder: String,
+        file: String
+    ): Vector[ScalaFile] = //
         generators.InterfacesGenerator().generate(interfaces, folder, file)
 
-    def builtins(builtins: Vector[Ast.BuiltinClass], folder: String, file: String): Vector[ScalaFile] = //
+    def builtins(
+        builtins: Vector[Ast.BuiltinClass],
+        folder: String,
+        file: String
+    ): Vector[ScalaFile] = //
         generators.BuiltinsGenerator().generate(builtins, folder, file)
 
     def virtuals(
@@ -38,14 +46,16 @@ trait Generator(using dialect: Dialect):
         folder: String,
         file: String
     ): Vector[ScalaFile] = //
-        generators.UtilitiesGenerator().generate(utilities, valueBuiltins, refcountedTypes, folder, file)
+        generators.UtilitiesGenerator()
+            .generate(utilities, valueBuiltins, refcountedTypes, folder, file)
 
     def globalScope(
         utilities: Vector[Ast.UtilityFunction],
         enums: Vector[Ast.GlobalEnum],
         folder: String,
         file: String
-    ): Vector[ScalaFile] = generators.GlobalScopeGenerator().generate(utilities, enums, folder, file)
+    ): Vector[ScalaFile] = generators.GlobalScopeGenerator()
+        .generate(utilities, enums, folder, file)
 
 end Generator
 

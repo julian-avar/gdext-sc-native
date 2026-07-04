@@ -1,8 +1,9 @@
 # Generated Engine Class Wrappers — Memory & Dispatch Patterns
 
-The generator (in `gdext/generator/`) reads Godot's `extension_api.json` and produces
-**1 036 engine class wrappers** in `gdext/generated/src/gdext/generated/classes/`.
-Each wrapper provides typed Scala methods for every Godot method, cached method binds,
+The generator (`APIGeneratorModule`, in `gdext/generator-module-mill-plugin/`) reads Godot's
+`extension_api.json` at compile time and produces **1 036 engine class wrappers**, compiled
+straight into `gdext.api`'s `classes/` package (no checked-in source — regenerated on every
+build). Each wrapper provides typed Scala methods for every Godot method, cached method binds,
 and a `GodotClass[T]` given for generic handling.
 
 ## Class Hierarchy
@@ -52,15 +53,23 @@ Every generated class file has five sections:
 ```scala
 // Node.scala:13-26
 abstract class Node(_p: Ptr[Byte] = null) extends Object(_p) {
-    override protected[gdext] def _process(delta: Double): Unit = ()
-    override protected[gdext] def _physicsProcess(delta: Double): Unit = ()
-    protected[gdext] def _enterTree(): Unit = ()
-    protected[gdext] def _exitTree(): Unit = ()
+    override def process(delta: Double): Unit = ()
+    override def physicsProcess(delta: Double): Unit = ()
+    def enterTree(): Unit = ()
+    def exitTree(): Unit = ()
     // ...
 }
 ```
 
-All virtuals have default no-op stubs. The `Register.auto[T]` macro detects which ones the
+All virtuals have default no-op stubs, and are plain public methods — no `protected[gdext]`
+tier like earlier versions of this scheme used. The rare "paired" virtual — one whose
+underscore-prefixed name is kept because it collides with an existing public method (e.g.
+Control's `_getMinimumSize()` vs. its own public `getMinimumSize()`) — additionally
+requires a `(using CanCallApi)` parameter list, so calling it directly from outside the
+`gdext` package tree is a compile error rather than just a naming convention (see
+`CanCallApi` in `gdext.core`).
+
+The `Register.auto[T]` macro detects which ones the
 user overrides and only registers those with Godot. Virtual dispatch wraps each call in
 a Zone automatically (see 05-zone-system.md).
 
@@ -327,8 +336,8 @@ function returns. But storing it in a field or across frames is UB.
 
 ## Files
 
-- `gdext/generated/src/gdext/generated/classes/*.scala` — 1 036 class wrappers
-- `gdext/generator/src/gdext/generator/trees/WrappersGenerator.scala` — generates them
-- `gdext/generator/src/gdext/generator/trees/util.scala` — shared helpers (dispatch, type mapping)
-- `gdext/core/src/gdext/core/Ptrcall.scala` — typed ptrcall dispatchers
-- `gdext/core/src/gdext/core/GdxApi.scala` — `getMethodBind`, `ptrcall`, `constructObject`
+- `gdext.api`'s `classes/*.scala` — 1 036 class wrappers, produced at compile time (not checked into `src/`)
+- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/api/generators/WrappersGenerator.scala` — generates them
+- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/utils.scala` — shared helpers (dispatch, type mapping)
+- `gdext/core/src/com/julian-avar/gdext/core/Ptrcall.scala` — typed ptrcall dispatchers
+- `gdext/core/src/com/julian-avar/gdext/core/GdxApi.scala` — `getMethodBind`, `ptrcall`, `constructObject`

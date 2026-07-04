@@ -21,7 +21,7 @@ import scala.scalanative.unsafe.Zone
     @gdexport var color = Color(1f, 1f, 1f, 1f)
     @gdexport var width = 2f
 
-    override def _draw(): Unit = Zone:
+    override def draw(): Unit = Zone:
         // getGlobalMousePosition and toLocal return Vector2 —
         // the Zone provides the arena for their return buffers.
         val mouse = getGlobalMousePosition()

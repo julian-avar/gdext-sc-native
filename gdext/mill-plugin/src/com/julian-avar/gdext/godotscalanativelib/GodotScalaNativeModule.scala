@@ -19,14 +19,11 @@ trait GodotScalaNativeModule extends ScalaNativeModule:
     // `sources` scan above rediscovers the same files `generatedSources` below already
     // writes under `out/generatedSources.dest` — dedup by path so each is compiled once,
     // instead of excluding `out/` wholesale (which would drop the only copy).
-    override def allSourceFiles = Task {
-        super.allSourceFiles().distinctBy(_.path)
-    }
+    override def allSourceFiles = Task { super.allSourceFiles().distinctBy(_.path) }
 
     override def nativeClang   = Task.Input { PathRef(os.Path(Task.env.getOrElse("CC", "clang"))) }
-    override def nativeClangPP = Task.Input {
-        PathRef(os.Path(Task.env.getOrElse("CXX", "clang++")))
-    }
+    override def nativeClangPP = Task
+        .Input { PathRef(os.Path(Task.env.getOrElse("CXX", "clang++"))) }
 
     def buildExtension() = Task.Command {
         val lib  = nativeLink()

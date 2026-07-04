@@ -49,8 +49,7 @@ class BuiltinsGenerator(using dialect: Dialect):
         def cstructTypeName(members: Vector[Ast.BuiltinMember]): Type =
             val args = members.map { m =>
                 val t = metaToScalaType(m.meta)
-                if isPrimitiveMeta(m.meta) then Type.Name(t)
-                else Type.Name(privateStructName(t))
+                if isPrimitiveMeta(m.meta) then Type.Name(t) else Type.Name(privateStructName(t))
             }.toList
             Type.Apply(Type.Name(s"CStruct${members.length}"), args)
         end cstructTypeName

@@ -192,7 +192,7 @@ private[gdext] object GdxApi:
     private[gdext] var unreferenceMethodBind: Ptr[Byte]         = null
     private var editorAddPluginFnPtr: EditorPluginFn            = scala.compiletime.uninitialized
     private var editorRemovePluginFnPtr: EditorPluginFn         = scala.compiletime.uninitialized
-    private[gdext] var registerIconFnAddr: Ptr[Byte]             = null
+    private[gdext] var registerIconFnAddr: Ptr[Byte]            = null
     // Packed array operator_index (const) — (p_self, p_index) → interior element pointer
     private[gdext] var packedByteArrayIndexFn: PackedArrayIndexFn    = null
     private[gdext] var packedInt32ArrayIndexFn: PackedArrayIndexFn   = null

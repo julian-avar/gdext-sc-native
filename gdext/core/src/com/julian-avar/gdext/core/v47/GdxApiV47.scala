@@ -13,7 +13,7 @@ private[gdext] object GdxApiV47:
         val getVersionAddr = getProcAddr(c"get_godot_version")
         if getVersionAddr == null then return
         val getVersion = CFuncPtr.fromPtr[GetGodotVersionFn](getVersionAddr)
-        val versionBuf  = stackalloc[Byte](24) // major, minor, patch: UInt32; string: pointer
+        val versionBuf = stackalloc[Byte](24) // major, minor, patch: UInt32; string: pointer
         getVersion(versionBuf)
         val major = !versionBuf.asInstanceOf[Ptr[UInt]]
         val minor = !(versionBuf + 4).asInstanceOf[Ptr[UInt]]

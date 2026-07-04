@@ -21,15 +21,15 @@ final class ConnectionToken private[core] (val signal: String, private[core] val
   * {{{
   * @gdclass
   * class MyNode extends Node:
-  *   override def _ready(): Unit = print("Hello!")
+  *   override def ready(): Unit = print("Hello!")
   * }}}
   */
 abstract class GodotObject:
     var ptr: Ptr[Byte] = null
 
-    protected[gdext] def _ready(): Unit                       = ()
-    protected[gdext] def _process(delta: Double): Unit        = ()
-    protected[gdext] def _physicsProcess(delta: Double): Unit = ()
+    def ready(): Unit                       = ()
+    def process(delta: Double): Unit        = ()
+    def physicsProcess(delta: Double): Unit = ()
 
     /** Unsafe downcast — rewraps `ptr` as T via GodotClass[T].wrap.
       *

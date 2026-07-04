@@ -11,18 +11,22 @@ class WrappersGenerator(using dialect: Dialect):
         valueBuiltins: Set[String],
         refcountedTypes: Set[String],
         folder: String
-    ): Vector[ScalaFile] = classes.map { cls =>
-        ScalaFile(
-          content = wrapperSource(cls, valueBuiltins, refcountedTypes),
-          path = folder,
-          name = cls.name
-        )
-    }
+    ): Vector[ScalaFile] =
+        val byName = classes.map(c => c.name -> c).toMap
+        classes.map { cls =>
+            ScalaFile(
+              content = wrapperSource(cls, valueBuiltins, refcountedTypes, byName),
+              path = folder,
+              name = cls.name
+            )
+        }
+    end generate
 
     private def wrapperSource(
         cls: Ast.GodotClass,
         valueBuiltins: Set[String] = Set.empty,
-        refcountedTypes: Set[String] = Set.empty
+        refcountedTypes: Set[String] = Set.empty,
+        byName: Map[String, Ast.GodotClass] = Map.empty
     ): String =
         val instanceMethods = cls.methods.filter { m =>
             !m.isVirtual && !m.isStatic && !jvmMethodConflicts.contains(toCamel(m.name))
@@ -32,9 +36,14 @@ class WrappersGenerator(using dialect: Dialect):
         }
         val virtuals = cls.methods.filter(_.isVirtual)
 
-        val methodDefs = instanceMethods.map(
-          buildMethod(cls, _, valueBuiltins = valueBuiltins, refcountedTypes = refcountedTypes)
-        )
+        val inheritedVirtualNames = allInheritedVirtualScalaNames(cls, byName)
+        val methodDefs            = instanceMethods.map(buildMethod(
+          cls,
+          _,
+          valueBuiltins = valueBuiltins,
+          refcountedTypes = refcountedTypes,
+          inheritedVirtualNames = inheritedVirtualNames
+        ))
         val staticDefs = staticMethods.map(buildMethod(
           cls,
           _,
@@ -42,7 +51,8 @@ class WrappersGenerator(using dialect: Dialect):
           valueBuiltins = valueBuiltins,
           refcountedTypes = refcountedTypes
         ))
-        val virtualDefs = virtuals.flatMap(buildVirtualStub(_, valueBuiltins))
+        val siblingNames = allVisibleNonVirtualNames(cls, byName)
+        val virtualDefs  = virtuals.flatMap(buildVirtualStub(_, valueBuiltins, siblingNames))
 
         val propStats: List[Stat] = cls.properties.flatMap { p =>
             val field         = toCamel(p.name)
@@ -251,7 +261,7 @@ class WrappersGenerator(using dialect: Dialect):
           "import scala.scalanative.unsafe.*",
           "import scala.scalanative.unsigned.*",
           "import scala.scalanative.libc.stdlib.malloc",
-          "import com.`julian-avar`.gdext.core.{GdxApi, GodotObject, GodotClass, Ptrcall, StringNames}"
+          "import com.`julian-avar`.gdext.core.{GdxApi, GodotObject, GodotClass, Ptrcall, StringNames, CanCallApi}"
         )
 
         val allImports =

@@ -74,4 +74,4 @@ methods consume ownership on first call — calling any method after `toSeq`/`to
 
 ## Files
 
-- `gdext/core/src/gdext/core/PackedArrays.scala` — all 10 packed array extension methods
+- `gdext.core`'s `PackedArrays.scala` — all 10 packed array extension methods, emitted at compile time by `CoreGeneratorModule` (not checked into `src/`)

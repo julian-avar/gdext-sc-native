@@ -1,8 +1,9 @@
 # Generated Virtual Dispatch Tables
 
 Every Godot engine class that has virtual methods gets a corresponding `{Class}Virtuals.scala`
-file in `gdext/generated/src/gdext/generated/virtuals/`. These tables list every overridable
-virtual method with its name, a `required` flag, and a dispatch lambda.
+file, produced at compile time (`VirtualsGenerator`, part of `APIGeneratorModule`) into `gdext.api`'s
+`virtuals/` package. These tables list every overridable virtual method with its name, a `required`
+flag, and a dispatch lambda.
 
 ## Structure
 
@@ -13,17 +14,17 @@ object NodeVirtuals {
         VirtualEntry("_process", required = false,
             dispatch = (_obj, _args, _ret) => Zone {
                 val _v0 = !_args(0).asInstanceOf[Ptr[Double]]
-                _obj.asInstanceOf[Node]._process(_v0)
+                _obj.asInstanceOf[Node].process(_v0)
             }
         ),
         VirtualEntry("_ready", required = false,
             dispatch = (_obj, _args, _ret) => Zone {
-                _obj.asInstanceOf[Node]._ready()
+                _obj.asInstanceOf[Node].ready()
             }
         ),
         VirtualEntry("_get_focused_accessibility_element", required = false,
             dispatch = (_obj, _args, _ret) => Zone {
-                val _r = _obj.asInstanceOf[Node]._getFocusedAccessibilityElement()
+                val _r = _obj.asInstanceOf[Node].getFocusedAccessibilityElement()
                 _ret.asInstanceOf[Ptr[Ptr[Byte]]](0L) = if (_r != null) _r.ptr else null
             }
         ),
@@ -58,7 +59,7 @@ flowchart LR
         TRAMP[ClassRegistrar shared trampoline\nlooks up dispatch by id]
         ZONE["Zone { ... }  -- automatic Zone"]
         UNMARSHAL["read args from _args buffer\n  val _v0 = !_args(0).asInstanceOf[Ptr[Double]]"]
-        CALL["call user override\n  _obj.asInstanceOf[Node]._process(_v0)"]
+        CALL["call user override\n  _obj.asInstanceOf[Node].process(_v0)"]
         MARSHAL["write return to _ret\n  _ret(0) = _r.ptr"]
     end
     GODOT --> TRAMP --> ZONE --> UNMARSHAL --> CALL --> MARSHAL
@@ -136,9 +137,9 @@ correct virtual table.
 
 ## Files
 
-- `gdext/generated/src/gdext/generated/virtuals/*Virtuals.scala` — 1 036 virtual tables
-- `gdext/generator/src/gdext/generator/trees/VirtualsGenerator.scala` — generates them
-- `gdext/generator/src/gdext/generator/trees/util.scala` — `buildDispatchLambda`, `buildVirtualStub`
-- `gdext/core/src/gdext/core/ClassRegistrar.scala` — `virtualTables`, `dispatchFns`, `buildVirtualTable`
-- `gdext/core/src/gdext/core/Register.scala` — `auto[T]` macro filtering virtuals
-- `gdext/core/src/gdext/core/virtual/VirtualEntry.scala` — case class
+- `gdext.api`'s `virtuals/*Virtuals.scala` — 1 036 virtual tables, produced at compile time (not checked into `src/`)
+- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/api/generators/VirtualsGenerator.scala` — generates them
+- `gdext/generator-module-mill-plugin/src/com/julian-avar/gdext/godotscalanativelib/utils.scala` — shared tree-building helpers
+- `gdext/core/src/com/julian-avar/gdext/core/ClassRegistrar.scala` — `virtualTables`, `dispatchFns`, `buildVirtualTable`
+- `gdext/core/src/com/julian-avar/gdext/core/Register.scala` — `auto[T]` macro filtering virtuals
+- `gdext/core/src/com/julian-avar/gdext/core/virtual/VirtualEntry.scala` — case class
