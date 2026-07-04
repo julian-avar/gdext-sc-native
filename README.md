@@ -13,19 +13,19 @@ On the root folder add a `build.mill` file that should look like this.
 ```scala
 //| mill-version: 1.1.2
 //| mvnDeps:
-//| - com.julianavar::gdext-mill-plugin::0.1.0
+//| - net.`julian-avar`::gdext-mill-plugin::0.1.0
 
 package build
 
 import mill.*
 import mill.scalalib.*
-import com.julianavar.gdext.godotscalanativelib.*
+import net.`julian-avar`.gdext.godotscalanativelib.*
 
 object `package` extends GodotScalaNativeModule:
     def godotVersion       = "4.7.0"
     def scalaVersion       = "3.8.4"
     def scalaNativeVersion = "0.5.11"
-    def mvnDeps            = Seq(mvn"com.julianavar::gdext::0.1.0")
+    def mvnDeps            = Seq(mvn"net.`julian-avar`::gdext::0.1.0")
 end `package`
 ```
 

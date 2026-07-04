@@ -59,10 +59,10 @@ flowchart LR
         APIGEN["WrappersGenerator, VirtualsGenerator,\nBuiltinsGenerator, TypesGenerator,\nUtilitiesGenerator, GlobalScopeGenerator"]
     end
 
-    IFACE --> FFIGEN --> FFIOUT["Mill out/ task dir\npackage com.julianavar.gdext.ffi"]
-    IFACE --> COREGEN --> COREOUT["Mill out/ task dir\npackage com.julianavar.gdext.core"]
+    IFACE --> FFIGEN --> FFIOUT["Mill out/ task dir\npackage net.`julian-avar`.gdext.ffi"]
+    IFACE --> COREGEN --> COREOUT["Mill out/ task dir\npackage net.`julian-avar`.gdext.core"]
     IFACE --> APIGEN
-    APIJSON --> APIGEN --> APIOUT["Mill out/ task dir\npackage com.julianavar.gdext.api"]
+    APIJSON --> APIGEN --> APIOUT["Mill out/ task dir\npackage net.`julian-avar`.gdext.api"]
 
     FFIOUT -.compiled into.-> FFIMOD["gdext.ffi(version) module"]
     COREOUT -.compiled into.-> COREMOD["gdext.core(version) module"]

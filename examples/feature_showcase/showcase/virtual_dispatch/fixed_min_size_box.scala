@@ -1,7 +1,7 @@
 package example.feature_showcase.showcase.virtual_dispatch
 
-import com.julianavar.gdext.core.*
-import com.julianavar.gdext.generated.*
+import net.`julian-avar`.gdext.core.*
+import net.`julian-avar`.gdext.generated.*
 
 /** Two kinds of Godot virtual overrides, and how to tell them apart
   *

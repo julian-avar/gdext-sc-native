@@ -8,7 +8,7 @@ import mill.scalanativelib.*
 import mill.scalalib.scalafmt.ScalafmtModule
 
 import com.goyeau.mill.scalafix.ScalafixModule
-import com.julianavar.gdext.godotscalanativelib.{
+import net.`julian-avar`.gdext.godotscalanativelib.{
     FFIGeneratorModule, APIGeneratorModule, CoreGeneratorModule
 }
 
@@ -67,8 +67,7 @@ trait SharedModule
     def scalaVersion  = Config.scalaVersion
     def scalacOptions = Seq(
       "-explain",
-      "-Wconf:msg=Implicit parameters should be provided with a `using` clause:s",
-      "-Wconf:msg=will be encoded on the classpath:s",
+      // "-Wconf:msg=Implicit parameters should be provided with a `using` clause:s",
       // "-rewrite",
       // "-source:3.8"
     )

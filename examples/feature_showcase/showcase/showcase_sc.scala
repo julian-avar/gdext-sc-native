@@ -1,7 +1,7 @@
 package example.feature_showcase
 
-import com.julianavar.gdext.core.*
-import com.julianavar.gdext.generated.*
+import net.`julian-avar`.gdext.core.*
+import net.`julian-avar`.gdext.generated.*
 import example.feature_showcase.showcase.virtual_dispatch.FixedMinSizeBox
 import scala.scalanative.unsafe.*
 

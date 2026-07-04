@@ -1,7 +1,7 @@
 package example.control_ui_example
 
-import com.julianavar.gdext.api.*
-import com.julianavar.gdext.generated.*
+import net.`julian-avar`.gdext.api.*
+import net.`julian-avar`.gdext.generated.*
 
 @gdclass class HelloButtonSc extends CenterContainer:
     var toggled = false
