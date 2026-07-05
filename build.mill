@@ -8,7 +8,7 @@ import net.`julian-avar`.gdext.mill.godotscalanativelib.{
     FFIGeneratorModule, APIGeneratorModule, CoreGeneratorModule
 }
 
-import millbuild.*
+import millbuild.{Config, Deps, SharedNativeModule}
 
 trait GdextModule extends SharedNativeModule with Cross.Module[String]:
     def artifactName = "gdext"
@@ -21,35 +21,17 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
         def moduleDeps   = Seq(ffi(crossValue), core(crossValue))
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
-        def generatorResources =
-            Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
-        def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
     end ApiModule
-
-    /** foreign function interface */
-    object ffi      extends Cross[FfiModule](Config.godotVersions)
-    trait FfiModule extends SharedNativeModule with FFIGeneratorModule with Cross.Module[String]:
-        def godotVersion = Task { crossValue }
-        def millVersion  = Task { Config.millVersion }
-        def generatorResources =
-            Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
-        def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
-    end FfiModule
 
     object core      extends Cross[CoreModule](Config.godotVersions)
     trait CoreModule extends SharedNativeModule with CoreGeneratorModule with Cross.Module[String]:
         def moduleDeps   = Seq(ffi(crossValue))
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
-        def generatorResources =
-            Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
-        def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
     end CoreModule
 
-    // object `generator-module-mill-plugin` extends SharedModule:
-    //     def mvnDeps = Seq(Deps.millLibs, Deps.scalameta, Deps.trees)
-
-    // object `mill-plugin` extends SharedMillPluginModule:
-    //     def artifactName = "gdext-mill-plugin"
-    //     def mvnDeps      = Seq(Deps.millLibs, Deps.millLibsScalanativelib)
+    object ffi      extends Cross[FfiModule](Config.godotVersions)
+    trait FfiModule extends SharedNativeModule with FFIGeneratorModule with Cross.Module[String]:
+        def godotVersion = Task { crossValue }
+        def millVersion  = Task { Config.millVersion }
 end gdext

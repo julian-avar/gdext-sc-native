@@ -7,8 +7,7 @@ import mill.api.BuildCtx
 import millbuild.*
 
 object `package` extends MillBuildRootModule:
-
-    def moduleDeps = Seq(`generator-module-mill-plugin`)
+    def moduleDeps = Seq(`generator-module-mill-plugin`, `mill-plugin`)
     def mvnDeps    = Seq(Deps.millScalafixPlugin, Deps.millLibsScalanativelib)
 
     object `generator-module-mill-plugin` extends SharedMillPluginModule:

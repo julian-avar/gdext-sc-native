@@ -40,7 +40,7 @@ object Deps:
     val osLib   = mvn"com.lihaoyi::os-lib::0.11.8"
 
     val scalameta              = mvn"org.scalameta::scalameta:${Versions.scalameta}"
-    val trees                  = mvn"org.scalameta::trees:4.17.0"
+    val trees                  = mvn"org.scalameta::trees:${Versions.scalameta}"
     val scalaXml               = mvn"org.scala-lang.modules::scala-xml:2.3.0"
     val millLibs               = mvn"com.lihaoyi::mill-libs:${Versions.mill}"
     val millLibsScalanativelib = mvn"com.lihaoyi::mill-libs-scalanativelib:${Versions.mill}"
@@ -76,6 +76,8 @@ trait SharedModule extends ScalaModule with ScalafmtModule with SharedPublishedM
       // "-rewrite",
       // "-source:3.8"
     )
+
+    def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
 
     // Not published anywhere yet -- this just gets `docJar` (required by Sonatype Central
     // alongside the sources jar) producing a real, populated site once descriptions start

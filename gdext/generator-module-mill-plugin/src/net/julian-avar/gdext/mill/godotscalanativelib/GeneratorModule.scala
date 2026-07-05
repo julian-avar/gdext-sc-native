@@ -29,7 +29,9 @@ trait GeneratorModule extends ScalaModule:
     // def resourcesDir: Task.Simple[os.Path]
     def scalafmtConf: Task.Simple[os.Path]
 
-    def generatorResources: Task.Simple[os.Path] // = Task { resourcesDir() }
+    def generatorResources: Task.Simple[os.Path] =
+        Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
+    // = Task { resourcesDir() }
 
     override def generatedSources = Task {
         BuildCtx.withFilesystemCheckerDisabled {
@@ -193,16 +195,14 @@ trait GeneratorModule extends ScalaModule:
         report("interface fn", ifaceB -- ifaceA, ifaceA -- ifaceB)
     }
 
-
     /** assert required generator resource exists */
     def assertGeneratorResource(file: os.Path) = assert(
       os.exists(file),
       s"File $file not found. Run `./mill downloadGeneratorResources` first."
     )
 
-    /** older Godot versions ship `.h`/`.schema.json` resources; newer ones may not have
-      * been backfilled yet, and neither is read by the generator, so their absence is only
-      * a warning
+    /** older Godot versions ship `.h`/`.schema.json` resources; newer ones may not have been
+      * backfilled yet, and neither is read by the generator, so their absence is only a warning
       */
     def warnIfMissingOptionalGeneratorResource(file: os.Path) =
         if !os.exists(file) then println(s"  warning: optional resource $file not found")
