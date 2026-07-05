@@ -699,10 +699,12 @@ performance-critical code. Manual class registration, Variant construction/destr
 ## Known Limitations
 
 
-- **`GdArray` / `GdDict` lifetime:** the internal Godot Array/Dictionary refcount is
-  not managed; call `.destroy()` on local temporaries, or treat as extension-lifetime
-  handles for exported properties.
-- **`FromVariant` for `GdArray`/`GdDict`** heap-allocates 8 bytes per read (bounded leak).
+- **`GdArray` / `GdDict` lifetime:** call `.destroy()` on local temporaries to free the
+  8-byte handle (Godot destructor + `free`). Exported properties are extension-lifetime
+  handles — do not destroy those. Wrappers from `fromHandle` are borrowed.
+- **`FromVariant` for `GdArray`/`GdDict`** heap-allocates 8 bytes per read; call
+  `.destroy()` on the result to free it. Future work (Phase 2) will add
+  `Cleaner`-based auto-free.
 - **Builtin value type conveniences:** named constants (`Vector2.ZERO`, `Vector3.UP`,
   etc.) and methods (`distanceTo`, `length`, `normalized`, `dot`, `cross`, `lerp`)
   are not yet generated. Only operators (`+`, `-`, `*`, `/`) and field accessors exist.
@@ -742,7 +744,7 @@ performance-critical code. Manual class registration, Variant construction/destr
 - [x] Add `Vector2/3/4` extension methods (constants, `distanceTo`, `length`,
       `normalized`, `dot`, `cross`, `lerp`, `clamp`, `abs`, `sign`)
 - [x] Auto-`reference()` for RefCounted engine returns (generator fix)
-- [ ] `FromVariant` leak mitigation for `GdArray`/`GdDict`
+- [x] `FromVariant` leak mitigation for `GdArray`/`GdDict` (explicit `destroy()`)
 - [ ] `ResourceLoader.loadAs[T]` convenience wrapper
 - [x] `GdArray.empty[A]` companion method
 

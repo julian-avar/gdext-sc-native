@@ -69,6 +69,7 @@ enum Rarity:
         scores("rogue") = damage * 2
         print(s"  scores.size=${scores.size}")
         print(s"  warrior=${scores("warrior")}  mage=${scores("mage")}")
+        scores.destroy()
 
         // Emit the typed signal via the generated handle extension
         this.statsChanged.emitSignal(damage, critChance.toFloat)

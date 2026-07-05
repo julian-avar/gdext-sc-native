@@ -5,11 +5,11 @@ import scala.scalanative.unsigned.*
 import scala.scalanative.libc.stdlib.*
 import scala.scalanative.libc.string.*
 
-/** A typed wrapper around Godot's `Array` builtin type with value-type semantics.
+/** A typed wrapper around Godot's `Array` builtin type.
   *
-  * `GdArray[A]` behaves like `Vector2` or `Color` — the handle (8 bytes) is stored inline in the
-  * Scala wrapper. Godot's internal reference counting manages the backing data. No manual
-  * `destroy()` or `free()` is needed in the high-level API.
+  * `GdArray[A]` wraps an 8-byte Godot Array handle. Call `.destroy()` to release the handle
+  * (Godot destructor + free). Wrappers obtained via `fromHandle` are borrowed — do not call
+  * `destroy()` on them.
   *
   * Creating a new array:
   * {{{
@@ -18,13 +18,13 @@ import scala.scalanative.libc.string.*
   * arr.append(7)
   * val n = arr.size          // 2
   * val x = arr(0)            // 42
+  * arr.destroy()             // free the handle
   * }}}
   *
-  * Exported arrays are extension-lifetime handles. Local arrays implicitly leak the Godot backing
-  * data when they go out of scope — this matches the value-type contract. For leak-conscious hot
-  * loops, use the low-level API (future) with explicit `alloc()`/`free()`.
+  * Exported arrays are extension-lifetime handles — Godot manages their memory. Local
+  * temporaries should be `.destroy()`ed when no longer needed.
   */
-final class GdArray[A] private[core] (private[core] val handle: Ptr[Byte]):
+final class GdArray[A] private[core] (private[core] val handle: Ptr[Byte], private[core] val owned: Boolean = true):
 
     private inline def callBM(
         fnPtr: Ptr[Byte],
@@ -46,6 +46,15 @@ final class GdArray[A] private[core] (private[core] val handle: Ptr[Byte]):
     end size
 
     def isEmpty: Boolean = size == 0
+
+    /** Release the Godot backing store and free the 8-byte handle.
+      * Safe to call multiple times (no-op after first). No-op on borrowed handles (fromHandle).
+      * After this, the wrapper must not be used.
+      */
+    def destroy(): Unit =
+        if owned && handle != null then
+            GdxApi.destroyArray(handle)
+            free(handle)
 
     /** Return the element at `index`. Godot will print an error if index is out of bounds. */
     def apply(index: Int)(using fv: FromVariant[A]): A =
@@ -201,10 +210,8 @@ object GdArray:
     /** Alias for `apply[A]()` — creates an empty `GdArray[A]`. */
     def empty[A]: GdArray[A] = apply[A]()
 
-    /** Wrap an existing 8-byte Array handle. Internal — used by GdDict.keys()/values(). The
-      * handle's memory must outlive this GdArray.
-      */
-    private[core] def fromHandle[A](handle: Ptr[Byte]): GdArray[A] = new GdArray[A](handle)
+    /** Wrap an existing 8-byte Array handle (borrowed — do not call destroy()). */
+    private[core] def fromHandle[A](handle: Ptr[Byte]): GdArray[A] = new GdArray[A](handle, false)
 
     // ── Variant marshalling (value-type semantics — no manual destroy) ──────────
 

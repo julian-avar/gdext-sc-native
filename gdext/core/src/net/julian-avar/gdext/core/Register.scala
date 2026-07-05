@@ -139,7 +139,7 @@ object Register:
 
         val virtualsExpr: Expr[Vector[VirtualEntry]] =
             val godotBase = if baseName == "GodotObject" then "Object" else baseName
-            val modName   = s"net.`julian-avar`.gdext.generated.${godotBase}Virtuals"
+            val modName   = s"net.julian-avar.gdext.generated.${godotBase}Virtuals"
             val modSym    = Symbol.requiredModule(modName)
             Select.unique(Ref(modSym), "entries").asExprOf[Vector[VirtualEntry]]
         end virtualsExpr
@@ -505,6 +505,115 @@ object Register:
                 end if
             }.toList
 
+        // ── Script-instance call methods ─────────────────────────────────────
+        // Godot's script-instance `call_func` path (used when this class is attached as a Script
+        // to a generic node, rather than registered as that node's native ClassDB type) invokes
+        // lifecycle virtuals like _ready/_process by NAME with Variant-boxed arguments — NOT
+        // through the ptrcall-convention virtual-dispatch table `filteredVirtualsExpr` feeds for
+        // the ClassDB path (see ClassRegistrar). Build a second, Variant-marshalled MethodEntry
+        // for each overridden method whose parameters/return type support Variant conversion
+        // (same FromVariant/ToVariant machinery as @func); overrides that don't qualify (e.g. an
+        // incidental `override def toString(): String`) are silently skipped here rather than
+        // erroring, since this is a best-effort mirror of virtuals that are ALSO valid ClassDB
+        // overrides — safety against registering a coincidentally-named non-virtual override is
+        // provided by the runtime `godotNameByScalaName` lookup below, which only keeps candidates
+        // whose scalaName is confirmed to be a genuine virtual of the base class. The registered
+        // Godot name itself is resolved at runtime from `virtualsExpr`'s `entries` (see
+        // `scriptCallMethodsExpr` below) rather than re-derived here, so there's a single source of
+        // truth for Scala-name-to-Godot-name mapping shared with the ClassDB dispatch path.
+        val scriptCallCandidateExprs: List[Expr[(String, MethodEntry)]] = sym.declaredMethods
+            .filterNot(_.flags.is(Flags.Synthetic)).filter(_.flags.is(Flags.Override))
+            .flatMap { m =>
+                val paramDefs   = methodParamDefs(m)
+                val allParamsOk = paramDefs.forall { vd =>
+                    vd.tpt.tpe.asType match
+                        case '[pt] => Expr.summon[FromVariant[pt]].isDefined
+                }
+                val retTpe = m.tree match
+                    case d: DefDef => d.returnTpt.tpe
+                    case _         => TypeRepr.of[Unit]
+                val retOk = retTpe =:= TypeRepr.of[Unit] ||
+                    (retTpe.asType match
+                        case '[r] => Expr.summon[ToVariant[r]].isDefined)
+
+                if !allParamsOk || !retOk then Nil
+                else
+                    val scalaNameExpr = Expr(m.name)
+                    // Placeholder — overwritten with the real Godot name in scriptCallMethodsExpr
+                    // once resolved against virtualsExpr's entries.
+                    val godotNameExpr = scalaNameExpr
+                    val argCount      = Expr(paramDefs.size)
+
+                    def buildArgReads(argsE: Expr[Ptr[Ptr[Byte]]]): List[Term] = paramDefs
+                        .zipWithIndex.map { (vd, i) =>
+                            vd.tpt.tpe.asType match
+                                case '[pt] =>
+                                    val fv = Expr.summon[FromVariant[pt]].get
+                                    '{ $fv.read($argsE(${ Expr(i) })) }.asTerm
+                        }.toList
+
+                    val entryExpr: Expr[MethodEntry] =
+                        if retTpe =:= TypeRepr.of[Unit] then
+                            val dispatch
+                                : Expr[(GodotObject, Ptr[Ptr[Byte]], Long, Ptr[Byte]) => Unit] = '{
+                                (
+                                    callObj: GodotObject,
+                                    callArgs: Ptr[Ptr[Byte]],
+                                    _c: Long,
+                                    _r: Ptr[Byte]
+                                ) =>
+                                    ${
+                                        Select.unique('{ callObj.asInstanceOf[T] }.asTerm, m.name)
+                                            .appliedToArgs(buildArgReads('callArgs)).asExprOf[Unit]
+                                    }
+                            }
+                            '{ MethodEntry($godotNameExpr, $dispatch, argumentCount = $argCount) }
+                        else
+                            retTpe.asType match
+                                case '[r] =>
+                                    val tv = Expr.summon[ToVariant[r]].get
+                                    val dispatch: Expr[
+                                      (GodotObject, Ptr[Ptr[Byte]], Long, Ptr[Byte]) => Unit
+                                    ] = '{
+                                        (
+                                            callObj: GodotObject,
+                                            callArgs: Ptr[Ptr[Byte]],
+                                            _c: Long,
+                                            ret: Ptr[Byte]
+                                        ) =>
+                                            $tv.write(
+                                              ret,
+                                              ${
+                                                  Select.unique(
+                                                    '{ callObj.asInstanceOf[T] }.asTerm,
+                                                    m.name
+                                                  ).appliedToArgs(buildArgReads('callArgs))
+                                                      .asExprOf[r]
+                                              }
+                                            )
+                                    }
+                                    '{
+                                        MethodEntry(
+                                          $godotNameExpr,
+                                          $dispatch,
+                                          hasReturnValue = true,
+                                          returnVariantType = $tv.variantType,
+                                          argumentCount = $argCount
+                                        )
+                                    }
+                    List('{ ($scalaNameExpr, $entryExpr) })
+                end if
+            }.toList
+
+        val scriptCallMethodsExpr: Expr[List[MethodEntry]] = '{
+            val godotNameByScalaName = $virtualsExpr.iterator.filter(_.scalaName.nonEmpty)
+                .map(e => e.scalaName -> e.name).toMap
+            ${ Expr.ofList(scriptCallCandidateExprs) }.collect {
+                case (scalaName, entry) if godotNameByScalaName.contains(scalaName) =>
+                    entry.copy(name = godotNameByScalaName(scalaName))
+            }
+        }
+
         // ── Emit GdClassRegistry.register ────────────────────────────────────
         val allPropItemExprs = ctorPropItemExprs ++ propItemExprs
         '{
@@ -517,7 +626,8 @@ object Register:
               methods = ${ Expr.ofList(methodExprs) },
               signals = ${ Expr.ofList(signalExprs) },
               isRuntime = ${ Expr(isRuntime) },
-              initLevel = $initLevelExpr
+              initLevel = $initLevelExpr,
+              scriptCallMethods = $scriptCallMethodsExpr
             )
         }
     end autoImpl

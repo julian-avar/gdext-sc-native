@@ -3,16 +3,12 @@ package build
 import mill.*
 import mill.api.BuildCtx
 import mill.scalalib.*
-import mill.scalalib.publish.*
 import mill.scalanativelib.*
-import mill.scalalib.scalafmt.ScalafmtModule
-
-import com.goyeau.mill.scalafix.ScalafixModule
-import net.`julian-avar`.gdext.godotscalanativelib.{
+import net.`julian-avar`.gdext.mill.godotscalanativelib.{
     FFIGeneratorModule, APIGeneratorModule, CoreGeneratorModule
 }
 
-import millbuild.{Config, Deps}
+import millbuild.*
 
 trait GdextModule extends SharedNativeModule with Cross.Module[String]:
     def artifactName = "gdext"
@@ -25,7 +21,7 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
         def moduleDeps   = Seq(ffi(crossValue), core(crossValue))
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
-        def resourcesDir =
+        def generatorResources =
             Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
         def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
     end ApiModule
@@ -35,7 +31,7 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
     trait FfiModule extends SharedNativeModule with FFIGeneratorModule with Cross.Module[String]:
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
-        def resourcesDir =
+        def generatorResources =
             Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
         def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
     end FfiModule
@@ -45,7 +41,7 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
         def moduleDeps   = Seq(ffi(crossValue))
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
-        def resourcesDir =
+        def generatorResources =
             Task { BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "resources" }
         def scalafmtConf = Task { BuildCtx.workspaceRoot / ".scalafmt.conf" }
     end CoreModule
@@ -53,49 +49,7 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
     // object `generator-module-mill-plugin` extends SharedModule:
     //     def mvnDeps = Seq(Deps.millLibs, Deps.scalameta, Deps.trees)
 
-    object `mill-plugin` extends SharedMillPluginModule:
-        def artifactName = "gdext-mill-plugin"
-        def mvnDeps      = Seq(Deps.millLibs, Deps.millLibsScalanativelib)
+    // object `mill-plugin` extends SharedMillPluginModule:
+    //     def artifactName = "gdext-mill-plugin"
+    //     def mvnDeps      = Seq(Deps.millLibs, Deps.millLibsScalanativelib)
 end gdext
-
-trait SharedPublishedModule extends PublishModule:
-    def publishVersion = Config.version
-    def pomSettings    = Config.pomSettings
-
-trait SharedModule
-    extends ScalaModule with ScalafixModule with ScalafmtModule with SharedPublishedModule:
-    def scalaVersion  = Config.scalaVersion
-    def scalacOptions = Seq(
-      "-explain",
-      "-Wconf:msg=julian-avar.*will be encoded on the classpath:s",
-      // "-Wconf:msg=Implicit parameters should be provided with a `using` clause:s",
-      // "-rewrite",
-      // "-source:3.8"
-    )
-
-    // Not published anywhere yet -- this just gets `docJar` (required by Sonatype Central
-    // alongside the sources jar) producing a real, populated site once descriptions start
-    // flowing in from the generator, instead of an empty shell.
-    def scalaDocOptions = Task {
-        super.scalaDocOptions() ++ Seq(
-          "-project-version",
-          Config.version,
-          "-source-links:" +
-              s"${BuildCtx.workspaceRoot}=${Config.pomSettings
-                      .url}/src/branch/main€{FILE_PATH}.€{FILE_EXT}#L€{FILE_LINE}",
-          "-siteroot",
-          (BuildCtx.workspaceRoot / "docs").toString
-        )
-    }
-end SharedModule
-
-trait SharedMillPluginModule extends SharedModule:
-    def millVersion    = Config.millVersion
-    def platformSuffix = "_mill1"
-
-trait SharedNativeModule extends SharedModule with ScalaNativeModule:
-    def scalaNativeVersion = Config.scalaNativeVersion
-    // Use the clang set in environment variables (default to clang/clang++)
-    def nativeClang   = Task.Input { PathRef(os.Path(Task.env.getOrElse("CC", "clang"))) }
-    def nativeClangPP = Task.Input { PathRef(os.Path(Task.env.getOrElse("CXX", "clang++"))) }
-end SharedNativeModule

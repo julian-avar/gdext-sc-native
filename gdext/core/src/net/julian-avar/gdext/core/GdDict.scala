@@ -5,20 +5,21 @@ import scala.scalanative.unsigned.*
 import scala.scalanative.libc.stdlib.*
 import scala.scalanative.libc.string.*
 
-/** A typed wrapper around Godot's `Dictionary` builtin type with value-type semantics.
+/** A typed wrapper around Godot's `Dictionary` builtin type.
   *
-  * `GdDict[K, V]` behaves like `Vector2` or `Color` — the handle (8 bytes) is stored inline.
-  * Godot's internal reference counting manages the backing data. No manual cleanup needed in the
-  * high-level API.
+  * `GdDict[K, V]` wraps an 8-byte Godot Dictionary handle. Call `.destroy()` to release
+  * the handle. Wrappers obtained via `fromHandle` are borrowed — do not call `destroy()` on
+  * them.
   *
   * {{{
   * val d = GdDict[String, Int]()
   * d("health") = 100
   * d("speed") = 400
   * val hp = d("health")  // 100
+  * d.destroy()
   * }}}
   */
-final class GdDict[K, V] private[core] (private[core] val handle: Ptr[Byte]):
+final class GdDict[K, V] private[core] (private[core] val handle: Ptr[Byte], private[core] val owned: Boolean = true):
 
     private inline def callBM(
         fnPtr: Ptr[Byte],
@@ -39,6 +40,15 @@ final class GdDict[K, V] private[core] (private[core] val handle: Ptr[Byte]):
     end size
 
     def isEmpty: Boolean = size == 0
+
+    /** Release the Godot backing store and free the 8-byte handle.
+      * Safe to call multiple times (no-op after first). No-op on borrowed handles (fromHandle).
+      * After this, the wrapper must not be used.
+      */
+    def destroy(): Unit =
+        if owned && handle != null then
+            GdxApi.destroyDict(handle)
+            free(handle)
 
     def has(key: K)(using tv: ToVariant[K]): Boolean =
         if GdxApi.dictHasFnPtr == null then return false
@@ -113,22 +123,22 @@ final class GdDict[K, V] private[core] (private[core] val handle: Ptr[Byte]):
         if GdxApi.dictClearFnPtr == null then return
         callBM(GdxApi.dictClearFnPtr, null, null, 0)
 
-    /** Returns an untyped Array of all keys. */
+    /** Returns an Array of all keys (owned — caller should destroy). */
     def keys(): GdArray[K] =
-        if GdxApi.dictKeysFnPtr == null then return GdArray.fromHandle[K](null)
+        if GdxApi.dictKeysFnPtr == null then return new GdArray[K](null, true)
         val arrHandle = malloc(8).asInstanceOf[Ptr[Byte]]
         memset(arrHandle, 0, 8.toUSize)
         callBM(GdxApi.dictKeysFnPtr, null, arrHandle, 0)
-        GdArray.fromHandle[K](arrHandle)
+        new GdArray[K](arrHandle)
     end keys
 
-    /** Returns an untyped Array of all values. */
+    /** Returns an Array of all values (owned — caller should destroy). */
     def values(): GdArray[V] =
-        if GdxApi.dictValuesFnPtr == null then return GdArray.fromHandle[V](null)
+        if GdxApi.dictValuesFnPtr == null then return new GdArray[V](null, true)
         val arrHandle = malloc(8).asInstanceOf[Ptr[Byte]]
         memset(arrHandle, 0, 8.toUSize)
         callBM(GdxApi.dictValuesFnPtr, null, arrHandle, 0)
-        GdArray.fromHandle[V](arrHandle)
+        new GdArray[V](arrHandle)
     end values
 
     /** Iterate over all key-value pairs. */
@@ -147,6 +157,7 @@ final class GdDict[K, V] private[core] (private[core] val handle: Ptr[Byte]):
             fn(k, get(k, dv.default))
             i += 1
         end while
+        ks.destroy()
     end foreach
 
     /** Alias for `has` — returns true if the key is present. */
@@ -166,7 +177,8 @@ object GdDict:
         new GdDict[K, V](handle)
     end apply
 
-    private[core] def fromHandle[K, V](handle: Ptr[Byte]): GdDict[K, V] = new GdDict[K, V](handle)
+    /** Wrap an existing 8-byte Dictionary handle (borrowed — do not call destroy()). */
+    private[core] def fromHandle[K, V](handle: Ptr[Byte]): GdDict[K, V] = new GdDict[K, V](handle, false)
 
     given toVariantGdDict: [K, V] => ToVariant[GdDict[K, V]] = new ToVariant[GdDict[K, V]]:
         def variantType                                       = VariantType.Dictionary

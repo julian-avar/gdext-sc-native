@@ -1,6 +1,6 @@
 [gd_scene load_steps=0 format=3 uid="uid://cge3jgii4ha6w"]
 
-[node name="ScalaScriptExampleSc" type="ScalaScriptExampleSc"]
+[node name="ScalaScriptExampleSc" type="Node2D"]
 
 [node name="Button" type="Button" parent="."]
 offset_left = 20.0

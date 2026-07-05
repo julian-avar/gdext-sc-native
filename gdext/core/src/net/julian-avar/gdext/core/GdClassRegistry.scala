@@ -48,7 +48,8 @@ object GdClassRegistry:
         methods: List[MethodEntry] = List.empty,
         signals: List[SignalDescriptor] = List.empty,
         isRuntime: Boolean = true,
-        initLevel: Int = GdxInitLevel.Scene
+        initLevel: Int = GdxInitLevel.Scene,
+        scriptCallMethods: List[MethodEntry] = List.empty
     ): Unit = registrations += GdClassRegistration(
       name,
       parentName,
@@ -58,7 +59,8 @@ object GdClassRegistry:
       methods,
       signals,
       isRuntime,
-      initLevel
+      initLevel,
+      scriptCallMethods
     )
 
     def getRegistrations: List[GdClassRegistration] = registrations.toList
@@ -68,10 +70,19 @@ object GdClassRegistry:
       *
       * Used by `GodotClass.derived` wrappers so `getNode[Player]` returns the REAL `Player`
       * instance (with all its field state) rather than a fresh empty wrapper. Returns `None` for
-      * pure engine objects that are not user-defined extension classes.
+      * pure engine objects that are not user-defined extension classes. Checks both the native
+      * ClassDB registrar (`type=` on a node) and the script-instance registrar (attached script on
+      * a generic node), since a live instance may have been created via either path.
+      *
+      * If both fast map lookups miss, falls back to a linear scan over live instances matching on
+      * `.ptr` — necessary because `classdb_construct_object` returns a different pointer than the
+      * parent-class engine pointer stored in the registrar's godotPtrMap when Godot forwards the
+      * object as a virtual-call argument (e.g. in `ResourceFormatSaver._save`).
       */
     def lookupByPtr(ptr: scala.scalanative.unsafe.Ptr[Byte]): Option[GodotObject] = ClassRegistrar
-        .instanceForGodotPtr(ptr)
+        .instanceForGodotPtr(ptr).orElse(ScriptInstanceRegistrar.instanceForGodotPtr(ptr))
+        .orElse(ClassRegistrar.findInstanceByPtrFallback(ptr))
+        .orElse(ScriptInstanceRegistrar.findInstanceByPtrFallback(ptr))
 end GdClassRegistry
 
 private[gdext] case class GdClassRegistration(
@@ -83,5 +94,13 @@ private[gdext] case class GdClassRegistration(
     methods: List[MethodEntry],
     signals: List[SignalDescriptor],
     isRuntime: Boolean,
-    initLevel: Int
+    initLevel: Int,
+    // Variant-marshalled MethodEntry per user-overridden lifecycle virtual (e.g. "_ready",
+    // "_process"), registered under Godot's own underscored name. Used by ScriptInstanceRegistrar
+    // when this class is attached as a Script to a generic node rather than registered as that
+    // node's native ClassDB type — Godot's script-instance call_func path invokes lifecycle
+    // virtuals by name with Variant-boxed args, not through the ptrcall-convention virtual table
+    // `virtuals` feeds for the ClassDB path. Kept separate from `methods` so lifecycle virtuals
+    // aren't double-registered as real ClassDB methods.
+    scriptCallMethods: List[MethodEntry] = List.empty
 )

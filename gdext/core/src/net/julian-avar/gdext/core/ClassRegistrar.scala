@@ -550,6 +550,21 @@ private[gdext] object ClassRegistrar:
       */
     def instanceForGodotPtr(ptr: Ptr[Byte]): Option[GodotObject] = godotPtrMap.get(ptr)
 
+    /** Fallback — scan live instances for one whose `.ptr` matches `ptr`.
+      *
+      * Needed because `instanceForGodotPtr` relies on `godotPtrMap` which stores the *parent-class*
+      * engine pointer (e.g. ScriptExtension) set during `_createFn`. When Godot later passes the
+      * *extension-class* Object pointer (e.g. the ScalaScript wrapper returned by
+      * `classdb_construct_object`) as an argument to virtual calls like `_save` / `_recognize`, the
+      * two pointers differ and the map lookup misses. Iterating `.ptr` on every live instance
+      * catches those cases.
+      *
+      * Only used as a last-resort fallback by `GdClassRegistry.lookupByPtr` — the direct map check
+      * remains the primary (fast) path.
+      */
+    def findInstanceByPtrFallback(ptr: Ptr[Byte]): Option[GodotObject] = instanceMap.values
+        .find(_.ptr == ptr)
+
     // ── string helpers ──────────────────────────────────────────────────────
 
     private def toCString(s: String)(using Zone): CString = scalanative.unsafe.toCString(s)

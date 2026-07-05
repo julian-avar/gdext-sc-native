@@ -1,23 +1,25 @@
 package build
 
-import mill.*, scalalib.*
+import mill.*
 import mill.meta.MillBuildRootModule
 import mill.api.BuildCtx
 
 import millbuild.*
 
 object `package` extends MillBuildRootModule:
+
     def moduleDeps = Seq(`generator-module-mill-plugin`)
     def mvnDeps    = Seq(Deps.millScalafixPlugin, Deps.millLibsScalanativelib)
 
-    object `generator-module-mill-plugin` extends ScalaModule with PublishModule:
-        def scalaVersion  = Config.scalaVersion
-        def mvnDeps       = Seq(Deps.millLibs, Deps.scalameta, Deps.trees, Deps.scalaXml)
-        def sources       = Task
+    object `generator-module-mill-plugin` extends SharedMillPluginModule:
+        def mvnDeps = Seq(Deps.millLibs, Deps.scalameta, Deps.trees, Deps.scalaXml)
+        def sources = Task
             .Sources(BuildCtx.workspaceRoot / "gdext" / "generator-module-mill-plugin" / "src")
-        def scalacOptions = Seq("-Wconf:msg=julian-avar.*will be encoded on the classpath:s")
-
-        def publishVersion = Config.version
-        def pomSettings    = Config.pomSettings
     end `generator-module-mill-plugin`
+
+    object `mill-plugin` extends SharedMillPluginModule:
+        def artifactName = "gdext-mill-plugin"
+        def mvnDeps      = Seq(Deps.millLibs, Deps.millLibsScalanativelib)
+        def sources      = Task.Sources(BuildCtx.workspaceRoot / "gdext" / "mill-plugin" / "src")
+    end `mill-plugin`
 end `package`
