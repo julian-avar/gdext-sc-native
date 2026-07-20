@@ -3,6 +3,7 @@ package millbuild
 import mill.*
 import mill.scalalib.*
 import mill.scalalib.publish.*
+import mill.scalalib.SonatypeCentralPublishModule
 import mill.api.BuildCtx
 import mill.scalanativelib.*
 import mill.scalalib.scalafmt.ScalafmtModule
@@ -21,8 +22,8 @@ object Config:
     val scalaNativeVersion = "0.5.11"
     val jvmVersion         = "21"
     val pomSettings        = PomSettings(
-      description = "GD Extension Scala",
-      organization = "net.julian-avar",
+      description = "GD Extension for Scala Native",
+      organization = "net.julian-avar.gdext",
       url = "https://codeberg.org/julian-avar/gdext-scala-native",
       licenses = Seq(License.`GPL-3.0`),
       versionControl = VersionControl.codeberg("julian-avar", "gdext-scala-native"),
@@ -61,9 +62,12 @@ object utils:
               tag = tag
             )
     end extension
+
+    extension (ctx: StringContext)
+        def proc(args: Any*) = ctx.s(args*)
 end utils
 
-trait SharedPublishedModule extends PublishModule:
+trait SharedPublishedModule extends SonatypeCentralPublishModule:
     def publishVersion = Config.version
     def pomSettings    = Config.pomSettings
 

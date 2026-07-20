@@ -1,16 +1,16 @@
-//| mill-version: 1.1.6-native
+//| mill-version: 1.1.7-native
 //| mvnDeps:
-//| - net.julian-avar::gdext-mill-plugin::0.1.0
+//| - net.julian-avar.gdext::mill-plugin::0.1.0
 
 package build
 
 import mill.*
 import mill.scalalib.*
-import net.`julian-avar`.gdext.godotscalanativelib.*
+import net.`julian-avar`.gdext.mill.godotscalanativelib.*
 
 object `package` extends GodotScalaNativeModule:
     def godotVersion       = "4.7.0"
     def scalaVersion       = "3.8.4"
     def scalaNativeVersion = "0.5.11"
-    def mvnDeps            = Seq(mvn"net.julian-avar::gdext::0.1.0")
+    def mvnDeps            = Seq(mvn"net.julian-avar.gdext::gdext-godot4.7.0::0.1.0")
 end `package`

@@ -17,7 +17,7 @@ object `package` extends MillBuildRootModule:
     end `generator-module-mill-plugin`
 
     object `mill-plugin` extends SharedMillPluginModule:
-        def artifactName = "gdext-mill-plugin"
+        def artifactName = "mill-plugin"
         def mvnDeps      = Seq(Deps.millLibs, Deps.millLibsScalanativelib)
         def sources      = Task.Sources(BuildCtx.workspaceRoot / "gdext" / "mill-plugin" / "src")
     end `mill-plugin`

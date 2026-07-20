@@ -10,13 +10,20 @@ import net.`julian-avar`.gdext.mill.godotscalanativelib.{
 
 import millbuild.{Config, Deps, SharedNativeModule}
 
+// Godot version disambiguation rides in the artifact NAME as `-godot<ver>`, e.g.
+// `gdext-api-godot4.7.0_native0.5_3` (the bare `-4.7.0` Mill would default to reads like the
+// artifact's own version, which is 0.1.0 -- the `godot` prefix removes that ambiguity). `crossValue`
+// is the dotted Godot version. Do NOT move the version into platformSuffix -- that also rewrites
+// every Scala Native runtime dep (`scala3lib_native0.5_3` -> a nonexistent
+// `scala3lib_godot4.7.0_native0.5_3`).
 trait GdextModule extends SharedNativeModule with Cross.Module[String]:
-    def artifactName = "gdext"
+    def artifactName = s"gdext-godot$crossValue"
     def moduleDeps   = Seq(gdext.api(crossValue), gdext.core(crossValue))
 
 object gdext extends Cross[GdextModule](Config.godotVersions):
     object api      extends Cross[ApiModule](Config.godotVersions)
     trait ApiModule extends SharedNativeModule with APIGeneratorModule with Cross.Module[String]:
+        def artifactName = s"gdext-api-godot$crossValue"
         def mvnDeps      = Seq(Deps.osLib)
         def moduleDeps   = Seq(ffi(crossValue), core(crossValue))
         def godotVersion = Task { crossValue }
@@ -25,6 +32,7 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
 
     object core      extends Cross[CoreModule](Config.godotVersions)
     trait CoreModule extends SharedNativeModule with CoreGeneratorModule with Cross.Module[String]:
+        def artifactName = s"gdext-core-godot$crossValue"
         def moduleDeps   = Seq(ffi(crossValue))
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
@@ -32,6 +40,45 @@ object gdext extends Cross[GdextModule](Config.godotVersions):
 
     object ffi      extends Cross[FfiModule](Config.godotVersions)
     trait FfiModule extends SharedNativeModule with FFIGeneratorModule with Cross.Module[String]:
+        def artifactName = s"gdext-ffi-godot$crossValue"
         def godotVersion = Task { crossValue }
         def millVersion  = Task { Config.millVersion }
 end gdext
+
+// ---
+
+/** Publish the gdext libraries (aggregate + api/core/ffi) and the user `mill-plugin` to
+  * ~/.ivy2/local so example standalone builds can resolve them. `godot` is the dotted Godot API
+  * version whose artifacts get published (4.5.0, 4.6.1, 4.7.0, ...).
+  *
+  * Shells out to fresh `./mill` invocations because these are separate cross instances / a different
+  * meta-level; run it while no other Mill build holds the server.
+  */
+def publishLocal(godot: String) = Task.Command {
+    val libs = Seq("gdext", "gdext.api", "gdext.core", "gdext.ffi").map(m => s"$m[$godot].publishLocal")
+    // Mill separates multiple task targets in one invocation with a literal `+` argument.
+    os.proc("./mill" +: libs.flatMap(Seq("+", _)).tail).call()
+    os.proc("./mill", "--meta-level", "1", "mill-plugin.publishLocal").call()
+}
+
+/** `example` being any directory under `examples/` `godot` controls which Godot API to target
+  * (4.5.0, 4.6.1, 4.7.0, ...)
+  */
+def example(example: String, godot: String) = Task.Command {
+    val crossValue = godot.replace(".", "_")
+    os.proc("./mill", "buildExtension").call(cwd = os.pwd / s"examples/${example}")
+    os.proc("godot4", s"examples/${example}/project.godot").call()
+}
+
+/** Build the Scaladoc site for `module` (api, core, or ffi) and open it in a browser `godot`
+  * controls which Godot API version's generated sources get documented (4.5.0, 4.6.1, 4.7.0, ...)
+  */
+def docs(module: String, godot: String) = Task.Command {
+    val crossValue = godot.replace(".", "_")
+    os.proc("./mill", "docJar").call(cwd = os.pwd / s"gdext.${module}.${crossValue}")
+    os.proc("rm", "-rf", s"/tmp/gdext-${module}-docs").call()
+    os.proc("unzip", "-q", "-o", s"out/gdext/${module}/${godot}/docJar.dest/out.jar", "-d", s"/tmp/gdext-${module}-docs").call()
+    os.proc("xdg-open", s"/tmp/gdext-${module}-docs/index.html").call()
+}
+
+def lint() = Task.Command { os.proc("./mill", "mill.scalalib.scalafmt").call() }
