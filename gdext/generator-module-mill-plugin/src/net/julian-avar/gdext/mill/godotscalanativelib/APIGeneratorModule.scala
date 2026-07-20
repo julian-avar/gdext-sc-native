@@ -6,6 +6,10 @@ import mill.api.BuildCtx
 
 // import gdext.mill.godotscalanativelib.api.Generator
 import godotscalanativelib.resource_parser
+// Named import on purpose: a wildcard `utils.*` does NOT bring givens into scope, and without
+// this the generator constructors silently summon scalameta's default (Scala 2.13) dialect,
+// which cannot parse the `(using ...)` clauses in generated snippets.
+import godotscalanativelib.utils.scala3
 
 trait APIGeneratorModule extends GeneratorModule:
     override def generatedSources = Task {
