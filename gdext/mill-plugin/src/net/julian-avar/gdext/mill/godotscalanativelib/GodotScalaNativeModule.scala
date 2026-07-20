@@ -8,6 +8,10 @@ import mill.scalanativelib.api.{ReleaseMode, BuildTarget}
 trait GodotScalaNativeModule extends ScalaNativeModule:
     def godotVersion: String
 
+    // Debug (-O0) for fast iteration. For a .so you DISTRIBUTE, override this with
+    // `ReleaseMode.ReleaseFast` (or ReleaseFull): the optimized build is faster at runtime, and it
+    // also activates `-D_FORTIFY_SOURCE` hardening (inert without -O) -- which additionally silences
+    // glibc's "requires compiling with optimization" warning seen on Nix Debug builds.
     override def releaseMode       = ReleaseMode.Debug
     override def nativeBuildTarget = BuildTarget.LibraryDynamic
     override def nativeBaseName    = "godot-scala-native"
