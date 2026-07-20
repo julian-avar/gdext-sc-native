@@ -448,6 +448,34 @@ Extension classes support Godot's **hot-reload** without restarting the editor:
 
 ## Editor Integration
 
+### `.scala` scripts from the editor
+
+The New Script / Attach Script dialog can create `.scala` files directly: pick **Scala** as
+the language and Create — the file is written to disk with a compilable skeleton derived
+from the file name and the selected base class (`my_button.scala` → `MyButton`):
+
+```scala
+package scripts
+
+import net.`julian-avar`.gdext.api.*
+import net.`julian-avar`.gdext.generated.*
+
+@gdclass class MyButton extends Button:
+
+    override def ready(): Unit =
+        ()
+
+end MyButton
+```
+
+Like C#, the class isn't live until the next native build: the script attaches as a
+placeholder first, and once the project is rebuilt (`just run` here, or `./mill
+buildExtension` in a standalone project) the `@gdclass` class is registered and instances
+run the compiled code. Saving from Godot's built-in script editor (Ctrl+S) persists back to
+the `.scala` file, and `.uid` sidecars are read/written automatically. The
+`ResourceFormatLoader`/`ResourceFormatSaver` pair behind this is registered by
+`ScalaScriptBootstrap`, which the Mill plugin wires into every generated entry point.
+
 ### `EditorPlugin`
 
 `@gdclass @tool class MyPlugin extends EditorPlugin` is auto-activated — the runtime

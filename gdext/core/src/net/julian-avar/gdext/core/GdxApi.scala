@@ -179,6 +179,8 @@ private[gdext] object GdxApi:
     private[gdext] var disconnectMethodBind: Ptr[Byte]          = null
     private var variantFromSnCtor: Ptr[Byte]                    = null
     private var variantFromNpCtor: Ptr[Byte]                    = null
+    private var variantFromObjCtor: Ptr[Byte]                   = null
+    private var variantFromDictCtor: Ptr[Byte]                  = null
     private var variantToSnCtor: Ptr[Byte]                      = null
     private var variantToNpCtor: Ptr[Byte]                      = null
     private var registerPropertyGroupFnAddr: Ptr[Byte]          = null
@@ -245,8 +247,10 @@ private[gdext] object GdxApi:
         if vftCtorGetAddr != null then
             val vftCtor: GetVFTCtorFn = CFuncPtr.fromPtr[GetVFTCtorFn](vftCtorGetAddr)
             variantFromStrCtor = vftCtor(4.toUInt)
-            variantFromSnCtor = vftCtor(21.toUInt) // Variant from StringName
-            variantFromNpCtor = vftCtor(22.toUInt) // Variant from NodePath
+            variantFromSnCtor = vftCtor(21.toUInt)   // Variant from StringName
+            variantFromNpCtor = vftCtor(22.toUInt)   // Variant from NodePath
+            variantFromObjCtor = vftCtor(24.toUInt)  // Variant from Object
+            variantFromDictCtor = vftCtor(27.toUInt) // Variant from Dictionary
         end if
         if vtfCtorGetAddr != null then
             val vtfCtor: GetVFTCtorFn = CFuncPtr.fromPtr[GetVFTCtorFn](vtfCtorGetAddr)
@@ -1096,6 +1100,34 @@ private[gdext] object GdxApi:
     def buildNodePathVariant(dest: Ptr[Byte], npHandle: Ptr[Byte]): Unit =
         if variantFromNpCtor == null then return
         callVFTCtor(variantFromNpCtor, dest, npHandle)
+
+    /** Build a 24-byte OBJECT Variant in `dest` from a raw engine object pointer. The variant
+      * constructor takes its own reference for RefCounted objects — needed when returning a fresh
+      * RefCounted through a Variant-typed virtual return slot (e.g. `ResourceFormatLoader._load`).
+      */
+    def buildObjectVariant(dest: Ptr[Byte], objPtr: Ptr[Byte]): Unit =
+        if variantFromObjCtor == null then return
+        val src = stackalloc[Ptr[Byte]](1)
+        src(0) = objPtr
+        callVFTCtor(variantFromObjCtor, dest, src.asInstanceOf[Ptr[Byte]])
+    end buildObjectVariant
+
+    /** Append a Dictionary to a Godot Array value held at `arrayBuf` (e.g. a virtual-call return
+      * slot initialized with the Array default ctor). The Dictionary is wrapped in a Variant (which
+      * takes its own reference) and `Array.push_back` copies that, so the caller may `destroy()`
+      * the dict afterwards.
+      */
+    def appendDictionaryToArray(arrayBuf: Ptr[Byte], dict: GdDict[?, ?]): Unit =
+        if arrayPushBackFnPtr == null || variantFromDictCtor == null then return
+        val varBuf = stackalloc[Byte](24)
+        memset(varBuf, 0, 24.toUSize)
+        callVFTCtor(variantFromDictCtor, varBuf, dict.handle)
+        val args = stackalloc[Ptr[Byte]](1)
+        args(0) = varBuf
+        val arrayPushBackFn = CFuncPtr.fromPtr[BuiltinMethodFn](arrayPushBackFnPtr)
+        arrayPushBackFn(arrayBuf, args, null, 1)
+        destroyVariant(varBuf)
+    end appendDictionaryToArray
 
     def extractStringNameFromVariant(variant: Ptr[Byte], dest: Ptr[Byte]): Unit =
         if variantToSnCtor != null then callVFTCtor(variantToSnCtor, dest, variant)
