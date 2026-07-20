@@ -25,6 +25,9 @@ generated/**/*.scala
 /metals.sbt
 /project/metals.sbt
 
+# Secrets / local env
+.env
+
 # OS
 .DS_Store
 Thumbs.db

@@ -1,0 +1,7 @@
+# sops config. `secrets.env` holds the Maven Central publishing vars (MILL_SONATYPE_*,
+# MILL_PGP_*), encrypted to the age recipient below and safe to commit.
+# Decryption key lives at ~/.config/sops/age/keys.txt (NOT in the repo -- back it up).
+# Edit with:  sops secrets.env    Run mill with:  sops exec-env secrets.env './mill ...'
+creation_rules:
+  - path_regex: secrets\.env$
+    age: age1hedy8e9klgcwfy5t8pjyexdh0zqj9rjvh9gs2xse2drzfvcensfss40y7d

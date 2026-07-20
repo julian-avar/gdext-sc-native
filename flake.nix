@@ -30,6 +30,8 @@
             pkgs.zlib
             pkgs.boehmgc
             pkgs.git
+            pkgs.sops
+            pkgs.age
             pkgs.mesa
             # pkgs.godot_4_3
             # pkgs.godot_4_4
